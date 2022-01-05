@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.sopt.nadosunbae_android">
+    package="com.nadosunbae_andorid">
 
     <application
         android:allowBackup="true"
