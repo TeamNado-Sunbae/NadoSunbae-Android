@@ -11,8 +11,10 @@ object ApiService {
     val interceptor = HttpLoggingInterceptor()
         .setLevel(HttpLoggingInterceptor.Level.BODY)
 
+
     val client = OkHttpClient.Builder()
         .addNetworkInterceptor(interceptor)
+
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

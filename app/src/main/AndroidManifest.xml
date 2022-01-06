@@ -10,10 +10,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid">
         <activity
+            android:name=".presentation.ui.mypage.ServiceInqueryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.mypage.NotificationSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.mypage.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.mypage.SearchIdActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.mypage.ModifyMyInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.mypage.MyPageSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.mypage.MyPageClassroomReviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.mypage.MyPagePostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.notification.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.review.ReviewWriteActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
