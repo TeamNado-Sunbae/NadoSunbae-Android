@@ -14,11 +14,11 @@
 
 
     <!-- review_main -->
-    <string name="review_major_page">학과 홈페이지</string>
-    <string name="review_subject_table">이수과목 일람표</string>
-    <string name="review_filter">필터</string>
-    <string name="review_latest_order">최신순</string>
-    <stirng name="review_list">후기</stirng>
+    <string name="major_page">학과 홈페이지</string>
+    <string name="subject_table">이수과목 일람표</string>
+    <string name="filter">필터</string>
+    <string name="latest_order">최신순</string>
+    <string name="review">후기</string>
     <!-- review_main: tool -->
     <string name="review_tool_major_selected">국어국문학과</string>
 

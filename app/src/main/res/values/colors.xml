@@ -21,5 +21,6 @@
     <color name="gray_3">#94959e</color>
     <color name="gray_2">#c0c0cb</color>
     <color name="gray_4">#56565f</color>
-    <color name="black_font">#000000</color>
+    <color name="black_0">#000000</color>
+    <color name="gray_background">#fbfbfd</color>
 </resources>
