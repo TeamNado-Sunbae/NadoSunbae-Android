@@ -11,14 +11,28 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.MainActivity">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:autoLink="web|email"
-            android:linksClickable="true" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bt_nv_main"/>
+        
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bt_nv_main"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:menu="@menu/menu"
+            app:itemTextColor="@color/selector_nav_menu_text"
+            app:itemIconTint="@color/selector_nav_menu_icon"
+            android:textSize="12sp"
+            android:theme="@style/Widget.BottomNavigationView"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
