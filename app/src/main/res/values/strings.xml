@@ -11,4 +11,16 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- review_main -->
+    <string name="review_major_page">학과 홈페이지</string>
+    <string name="review_subject_table">이수과목 일람표</string>
+    <string name="review_filter">필터</string>
+    <string name="review_latest_order">최신순</string>
+    <stirng name="review_list">후기</stirng>
+    <!-- review_main: tool -->
+    <string name="review_tool_major_selected">국어국문학과</string>
+
+
 </resources>
