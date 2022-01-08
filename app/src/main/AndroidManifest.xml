@@ -26,7 +26,13 @@
             android:exported="true" />
         <activity
             android:name=".presentation.ui.sign.FindPwActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
             android:exported="true" />
@@ -63,11 +69,7 @@
         <activity
             android:name=".presentation.ui.MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
