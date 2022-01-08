@@ -10,6 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid">
         <activity
+            android:name=".presentation.ui.sign.SignUpFinishActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.ui.sign.SignUpBasicInfoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.ui.sign.SignUpMajorInfoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.ui.sign.SignUpAgreementActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.ui.sign.CheckMailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.ui.sign.FindPwActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.ui.sign.SignInActivity"
+            android:exported="true" />
+        <activity
             android:name=".presentation.ui.mypage.ServiceInqueryActivity"
             android:exported="false" />
         <activity
