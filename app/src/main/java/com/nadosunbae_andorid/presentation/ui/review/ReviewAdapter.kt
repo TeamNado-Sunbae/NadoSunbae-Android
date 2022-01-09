@@ -1,5 +1,6 @@
 package com.nadosunbae_andorid.presentation.ui.review
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,26 +12,36 @@ class ReviewAdapter: RecyclerView.Adapter<ReviewAdapter.ReviewHolder>() {
 
     class ReviewHolder(private val binding: ItemListReviewBinding): RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: PreviewData) {
-            with(binding) {
-
-            }
+            binding.previewData = data
         }
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewHolder {
+        var binding = ItemListReviewBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        )
+        return ReviewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ReviewHolder, position: Int) {
+        holder.onBind(dataList[position])
+
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
+    }
+
+    override fun getItemCount(): Int = dataList.size
 
     interface ItemClickListener {
         fun onClick(view: View, position: Int)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewHolder {
-        TODO("Not yet implemented")
-    }
+    private lateinit var itemClickListener: ItemClickListener
 
-    override fun onBindViewHolder(holder: ReviewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+    fun setItemClickListener(itemClickListener: ItemClickListener) {
+        this.itemClickListener = itemClickListener
     }
 
 }

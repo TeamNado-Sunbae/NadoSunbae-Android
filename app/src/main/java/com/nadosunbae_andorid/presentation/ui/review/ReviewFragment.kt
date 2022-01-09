@@ -20,7 +20,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     }
 
     private fun setPreviewData() {
-        
+
     }
 
     private fun setStickyHeader() {
