@@ -16,6 +16,11 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         super.onViewCreated(view, savedInstanceState)
 
         setStickyHeader()
+        setPreviewData()
+    }
+
+    private fun setPreviewData() {
+        
     }
 
     private fun setStickyHeader() {
