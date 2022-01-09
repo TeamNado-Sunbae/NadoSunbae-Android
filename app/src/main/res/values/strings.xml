@@ -24,4 +24,7 @@
     <string name="classroom_title">국어국문학과</string>
     <string name="classroom_question_title">질문</string>
     <string name="classroom_info_title">정보</string>
+    <string name="classroom_question_all">전체에게 질문</string>
+    <string name="classroom_question_all_ask">구성원 모두가 답할 수 있어요!</string>
+    <string name="classroom_question_write">질문 작성</string>
 </resources>

@@ -10,18 +10,103 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         tools:context=".presentation.ui.classroom.QuestionFragment">
 
         <ImageView
             android:id="@+id/img_personal_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_fill_main_black_16"
+            android:background="@drawable/rectangle_328_176_fill_main_black_16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/text_question_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/classroom_question_all"
+            android:fontFamily="@font/pretendard_medium"
+            android:textSize="16sp"
+            android:textColor="@color/origin_black"
+            app:layout_constraintTop_toBottomOf="@+id/img_personal_question"
+            app:layout_constraintStart_toStartOf="@+id/img_personal_question"
+            android:layout_marginTop="24dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_classroom_question_all_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_fill_white_8"
+            app:layout_constraintTop_toBottomOf="@+id/text_question_all"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+        <TextView
+            android:id="@+id/text_question_ask_all"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.49"
+            android:layout_height="wrap_content"
+            android:text="@string/classroom_question_all_ask"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="14sp"
+            android:textColor="@color/main_default"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"/>
+
+
+            <TextView
+                android:id="@+id/text_question_write"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.32"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_fill_main_black_8"
+                android:text="@string/classroom_question_write"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textSize="14sp"
+                android:textColor="@color/main_light"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@+id/text_question_ask_all"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="12dp"
+                android:paddingStart="38dp"
+                android:paddingEnd="14dp"/>
+
+            <ImageView
+                android:id="@+id/img_question_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/question_plus"
+                app:layout_constraintTop_toTopOf="@+id/text_question_write"
+                app:layout_constraintStart_toStartOf="@+id/text_question_write"
+                app:layout_constraintBottom_toBottomOf="@+id/text_question_write"
+                android:layout_marginStart="19dp"/>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/gray_0"
+                app:layout_constraintTop_toBottomOf="@+id/text_question_write"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="17dp"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
