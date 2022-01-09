@@ -8,7 +8,25 @@ import retrofit2.Response
 
 class ClassRoomDataSourceImpl() : ClassRoomDataSource {
 
-    override fun getClassRoom(userId: String, userInfo: String): Call<ResponseClassRoomData> {
-        return ApiService.classRoomService.getClassRoom(userId, userInfo)
+    override fun getClassRoom(
+        userId: String,
+        userInfo: String,
+        onResponse: (Response<ResponseClassRoomData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        ApiService.classRoomService.getClassRoom(userId, userInfo).enqueue(
+            object : Callback<ResponseClassRoomData>{
+                override fun onResponse(
+                    call: Call<ResponseClassRoomData>,
+                    response: Response<ResponseClassRoomData>
+                ) {
+                    onResponse(response)
+                }
+
+                override fun onFailure(call: Call<ResponseClassRoomData>, t: Throwable) {
+                    onFailure(t)
+                }
+            }
+        )
     }
 }

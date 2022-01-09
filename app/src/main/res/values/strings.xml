@@ -27,4 +27,9 @@
     <string name="classroom_question_all">전체에게 질문</string>
     <string name="classroom_question_all_ask">구성원 모두가 답할 수 있어요!</string>
     <string name="classroom_question_write">질문 작성</string>
+    <string name="classroom_question_all_title">공개게시판 미리보기페이지 질문제목 넘을 경우 넘을 경우 넘을 경우</string>
+    <string name="classroom_question_all_content">질문내용 두 줄일 경우 질문내용 두 줄일 경우 질문내용 두 줄일 경우 질문내용 두 줄일 경우</string>
+    <string name="classroom_question_nickname">닉네임</string>
+    <string name="classroom_question_time">오후 5:42</string>
+
 </resources>
