@@ -21,4 +21,6 @@
     <color name="gray_3">#94959e</color>
     <color name="gray_2">#c0c0cb</color>
     <color name="gray_4">#56565f</color>
+    <color name="red">#ff4c40</color>
+    <color name="background">#fbfbfd</color>
 </resources>

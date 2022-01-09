@@ -18,4 +18,12 @@
     <string name="navigation_room">과방</string>
     <string name="navigation_notice">알림</string>
     <string name="navigation_mypage">마이페이지</string>
+
+
+    <!-- 비밀번호 찾는 view -->
+    <string name="findpw_title">비밀번호 찾기</string>
+    <string name="findpw_contents">본인 인증을 위해 \n가입 당시 입력한 정보를 입력해주세요</string>
+    <string name="findpw_email">&#64;korea.ac.kr</string>
+    <string name="findpw_warn">해당 메일로 가입된 사용자가 없습니다.</string>
+    <string name="findpw_check">확인</string>
 </resources>
