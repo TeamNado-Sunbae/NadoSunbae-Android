@@ -5,7 +5,7 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-
+    <color name="origin_black">#000000</color>
 
 
     <!-- 나도 선배 -->
@@ -21,4 +21,5 @@
     <color name="gray_3">#94959e</color>
     <color name="gray_2">#c0c0cb</color>
     <color name="gray_4">#56565f</color>
+    <color name="background">#fbfbfd</color>
 </resources>

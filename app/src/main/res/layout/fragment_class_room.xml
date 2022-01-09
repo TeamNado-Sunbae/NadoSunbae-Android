@@ -1,14 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.ui.classroom.ClassRoomFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".presentation.ui.classroom.ClassRoomFragment">
 
-</FrameLayout>
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:id="@+id/cl_class_sort"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="@color/white"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:paddingBottom="24dp">
+
+           <TextView
+               android:id="@+id/text_classroom_title"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/classroom_title"
+               android:fontFamily="@font/pretendard_medium"
+               android:textSize="20sp"
+               android:textColor="@color/origin_black"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               android:layout_marginTop="56dp"
+               android:layout_marginStart="16dp"/>
+
+           <ImageView
+               android:id="@+id/img_classroom_question_title"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:background="@drawable/btn_bottom_arrow"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toEndOf="@+id/text_classroom_title"
+               android:layout_marginTop="44dp"/>
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_classroom_question_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/background"
+            app:layout_constraintTop_toBottomOf="@+id/cl_class_sort"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/text_classroom_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/classroom_question_title"
+            android:textSize="14sp"
+            android:textColor="@drawable/selector_classroom_title_text"
+            android:background="@drawable/selector_classroom_title_background"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"/>
+
+            <TextView
+                android:id="@+id/text_classroom_info_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/classroom_info_title"
+                android:textSize="14sp"
+                android:fontFamily="@font/pretendard_regular"
+                android:textColor="@drawable/selector_classroom_title_text"
+                android:background="@drawable/selector_classroom_title_background"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintTop_toTopOf="@+id/text_classroom_question_title"
+                app:layout_constraintStart_toEndOf="@+id/text_classroom_question_title"
+                android:layout_marginStart="16dp"/>
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

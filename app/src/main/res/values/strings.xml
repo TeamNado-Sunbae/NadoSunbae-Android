@@ -18,4 +18,10 @@
     <string name="navigation_room">과방</string>
     <string name="navigation_notice">알림</string>
     <string name="navigation_mypage">마이페이지</string>
+
+
+    <!-- 과방 질문 -->
+    <string name="classroom_title">국어국문학과</string>
+    <string name="classroom_question_title">질문</string>
+    <string name="classroom_info_title">정보</string>
 </resources>
