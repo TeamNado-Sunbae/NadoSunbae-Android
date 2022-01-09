@@ -1,9 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.ui.sign.SignInActivity">
+    android:background="@color/background">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_sign_in_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="104dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_login" />
+
+        <TextView
+            android:id="@+id/text_sign_in_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/sign_in_subtitle"
+            android:textColor="@color/main_dark"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_sign_in_logo" />
+
+        <EditText
+            android:id="@+id/et_sign_in_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_border_gray_14"
+            android:fontFamily="@font/pretendard_regular"
+            android:hint="@string/findpw_email"
+            android:maxLines="1"
+            android:paddingStart="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:textColor="@color/gray_3"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_sign_in_subtitle" />
+
+
+        <EditText
+            android:id="@+id/et_sign_in_pw"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rectangle_border_gray_14"
+            android:fontFamily="@font/pretendard_regular"
+            android:hint="@string/sign_in_pw"
+            android:maxLines="1"
+            android:paddingStart="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:textColor="@color/gray_3"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/et_sign_in_id"
+            app:layout_constraintStart_toStartOf="@+id/et_sign_in_id"
+            app:layout_constraintTop_toBottomOf="@+id/et_sign_in_id" />
+
+
+        <TextView
+            android:id="@+id/text_sign_in_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="59dp"
+            android:layout_marginTop="19dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/sign_in_signup"
+            android:textColor="@color/gray_3"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_sign_in_pw" />
+
+        <TextView
+            android:id="@+id/text_sign_in_horizontal_bar1"
+            android:layout_width="1dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rectangle_fill_gray_0"
+            app:layout_constraintStart_toEndOf="@+id/text_sign_in_signup"
+            app:layout_constraintTop_toBottomOf="@+id/et_sign_in_pw" />
+
+        <TextView
+            android:id="@+id/text_sign_in_findpw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/findpw_title"
+            android:textColor="@color/gray_3"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/text_sign_in_horizontal_bar1"
+            app:layout_constraintTop_toTopOf="@+id/text_sign_in_signup" />
+
+        <TextView
+            android:id="@+id/text_sign_in_horizontal_bar2"
+            android:layout_width="1dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="19dp"
+            android:background="@drawable/rectangle_fill_gray_0"
+            app:layout_constraintStart_toEndOf="@+id/text_sign_in_findpw"
+            app:layout_constraintTop_toTopOf="@+id/text_sign_in_horizontal_bar1" />
+
+
+        <TextView
+            android:id="@+id/text_sign_in_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/sign_in_question"
+            android:textColor="@color/gray_3"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/text_sign_in_horizontal_bar2"
+            app:layout_constraintTop_toTopOf="@+id/text_sign_in_findpw" />
+
+        <TextView
+            android:id="@+id/text_sign_in_warn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="125dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/sign_in_warn"
+            android:textColor="@color/red"
+            android:textSize="12sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_sign_in_findpw" />
+
+        <Button
+            android:id="@+id/btn_sign_in_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/selector_rectangle_gray_to_black"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="@string/sign_in_login"
+            android:textColor="@drawable/selector_text_gray_to_mint"
+            android:textSize="16sp"
+            android:paddingTop="19dp"
+            android:paddingBottom="19dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_sign_in_warn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

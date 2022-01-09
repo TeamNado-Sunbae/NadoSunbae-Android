@@ -26,4 +26,13 @@
     <string name="findpw_email">&#64;korea.ac.kr</string>
     <string name="findpw_warn">해당 메일로 가입된 사용자가 없습니다.</string>
     <string name="findpw_check">확인</string>
+
+
+    <!-- 로그인 view -->
+    <string name="sign_in_subtitle">다양한 학과 정보를 공유해요!</string>
+    <string name="sign_in_pw">비밀번호</string>
+    <string name="sign_in_signup">회원가입</string>
+    <string name="sign_in_question">문의하기</string>
+    <string name="sign_in_warn">아이디 또는 비밀번호가 잘못되었어요.</string>
+    <string name="sign_in_login">로그인</string>
 </resources>
