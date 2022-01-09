@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_main_black_16.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_main_light_14.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_classroom_tab_btn.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_classroom_title_background.xml" value="0.26979166666666665" />
@@ -14,9 +15,11 @@
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_my_page_post.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_notification.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_class_room.xml" value="0.4" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_class_room.xml" value="0.1" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_information.xml" value="0.1296875" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_my_page.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_my_page_post.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_question.xml" value="0.152" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_review.xml" value="0.176" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_senior_personal.xml" value="0.2390625" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/menu/menu.xml" value="0.25364583333333335" />

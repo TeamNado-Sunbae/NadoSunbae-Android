@@ -7,7 +7,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.nadosunbae_andorid.R
 
-object BIndingAdapter {
+object BindingAdapter {
 
     /* 참고
      @JvmStatic
