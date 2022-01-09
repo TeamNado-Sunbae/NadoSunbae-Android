@@ -163,9 +163,9 @@
                     android:layout_height="match_parent"
                     android:background="@color/gray_background"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_review_function_box"
                     tools:itemCount="5"
-                    tools:listitem="@layout/item_list_review"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_review_function_box" />
+                    tools:listitem="@layout/item_list_review" />
 
                 <ImageView
                     android:id="@+id/iv_major_graphic"
@@ -197,8 +197,29 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_major_graphic" />
 
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.nadosunbae_andorid.presentation.ui.review.StickyHeaderScrollView>
+
+        <android.widget.Button
+            android:id="@+id/btn_write_review"
+            android:layout_width="64dp"
+            android:layout_height="0dp"
+            android:text="@string/review"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="11sp"
+            android:textColor="@color/main_light"
+            android:drawableTop="@drawable/ic_write"
+            android:drawablePadding="2dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="24dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="10dp"
+
+            android:background="@drawable/oval_fill_black"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
