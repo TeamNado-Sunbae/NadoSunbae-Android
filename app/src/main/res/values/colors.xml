@@ -23,4 +23,21 @@
     <color name="gray_4">#56565f</color>
     <color name="black_0">#000000</color>
     <color name="gray_background">#fbfbfd</color>
+    <color name="background">#e5e5e5</color>
+
+    <color name="purple_tag_fill">#f4f0ff</color>
+    <color name="purple_tag_border">#e5dbff</color>
+    <color name="purple_tag_text">#5e486c</color>
+    <color name="blue_tag_fill">#eff4ff</color>
+    <color name="blue_tag_border">#e0eaff</color>
+    <color name="blue_tag_text">#505971</color>
+    <color name="pink_tag_fill">#fff3ff</color>
+    <color name="pink_tag_border">#ffe7ff</color>
+    <color name="pink_tag_text">#7b636e</color>
+    <color name="yellow_tag_fill">#fff6e4</color>
+    <color name="yellow_tag_border">#fff0d3</color>
+    <color name="yellow_tag_text">#756a59</color>
+    <color name="green_tag_fill">#f0fdf2</color>
+    <color name="green_tag_border">#e4f3e6</color>
+    <color name="green_tag_text">#6c7968</color>
 </resources>
