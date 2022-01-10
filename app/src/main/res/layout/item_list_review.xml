@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="previewData"
+            type="com.nadosunbae_andorid.data.model.review.PreviewData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_review"
+        android:background="@drawable/rectangle_border_gray_8dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_create_at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{previewData.create_at}"
+            tools:text="@string/review_example_create_at" />
+
+        <TextView
+            android:id="@+id/tv_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
+
+            android:fontFamily="@font/pretendard_light"
+            android:text="@{previewData.likes}"
+            android:textColor="@color/gray_3"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/review_example_likes" />
+
+        <TextView
+            android:id="@+id/tv_one_line_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:maxLength="40"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@{previewData.one_line_review}"
+            android:textColor="@color/black_0"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_create_at"
+            app:layout_constraintTop_toBottomOf="@+id/tv_create_at"
+            tools:text="@string/review_example_one_line_review" />
+
+        <ImageView
+            android:id="@+id/ic_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_likes"
+            app:layout_constraintEnd_toStartOf="@+id/tv_likes"
+            app:layout_constraintTop_toTopOf="@+id/tv_likes"
+            app:srcCompat="@drawable/btn_diamond" />
+
+        <TextView
+            android:id="@+id/tv_tag_curriculum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rectangle_fill_pink_8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingHorizontal="7dp"
+            android:paddingVertical="5dp"
+            android:text="@string/what_learning"
+            android:textColor="@color/pink_tag_text"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_create_at"
+            app:layout_constraintTop_toBottomOf="@+id/tv_one_line_review" />
+
+        <TextView
+            android:id="@+id/tv_tag_recommend_lecture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rectangle_fill_blue_8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingHorizontal="7dp"
+            android:paddingVertical="5dp"
+            android:text="@string/recommend_lecture"
+            android:textColor="@color/blue_tag_text"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tag_curriculum"
+            app:layout_constraintStart_toEndOf="@+id/tv_tag_curriculum"
+            app:layout_constraintTop_toTopOf="@+id/tv_tag_curriculum" />
+
+        <TextView
+            android:id="@+id/tv_tag_non_recommend_lecture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rectangle_fill_green_8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingHorizontal="7dp"
+            android:paddingVertical="5dp"
+            android:text="@string/non_recommend_lecture"
+            android:textColor="@color/green_tag_text"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tag_curriculum"
+            app:layout_constraintStart_toEndOf="@+id/tv_tag_recommend_lecture"
+            app:layout_constraintTop_toTopOf="@+id/tv_tag_curriculum" />
+
+        <TextView
+            android:id="@+id/tv_tag_career"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rectangle_fill_purple_8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingHorizontal="7dp"
+            android:paddingVertical="5dp"
+            android:text="@string/career"
+            android:textColor="@color/purple_tag_text"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tag_curriculum"
+            app:layout_constraintStart_toEndOf="@+id/tv_tag_non_recommend_lecture"
+            app:layout_constraintTop_toTopOf="@+id/tv_tag_curriculum" />
+
+        <TextView
+            android:id="@+id/tv_tag_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rectangle_fill_yellow_8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingHorizontal="7dp"
+            android:paddingVertical="5dp"
+            android:text="@string/tip"
+            android:textColor="@color/yellow_tag_text"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tag_curriculum"
+            app:layout_constraintStart_toEndOf="@+id/tv_tag_career"
+            app:layout_constraintTop_toTopOf="@+id/tv_tag_curriculum" />
+
+        <View
+            android:id="@+id/view_line_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/gray_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_tag_curriculum"
+            />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="9dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="@{previewData.nickname}"
+            android:textColor="@color/gray_4"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/view_line_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/view_line_horizontal"
+            tools:text="@string/review_example_nickname" />
+
+        <TextView
+            android:id="@+id/tv_first_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@{previewData.first_major}"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@+id/tv_nickname"
+            app:layout_constraintTop_toTopOf="@+id/tv_nickname"
+            tools:text="@string/review_example_first_major" />
+
+        <View
+            android:id="@+id/view_line_vertical"
+            android:layout_width="1dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/gray_1"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_first_major"
+            app:layout_constraintStart_toEndOf="@+id/tv_first_major"
+            app:layout_constraintTop_toTopOf="@+id/tv_first_major" />
+
+        <TextView
+            android:id="@+id/tv_second_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@{previewData.second_major}"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@+id/view_line_vertical"
+            app:layout_constraintTop_toTopOf="@+id/tv_nickname"
+            tools:text="@string/review_example_second_major" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

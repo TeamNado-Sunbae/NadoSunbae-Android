@@ -11,8 +11,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
+  
+  
     <!-- 메인 navigation menu -->
     <string name="navigation_review">리뷰</string>
     <string name="navigation_room">과방</string>
@@ -35,4 +35,27 @@
     <string name="sign_in_question">문의하기</string>
     <string name="sign_in_warn">아이디 또는 비밀번호가 잘못되었어요.</string>
     <string name="sign_in_login">로그인</string>
+  
+
+    <!-- review_main -->
+    <string name="major_page">학과 홈페이지</string>
+    <string name="subject_table">이수과목 일람표</string>
+    <string name="filter">필터</string>
+    <string name="latest_order">최신순</string>
+    <string name="likes_order">도움</string>
+    <string name="review">후기</string>
+    <string name="career">향후 진로</string>
+    <string name="recommend_lecture">추천 수업</string>
+    <string name="non_recommend_lecture">비추 수업</string>
+    <string name="what_learning">뭘 배우나요?</string>
+    <string name="tip">꿀팁</string>
+    <!-- review_main: tool -->
+    <string name="review_example_major_selected">국어국문학과</string>
+    <string name="review_example_create_at">21/12/23</string>
+    <string name="review_example_likes">1</string>
+    <string name="review_example_one_line_review">\"난 자유롭고 싶어 지금 전투력 수치 111퍼\"</string>
+    <string name="review_example_nickname">닉네임</string>
+    <string name="review_example_first_major">본전명 18-1</string>
+    <string name="review_example_second_major">제2전공명 18-1</string>
+
 </resources>
