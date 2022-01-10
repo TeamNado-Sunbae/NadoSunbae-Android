@@ -12,6 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background"
+            android:paddingBottom="24dp"
             tools:context=".presentation.ui.classroom.QuestionFragment">
 
             <ImageView
@@ -47,7 +48,8 @@
                 android:background="@drawable/rectangle_border_1_gray0_fill_white_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_question_all">
+                app:layout_constraintTop_toBottomOf="@+id/text_question_all"
+                >
 
                 <TextView
                     android:id="@+id/text_question_ask_all"
@@ -144,7 +146,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rc_question_all"
-                    android:layout_marginBottom="24dp"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <ImageView

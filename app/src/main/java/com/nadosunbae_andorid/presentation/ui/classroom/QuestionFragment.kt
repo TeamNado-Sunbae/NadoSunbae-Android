@@ -18,14 +18,8 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        visible()
         initQuestionMain()
-    }
-
-
-
-    private fun visible(){
-        binding.textQuestionAllNoComment.visibility = View.GONE
+        visibleQuestion()
     }
 
 
@@ -75,12 +69,38 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
                 createdAt = "2021-11-28T18:56:42.040Z",
                 likeCount = 2,
                 commentCount = 2
-            )
+            ),
         )
-
 
         classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
         binding.rcQuestionAll.adapter = classRoomQuestionMainAdapter
         classRoomQuestionMainAdapter.setQuestionMain(exampleData)
+    }
+
+    //데이터 개수에 따라 뷰 보이기 설정
+    private fun visibleQuestion(){
+        if(classRoomQuestionMainAdapter.questionMainData.size == 0){
+            with(binding){
+                rcQuestionAll.visibility = View.GONE
+                textQuestionAllGo.visibility = View.GONE
+                imgQuestionAllGo.visibility = View.GONE
+                textQuestionAllNoComment.visibility = View.VISIBLE
+            }
+        }else if(classRoomQuestionMainAdapter.questionMainData.size in 1..4){
+            with(binding){
+                rcQuestionAll.visibility = View.VISIBLE
+                textQuestionAllGo.visibility = View.GONE
+                imgQuestionAllGo.visibility = View.GONE
+                textQuestionAllNoComment.visibility = View.GONE
+            }
+        }else{
+            with(binding){
+                rcQuestionAll.visibility = View.VISIBLE
+                textQuestionAllGo.visibility = View.VISIBLE
+                imgQuestionAllGo.visibility = View.VISIBLE
+                textQuestionAllNoComment.visibility = View.GONE
+            }
+        }
+
     }
 }
