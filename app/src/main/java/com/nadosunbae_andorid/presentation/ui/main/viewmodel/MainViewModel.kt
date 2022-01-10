@@ -10,10 +10,11 @@ class MainViewModel() : ViewModel() {
     val classRoomRepository : ClassRoomRepository = ClassRoomRepositoryImpl()
 
 
-    //과방탭에서 질문탭 및 정보탭 구분 (과방)
+    //과방탭에서 질문탭 및 정보탭 select 구분 (과방)
     var classRoomNum = MutableLiveData<Int>()
 
-
+    //과방탭 프래그먼트 전환 (1 -> 과방 메인, 2 -> 전체에게 질문)
+    var classRoomFragmentNum = MutableLiveData<Int>()
 
 
 }

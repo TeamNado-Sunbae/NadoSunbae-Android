@@ -60,6 +60,9 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
         }
     }
 
+
+
+
     //질문 정보 프래그먼트 변경
     private fun changeFragment(fragment : Fragment){
         childFragmentManager.beginTransaction()

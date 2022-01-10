@@ -6,46 +6,47 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_andorid.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_andorid.databinding.ItemQuestionAllBinding
 
-class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder>() {
-    var questionMainData = mutableListOf<ResponseClassRoomMainData.Data>()
 
+// 전체 게시물 보기
+class ClassRoomAskEveryoneAdapter : RecyclerView.Adapter<ClassRoomAskEveryoneAdapter.ClassRoomAskEveryoneViewHolder>() {
+    var askEveryoneData = mutableListOf<ResponseClassRoomMainData.Data>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder {
+    ): ClassRoomAskEveryoneViewHolder {
         val binding = ItemQuestionAllBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return ClassRoomQuestionMainViewHolder(binding)
+        return ClassRoomAskEveryoneViewHolder(binding)
     }
 
     override fun onBindViewHolder(
-        holder: ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder,
+        holder: ClassRoomAskEveryoneViewHolder,
         position: Int
     ) {
-        holder.onBind(questionMainData[position])
+        holder.onBind(askEveryoneData[position])
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return askEveryoneData.size
     }
 
-    inner class ClassRoomQuestionMainViewHolder(
-        private val binding : ItemQuestionAllBinding
+    inner class ClassRoomAskEveryoneViewHolder(
+        val binding : ItemQuestionAllBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(questionMainData : ResponseClassRoomMainData.Data){
+        fun onBind(askEveryoneData : ResponseClassRoomMainData.Data){
             binding.apply {
-                questionMain = questionMainData
+                questionMain = askEveryoneData
                 executePendingBindings()
             }
         }
     }
 
-    fun setQuestionMain(questionMainData: MutableList<ResponseClassRoomMainData.Data>){
-        this.questionMainData = questionMainData
+    fun setAskEveryone(askEveryoneData: MutableList<ResponseClassRoomMainData.Data>){
+        this.askEveryoneData = askEveryoneData
         notifyDataSetChanged()
 
     }
