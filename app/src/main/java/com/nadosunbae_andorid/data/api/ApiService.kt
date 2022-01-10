@@ -25,5 +25,5 @@ object ApiService {
 
 
 
-    val classRoomService: ClassRoomService = retrofit.create(ClassRoomService::class.java)
+
 }

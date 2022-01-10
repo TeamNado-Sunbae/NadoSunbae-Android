@@ -31,5 +31,8 @@
     <string name="classroom_question_all_content">질문내용 두 줄일 경우 질문내용 두 줄일 경우 질문내용 두 줄일 경우 질문내용 두 줄일 경우</string>
     <string name="classroom_question_nickname">닉네임</string>
     <string name="classroom_question_time">오후 5:42</string>
+    <string name="classroom_question_count">n</string>
+    <string name="classroom_question_zero_count">등록된 전체 공개 질문이 없습니다.</string>
+    <string name="classroom_question_all_go">질문 전체보기</string>
 
 </resources>
