@@ -1,5 +1,6 @@
 package com.nadosunbae_andorid.data.api
 
+import com.nadosunbae_andorid.data.api.classroom.ClassRoomService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,5 +25,5 @@ object ApiService {
 
 
 
-
+    val classRoomService: ClassRoomService = retrofit.create(ClassRoomService::class.java)
 }

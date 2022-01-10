@@ -7,7 +7,6 @@
     <color name="teal_700">#FF018786</color>
 
 
-
     <!-- 나도 선배 -->
     <color name="white">#ffffff</color>
     <color name="black">#001d19</color>
@@ -21,10 +20,13 @@
     <color name="gray_3">#94959e</color>
     <color name="gray_2">#c0c0cb</color>
     <color name="gray_4">#56565f</color>
+    <color name="red">#ff4c40</color>
+    <color name="background">#fbfbfd</color>
     <color name="black_0">#000000</color>
     <color name="gray_background">#fbfbfd</color>
-    <color name="background">#e5e5e5</color>
+  
 
+    <!-- review_colors -->
     <color name="purple_tag_fill">#f4f0ff</color>
     <color name="purple_tag_border">#e5dbff</color>
     <color name="purple_tag_text">#5e486c</color>
@@ -41,4 +43,5 @@
     <color name="green_tag_border">#e4f3e6</color>
     <color name="green_tag_text">#6c7968</color>
     <color name="gray_shadow">#40dfdfe8</color>
+
 </resources>

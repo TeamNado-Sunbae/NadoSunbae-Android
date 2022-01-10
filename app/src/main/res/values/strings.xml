@@ -11,7 +11,31 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+  
+  
+    <!-- 메인 navigation menu -->
+    <string name="navigation_review">리뷰</string>
+    <string name="navigation_room">과방</string>
+    <string name="navigation_notice">알림</string>
+    <string name="navigation_mypage">마이페이지</string>
 
+
+    <!-- 비밀번호 찾는 view -->
+    <string name="findpw_title">비밀번호 찾기</string>
+    <string name="findpw_contents">본인 인증을 위해 \n가입 당시 입력한 정보를 입력해주세요</string>
+    <string name="findpw_email">&#64;korea.ac.kr</string>
+    <string name="findpw_warn">해당 메일로 가입된 사용자가 없습니다.</string>
+    <string name="findpw_check">확인</string>
+
+
+    <!-- 로그인 view -->
+    <string name="sign_in_subtitle">다양한 학과 정보를 공유해요!</string>
+    <string name="sign_in_pw">비밀번호</string>
+    <string name="sign_in_signup">회원가입</string>
+    <string name="sign_in_question">문의하기</string>
+    <string name="sign_in_warn">아이디 또는 비밀번호가 잘못되었어요.</string>
+    <string name="sign_in_login">로그인</string>
+  
 
     <!-- review_main -->
     <string name="major_page">학과 홈페이지</string>
