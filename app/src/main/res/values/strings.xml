@@ -26,4 +26,14 @@
     <string name="findpw_email">&#64;korea.ac.kr</string>
     <string name="findpw_warn">해당 메일로 가입된 사용자가 없습니다.</string>
     <string name="findpw_check">확인</string>
+
+    <!-- 회원가입 약관 동의 view -->
+    <string name="signup_agreement_title">회원가입</string>
+    <string name="signup_agreement_process1">약관동의</string>
+    <string name="signup_agreement_process2">전공정보</string>
+    <string name="signup_agreement_process3">기본정보</string>
+    <string name="signup_agreement_agree_all">전체 동의</string>
+    <string name="signup_agreement_option1">개인정보 수집 동의 (필수)</string>
+    <string name="signup_agreement_option2">서비스 이용 약관 동의 (필수)</string>
+    <string name="signup_agreement_next">다음</string>
 </resources>
