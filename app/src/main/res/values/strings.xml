@@ -28,6 +28,17 @@
     <string name="findpw_check">확인</string>
 
 
+    <!-- 회원가입 약관 동의 view -->
+    <string name="signup_agreement_title">회원가입</string>
+    <string name="signup_agreement_process1">약관동의</string>
+    <string name="signup_agreement_process2">전공정보</string>
+    <string name="signup_agreement_process3">기본정보</string>
+    <string name="signup_agreement_agree_all">전체 동의</string>
+    <string name="signup_agreement_option1">개인정보 수집 동의 (필수)</string>
+    <string name="signup_agreement_option2">서비스 이용 약관 동의 (필수)</string>
+    <string name="signup_agreement_next">다음</string>
+
+
     <!-- 로그인 view -->
     <string name="sign_in_subtitle">다양한 학과 정보를 공유해요!</string>
     <string name="sign_in_pw">비밀번호</string>
@@ -49,6 +60,7 @@
     <string name="non_recommend_lecture">비추 수업</string>
     <string name="what_learning">뭘 배우나요?</string>
     <string name="tip">꿀팁</string>
+  
     <!-- review_main: tool -->
     <string name="review_example_major_selected">국어국문학과</string>
     <string name="review_example_create_at">21/12/23</string>
@@ -57,5 +69,6 @@
     <string name="review_example_nickname">닉네임</string>
     <string name="review_example_first_major">본전명 18-1</string>
     <string name="review_example_second_major">제2전공명 18-1</string>
+
 
 </resources>
