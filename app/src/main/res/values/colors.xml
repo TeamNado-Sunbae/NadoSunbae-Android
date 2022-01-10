@@ -40,4 +40,5 @@
     <color name="green_tag_fill">#f0fdf2</color>
     <color name="green_tag_border">#e4f3e6</color>
     <color name="green_tag_text">#6c7968</color>
+    <color name="gray_shadow">#40dfdfe8</color>
 </resources>

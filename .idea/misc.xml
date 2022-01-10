@@ -18,8 +18,9 @@
         <entry key="app/src/main/res/drawable/rectangle_fill_green_8dp.xml" value="0.4171875" />
         <entry key="app/src/main/res/drawable/rectangle_fill_pink_8dp.xml" value="0.4171875" />
         <entry key="app/src/main/res/drawable/rectangle_fill_yellow_8dp.xml" value="0.4171875" />
+        <entry key="app/src/main/res/drawable/shadow_sticky_header.xml" value="0.4171875" />
         <entry key="app/src/main/res/font/pretendard.xml" value="0.6885416666666667" />
-        <entry key="app/src/main/res/layout/fragment_review.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_review.xml" value="0.625" />
         <entry key="app/src/main/res/layout/fragment_review_list.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/layout/item_btn_link.xml" value="0.625" />
         <entry key="app/src/main/res/layout/item_floating_button.xml" value="3.5" />
