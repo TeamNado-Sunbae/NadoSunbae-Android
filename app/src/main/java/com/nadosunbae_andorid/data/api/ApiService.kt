@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiService {
-    private const val BASE_URL = ""
+    private const val BASE_URL = "https://asia-northeast3-nadosunbae-server.cloudfunctions.net/api"
 
     val interceptor = HttpLoggingInterceptor()
         .setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -25,5 +25,5 @@ object ApiService {
 
 
 
-    val classRoomService: ClassRoomService = retrofit.create(ClassRoomService::class.java)
+
 }

@@ -6,55 +6,101 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nadosunbae_andorid.R
+import com.nadosunbae_andorid.data.model.response.classroom.ResponseClassRoomMainData
+import com.nadosunbae_andorid.databinding.FragmentQuestionBinding
+import com.nadosunbae_andorid.presentation.base.BaseFragment
+import com.nadosunbae_andorid.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
+import kotlinx.android.synthetic.main.fragment_question.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [QuestionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class QuestionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment_question) {
+    private lateinit var classRoomQuestionMainAdapter : ClassRoomQuestionMainAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initQuestionMain()
+        visibleQuestion()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_question, container, false)
+
+    private fun initQuestionMain(){
+        val exampleData = mutableListOf(
+            ResponseClassRoomMainData.Data(
+                postId = 32,
+                writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+                title = "제목",
+                content = "내용",
+                createdAt = "2021-11-28T18:56:42.040Z",
+                likeCount = 2,
+                commentCount = 2
+            ),
+            ResponseClassRoomMainData.Data(
+                postId = 32,
+                writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+                title = "제목",
+                content = "내용",
+                createdAt = "2021-11-28T18:56:42.040Z",
+                likeCount = 2,
+                commentCount = 2
+            ),
+                    ResponseClassRoomMainData.Data(
+                    postId = 32,
+            writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+            title = "제목",
+            content = "내용",
+            createdAt = "2021-11-28T18:56:42.040Z",
+            likeCount = 2,
+            commentCount = 2
+        ),
+            ResponseClassRoomMainData.Data(
+                postId = 32,
+                writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+                title = "제목",
+                content = "내용",
+                createdAt = "2021-11-28T18:56:42.040Z",
+                likeCount = 2,
+                commentCount = 2
+            ),
+            ResponseClassRoomMainData.Data(
+                postId = 32,
+                writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+                title = "제목",
+                content = "내용",
+                createdAt = "2021-11-28T18:56:42.040Z",
+                likeCount = 2,
+                commentCount = 2
+            ),
+        )
+
+        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
+        binding.rcQuestionAll.adapter = classRoomQuestionMainAdapter
+        classRoomQuestionMainAdapter.setQuestionMain(exampleData)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment QuestionFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            QuestionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    //데이터 개수에 따라 뷰 보이기 설정
+    private fun visibleQuestion(){
+        if(classRoomQuestionMainAdapter.questionMainData.size == 0){
+            with(binding){
+                rcQuestionAll.visibility = View.GONE
+                textQuestionAllGo.visibility = View.GONE
+                imgQuestionAllGo.visibility = View.GONE
+                textQuestionAllNoComment.visibility = View.VISIBLE
             }
+        }else if(classRoomQuestionMainAdapter.questionMainData.size in 1..4){
+            with(binding){
+                rcQuestionAll.visibility = View.VISIBLE
+                textQuestionAllGo.visibility = View.GONE
+                imgQuestionAllGo.visibility = View.GONE
+                textQuestionAllNoComment.visibility = View.GONE
+            }
+        }else{
+            with(binding){
+                rcQuestionAll.visibility = View.VISIBLE
+                textQuestionAllGo.visibility = View.VISIBLE
+                imgQuestionAllGo.visibility = View.VISIBLE
+                textQuestionAllNoComment.visibility = View.GONE
+            }
+        }
+
     }
 }
