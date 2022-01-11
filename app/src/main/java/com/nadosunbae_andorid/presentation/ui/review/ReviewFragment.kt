@@ -1,5 +1,7 @@
 package com.nadosunbae_andorid.presentation.ui.review
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +15,7 @@ import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.databinding.FragmentReviewBinding
 import com.nadosunbae_andorid.presentation.base.BaseFragment
 import com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewListViewModel
+import kotlinx.android.synthetic.main.fragment_review.*
 
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
@@ -31,6 +34,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         setBinding()
         setStickyHeader()
         setPreviewData()
+        setClickListener()
         observePreviewList()
     }
 
@@ -41,6 +45,18 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     private fun setPreviewData() {
 
+    }
+
+    private fun setClickListener() {
+        binding.btnMajorPage.setOnClickListener {
+            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(reviewListViewModel.urlHomepage.value))
+            startActivity(intent)
+        }
+
+        binding.btnSubjectTable.setOnClickListener {
+            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(reviewListViewModel.urlSubjectTable.value))
+            startActivity(intent)
+        }
     }
 
     private fun setStickyHeader() {
