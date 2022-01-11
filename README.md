@@ -25,13 +25,13 @@
   </tr>
   <tr>
     <td align="center">
-     Github: <a href="https://github.com/ho-taek">HJinhee</a>
+     Github: <a href="https://github.com/ho-taek">ho-taek</a>
     </td>
     <td align="center">
-     Github: <a href="https://github.com/lhb8106">ho-taek</a>
+     Github: <a href="https://github.com/lhb8106">heaven00</a>
     </td>
     <td align="center">
-     Github: <a href="https://github.com/gimangi">hansh0101</a>
+     Github: <a href="https://github.com/gimangi">gimangi</a>
     </td>
   </tr>
 </table>
