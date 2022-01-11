@@ -1,5 +1,13 @@
-# NadoSunbae-Android
+# 나도 선배 서비스 소개!
+아는 선배 없어도 괜찮아. 우리 같이 서로의 선배가 되어주자!
+제2전공생을 위한 학과 후기, 전공 정보 공유 플랫폼 "나도선배"
 
+
+<img src = "https://user-images.githubusercontent.com/71322949/148937261-620b59c0-02fa-4205-a193-de388878db23.jpg" width = 100%, height=60%/>
+
+
+
+# NadoSunbae-Android- Developer
 
 <table align="center" style = "table-layout: auto; width: 100%; table-layout: fixed;">
   <colgroup>
@@ -35,3 +43,56 @@
     </td>
   </tr>
 </table>
+
+
+# Tech Stack
+```
+  - 아키텍처 - MVVM
+  - AAC(ViewModel, LiveData)
+  - DataBinding
+  - AndroidKTX
+  - Navigation Component
+```
+
+
+# Foldering
+```
+ NadoSunBae
+ ┣ 📂data
+ ┣ 📂api
+ ┣ 📂datasource
+ ┃ ┣ 📂remote
+ ┃ ┣ 📂model
+ ┃ ┣ ┣📂request
+ ┃ ┣ ┣📂response
+ ┃ ┣ 📂repository
+ ┣  📂presentation
+ ┃ ┣ 📂base
+ ┃ ┣ 📂ui
+ ┗📂utils
+ ```
+ 
+ # Role
+ 
+ 호택
+ ```
+ 과방, 알림
+ ```
+ 
+ 혜빈
+ ```
+ 로그인&회원가입, 마이페이지
+ ```
+ 형기
+ ```
+ 후기 메인, 후기 작성
+ ```
+ 
+ # Coding Convention
+ <a href="https://www.notion.so/nadosunbae/Coding-Convention-daa6331444274f4e80ece3a0f474ff6c"> coding Convention</a>
+  
+ # Git branch flow & Convention
+ <a href="https://www.notion.so/nadosunbae/Git-Convention-44921c4f461646cda913c8169db61cf1"> git branch</a>
+   
+  
+    
