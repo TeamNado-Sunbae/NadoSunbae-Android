@@ -1,4 +1,4 @@
-package com.nadosunbae_andorid.presentation.ui.review
+package com.nadosunbae_andorid.presentation.ui.review.adapter
 
 import android.view.LayoutInflater
 import android.view.View

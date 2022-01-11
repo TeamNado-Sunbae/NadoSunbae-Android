@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="selectedMajor"
-            type="String" />
+            name="viewModel"
+            type="com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +39,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@{selectedMajor}"
+                android:text="@{viewModel.selectedMajor}"
                 tools:text="@string/review_example_major_selected" />
 
             <ImageButton
