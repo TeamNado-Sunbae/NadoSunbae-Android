@@ -11,8 +11,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-  
-  
+
+
     <!-- 메인 navigation menu -->
     <string name="navigation_review">리뷰</string>
     <string name="navigation_room">과방</string>
@@ -46,7 +46,7 @@
     <string name="sign_in_question">문의하기</string>
     <string name="sign_in_warn">아이디 또는 비밀번호가 잘못되었어요.</string>
     <string name="sign_in_login">로그인</string>
-  
+
 
     <!-- review_main -->
     <string name="major_page">학과 홈페이지</string>
@@ -60,7 +60,7 @@
     <string name="non_recommend_lecture">비추 수업</string>
     <string name="what_learning">뭘 배우나요?</string>
     <string name="tip">꿀팁</string>
-  
+
     <!-- review_main: tool -->
     <string name="review_example_major_selected">국어국문학과</string>
     <string name="review_example_create_at">21/12/23</string>
@@ -93,4 +93,7 @@
 
     <!-- 과방 질문 구성원 목록 -->
     <string name="question_can">질문 가능해요</string>
+    <string name="start_major">본</string>
+    <string name="second_major">제2</string>
+    <string name="major_start">18-1 진입</string>
 </resources>

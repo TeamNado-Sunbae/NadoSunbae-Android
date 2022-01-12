@@ -33,7 +33,9 @@
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_review.xml" value="0.2" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_senior.xml" value="0.25" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_senior_personal.xml" value="0.2390625" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_classroom_senior_question.xml" value="0.264" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_all.xml" value="0.12" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_senior.xml" value="0.4" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/menu/menu.xml" value="0.25364583333333335" />
       </map>
     </option>
