@@ -99,4 +99,9 @@
     <string name="ask_everyone_title">전체에게 질문</string>
     <string name="ask_everyone_new">최신순</string>
 
+    <!-- 회원가입 끝  -->
+    <string name="signup_finish_title">나도 이제 선배!</string>
+    <string name="signup_finish_subtitle">후배들을 위한 학과 후기를 남기고\n다른 선배들에게 도움을 받으세요</string>
+    <string name="signup_finish_go">입장하기</string>
+
 </resources>
