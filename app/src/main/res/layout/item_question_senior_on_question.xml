@@ -5,7 +5,7 @@
     <data>
         <variable
             name="seniorOn"
-            type="com.nadosunbae_andorid.data.model.response.classroom.ResponeClassRoomSeniorData.Data.OnQuestionUser" />
+            type="com.nadosunbae_andorid.data.model.response.classroom.ResponseClassRoomSeniorData.Data.OnQuestionUser" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

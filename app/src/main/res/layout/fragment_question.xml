@@ -25,6 +25,34 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/text_personal_question_senior_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/classroom_question_senior_personal_title"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toTopOf="@+id/img_personal_question"
+                app:layout_constraintStart_toStartOf="@+id/img_personal_question"
+                android:layout_marginTop="14dp"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/text_personal_question_senior_see"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/classroom_question_senior_all_see"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="12sp"
+                android:textColor="@color/main_light"
+                app:layout_constraintTop_toBottomOf="@+id/text_personal_question_senior_title"
+                app:layout_constraintStart_toStartOf="@+id/text_personal_question_senior_title"
+                android:layout_marginTop="2dp"/>
+
+
 
             <TextView
                 android:id="@+id/text_question_all"

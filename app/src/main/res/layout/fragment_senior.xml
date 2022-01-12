@@ -67,6 +67,7 @@
                 android:layout_marginStart="16dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rc_senior_question_on"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -78,6 +79,29 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="4dp"/>
 
+            <TextView
+                android:id="@+id/text_senior_question_rest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/senior_rest"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="16sp"
+                android:textColor="@color/origin_black"
+                app:layout_constraintTop_toBottomOf="@+id/rc_senior_question_on"
+                app:layout_constraintStart_toStartOf="@id/text_senior_question_can"
+                android:layout_marginTop="40dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="3"
+                app:layout_constraintTop_toBottomOf="@+id/text_senior_question_rest"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="16dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

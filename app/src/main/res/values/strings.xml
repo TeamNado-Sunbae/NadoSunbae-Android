@@ -85,6 +85,8 @@
     <string name="classroom_question_count">n</string>
     <string name="classroom_question_zero_count">등록된 전체 공개 질문이 없습니다.</string>
     <string name="classroom_question_all_go">질문 전체보기</string>
+    <string name="classroom_question_senior_personal_title">선배에게 개인 질문</string>
+    <string name="classroom_question_senior_all_see">구성원 전체보기</string>
 
 
     <!-- 전체에게 질문 -->
@@ -96,4 +98,5 @@
     <string name="start_major">본</string>
     <string name="second_major">제2</string>
     <string name="major_start">18-1 진입</string>
+    <string name="senior_rest">쉬고 있어요</string>
 </resources>

@@ -3,12 +3,11 @@ package com.nadosunbae_andorid.presentation.ui.classroom.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_andorid.data.model.response.classroom.ResponeClassRoomSeniorData
-import com.nadosunbae_andorid.databinding.ItemQuestionAllBinding
+import com.nadosunbae_andorid.data.model.response.classroom.ResponseClassRoomSeniorData
 import com.nadosunbae_andorid.databinding.ItemQuestionSeniorOnQuestionBinding
 
 class ClassRoomSeniorOnAdapter : RecyclerView.Adapter<ClassRoomSeniorOnAdapter.ClassRoomSeniorOnViewHolder>() {
-    var onQuestionUserList = mutableListOf<ResponeClassRoomSeniorData.Data.OnQuestionUser>()
+    var onQuestionUserList = mutableListOf<ResponseClassRoomSeniorData.Data.OnQuestionUser>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -36,13 +35,13 @@ class ClassRoomSeniorOnAdapter : RecyclerView.Adapter<ClassRoomSeniorOnAdapter.C
     inner class ClassRoomSeniorOnViewHolder(
         val binding : ItemQuestionSeniorOnQuestionBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(onQuestionUserList : ResponeClassRoomSeniorData.Data.OnQuestionUser){
+        fun onBind(onQuestionUserList : ResponseClassRoomSeniorData.Data.OnQuestionUser){
             binding.seniorOn = onQuestionUserList
             binding.executePendingBindings()
         }
     }
 
-    fun setOnQuestionUser(onQuestionUserList: MutableList<ResponeClassRoomSeniorData.Data.OnQuestionUser>){
+    fun setOnQuestionUser(onQuestionUserList: MutableList<ResponseClassRoomSeniorData.Data.OnQuestionUser>){
         this.onQuestionUserList = onQuestionUserList
         notifyDataSetChanged()
     }

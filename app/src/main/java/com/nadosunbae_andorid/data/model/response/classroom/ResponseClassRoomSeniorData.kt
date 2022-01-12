@@ -1,6 +1,6 @@
 package com.nadosunbae_andorid.data.model.response.classroom
 
-data class ResponeClassRoomSeniorData(
+data class ResponseClassRoomSeniorData(
     val data: Data,
     val message: String,
     val status: Int,
