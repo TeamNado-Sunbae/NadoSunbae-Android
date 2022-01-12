@@ -22,15 +22,12 @@ class MainViewModel() : ViewModel() {
     val selectedMajor: LiveData<String>
         get() = _selectedMajor
 
-    // 선택 학과홈페이지 링크
-    private var _urlHomepage = MutableLiveData<String>()
-    val urlHomepage: LiveData<String>
-        get() = _urlHomepage
-
-    // 선택 학과 이수과목 일람표 링크
-    private var _urlSubjectTable = MutableLiveData<String>()
-    val urlSubjectTable: LiveData<String>
-        get() = _urlSubjectTable
 
 
+    /*
+        test data (api에서 불러오면 다 지울 예정)
+     */
+    fun setSelectedMajor(major: String) {
+        _selectedMajor.value = major
+    }
 }

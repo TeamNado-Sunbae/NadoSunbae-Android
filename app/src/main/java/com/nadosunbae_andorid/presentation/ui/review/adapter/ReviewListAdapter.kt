@@ -8,7 +8,7 @@ import com.nadosunbae_andorid.data.model.review.PreviewData
 import com.nadosunbae_andorid.databinding.ItemListReviewBinding
 
 class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() {
-    val dataList = mutableListOf<PreviewData>()
+    var dataList = mutableListOf<PreviewData>()
 
     class ReviewHolder(private val binding: ItemListReviewBinding): RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: PreviewData) {
@@ -43,6 +43,11 @@ class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() 
 
     fun setItemClickListener(itemClickListener: ItemClickListener) {
         this.itemClickListener = itemClickListener
+    }
+
+    fun setReviewListData(dataList : MutableList<PreviewData>){
+        this.dataList = dataList
+        notifyDataSetChanged()
     }
 
 }
