@@ -4,8 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
-            name="viewModel"
+            name="mainViewModel"
+            type="com.nadosunbae_andorid.presentation.ui.main.viewmodel.MainViewModel" />
+
+        <variable
+            name="reviewListViewModel"
             type="com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewListViewModel" />
     </data>
 
@@ -39,7 +44,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@{viewModel.selectedMajor}"
+                android:text="@{mainViewModel.selectedMajor}"
                 tools:text="@string/review_example_major_selected" />
 
             <ImageButton

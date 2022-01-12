@@ -50,7 +50,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     private fun setBinding() {
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = reviewListViewModel
+        binding.mainViewModel = mainViewModel
+        binding.reviewListViewModel = reviewListViewModel
     }
 
     private fun setPreviewData() {
