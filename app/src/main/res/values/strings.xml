@@ -70,6 +70,9 @@
     <string name="review_example_first_major">본전명 18-1</string>
     <string name="review_example_second_major">제2전공명 18-1</string>
 
+    <!-- review_detail -->
+    <string name="major_review">학과후기</string>
+
 
     <!-- 과방 질문 -->
     <string name="classroom_title">국어국문학과</string>
