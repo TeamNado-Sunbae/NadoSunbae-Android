@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.databinding.FragmentReviewBinding
 import com.nadosunbae_andorid.presentation.base.BaseFragment
