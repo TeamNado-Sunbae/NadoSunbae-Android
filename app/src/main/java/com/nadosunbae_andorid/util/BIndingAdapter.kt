@@ -1,5 +1,8 @@
 package com.nadosunbae_andorid.util
 
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+
 object BIndingAdapter {
 
     /* 참고
@@ -13,4 +16,10 @@ object BIndingAdapter {
             .into(imageView)
     }
      */
+
+    @JvmStatic
+    @BindingAdapter("selectBottomSheetImg")
+    fun setBottomSheetImg(imageView: ImageView, data : Boolean){
+            imageView.isSelected = data
+    }
 }
