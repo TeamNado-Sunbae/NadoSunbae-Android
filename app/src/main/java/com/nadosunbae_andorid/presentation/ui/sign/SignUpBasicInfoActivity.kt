@@ -9,11 +9,7 @@ import android.view.WindowManager
 import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.databinding.ActivitySignUpBasicInfoBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity
-import com.nadosunbae_andorid.util.CustomDialog
-import android.R.layout
-import android.app.AlertDialog
-import android.content.Context
-import android.graphics.Point
+import com.nadosunbae_andorid.util.SignInCustomDialog
 
 
 class SignUpBasicInfoActivity :
@@ -193,10 +189,10 @@ class SignUpBasicInfoActivity :
     //상단 x누르면 로그인으로 이동
     fun closePage() {
         binding.imgSignupBasicinfoDelete.setOnClickListener {
-            val dialog = CustomDialog(this)
+            val dialog = SignInCustomDialog(this)
               dialog.showDialog()
 
-            dialog.setOnClickListener(object : CustomDialog.ButtonClickListener{
+            dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener{
                 override fun onClicked(num: () -> Unit) {
                     startActivity(Intent(this@SignUpBasicInfoActivity, SignInActivity::class.java))
                     finish()
