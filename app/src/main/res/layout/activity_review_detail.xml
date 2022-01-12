@@ -9,7 +9,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.review.ReviewWriteActivity">
+        tools:context=".presentation.ui.review.ReviewDetailActivity">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

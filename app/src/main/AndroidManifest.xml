@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid">
         <activity
+            android:name=".presentation.ui.review.ReviewDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.sign.SignUpFinishActivity"
             android:exported="true" />
         <activity
@@ -28,11 +31,10 @@
             android:exported="true" />
         <activity
             android:name=".presentation.ui.sign.FindPwActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".presentation.ui.mypage.ServiceInqueryActivity"
             android:exported="false" />
@@ -57,7 +59,6 @@
         <activity
             android:name=".presentation.ui.mypage.MyPagePostActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentation.ui.review.ReviewWriteActivity"
             android:exported="false" />
