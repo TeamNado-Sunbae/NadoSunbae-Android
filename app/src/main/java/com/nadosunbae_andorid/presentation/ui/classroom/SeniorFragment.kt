@@ -22,6 +22,7 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSeniorOn()
+        initSeniorOff()
     }
 
 
@@ -91,7 +92,32 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
                 majorStart = "18-1 진입",
                 "뿌꾸뿌구",
                 4
-            ))
+            ),
+            ResponseClassRoomSeniorData.Data.OffQuestionUser(
+                isFirstMajor = true,
+                isOnQuestion = false,
+                majorStart = "18-1 진입",
+                "뿌꾸뿌구",
+                3
+            ),ResponseClassRoomSeniorData.Data.OffQuestionUser(
+                isFirstMajor = true,
+                isOnQuestion = false,
+                majorStart = "18-1 진입",
+                "뿌꾸뿌구",
+                3
+            ),ResponseClassRoomSeniorData.Data.OffQuestionUser(
+                isFirstMajor = true,
+                isOnQuestion = false,
+                majorStart = "18-1 진입",
+                "뿌꾸뿌구",
+                3
+            ),ResponseClassRoomSeniorData.Data.OffQuestionUser(
+                isFirstMajor = true,
+                isOnQuestion = false,
+                majorStart = "18-1 진입",
+                "뿌꾸뿌구",
+                3
+            ),)
         classRoomSeniorOffAdapter.setOffQuestionUser(exampleData)
     }
 }
