@@ -91,4 +91,6 @@
     <string name="ask_everyone_title">전체에게 질문</string>
     <string name="ask_everyone_new">최신순</string>
 
+    <!-- 과방 질문 구성원 목록 -->
+    <string name="question_can">질문 가능해요</string>
 </resources>
