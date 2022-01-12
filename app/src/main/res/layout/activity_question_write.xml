@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.classroom.QuestionWriteActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_question_write_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/white"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:id="@+id/img_question_write_all_cancle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/btn_x_black"
+                android:layout_marginTop="48dp"
+                android:layout_marginStart="4dp"/>
+
+            <TextView
+                android:id="@+id/text_question_write_all_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/question_write_all"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="16sp"
+                android:textColor="@color/origin_black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="60dp"/>
+
+            <TextView
+                android:id="@+id/text_question_write_all_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/question_write_all_save"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textSize="14sp"
+                android:textColor="@drawable/selector_gray_3_to_main_light_text"
+                android:background="@drawable/selector_rectangle_gray_to_main_black_8"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/text_question_write_all_title"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="71dp"
+                android:layout_marginTop="52dp"
+                android:paddingVertical="7dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/cl_question_write_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/background">
+
+            <EditText
+                android:id="@+id/et_question_write_all_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:hint="@string/question_write_hint"
+                android:backgroundTint="@color/selector_gray_0_to_main_black"
+                android:textColor="@color/main_default"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="1"
+                android:scrollHorizontally="true"/>
+
+            <TextView
+                android:id="@+id/text_question_write_all_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/question_write_content"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="16sp"
+                android:textColor="@color/origin_black"
+                app:layout_constraintTop_toBottomOf="@+id/et_question_write_all_title"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="72dp"
+                android:layout_marginStart="24dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/rectangle_border_1_gray0_fill_white_8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="72dp"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="16dp"
+                android:gravity="top"
+                android:scrollbars="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/text_question_write_all_content"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

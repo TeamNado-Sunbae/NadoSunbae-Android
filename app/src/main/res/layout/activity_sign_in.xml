@@ -153,7 +153,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/selector_rectangle_gray_to_black"
+            android:background="@drawable/selector_rectangle_gray_to_black_14"
             android:fontFamily="@font/pretendard_semibold"
             android:text="@string/sign_in_login"
             android:textColor="@drawable/selector_text_gray_to_mint"

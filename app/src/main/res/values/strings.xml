@@ -99,4 +99,11 @@
     <string name="second_major">제2</string>
     <string name="major_start">18-1 진입</string>
     <string name="senior_rest">쉬고 있어요</string>
+
+
+    <!-- 전체에게 질문 작성 -->
+    <string name="question_write_all">전체에게 질문 작성</string>
+    <string name="question_write_all_save">완료</string>
+    <string name="question_write_hint">질문 제목을 입력하세요</string>
+    <string name="question_write_content">내용</string>
 </resources>

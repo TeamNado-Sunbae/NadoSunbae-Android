@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nadosunbae_andorid">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid">
+        <activity
+            android:name=".presentation.ui.classroom.QuestionWriteActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".presentation.ui.sign.SignUpFinishActivity"
             android:exported="true" />
@@ -28,11 +32,10 @@
             android:exported="true" />
         <activity
             android:name=".presentation.ui.sign.FindPwActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".presentation.ui.mypage.ServiceInqueryActivity"
             android:exported="false" />
@@ -57,7 +60,6 @@
         <activity
             android:name=".presentation.ui.mypage.MyPagePostActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentation.ui.review.ReviewWriteActivity"
             android:exported="false" />
