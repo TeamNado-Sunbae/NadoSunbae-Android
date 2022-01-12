@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_andorid.data.model.review.PreviewData
 import com.nadosunbae_andorid.databinding.ItemListReviewBinding
 
-class ReviewAdapter: RecyclerView.Adapter<ReviewAdapter.ReviewHolder>() {
+class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() {
     val dataList = mutableListOf<PreviewData>()
 
     class ReviewHolder(private val binding: ItemListReviewBinding): RecyclerView.ViewHolder(binding.root) {
