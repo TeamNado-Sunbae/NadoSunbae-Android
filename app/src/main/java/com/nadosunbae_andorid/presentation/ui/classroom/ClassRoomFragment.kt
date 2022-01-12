@@ -1,60 +1,75 @@
 package com.nadosunbae_andorid.presentation.ui.classroom
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_andorid.R
+import com.nadosunbae_andorid.databinding.FragmentClassRoomBinding
+import com.nadosunbae_andorid.presentation.base.BaseFragment
+import com.nadosunbae_andorid.presentation.ui.main.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ClassRoomFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ClassRoomFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragment_class_room) {
+    //메인뷰모델 초기화
+    private val mainViewModel: MainViewModel by activityViewModels{
+        object : ViewModelProvider.Factory{
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return MainViewModel() as T
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_class_room, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        selectTitle()
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ClassRoomFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ClassRoomFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+
+
+
+    //질문 정보 탭 클릭시에
+    private fun selectTitle(){
+        binding.textClassroomQuestionTitle.setOnClickListener {
+            mainViewModel.classRoomNum.value = 1
+        }
+        binding.textClassroomInfoTitle.setOnClickListener {
+            mainViewModel.classRoomNum.value = 2
+        }
+
+        mainViewModel.classRoomNum.observe(viewLifecycleOwner){
+            if(it == 1){
+                binding.textClassroomQuestionTitle.isSelected = true
+                binding.textClassroomInfoTitle.isSelected = false
+                binding.textClassroomQuestionTitle.typeface = ResourcesCompat.getFont(requireActivity(), R.font.pretendard_semibold)
+                binding.textClassroomInfoTitle.typeface = ResourcesCompat.getFont(requireActivity(), R.font.pretendard_regular)
+                changeFragment(QuestionFragment())
+            }else{
+                binding.textClassroomQuestionTitle.typeface = ResourcesCompat.getFont(requireActivity(), R.font.pretendard_regular)
+                binding.textClassroomInfoTitle.typeface = ResourcesCompat.getFont(requireActivity(), R.font.pretendard_semibold)
+                binding.textClassroomInfoTitle.isSelected = true
+                binding.textClassroomQuestionTitle.isSelected = false
+                changeFragment(InformationFragment())
             }
+        }
     }
+
+
+
+
+    //질문 정보 프래그먼트 변경
+    private fun changeFragment(fragment : Fragment){
+        childFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_classroom, fragment)
+            .commit()
+
+    }
+
+
 }

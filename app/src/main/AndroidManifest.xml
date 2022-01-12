@@ -29,13 +29,8 @@
             android:exported="true"/>
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".presentation.ui.mypage.ServiceInqueryActivity"
             android:exported="false" />
@@ -60,16 +55,18 @@
         <activity
             android:name=".presentation.ui.mypage.MyPagePostActivity"
             android:exported="false" />
-        <activity
-            android:name=".presentation.ui.notification.NotificationActivity"
-            android:exported="false" />
+
         <activity
             android:name=".presentation.ui.review.ReviewWriteActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.MainActivity"
+            android:name=".presentation.ui.main.MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

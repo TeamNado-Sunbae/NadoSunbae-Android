@@ -1,25 +1,23 @@
 package com.nadosunbae_andorid.util
 
-import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import java.text.SimpleDateFormat
+import java.util.*
 
 object BIndingAdapter {
 
-    /* 참고
-     @JvmStatic
-    @BindingAdapter("profileBind")
-    fun setProfileImage(imageView: ImageView, imageUri : Uri){
-        Glide.with(imageView.context)
-            .load(imageUri)
-            .transform(RoundedCorners(20.dpToPx))
-            .centerCrop()
-            .into(imageView)
+    @JvmStatic
+    @BindingAdapter("dateToText")
+    fun getDateToText(textView: TextView, date: Date) : String{
+        val format = SimpleDateFormat("yyyy.MM.dd.")
+        return format.format(date).also { textView.text = it }
     }
-     */
 
     @JvmStatic
-    @BindingAdapter("selectBottomSheetImg")
-    fun setBottomSheetImg(imageView: ImageView, data : Boolean){
-            imageView.isSelected = data
+    @BindingAdapter("intToText")
+    fun getIntToText(textView: TextView, int : Int) : String{
+        return int.toString().also { textView.text = it }
     }
+
 }

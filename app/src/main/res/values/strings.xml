@@ -23,7 +23,7 @@
     <!-- 비밀번호 찾는 view -->
     <string name="findpw_title">비밀번호 찾기</string>
     <string name="findpw_contents">본인 인증을 위해 \n가입 당시 입력한 정보를 입력해주세요</string>
-    <string name="findpw_email">&#64;korea.ac.kr</string>
+    <string name="findpw_email">/&#64;korea.ac.kr</string>
     <string name="findpw_warn">해당 메일로 가입된 사용자가 없습니다.</string>
     <string name="findpw_check">확인</string>
 
@@ -78,5 +78,25 @@
     <string name="signup_first_major_time">본전공 진입시기</string>
     <string name="signup_second_major">제2전공</string>
     <string name="signup_second_major_time">제2전공 진입시기</string>
+
+    <!-- 과방 질문 -->
+    <string name="classroom_title">국어국문학과</string>
+    <string name="classroom_question_title">질문</string>
+    <string name="classroom_info_title">정보</string>
+    <string name="classroom_question_all">전체에게 질문</string>
+    <string name="classroom_question_all_ask">구성원 모두가 답할 수 있어요!</string>
+    <string name="classroom_question_write">질문 작성</string>
+    <string name="classroom_question_all_title">공개게시판 미리보기페이지 질문제목 넘을 경우 넘을 경우 넘을 경우</string>
+    <string name="classroom_question_all_content">질문내용 두 줄일 경우 질문내용 두 줄일 경우 질문내용 두 줄일 경우 질문내용 두 줄일 경우</string>
+    <string name="classroom_question_nickname">닉네임</string>
+    <string name="classroom_question_time">오후 5:42</string>
+    <string name="classroom_question_count">n</string>
+    <string name="classroom_question_zero_count">등록된 전체 공개 질문이 없습니다.</string>
+    <string name="classroom_question_all_go">질문 전체보기</string>
+
+
+    <!-- 전체에게 질문 -->
+    <string name="ask_everyone_title">전체에게 질문</string>
+    <string name="ask_everyone_new">최신순</string>
 
 </resources>
