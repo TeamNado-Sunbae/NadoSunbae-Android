@@ -3,7 +3,7 @@ package com.nadosunbae_andorid.presentation.ui.review.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_andorid.data.model.review.PreviewData
+import com.nadosunbae_andorid.data.model.response.review.PreviewData
 
 class ReviewListViewModel : ViewModel() {
 
