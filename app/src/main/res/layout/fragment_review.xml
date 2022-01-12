@@ -4,9 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
-            name="selectedMajor"
-            type="String" />
+            name="mainViewModel"
+            type="com.nadosunbae_andorid.presentation.ui.main.viewmodel.MainViewModel" />
+
+        <variable
+            name="reviewListViewModel"
+            type="com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +44,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@{selectedMajor}"
+                android:text="@{mainViewModel.selectedMajor}"
                 tools:text="@string/review_example_major_selected" />
 
             <ImageButton
@@ -171,6 +176,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/gray_background"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@+id/cl_review_function_box"
                     tools:itemCount="5"
                     tools:listitem="@layout/item_list_review" />

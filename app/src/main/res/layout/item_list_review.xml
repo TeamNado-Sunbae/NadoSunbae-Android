@@ -28,7 +28,7 @@
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{previewData.create_at}"
+            android:text="@{previewData.createAt}"
             tools:text="@string/review_example_create_at" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_marginEnd="16dp"
 
             android:fontFamily="@font/pretendard_light"
-            android:text="@{previewData.likes}"
+            intToText="@{previewData.likes}"
             android:textColor="@color/gray_3"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +55,7 @@
             android:maxLength="40"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="@{previewData.one_line_review}"
+            android:text="@{previewData.oneLineReview}"
             android:textColor="@color/black_0"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/tv_create_at"
@@ -183,7 +183,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="@{previewData.first_major}"
+            android:text="@{previewData.firstMajor}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
@@ -207,7 +207,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="@{previewData.second_major}"
+            android:text="@{previewData.secondMajor}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
