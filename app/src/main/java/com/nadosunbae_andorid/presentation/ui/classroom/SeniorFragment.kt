@@ -10,23 +10,22 @@ import com.nadosunbae_andorid.data.model.response.classroom.ResponseClassRoomMai
 import com.nadosunbae_andorid.data.model.response.classroom.ResponseClassRoomSeniorData
 import com.nadosunbae_andorid.databinding.FragmentSeniorBinding
 import com.nadosunbae_andorid.presentation.base.BaseFragment
+import com.nadosunbae_andorid.presentation.ui.classroom.adapter.ClassRoomSeniorOffAdapter
 import com.nadosunbae_andorid.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
 import retrofit2.Response
 
 
 class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_senior) {
     private lateinit var classRoomSeniorOnAdapter : ClassRoomSeniorOnAdapter
+    private lateinit var classRoomSeniorOffAdapter : ClassRoomSeniorOffAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSeniorOn()
     }
 
 
-
-
-
-
-
+    // 질문 가능한 구성원 보여주기
     private fun initSeniorOn(){
         classRoomSeniorOnAdapter = ClassRoomSeniorOnAdapter()
         binding.rcSeniorQuestionOn.adapter = classRoomSeniorOnAdapter
@@ -59,5 +58,40 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
                 4
             ))
         classRoomSeniorOnAdapter.setOnQuestionUser(exampleData)
+    }
+
+    // 질문 불가능한 구성원 보여주기
+    private fun initSeniorOff(){
+        classRoomSeniorOffAdapter = ClassRoomSeniorOffAdapter()
+        binding.rcSeniorQuestionOff.adapter = classRoomSeniorOffAdapter
+        var exampleData = mutableListOf(ResponseClassRoomSeniorData.Data.OffQuestionUser(
+            isFirstMajor = true,
+            isOnQuestion = false,
+            majorStart = "18-1 진입",
+            "뿌꾸뿌구",
+            1
+        ),
+            ResponseClassRoomSeniorData.Data.OffQuestionUser(
+                isFirstMajor = true,
+                isOnQuestion = false,
+                majorStart = "18-1 진입",
+                "뿌꾸뿌구",
+                2
+            ),
+            ResponseClassRoomSeniorData.Data.OffQuestionUser(
+                isFirstMajor = true,
+                isOnQuestion = false,
+                majorStart = "18-1 진입",
+                "뿌꾸뿌구",
+                3
+            ),
+            ResponseClassRoomSeniorData.Data.OffQuestionUser(
+                isFirstMajor = true,
+                isOnQuestion = false,
+                majorStart = "18-1 진입",
+                "뿌꾸뿌구",
+                4
+            ))
+        classRoomSeniorOffAdapter.setOffQuestionUser(exampleData)
     }
 }
