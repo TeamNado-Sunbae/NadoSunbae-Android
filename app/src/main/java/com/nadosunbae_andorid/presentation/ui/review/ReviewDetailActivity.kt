@@ -51,7 +51,8 @@ class ReviewDetailActivity : BaseActivity<ActivityReviewDetailBinding>(R.layout.
     }
 
     private fun observeBackground() {
-        reviewDetailViewModel.urlBackground.observe(this, Observer {
+        reviewDetailViewModel.urlBackground.observe(this){
+        }
             Glide.with(this)
                 .load(reviewDetailViewModel.urlBackground.value)
                 .into(binding.ivReviewBackground)
