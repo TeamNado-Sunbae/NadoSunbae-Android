@@ -1,9 +1,461 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.ui.sign.SignUpMajorInfoActivity">
+    android:background="@color/background">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_signup_majorinfo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="54dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="@string/signup_agreement_title"
+            android:textColor="@color/main_default"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_signup_majorinfo_delete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/btn_x"
+            app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_title" />
+
+
+        <View
+            android:id="@+id/view_signup_majorinfo_line1"
+            android:layout_width="84dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/gray_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_majorinfo_title" />
+
+        <View
+            android:id="@+id/view_signup_majorinfo_line2"
+            android:layout_width="84dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/view_signup_majorinfo_line1"
+            app:layout_constraintStart_toEndOf="@+id/view_signup_majorinfo_line1"
+            app:layout_constraintTop_toTopOf="@+id/view_signup_majorinfo_line1" />
+
+        <View
+            android:id="@+id/view_signup_majorinfo_line3"
+            android:layout_width="84dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/gray_1"
+            app:layout_constraintBottom_toBottomOf="@+id/view_signup_majorinfo_line2"
+            app:layout_constraintStart_toEndOf="@+id/view_signup_majorinfo_line2"
+            app:layout_constraintTop_toTopOf="@+id/view_signup_majorinfo_line2" />
+
+        <TextView
+            android:id="@+id/text_signup_majorinfo_bar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/signup_agreement_process1"
+            android:textColor="@color/gray_2"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_signup_majorinfo_line1" />
+
+        <TextView
+            android:id="@+id/text_signup_majorinfo_bar_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="57dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/signup_agreement_process2"
+            android:textColor="@color/main_black"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_bar_text"
+            app:layout_constraintStart_toEndOf="@+id/text_signup_majorinfo_bar_text"
+            app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_bar_text" />
+
+        <TextView
+            android:id="@+id/text_signup_majorinfo_bar_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="57dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/signup_agreement_process3"
+            android:textColor="@color/gray_2"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_bar_text2"
+            app:layout_constraintStart_toEndOf="@+id/text_signup_majorinfo_bar_text2"
+            app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_bar_text2" />
+
+        <ImageView
+            android:id="@+id/image_signup_majorinfo_diamond"
+            android:layout_width="12dp"
+            android:layout_height="11dp"
+            android:layout_marginStart="57dp"
+            android:background="@drawable/ic_diamond_mini"
+            app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_bar_text3"
+            app:layout_constraintStart_toEndOf="@+id/text_signup_majorinfo_bar_text3"
+            app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_bar_text3" />
+
+
+        <TextView
+            android:id="@+id/text_signup_majorInfo_univ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/signup_majorInfo_univ"
+            android:textColor="@color/gray_3"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_majorinfo_bar_text" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_signup_majorInfo_univ"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_border_gray_8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_univ">
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_univ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="@string/signup_majorInfo_select"
+                android:textColor="@color/gray_3"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_univ_mint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/signup_majorInfo_selection"
+                android:textColor="@color/main_default"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_univ" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_signup_majorInfo_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/signup_first_major"
+            android:textColor="@color/gray_3"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_signup_majorInfo_univ" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_signup_majorInfo_major"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_border_gray_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_major">
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="@string/signup_majorInfo_select"
+                android:textColor="@color/gray_3"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_major_mint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/signup_majorInfo_selection"
+                android:textColor="@color/main_default"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_major" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_signup_majorInfo_major_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/signup_first_major_time"
+            android:textColor="@color/gray_3"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_signup_majorInfo_major" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_signup_majorInfo_major_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_border_gray_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_major_time">
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_major_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="@string/signup_majorInfo_select"
+                android:textColor="@color/gray_3"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_major_time_mint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/signup_majorInfo_selection"
+                android:textColor="@color/main_default"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_major_time" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/text_signup_majorInfo_double_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/signup_second_major"
+            android:textColor="@color/gray_3"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_signup_majorInfo_major_time" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_signup_majorInfo_double_major"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_border_gray_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_double_major">
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_double_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="@string/signup_majorInfo_select"
+                android:textColor="@color/gray_3"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_double_major_mint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/signup_majorInfo_selection"
+                android:textColor="@color/main_default"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_double_major" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_signup_majorInfo_double_major_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/signup_second_major_time"
+            android:textColor="@color/gray_3"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_signup_majorInfo_double_major" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_signup_majorInfo_double_major_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_border_gray_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_double_major_time">
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_double_major_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="@string/signup_majorInfo_select"
+                android:textColor="@color/gray_3"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_double_major_mint_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/signup_majorInfo_selection"
+                android:textColor="@color/main_default"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_double_major_time" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_signup_majorInfo_move_before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rectangle_fill_mint_14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/img_signup_majorInfo_before"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="6dp"
+                android:clickable="false"
+                android:src="@drawable/btn_left_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_signup_majorInfo_move_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/selector_rectangle_gray_to_black"
+            app:layout_constraintBottom_toBottomOf="@+id/cl_signup_majorInfo_move_before"
+            app:layout_constraintStart_toEndOf="@+id/cl_signup_majorInfo_move_before"
+            app:layout_constraintTop_toTopOf="@+id/cl_signup_majorInfo_move_before">
+
+            <TextView
+                android:id="@+id/text_signup_majorInfo_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="@string/signup_agreement_next"
+                android:textColor="@drawable/selector_text_gray_to_mint"
+                android:textSize="16sp"
+                android:paddingRight="102dp"
+                android:paddingLeft="102dp"
+                android:paddingTop="19dp"
+                android:paddingBottom="19dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

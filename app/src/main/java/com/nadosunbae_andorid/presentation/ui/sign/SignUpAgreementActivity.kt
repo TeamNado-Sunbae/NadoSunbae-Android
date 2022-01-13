@@ -2,9 +2,7 @@ package com.nadosunbae_andorid.presentation.ui.sign
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.CompoundButton
 import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.databinding.ActivitySignUpAgreementBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity

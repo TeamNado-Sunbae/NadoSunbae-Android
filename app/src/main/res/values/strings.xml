@@ -70,6 +70,14 @@
     <string name="review_example_first_major">본전명 18-1</string>
     <string name="review_example_second_major">제2전공명 18-1</string>
 
+    <!-- 회원가입 전공정보 view -->
+    <string name="signup_majorInfo_univ">학교명</string>
+    <string name="signup_majorInfo_select">선택하기</string>
+    <string name="signup_majorInfo_selection">선택</string>
+    <string name="signup_first_major">본전공</string>
+    <string name="signup_first_major_time">본전공 진입시기</string>
+    <string name="signup_second_major">제2전공</string>
+    <string name="signup_second_major_time">제2전공 진입시기</string>
 
     <!-- 과방 질문 -->
     <string name="classroom_title">국어국문학과</string>
@@ -93,10 +101,31 @@
     <string name="ask_everyone_title">전체에게 질문</string>
     <string name="ask_everyone_new">최신순</string>
 
+
+    <!-- 회원가입 기본정보 -->
+    <string name="signup_basicinfo_before_input">입력 전</string>
+    <string name="signup_basicinfo_check_duplication">중복 확인</string>
+    <string name="signup_basicinfo_check_duplication_nickname_ok">사용 가능한 닉네임입니다.</string>
+    <string name="signup_basicinfo_check_duplication_nickname_no">이미 사용중인 닉네임입니다.</string>
+    <string name="signup_basicinfo_email">학교 이메일</string>
+    <string name="signup_basicinfo_check_duplication_email_ok">사용 가능한 이메일입니다.</string>
+    <string name="signup_basicinfo_check_duplication_email_no">이미 가입된 이메일입니다.</string>
+    <string name="signup_basicinfo_password">비밀번호 : 영문, 숫자를 합하여 6-20자</string>
+    <string name="signup_basicinfo_password_check">비밀번호 확인</string>
+    <string name="signup_basicinfo_password_same">비밀번호가 일치합니다.</string>
+    <string name="signup_basicinfo_password_not_same">비밀번호가 일치하지 않습니다.</string>
+    <string name="signup_basicinfo_complete">완료</string>
+
+    <!-- 회원가입 중 알림창 -->
+    <string name="signup_alert">페이지를 나가면\n회원가입이 취소돼요.</string>
+    <string name="signup_alert_out">나갈래요</string>
+    <string name="signup_alert_in">계속 작성</string>
+
     <!-- 과방 질문 구성원 목록 -->
     <string name="question_can">질문 가능해요</string>
     <string name="start_major">본</string>
     <string name="second_major">제2</string>
     <string name="major_start">18-1 진입</string>
     <string name="senior_rest">쉬고 있어요</string>
+
 </resources>
