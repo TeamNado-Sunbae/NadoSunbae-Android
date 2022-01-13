@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         tools:context=".presentation.ui.review.ReviewDetailActivity">
 
 
@@ -76,8 +77,7 @@
                     android:id="@+id/iv_review_background"
                     android:layout_width="match_parent"
                     android:layout_height="232dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="16dp" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_review_detail"

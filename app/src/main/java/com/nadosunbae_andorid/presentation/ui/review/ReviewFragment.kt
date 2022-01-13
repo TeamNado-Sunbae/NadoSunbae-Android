@@ -17,7 +17,6 @@ import com.nadosunbae_andorid.presentation.base.BaseFragment
 import com.nadosunbae_andorid.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_andorid.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewListViewModel
-import kotlinx.android.synthetic.main.fragment_review.*
 
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
@@ -97,9 +96,9 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     }
 
     private fun observeMajorGraphicUrl() {
-        reviewListViewModel.majorGraphicUrl.observe(viewLifecycleOwner) {
+        reviewListViewModel.urlMajorGraphic.observe(viewLifecycleOwner) {
             Glide.with(this)
-                .load(reviewListViewModel.majorGraphicUrl.value)
+                .load(reviewListViewModel.urlMajorGraphic.value)
                 .into(binding.ivMajorGraphic)
         }
     }

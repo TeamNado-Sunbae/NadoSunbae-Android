@@ -10,7 +10,7 @@ import com.nadosunbae_andorid.databinding.ItemListReviewBinding
 class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() {
     var dataList = mutableListOf<PreviewData>()
 
-    class ReviewHolder(private val binding: ItemListReviewBinding): RecyclerView.ViewHolder(binding.root) {
+    class ReviewHolder(private val binding: ItemListReviewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: PreviewData) {
             binding.previewData = data
             binding.executePendingBindings()
