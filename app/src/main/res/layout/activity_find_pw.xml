@@ -18,8 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="128dp"
-            android:text="@string/findpw_title"
             android:fontFamily="@font/pretendard_semibold"
+            android:text="@string/findpw_title"
             android:textColor="@color/main_default"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,25 +39,47 @@
             app:layout_constraintTop_toBottomOf="@+id/text_findpw_title" />
 
 
-        <EditText
-            android:id="@+id/et_findpw_email"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_findpw_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="38dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/rectangle_border_gray_14"
-            android:fontFamily="@font/pretendard_regular"
-            android:hint="@string/findpw_email"
-            android:paddingStart="16dp"
-            android:maxLines="1"
-            android:paddingTop="13dp"
-            android:paddingBottom="13dp"
-            android:textColor="@color/gray_3"
-            android:textSize="15sp"
+            android:background="@drawable/rectangle_border_gray_8dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_findpw_contents" />
+            app:layout_constraintTop_toBottomOf="@+id/text_findpw_contents">
+
+            <EditText
+                android:id="@+id/et_findpw_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:fontFamily="@font/pretendard_regular"
+                android:hint="@string/findpw_email"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/img_findpw_email_cancel"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/selector_x_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/text_findpw_warn"
@@ -68,27 +90,42 @@
             android:fontFamily="@font/pretendard_regular"
             android:text="@string/findpw_warn"
             android:textColor="@color/red"
-            android:visibility="invisible"
             android:textSize="12sp"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_findpw_email" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_findpw_email" />
 
-        <Button
-            android:id="@+id/btn_findpw_check"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_findpw_ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="242dp"
-            android:background="@drawable/rectangle_fill_gray_14"
-            android:paddingTop="19dp"
-            android:paddingBottom="19dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:textSize="16sp"
-            android:text="@string/findpw_check"
-            app:layout_constraintEnd_toEndOf="@+id/et_findpw_email"
-            app:layout_constraintStart_toStartOf="@+id/et_findpw_email"
-            app:layout_constraintTop_toBottomOf="@+id/text_findpw_warn" />
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/selector_rectangle_gray_to_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/text_findpw_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_semibold"
+                android:paddingLeft="102dp"
+                android:paddingTop="19dp"
+                android:paddingRight="102dp"
+                android:paddingBottom="19dp"
+                android:text="@string/signup_basicinfo_complete"
+                android:textColor="@drawable/selector_text_gray_to_mint"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

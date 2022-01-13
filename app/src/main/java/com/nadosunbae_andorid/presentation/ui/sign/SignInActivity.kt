@@ -13,8 +13,8 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         super.onCreate(savedInstanceState)
 
         onView()
-
         moveFindPw()
+        moveSignUp()
     }
 
     private fun onView() {
@@ -27,10 +27,32 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                //나중에 여기에 코드를 쓰겠지 ?
+                if (binding.etSignInId.text.toString() == "") {
+                    binding.imgSignInIdCancel.isSelected = false
+                } else {
+                    binding.imgSignInIdCancel.isSelected = true
+                }
+
+                if (binding.etSignInPw.text.toString() == "") {
+                    binding.imgSignInPwCancel.isSelected = false
+                } else {
+                    binding.imgSignInPwCancel.isSelected = true
+                }
+
+                if (binding.etSignInId.text.toString() != "" && binding.etSignInPw.text.toString()!="") {
+                    binding.clLogin.isSelected = true
+                } else {
+                    binding.clLogin.isSelected = false
+                }
             }
         })
 
+    }
+
+    private fun moveSignUp() {
+        binding.textSignInSignup.setOnClickListener {
+            startActivity(Intent(this, SignUpAgreementActivity::class.java))
+        }
     }
 
     private fun moveFindPw() {

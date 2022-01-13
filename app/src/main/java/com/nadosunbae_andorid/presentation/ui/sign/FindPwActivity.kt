@@ -25,7 +25,13 @@ class FindPwActivity : BaseActivity<ActivityFindPwBinding>(R.layout.activity_fin
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                //나중에 여기에 코드를 쓰겠지 ?
+                if (binding.etFindpwEmail.text.toString() == "") {
+                    binding.clFindpwOk.isSelected = false
+                    binding.imgFindpwEmailCancel.isSelected = false
+                } else {
+                    binding.clFindpwOk.isSelected = true
+                    binding.imgFindpwEmailCancel.isSelected = true
+                }
             }
         })
 
