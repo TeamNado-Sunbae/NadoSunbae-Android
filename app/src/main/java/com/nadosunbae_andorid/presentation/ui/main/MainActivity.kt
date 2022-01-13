@@ -12,6 +12,7 @@ import com.nadosunbae_andorid.databinding.ActivityMainBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity
 import com.nadosunbae_andorid.presentation.ui.classroom.AskEveryoneFragment
 import com.nadosunbae_andorid.presentation.ui.classroom.ClassRoomFragment
+import com.nadosunbae_andorid.presentation.ui.classroom.SeniorFragment
 import com.nadosunbae_andorid.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_andorid.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_andorid.presentation.ui.notification.NotificationFragment
@@ -72,6 +73,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 changeFragment(R.id.fragment_container_main,AskEveryoneFragment())
             }else if(it == 1){
                 changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
+            }else if(it == 3){
+                changeFragment(R.id.fragment_container_main, SeniorFragment())
             }
         })
     }
