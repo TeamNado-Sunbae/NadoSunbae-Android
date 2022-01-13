@@ -1,5 +1,6 @@
 package com.nadosunbae_andorid.presentation.ui.review.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() 
             LayoutInflater.from(parent.context),
             parent, false
         )
+
         return ReviewHolder(binding)
     }
 

@@ -23,8 +23,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     private lateinit var reviewListAdapter : ReviewListAdapter
 
-    private val mainViewModel: MainViewModel by activityViewModels{
-        object : ViewModelProvider.Factory{
+    private val mainViewModel: MainViewModel by activityViewModels {
+        object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return MainViewModel() as T
             }
@@ -44,6 +44,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
         setBinding()
         setStickyHeader()
+        initReviewListAdapter()
         setPreviewData()
         setClickListener()
         observeMajorGraphicUrl()
@@ -62,10 +63,24 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     }
 
+    private fun initReviewListAdapter() {
+        reviewListAdapter = ReviewListAdapter()
+        binding.rvReview.adapter = reviewListAdapter
+    }
+
     private fun setClickListener() {
 
-        // Recycler view adapter
-        // reviewListAdapter.setItemClickListener
+        // RecyclerView ItemClickListener
+        reviewListAdapter.setItemClickListener(
+            object: ReviewListAdapter.ItemClickListener {
+                override fun onClick(view: View, position: Int) {
+                    // reviewId 값을 intent로 넘겨줄 것!!
+                    var intent = Intent(context, ReviewDetailActivity::class.java)
+                    startActivity(intent)
+                }
+
+            }
+        )
 
         binding.btnMajorPage.setOnClickListener {
             var intent = Intent(Intent.ACTION_VIEW, Uri.parse(reviewListViewModel.urlHomepage.value))
@@ -115,8 +130,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         reviewListViewModel.setPageUrl("https://www.naver.com")
         reviewListViewModel.setSubjectTableUrl("https://www.daum.net")
         mainViewModel.setSelectedMajor("국어국문학과")
-        reviewListAdapter = ReviewListAdapter()
-        binding.rvReview.adapter = reviewListAdapter
+
         val sampleData = PreviewData(
             "22.01.12",
             4,
