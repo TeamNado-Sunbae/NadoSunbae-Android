@@ -3,16 +3,16 @@ package com.nadosunbae_andorid.presentation.ui.review.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_andorid.data.model.review.PreviewData
+import com.nadosunbae_andorid.data.model.response.review.PreviewData
 
 class ReviewListViewModel : ViewModel() {
 
     // repository 인스턴스 생성할 자리
 
     // 학과 그래픽 url
-    private var _majorGraphicUrl = MutableLiveData<String>()
-    val majorGraphicUrl: LiveData<String>
-        get() = _majorGraphicUrl
+    private var _urlMajorGraphic = MutableLiveData<String>()
+    val urlMajorGraphic: LiveData<String>
+        get() = _urlMajorGraphic
 
     // 선택 학과홈페이지 링크
     private var _urlHomepage = MutableLiveData<String>()
@@ -33,7 +33,7 @@ class ReviewListViewModel : ViewModel() {
                     ( api 연결되면 다 지울 예정!)
      */
     fun setGraphicUrl(url: String) {
-        _majorGraphicUrl.value = url
+        _urlMajorGraphic.value = url
     }
     fun setPageUrl(url: String) {
         _urlHomepage.value = url
