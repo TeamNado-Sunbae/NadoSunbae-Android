@@ -39,6 +39,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     //바텀네비
     private fun initBottomNav(){
+        // 첫 프래그먼트
+        changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+
         binding.btNvMain.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.navigation_review -> {

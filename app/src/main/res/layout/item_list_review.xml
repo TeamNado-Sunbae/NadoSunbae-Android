@@ -6,7 +6,7 @@
     <data>
         <variable
             name="previewData"
-            type="com.nadosunbae_andorid.data.model.review.PreviewData" />
+            type="com.nadosunbae_andorid.data.model.response.review.PreviewData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +69,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_likes"
             app:layout_constraintEnd_toStartOf="@+id/tv_likes"
             app:layout_constraintTop_toTopOf="@+id/tv_likes"
-            app:srcCompat="@drawable/btn_diamond" />
+            app:srcCompat="@drawable/diamond_empty_gray" />
 
         <TextView
             android:id="@+id/tv_tag_curriculum"

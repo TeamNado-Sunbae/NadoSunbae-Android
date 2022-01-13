@@ -4,31 +4,26 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.nadosunbae_andorid.R
-import com.nadosunbae_andorid.data.model.review.PreviewData
+import com.nadosunbae_andorid.data.model.response.review.PreviewData
 import com.nadosunbae_andorid.databinding.FragmentReviewBinding
 import com.nadosunbae_andorid.presentation.base.BaseFragment
 import com.nadosunbae_andorid.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_andorid.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewListViewModel
-import kotlinx.android.synthetic.main.fragment_review.*
-
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
     private lateinit var reviewListAdapter : ReviewListAdapter
 
-    private val mainViewModel: MainViewModel by activityViewModels{
-        object : ViewModelProvider.Factory{
+    private val mainViewModel: MainViewModel by activityViewModels {
+        object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return MainViewModel() as T
             }
@@ -48,6 +43,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
         setBinding()
         setStickyHeader()
+        initReviewListAdapter()
         setPreviewData()
         setClickListener()
         observeMajorGraphicUrl()
@@ -66,7 +62,25 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     }
 
+    private fun initReviewListAdapter() {
+        reviewListAdapter = ReviewListAdapter()
+        binding.rvReview.adapter = reviewListAdapter
+    }
+
     private fun setClickListener() {
+
+        // RecyclerView ItemClickListener
+        reviewListAdapter.setItemClickListener(
+            object: ReviewListAdapter.ItemClickListener {
+                override fun onClick(view: View, position: Int) {
+                    // reviewId 값을 intent로 넘겨줄 것!!
+                    var intent = Intent(context, ReviewDetailActivity::class.java)
+                    startActivity(intent)
+                }
+
+            }
+        )
+
         binding.btnMajorPage.setOnClickListener {
             var intent = Intent(Intent.ACTION_VIEW, Uri.parse(reviewListViewModel.urlHomepage.value))
             startActivity(intent)
@@ -96,9 +110,9 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     }
 
     private fun observeMajorGraphicUrl() {
-        reviewListViewModel.majorGraphicUrl.observe(viewLifecycleOwner) {
+        reviewListViewModel.urlMajorGraphic.observe(viewLifecycleOwner) {
             Glide.with(this)
-                .load(reviewListViewModel.majorGraphicUrl.value)
+                .load(reviewListViewModel.urlMajorGraphic.value)
                 .into(binding.ivMajorGraphic)
         }
     }
@@ -115,8 +129,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         reviewListViewModel.setPageUrl("https://www.naver.com")
         reviewListViewModel.setSubjectTableUrl("https://www.daum.net")
         mainViewModel.setSelectedMajor("국어국문학과")
-        reviewListAdapter = ReviewListAdapter()
-        binding.rvReview.adapter = reviewListAdapter
+
         val sampleData = PreviewData(
             "22.01.12",
             4,
