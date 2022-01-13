@@ -64,6 +64,10 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     }
 
     private fun setClickListener() {
+
+        // Recycler view adapter
+        // reviewListAdapter.setItemClickListener
+
         binding.btnMajorPage.setOnClickListener {
             var intent = Intent(Intent.ACTION_VIEW, Uri.parse(reviewListViewModel.urlHomepage.value))
             startActivity(intent)

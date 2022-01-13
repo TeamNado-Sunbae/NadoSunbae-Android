@@ -61,7 +61,7 @@
     <string name="what_learning">뭘 배우나요?</string>
     <string name="tip">꿀팁</string>
 
-    <!-- review_main: tool -->
+    <!-- review_main: example -->
     <string name="review_example_major_selected">국어국문학과</string>
     <string name="review_example_create_at">21/12/23</string>
     <string name="review_example_likes">1</string>
@@ -69,9 +69,16 @@
     <string name="review_example_nickname">닉네임</string>
     <string name="review_example_first_major">본전명 18-1</string>
     <string name="review_example_second_major">제2전공명 18-1</string>
+    <string name="review_example_label_name">라벨명</string>
+    <string name="review_example_label_content">난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼</string>
+
 
     <!-- review_detail -->
     <string name="major_review">학과후기</string>
+    <string name="first_major">본</string>
+    <string name="second_major">이</string>
+    <string name="question_on_message">선배에게 1:1 질문을 남겨보세요!</string>
+    <string name="question_off_message">지금 이 선배에겐 질문할 수 없어요.</string>
 
 
     <!-- 과방 질문 -->
