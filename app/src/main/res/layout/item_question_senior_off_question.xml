@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="seniorOff"
+            type="com.nadosunbae_andorid.data.model.response.classroom.ResponseClassRoomSeniorData.Data.OffQuestionUser" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/img_senior_title_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/img_profile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="12dp" />
+
+            <TextView
+                android:id="@+id/text_senior_nickname_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{seniorOff.nickname}"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toBottomOf="@+id/img_senior_title_off"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/text_senior_major_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_major"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="12sp"
+                android:textColor="@color/main_default"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toBottomOf="@+id/text_senior_nickname_off"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="17dp" />
+
+            <TextView
+                android:id="@+id/text_senior_major_start_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{seniorOff.majorStart}"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="12sp"
+                android:textColor="@color/gray_4"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toTopOf="@+id/text_senior_major_off"
+                app:layout_constraintStart_toEndOf="@+id/text_senior_major_off"
+                android:layout_marginStart="4dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

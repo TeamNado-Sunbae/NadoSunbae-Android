@@ -1,11 +1,11 @@
 package com.nadosunbae_andorid.data.model.review
 
 data class PreviewData (
-    val create_at: String,
+    val createAt: String,
     val likes: Int,
-    val one_line_review: String,
-    val content_list: List<String>,
+    val oneLineReview: String,
+    val contentList: List<String>,
     val nickname: String,
-    val first_major: String,
-    val second_major: String
+    val firstMajor: String,
+    val secondMajor: String
 )

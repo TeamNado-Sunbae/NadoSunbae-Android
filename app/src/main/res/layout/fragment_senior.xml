@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,20 +13,114 @@
         tools:context=".presentation.ui.classroom.SeniorFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_senior_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingBottom="12dp">
 
 
             <TextView
+                android:id="@+id/text_senior_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/hello_blank_fragment" />
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="56dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/classroom_title"
+                android:textColor="@color/origin_black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_senior_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:background="@drawable/btn_left_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:background="@color/background"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@+id/cl_senior_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_senior_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_senior_title"
+                android:paddingBottom="80dp">
+
+                <TextView
+                    android:id="@+id/text_senior_question_can"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/question_can"
+                    android:textColor="@color/origin_black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rc_senior_question_on"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="4dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_senior_question_can"
+                    app:spanCount="3" />
+
+                <TextView
+                    android:id="@+id/text_senior_question_rest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/senior_rest"
+                    android:textColor="@color/origin_black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/text_senior_question_can"
+                    app:layout_constraintTop_toBottomOf="@+id/rc_senior_question_on" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rc_senior_question_off"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_senior_question_rest"
+                    app:spanCount="3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
