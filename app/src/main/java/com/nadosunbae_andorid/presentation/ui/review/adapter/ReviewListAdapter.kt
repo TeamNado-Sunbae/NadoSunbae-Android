@@ -1,16 +1,17 @@
 package com.nadosunbae_andorid.presentation.ui.review.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_andorid.data.model.review.PreviewData
+import com.nadosunbae_andorid.data.model.response.review.PreviewData
 import com.nadosunbae_andorid.databinding.ItemListReviewBinding
 
 class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() {
     var dataList = mutableListOf<PreviewData>()
 
-    class ReviewHolder(private val binding: ItemListReviewBinding): RecyclerView.ViewHolder(binding.root) {
+    class ReviewHolder(private val binding: ItemListReviewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: PreviewData) {
             binding.previewData = data
             binding.executePendingBindings()
@@ -22,6 +23,7 @@ class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() 
             LayoutInflater.from(parent.context),
             parent, false
         )
+
         return ReviewHolder(binding)
     }
 
