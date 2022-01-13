@@ -2,7 +2,10 @@ package com.nadosunbae_andorid.presentation.ui.review
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -28,11 +31,12 @@ class ReviewDetailActivity : BaseActivity<ActivityReviewDetailBinding>(R.layout.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_review_detail)
 
         initTagBoxAdapter()
+        setClickListener()
         observeBackground()
         setTestData()
+
     }
 
     private fun initTagBoxAdapter() {
@@ -40,12 +44,18 @@ class ReviewDetailActivity : BaseActivity<ActivityReviewDetailBinding>(R.layout.
         binding.rvReviewDetail.adapter = reviewTagBoxAdapter
     }
 
+    private fun setClickListener() {
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+    }
+
     private fun observeBackground() {
-        reviewDetailViewModel.urlBackground.observe(this) {
+        reviewDetailViewModel.urlBackground.observe(this, Observer {
             Glide.with(this)
                 .load(reviewDetailViewModel.urlBackground.value)
                 .into(binding.ivReviewBackground)
-        }
+        })
     }
 
     private fun setTestData() {
@@ -63,11 +73,5 @@ class ReviewDetailActivity : BaseActivity<ActivityReviewDetailBinding>(R.layout.
 
         reviewDetailViewModel.setBackgroundUrl("https://user-images.githubusercontent.com/37872134/149095580-e2987cf0-39ff-4663-ab91-4899620d8203.png")
     }
-
-
-    /*
-    배경 샘플 이미지
-    https://user-images.githubusercontent.com/37872134/149095580-e2987cf0-39ff-4663-ab91-4899620d8203.png
-     */
-
+    
 }

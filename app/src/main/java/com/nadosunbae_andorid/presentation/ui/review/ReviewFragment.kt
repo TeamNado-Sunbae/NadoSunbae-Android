@@ -18,7 +18,6 @@ import com.nadosunbae_andorid.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_andorid.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewListViewModel
 
-
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
     private lateinit var reviewListAdapter : ReviewListAdapter

@@ -76,7 +76,7 @@
     <!-- review_detail -->
     <string name="major_review">학과후기</string>
     <string name="first_major">본</string>
-    <string name="second_major">이</string>
+    <string name="second_major">이중</string>
     <string name="question_on_message">선배에게 1:1 질문을 남겨보세요!</string>
     <string name="question_off_message">지금 이 선배에겐 질문할 수 없어요.</string>
 

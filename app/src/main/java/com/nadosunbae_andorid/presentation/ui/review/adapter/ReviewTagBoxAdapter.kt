@@ -3,6 +3,7 @@ package com.nadosunbae_andorid.presentation.ui.review.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.data.model.response.review.ReviewTagBoxData
 import com.nadosunbae_andorid.databinding.ItemReviewTagBoxBinding
 
@@ -12,6 +13,7 @@ class ReviewTagBoxAdapter : RecyclerView.Adapter<ReviewTagBoxAdapter.ReviewTagBo
     class ReviewTagBoxHolder(private val binding: ItemReviewTagBoxBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ReviewTagBoxData) {
             binding.tagBoxData = data
+            binding.ivTagIcon.setImageResource(R.drawable.ic_graphic_diamond)
             binding.executePendingBindings()
         }
     }
