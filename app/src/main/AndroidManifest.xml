@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid" >
         <activity
-            android:name=".presentation.ui.sign.SignInCustomDialog"
-            android:exported="true" />
-        <activity
             android:name=".presentation.ui.review.ReviewDetailActivity"
             android:exported="false" />
         <activity

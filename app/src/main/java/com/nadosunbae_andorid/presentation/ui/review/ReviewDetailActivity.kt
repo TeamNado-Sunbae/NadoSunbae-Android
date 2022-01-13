@@ -17,7 +17,8 @@ import com.nadosunbae_andorid.presentation.ui.review.adapter.ReviewTagBoxAdapter
 import com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewDetailViewModel
 import com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewListViewModel
 
-class ReviewDetailActivity : BaseActivity<ActivityReviewDetailBinding>(R.layout.activity_review_detail) {
+class ReviewDetailActivity :
+    BaseActivity<ActivityReviewDetailBinding>(R.layout.activity_review_detail) {
 
     private lateinit var reviewTagBoxAdapter: ReviewTagBoxAdapter
 
@@ -51,12 +52,11 @@ class ReviewDetailActivity : BaseActivity<ActivityReviewDetailBinding>(R.layout.
     }
 
     private fun observeBackground() {
-        reviewDetailViewModel.urlBackground.observe(this){
-        }
+        reviewDetailViewModel.urlBackground.observe(this) {
             Glide.with(this)
                 .load(reviewDetailViewModel.urlBackground.value)
                 .into(binding.ivReviewBackground)
-        })
+        }
     }
 
     private fun setTestData() {
@@ -74,5 +74,5 @@ class ReviewDetailActivity : BaseActivity<ActivityReviewDetailBinding>(R.layout.
 
         reviewDetailViewModel.setBackgroundUrl("https://user-images.githubusercontent.com/37872134/149095580-e2987cf0-39ff-4663-ab91-4899620d8203.png")
     }
-    
+
 }

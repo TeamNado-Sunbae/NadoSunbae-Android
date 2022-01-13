@@ -112,6 +112,13 @@
     <string name="ask_everyone_new">최신순</string>
 
 
+
+    <!-- 회원가입 끝  -->
+    <string name="signup_finish_title">나도 이제 선배!</string>
+    <string name="signup_finish_subtitle">후배들을 위한 학과 후기를 남기고\n다른 선배들에게 도움을 받으세요</string>
+    <string name="signup_finish_go">입장하기</string>
+
+
     <!-- 회원가입 기본정보 -->
     <string name="signup_basicinfo_before_input">입력 전</string>
     <string name="signup_basicinfo_check_duplication">중복 확인</string>
@@ -131,10 +138,11 @@
     <string name="signup_alert_out">나갈래요</string>
     <string name="signup_alert_in">계속 작성</string>
 
+
     <!-- 과방 질문 구성원 목록 -->
     <string name="question_can">질문 가능해요</string>
     <string name="start_major">본</string>
-    <string name="second_major">제2</string>
+    <!-- <string name="second_major">제2</string> -->
     <string name="major_start">18-1 진입</string>
     <string name="senior_rest">쉬고 있어요</string>
 
