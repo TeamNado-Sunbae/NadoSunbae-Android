@@ -1,5 +1,6 @@
 package com.nadosunbae_andorid.presentation.ui.classroom
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -30,6 +31,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
         visibleQuestion()
         changeAskEveryOne()
         changeSeniorFragment()
+        goQuestionWriteAll()
     }
 
 
@@ -141,6 +143,15 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
         binding.textPersonalQuestionSeniorSee.setOnClickListener {
             mainViewModel.classRoomFragmentNum.value = 3
         }
+    }
+
+    //전체 질문 작성으로 이동
+    private fun goQuestionWriteAll(){
+        binding.textQuestionWrite.setOnClickListener {
+            val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 }
