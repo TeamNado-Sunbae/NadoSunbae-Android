@@ -112,7 +112,6 @@
     <string name="ask_everyone_new">최신순</string>
 
 
-
     <!-- 회원가입 끝  -->
     <string name="signup_finish_title">나도 이제 선배!</string>
     <string name="signup_finish_subtitle">후배들을 위한 학과 후기를 남기고\n다른 선배들에게 도움을 받으세요</string>
@@ -152,5 +151,9 @@
     <string name="question_write_all_save">완료</string>
     <string name="question_write_hint">질문 제목을 입력하세요</string>
     <string name="question_write_content">내용</string>
+
+
+    <!-- 질문 상세 보기 -->
+    <string name="question_detail_title">1:1 질문</string>
 
 </resources>
