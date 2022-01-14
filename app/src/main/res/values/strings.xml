@@ -79,6 +79,18 @@
     <string name="review_question_on_message">선배에게 1:1 질문을 남겨보세요!</string>
     <string name="review_question_off_message">지금 이 선배에겐 질문할 수 없어요.</string>
 
+    <!-- review_write -->
+    <string name="review_write_title">후기작성</string>
+    <string name="review_write_complete">완료</string>
+    <string name="review_write_change">변경</string>
+    <string name="review_write_major">후기작성학과</string>
+    <string name="review_write_select_background">배경선택</string>
+    <string name="review_write_required">필수작성</string>
+    <string name="review_write_optional">선택작성</string>
+    <string name="review_write_min_items">* 최소 1개 항목 이상</string>
+    <string name="review_write_hint_content">내용을 입력해주세요.</string>
+    <string name="review_write_hint_one_line">학과를 한줄로 표현한다면?</string>
+
     <!-- 회원가입 전공정보 view -->
     <string name="signup_majorInfo_univ">학교명</string>
     <string name="signup_majorInfo_select">선택하기</string>
