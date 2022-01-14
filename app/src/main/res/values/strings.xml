@@ -61,7 +61,7 @@
     <string name="what_learning">뭘 배우나요?</string>
     <string name="tip">꿀팁</string>
 
-    <!-- review_main: tool -->
+    <!-- review_main: example -->
     <string name="review_example_major_selected">국어국문학과</string>
     <string name="review_example_create_at">21/12/23</string>
     <string name="review_example_likes">1</string>
@@ -69,7 +69,25 @@
     <string name="review_example_nickname">닉네임</string>
     <string name="review_example_first_major">본전명 18-1</string>
     <string name="review_example_second_major">제2전공명 18-1</string>
+    <string name="review_example_label_name">라벨명</string>
+    <string name="review_example_label_content">난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼</string>
 
+
+    <!-- review_detail -->
+    <string name="major_review">학과후기</string>
+    <string name="first_major">본</string>
+    <string name="second_major">이중</string>
+    <string name="question_on_message">선배에게 1:1 질문을 남겨보세요!</string>
+    <string name="question_off_message">지금 이 선배에겐 질문할 수 없어요.</string>
+
+    <!-- 회원가입 전공정보 view -->
+    <string name="signup_majorInfo_univ">학교명</string>
+    <string name="signup_majorInfo_select">선택하기</string>
+    <string name="signup_majorInfo_selection">선택</string>
+    <string name="signup_first_major">본전공</string>
+    <string name="signup_first_major_time">본전공 진입시기</string>
+    <string name="signup_second_major">제2전공</string>
+    <string name="signup_second_major_time">제2전공 진입시기</string>
 
     <!-- 과방 질문 -->
     <string name="classroom_title">국어국문학과</string>
@@ -93,10 +111,38 @@
     <string name="ask_everyone_title">전체에게 질문</string>
     <string name="ask_everyone_new">최신순</string>
 
+
+
+    <!-- 회원가입 끝  -->
+    <string name="signup_finish_title">나도 이제 선배!</string>
+    <string name="signup_finish_subtitle">후배들을 위한 학과 후기를 남기고\n다른 선배들에게 도움을 받으세요</string>
+    <string name="signup_finish_go">입장하기</string>
+
+
+    <!-- 회원가입 기본정보 -->
+    <string name="signup_basicinfo_before_input">입력 전</string>
+    <string name="signup_basicinfo_check_duplication">중복 확인</string>
+    <string name="signup_basicinfo_check_duplication_nickname_ok">사용 가능한 닉네임입니다.</string>
+    <string name="signup_basicinfo_check_duplication_nickname_no">이미 사용중인 닉네임입니다.</string>
+    <string name="signup_basicinfo_email">학교 이메일</string>
+    <string name="signup_basicinfo_check_duplication_email_ok">사용 가능한 이메일입니다.</string>
+    <string name="signup_basicinfo_check_duplication_email_no">이미 가입된 이메일입니다.</string>
+    <string name="signup_basicinfo_password">비밀번호 : 영문, 숫자를 합하여 6-20자</string>
+    <string name="signup_basicinfo_password_check">비밀번호 확인</string>
+    <string name="signup_basicinfo_password_same">비밀번호가 일치합니다.</string>
+    <string name="signup_basicinfo_password_not_same">비밀번호가 일치하지 않습니다.</string>
+    <string name="signup_basicinfo_complete">완료</string>
+
+    <!-- 회원가입 중 알림창 -->
+    <string name="signup_alert">페이지를 나가면\n회원가입이 취소돼요.</string>
+    <string name="signup_alert_out">나갈래요</string>
+    <string name="signup_alert_in">계속 작성</string>
+
+
     <!-- 과방 질문 구성원 목록 -->
     <string name="question_can">질문 가능해요</string>
     <string name="start_major">본</string>
-    <string name="second_major">제2</string>
+    <!-- <string name="second_major">제2</string> -->
     <string name="major_start">18-1 진입</string>
     <string name="senior_rest">쉬고 있어요</string>
 
@@ -106,4 +152,5 @@
     <string name="question_write_all_save">완료</string>
     <string name="question_write_hint">질문 제목을 입력하세요</string>
     <string name="question_write_content">내용</string>
+
 </resources>

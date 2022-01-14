@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:background="@drawable/btn_diamond"
+            android:background="@drawable/diamond_empty_gray"
             app:layout_constraintStart_toEndOf="@+id/text_question_all_comment"
             app:layout_constraintTop_toTopOf="@+id/img_question_all_comment" />
 

@@ -1,8 +1,15 @@
 package com.nadosunbae_andorid.util
 
+import android.app.Dialog
 import android.content.Context
+import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
+import com.nadosunbae_andorid.R
+import com.nadosunbae_andorid.presentation.ui.sign.SignUpBasicInfoActivity
 
 class CustomDialog(context : Context) {
+
 
 
     /* 참고하세요

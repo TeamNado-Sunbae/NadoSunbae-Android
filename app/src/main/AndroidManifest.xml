@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nadosunbae_andorid">
+    package="com.nadosunbae_andorid" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,7 +10,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NadoSunbaeAndroid">
+        android:theme="@style/Theme.NadoSunbaeAndroid" >
+        <activity
+            android:name=".presentation.ui.review.ReviewDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.ui.classroom.QuestionWriteActivity"
             android:exported="false"
@@ -65,7 +68,7 @@
             android:exported="false" />
         <activity
             android:name=".presentation.ui.main.MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
