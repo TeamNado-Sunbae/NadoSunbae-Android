@@ -46,7 +46,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         initReviewListAdapter()
         setPreviewData()
         setClickListener()
-        observeMajorGraphicUrl()
         observePreviewList()
 
         setTestData()
@@ -108,15 +107,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             }
         }
     }
-
-    private fun observeMajorGraphicUrl() {
-        reviewListViewModel.urlMajorGraphic.observe(viewLifecycleOwner) {
-            Glide.with(this)
-                .load(reviewListViewModel.urlMajorGraphic.value)
-                .into(binding.ivMajorGraphic)
-        }
-    }
-
 
     private fun observePreviewList() {
         reviewListViewModel.previewList.observe(viewLifecycleOwner) {

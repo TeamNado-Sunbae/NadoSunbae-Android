@@ -1,21 +1,15 @@
 package com.nadosunbae_andorid.presentation.ui.review
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.data.model.response.review.ReviewTagBoxData
 import com.nadosunbae_andorid.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity
 import com.nadosunbae_andorid.presentation.ui.review.adapter.ReviewTagBoxAdapter
 import com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewDetailViewModel
-import com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewListViewModel
 
 class ReviewDetailActivity :
     BaseActivity<ActivityReviewDetailBinding>(R.layout.activity_review_detail) {
@@ -34,6 +28,7 @@ class ReviewDetailActivity :
         super.onCreate(savedInstanceState)
 
         initTagBoxAdapter()
+        initBinding()
         setClickListener()
         observeBackground()
         setTestData()
@@ -45,6 +40,11 @@ class ReviewDetailActivity :
         binding.rvReviewDetail.adapter = reviewTagBoxAdapter
     }
 
+    private fun initBinding() {
+        binding.lifecycleOwner = this
+        binding.reviewDetailViewModel = reviewDetailViewModel
+    }
+
     private fun setClickListener() {
         binding.btnBack.setOnClickListener {
             finish()
@@ -52,10 +52,9 @@ class ReviewDetailActivity :
     }
 
     private fun observeBackground() {
+
         reviewDetailViewModel.urlBackground.observe(this) {
-            Glide.with(this)
-                .load(reviewDetailViewModel.urlBackground.value)
-                .into(binding.ivReviewBackground)
+
         }
     }
 
