@@ -30,7 +30,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/btn_x"
+            android:src="@drawable/btn_x_dark"
             app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_title" />
