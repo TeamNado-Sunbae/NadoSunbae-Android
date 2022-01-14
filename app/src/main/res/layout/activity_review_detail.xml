@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="reviewDetailViewModel"
+            type="com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,6 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="232dp"
                     android:scaleType="center"
+                    loadImageFromUrl="@{reviewDetailViewModel.urlBackground}"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 

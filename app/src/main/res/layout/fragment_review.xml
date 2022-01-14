@@ -186,6 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="192dp"
                     android:scaleType="center"
+                    loadImageFromUrl="@{reviewListViewModel.urlMajorGraphic}"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
