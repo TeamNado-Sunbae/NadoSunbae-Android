@@ -9,6 +9,7 @@ import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity
 import com.nadosunbae_andorid.presentation.ui.sign.adapter.SignSelectionAdapter
+import com.nadosunbae_andorid.util.SignInCustomDialog
 
 class SignUpMajorInfoActivity : BaseActivity<ActivitySignUpMajorInfoBinding>(R.layout.activity_sign_up_major_info) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +25,17 @@ class SignUpMajorInfoActivity : BaseActivity<ActivitySignUpMajorInfoBinding>(R.l
     //X버튼 클릭 리스너
     private fun closePage() {
         binding.imgSignupMajorinfoDelete.setOnClickListener {
-            finish()
+            val dialog = SignInCustomDialog(this)
+            dialog.showDialog()
+
+            dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener{
+                override fun onClicked(num: () -> Unit) {
+                    startActivity(Intent(this@SignUpMajorInfoActivity, SignInActivity::class.java))
+                    finish()
+                }
+
+            })
+
         }
     }
 
@@ -36,7 +47,9 @@ class SignUpMajorInfoActivity : BaseActivity<ActivitySignUpMajorInfoBinding>(R.l
     }
 
     private fun nextBtnActivate() {
-
+        binding.clSignupMajorInfoMoveNext.setOnClickListener {
+            startActivity(Intent(this, SignUpBasicInfoActivity::class.java))
+        }
     }
 
     private fun onClickbottomSheetUniv() {

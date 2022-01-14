@@ -8,6 +8,7 @@ import android.util.Patterns
 import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.databinding.ActivitySignInBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity
+import com.nadosunbae_andorid.presentation.ui.main.MainActivity
 import java.util.regex.Pattern
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
@@ -18,6 +19,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         moveFindPw()
         moveSignUp()
         onViewPw()
+        moveMainPage()
     }
 
     //id editText textwatcher
@@ -112,5 +114,15 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         binding.textSignInFindpw.setOnClickListener {
             startActivity(Intent(this, FindPwActivity::class.java))
         }
+    }
+
+
+    private fun moveMainPage() {
+        if(binding.clLogin.isSelected==true) {
+            binding.clLogin.setOnClickListener {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+        }
+
     }
 }
