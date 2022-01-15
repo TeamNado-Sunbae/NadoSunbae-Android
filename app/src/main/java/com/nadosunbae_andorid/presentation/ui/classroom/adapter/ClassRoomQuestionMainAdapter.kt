@@ -1,10 +1,13 @@
 package com.nadosunbae_andorid.presentation.ui.classroom.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_andorid.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_andorid.databinding.ItemQuestionAllBinding
+import com.nadosunbae_andorid.presentation.ui.classroom.QuestionDetailActivity
 
 class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder>() {
     var questionMainData = mutableListOf<ResponseClassRoomMainData.Data>()
@@ -27,6 +30,10 @@ class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainA
         position: Int
     ) {
         holder.onBind(questionMainData[position])
+        holder.binding.root.setOnClickListener {
+            val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+            ContextCompat.startActivity(holder.itemView.context, intent, null)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -34,7 +41,7 @@ class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainA
     }
 
     inner class ClassRoomQuestionMainViewHolder(
-        private val binding : ItemQuestionAllBinding
+        val binding : ItemQuestionAllBinding
     ) : RecyclerView.ViewHolder(binding.root){
         fun onBind(questionMainData : ResponseClassRoomMainData.Data){
             binding.apply {

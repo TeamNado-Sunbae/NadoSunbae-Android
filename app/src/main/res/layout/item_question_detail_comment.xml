@@ -4,14 +4,13 @@
 
     <data>
         <variable
-            name="questionDetailQuestioner"
+            name="questionDetailWriterComment"
             type="com.nadosunbae_andorid.data.model.response.classroom.ResponseClassRoomQuestionDetail.Data.Message" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="@color/background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,106 +19,106 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="48dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/rectangle_border_mint_background_8">
+            android:layout_marginEnd="48dp"
+            android:background="@drawable/rectangle_fill_white_8dp">
 
             <TextView
-                android:id="@+id/text_question_detail_questioner_name"
+                android:id="@+id/text_question_detail_writer_comment_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/pretendard_semibold"
-                android:text="@{questionDetailQuestioner.writer.nickname}"
+                android:text="@{questionDetailWriterComment.writer.nickname}"
                 android:textColor="@color/gray_4"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
-                android:id="@+id/spinner_question_detail_questioner_menu"
+                android:id="@+id/spinner_question_detail_writer_comment_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="195dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/btn_more_vert_mint"
-                app:layout_constraintStart_toEndOf="@+id/text_question_detail_questioner_name"
+                app:layout_constraintStart_toEndOf="@+id/text_question_detail_writer_comment_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/text_question_detail_questioner_major"
+                android:id="@+id/text_question_detail_writer_comment_major"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{questionDetailQuestioner.writer.firstMajorName}"
+                android:text="@{questionDetailWriterComment.writer.firstMajorName}"
                 android:textSize="12sp"
                 android:textColor="@color/gray_2"
-                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_questioner_name"
-                app:layout_constraintStart_toStartOf="@+id/text_question_detail_questioner_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_writer_comment_name"
+                app:layout_constraintStart_toStartOf="@+id/text_question_detail_writer_comment_name"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/pretendard_medium" />
 
             <TextView
-                android:id="@+id/text_question_detail_questioner_start_major"
+                android:id="@+id/text_question_detail_writer_comment_start_major"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{questionDetailQuestioner.writer.firstMajorStart}"
+                android:text="@{questionDetailWriterComment.writer.firstMajorStart}"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="12sp"
                 android:textColor="@color/gray_2"
-                app:layout_constraintTop_toTopOf="@+id/text_question_detail_questioner_major"
-                app:layout_constraintStart_toEndOf="@+id/text_question_detail_questioner_major"
+                app:layout_constraintTop_toTopOf="@+id/text_question_detail_writer_comment_major"
+                app:layout_constraintStart_toEndOf="@+id/text_question_detail_writer_comment_major"
                 android:layout_marginStart="4dp" />
 
             <View
-                android:id="@+id/line_question_detail_questioner"
+                android:id="@+id/line_question_detail_writer_comment"
                 android:layout_width="1dp"
                 android:layout_height="18dp"
                 android:background="@color/gray_1"
-                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_questioner_name"
-                app:layout_constraintStart_toEndOf="@+id/text_question_detail_questioner_start_major"
+                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_writer_comment_name"
+                app:layout_constraintStart_toEndOf="@+id/text_question_detail_writer_comment_major"
                 android:layout_marginTop="4dp"
                 android:layout_marginStart="8dp" />
 
             <TextView
-                android:id="@+id/text_question_detail_questioner_second_major"
+                android:id="@+id/text_question_detail_writer_comment_second_major"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{questionDetailQuestioner.writer.secondMajorName}"
+                android:text="@{questionDetailWriterComment.writer.secondMajorName}"
                 android:textSize="12sp"
                 android:textColor="@color/gray_2"
-                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_questioner_name"
-                app:layout_constraintStart_toEndOf="@+id/line_question_detail_questioner"
+                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_writer_comment_name"
+                app:layout_constraintStart_toEndOf="@+id/line_question_detail_writer_comment"
                 android:layout_marginTop="4dp"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/pretendard_medium" />
 
             <TextView
-                android:id="@+id/text_question_detail_questioner_second_start_major"
+                android:id="@+id/text_question_detail_writer_comment_second_start_major"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{questionDetailQuestioner.writer.secondMajorStart}"
+                android:text="@{questionDetailWriterComment.writer.secondMajorStart}"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="12sp"
                 android:textColor="@color/gray_2"
-                app:layout_constraintTop_toTopOf="@+id/text_question_detail_questioner_second_major"
-                app:layout_constraintStart_toEndOf="@+id/text_question_detail_questioner_second_major"
+                app:layout_constraintTop_toTopOf="@+id/text_question_detail_writer_comment_second_major"
+                app:layout_constraintStart_toEndOf="@+id/text_question_detail_writer_comment_second_major"
                 android:layout_marginStart="4dp" />
 
             <TextView
-                android:id="@+id/text_question_detail_questioner_content"
+                android:id="@+id/text_question_detail_writer_comment_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{questionDetailQuestioner.content}"
+                android:text="@{questionDetailWriterComment.content}"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_questioner_second_start_major"
+                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_writer_comment_second_start_major"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="24dp" />
@@ -127,15 +126,15 @@
 
 
             <TextView
-                android:id="@+id/text_question_detail_questioner_time"
+                android:id="@+id/text_question_detail_writer_comment_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{questionDetailQuestioner.createdAt}"
+                android:text="@{questionDetailWriterComment.createdAt}"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="12sp"
                 android:textColor="@color/gray_2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_questioner_content"
+                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_writer_comment_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"

@@ -12,11 +12,6 @@ data class ResponseClassRoomQuestionDetail(
         val messageList: List<Message>,
         val questionerId: Int
     ) {
-        data class Like(
-            val isLiked: Boolean,
-            val likeCount: Int
-        )
-
         data class Message(
             val content: String,
             val createdAt: String,
@@ -36,5 +31,9 @@ data class ResponseClassRoomQuestionDetail(
                 val writerId: Int
             )
         }
+        data class Like(
+            val isLiked: Boolean,
+            val likeCount: Int
+        )
     }
 }

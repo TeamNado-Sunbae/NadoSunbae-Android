@@ -20,4 +20,6 @@ object BIndingAdapter {
         return int.toString().also { textView.text = it }
     }
 
+
+
 }
