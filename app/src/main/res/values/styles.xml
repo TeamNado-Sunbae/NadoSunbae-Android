@@ -6,4 +6,15 @@
 
     </style>
 
+
+    <style name="SpinnerDivideStyle" parent="android:style/Widget.ListView.DropDown">
+<!--        <item name="android:divider">#000000</item> &lt;!&ndash; divider 색 &ndash;&gt;-->
+<!--        <item name="android:dividerHeight">10dp</item> &lt;!&ndash; divider 높이 &ndash;&gt;-->
+    </style>
+
+<!--    <style parent="@android:style/Widget.Spinner" name="SpinnerwithNoArrow">-->
+<!--        <item name="android:background">@android:drawable/edit_text</item>-->
+<!--    </style>-->
+
+
 </resources>

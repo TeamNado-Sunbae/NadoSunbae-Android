@@ -146,4 +146,10 @@
     <string name="major_start">18-1 진입</string>
     <string name="senior_rest">쉬고 있어요</string>
 
+
+    <string-array name="spinner_univ">
+        <item>고려대학교</item>
+        <item>타대학은 현재 준비중입니다</item>
+    </string-array>
+
 </resources>

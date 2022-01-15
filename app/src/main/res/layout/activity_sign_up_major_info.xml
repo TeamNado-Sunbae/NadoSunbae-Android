@@ -141,21 +141,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_univ">
 
-            <TextView
-                android:id="@+id/text_signup_majorinfo_univ"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/spinner_signup_majorinfo_univ"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_regular"
-                android:paddingLeft="16dp"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:text="@string/signup_majorInfo_select"
+                android:spinnerMode="dropdown"
+                android:theme="@style/SpinnerDivideStyle"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="선택하기"
                 android:textColor="@color/gray_3"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/text_signup_majorinfo_univ"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/pretendard_regular"-->
+<!--                android:paddingLeft="16dp"-->
+<!--                android:paddingTop="13dp"-->
+<!--                android:paddingBottom="13dp"-->
+<!--                android:text="@string/signup_majorInfo_select"-->
+<!--                android:textColor="@color/gray_3"-->
+<!--                android:textSize="15sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="1.0" />-->
 
             <TextView
                 android:id="@+id/text_signup_majorinfo_univ_mint"
@@ -168,7 +182,7 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_univ" />
+                app:layout_constraintTop_toTopOf="@+id/spinner_signup_majorinfo_univ" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

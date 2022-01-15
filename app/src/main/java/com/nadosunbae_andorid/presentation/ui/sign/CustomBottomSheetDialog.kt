@@ -41,7 +41,7 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
         binding.clCustomBottomSheet.layoutParams.height = resources.displayMetrics.heightPixels * 72/100
     }
 
-    private fun adapter() {
+    fun adapter() {
         signSelectionAdapter = SignSelectionAdapter()
         binding.rlBottomsheet.adapter = signSelectionAdapter
         var signSelectionData = mutableListOf(
