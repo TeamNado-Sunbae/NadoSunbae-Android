@@ -323,7 +323,7 @@
             android:layout_marginTop="17dp"
             android:fontFamily="@font/pretendard_medium"
             android:text="@string/signup_basicinfo_password"
-            android:textColor="@color/gray_3"
+            android:textColor="@drawable/selector_text_gray_to_mint"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_email_duplication_no" />
@@ -482,11 +482,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_signup_basicinfo_move_next"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="12dp"
             android:background="@drawable/selector_rectangle_gray_to_black"
             app:layout_constraintBottom_toBottomOf="@+id/cl_signup_basicinfo_move_before"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cl_signup_basicinfo_move_before"
             app:layout_constraintTop_toTopOf="@+id/cl_signup_basicinfo_move_before">
 
@@ -495,13 +497,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_semibold"
+                android:paddingLeft="102dp"
+                android:paddingTop="19dp"
+                android:paddingRight="102dp"
+                android:paddingBottom="19dp"
                 android:text="@string/signup_basicinfo_complete"
                 android:textColor="@drawable/selector_text_gray_to_mint"
                 android:textSize="16sp"
-                android:paddingRight="102dp"
-                android:paddingLeft="102dp"
-                android:paddingTop="19dp"
-                android:paddingBottom="19dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

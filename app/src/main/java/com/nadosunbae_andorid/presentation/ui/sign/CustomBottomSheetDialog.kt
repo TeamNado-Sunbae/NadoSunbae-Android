@@ -45,8 +45,23 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
         signSelectionAdapter = SignSelectionAdapter()
         binding.rlBottomsheet.adapter = signSelectionAdapter
         var signSelectionData = mutableListOf(
-            ResponseMajorData.Data.Major(1,"고려대학교"),
-            ResponseMajorData.Data.Major(2,"고려대학교1")
+            ResponseMajorData.Data.Major(1,"22-1"),
+            ResponseMajorData.Data.Major(2,"21-2"),
+            ResponseMajorData.Data.Major(3,"21-1"),
+            ResponseMajorData.Data.Major(4,"20-2"),
+            ResponseMajorData.Data.Major(5,"20-1"),
+            ResponseMajorData.Data.Major(6,"19-2"),
+            ResponseMajorData.Data.Major(7,"19-1"),
+            ResponseMajorData.Data.Major(8,"18-2"),
+            ResponseMajorData.Data.Major(9,"18-1"),
+            ResponseMajorData.Data.Major(10,"17-2"),
+            ResponseMajorData.Data.Major(11,"17-1"),
+            ResponseMajorData.Data.Major(12,"16-2"),
+            ResponseMajorData.Data.Major(13,"16-1"),
+            ResponseMajorData.Data.Major(14,"15-2"),
+            ResponseMajorData.Data.Major(15,"15-1"),
+            ResponseMajorData.Data.Major(16,"15년 이전"),
+
         )
 
         signSelectionAdapter.signSelectionData.addAll(

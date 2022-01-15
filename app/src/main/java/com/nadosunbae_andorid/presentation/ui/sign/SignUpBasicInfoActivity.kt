@@ -1,15 +1,19 @@
 package com.nadosunbae_andorid.presentation.ui.sign
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.databinding.ActivitySignUpBasicInfoBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity
 import com.nadosunbae_andorid.util.SignInCustomDialog
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 class SignUpBasicInfoActivity :
@@ -126,6 +130,8 @@ class SignUpBasicInfoActivity :
                     binding.textSignupBasicinfoPwDuplicationOk.visibility = View.INVISIBLE
                     binding.textSignupBasicinfoPwDuplicationNo.visibility = View.VISIBLE
                 }
+
+//                isPasswordFormat(binding.etSignupBasicinfoPw.text.toString())
             }
 
         })
@@ -182,9 +188,22 @@ class SignUpBasicInfoActivity :
     }
 
     //뷰 fix되면 수정하기
-    private fun isPasswordFormat(password: String): Boolean {
-        return password.matches("^(?=.*[A-Za-z])(?=.*/d)[A-Za-z/d]{6,20}$".toRegex())
+    @SuppressLint("ResourceAsColor")
+    private fun isPasswordFormat(password: String) {
+        // 비밀번호 유효성 검사식1 : 숫자, 특수문자가 포함되어야 한다.
+        val password = binding.etSignupBasicinfoPw.toString()
+        if (!Pattern.matches("^(?=.*[A-Za-z])(?=.*/d)[A-Za-z/d]{6,20}$", password)) {
+            //비밀번호 양식 틀렸을 때
+            Toast.makeText(this, "비밀번호 형식을 지켜주세요.", Toast.LENGTH_SHORT).show()
+            return
+//            binding.textSignupBasicinfoPwTitle.isSelected = true
+        } else {
+            Toast.makeText(this, "비밀번호", Toast.LENGTH_SHORT).show()
+            return
+        }
     }
+
+
 
     //상단 x누르면 로그인으로 이동
     fun closePage() {

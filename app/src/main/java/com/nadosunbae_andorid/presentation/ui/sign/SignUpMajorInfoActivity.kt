@@ -46,6 +46,7 @@ class SignUpMajorInfoActivity :
         firstMajorPeriod()
         setupSpinnerYear()
         setupSpinnerHandler()
+        textUpdate()
     }
 
 
@@ -81,6 +82,7 @@ class SignUpMajorInfoActivity :
 
     private fun onClickbottomSheetUniv() {
         binding.clSignupMajorInfoUniv.setOnClickListener {
+
             val bottomSheetFragment = CustomBottomSheetDialog()
             bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
 
@@ -95,6 +97,29 @@ class SignUpMajorInfoActivity :
     }
 
     private fun univSelection() {
+
+    }
+
+    private fun textUpdate() {
+        if(binding.clSignupMajorInfoUniv.toString() != ""){
+            binding.textSignupMajorinfoUnivMint.setText("변경")
+        }
+
+        if(binding.clSignupMajorInfoMajor.toString() != "") {
+            binding.textSignupMajorinfoMajorMint.setText("변경")
+            }
+
+        if(binding.clSignupMajorInfoMajorTime.toString() != "") {
+            binding.textSignupMajorinfoMajorTimeMint.setText("변경")
+        }
+
+        if(binding.clSignupMajorInfoDoubleMajor.toString() != "") {
+            binding.textSignupMajorinfoDoubleMajorMint.setText("변경")
+        }
+
+        if(binding.clSignupMajorInfoDoubleMajorTime.toString() != "") {
+            binding.textSignupMajorinfoDoubleMajorMintTime.setText("변경")
+        }
 
     }
 
