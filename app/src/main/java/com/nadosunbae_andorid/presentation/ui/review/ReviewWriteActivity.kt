@@ -1,12 +1,53 @@
 package com.nadosunbae_andorid.presentation.ui.review
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import com.nadosunbae_andorid.R
+import com.nadosunbae_andorid.databinding.ActivityReviewWriteBinding
+import com.nadosunbae_andorid.presentation.base.BaseActivity
 
-class ReviewWriteActivity : AppCompatActivity() {
+
+class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_review_write)
+
+        initBinding()
+        setTextWatcher()
     }
+
+    private fun initBinding() {
+        binding.lifecycleOwner = this
+    }
+
+
+    private fun setTextWatcher() {
+        binding.etOneLine.addTextChangedListener(object : TextWatcher {
+
+            private var prevString = ""
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                prevString = s.toString()
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s?.length!! > ONE_LINE_MAX_LENGTH) {
+                    binding.etOneLine.setText(prevString)
+                    binding.etOneLine.setSelection(prevString.length - 1)
+                }
+
+            }
+
+        })
+    }
+
+    companion object {
+        const val ONE_LINE_MAX_LENGTH = 40
+    }
+
 }

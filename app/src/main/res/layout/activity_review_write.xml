@@ -235,7 +235,6 @@
                         android:fontFamily="@font/pretendard_regular"
                         android:textSize="14sp"
                         android:textColor="@color/gray_2"
-                        android:maxLength="40"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_write_one_line" />
