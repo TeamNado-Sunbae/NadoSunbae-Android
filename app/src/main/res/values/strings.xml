@@ -155,5 +155,15 @@
 
     <!-- 질문 상세 보기 -->
     <string name="question_detail_title">1:1 질문</string>
+    <string name="question_detail_comment">답글 쓰기</string>
+    <string name="question_detail_writer">원글쓴 닉네임</string>
+    <string name="question_detail_major">본전명</string>
+    <string name="question_detail_second_major">제2전공명</string>
+    <string name="question_detail_major_start">18-1</string>
+    <string name="question_detail_second_major_start">18-1</string>
+    <string name="question_detail_like_count">19</string>
+    <string name="question_detail_time">21/12/13</string>
+
+
 
 </resources>

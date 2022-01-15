@@ -30,7 +30,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/btn_x"
+            android:src="@drawable/btn_x_black"
             app:layout_constraintBottom_toBottomOf="@+id/text_signup_basicinfo_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_signup_basicinfo_title" />
@@ -485,7 +485,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:background="@drawable/selector_rectangle_gray_to_black"
+            android:background="@drawable/selector_rectangle_gray_to_black_14"
             app:layout_constraintBottom_toBottomOf="@+id/cl_signup_basicinfo_move_before"
             app:layout_constraintStart_toEndOf="@+id/cl_signup_basicinfo_move_before"
             app:layout_constraintTop_toTopOf="@+id/cl_signup_basicinfo_move_before">

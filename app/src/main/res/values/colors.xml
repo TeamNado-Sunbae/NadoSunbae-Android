@@ -24,6 +24,8 @@
     <color name="background">#fbfbfd</color>
     <color name="black_0">#000000</color>
     <color name="gray_background">#fbfbfd</color>
+    <color name="mint_light">#d0f2ee</color>
+    <color name="mint_background">#eafaf8</color>
   
 
     <!-- review_colors -->
