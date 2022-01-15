@@ -235,6 +235,10 @@
                         android:fontFamily="@font/pretendard_regular"
                         android:textSize="14sp"
                         android:textColor="@color/gray_2"
+                        android:lines="2"
+                        android:lineHeight="22sp"
+                        android:gravity="top"
+                        android:letterSpacing="-0.009"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_write_one_line" />
