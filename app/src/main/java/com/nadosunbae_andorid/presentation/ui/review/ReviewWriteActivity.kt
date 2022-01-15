@@ -15,7 +15,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         super.onCreate(savedInstanceState)
 
         initBinding()
-        setTextWatcher()
+        setOneLineTextWatcher()
     }
 
     private fun initBinding() {
@@ -23,7 +23,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     }
 
 
-    private fun setTextWatcher() {
+    private fun setOneLineTextWatcher() {
         binding.etOneLine.addTextChangedListener(object : TextWatcher {
 
             private var prevString = ""
@@ -36,7 +36,8 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (s?.length!! > ONE_LINE_MAX_LENGTH) {
+                // 최대 글자수 체크 및 개행 문자 방지 (한줄평이므로)
+                if (s?.length!! > ONE_LINE_MAX_LENGTH || binding.etOneLine.text.contains("\n")) {
                     binding.etOneLine.setText(prevString)
                     binding.etOneLine.setSelection(prevString.length - 1)
                 }
