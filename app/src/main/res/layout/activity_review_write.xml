@@ -71,7 +71,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:id="sv_review_write"
+            android:id="@+id/sv_review_write"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/gray_background_dark"
@@ -144,6 +144,146 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_review_write_select_background_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_review_write_select_major_box">
+
+                    <TextView
+                        android:id="@+id/tv_select_background"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:textSize="16sp"
+                        android:textColor="@color/black_0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="@string/review_write_select_background"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_review_write_required_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_review_write_select_background_box">
+
+                    <TextView
+                        android:id="@+id/tv_review_write_required"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rectangle_fill_green_4dp"
+                        android:paddingVertical="2dp"
+                        android:paddingHorizontal="5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="16dp"
+                        android:textColor="@color/main_default"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:textSize="12sp"
+                        android:text="@string/review_write_required"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_write_one_line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:text="@string/review_one_line"
+                        android:textColor="@color/black_0"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_review_write_required" />
+
+                    <TextView
+                        android:id="@+id/tv_review_write_max_40"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/review_write_max_40"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:textSize="12sp"
+                        android:textColor="@color/gray_2"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_write_one_line"
+                        app:layout_constraintStart_toEndOf="@+id/tv_write_one_line"
+                        app:layout_constraintTop_toTopOf="@+id/tv_write_one_line" />
+
+                    <EditText
+                        android:id="@+id/et_one_line"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/rectangle_border_gray_8dp"
+                        android:hint="@string/review_write_hint_one_line"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="16dp"
+                        android:paddingVertical="16dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:textSize="14sp"
+                        android:textColor="@color/gray_2"
+                        android:maxLength="40"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_write_one_line" />
+
+                    <TextView
+                        android:id="@+id/tv_review_write_pros_cons"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:textColor="@color/black_0"
+                        android:textSize="16sp"
+                        android:text="@string/review_write_pros_cons"
+                        app:layout_constraintTop_toBottomOf="@+id/et_one_line"
+                        app:layout_constraintStart_toStartOf="@+id/tv_write_one_line" />
+
+                    <TextView
+                        android:id="@+id/tv_review_write_pros_cons_min_100"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/review_write_min_100"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:textSize="12sp"
+                        android:textColor="@color/gray_2"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_review_write_pros_cons"
+                        app:layout_constraintStart_toEndOf="@+id/tv_review_write_pros_cons"
+                        app:layout_constraintTop_toTopOf="@+id/tv_review_write_pros_cons" />
+
+                    <EditText
+                        android:id="@+id/et_pros_cons"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/rectangle_border_gray_8dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:hint="@string/review_write_hint_content"
+                        android:paddingVertical="16dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/gray_2"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_review_write_pros_cons" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
