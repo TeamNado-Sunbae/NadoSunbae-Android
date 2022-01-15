@@ -83,6 +83,7 @@ dependencies {
     implementation(ThirdPartyDependencies.glide)
     implementation("androidx.appcompat:appcompat:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.2")
+    implementation("com.android.support:support-v4:28.0.0")
     kapt(KaptDependencies.glideCompiler)
     implementation("com.github.bumptech.glide:okhttp3-integration:4.11.0")
 
