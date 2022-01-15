@@ -323,7 +323,7 @@
             android:layout_marginTop="17dp"
             android:fontFamily="@font/pretendard_medium"
             android:text="@string/signup_basicinfo_password"
-            android:textColor="@drawable/selector_text_gray_to_mint"
+            android:textColor="@drawable/selector_text_gray_to_red"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_email_duplication_no" />

@@ -131,7 +131,7 @@ class SignUpBasicInfoActivity :
                     binding.textSignupBasicinfoPwDuplicationNo.visibility = View.VISIBLE
                 }
 
-//                isPasswordFormat(binding.etSignupBasicinfoPw.text.toString())
+                isPasswordFormat(binding.etSignupBasicinfoPw.text.toString())
             }
 
         })
@@ -187,19 +187,12 @@ class SignUpBasicInfoActivity :
         }
     }
 
-    //뷰 fix되면 수정하기
-    @SuppressLint("ResourceAsColor")
     private fun isPasswordFormat(password: String) {
-        // 비밀번호 유효성 검사식1 : 숫자, 특수문자가 포함되어야 한다.
         val password = binding.etSignupBasicinfoPw.toString()
         if (!Pattern.matches("^(?=.*[A-Za-z])(?=.*/d)[A-Za-z/d]{6,20}$", password)) {
-            //비밀번호 양식 틀렸을 때
-            Toast.makeText(this, "비밀번호 형식을 지켜주세요.", Toast.LENGTH_SHORT).show()
-            return
-//            binding.textSignupBasicinfoPwTitle.isSelected = true
+            binding.textSignupBasicinfoPwTitle.isSelected = false
         } else {
-            Toast.makeText(this, "비밀번호", Toast.LENGTH_SHORT).show()
-            return
+            binding.textSignupBasicinfoPwTitle.isSelected = true
         }
     }
 

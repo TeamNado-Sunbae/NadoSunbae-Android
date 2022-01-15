@@ -26,6 +26,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.nadosunbae_andorid.databinding.SpinnerItemBinding
+import com.nadosunbae_andorid.presentation.ui.sign.adapter.SpinnerAdapter
 import kotlinx.android.synthetic.main.spinner_item.view.*
 
 
@@ -44,7 +45,7 @@ class SignUpMajorInfoActivity :
         onClickbottomSheetUniv()
 
         firstMajorPeriod()
-        setupSpinnerYear()
+        setupSpinner()
         setupSpinnerHandler()
         textUpdate()
     }
@@ -101,57 +102,44 @@ class SignUpMajorInfoActivity :
     }
 
     private fun textUpdate() {
-        if(binding.clSignupMajorInfoUniv.toString() != ""){
-            binding.textSignupMajorinfoUnivMint.setText("변경")
-        }
-
-        if(binding.clSignupMajorInfoMajor.toString() != "") {
-            binding.textSignupMajorinfoMajorMint.setText("변경")
-            }
-
-        if(binding.clSignupMajorInfoMajorTime.toString() != "") {
-            binding.textSignupMajorinfoMajorTimeMint.setText("변경")
-        }
-
-        if(binding.clSignupMajorInfoDoubleMajor.toString() != "") {
-            binding.textSignupMajorinfoDoubleMajorMint.setText("변경")
-        }
-
-        if(binding.clSignupMajorInfoDoubleMajorTime.toString() != "") {
-            binding.textSignupMajorinfoDoubleMajorMintTime.setText("변경")
-        }
 
     }
 
 
-    private fun setupSpinnerYear() {
+    private fun setupSpinner() {
         val years = resources.getStringArray(R.array.spinner_univ)
-        val adapter = object : ArrayAdapter<String>(this, R.layout.spinner_item,R.id.tv_spinner, years){
-            @SuppressLint("ResourceAsColor")
-            override fun getDropDownView(
-                position: Int,
-                convertView: View?,
-                parent: ViewGroup
-            ): View {
-                val view: ConstraintLayout = super.getDropDownView(position, convertView, parent) as ConstraintLayout
+        val list = listOf("고려대학교", "타 대학은 현재 준비중입니다")
+        val spinnerAdapter = SpinnerAdapter(this, R.layout.spinner_item, list)
+        binding.spinnerSignupMajorinfoUniv.adapter = spinnerAdapter
+        binding.spinnerSignupMajorinfoUniv.dropDownVerticalOffset = PixelRatio().dpToPx(52)
 
 
-                if (position == 1){
-                    view.tv_spinner.isSelected = true
-                } else {
-                    view.img_spinner_check.isSelected = true
-                }
 
-                return view
-            }
 
-            override fun isEnabled(position: Int): Boolean {
-                return position == 0
-
-            }
-        }
-        binding.spinnerSignupMajorinfoUniv.adapter = adapter
-        binding.spinnerSignupMajorinfoUniv.dropDownVerticalOffset = PixelRatio().dpToPx(48)
+//        object : ArrayAdapter<String>(this, R.layout.spinner_item,R.id.tv_spinner, years){
+//            @SuppressLint("ResourceAsColor")
+//            override fun getDropDownView(
+//                position: Int,
+//                convertView: View?,
+//                parent: ViewGroup
+//            ): View {
+//                val view: ConstraintLayout = super.getDropDownView(position, convertView, parent) as ConstraintLayout
+//
+//
+//                if (position == 1){
+//                    view.tv_spinner.isSelected = true
+//                } else {
+//                    view.img_spinner_check.isSelected = true
+//                }
+//
+//                return view
+//            }
+//
+//            override fun isEnabled(position: Int): Boolean {
+//                return position == 0
+//
+//            }
+//        }
     }
 
 

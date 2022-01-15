@@ -148,6 +148,9 @@
                 android:spinnerMode="dropdown"
                 android:fontFamily="@font/pretendard_medium"
                 android:text="선택하기"
+                android:background="@color/white"
+                android:popupBackground="@drawable/rectangle_fill_white_8dp"
+                android:popupElevation="0dp"
                 android:textColor="@color/gray_3"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -169,19 +172,6 @@
 <!--                app:layout_constraintStart_toStartOf="parent"-->
 <!--                app:layout_constraintTop_toTopOf="parent"-->
 <!--                app:layout_constraintVertical_bias="1.0" />-->
-
-            <TextView
-                android:id="@+id/text_signup_majorinfo_univ_mint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/pretendard_regular"
-                android:text="@string/signup_majorInfo_selection"
-                android:textColor="@color/main_default"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/spinner_signup_majorinfo_univ" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
