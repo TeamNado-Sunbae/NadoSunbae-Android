@@ -45,6 +45,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             }
 
         })
+
     }
 
     companion object {
