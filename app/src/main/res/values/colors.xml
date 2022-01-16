@@ -24,8 +24,15 @@
     <color name="background">#fbfbfd</color>
     <color name="black_0">#000000</color>
     <color name="gray_background">#fbfbfd</color>
+
     <color name="gray_spinner_line">#e9e9e9</color>
     <color name="gray_bar">#EAEBF1</color>
+
+    <color name="mint_light">#d0f2ee</color>
+    <color name="mint_background">#eafaf8</color>
+    <color name="update_background">#1A0029FF</color>
+    <color name="update_mint">#d1f2ee</color>
+
   
 
     <!-- review_colors -->

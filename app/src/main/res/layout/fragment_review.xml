@@ -7,11 +7,11 @@
 
         <variable
             name="mainViewModel"
-            type="com.nadosunbae_andorid.presentation.ui.main.viewmodel.MainViewModel" />
+            type="com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel" />
 
         <variable
             name="reviewListViewModel"
-            type="com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewListViewModel" />
+            type="com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,7 +61,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.nadosunbae_andorid.presentation.ui.review.StickyHeaderScrollView
+        <com.nadosunbae_android.presentation.ui.review.StickyHeaderScrollView
             android:id="@+id/sv_review"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -214,7 +214,7 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.nadosunbae_andorid.presentation.ui.review.StickyHeaderScrollView>
+        </com.nadosunbae_android.presentation.ui.review.StickyHeaderScrollView>
 
         <android.widget.Button
             android:id="@+id/btn_write_review"

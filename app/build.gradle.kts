@@ -7,7 +7,7 @@ plugins {
     kotlin("kapt")
     id("kotlin-android")
     id("kotlin-kapt")
-
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -134,5 +134,7 @@ dependencies {
     //bottomsheet
     implementation("com.google.android.material:material:1.4.0")
 
-
+    //google
+    implementation("com.google.firebase:firebase-common-ktx:20.0.0")
+    implementation("com.google.firebase:firebase-analytics-ktx:20.0.2")
 }

@@ -112,7 +112,6 @@
     <string name="ask_everyone_new">최신순</string>
 
 
-
     <!-- 회원가입 끝  -->
     <string name="signup_finish_title">나도 이제 선배!</string>
     <string name="signup_finish_subtitle">후배들을 위한 학과 후기를 남기고\n다른 선배들에게 도움을 받으세요</string>
@@ -179,6 +178,25 @@
     <string name="question_write_all_save">완료</string>
     <string name="question_write_hint">질문 제목을 입력하세요</string>
     <string name="question_write_content">내용</string>
+
+
+    <!-- 질문 상세 보기 -->
+    <string name="question_detail_title">1:1 질문</string>
+    <string name="question_detail_comment">답글 쓰기</string>
+    <string name="question_detail_writer">원글쓴 닉네임</string>
+    <string name="question_detail_major">본전명</string>
+    <string name="question_detail_second_major">제2전공명</string>
+    <string name="question_detail_major_start">18-1</string>
+    <string name="question_detail_second_major_start">18-1</string>
+    <string name="question_detail_like_count">19</string>
+    <string name="question_detail_time">21/12/13</string>
+    <string name="question_detail_update">수정</string>
+    <string name="question_detail_delete">삭제</string>
+    <string name="question_detail_save">저장</string>
+    <string name="question_detail_cancel">취소</string>
+
+
+
 
 
 </resources>

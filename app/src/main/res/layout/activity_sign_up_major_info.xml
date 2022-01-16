@@ -436,6 +436,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginLeft="12dp"
             android:background="@drawable/selector_rectangle_gray_to_black_8"
+            android:layout_marginStart="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/cl_signup_majorInfo_move_before"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cl_signup_majorInfo_move_before"
