@@ -49,17 +49,17 @@
 
 
     <!-- review_main -->
-    <string name="major_page">학과 홈페이지</string>
-    <string name="subject_table">이수과목 일람표</string>
-    <string name="filter">필터</string>
-    <string name="latest_order">최신순</string>
-    <string name="likes_order">도움</string>
-    <string name="review">후기</string>
-    <string name="career">향후 진로</string>
-    <string name="recommend_lecture">추천 수업</string>
-    <string name="non_recommend_lecture">비추 수업</string>
-    <string name="what_learning">뭘 배우나요?</string>
-    <string name="tip">꿀팁</string>
+    <string name="review_major_page">학과 홈페이지</string>
+    <string name="review_subject_table">이수과목 일람표</string>
+    <string name="review_filter">필터</string>
+    <string name="review_latest_order">최신순</string>
+    <string name="review_likes_order">도움</string>
+    <string name="review_reviews">후기</string>
+    <string name="review_career">향후 진로</string>
+    <string name="review_recommend_lecture">추천 수업</string>
+    <string name="review_non_recommend_lecture">비추 수업</string>
+    <string name="review_what_learning">뭘 배우나요?</string>
+    <string name="review_tip">꿀팁</string>
 
     <!-- review_main: example -->
     <string name="review_example_major_selected">국어국문학과</string>
@@ -72,13 +72,12 @@
     <string name="review_example_label_name">라벨명</string>
     <string name="review_example_label_content">난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼</string>
 
-
     <!-- review_detail -->
-    <string name="major_review">학과후기</string>
-    <string name="first_major">본</string>
-    <string name="second_major">이중</string>
-    <string name="question_on_message">선배에게 1:1 질문을 남겨보세요!</string>
-    <string name="question_off_message">지금 이 선배에겐 질문할 수 없어요.</string>
+    <string name="review_major_review">학과후기</string>
+    <string name="review_first_major">본</string>
+    <string name="review_second_major">이중</string>
+    <string name="review_question_on_message">선배에게 1:1 질문을 남겨보세요!</string>
+    <string name="review_question_off_message">지금 이 선배에겐 질문할 수 없어요.</string>
 
     <!-- 회원가입 전공정보 view -->
     <string name="signup_majorInfo_univ">학교명</string>
@@ -143,7 +142,7 @@
     <!-- 과방 질문 구성원 목록 -->
     <string name="question_can">질문 가능해요</string>
     <string name="start_major">본</string>
-    <!-- <string name="second_major">제2</string> -->
+    <string name="second_major">제2</string>
     <string name="major_start">18-1 진입</string>
     <string name="senior_rest">쉬고 있어요</string>
 
@@ -154,6 +153,32 @@
         <item>타대학은 현재 준비중입니다</item>
     </string-array>
 
+
+    <!-- 마이페이지 메인 -->
+    <string name="mypage_no_question">지금은 질문을 안 받기로 했어요.</string>
+    <string name="mypage_my_nickname">내 닉네임</string>
+    <string name="mypage_modify_profile">프로필 수정</string>
+    <string name="mypage_first_major">본</string>
+    <string name="mypage_first_major_name">본전공명</string>
+    <string name="mypage_first_major_time">18-1</string>
+    <string name="mypage_second_major">제 2</string>
+    <string name="mypage_second_major_name">제2전공명</string>
+    <string name="mypage_second_major_time">18-2</string>
+    <string name="mypage_reply_rate">응답률</string>
+    <string name="mypage_reply_rate_num">88%</string>
+    <string name="mypage_write_by_me">내가 쓴 글</string>
+    <string name="mypage_reply_by_me">내가 쓴 답글</string>
+    <string name="mypage_classroom_review">학과 후기</string>
+    <string name="mypage_like_list">좋아요 목록</string>
+    <string name="mypage_like_list_num">nn</string>
+    <string name="mypage_personal_question">나에게 온 1:1 질문</string>
+
+
+    <!-- 전체에게 질문 작성 -->
+    <string name="question_write_all">전체에게 질문 작성</string>
+    <string name="question_write_all_save">완료</string>
+    <string name="question_write_hint">질문 제목을 입력하세요</string>
+    <string name="question_write_content">내용</string>
 
 
 </resources>

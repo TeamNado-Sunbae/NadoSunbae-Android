@@ -1,11 +1,13 @@
 package com.nadosunbae_andorid.util
 
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.*
 
-object BIndingAdapter {
+object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("dateToText")
@@ -20,4 +22,12 @@ object BIndingAdapter {
         return int.toString().also { textView.text = it }
     }
 
+}
+
+@BindingAdapter("loadImageFromUrl")
+fun ImageView.loadImageFromUrl(url: String?) {
+
+    Glide.with(context)
+        .load(url)
+        .into(this)
 }

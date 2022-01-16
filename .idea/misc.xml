@@ -71,6 +71,7 @@
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/selector_text_gray_to_mint.xml" value="0.1" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/selector_text_gray_to_red.xml" value="0.21041666666666667" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/selector_text_pick_to_change.xml" value="0.1" />
+        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/selector_x_btn.xml" value="0.1" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/shadow_sticky_header.xml" value="0.1" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/spinner.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_check_mail.xml" value="0.1322463768115942" />
@@ -81,9 +82,9 @@
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_my_page_setting.xml" value="0.1286231884057971" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_notification.xml" value="0.225" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_notification_setting.xml" value="0.225" />
-        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_in.xml" value="0.264" />
+        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_in.xml" value="0.2" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_in_custom_dialog.xml" value="0.1272644927536232" />
-        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_agreement.xml" value="0.1286231884057971" />
+        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_agreement.xml" value="0.2" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_basic_info.xml" value="0.176" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_finish.xml" value="0.1322463768115942" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_major_info.xml" value="0.264" />

@@ -135,7 +135,6 @@
                 android:id="@+id/text_sign_in_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="@font/pretendard_regular"
                 android:text="@string/sign_in_signup"
                 android:textColor="@color/gray_3"
@@ -149,10 +148,10 @@
                 android:layout_width="1dp"
                 android:layout_height="16dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
                 android:background="@drawable/rectangle_fill_gray_0"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/text_sign_in_signup"
-                app:layout_constraintTop_toBottomOf="@+id/cl_sign_in_pw" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/text_sign_in_findpw"
@@ -173,6 +172,7 @@
                 android:layout_height="16dp"
                 android:layout_marginStart="19dp"
                 android:background="@drawable/rectangle_fill_gray_0"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/text_sign_in_findpw"
                 app:layout_constraintTop_toTopOf="@+id/text_sign_in_horizontal_bar1" />
 
@@ -213,8 +213,14 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/selector_rectangle_gray_to_black"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/selector_rectangle_gray_to_black_14"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="@string/sign_in_login"
+            android:textColor="@drawable/selector_text_gray_to_mint"
+            android:textSize="16sp"
+            android:paddingTop="19dp"
+            android:paddingBottom="19dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -223,10 +229,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_semibold"
-                android:paddingLeft="102dp"
-                android:paddingTop="19dp"
-                android:paddingRight="102dp"
-                android:paddingBottom="19dp"
                 android:text="@string/signup_basicinfo_complete"
                 android:textColor="@drawable/selector_text_gray_to_mint"
                 android:textSize="16sp"
