@@ -13,24 +13,23 @@
         android:theme="@style/Theme.NadoSunbaeAndroid">
         <activity
             android:name="com.nadosunbae_android.presentation.ui.classroom.QuestionDetailActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".presentation.ui.mypage.MyPageLikeListActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.ui.mypage.MyPageReplyActivity"
             android:exported="true" />
-      
+
         <activity
             android:name=".presentation.ui.classroom.QuestionWriteActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name="com.nadosunbae_android.presentation.ui.review.ReviewDetailActivity"
             android:exported="false" />
-
 
 
         <activity
@@ -49,18 +48,13 @@
             android:name="com.nadosunbae_android.presentation.ui.sign.CheckMailActivity"
             android:exported="true" />
         <activity
-                        android:name="com.nadosunbae_android.presentation.ui.sign.FindPwActivity"
+            android:name="com.nadosunbae_android.presentation.ui.sign.FindPwActivity"
             android:exported="true" />
 
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <activity
             android:name="com.nadosunbae_android.presentation.ui.mypage.ServiceInqueryActivity"
@@ -91,8 +85,13 @@
             android:exported="false" />
         <activity
             android:name=".presentation.ui.main.MainActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
     </application>

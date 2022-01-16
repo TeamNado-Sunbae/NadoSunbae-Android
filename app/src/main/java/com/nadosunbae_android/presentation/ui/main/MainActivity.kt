@@ -11,6 +11,7 @@ import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.classroom.AskEveryoneFragment
 import com.nadosunbae_android.presentation.ui.classroom.ClassRoomFragment
 import com.nadosunbae_android.presentation.ui.classroom.SeniorFragment
+import com.nadosunbae_android.presentation.ui.classroom.SeniorPersonalFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.presentation.ui.notification.NotificationFragment
@@ -72,6 +73,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
             }else if(it == 3){
                 changeFragment(R.id.fragment_container_main, SeniorFragment())
+            }else if(it == 4){
+                changeFragment(R.id.fragment_container_main, SeniorPersonalFragment())
             }
         })
     }
