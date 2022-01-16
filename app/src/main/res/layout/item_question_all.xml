@@ -6,7 +6,7 @@
 
         <variable
             name="questionMain"
-            type="com.nadosunbae_andorid.data.model.response.classroom.ResponseClassRoomMainData.Data" />
+            type="com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData.Data" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

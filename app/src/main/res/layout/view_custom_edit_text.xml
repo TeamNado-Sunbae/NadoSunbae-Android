@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_border_gray_8dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:gravity="top"
+        android:hint="@string/review_write_hint_content"
+        android:letterSpacing="-0.009"
+        style="@style/scroll_custom"
+        android:lineHeight="22sp"
+        android:lines="4"
+        android:paddingVertical="16dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="16dp"
+        android:scrollbars="vertical"
+        android:textColor="@color/gray_2"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nadosunbae_andorid" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.nadosunbae_android">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,67 +11,94 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NadoSunbaeAndroid" >
+        android:theme="@style/Theme.NadoSunbaeAndroid">
         <activity
-            android:name=".presentation.ui.review.ReviewDetailActivity"
+            android:name="com.nadosunbae_android.presentation.ui.classroom.QuestionDetailActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.sign.SignUpFinishActivity"
+            android:name=".presentation.ui.mypage.MyPageLikeListActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.ui.sign.SignUpBasicInfoActivity"
+            android:name=".presentation.ui.mypage.MyPageReplyActivity"
+            android:exported="true" />
+      
+        <activity
+            android:name=".presentation.ui.classroom.QuestionWriteActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
+
+        <activity
+            android:name="com.nadosunbae_android.presentation.ui.review.ReviewDetailActivity"
+            android:exported="false" />
+
+
+
+        <activity
+            android:name="com.nadosunbae_android.presentation.ui.sign.SignUpFinishActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.ui.sign.SignUpMajorInfoActivity"
+            android:name="com.nadosunbae_android.presentation.ui.sign.SignUpBasicInfoActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.ui.sign.SignUpAgreementActivity"
+            android:name="com.nadosunbae_android.presentation.ui.sign.SignUpMajorInfoActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.ui.sign.CheckMailActivity"
+            android:name="com.nadosunbae_android.presentation.ui.sign.SignUpAgreementActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.ui.sign.FindPwActivity"
+            android:name="com.nadosunbae_android.presentation.ui.sign.CheckMailActivity"
             android:exported="true" />
+        <activity
+                        android:name="com.nadosunbae_android.presentation.ui.sign.FindPwActivity"
+            android:exported="true" />
+
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
-            android:exported="true" />
-        <activity
-            android:name=".presentation.ui.mypage.ServiceInqueryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.mypage.NotificationSettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.mypage.ChangePasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.mypage.SearchIdActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.mypage.ModifyMyInfoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.mypage.MyPageSettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.mypage.MyPageClassroomReviewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.mypage.MyPagePostActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".presentation.ui.review.ReviewWriteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.main.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.nadosunbae_android.presentation.ui.mypage.ServiceInqueryActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.nadosunbae_android.presentation.ui.mypage.NotificationSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.nadosunbae_android.presentation.ui.mypage.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.nadosunbae_android.presentation.ui.mypage.SearchIdActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.nadosunbae_android.presentation.ui.mypage.ModifyMyInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.nadosunbae_android.presentation.ui.mypage.MyPageSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.nadosunbae_android.presentation.ui.mypage.MyPageClassroomReviewActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.nadosunbae_android.presentation.ui.mypage.MyPagePostActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name="com.nadosunbae_android.presentation.ui.review.ReviewWriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.main.MainActivity"
+            android:exported="true" />
+
+
+
     </application>
 
 </manifest>

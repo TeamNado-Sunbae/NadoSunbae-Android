@@ -7,11 +7,11 @@
 
         <variable
             name="mainViewModel"
-            type="com.nadosunbae_andorid.presentation.ui.main.viewmodel.MainViewModel" />
+            type="com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel" />
 
         <variable
             name="reviewListViewModel"
-            type="com.nadosunbae_andorid.presentation.ui.review.viewmodel.ReviewListViewModel" />
+            type="com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_review_tool_bar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.nadosunbae_andorid.presentation.ui.review.StickyHeaderScrollView
+        <com.nadosunbae_android.presentation.ui.review.StickyHeaderScrollView
             android:id="@+id/sv_review"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -78,6 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
+                    style="?android:attr/borderlessButtonStyle"
                     android:background="@drawable/rectangle_border_gray_10dp"
                     android:drawableRight="@drawable/ic_link"
                     android:drawablePadding="8dp"
@@ -87,7 +88,7 @@
                     android:minHeight="0dp"
                     android:paddingHorizontal="12dp"
                     android:paddingVertical="10dp"
-                    android:text="@string/major_page"
+                    android:text="@string/review_major_page"
                     android:textColor="@color/main_text"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/btn_subject_table"
@@ -110,7 +111,7 @@
                         android:layout_marginTop="15dp"
                         android:fontFamily="@font/pretendard_medium"
                         android:includeFontPadding="false"
-                        android:text="@string/review"
+                        android:text="@string/review_reviews"
                         android:textColor="@color/black_0"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -131,7 +132,7 @@
                         android:minHeight="0dp"
                         android:paddingHorizontal="9dp"
                         android:paddingVertical="5dp"
-                        android:text="@string/latest_order"
+                        android:text="@string/review_latest_order"
                         android:textColor="@color/gray_3"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -153,7 +154,7 @@
                         android:paddingVertical="5dp"
                         android:paddingStart="5dp"
                         android:paddingEnd="7dp"
-                        android:text="@string/filter"
+                        android:text="@string/review_filter"
                         android:textColor="@color/gray_3"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -186,6 +187,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="192dp"
                     android:scaleType="center"
+                    loadImageFromUrl="@{reviewListViewModel.urlMajorGraphic}"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
@@ -193,7 +195,7 @@
                     android:id="@+id/btn_subject_table"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    style="?android:attr/borderlessButtonStyle"
                     android:background="@drawable/rectangle_border_gray_10dp"
                     android:drawableRight="@drawable/ic_link"
                     android:drawablePadding="8dp"
@@ -205,7 +207,7 @@
                     android:minHeight="0dp"
                     android:paddingHorizontal="12dp"
                     android:paddingVertical="10dp"
-                    android:text="@string/subject_table"
+                    android:text="@string/review_subject_table"
                     android:textColor="@color/main_text"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -213,13 +215,13 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.nadosunbae_andorid.presentation.ui.review.StickyHeaderScrollView>
+        </com.nadosunbae_android.presentation.ui.review.StickyHeaderScrollView>
 
         <android.widget.Button
             android:id="@+id/btn_write_review"
             android:layout_width="64dp"
             android:layout_height="0dp"
-            android:text="@string/review"
+            android:text="@string/review_reviews"
             android:fontFamily="@font/pretendard_regular"
             android:textSize="11sp"
             android:textColor="@color/main_light"

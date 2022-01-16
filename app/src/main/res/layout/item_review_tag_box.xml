@@ -5,7 +5,7 @@
     <data>
         <variable
             name="tagBoxData"
-            type="com.nadosunbae_andorid.data.model.response.review.ReviewTagBoxData" />
+            type="com.nadosunbae_android.data.model.response.review.ReviewTagBoxData" />
 
     </data>
 

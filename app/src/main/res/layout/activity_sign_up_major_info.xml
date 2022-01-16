@@ -30,11 +30,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/btn_x"
+            android:src="@drawable/btn_x_black"
             app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_title" />
-
 
         <View
             android:id="@+id/view_signup_majorinfo_line1"
@@ -141,34 +140,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_univ">
 
-            <TextView
-                android:id="@+id/text_signup_majorinfo_univ"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/spinner_signup_majorinfo_univ"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_regular"
-                android:paddingLeft="16dp"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:text="@string/signup_majorInfo_select"
-                android:textColor="@color/gray_3"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <TextView
-                android:id="@+id/text_signup_majorinfo_univ_mint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/pretendard_regular"
-                android:text="@string/signup_majorInfo_selection"
-                android:textColor="@color/main_default"
+                android:spinnerMode="dropdown"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="선택하기"
+                android:background="@color/white"
+                android:popupBackground="@drawable/rectangle_fill_white_8dp"
+                android:popupElevation="0dp"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_univ" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/text_signup_majorinfo_univ"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/pretendard_regular"-->
+<!--                android:paddingLeft="16dp"-->
+<!--                android:paddingTop="13dp"-->
+<!--                android:paddingBottom="13dp"-->
+<!--                android:text="@string/signup_majorInfo_select"-->
+<!--                android:textColor="@color/gray_3"-->
+<!--                android:textSize="15sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="1.0" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -428,11 +430,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_signup_majorInfo_move_next"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/selector_rectangle_gray_to_black_8"
             android:layout_marginStart="12dp"
-            android:background="@drawable/selector_rectangle_gray_to_black"
             app:layout_constraintBottom_toBottomOf="@+id/cl_signup_majorInfo_move_before"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cl_signup_majorInfo_move_before"
             app:layout_constraintTop_toTopOf="@+id/cl_signup_majorInfo_move_before">
 
@@ -441,13 +446,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_semibold"
+                android:paddingLeft="102dp"
+                android:paddingTop="19dp"
+                android:paddingRight="102dp"
+                android:paddingBottom="19dp"
                 android:text="@string/signup_agreement_next"
                 android:textColor="@drawable/selector_text_gray_to_mint"
                 android:textSize="16sp"
-                android:paddingRight="102dp"
-                android:paddingLeft="102dp"
-                android:paddingTop="19dp"
-                android:paddingBottom="19dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

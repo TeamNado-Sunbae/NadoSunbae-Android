@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="questionDetailQuestioner"
+            type="com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail.Data.Message" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:paddingTop="8dp">
+
+        <include
+            android:id="@+id/include_question_detail_questioner_text"
+            layout="@layout/include_question_detail_questioner_text" />
+
+        <include
+            android:id="@+id/include_question_detail_questioner_update"
+            layout="@layout/include_question_detail_questioner_update"
+            android:visibility="gone"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

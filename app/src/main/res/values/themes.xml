@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.NadoSunbaeAndroid" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.NadoSunbaeAndroid" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -14,6 +14,11 @@
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle</item>
+
+        <!-- popup -->
+        <item name="popupMenuStyle">@style/Widget.App.PopupMenu</item>
     </style>
 
     <style name="Theme.NadoSunbaeAndroid.NoActionBar">
@@ -24,4 +29,12 @@
     <style name="Theme.NadoSunbaeAndroid.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.NadoSunbaeAndroid.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="BottomSheetDialogStyle" parent="Theme.Design.BottomSheetDialog">
+        <item name = "bottomSheetStyle">@style/ModalStyle</item>
+    </style>
+
+    <style name="ModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name = "android:background">@drawable/rectangle_fill_white_top_8dp</item>
+    </style>
 </resources>

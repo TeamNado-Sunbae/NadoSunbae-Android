@@ -3,7 +3,34 @@
     <style name="Widget.BottomNavigationView"
         parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/pretendard_medium</item>
+    </style>
+
+    <style name="Widget.App.PopupMenu" parent="Widget.MaterialComponents.PopupMenu">
+        <item name="android:popupBackground">@drawable/rectangle_fill_white_8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:divider">@color/gray_2</item>
+        <item name="android:dividerHeight">1dp</item>
 
     </style>
+
+    <style name="scroll_custom">
+        <item name="android:scrollbarThumbVertical">@drawable/scrollbar_thumb_vertical</item>
+        <item name="android:scrollbarTrackVertical">@drawable/scrollbar_track_vertical</item>
+    </style>
+
+    <style name="SpinnerDivideStyle" parent="android:style/Widget.ListView.DropDown">
+<!--        <item name="android:divider">#000000</item> &lt;!&ndash; divider 색 &ndash;&gt;-->
+<!--        <item name="android:dividerHeight">10dp</item> &lt;!&ndash; divider 높이 &ndash;&gt;-->
+    </style>
+
+<!--    <style parent="@android:style/Widget.Spinner" name="SpinnerwithNoArrow">-->
+<!--        <item name="android:background">@android:drawable/edit_text</item>-->
+<!--    </style>-->
+
 
 </resources>
