@@ -35,7 +35,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_title" />
 
-
         <View
             android:id="@+id/view_signup_majorinfo_line1"
             android:layout_width="84dp"
