@@ -5,7 +5,7 @@
     <data>
         <variable
             name="seniorOff"
-            type="com.nadosunbae_andorid.data.model.response.classroom.ResponseClassRoomSeniorData.Data.OffQuestionUser" />
+            type="com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData.Data.OffQuestionUser" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

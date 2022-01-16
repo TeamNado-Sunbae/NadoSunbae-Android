@@ -7,7 +7,7 @@
     <data>
         <variable
             name="majorData"
-            type="com.nadosunbae_andorid.data.model.sign.ResponseMajorData.Data.Major" />
+            type="com.nadosunbae_android.data.model.sign.ResponseMajorData.Data.Major" />
 
 
     </data>
