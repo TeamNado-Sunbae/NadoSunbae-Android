@@ -214,7 +214,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/selector_rectangle_gray_to_black_14"
+            android:background="@drawable/selector_rectangle_gray_to_black_8"
             android:fontFamily="@font/pretendard_semibold"
             android:text="@string/sign_in_login"
             android:textColor="@drawable/selector_text_gray_to_mint"
