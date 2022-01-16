@@ -6,22 +6,30 @@ import android.text.TextWatcher
 import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.databinding.ActivityReviewWriteBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity
-
+import com.nadosunbae_andorid.presentation.ui.review.adapter.ReviewSelectBackgroundAdapter
 
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
 
+    private lateinit var reviewSelectBackgroundAdapter: ReviewSelectBackgroundAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initBinding()
+        initReviewSelectBackgroundAdapter()
         setOneLineTextWatcher()
+
+        setTestData()
     }
 
     private fun initBinding() {
         binding.lifecycleOwner = this
     }
 
+    private fun initReviewSelectBackgroundAdapter() {
+        reviewSelectBackgroundAdapter = ReviewSelectBackgroundAdapter()
+        binding.rvSelectBackground.adapter = reviewSelectBackgroundAdapter
+    }
 
     private fun setOneLineTextWatcher() {
         binding.etOneLine.addTextChangedListener(object : TextWatcher {
@@ -46,6 +54,21 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
         })
 
+    }
+
+    private fun setTestData() {
+        reviewSelectBackgroundAdapter.dataList.addAll(
+            mutableListOf("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png",
+                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/82cf7d22-f4f7-41dd-b230-3474e1377bf9-4x.png",
+                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png",
+                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png",
+                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png",
+                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png",
+                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png"
+        
+            )
+        )
+        reviewSelectBackgroundAdapter.notifyDataSetChanged()
     }
 
     companion object {
