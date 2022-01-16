@@ -87,8 +87,40 @@ class ClassRoomQuestionDetailAdapter(context : Context) : RecyclerView.Adapter<R
                     popup.show()
                 }
             }
+            //질문자 문답
             is ClassRoomQuestionDetailQuestionerViewHolder -> {
                 holder.onBind(questionDetailData[position])
+                holder.binding.includeQuestionDetailQuestionerText.imgQuestionDetailQuestionerMenu.setOnClickListener {
+                    val wrapperStyle = ContextThemeWrapper(context, R.style.Widget_App_PopupMenu)
+                    val popup = PopupMenu(
+                        wrapperStyle,
+                        holder.binding.includeQuestionDetailQuestionerText.imgQuestionDetailQuestionerMenu
+                    )
+                    popup.menuInflater.inflate(R.menu.menu_question_detail_update, popup.menu)
+
+                    popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+                        when (it.itemId) {
+                            //수정버튼 눌렀을 때
+                            R.id.question_detail_update -> {
+                                with(holder) {
+                                    holder.visibleQuestionDetailComment(1)
+                                    //취소
+                                    binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterQuestionerContentCancel.setOnClickListener {
+                                        visibleQuestionDetailComment(0)
+                                    }
+                                    //저장
+                                    binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
+                                        visibleQuestionDetailComment(0)
+                                    }
+                                }
+
+                                true
+                            }
+                            else -> false
+                        }
+                    })
+                    popup.show()
+                }
             }
             is ClassRoomQuestionDetailWriterCommentViewHolder -> {
                 holder.onBind(questionDetailData[position])
@@ -152,9 +184,23 @@ class ClassRoomQuestionDetailAdapter(context : Context) : RecyclerView.Adapter<R
         val binding : ItemQuestionDetailQuestionerBinding
     ) : RecyclerView.ViewHolder(binding.root){
         fun onBind(questionDetailData : ResponseClassRoomQuestionDetail.Data.Message){
-            binding.questionDetailQuestioner = questionDetailData
+            binding.includeQuestionDetailQuestionerText.questionDetailQuestioner = questionDetailData
+            binding.includeQuestionDetailQuestionerUpdate.questionDetailQuestioner = questionDetailData
             binding.executePendingBindings()
         }
+        fun visibleQuestionDetailComment(num : Int ){
+            if(num == 1){
+                //수정시에
+                binding.includeQuestionDetailQuestionerText.clQuestionDetailQuestionerText.visibility = View.GONE
+                binding.includeQuestionDetailQuestionerUpdate.clQuestionDetailQuestionerUpdate.visibility = View.VISIBLE
+            }else{
+                //수정아닐때
+                binding.includeQuestionDetailQuestionerText.clQuestionDetailQuestionerText.visibility = View.VISIBLE
+                binding.includeQuestionDetailQuestionerUpdate.clQuestionDetailQuestionerUpdate.visibility = View.GONE
+            }
+        }
+
+
     }
 
     inner class ClassRoomQuestionDetailWriterCommentViewHolder(
@@ -185,6 +231,6 @@ class ClassRoomQuestionDetailAdapter(context : Context) : RecyclerView.Adapter<R
         notifyDataSetChanged()
 
     }
-    
+
 
 }
