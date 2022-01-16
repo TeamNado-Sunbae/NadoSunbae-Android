@@ -215,6 +215,8 @@
     <string name="question_detail_cancel">취소</string>
 
 
+    <!-- Custom Bottom Sheet -->
+    <string name="bottom_sheet_complete">선택 완료</string>
 
 
 

@@ -48,7 +48,7 @@
                 tools:text="@string/review_example_major_selected" />
 
             <ImageButton
-                android:id="@+id/ib_select_major"
+                android:id="@+id/btn_select_major"
                 android:layout_width="48dp"
                 android:layout_height="0dp"
                 app:layout_constraintDimensionRatio="1"

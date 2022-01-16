@@ -17,37 +17,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <android.widget.Button
+            android:id="@+id/btn_major_star"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:visibility="gone"
+            android:background="@drawable/selector_btn_star"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/text_bottomsheeet_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="13dp"
+            android:layout_marginVertical="14dp"
+            android:layout_marginStart="12dp"
             android:fontFamily="@drawable/selector_text_regular_to_semibold"
-            android:paddingTop="18dp"
+            android:letterSpacing="-0.009"
+            android:lineSpacingExtra="4sp"
             android:text="@{majorData.majorName}"
             android:textColor="@drawable/selector_text_black_to_mint"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/btn_major_star"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/major_start" />
 
-        <View
-            android:id="@+id/view_bottomsheet_main_line"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="14dp"
-            android:background="@color/gray_1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_bottomsheeet_title" />
 
         <ImageView
             android:id="@+id/img_bottomsheet_check"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="12dp"
             android:src="@drawable/selector_ic_check"
-            app:layout_constraintBottom_toTopOf="@+id/view_bottomsheet_main_line"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
