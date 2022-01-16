@@ -11,7 +11,7 @@ import com.nadosunbae_android.R
 import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.databinding.SpinnerItemBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
-import com.nadosunbae_android.presentation.ui.sign.adapter.SignSelectionAdapter
+import com.nadosunbae_android.presentation.ui.sign.adapter.MajorSelectAdapter
 import com.nadosunbae_android.util.SignInCustomDialog
 import kotlinx.android.synthetic.main.spinner_item.view.*
 
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.spinner_item.view.*
 class SignUpMajorInfoActivity :
     BaseActivity<ActivitySignUpMajorInfoBinding>(R.layout.activity_sign_up_major_info) {
     private lateinit var customBottomSheetDialog: CustomBottomSheetDialog
-    private lateinit var signSelectionAdapter: SignSelectionAdapter
+    private lateinit var majorSelectAdapter: MajorSelectAdapter
     private lateinit var spinnerItemBinding: SpinnerItemBinding
 
 

@@ -19,6 +19,7 @@ import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel
+import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
@@ -95,6 +96,11 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         binding.btnWriteReview.setOnClickListener {
             var intent = Intent(context, ReviewWriteActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.btnSelectMajor.setOnClickListener {
+            val bottomSheetDialog = CustomBottomSheetDialog()
+            bottomSheetDialog.show(parentFragmentManager, bottomSheetDialog.tag)
         }
     }
 

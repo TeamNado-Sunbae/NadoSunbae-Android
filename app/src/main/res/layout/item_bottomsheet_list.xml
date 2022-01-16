@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="majorData"
-            type="com.nadosunbae_android.data.model.sign.ResponseMajorData.Data.Major" />
+            name="data"
+            type="com.nadosunbae_android.data.model.sign.BottomSheetData" />
 
 
     </data>
@@ -29,15 +29,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_bottomsheeet_title"
+            android:id="@+id/tv_bottomsheeet_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="14dp"
             android:layout_marginStart="12dp"
-            android:fontFamily="@drawable/selector_text_regular_to_semibold"
+            android:fontFamily="@font/pretendard_regular"
             android:letterSpacing="-0.009"
             android:lineSpacingExtra="4sp"
-            android:text="@{majorData.majorName}"
+            android:text="@{data.name}"
             android:textColor="@drawable/selector_text_black_to_mint"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,11 +47,12 @@
 
 
         <ImageView
-            android:id="@+id/img_bottomsheet_check"
+            android:id="@+id/iv_bottomsheet_check"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/selector_ic_check"
+            android:src="@drawable/ic_checked"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
