@@ -282,7 +282,7 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_review_write_pros_cons"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_pros_cons" />
 
-                    <com.nadosunbae_andorid.util.CustomEditText
+                    <com.nadosunbae_android.util.CustomEditText
                         android:id="@+id/et_pros_cons"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -359,7 +359,7 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_review_write_curriculum"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_curriculum" />
 
-                    <com.nadosunbae_andorid.util.CustomEditText
+                    <com.nadosunbae_android.util.CustomEditText
                         android:id="@+id/et_curriculum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -393,7 +393,7 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_review_write_recommend_lecture"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_recommend_lecture" />
 
-                    <com.nadosunbae_andorid.util.CustomEditText
+                    <com.nadosunbae_android.util.CustomEditText
                         android:id="@+id/et_recommend_lecture"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -427,7 +427,7 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_review_write_non_recommend_lecture"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_non_recommend_lecture" />
 
-                    <com.nadosunbae_andorid.util.CustomEditText
+                    <com.nadosunbae_android.util.CustomEditText
                         android:id="@+id/et_non_recommend_lecture"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -461,7 +461,7 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_review_write_career"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_career" />
 
-                    <com.nadosunbae_andorid.util.CustomEditText
+                    <com.nadosunbae_android.util.CustomEditText
                         android:id="@+id/et_career"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -495,7 +495,7 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_review_write_tip"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_tip" />
 
-                    <com.nadosunbae_andorid.util.CustomEditText
+                    <com.nadosunbae_android.util.CustomEditText
                         android:id="@+id/et_tip"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
