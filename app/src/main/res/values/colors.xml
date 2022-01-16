@@ -44,5 +44,6 @@
     <color name="green_tag_text">#6c7968</color>
     <color name="gray_shadow">#40dfdfe8</color>
     <color name="mint">#a9f4eb</color>
+    <color name="green_scroll_thumb">#BBF2EC</color>
 
 </resources>
