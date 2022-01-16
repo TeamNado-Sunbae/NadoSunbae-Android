@@ -61,6 +61,7 @@
             android:layout_marginEnd="16dp">
 
             <ImageView
+                android:id="@+id/img_senior_personal_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/img_profile"
@@ -72,8 +73,144 @@
                 android:layout_marginBottom="16dp"/>
 
             <TextView
+                android:id="@+id/text_senior_personal_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/senior_personal_title"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="16sp"
+                android:textColor="@color/origin_black"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_senior_personal_profile"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"/>
+
+            <TextView
+                android:id="@+id/text_senior_personal_answer_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/senior_personal_answer_count"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="12sp"
+                android:textColor="@color/main_default"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toTopOf="@+id/text_senior_personal_nickname"
+                app:layout_constraintBottom_toBottomOf="@+id/text_senior_personal_nickname"
+                app:layout_constraintStart_toEndOf="@+id/text_senior_personal_nickname"
+                android:layout_marginStart="4dp"/>
+
+            <TextView
+                android:id="@+id/text_senior_personal_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/senior_personal_major"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_nickname"
+                app:layout_constraintStart_toStartOf="@+id/text_senior_personal_nickname"
+                android:layout_marginTop="4dp"/>
+
+            <View
+                android:id="@+id/line_senior_personal_major"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/gray_1"
+                app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_nickname"
+                app:layout_constraintBottom_toBottomOf="@id/text_senior_personal_major"
+                app:layout_constraintStart_toEndOf="@+id/text_senior_personal_major"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/text_senior_personal_major_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/senior_personal_major_name"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toTopOf="@+id/text_senior_personal_major"
+                app:layout_constraintStart_toEndOf="@+id/line_senior_personal_major"
+                android:layout_marginStart="6dp"/>
+
+            <TextView
+                android:id="@+id/text_senior_personal_major_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_first_major_time"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toTopOf="@+id/text_senior_personal_major"
+                app:layout_constraintStart_toEndOf="@+id/text_senior_personal_major_name"
+                android:layout_marginStart="4dp"/>
+
+            <TextView
+                android:id="@+id/text_senior_personal_second_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/senior_personal_second_major"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_major"
+                app:layout_constraintStart_toStartOf="@+id/text_senior_personal_major"
+                android:layout_marginTop="3dp"/>
+
+            <View
+                android:id="@+id/line_senior_personal_second_major"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/gray_1"
+                app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_major_name"
+                app:layout_constraintStart_toEndOf="@+id/text_senior_personal_second_major"
+                app:layout_constraintBottom_toBottomOf="@+id/text_senior_personal_second_major"
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="9dp"/>
+
+            <TextView
+                android:id="@+id/text_senior_personal_second_major_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/senior_personal_second_major_name"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toTopOf="@+id/text_senior_personal_second_major"
+                app:layout_constraintStart_toEndOf="@+id/line_senior_personal_second_major"
+                android:layout_marginStart="7dp"/>
+
+            <TextView
+                android:id="@+id/text_senior_personal_second_major_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/senior_personal_second_major_start"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                android:includeFontPadding="false"
+                app:layout_constraintTop_toTopOf="@+id/text_senior_personal_second_major"
+                app:layout_constraintStart_toEndOf="@+id/text_senior_personal_second_major_name"
+                android:layout_marginStart="4dp"/>
+
+            <ImageView
+                android:id="@+id/img_senior_personal_profile_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/more_vert"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="12dp"/>
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

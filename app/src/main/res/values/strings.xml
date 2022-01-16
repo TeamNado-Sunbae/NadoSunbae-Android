@@ -214,7 +214,11 @@
 
     <!-- 선배 개인 페이지 -->
     <string name="senior_personal_title">선배닉네임</string>
-
-
+    <string name="senior_personal_answer_count">응답률 88%</string>
+    <string name="senior_personal_major">본</string>
+    <string name="senior_personal_second_major">제2</string>
+    <string name="senior_personal_major_name">본전공명</string>
+    <string name="senior_personal_second_major_name">제2전공명</string>
+    <string name="senior_personal_second_major_start">(18-2)</string>
 
 </resources>
