@@ -50,6 +50,10 @@ class ReviewDetailActivity :
         binding.btnBack.setOnClickListener {
             finish()
         }
+
+        binding.btnReviewLike.setOnClickListener {
+            binding.btnReviewLike.isSelected = !binding.btnReviewLike.isSelected
+        }
     }
 
     private fun observeBackground() {
