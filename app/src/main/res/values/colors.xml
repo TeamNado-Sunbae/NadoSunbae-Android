@@ -26,6 +26,7 @@
     <color name="gray_background">#fbfbfd</color>
     <color name="mint_light">#d0f2ee</color>
     <color name="mint_background">#eafaf8</color>
+    <color name="update_background">#1A0029FF</color>
   
 
     <!-- review_colors -->

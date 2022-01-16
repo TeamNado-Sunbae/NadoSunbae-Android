@@ -14,6 +14,9 @@
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+
+        <!-- popup -->
+        <item name="popupMenuStyle">@style/Widget.App.PopupMenu</item>
     </style>
 
     <style name="Theme.NadoSunbaeAndroid.NoActionBar">

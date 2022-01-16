@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="31dp"
                     android:layout_marginTop="12dp"
-                    android:background="@drawable/rectangle_fill_main_black_8"
+                    android:background="@drawable/rectangle_104_36_fill_main_black_8"
                     android:fontFamily="@font/pretendard_semibold"
                     android:gravity="center"
                     android:paddingStart="38dp"

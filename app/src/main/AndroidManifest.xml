@@ -13,6 +13,7 @@
         android:theme="@style/Theme.NadoSunbaeAndroid">
         <activity
             android:name=".presentation.ui.classroom.QuestionDetailActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.review.ReviewDetailActivity"

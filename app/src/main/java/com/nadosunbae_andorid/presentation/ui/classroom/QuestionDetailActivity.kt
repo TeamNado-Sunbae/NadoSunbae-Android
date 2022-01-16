@@ -92,8 +92,9 @@ class QuestionDetailActivity :
 
 
 
-        classRoomQuestionDetailAdapter = ClassRoomQuestionDetailAdapter()
+        classRoomQuestionDetailAdapter = ClassRoomQuestionDetailAdapter(this)
         binding.rcQuestionDetail.adapter = classRoomQuestionDetailAdapter
         classRoomQuestionDetailAdapter.setQuestionDetail(example)
+
     }
 }
