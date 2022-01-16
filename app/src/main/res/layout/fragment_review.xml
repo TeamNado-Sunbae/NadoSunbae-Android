@@ -78,6 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
+                    style="?android:attr/borderlessButtonStyle"
                     android:background="@drawable/rectangle_border_gray_10dp"
                     android:drawableRight="@drawable/ic_link"
                     android:drawablePadding="8dp"
@@ -194,7 +195,7 @@
                     android:id="@+id/btn_subject_table"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    style="?android:attr/borderlessButtonStyle"
                     android:background="@drawable/rectangle_border_gray_10dp"
                     android:drawableRight="@drawable/ic_link"
                     android:drawablePadding="8dp"

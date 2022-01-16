@@ -18,6 +18,10 @@
 
     </style>
 
+    <style name="scroll_custom">
+        <item name="android:scrollbarThumbVertical">@drawable/scrollbar_thumb_vertical</item>
+        <item name="android:scrollbarTrackVertical">@drawable/scrollbar_track_vertical</item>
+    </style>
 
     <style name="SpinnerDivideStyle" parent="android:style/Widget.ListView.DropDown">
 <!--        <item name="android:divider">#000000</item> &lt;!&ndash; divider 색 &ndash;&gt;-->
@@ -27,7 +31,6 @@
 <!--    <style parent="@android:style/Widget.Spinner" name="SpinnerwithNoArrow">-->
 <!--        <item name="android:background">@android:drawable/edit_text</item>-->
 <!--    </style>-->
-
 
 
 </resources>
