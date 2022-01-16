@@ -58,7 +58,7 @@
             android:exported="false" />
         <activity
             android:name=".presentation.ui.mypage.MyPagePostActivity"
-            android:exported="false" />
+            android:exported="true"/>
         <activity
             android:name=".presentation.ui.review.ReviewWriteActivity"
             android:exported="false" />

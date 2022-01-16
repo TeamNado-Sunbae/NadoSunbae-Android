@@ -6,10 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_andorid.data.repository.classroom.ClassRoomRepository
 import com.nadosunbae_andorid.data.repository.classroom.ClassRoomRepositoryImpl
+import com.nadosunbae_andorid.data.repository.mypage.MyPageRepository
+import com.nadosunbae_andorid.data.repository.mypage.MyPageRepositoryImpl
 
 class MainViewModel() : ViewModel() {
     val classRoomRepository : ClassRoomRepository = ClassRoomRepositoryImpl()
-
+    val mypageRepository : MyPageRepositoryImpl = MyPageRepositoryImpl()
 
     //과방탭에서 질문탭 및 정보탭 select 구분 (과방)
     var classRoomNum = MutableLiveData<Int>()
@@ -23,6 +25,15 @@ class MainViewModel() : ViewModel() {
         get() = _selectedMajor
 
 
+    //마이페이지
+    //마이페이지 탭에서 질문탭 및 정보탭 select 구분
+    var mypageNum = MutableLiveData<Int>()
+
+    //마이페이지 프래그먼트 전환
+    var mypageFragmentNum = MutableLiveData<Int>()
+
+
+
 
     /*
         test data (api에서 불러오면 다 지울 예정)
@@ -30,4 +41,5 @@ class MainViewModel() : ViewModel() {
     fun setSelectedMajor(major: String) {
         _selectedMajor.value = major
     }
+
 }
