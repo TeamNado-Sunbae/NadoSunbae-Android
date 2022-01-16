@@ -220,5 +220,6 @@
     <string name="senior_personal_major_name">본전공명</string>
     <string name="senior_personal_second_major_name">제2전공명</string>
     <string name="senior_personal_second_major_start">(18-2)</string>
-
+    <string name="senior_personal_class_review_title">학과 후기</string>
+    <string name="senior_personal_class_review_count">n</string>
 </resources>
