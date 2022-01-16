@@ -1,15 +1,17 @@
 package com.nadosunbae_andorid.presentation.ui.sign
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Patterns
 import android.view.View
-import android.view.WindowManager
 import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.databinding.ActivitySignUpBasicInfoBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity
 import com.nadosunbae_andorid.util.SignInCustomDialog
+import java.util.regex.Pattern
 
 
 class SignUpBasicInfoActivity :
@@ -26,9 +28,6 @@ class SignUpBasicInfoActivity :
         beforeBtnClick()
         closePage()
         nextPage()
-
-        //isPasswordFormat(binding.etSignupBasicinfoPw.text.toString())
-
     }
 
     //닉네임 textwatcher
@@ -73,12 +72,12 @@ class SignUpBasicInfoActivity :
             }
 
             override fun afterTextChanged(p0: Editable?) {
+                isEmailPattern()
+
                 if (binding.etSignupBasicinfoEmail.text.toString() == "") {
                     binding.imgSignupBasicinfoEmailCancel.isSelected = false
-                    binding.textSignupBasicinfoEmailDuplication.isSelected = false
                 } else {
                     binding.imgSignupBasicinfoEmailCancel.isSelected = true
-                    binding.textSignupBasicinfoEmailDuplication.isSelected = true
                 }
 
             }
@@ -113,13 +112,19 @@ class SignUpBasicInfoActivity :
             }
 
             override fun afterTextChanged(p0: Editable?) {
+
+                isValidRegistrationPw()
+
                 if (binding.etSignupBasicinfoPw.text.toString() == "") {
                     binding.imgSignupBasicinfoPwCancel.isSelected = false
+                    binding.textSignupBasicinfoPwDuplicationOk.setVisibility(View.INVISIBLE)
+                    binding.textSignupBasicinfoPwDuplicationNo.setVisibility(View.INVISIBLE)
+                    binding.textSignupBasicinfoPwTitle.setTextColor(Color.parseColor("#94959E"))
                 } else {
                     binding.imgSignupBasicinfoPwCancel.isSelected = true
                 }
 
-                if(binding.etSignupBasicinfoPw.text.toString() == binding.etSignupBasicinfoPwCheck.text.toString()) {
+                if (binding.etSignupBasicinfoPw.text.toString() == binding.etSignupBasicinfoPwCheck.text.toString()) {
                     binding.textSignupBasicinfoPwDuplicationOk.visibility = View.VISIBLE
                     binding.textSignupBasicinfoPwDuplicationNo.visibility = View.INVISIBLE
                 } else {
@@ -151,12 +156,14 @@ class SignUpBasicInfoActivity :
                 //빈칸 체크 -> X 아이콘 selector
                 if (binding.etSignupBasicinfoPwCheck.text.toString() == "") {
                     binding.imgSignupBasicinfoPwCheckCancel.isSelected = false
+                    binding.textSignupBasicinfoPwDuplicationOk.setVisibility(View.INVISIBLE)
+                    binding.textSignupBasicinfoPwDuplicationNo.setVisibility(View.INVISIBLE)
                 } else {
                     binding.imgSignupBasicinfoPwCheckCancel.isSelected = true
                 }
 
                 //pw, pw확인 같은지 check
-                if(binding.etSignupBasicinfoPw.text.toString() == binding.etSignupBasicinfoPwCheck.text.toString()) {
+                if (binding.etSignupBasicinfoPw.text.toString() == binding.etSignupBasicinfoPwCheck.text.toString()) {
                     binding.textSignupBasicinfoPwDuplicationOk.visibility = View.VISIBLE
                     binding.textSignupBasicinfoPwDuplicationNo.visibility = View.INVISIBLE
                 } else {
@@ -181,18 +188,38 @@ class SignUpBasicInfoActivity :
         }
     }
 
-    //뷰 fix되면 수정하기
-    private fun isPasswordFormat(password: String): Boolean {
-        return password.matches("^(?=.*[A-Za-z])(?=.*/d)[A-Za-z/d]{6,20}$".toRegex())
+    //비밀번호 정규식
+    fun isValidRegistrationPw() {
+        val password = binding.etSignupBasicinfoPw
+
+        if (!Pattern.matches(
+                "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,20}\$",
+                password.text.toString()
+            )
+        ) {
+            //binding.textSignupBasicinfoPwTitle.isSelected = true
+            binding.textSignupBasicinfoPwTitle.setTextColor(Color.parseColor("#FF4C40"))
+        } else {
+            //binding.textSignupBasicinfoPwTitle.isSelected = false
+            binding.textSignupBasicinfoPwTitle.setTextColor(Color.parseColor("#94959E"))
+        }
     }
+
+    //이메일 정규식
+    private fun isEmailPattern() {
+        val pattern = Patterns.EMAIL_ADDRESS
+        binding.textSignupBasicinfoEmailDuplication.isSelected =
+            pattern.matcher(binding.etSignupBasicinfoEmail.text).matches()
+    }
+
 
     //상단 x누르면 로그인으로 이동
     fun closePage() {
         binding.imgSignupBasicinfoDelete.setOnClickListener {
             val dialog = SignInCustomDialog(this)
-              dialog.showDialog()
+            dialog.showDialog()
 
-            dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener{
+            dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener {
                 override fun onClicked(num: () -> Unit) {
                     startActivity(Intent(this@SignUpBasicInfoActivity, SignInActivity::class.java))
                     finish()
@@ -224,8 +251,6 @@ class SignUpBasicInfoActivity :
 //            binding.clSignupBasicinfoMoveNext.isSelected = true
 //        }
     }
-
-
 
 
 }

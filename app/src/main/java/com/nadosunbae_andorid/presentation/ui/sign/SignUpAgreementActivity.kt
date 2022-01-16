@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.databinding.ActivitySignUpAgreementBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity
+import com.nadosunbae_andorid.util.SignInCustomDialog
 
 class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.layout.activity_sign_up_agreement) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +22,17 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
     //X버튼 클릭 리스너
     private fun closePage() {
         binding.imgAgreementDelete.setOnClickListener {
-            finish()
+            val dialog = SignInCustomDialog(this)
+            dialog.showDialog()
+
+            dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener{
+                override fun onClicked(num: () -> Unit) {
+                    startActivity(Intent(this@SignUpAgreementActivity, SignInActivity::class.java))
+                    finish()
+                }
+
+            })
+
         }
     }
 
@@ -34,6 +45,7 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
                 binding.clAgreementMoveNext.isSelected = false
             } else if ((binding.imageAgreementCheckInformation.isSelected == true) and (binding.imageAgreementCheckService.isSelected == true)){
                 binding.clAgreementMoveNext.isSelected = true
+                nextPage()
             }
         }
 
@@ -44,17 +56,19 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
                 binding.clAgreementMoveNext.isSelected = false
             } else if ((binding.imageAgreementCheckInformation.isSelected == true) and (binding.imageAgreementCheckService.isSelected == true)){
                 binding.clAgreementMoveNext.isSelected = true
+                nextPage()
             }
         }
 
         //전체 동의하기 클릭리스너
-        binding.imageAgreementCheckAll.setOnClickListener {
+        binding.clAgreementAll.setOnClickListener {
             binding.imageAgreementCheckAll.isSelected = !binding.imageAgreementCheckAll.isSelected
 
             if(binding.imageAgreementCheckAll.isSelected == true) {
                 binding.imageAgreementCheckInformation.isSelected = true
                 binding.imageAgreementCheckService.isSelected = true
                 binding.clAgreementMoveNext.isSelected = true
+                nextPage()
             }
 
             else if(binding.imageAgreementCheckAll.isSelected == false) {
@@ -67,6 +81,11 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
     }
 
 
+    private fun nextPage() {
+        binding.clAgreementMoveNext.setOnClickListener {
+            startActivity(Intent(this, SignUpMajorInfoActivity::class.java))
+        }
+    }
 
     //우선 아무 외부 링크로 연결
     private fun goPage() {

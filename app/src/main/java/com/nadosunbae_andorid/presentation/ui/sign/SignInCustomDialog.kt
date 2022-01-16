@@ -2,6 +2,9 @@ package com.nadosunbae_andorid.util
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.view.WindowManager
 import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.presentation.ui.sign.SignUpBasicInfoActivity
@@ -27,6 +30,7 @@ class SignInCustomDialog(context : Context) {
     fun showDialog(){
 
         dialog.setContentView(R.layout.activity_sign_in_custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.show()
 

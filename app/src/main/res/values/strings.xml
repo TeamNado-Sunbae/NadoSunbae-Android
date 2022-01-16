@@ -23,7 +23,7 @@
     <!-- 비밀번호 찾는 view -->
     <string name="findpw_title">비밀번호 찾기</string>
     <string name="findpw_contents">본인 인증을 위해 \n가입 당시 입력한 정보를 입력해주세요</string>
-    <string name="findpw_email">/&#64;korea.ac.kr</string>
+    <string name="findpw_email">&#64;korea.ac.kr</string>
     <string name="findpw_warn">해당 메일로 가입된 사용자가 없습니다.</string>
     <string name="findpw_check">확인</string>
 
@@ -104,6 +104,7 @@
     <string name="signup_first_major_time">본전공 진입시기</string>
     <string name="signup_second_major">제2전공</string>
     <string name="signup_second_major_time">제2전공 진입시기</string>
+    <string name="signup_change">변경</string>
 
     <!-- 과방 질문 -->
     <string name="classroom_title">국어국문학과</string>
@@ -143,7 +144,7 @@
     <string name="signup_basicinfo_email">학교 이메일</string>
     <string name="signup_basicinfo_check_duplication_email_ok">사용 가능한 이메일입니다.</string>
     <string name="signup_basicinfo_check_duplication_email_no">이미 가입된 이메일입니다.</string>
-    <string name="signup_basicinfo_password">비밀번호 : 영문, 숫자를 합하여 6-20자</string>
+    <string name="signup_basicinfo_password"> : 영문, 숫자를 합하여 6-20자</string>
     <string name="signup_basicinfo_password_check">비밀번호 확인</string>
     <string name="signup_basicinfo_password_same">비밀번호가 일치합니다.</string>
     <string name="signup_basicinfo_password_not_same">비밀번호가 일치하지 않습니다.</string>
@@ -161,5 +162,40 @@
     <string name="second_major">제2</string>
     <string name="major_start">18-1 진입</string>
     <string name="senior_rest">쉬고 있어요</string>
+
+
+    <!-- 스피너 목록 -->
+    <string-array name="spinner_univ">
+        <item>고려대학교</item>
+        <item>타대학은 현재 준비중입니다</item>
+    </string-array>
+
+
+    <!-- 마이페이지 메인 -->
+    <string name="mypage_no_question">지금은 질문을 안 받기로 했어요.</string>
+    <string name="mypage_my_nickname">내 닉네임</string>
+    <string name="mypage_modify_profile">프로필 수정</string>
+    <string name="mypage_first_major">본</string>
+    <string name="mypage_first_major_name">본전공명</string>
+    <string name="mypage_first_major_time">18-1</string>
+    <string name="mypage_second_major">제 2</string>
+    <string name="mypage_second_major_name">제2전공명</string>
+    <string name="mypage_second_major_time">18-2</string>
+    <string name="mypage_reply_rate">응답률</string>
+    <string name="mypage_reply_rate_num">88%</string>
+    <string name="mypage_write_by_me">내가 쓴 글</string>
+    <string name="mypage_reply_by_me">내가 쓴 답글</string>
+    <string name="mypage_classroom_review">학과 후기</string>
+    <string name="mypage_like_list">좋아요 목록</string>
+    <string name="mypage_like_list_num">nn</string>
+    <string name="mypage_personal_question">나에게 온 1:1 질문</string>
+
+
+    <!-- 전체에게 질문 작성 -->
+    <string name="question_write_all">전체에게 질문 작성</string>
+    <string name="question_write_all_save">완료</string>
+    <string name="question_write_hint">질문 제목을 입력하세요</string>
+    <string name="question_write_content">내용</string>
+
 
 </resources>
