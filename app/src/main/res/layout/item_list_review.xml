@@ -80,7 +80,7 @@
             android:fontFamily="@font/pretendard_regular"
             android:paddingHorizontal="7dp"
             android:paddingVertical="5dp"
-            android:text="@string/review_what_learning"
+            android:text="@string/review_curriculum"
             android:textColor="@color/pink_tag_text"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/tv_create_at"

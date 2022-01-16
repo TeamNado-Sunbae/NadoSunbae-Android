@@ -55,10 +55,11 @@
     <string name="review_latest_order">최신순</string>
     <string name="review_likes_order">도움</string>
     <string name="review_reviews">후기</string>
+    <string name="review_pros_cons">장단점</string>
     <string name="review_career">향후 진로</string>
     <string name="review_recommend_lecture">추천 수업</string>
     <string name="review_non_recommend_lecture">비추 수업</string>
-    <string name="review_what_learning">뭘 배우나요?</string>
+    <string name="review_curriculum">뭘 배우나요?</string>
     <string name="review_tip">꿀팁</string>
 
     <!-- review_main: example -->
