@@ -2,6 +2,7 @@ package com.nadosunbae_andorid.presentation.ui.sign.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,7 @@ class SpinnerAdapter(
         // 그래서 뷰가 그려지기 전에 설정들을 다 할 것!!
 
         binding.textSignupMajorinfoMajor.text = "고려대학교"
+        binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001c18"))
 
 
         return binding.root

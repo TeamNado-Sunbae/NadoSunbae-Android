@@ -4,12 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Patterns
 import com.nadosunbae_andorid.R
 import com.nadosunbae_andorid.databinding.ActivitySignInBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity
 import com.nadosunbae_andorid.presentation.ui.main.MainActivity
-import java.util.regex.Pattern
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +17,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         moveFindPw()
         moveSignUp()
         onViewPw()
-        moveMainPage()
+
     }
 
     //id editText textwatcher
@@ -39,7 +37,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                     binding.imgSignInIdCancel.isSelected = true
                 }
 
-                isEmailPattern()
                 isEmptyText()
             }
         })
@@ -50,21 +47,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         }
     }
 
-    //이메일 양식 체크
-    private fun isEmailPattern() {
-        val pattern: Pattern = Patterns.EMAIL_ADDRESS
-
-        if (pattern.matcher(binding.etSignInId.text).matches()) {
-            binding.clLogin.isSelected = true
-        } else {
-            binding.clLogin.isSelected = false
-        }
-    }
-
-
     //pw editText textWatcher
     private fun onViewPw() {
-        binding.etSignInPw.addTextChangedListener(object : TextWatcher{
+        binding.etSignInPw.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -80,7 +65,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                     binding.imgSignInPwCancel.isSelected = true
                 }
 
-                isEmailPattern()
                 isEmptyText()
 
             }
@@ -95,8 +79,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
     //id editText & pw editText 빈칸 여부
     private fun isEmptyText() {
-        if (binding.etSignInId.text.toString() != "" && binding.etSignInPw.text.toString()!="") {
+        if (binding.etSignInId.text.toString() != "" && binding.etSignInPw.text.toString() != "") {
             binding.clLogin.isSelected = true
+            moveMainPage()
         } else {
             binding.clLogin.isSelected = false
         }
@@ -118,10 +103,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
 
     private fun moveMainPage() {
-        if(binding.clLogin.isSelected==true) {
-            binding.clLogin.setOnClickListener {
-                startActivity(Intent(this, MainActivity::class.java))
-            }
+        binding.clLogin.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+
         }
 
     }

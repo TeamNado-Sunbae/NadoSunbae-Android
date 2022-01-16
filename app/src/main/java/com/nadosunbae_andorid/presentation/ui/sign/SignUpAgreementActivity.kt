@@ -61,7 +61,7 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
         }
 
         //전체 동의하기 클릭리스너
-        binding.imageAgreementCheckAll.setOnClickListener {
+        binding.clAgreementAll.setOnClickListener {
             binding.imageAgreementCheckAll.isSelected = !binding.imageAgreementCheckAll.isSelected
 
             if(binding.imageAgreementCheckAll.isSelected == true) {

@@ -316,16 +316,29 @@
 
 
         <TextView
+            android:id="@+id/text_signup_basicinfo_pw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/sign_in_pw"
+            android:textColor="@drawable/selector_text_gray_to_red"
+            android:textSize="12sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="17dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_email_duplication_ok" />
+
+        <TextView
             android:id="@+id/text_signup_basicinfo_pw_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="17dp"
             android:fontFamily="@font/pretendard_medium"
             android:text="@string/signup_basicinfo_password"
             android:textColor="@drawable/selector_text_gray_to_red"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_signup_basicinfo_pw"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_email_duplication_no" />
 
 
@@ -337,21 +350,21 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/rectangle_border_gray_8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/text_signup_basicinfo_pw_title"
+            app:layout_constraintStart_toStartOf="@+id/text_signup_basicinfo_pw"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_pw_title">
 
             <EditText
                 android:id="@+id/et_signup_basicinfo_pw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:fontFamily="@font/pretendard_regular"
+                android:hint="@string/signup_basicinfo_before_input"
+                android:inputType="textPassword"
                 android:paddingLeft="16dp"
                 android:paddingTop="13dp"
                 android:paddingBottom="13dp"
-                android:hint="@string/signup_basicinfo_before_input"
-                android:inputType="textPassword"
                 android:textSize="15sp"
-                android:background="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

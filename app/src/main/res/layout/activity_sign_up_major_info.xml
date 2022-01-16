@@ -151,7 +151,7 @@
                 android:background="@color/white"
                 android:popupBackground="@drawable/rectangle_fill_white_8dp"
                 android:popupElevation="0dp"
-                android:textColor="@color/gray_3"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

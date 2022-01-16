@@ -115,7 +115,7 @@ class SignUpMajorInfoActivity :
 
 
 
-
+        //우선은 남겨놔주세여..
 //        object : ArrayAdapter<String>(this, R.layout.spinner_item,R.id.tv_spinner, years){
 //            @SuppressLint("ResourceAsColor")
 //            override fun getDropDownView(
