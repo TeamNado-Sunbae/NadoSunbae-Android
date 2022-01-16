@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import com.nadosunbae_andorid.R
+import com.nadosunbae_andorid.data.model.response.review.SelectBackgroundBoxData
 import com.nadosunbae_andorid.databinding.ActivityReviewWriteBinding
 import com.nadosunbae_andorid.presentation.base.BaseActivity
 import com.nadosunbae_andorid.presentation.ui.review.adapter.ReviewSelectBackgroundAdapter
@@ -18,6 +19,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         initBinding()
         initReviewSelectBackgroundAdapter()
         setOneLineTextWatcher()
+        setOnClickListener()
 
         setTestData()
     }
@@ -56,16 +58,22 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     }
 
+    private fun setOnClickListener() {
+        binding.btnClose.setOnClickListener {
+            finish()
+        }
+    }
+
     private fun setTestData() {
+
         reviewSelectBackgroundAdapter.dataList.addAll(
-            mutableListOf("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png",
-                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/82cf7d22-f4f7-41dd-b230-3474e1377bf9-4x.png",
-                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png",
-                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png",
-                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png",
-                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png",
-                "https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png"
-        
+            mutableListOf(
+                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false),
+                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false),
+                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false),
+                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false),
+                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false),
+                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false)
             )
         )
         reviewSelectBackgroundAdapter.notifyDataSetChanged()
