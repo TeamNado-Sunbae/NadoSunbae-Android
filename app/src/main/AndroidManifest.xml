@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.nadosunbae_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -83,9 +84,12 @@
         <activity
             android:name="com.nadosunbae_android.presentation.ui.mypage.MyPageClassroomReviewActivity"
             android:exported="false" />
+
         <activity
             android:name="com.nadosunbae_android.presentation.ui.mypage.MyPagePostActivity"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
         <activity
             android:name="com.nadosunbae_android.presentation.ui.review.ReviewWriteActivity"
             android:exported="false" />
