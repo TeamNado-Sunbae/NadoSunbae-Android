@@ -19,6 +19,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         initBinding()
         initReviewSelectBackgroundAdapter()
         setOneLineTextWatcher()
+        setWriteRequireTextWatcher()
         setOnClickListener()
 
         setTestData()
@@ -46,6 +47,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             }
 
             override fun afterTextChanged(s: Editable?) {
+
                 // 최대 글자수 체크 및 개행 문자 방지 (한줄평이므로)
                 if (s?.length!! > ONE_LINE_MAX_LENGTH || binding.etOneLine.text.contains("\n")) {
                     binding.etOneLine.setText(prevString)
@@ -55,7 +57,20 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             }
 
         })
+    }
 
+    private fun setWriteRequireTextWatcher() {
+        // 리뷰 작성 입력값을 검사하기 위한 TextWatcher
+        val reviewRequireTextWatcher = ReviewRequireTextWatcher(binding)
+        with (binding) {
+            etOneLine.addTextChangedListener(reviewRequireTextWatcher)
+            etProsCons.editText.addTextChangedListener(reviewRequireTextWatcher)
+            etCurriculum.editText.addTextChangedListener(reviewRequireTextWatcher)
+            etRecommendLecture.editText.addTextChangedListener(reviewRequireTextWatcher)
+            etNonRecommendLecture.editText.addTextChangedListener(reviewRequireTextWatcher)
+            etCareer.editText.addTextChangedListener(reviewRequireTextWatcher)
+            etTip.editText.addTextChangedListener(reviewRequireTextWatcher)
+        }
     }
 
     private fun setOnClickListener() {
@@ -64,6 +79,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         }
     }
 
+    // test용 data 넣기 (서버 통신 이후 지울 에정)
     private fun setTestData() {
 
         reviewSelectBackgroundAdapter.dataList.addAll(

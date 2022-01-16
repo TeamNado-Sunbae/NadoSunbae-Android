@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.widget.EditText
 import android.widget.RelativeLayout
 import com.nadosunbae_andorid.databinding.ViewCustomEditTextBinding
 
@@ -12,6 +13,9 @@ class CustomEditText @JvmOverloads constructor(
 ) : RelativeLayout(context, attrs, defStyleAttr) {
 
     private var binding: ViewCustomEditTextBinding
+
+    val editText: EditText
+        get() = binding.etContent
 
     init {
         binding = ViewCustomEditTextBinding.inflate(LayoutInflater.from(context), this, true)

@@ -41,23 +41,27 @@ class ReviewSelectBackgroundAdapter : RecyclerView.Adapter<ReviewSelectBackgroun
         holder.onBind(dataList[position])
 
         holder.itemView.setOnClickListener {
-            // 새로 선택할 때
-            if (mSelectedPos == NOT_SELECTED) {
-                mSelectedPos = position
-                dataList[position].isSelected = true
-            }
-            // 선택된 배경을 다시 선택했을 경우 -> 선택 해제
-            else if (mSelectedPos == position) {
-                mSelectedPos = NOT_SELECTED
-                dataList[position].isSelected = false
-            }
-            // 다른 배경을 선택했을 경우 -> 선택 변경
-            else {
-                dataList[mSelectedPos].isSelected = false
-                mSelectedPos = position
-                dataList[position].isSelected = true
-            }
 
+            when (mSelectedPos) {
+                // 새로 선택할 때
+                NOT_SELECTED -> {
+                    mSelectedPos = position
+                    dataList[position].isSelected = true
+                }
+
+                // 선택된 배경을 다시 선택했을 경우 -> 선택 해제
+                position -> {
+                    mSelectedPos = NOT_SELECTED
+                    dataList[position].isSelected = false
+                }
+
+                // 다른 배경을 선택했을 경우 -> 선택 변경
+                else -> {
+                    dataList[mSelectedPos].isSelected = false
+                    mSelectedPos = position
+                    dataList[position].isSelected = true
+                }
+            }
             notifyDataSetChanged()
         }
     }
