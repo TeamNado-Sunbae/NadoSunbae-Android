@@ -227,6 +227,9 @@
     <string name="senior_personal_question_title">님에게 온 1:1질문</string>
     <string name="senior_personal_question_btn">개인 질문</string>
 
+    <!-- 학과 후기 -->
+    <string name="classroom_review_title">학과후기</string>
+    <string name="classroom_review_name_title">님이 쓴 학과 후기</string>
 
     <!-- Custom Bottom Sheet -->
     <string name="bottom_sheet_complete">선택 완료</string>
