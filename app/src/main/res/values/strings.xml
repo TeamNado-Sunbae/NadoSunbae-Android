@@ -240,4 +240,9 @@
     <string name="notification_content_title">작성하신 글에 옹님이 답글을 남겼습니다.</string>
     <string name="notification_content">환오인 수업은 어떤가요?</string>
     <string name="notification_time">1시간 전</string>
+
+    <!-- 정보글 상세 -->
+    <string name="information_title">정보글</string>
+    <string name="information_question_title">정보글제목 정보글제목 글자수 제한은 없고 마진은</string>
+    <string name="information_question_detail_comment">댓글 2개</string>
 </resources>
