@@ -223,4 +223,5 @@
     <string name="senior_personal_class_review_title">학과 후기</string>
     <string name="senior_personal_class_review_count">n</string>
     <string name="senior_personal_question_title">님에게 온 1:1질문</string>
+    <string name="senior_personal_question_btn">개인 질문</string>
 </resources>
