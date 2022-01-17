@@ -23,7 +23,7 @@ class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.Notificatio
 
     override fun onBindViewHolder(
         holder: NotificationAdapter.NotificationViewHolder,
-        
+
         position: Int
     ) {
 
