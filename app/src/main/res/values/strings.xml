@@ -222,4 +222,5 @@
     <string name="senior_personal_second_major_start">(18-2)</string>
     <string name="senior_personal_class_review_title">학과 후기</string>
     <string name="senior_personal_class_review_count">n</string>
+    <string name="senior_personal_question_title">님에게 온 1:1질문</string>
 </resources>

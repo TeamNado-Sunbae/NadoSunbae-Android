@@ -17,7 +17,8 @@ data class ResponseClassRoomMainData(
     ) {
         data class Writer(
             val nickname: String,
-            val userId: Int
+            val writerId: Int,
+            val profileImageId : Int
         )
     }
 }
