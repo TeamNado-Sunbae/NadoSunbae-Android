@@ -5,9 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
 import com.nadosunbae_android.databinding.ItemQuestionSeniorOnQuestionBinding
+import com.nadosunbae_android.presentation.ui.classroom.SeniorFragment
 
-class ClassRoomSeniorOnAdapter : RecyclerView.Adapter<ClassRoomSeniorOnAdapter.ClassRoomSeniorOnViewHolder>() {
+class ClassRoomSeniorOnAdapter(
+    var link : SeniorFragment.DataToFragment
+) : RecyclerView.Adapter<ClassRoomSeniorOnAdapter.ClassRoomSeniorOnViewHolder>() {
     var onQuestionUserList = mutableListOf<ResponseClassRoomSeniorData.Data.OnQuestionUser>()
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,6 +30,9 @@ class ClassRoomSeniorOnAdapter : RecyclerView.Adapter<ClassRoomSeniorOnAdapter.C
         position: Int
     ) {
         holder.onBind(onQuestionUserList[position])
+        holder.itemView.setOnClickListener {
+            link.getSeniorId(4)
+        }
     }
 
     override fun getItemCount(): Int {
