@@ -9,8 +9,10 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.sign.BottomSheetData
 import com.nadosunbae_android.data.model.sign.ResponseMajorData
+import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.databinding.ItemBottomsheetListBinding
 import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
+import com.nadosunbae_android.presentation.ui.sign.SignUpBasicInfoActivity
 import com.nadosunbae_android.util.setTextSemiBold
 
 class MajorSelectAdapter(
@@ -37,6 +39,7 @@ class MajorSelectAdapter(
                     mSelectedPos = position
                     dataList[position].isSelected = true
                     link.getBtnSelector(true)
+                    link.getEditTextSelector(dataList[position].name)
                 }
 
                 // 선택 해제
@@ -52,12 +55,15 @@ class MajorSelectAdapter(
                     mSelectedPos = position
                     dataList[position].isSelected = true
                     link.getBtnSelector(true)
+                    link.getEditTextSelector(dataList[position].name)
                 }
 
             }
 
             notifyDataSetChanged()
         }
+
+
 
     }
 

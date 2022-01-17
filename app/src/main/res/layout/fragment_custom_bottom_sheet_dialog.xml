@@ -75,7 +75,6 @@
             android:layout_marginHorizontal="32dp"
             android:layout_marginVertical="16dp"
             android:background="@drawable/selector_rectangle_gray_to_black_14dp"
-            android:enabled="false"
             android:fontFamily="@font/pretendard_semibold"
             android:paddingVertical="19dp"
             android:text="@string/bottom_sheet_complete"

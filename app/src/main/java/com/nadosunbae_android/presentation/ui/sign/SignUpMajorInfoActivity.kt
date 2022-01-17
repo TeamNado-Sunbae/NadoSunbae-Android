@@ -2,34 +2,37 @@ package com.nadosunbae_android.presentation.ui.sign
 
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import com.nadosunbae_android.presentation.ui.sign.adapter.SpinnerAdapter
-import com.nadosunbae_android.util.PixelRatio
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.sign.BottomSheetData
 import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
-import com.nadosunbae_android.databinding.SpinnerItemBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
-import com.nadosunbae_android.presentation.ui.sign.adapter.MajorSelectAdapter
+import com.nadosunbae_android.presentation.ui.sign.adapter.SpinnerAdapter
+import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignViewModel
+import com.nadosunbae_android.util.PixelRatio
 import com.nadosunbae_android.util.SignInCustomDialog
+import kotlinx.android.synthetic.main.fragment_custom_bottom_sheet_dialog.*
 import kotlinx.android.synthetic.main.item_bottomsheet_list.*
 import kotlinx.android.synthetic.main.spinner_item.view.*
-import okhttp3.internal.notify
 
 
 class SignUpMajorInfoActivity :
     BaseActivity<ActivitySignUpMajorInfoBinding>(R.layout.activity_sign_up_major_info) {
-    //val customBottomSheetDialog: CustomBottomSheetDialog()
-    private lateinit var majorSelectAdapter: MajorSelectAdapter
-    private lateinit var spinnerItemBinding: SpinnerItemBinding
+    private val signViewModel: SignViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return SignViewModel() as T
+            }
+        }
+    }
 
     val bottomSheetDialog = CustomBottomSheetDialog()
-
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +45,8 @@ class SignUpMajorInfoActivity :
         firstMajorPeriod()
         setupSpinner()
         setupSpinnerHandler()
-        textUpdate()
         secondMajorPeriod()
     }
-
 
     //X버튼 클릭 리스너
     private fun closePage() {
@@ -94,64 +95,69 @@ class SignUpMajorInfoActivity :
 
             // local data
             var firstMajorSelectionPeriodData = mutableListOf(
-                BottomSheetData(1,"22-1", false),
-                BottomSheetData(2,"21-2", false),
-                BottomSheetData(3,"21-1", false),
-                BottomSheetData(4,"20-2", false),
-                BottomSheetData(5,"20-1", false),
-                BottomSheetData(6,"19-2", false),
-                BottomSheetData(7,"19-1", false),
-                BottomSheetData(8,"18-2", false),
-                BottomSheetData(9,"18-1", false),
-                BottomSheetData(10,"17-2", false),
-                BottomSheetData(11,"17-1", false),
-                BottomSheetData(12,"16-2", false),
-                BottomSheetData(13,"16-1", false),
-                BottomSheetData(14,"15-2", false),
-                BottomSheetData(15,"15-1", false),
-                BottomSheetData(16,"15년 이전", false),
+                BottomSheetData(1, "22-1", false),
+                BottomSheetData(2, "21-2", false),
+                BottomSheetData(3, "21-1", false),
+                BottomSheetData(4, "20-2", false),
+                BottomSheetData(5, "20-1", false),
+                BottomSheetData(6, "19-2", false),
+                BottomSheetData(7, "19-1", false),
+                BottomSheetData(8, "18-2", false),
+                BottomSheetData(9, "18-1", false),
+                BottomSheetData(10, "17-2", false),
+                BottomSheetData(11, "17-1", false),
+                BottomSheetData(12, "16-2", false),
+                BottomSheetData(13, "16-1", false),
+                BottomSheetData(14, "15-2", false),
+                BottomSheetData(15, "15-1", false),
+                BottomSheetData(16, "15년 이전", false)
             )
             bottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
+            firstMajorTextUpdate()
         }
-
     }
 
     private fun secondMajorPeriod() {
         binding.clSignupMajorInfoDoubleMajorTime.setOnClickListener {
             bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
 
+
             // test data
             var secondMajorSelectionPeriodData = mutableListOf(
-                BottomSheetData(1,"미진입", false),
-                BottomSheetData(2,"22-1", false),
-                BottomSheetData(3,"21-2", false),
-                BottomSheetData(4,"21-1", false),
-                BottomSheetData(5,"20-2", false),
-                BottomSheetData(6,"20-1", false),
-                BottomSheetData(7,"19-2", false),
-                BottomSheetData(8,"19-1", false),
-                BottomSheetData(9,"18-2", false),
-                BottomSheetData(10,"18-1", false),
-                BottomSheetData(11,"17-2", false),
-                BottomSheetData(12,"17-1", false),
-                BottomSheetData(13,"16-2", false),
-                BottomSheetData(14,"16-1", false),
-                BottomSheetData(15,"15-2", false),
-                BottomSheetData(16,"15-1", false),
-                BottomSheetData(17,"15년 이전", false),
+                BottomSheetData(1, "미진입", false),
+                BottomSheetData(2, "22-1", false),
+                BottomSheetData(3, "21-2", false),
+                BottomSheetData(4, "21-1", false),
+                BottomSheetData(5, "20-2", false),
+                BottomSheetData(6, "20-1", false),
+                BottomSheetData(7, "19-2", false),
+                BottomSheetData(8, "19-1", false),
+                BottomSheetData(9, "18-2", false),
+                BottomSheetData(10, "18-1", false),
+                BottomSheetData(11, "17-2", false),
+                BottomSheetData(12, "17-1", false),
+                BottomSheetData(13, "16-2", false),
+                BottomSheetData(14, "16-1", false),
+                BottomSheetData(15, "15-2", false),
+                BottomSheetData(16, "15-1", false),
+                BottomSheetData(17, "15년 이전", false)
+
             )
             bottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
         }
 
     }
 
-    private fun textUpdate() {
-
+    private fun firstMajorTextUpdate() {
+        signViewModel.text.observe(this) {
+            binding.textSignupMajorinfoMajorTime.text = it
+            binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
+            binding.textSignupMajorinfoMajorTimeMint.setText("변경")
+        }
     }
 
 
     private fun setupSpinner() {
-        val years = resources.getStringArray(R.array.spinner_univ)
         val list = listOf("고려대학교", "타 대학은 현재 준비중입니다")
         val spinnerAdapter = SpinnerAdapter(this, R.layout.spinner_item, list)
         binding.spinnerSignupMajorinfoUniv.adapter = spinnerAdapter
