@@ -69,7 +69,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_likes"
             app:layout_constraintEnd_toStartOf="@+id/tv_likes"
             app:layout_constraintTop_toTopOf="@+id/tv_likes"
-            app:srcCompat="@drawable/diamond_empty_gray" />
+            app:srcCompat="@drawable/ic_diamond_empty_gray" />
 
         <TextView
             android:id="@+id/tv_tag_curriculum"
@@ -80,7 +80,7 @@
             android:fontFamily="@font/pretendard_regular"
             android:paddingHorizontal="7dp"
             android:paddingVertical="5dp"
-            android:text="@string/review_what_learning"
+            android:text="@string/review_curriculum"
             android:textColor="@color/pink_tag_text"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/tv_create_at"

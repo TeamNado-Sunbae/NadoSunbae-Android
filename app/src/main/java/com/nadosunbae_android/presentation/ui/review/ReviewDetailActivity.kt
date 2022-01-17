@@ -37,7 +37,7 @@ class ReviewDetailActivity :
     }
 
     private fun initTagBoxAdapter() {
-        reviewTagBoxAdapter = ReviewTagBoxAdapter()
+        reviewTagBoxAdapter = ReviewTagBoxAdapter(this)
         binding.rvReviewDetail.adapter = reviewTagBoxAdapter
     }
 
@@ -50,6 +50,10 @@ class ReviewDetailActivity :
         binding.btnBack.setOnClickListener {
             finish()
         }
+
+        binding.btnReviewLike.setOnClickListener {
+            binding.btnReviewLike.isSelected = !binding.btnReviewLike.isSelected
+        }
     }
 
     private fun observeBackground() {
@@ -61,18 +65,15 @@ class ReviewDetailActivity :
 
     private fun setTestData() {
 
-        val sampleData = ReviewTagBoxData(
-            "label name ajajajaj",
-            "content content dkfjsdiofxkzlfs jfdsj aodifj sidf jsdlk fewoi flkdsj sdjf ioewjfowjf egoiew jfioj "
-        )
         val sampleList = mutableListOf<ReviewTagBoxData>(
-            sampleData,
-            sampleData,
-            sampleData
+            ReviewTagBoxData("장단점", "example content.. 난 자유롭고 싶어 지금 전투력 수치 111퍼 가나다라마바사아자차카타파하 hello world 다른 사람과 만났을 때 하는 인사말. 누구나 한번쯤은 들었을만한 인사, 한자로는 安(편할 안)에 寧(편안할 녕), \"무탈하시오?\"라고 풀이할 수 있다. 즉 탈없이 무사하냐는 뜻이며 \"오랜만에 봤는데 건강은 괜찮으시오?\" \"아무일 없으시죠?\" 등 상대방의 건강을 챙기고 걱정해주는 인사말. 이는 보릿고개, 호환, 외적의 침입등 살기 각박한 조상님들의 삶의 모습이 비춰진 인사말이라고 한다"),
+            ReviewTagBoxData("추천 수업", "example content.. 난 자유롭고 싶어 지금 전투력 수치 111퍼 가나다라마바사아자차카타파하 hello world"),
+            ReviewTagBoxData("비추 수업", "example content.. 난 자유롭고 싶어 지금 전투력 수치 111퍼 가나다라마바사아자차카타파하 hello world다른 사람과 만났을 때 하는 인사말. 누구나 한번쯤은 들었을만한 인사, 한자로는 安(편할 안)에 寧(편안할 녕), \"무탈하시오?\"라고 풀이할 수 있다. 즉 탈없이 무사하냐는 뜻이며 \"오랜만에 봤는데 건강은 괜찮으시오?\" \"아무일 없으시죠?\" 등 상대방의 건강을 챙기고 걱정해주는 인사말. 이는 보릿고개, 호환, 외적의 침입등 살기 각박한 조상님들의 삶의 모습이 비춰진 인사말이라고 한다"),
+            ReviewTagBoxData("꿀팁", "example content.. 난 자유롭고 싶어 지금 전투력 수치 111퍼 가나다라마바사아자차카타파하 hello world"),
         )
         reviewTagBoxAdapter.setReviewTagBoxData(sampleList)
 
-        reviewDetailViewModel.setBackgroundUrl("https://user-images.githubusercontent.com/37872134/149095580-e2987cf0-39ff-4663-ab91-4899620d8203.png")
+        reviewDetailViewModel.setBackgroundUrl("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/166af9e7-07e2-4f74-bb1f-e0a33151ef5e.png")
     }
 
 }

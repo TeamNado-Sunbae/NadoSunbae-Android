@@ -84,6 +84,25 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
+                <TextView
+                    android:id="@+id/tv_review_one_line"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textSize="20sp"
+                    android:textColor="@color/main_light"
+                    android:lineSpacingExtra="10sp"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_review_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_review_background"
+                    android:text="@string/review_example_one_line_max"
+                    tools:text="@string/review_example_one_line_max"
+                    />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_review_detail"
                     android:layout_width="match_parent"
@@ -261,6 +280,7 @@
                 android:id="@+id/btn_review_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
                 android:layout_marginEnd="20dp"
@@ -272,7 +292,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/main_default"
                 android:background="@drawable/selector_ic_btn_like"
-                android:drawableStart="@drawable/diamond_empty_default"
+                android:drawableStart="@drawable/selector_drawable_diamond"
                 tools:text="1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

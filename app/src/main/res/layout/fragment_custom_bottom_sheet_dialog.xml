@@ -5,6 +5,9 @@
     android:background="@drawable/rectangle_fill_white_top_8dp">
 
     <data>
+        <variable
+            name="title"
+            type="String" />
 
     </data>
 
@@ -13,30 +16,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHeight_percent="0.72"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
-
-
             <TextView
-                android:id="@+id/text_bottomsheeet_title"
+                android:id="@+id/tv_bottomsheeet_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/pretendard_medium"
-                android:text="본전공"
+                android:text="@{title}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/img_bottomsheet_delete"
+            <ImageButton
+                android:id="@+id/btn_bottomsheet_cancel"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="12dp"
@@ -55,54 +49,41 @@
                 android:background="@color/main_default"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_bottomsheeet_title" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_bottomsheeet_title" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rl_bottomsheet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_bottomsheet_main_line" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_bottomsheet"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginVertical="16dp"
+            android:layout_marginEnd="32dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/btn_bottomsheet_complete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_bottomsheet_main_line"
+            tools:listitem="@layout/item_bottomsheet_list" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_signup_majorInfo_move_next"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/selector_rectangle_gray_to_black_8"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <TextView
-                    android:id="@+id/text_signup_majorInfo_next"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/pretendard_semibold"
-                    android:paddingLeft="102dp"
-                    android:paddingTop="19dp"
-                    android:paddingRight="102dp"
-                    android:paddingBottom="19dp"
-                    android:text="@string/signup_agreement_next"
-                    android:textColor="@drawable/selector_text_gray_to_mint"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <android.widget.Button
+            android:id="@+id/btn_bottomsheet_complete"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/selector_rectangle_gray_to_black_8"
+            android:enabled="false"
+            android:fontFamily="@font/pretendard_semibold"
+            android:paddingVertical="19dp"
+            android:text="@string/bottom_sheet_complete"
+            android:textAlignment="center"
+            android:textColor="@color/gray_3"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

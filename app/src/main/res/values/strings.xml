@@ -55,10 +55,11 @@
     <string name="review_latest_order">최신순</string>
     <string name="review_likes_order">도움</string>
     <string name="review_reviews">후기</string>
+    <string name="review_pros_cons">장단점</string>
     <string name="review_career">향후 진로</string>
     <string name="review_recommend_lecture">추천 수업</string>
     <string name="review_non_recommend_lecture">비추 수업</string>
-    <string name="review_what_learning">뭘 배우나요?</string>
+    <string name="review_curriculum">뭘 배우나요?</string>
     <string name="review_tip">꿀팁</string>
 
     <!-- review_main: example -->
@@ -71,6 +72,7 @@
     <string name="review_example_second_major">제2전공명 18-1</string>
     <string name="review_example_label_name">라벨명</string>
     <string name="review_example_label_content">난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고난 자유롭고 싶어 지금 전투력 수치 111퍼난 자유롭고 싶어 지금 전투력 수치 111퍼</string>
+    <string name="review_example_one_line_max">난 자유롭고 싶어 지금 전투력 수치 111퍼? 난 자유롭고 싶어 지금 전</string>
 
     <!-- review_detail -->
     <string name="review_major_review">학과후기</string>
@@ -224,4 +226,9 @@
     <string name="senior_personal_class_review_count">n</string>
     <string name="senior_personal_question_title">님에게 온 1:1질문</string>
     <string name="senior_personal_question_btn">개인 질문</string>
+
+
+    <!-- Custom Bottom Sheet -->
+    <string name="bottom_sheet_complete">선택 완료</string>
+
 </resources>
