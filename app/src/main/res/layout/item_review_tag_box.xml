@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
+
+        <variable
+            name="bindMarginStart"
+            type="Integer" />
+
+        <variable
+            name="bindMarginTop"
+            type="Integer" />
+
         <variable
             name="tagBoxData"
             type="com.nadosunbae_android.data.model.response.review.ReviewTagBoxData" />
@@ -23,8 +32,8 @@
             android:id="@+id/iv_tag_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="8dp"
+            layoutMarginStart="@{bindMarginStart}"
+            layoutMarginTop="@{bindMarginTop}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

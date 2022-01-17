@@ -1,7 +1,10 @@
 package com.nadosunbae_android.util
 
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.marginLeft
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
@@ -31,4 +34,43 @@ fun ImageView.loadImageFromUrl(url: String?) {
     Glide.with(context)
         .load(url)
         .into(this)
+}
+
+@BindingAdapter("layoutMarginStart")
+fun View.layoutMarginStart(margin: Int) {
+    if (margin != 0) {
+        val layoutParams = this.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.marginStart = margin.dpToPx
+        this.layoutParams = layoutParams
+    }
+
+}
+
+@BindingAdapter("layoutMarginEnd")
+fun View.layoutMarginEnd(margin: Int) {
+    if (margin != 0) {
+        val layoutParams = this.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.marginEnd = margin.dpToPx
+        this.layoutParams = layoutParams
+    }
+}
+
+@BindingAdapter("layoutMarginTop")
+fun View.layoutMarginTop(margin: Int) {
+    if (margin != 0) {
+        val layoutParams = this.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.topMargin = margin.dpToPx
+        this.layoutParams = layoutParams
+    }
+
+}
+
+@BindingAdapter("layoutMarginBottom")
+fun View.layoutMarginBottom(margin: Int) {
+    if (margin != 0)
+    {
+        val layoutParams = this.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.bottomMargin = margin.dpToPx
+        this.layoutParams = layoutParams
+    }
 }

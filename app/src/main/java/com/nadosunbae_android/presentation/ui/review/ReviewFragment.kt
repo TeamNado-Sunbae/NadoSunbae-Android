@@ -10,13 +10,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.review.PreviewData
+import com.nadosunbae_android.data.model.sign.BottomSheetData
 import com.nadosunbae_android.databinding.FragmentReviewBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel
+import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
@@ -93,6 +97,33 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         binding.btnWriteReview.setOnClickListener {
             var intent = Intent(context, ReviewWriteActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.btnSelectMajor.setOnClickListener {
+            val bottomSheetDialog = CustomBottomSheetDialog()
+            bottomSheetDialog.show(parentFragmentManager, bottomSheetDialog.tag)
+
+
+            // test data
+            var majorSelectionData = mutableListOf(
+                BottomSheetData(1,"xxx학과", false),
+                BottomSheetData(2,"aaa학과", false),
+                BottomSheetData(3,"bbb학과", false),
+                BottomSheetData(4,"ccc학", false),
+                BottomSheetData(5,"ddd학과", false),
+                BottomSheetData(6,"eeee학과", false),
+                BottomSheetData(7,"iow학과", false),
+                BottomSheetData(8,"컴퓨터공학", false),
+                BottomSheetData(9,"18-1", false),
+                BottomSheetData(10,"17-2", false),
+                BottomSheetData(11,"17-1", false),
+                BottomSheetData(12,"16-2", false),
+                BottomSheetData(13,"16-1", false),
+                BottomSheetData(14,"15-2", false),
+                BottomSheetData(15,"15-1", false),
+                BottomSheetData(16,"15년 이전", false),
+            )
+            bottomSheetDialog.setDataList(majorSelectionData)
         }
     }
 
