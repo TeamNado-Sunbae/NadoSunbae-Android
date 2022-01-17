@@ -140,7 +140,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
 
     //질문 구성원 목록으로 이동
     private fun changeSeniorFragment(){
-        binding.textPersonalQuestionSeniorSee.setOnClickListener {
+        binding.imgPersonalQuestion.setOnClickListener {
             mainViewModel.classRoomFragmentNum.value = 3
         }
     }

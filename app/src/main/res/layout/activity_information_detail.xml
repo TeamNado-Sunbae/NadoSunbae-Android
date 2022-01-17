@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.classroom.InformationDetailActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_information_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/text_information_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="58dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/information_title"
+                android:textColor="@color/origin_black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_information_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:background="@drawable/btn_left_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_information_detail_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="52dp"
+                android:background="@drawable/ic_notice_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_inforamtion_detail_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_more_vert"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/img_information_detail_notification"
+                app:layout_constraintBottom_toBottomOf="@+id/img_information_detail_notification"
+                android:layout_marginEnd="16dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_information_detail_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/cl_information_detail"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/text_information_detail_question_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/information_question_title"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textSize="24sp"
+                android:textColor="@color/main_default"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:id="@+id/text_information_detail_question_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/review_example_nickname"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textSize="14sp"
+                android:textColor="@color/gray_4"
+                app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_title"
+                app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_title"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/text_information_detail_question_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/question_detail_major"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_name"
+                app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_name"
+                android:layout_marginStart="4dp"/>
+
+            <TextView
+                android:id="@+id/text_information_detail_question_major_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_first_major_time"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_major"
+                app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_major"
+                android:layout_marginStart="4dp"/>
+
+            <View
+                android:id="@+id/line_information_detail_question"
+                android:layout_width="1dp"
+                android:layout_height="18dp"
+                android:background="@color/gray_2"
+                app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_major_start"
+                app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_title"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"/>
+
+            <TextView
+                android:id="@+id/text_information_detail_question_second_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/question_detail_second_major"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_major_start"
+                app:layout_constraintStart_toEndOf="@+id/line_information_detail_question"
+                android:layout_marginStart="8dp"/>
+
+            <TextView
+                android:id="@+id/text_information_detail_question_second_major_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_first_major_time"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_second_major"
+                app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_second_major"
+                android:layout_marginStart="4dp"/>
+
+            <TextView
+                android:id="@+id/text_information_detail_question_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/information_question_title"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="14sp"
+                android:textColor="@color/main_text"
+                app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_second_major_start"
+                app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_title"
+                app:layout_constraintEnd_toEndOf="@+id/text_information_detail_question_title"
+                android:layout_marginTop="32dp"/>
+
+            <TextView
+                android:id="@+id/text_information_detail_question_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/classroom_question_time"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_content"
+                app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_content"
+                android:layout_marginTop="44dp"/>
+
+            <TextView
+                android:id="@+id/text_information_detail_question_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_fill_white_8dp"
+                android:text="@string/classroom_question_count"
+                android:fontFamily="@font/pretendard_light"
+                android:textSize="14sp"
+                android:textColor="@color/gray_2"
+                android:shadowColor="@color/shadow"
+                android:shadowRadius="8.0"
+                android:shadowDx="5.0"
+                android:shadowDy="5.0"
+                app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingVertical="8dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="36dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="16dp"/>
+
+            <ImageView
+                android:id="@+id/img_information_detail_question_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_diamond_18"
+                app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_like"
+                app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_like"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_information_detail_question_comment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/background"
+            app:layout_constraintTop_toBottomOf="@+id/cl_information_detail_question"
+            app:layout_constraintBottom_toTopOf="@+id/cl_information_detail_comment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/text_information_detail_question_comment_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/information_question_detail_comment"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="12sp"
+                android:textColor="@color/gray_2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rc_information_detail_question_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_comment_count"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="16dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_information_detail_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/white">
+
+            <EditText
+                android:id="@+id/et_information_comment"
+                android:maxLines="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_fill_gray_0_64"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="@string/question_detail_comment"
+                android:textColorHint="@color/gray_2"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="14sp"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scrollbars="vertical"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="48dp"
+                android:layout_marginBottom="12dp"/>
+
+            <ImageView
+                android:id="@+id/img_information_comment_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_send"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
