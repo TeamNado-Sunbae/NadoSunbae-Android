@@ -60,7 +60,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         val exampleData = mutableListOf(
             ResponseClassRoomMainData.Data(
                 postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
                 title = "제목",
                 content = "내용",
                 createdAt = "2021-11-28T18:56:42.040Z",
@@ -69,7 +69,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             ),
             ResponseClassRoomMainData.Data(
                 postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
                 title = "제목",
                 content = "내용",
                 createdAt = "2021-11-28T18:56:42.040Z",
@@ -78,7 +78,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             ),
             ResponseClassRoomMainData.Data(
                 postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
                 title = "제목",
                 content = "내용",
                 createdAt = "2021-11-28T18:56:42.040Z",
@@ -87,7 +87,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             ),
             ResponseClassRoomMainData.Data(
                 postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
                 title = "제목",
                 content = "내용",
                 createdAt = "2021-11-28T18:56:42.040Z",
@@ -96,7 +96,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             ),
             ResponseClassRoomMainData.Data(
                 postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
                 title = "제목",
                 content = "내용",
                 createdAt = "2021-11-28T18:56:42.040Z",
@@ -104,7 +104,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 commentCount = 2
             ), ResponseClassRoomMainData.Data(
                 postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
                 title = "제목",
                 content = "내용",
                 createdAt = "2021-11-28T18:56:42.040Z",
@@ -112,7 +112,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 commentCount = 2
             ), ResponseClassRoomMainData.Data(
                 postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1),
+                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
                 title = "제목",
                 content = "내용",
                 createdAt = "2021-11-28T18:56:42.040Z",

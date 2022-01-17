@@ -3,7 +3,7 @@ package com.nadosunbae_android.presentation.ui.main.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_andorid.data.repository.mypage.MyPageRepositoryImpl
+import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
 
@@ -14,7 +14,7 @@ class MainViewModel() : ViewModel() {
     //과방탭에서 질문탭 및 정보탭 select 구분 (과방)
     var classRoomNum = MutableLiveData<Int>()
 
-    //과방탭 프래그먼트 전환 (1 -> 과방 메인, 2 -> 전체에게 질문 3 -> 질문 구성원 목록)
+    //과방탭 프래그먼트 전환 (1 -> 과방 메인, 2 -> 전체에게 질문 3 -> 질문 구성원 목록 4 -> 선배 개인 페이지 5-> 학과 후기)
     var classRoomFragmentNum = MutableLiveData<Int>()
 
     // 선택 학과

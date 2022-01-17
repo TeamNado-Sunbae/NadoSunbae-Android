@@ -8,9 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.databinding.ActivityMainBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
-import com.nadosunbae_android.presentation.ui.classroom.AskEveryoneFragment
-import com.nadosunbae_android.presentation.ui.classroom.ClassRoomFragment
-import com.nadosunbae_android.presentation.ui.classroom.SeniorFragment
+import com.nadosunbae_android.presentation.ui.classroom.*
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.presentation.ui.notification.NotificationFragment
@@ -66,12 +64,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     //과방 프레그먼트 전환
     private fun classRoomFragmentChange(){
         mainViewModel.classRoomFragmentNum.observe(this, Observer {
-            if(it==2){
-                changeFragment(R.id.fragment_container_main,AskEveryoneFragment())
-            }else if(it == 1){
-                changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
-            }else if(it == 3){
-                changeFragment(R.id.fragment_container_main, SeniorFragment())
+            when (it) {
+                2 -> changeFragment(R.id.fragment_container_main,AskEveryoneFragment())
+
+                1 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
+
+                3 -> changeFragment(R.id.fragment_container_main, SeniorFragment())
+
+                4 -> changeFragment(R.id.fragment_container_main, SeniorPersonalFragment())
+
+                5 -> changeFragment(R.id.fragment_container_main, ClassRoomReviewFragment())
             }
         })
     }

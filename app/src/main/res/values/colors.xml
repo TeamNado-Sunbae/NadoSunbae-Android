@@ -52,5 +52,6 @@
     <color name="mint">#a9f4eb</color>
     <color name="green_scroll_thumb">#BBF2EC</color>
     <color name="black_alpha_30">#4D000000</color>
+    <color name="shadow">#19c1c1cf</color>
 
 </resources>

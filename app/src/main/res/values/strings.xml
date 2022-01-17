@@ -214,10 +214,35 @@
     <string name="question_detail_save">저장</string>
     <string name="question_detail_cancel">취소</string>
 
+    <!-- 선배 개인 페이지 -->
+    <string name="senior_personal_title">선배닉네임</string>
+    <string name="senior_personal_answer_count">응답률 88%</string>
+    <string name="senior_personal_major">본</string>
+    <string name="senior_personal_second_major">제2</string>
+    <string name="senior_personal_major_name">본전공명</string>
+    <string name="senior_personal_second_major_name">제2전공명</string>
+    <string name="senior_personal_second_major_start">(18-2)</string>
+    <string name="senior_personal_class_review_title">학과 후기</string>
+    <string name="senior_personal_class_review_count">n</string>
+    <string name="senior_personal_question_title">님에게 온 1:1질문</string>
+    <string name="senior_personal_question_btn">개인 질문</string>
+
+    <!-- 학과 후기 -->
+    <string name="classroom_review_title">학과후기</string>
+    <string name="classroom_review_name_title">님이 쓴 학과 후기</string>
 
     <!-- Custom Bottom Sheet -->
     <string name="bottom_sheet_complete">선택 완료</string>
 
 
+    <!-- 알림 -->
+    <string name="notification_title">알림</string>
+    <string name="notification_content_title">작성하신 글에 옹님이 답글을 남겼습니다.</string>
+    <string name="notification_content">환오인 수업은 어떤가요?</string>
+    <string name="notification_time">1시간 전</string>
 
+    <!-- 정보글 상세 -->
+    <string name="information_title">정보글</string>
+    <string name="information_question_title">정보글제목 정보글제목 글자수 제한은 없고 마진은</string>
+    <string name="information_question_detail_comment">댓글 2개</string>
 </resources>
