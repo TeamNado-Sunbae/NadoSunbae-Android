@@ -234,4 +234,10 @@
     <!-- Custom Bottom Sheet -->
     <string name="bottom_sheet_complete">선택 완료</string>
 
+
+    <!-- 알림 -->
+    <string name="notification_title">알림</string>
+    <string name="notification_content_title">작성하신 글에 옹님이 답글을 남겼습니다.</string>
+    <string name="notification_content">환오인 수업은 어떤가요?</string>
+    <string name="notification_time">1시간 전</string>
 </resources>
