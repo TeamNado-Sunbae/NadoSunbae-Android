@@ -77,7 +77,7 @@
             android:exported="false" />
         <activity
             android:name="com.nadosunbae_android.presentation.ui.mypage.ModifyMyInfoActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name="com.nadosunbae_android.presentation.ui.mypage.MyPageSettingActivity"
             android:exported="false" />
@@ -87,8 +87,7 @@
 
         <activity
             android:name="com.nadosunbae_android.presentation.ui.mypage.MyPagePostActivity"
-            android:exported="false"
-            tools:ignore="Instantiatable" />
+            android:exported="true" />
 
         <activity
             android:name="com.nadosunbae_android.presentation.ui.review.ReviewWriteActivity"
