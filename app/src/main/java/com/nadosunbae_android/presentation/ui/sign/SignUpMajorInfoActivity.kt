@@ -14,12 +14,14 @@ import com.nadosunbae_android.databinding.SpinnerItemBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.adapter.MajorSelectAdapter
 import com.nadosunbae_android.util.SignInCustomDialog
+import kotlinx.android.synthetic.main.item_bottomsheet_list.*
 import kotlinx.android.synthetic.main.spinner_item.view.*
+import okhttp3.internal.notify
 
 
 class SignUpMajorInfoActivity :
     BaseActivity<ActivitySignUpMajorInfoBinding>(R.layout.activity_sign_up_major_info) {
-    private lateinit var customBottomSheetDialog: CustomBottomSheetDialog
+    //val customBottomSheetDialog: CustomBottomSheetDialog()
     private lateinit var majorSelectAdapter: MajorSelectAdapter
     private lateinit var spinnerItemBinding: SpinnerItemBinding
 
@@ -86,11 +88,12 @@ class SignUpMajorInfoActivity :
 
 
     private fun firstMajorPeriod() {
+        //bottomSheetDialog.binding.tvBottomsheeetTitle.setText("본 전공 진입시기")
         binding.clSignupMajorInfoMajorTime.setOnClickListener {
             bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
 
-            // test data
-            var majorSelectionData = mutableListOf(
+            // local data
+            var firstMajorSelectionPeriodData = mutableListOf(
                 BottomSheetData(1,"22-1", false),
                 BottomSheetData(2,"21-2", false),
                 BottomSheetData(3,"21-1", false),
@@ -108,8 +111,9 @@ class SignUpMajorInfoActivity :
                 BottomSheetData(15,"15-1", false),
                 BottomSheetData(16,"15년 이전", false),
             )
-            bottomSheetDialog.setDataList(majorSelectionData)
+            bottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
         }
+
     }
 
     private fun secondMajorPeriod() {
@@ -117,7 +121,7 @@ class SignUpMajorInfoActivity :
             bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
 
             // test data
-            var majorSelectionData = mutableListOf(
+            var secondMajorSelectionPeriodData = mutableListOf(
                 BottomSheetData(1,"미진입", false),
                 BottomSheetData(2,"22-1", false),
                 BottomSheetData(3,"21-2", false),
@@ -136,7 +140,7 @@ class SignUpMajorInfoActivity :
                 BottomSheetData(16,"15-1", false),
                 BottomSheetData(17,"15년 이전", false),
             )
-            bottomSheetDialog.setDataList(majorSelectionData)
+            bottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
         }
 
     }

@@ -19,9 +19,10 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
     private var majorSelectAdapter: MajorSelectAdapter
     private lateinit var _binding : FragmentCustomBottomSheetDialogBinding
     val binding get() = _binding!!
+    var link = DataToFragment()
 
     init {
-        majorSelectAdapter = MajorSelectAdapter()
+        majorSelectAdapter = MajorSelectAdapter(link)
     }
 
     override fun onCreateView(
@@ -59,6 +60,12 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
     fun setDataList(dataList: MutableList<BottomSheetData>) {
         majorSelectAdapter.dataList.addAll(dataList)
         majorSelectAdapter.notifyDataSetChanged()
+    }
+
+    inner class DataToFragment(){
+        fun getBtnSelector(bool : Boolean){
+            binding.btnBottomsheetComplete.isSelected = bool
+        }
     }
 
 }
