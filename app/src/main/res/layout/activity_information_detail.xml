@@ -247,8 +247,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_comment_count"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="16dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_information_detail_comment"
             android:layout_width="match_parent"

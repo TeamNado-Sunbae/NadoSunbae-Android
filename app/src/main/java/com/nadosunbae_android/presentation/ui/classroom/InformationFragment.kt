@@ -6,11 +6,12 @@ import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.databinding.FragmentInformationBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
+import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomInfoDetailAdapter
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 
 
 class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fragment_information) {
-    private lateinit var classRoomInfoMainAdapter : ClassRoomQuestionMainAdapter
+    private lateinit var classRoomInfoMainAdapter : ClassRoomInfoDetailAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,7 +84,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
                 commentCount = 2
             ),
         )
-        classRoomInfoMainAdapter = ClassRoomQuestionMainAdapter()
+        classRoomInfoMainAdapter = ClassRoomInfoDetailAdapter()
         binding.rcClassroomInfo.adapter = classRoomInfoMainAdapter
         classRoomInfoMainAdapter.setQuestionMain(exampleData)
 
