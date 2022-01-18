@@ -18,44 +18,16 @@ class ReviewTagBoxAdapter(private val context: Context) : RecyclerView.Adapter<R
 
             // 라벨 아이콘 이미지 소스
             var imageResource = 0
-            var marginStart = 0
-            var marginTop = 0
 
             when (data.labelName) {
-                context.getString(R.string.review_pros_cons) -> {
-                    imageResource = R.drawable.ic_graphic_cube
-                    marginStart = 9
-                    marginTop = 15
-                }
-                context.getString(R.string.review_curriculum) -> {
-                    imageResource = R.drawable.ic_graphic_pencil
-                    marginStart = 11
-                    marginTop = 29
-                }
-                context.getString(R.string.review_recommend_lecture) -> {
-                    imageResource = R.drawable.ic_graphic_diamond
-                    marginStart = 13
-                    marginTop = 18
-                }
-                context.getString(R.string.review_non_recommend_lecture) -> {
-                    imageResource = R.drawable.ic_graphic_bomb
-                    marginStart = 22
-                    marginTop = 21
-                }
-                context.getString(R.string.review_career) -> {
-                    imageResource = R.drawable.ic_graphic_compass
-                    marginStart = 10
-                    marginTop = 24
-                }
-                context.getString(R.string.review_tip) -> {
-                    imageResource = R.drawable.ic_graphic_honey
-                    marginStart = 11
-                    marginTop = 14
-                }
+                context.getString(R.string.review_pros_cons) -> imageResource = R.drawable.ic_graphic_cube
+                context.getString(R.string.review_curriculum) -> imageResource = R.drawable.ic_graphic_pencil
+                context.getString(R.string.review_recommend_lecture) -> imageResource = R.drawable.ic_graphic_diamond
+                context.getString(R.string.review_non_recommend_lecture) -> imageResource = R.drawable.ic_graphic_bomb
+                context.getString(R.string.review_career) -> imageResource = R.drawable.ic_graphic_compass
+                context.getString(R.string.review_tip) -> imageResource = R.drawable.ic_graphic_honey
             }
 
-            binding.bindMarginStart = marginStart
-            binding.bindMarginTop = marginTop
             binding.ivTagIcon.setImageResource(imageResource)
 
         }

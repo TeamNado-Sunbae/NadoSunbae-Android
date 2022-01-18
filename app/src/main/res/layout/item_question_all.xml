@@ -79,7 +79,7 @@
 
         <TextView
             android:id="@+id/text_question_all_comment"
-            intToText="@{questionMain.commentCount}"
+            android:text="@{questionMain.commentCount}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"
-            intToText="@{questionMain.likeCount}"
+            android:text="@{questionMain.likeCount}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_question_all_like"
