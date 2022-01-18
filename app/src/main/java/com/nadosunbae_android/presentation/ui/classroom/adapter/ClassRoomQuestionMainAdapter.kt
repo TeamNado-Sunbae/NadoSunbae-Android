@@ -28,6 +28,7 @@ class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainA
         holder: ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder,
         position: Int
     ) {
+
         holder.onBind(questionMainData[position])
         holder.binding.root.setOnClickListener {
             val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
@@ -40,7 +41,8 @@ class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainA
     }
 
     override fun getItemCount(): Int {
-        return questionMainData.size
+        return if(questionMainData.size < 6) questionMainData.size else 5
+
     }
 
     inner class ClassRoomQuestionMainViewHolder(
