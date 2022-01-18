@@ -19,12 +19,37 @@
                 android:id="@+id/img_personal_question"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/img_room_main"
+                android:background="@drawable/property_1_variant_2"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_personal_question_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/classroom_question_senior_personal_title"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toTopOf="@+id/img_personal_question"
+                app:layout_constraintStart_toStartOf="@+id/img_personal_question"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="14dp"/>
+
+            <TextView
+                android:id="@+id/text_personal_question_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/classroom_question_senior_all_see"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="12sp"
+                android:textColor="@color/classroom_mint"
+                android:layout_marginTop="2dp"
+                app:layout_constraintTop_toBottomOf="@+id/text_personal_question_title"
+                app:layout_constraintStart_toStartOf="@+id/text_personal_question_title"/>
 
             <TextView
                 android:id="@+id/text_question_all"

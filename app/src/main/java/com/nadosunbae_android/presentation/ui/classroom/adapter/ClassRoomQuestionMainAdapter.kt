@@ -12,7 +12,6 @@ import com.nadosunbae_android.presentation.ui.classroom.QuestionDetailActivity
 class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder>() {
     var questionMainData = mutableListOf<ResponseClassRoomMainData.Data>()
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -29,15 +28,21 @@ class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainA
         holder: ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder,
         position: Int
     ) {
+
         holder.onBind(questionMainData[position])
         holder.binding.root.setOnClickListener {
             val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+            intent.apply {
+                putExtra("postId", questionMainData[position].postId)
+                putExtra("all", 1)
+            }
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
     }
 
     override fun getItemCount(): Int {
-        return questionMainData.size
+        return if(questionMainData.size < 6) questionMainData.size else 5
+
     }
 
     inner class ClassRoomQuestionMainViewHolder(

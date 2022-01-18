@@ -1,10 +1,13 @@
 package com.nadosunbae_android.presentation.ui.classroom.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.databinding.ItemQuestionAllBinding
+import com.nadosunbae_android.presentation.ui.classroom.QuestionDetailActivity
 
 
 // 전체 게시물 보기
@@ -28,6 +31,14 @@ class ClassRoomAskEveryoneAdapter : RecyclerView.Adapter<ClassRoomAskEveryoneAda
         position: Int
     ) {
         holder.onBind(askEveryoneData[position])
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+            intent.apply {
+                putExtra("postId", askEveryoneData[position].postId)
+                putExtra("all", 1)
+            }
+            ContextCompat.startActivity(holder.itemView.context, intent, null)
+        }
     }
 
     override fun getItemCount(): Int {
