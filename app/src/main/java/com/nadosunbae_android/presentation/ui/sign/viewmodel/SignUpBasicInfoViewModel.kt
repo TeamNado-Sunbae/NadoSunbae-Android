@@ -12,7 +12,7 @@ import com.nadosunbae_android.data.repository.sign.SignRepositoryImpl
 class SignUpBasicInfoViewModel : ViewModel() {
     val signRepository : SignRepository = SignRepositoryImpl()
     //닉네임 중복 체크 변수
-    var nickNameDuplication = MutableLiveData<ResponseSignNickname>()
+    var nickNameDuplication = MutableLiveData<Boolean>()
 
     //닉네임
     var nickName = MutableLiveData<String>()
@@ -22,12 +22,16 @@ class SignUpBasicInfoViewModel : ViewModel() {
         signRepository.postSignNickname(requestSignNickname,
             onResponse = {
                 if(it.isSuccessful){
-                    nickNameDuplication.value = it.body()
+                    nickNameDuplication.value = it.body()?.success
                     Log.d("nickNameDuplication", "서버 통신 성공")
-                }}
-        ) {
+                }else{
+                    nickNameDuplication.value = false
+                    Log.d("nickNameDuplication", "중복된 아이디")
+                }
+            },
+            onFailure = {
             it.printStackTrace()
             Log.d("nickNameDuplication", "서버 통신 실패")
-        }
+        })
     }
 }
