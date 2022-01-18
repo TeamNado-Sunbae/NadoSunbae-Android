@@ -19,8 +19,6 @@ class SignUpBasicInfoActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        initSetting()
         nicknameTextWatcher()
         emailTextWatcher()
         pwTextWatcher()
@@ -91,12 +89,10 @@ class SignUpBasicInfoActivity :
 
 
     private fun initSetting() {
-//        //Test
-//        binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
-//        binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
-
-        binding.textSignupBasicinfoPwDuplicationOk.visibility = View.INVISIBLE
-        binding.textSignupBasicinfoPwDuplicationNo.visibility = View.INVISIBLE
+        if(binding.etSignupBasicinfoPw.text.toString() == "" || binding.etSignupBasicinfoPwCheck.text.toString()=="") {
+            binding.textSignupBasicinfoPwDuplicationOk.visibility = View.INVISIBLE
+            binding.textSignupBasicinfoPwDuplicationNo.visibility = View.INVISIBLE
+        }
     }
 
 
@@ -114,23 +110,22 @@ class SignUpBasicInfoActivity :
             override fun afterTextChanged(p0: Editable?) {
 
                 isValidRegistrationPw()
+                initSetting()
 
                 if (binding.etSignupBasicinfoPw.text.toString() == "") {
                     binding.imgSignupBasicinfoPwCancel.isSelected = false
-                    binding.textSignupBasicinfoPwDuplicationOk.setVisibility(View.INVISIBLE)
-                    binding.textSignupBasicinfoPwDuplicationNo.setVisibility(View.INVISIBLE)
                     binding.textSignupBasicinfoPwTitle.setTextColor(Color.parseColor("#94959E"))
                 } else {
                     binding.imgSignupBasicinfoPwCancel.isSelected = true
+                    if (binding.etSignupBasicinfoPw.text.toString() == binding.etSignupBasicinfoPwCheck.text.toString()) {
+                        binding.textSignupBasicinfoPwDuplicationOk.visibility = View.VISIBLE
+                        binding.textSignupBasicinfoPwDuplicationNo.visibility = View.INVISIBLE
+                    } else {
+                        binding.textSignupBasicinfoPwDuplicationOk.visibility = View.INVISIBLE
+                        binding.textSignupBasicinfoPwDuplicationNo.visibility = View.VISIBLE
+                    }
                 }
 
-                if (binding.etSignupBasicinfoPw.text.toString() == binding.etSignupBasicinfoPwCheck.text.toString()) {
-                    binding.textSignupBasicinfoPwDuplicationOk.visibility = View.VISIBLE
-                    binding.textSignupBasicinfoPwDuplicationNo.visibility = View.INVISIBLE
-                } else {
-                    binding.textSignupBasicinfoPwDuplicationOk.visibility = View.INVISIBLE
-                    binding.textSignupBasicinfoPwDuplicationNo.visibility = View.VISIBLE
-                }
             }
 
         })
@@ -154,22 +149,21 @@ class SignUpBasicInfoActivity :
 
             override fun afterTextChanged(p0: Editable?) {
                 //빈칸 체크 -> X 아이콘 selector
+                initSetting()
                 if (binding.etSignupBasicinfoPwCheck.text.toString() == "") {
                     binding.imgSignupBasicinfoPwCheckCancel.isSelected = false
-                    binding.textSignupBasicinfoPwDuplicationOk.setVisibility(View.INVISIBLE)
-                    binding.textSignupBasicinfoPwDuplicationNo.setVisibility(View.INVISIBLE)
                 } else {
                     binding.imgSignupBasicinfoPwCheckCancel.isSelected = true
+                    //pw, pw확인 같은지 check
+                    if (binding.etSignupBasicinfoPw.text.toString() == binding.etSignupBasicinfoPwCheck.text.toString()) {
+                        binding.textSignupBasicinfoPwDuplicationOk.visibility = View.VISIBLE
+                        binding.textSignupBasicinfoPwDuplicationNo.visibility = View.INVISIBLE
+                    } else {
+                        binding.textSignupBasicinfoPwDuplicationOk.visibility = View.INVISIBLE
+                        binding.textSignupBasicinfoPwDuplicationNo.visibility = View.VISIBLE
+                    }
                 }
 
-                //pw, pw확인 같은지 check
-                if (binding.etSignupBasicinfoPw.text.toString() == binding.etSignupBasicinfoPwCheck.text.toString()) {
-                    binding.textSignupBasicinfoPwDuplicationOk.visibility = View.VISIBLE
-                    binding.textSignupBasicinfoPwDuplicationNo.visibility = View.INVISIBLE
-                } else {
-                    binding.textSignupBasicinfoPwDuplicationOk.visibility = View.INVISIBLE
-                    binding.textSignupBasicinfoPwDuplicationNo.visibility = View.VISIBLE
-                }
             }
 
         })
@@ -197,10 +191,8 @@ class SignUpBasicInfoActivity :
                 password.text.toString()
             )
         ) {
-            //binding.textSignupBasicinfoPwTitle.isSelected = true
             binding.textSignupBasicinfoPwTitle.setTextColor(Color.parseColor("#FF4C40"))
         } else {
-            //binding.textSignupBasicinfoPwTitle.isSelected = false
             binding.textSignupBasicinfoPwTitle.setTextColor(Color.parseColor("#94959E"))
         }
     }
@@ -231,6 +223,10 @@ class SignUpBasicInfoActivity :
     }
 
     private fun nextPage() {
+        binding.clSignupBasicinfoMoveNext.setOnClickListener {
+            startActivity(Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java))
+            finish()
+        }
         //맞는 로직인지는 잘 모르겠는데 서버 들어오고 수정해야할 듯
 //        if(binding.textSignupBasicinfoNicknameDuplicationNo.visibility == View.VISIBLE ||
 //                    binding.textSignupBasicinfoEmailDuplicationNo.visibility == View.VISIBLE) {

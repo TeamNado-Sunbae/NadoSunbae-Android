@@ -14,10 +14,10 @@
 
         <ImageView
             android:id="@+id/img_signup_finish"
-            android:layout_width="164dp"
-            android:layout_height="164dp"
-            android:layout_marginTop="140dp"
-            android:background="@drawable/rectangle_fill_gray_0"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_marginTop="72dp"
+            android:background="@drawable/img_join_done"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
             android:id="@+id/text_signup_finish_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="46dp"
+            android:layout_marginTop="38dp"
             android:fontFamily="@font/pretendard_semibold"
             android:text="@string/signup_finish_title"
             android:textColor="@color/main_default"
