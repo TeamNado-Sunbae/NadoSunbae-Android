@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.response.review.SelectBackgroundBoxData
+import com.nadosunbae_android.data.model.ui.SelectBackgroundBoxData
 import com.nadosunbae_android.databinding.ItemListBackgroundBinding
 
 class ReviewSelectBackgroundAdapter : RecyclerView.Adapter<ReviewSelectBackgroundAdapter.ReviewSelectBackgroundHolder>() {

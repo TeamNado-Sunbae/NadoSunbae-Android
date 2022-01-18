@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.review.SelectBackgroundBoxData
+import com.nadosunbae_android.data.model.ui.SelectBackgroundBoxData
 import com.nadosunbae_android.databinding.ActivityReviewWriteBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewSelectBackgroundAdapter

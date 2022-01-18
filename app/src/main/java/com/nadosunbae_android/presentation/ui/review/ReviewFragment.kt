@@ -10,8 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.review.PreviewData
-import com.nadosunbae_android.data.model.response.sign.BottomSheetData
+import com.nadosunbae_android.data.model.request.review.RequestReviewListData
+import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
+import com.nadosunbae_android.data.model.ui.PreviewData
+import com.nadosunbae_android.data.model.sign.BottomSheetData
 import com.nadosunbae_android.databinding.FragmentReviewBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
@@ -45,7 +47,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         setBinding()
         setStickyHeader()
         initReviewListAdapter()
-        setPreviewData()
+        initReviewListData()
         setClickListener()
         observePreviewList()
 
@@ -58,9 +60,15 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         binding.reviewListViewModel = reviewListViewModel
     }
 
-    private fun setPreviewData() {
-
+    private fun initReviewListData() {
+        reviewListViewModel.getReviewList(
+            "recent", RequestReviewListData(5, 1, listOf(1, 2, 3, 4, 5))
+        )
+        reviewListViewModel.reviewListData.observe(viewLifecycleOwner) {
+            reviewListAdapter.setReviewListData(it.data as MutableList<ResponseReviewListData.Data>)
+        }
     }
+
 
     private fun initReviewListAdapter() {
         reviewListAdapter = ReviewListAdapter()
@@ -153,25 +161,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         reviewListViewModel.setPageUrl("https://www.naver.com")
         reviewListViewModel.setSubjectTableUrl("https://www.daum.net")
         mainViewModel.setSelectedMajor("국어국문학과")
-
-        val sampleData = PreviewData(
-            "22.01.12",
-            4,
-            "한줄평입니다",
-            listOf("뭘배우나요?"),
-            "닉네임",
-            "18-1 본전공",
-            "20-1 제2전공"
-        )
-        val previewData = mutableListOf(
-            sampleData,
-            sampleData,
-            sampleData,
-            sampleData,
-            sampleData
-        )
-
-            reviewListAdapter.setReviewListData(previewData)
     }
 
 }

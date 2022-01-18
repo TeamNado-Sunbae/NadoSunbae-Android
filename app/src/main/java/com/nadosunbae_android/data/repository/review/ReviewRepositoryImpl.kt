@@ -1,4 +1,21 @@
 package com.nadosunbae_android.data.repository.review
 
-class ReviewRepositoryImpl {
+import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSource
+import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSourceImpl
+import com.nadosunbae_android.data.model.request.review.RequestReviewListData
+import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
+import retrofit2.Response
+
+class ReviewRepositoryImpl : ReviewRepository {
+    val reviewDataSource : ReviewDataSource = ReviewDataSourceImpl()
+
+    override fun getReviewList(
+        sort: String,
+        body: RequestReviewListData,
+        onResponse: (Response<ResponseReviewListData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return reviewDataSource.getReviewList(sort, body, onResponse, onFailure)
+    }
+
 }
