@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.response.review.PreviewData
+import com.nadosunbae_android.data.model.ui.PreviewData
 import com.nadosunbae_android.databinding.ItemListReviewBinding
 
 class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() {
