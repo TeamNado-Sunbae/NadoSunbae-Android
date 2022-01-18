@@ -23,12 +23,12 @@ class SeniorPersonalFragment : BaseFragment<FragmentSeniorPersonalBinding>(R.lay
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initSeniorQuestion()
+        // initSeniorQuestion()
         goClassRoomReview()
     }
 
     //선배에게 온 1:1 질문 목록
-    private fun initSeniorQuestion(){
+  /*  private fun initSeniorQuestion(){
         val exampleData = mutableListOf(
             ResponseClassRoomMainData.Data(
                 postId = 32,
@@ -97,7 +97,7 @@ class SeniorPersonalFragment : BaseFragment<FragmentSeniorPersonalBinding>(R.lay
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
         classRoomQuestionMainAdapter.setQuestionMain(exampleData)
 
-    }
+    } */
 
 
     private fun goClassRoomReview(){
