@@ -68,6 +68,7 @@
         <activity
             android:name=".presentation.ui.mypage.ModifyMyInfoActivity"
             android:exported="false" />
+
         <activity
             android:name=".presentation.ui.mypage.MyPageSettingActivity"
             android:exported="false" />
@@ -78,6 +79,7 @@
             android:name=".presentation.ui.mypage.MyPagePostActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
+
         <activity
             android:name=".presentation.ui.review.ReviewWriteActivity"
             android:exported="false" />
