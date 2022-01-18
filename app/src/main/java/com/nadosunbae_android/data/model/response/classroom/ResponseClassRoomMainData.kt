@@ -1,24 +1,26 @@
 package com.nadosunbae_android.data.model.response.classroom
 
+import java.util.*
+
 data class ResponseClassRoomMainData(
-    val data: List<Data>,
-    val message: String,
     val status: Int,
-    val success: Boolean
+    val success: Boolean,
+    val message: String,
+    val data: List<Data>,
 ) {
     data class Data(
-        val commentCount: Int,
-        val content: String,
-        val createdAt: String,
-        val likeCount: Int,
         val postId: Int,
         val title: String,
-        val writer: Writer
+        val content: String,
+        val createdAt: String,
+        val writer: Writer,
+        val likeCount: String,
+        val commentCount: String
     ) {
         data class Writer(
             val nickname: String,
-            val writerId: Int,
-            val profileImageId : Int
+            val profileImageId: Int,
+            val writerId: Int
         )
     }
 }

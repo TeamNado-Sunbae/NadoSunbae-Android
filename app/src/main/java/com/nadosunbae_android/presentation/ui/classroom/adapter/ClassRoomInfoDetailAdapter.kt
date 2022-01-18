@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.presentation.ui.classroom.InformationDetailActivity
-import com.nadosunbae_android.presentation.ui.classroom.QuestionDetailActivity
 
 class ClassRoomInfoDetailAdapter: RecyclerView.Adapter<ClassRoomInfoDetailAdapter.ClassRoomInfoDetailViewHolder>() {
     var questionMainData = mutableListOf<ResponseClassRoomMainData.Data>()

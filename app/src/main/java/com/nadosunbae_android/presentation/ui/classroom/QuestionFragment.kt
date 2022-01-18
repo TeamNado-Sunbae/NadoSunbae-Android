@@ -2,6 +2,7 @@ package com.nadosunbae_android.presentation.ui.classroom
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
@@ -28,7 +29,6 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initQuestionMain()
-        visibleQuestion()
         changeAskEveryOne()
         changeSeniorFragment()
         goQuestionWriteAll()
@@ -36,73 +36,17 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
 
 
     private fun initQuestionMain(){
-        val exampleData = mutableListOf(
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = 2,
-                commentCount = 2
-            ),
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = 2,
-                commentCount = 2
-            ),
-                    ResponseClassRoomMainData.Data(
-                    postId = 32,
-            writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-            title = "제목",
-            content = "내용",
-            createdAt = "2021-11-28T18:56:42.040Z",
-            likeCount = 2,
-            commentCount = 2
-        ),
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = 2,
-                commentCount = 2
-            ),
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = 2,
-                commentCount = 2
-            ), ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = 2,
-                commentCount = 2
-            ), ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = 2,
-                commentCount = 2
-            ),
-        )
+        mainViewModel.getClassRoomMain(2,5)
 
         classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
         binding.rcQuestionAll.adapter = classRoomQuestionMainAdapter
-        classRoomQuestionMainAdapter.setQuestionMain(exampleData)
+
+        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
+            Log.d("cclassRoomMain", it.data.toString())
+            classRoomQuestionMainAdapter.setQuestionMain(it.data as MutableList<ResponseClassRoomMainData.Data>)
+            visibleQuestion()
+        }
+
     }
 
     //데이터 개수에 따라 뷰 보이기 설정
