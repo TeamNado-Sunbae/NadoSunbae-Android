@@ -1,5 +1,6 @@
 package com.nadosunbae_android.data.api
 
+import android.util.Log
 import com.google.gson.GsonBuilder
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
 import okhttp3.Interceptor
@@ -33,6 +34,15 @@ object ApiService {
         .run {
             interceptors
             addInterceptor(interceptor)
+            addInterceptor { chain ->
+                val request = chain.request()
+                Log.d("okhttp", "request : $request")
+                Log.d("okhttp", "request header : ${request.headers}")
+                val response = chain.proceed(request)
+                Log.d("okhttp", "response : $response")
+                Log.d("okhttp", "response header: ${response.headers}")
+                response
+            }
             build()
         }
 

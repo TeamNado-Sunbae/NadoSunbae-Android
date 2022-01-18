@@ -37,7 +37,7 @@ class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainA
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return questionMainData.size
     }
 
     inner class ClassRoomQuestionMainViewHolder(

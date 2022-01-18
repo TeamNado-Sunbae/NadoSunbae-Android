@@ -55,6 +55,7 @@ class MainViewModel() : ViewModel() {
             onResponse = {
                 if(it.isSuccessful){
                     _classRoomMain.value = it.body()
+                    Log.d("classRoomMain", "메인 서버 통신 성공")
                 }},
                 onFailure = {
                     it.printStackTrace()

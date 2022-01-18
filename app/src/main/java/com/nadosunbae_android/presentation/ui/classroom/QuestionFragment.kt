@@ -2,6 +2,7 @@ package com.nadosunbae_android.presentation.ui.classroom
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
@@ -28,7 +29,6 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initQuestionMain()
-        visibleQuestion()
         changeAskEveryOne()
         changeSeniorFragment()
         goQuestionWriteAll()
@@ -36,13 +36,15 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
 
 
     private fun initQuestionMain(){
-        mainViewModel.getClassRoomMain(2,1)
+        mainViewModel.getClassRoomMain(2,5)
 
         classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
         binding.rcQuestionAll.adapter = classRoomQuestionMainAdapter
 
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){
+            Log.d("cclassRoomMain", it.data.toString())
             classRoomQuestionMainAdapter.setQuestionMain(it.data as MutableList<ResponseClassRoomMainData.Data>)
+            visibleQuestion()
         }
 
     }
