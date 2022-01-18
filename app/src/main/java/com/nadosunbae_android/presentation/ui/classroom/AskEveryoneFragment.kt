@@ -40,72 +40,13 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
 
     //리사이클러뷰
     private fun initAskEveryone(){
-        val exampleData = mutableListOf(
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2" ,
-                commentCount = "2"
-            ),
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ),
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ),
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ),
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ), ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ), ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            )
-        )
+        mainViewModel.getClassRoomMain(2,5)
         classRoomAskEveryoneAdapter = ClassRoomAskEveryoneAdapter()
         binding.rcAskEveryone.adapter = classRoomAskEveryoneAdapter
-        classRoomAskEveryoneAdapter.setAskEveryone(exampleData)
+        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
+            classRoomAskEveryoneAdapter.setAskEveryone(it.data as MutableList<ResponseClassRoomMainData.Data>)
+        }
+
 
     }
 

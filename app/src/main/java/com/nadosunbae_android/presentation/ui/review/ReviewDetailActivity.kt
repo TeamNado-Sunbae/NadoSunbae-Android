@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.review.ReviewTagBoxData
+import com.nadosunbae_android.data.model.ui.ReviewTagBoxData
 import com.nadosunbae_android.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewTagBoxAdapter

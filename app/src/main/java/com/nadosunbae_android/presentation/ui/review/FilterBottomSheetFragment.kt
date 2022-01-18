@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.R
 import androidx.databinding.DataBindingUtil
 import com.nadosunbae_android.databinding.FragmentFilterBottomSheetBinding
+import com.nadosunbae_android.util.finish
 
 class FilterBottomSheetDialog : BottomSheetDialogFragment() {
     private lateinit var _binding : FragmentFilterBottomSheetBinding
@@ -84,6 +85,11 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         // 적용하기 버튼
         binding.btnFilterApply.setOnClickListener {
             Log.d("TEST", "Filter Apply")
+        }
+
+        // 닫기 버튼
+        binding.btnBottomsheetCancel.setOnClickListener {
+            finish()
         }
     }
 

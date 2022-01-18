@@ -1,4 +1,4 @@
-package com.nadosunbae_android.data.model.response.review
+package com.nadosunbae_android.data.model.ui
 
 data class PreviewData (
     val createAt: String,

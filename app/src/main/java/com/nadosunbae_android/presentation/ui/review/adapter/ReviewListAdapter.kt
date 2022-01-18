@@ -4,14 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.response.review.PreviewData
+import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
+import com.nadosunbae_android.data.model.ui.PreviewData
 import com.nadosunbae_android.databinding.ItemListReviewBinding
 
 class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() {
-    var dataList = mutableListOf<PreviewData>()
+    var dataList = mutableListOf<ResponseReviewListData.Data>()
 
     class ReviewHolder(private val binding: ItemListReviewBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: PreviewData) {
+        fun onBind(data: ResponseReviewListData.Data) {
             binding.previewData = data
             binding.executePendingBindings()
         }
@@ -46,7 +47,7 @@ class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() 
         this.itemClickListener = itemClickListener
     }
 
-    fun setReviewListData(dataList : MutableList<PreviewData>){
+    fun setReviewListData(dataList : MutableList<ResponseReviewListData.Data>){
         this.dataList = dataList
         notifyDataSetChanged()
     }

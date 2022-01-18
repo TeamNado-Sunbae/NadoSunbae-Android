@@ -1,6 +1,7 @@
 package com.nadosunbae_android.util
 
 import android.content.Context
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class CustomDialog(context : Context) {
 
@@ -37,4 +38,8 @@ class CustomDialog(context : Context) {
                 여기 안에다 이벤트 작성
                 }
      */
+}
+
+fun BottomSheetDialogFragment.finish() {
+    activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
 }
