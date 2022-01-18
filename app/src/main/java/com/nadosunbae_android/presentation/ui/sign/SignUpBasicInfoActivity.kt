@@ -39,17 +39,27 @@ class SignUpBasicInfoActivity :
         closePage()
         nextPage()
 
-        nicknameDuplication()
+//        nicknameDuplication()
     }
 
     private fun nicknameDuplication() {
-        val nickname = binding.etSignupBasicinfoNickname.text.toString()
+        //닉네임 중복 체크 서버 통신
+        signUpBasicInfoViewModel.nickName.observe(this){
+            signUpBasicInfoViewModel.nickNameDuplication(it)
+            Log.d("서버통신", "123123")
+        }
 
+        signUpBasicInfoViewModel.nickNameDuplication.observe(this){
+            Log.d("서버통신", "111111")
+            if(it.success){
+                binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
+                binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
 
-        signUpBasicInfoViewModel.nickNameDuplication(nickname)
+            } else {
+                binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.VISIBLE
+                binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
 
-        binding.textSignupBasicinfoNicknameDuplication.setOnClickListener {
-            Log.d("signUpNickname", binding.etSignupBasicinfoNickname.text.toString())
+            }
         }
 
     }
@@ -72,6 +82,11 @@ class SignUpBasicInfoActivity :
                 } else {
                     binding.imgSignupBasicinfoNicknameCancel.isSelected = true
                     binding.textSignupBasicinfoNicknameDuplication.isSelected = true
+
+                    binding.textSignupBasicinfoNicknameDuplication.setOnClickListener {
+                        signUpBasicInfoViewModel.nickName.value = p0.toString()
+                        nicknameDuplication()
+                    }
                 }
 
             }

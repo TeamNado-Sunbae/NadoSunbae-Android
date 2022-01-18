@@ -6,7 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface SignService {
-    @POST("/auth/duplication-check/nickname")
+    @POST("auth/duplication-check/nickname")
     fun postSignNickname(
         @Body requestSignNickname: String
     ): Call<ResponseSignNickname>
