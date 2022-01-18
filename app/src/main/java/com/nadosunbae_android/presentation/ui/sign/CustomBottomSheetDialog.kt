@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.sign.BottomSheetData
+import com.nadosunbae_android.data.model.response.sign.BottomSheetData
 import com.nadosunbae_android.databinding.FragmentCustomBottomSheetDialogBinding
 import com.nadosunbae_android.presentation.ui.sign.adapter.MajorSelectAdapter
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignViewModel

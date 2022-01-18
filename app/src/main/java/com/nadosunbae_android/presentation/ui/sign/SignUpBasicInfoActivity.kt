@@ -5,17 +5,29 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.View
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.databinding.ActivitySignUpBasicInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
+import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.util.SignInCustomDialog
 import java.util.regex.Pattern
 
 
 class SignUpBasicInfoActivity :
     BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels{
+        object : ViewModelProvider.Factory{
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return SignUpBasicInfoViewModel() as T
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +38,20 @@ class SignUpBasicInfoActivity :
         beforeBtnClick()
         closePage()
         nextPage()
+
+        nicknameDuplication()
+    }
+
+    private fun nicknameDuplication() {
+        val nickname = binding.etSignupBasicinfoNickname.text.toString()
+
+
+        signUpBasicInfoViewModel.nickNameDuplication(nickname)
+
+        binding.textSignupBasicinfoNicknameDuplication.setOnClickListener {
+            Log.d("signUpNickname", binding.etSignupBasicinfoNickname.text.toString())
+        }
+
     }
 
     //닉네임 textwatcher

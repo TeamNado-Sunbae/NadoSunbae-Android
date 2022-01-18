@@ -1,4 +1,4 @@
-package com.nadosunbae_android.data.model.sign
+package com.nadosunbae_android.data.model.response.sign
 
 data class ResponseMajorData(
     val data: Data,
