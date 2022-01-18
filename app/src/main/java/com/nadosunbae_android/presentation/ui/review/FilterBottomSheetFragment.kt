@@ -85,6 +85,11 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         binding.btnFilterApply.setOnClickListener {
             Log.d("TEST", "Filter Apply")
         }
+
+        // 닫기 버튼
+        binding.btnBottomsheetCancel.setOnClickListener {
+            finish()
+        }
     }
 
 
