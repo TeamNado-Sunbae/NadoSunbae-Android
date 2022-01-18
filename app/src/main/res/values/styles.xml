@@ -39,6 +39,10 @@
         <item name="android:minWidth">0dp</item>
         <item name="android:fontFamily">@font/pretendard_regular</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
     </style>
 
 </resources>
