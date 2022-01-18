@@ -1,11 +1,13 @@
 package com.nadosunbae_android.presentation.ui.classroom
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.request.classroom.RequestClassRoom
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.databinding.FragmentAskEveryoneBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
@@ -22,12 +24,14 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
             }
         }
     }
+
     private lateinit var classRoomAskEveryoneAdapter : ClassRoomAskEveryoneAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         changeClassRoom()
         initAskEveryone()
+        goQuestionWrite()
     }
 
 
@@ -47,7 +51,14 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
             classRoomAskEveryoneAdapter.setAskEveryone(it.data as MutableList<ResponseClassRoomMainData.Data>)
         }
 
+    }
 
+    //전체 질문 작성으로 이동
+    private fun goQuestionWrite(){
+        binding.btnGoQuestionWrite.setOnClickListener {
+            val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 

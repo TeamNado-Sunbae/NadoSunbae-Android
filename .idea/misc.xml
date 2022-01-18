@@ -166,7 +166,11 @@
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_my_page_post.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_notification.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_question_detail.xml" value="0.176" />
+<<<<<<< Updated upstream
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_question_write.xml" value="0.2" />
+=======
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_question_write.xml" value="0.12" />
+>>>>>>> Stashed changes
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_review_detail.xml" value="0.1296875" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_review_write.xml" value="0.1" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_basic_info.xml" value="0.1296875" />
@@ -174,7 +178,7 @@
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/custom_question_detail_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/custom_spinner_question_detail_item.xml" value="0.176" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_ask_anyone.xml" value="0.1296875" />
-        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_ask_everyone.xml" value="0.2" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_ask_everyone.xml" value="0.176" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_class_room.xml" value="0.176" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_class_room_review.xml" value="0.14736842105263157" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_custom_bottom_sheet_dialog.xml" value="0.1296875" />
