@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/pretendard_regular"
-                android:text="@{questionDetail.createdAt}"
+                dateToText="@{questionDetail.createdAt}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"

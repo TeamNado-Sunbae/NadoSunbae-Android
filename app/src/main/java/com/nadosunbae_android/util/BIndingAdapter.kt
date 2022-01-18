@@ -14,9 +14,13 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("dateToText")
-    fun getDateToText(textView: TextView, date: Date): String {
-        val format = SimpleDateFormat("yyyy.MM.dd.")
-        return format.format(date).also { textView.text = it }
+    fun getDateToText(textView: TextView, date: Date?) {
+        if(date == null){
+            textView.text = ""
+        }else{
+            val format = SimpleDateFormat("a HH:MM")
+            format.format(date).also { textView.text = it }
+        }
     }
 
     @JvmStatic

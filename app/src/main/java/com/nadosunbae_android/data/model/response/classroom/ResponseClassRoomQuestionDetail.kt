@@ -1,5 +1,7 @@
 package com.nadosunbae_android.data.model.response.classroom
 
+import java.util.*
+
 data class  ResponseClassRoomQuestionDetail(
     val data: Data,
     val message: String,
@@ -19,7 +21,7 @@ data class  ResponseClassRoomQuestionDetail(
 
         data class Message(
             val content: String,
-            val createdAt: Any,
+            val createdAt: Date?,
             val isDeleted: Boolean,
             val messageId: Int,
             val title: String,
