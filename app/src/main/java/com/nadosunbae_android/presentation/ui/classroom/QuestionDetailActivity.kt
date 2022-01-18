@@ -43,6 +43,7 @@ class QuestionDetailActivity :
         binding.rcQuestionDetail.adapter = classRoomQuestionDetailAdapter
 
         questionDetailViewModel.questionDetailData.observe(this){
+            classRoomQuestionDetailAdapter.setLike(it.data.like.likeCount, it.data.like.isLiked)
             classRoomQuestionDetailAdapter.setQuestionDetail(it.data.messageList as MutableList<ResponseClassRoomQuestionDetail.Data.Message>)
         }
 
@@ -59,6 +60,9 @@ class QuestionDetailActivity :
 
     //뒤로가기
     private fun backBtn(){
-        finish()
+        binding.imgQuestionDetailTitle.setOnClickListener {
+            finish()
+        }
+
     }
 }

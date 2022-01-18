@@ -12,7 +12,6 @@ import com.nadosunbae_android.presentation.ui.classroom.QuestionDetailActivity
 class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder>() {
     var questionMainData = mutableListOf<ResponseClassRoomMainData.Data>()
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
