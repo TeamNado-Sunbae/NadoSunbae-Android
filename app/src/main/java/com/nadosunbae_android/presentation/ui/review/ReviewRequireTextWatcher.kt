@@ -41,8 +41,10 @@ class ReviewRequireTextWatcher(private var binding: ActivityReviewWriteBinding) 
         for (e in optionalEditTexts) {
             if (e.text.length >= MIN_LENGTH_GENERAL)
                 validOptional = true
-            else if (e.text.isNotEmpty())
+            else if (e.text.isNotEmpty()) {
                 validOptional = false
+                break
+            }
         }
 
         // 조건 만족
