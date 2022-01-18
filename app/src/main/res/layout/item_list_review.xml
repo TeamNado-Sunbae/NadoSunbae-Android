@@ -6,7 +6,7 @@
     <data>
         <variable
             name="previewData"
-            type="com.nadosunbae_android.data.model.response.review.PreviewData" />
+            type="com.nadosunbae_android.data.model.response.review.ResponseReviewListData.Data" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{previewData.createAt}"
+            dateFormat_YYMMDD="@{previewData.createdAt}"
             tools:text="@string/review_example_create_at" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_marginEnd="16dp"
 
             android:fontFamily="@font/pretendard_light"
-            intToText="@{previewData.likes}"
+            android:text="@{previewData.likeCount}"
             android:textColor="@color/gray_3"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -169,7 +169,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="9dp"
             android:fontFamily="@font/pretendard_semibold"
-            android:text="@{previewData.nickname}"
+            android:text="@{previewData.writer.nickname}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -183,13 +183,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="@{previewData.firstMajor}"
+            majorName="@{previewData.writer.firstMajorName}"
+            majorStart="@{previewData.writer.firstMajorStart}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
             app:layout_constraintStart_toEndOf="@+id/tv_nickname"
             app:layout_constraintTop_toTopOf="@+id/tv_nickname"
-            tools:text="@string/review_example_first_major" />
+            tools:text="@string/review_example_first_major"/>
+
 
         <View
             android:id="@+id/view_line_vertical"
@@ -207,7 +209,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="@{previewData.secondMajor}"
+            majorName="@{previewData.writer.secondMajorName}"
+            majorStart="@{previewData.writer.firstMajorStart}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"

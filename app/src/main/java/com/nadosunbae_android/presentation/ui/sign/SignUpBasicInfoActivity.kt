@@ -5,17 +5,30 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.View
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.databinding.ActivitySignUpBasicInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
+import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.util.SignInCustomDialog
 import java.util.regex.Pattern
 
 
 class SignUpBasicInfoActivity :
     BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels{
+        object : ViewModelProvider.Factory{
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return SignUpBasicInfoViewModel() as T
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +39,30 @@ class SignUpBasicInfoActivity :
         beforeBtnClick()
         closePage()
         nextPage()
+
+//        nicknameDuplication()
+    }
+
+    private fun nicknameDuplication() {
+        //닉네임 중복 체크 서버 통신
+        signUpBasicInfoViewModel.nickName.observe(this){
+            signUpBasicInfoViewModel.nickNameDuplication(RequestSignNickname(it))
+            Log.d("1111", "123123")
+        }
+
+        signUpBasicInfoViewModel.nickNameDuplication.observe(this){
+            Log.d("1111", "111111")
+            if(it.success){
+                binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
+                binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
+
+            } else {
+                binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
+                binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.VISIBLE
+
+            }
+        }
+
     }
 
     //닉네임 textwatcher
@@ -46,6 +83,11 @@ class SignUpBasicInfoActivity :
                 } else {
                     binding.imgSignupBasicinfoNicknameCancel.isSelected = true
                     binding.textSignupBasicinfoNicknameDuplication.isSelected = true
+
+                    binding.textSignupBasicinfoNicknameDuplication.setOnClickListener {
+                        signUpBasicInfoViewModel.nickName.value = p0.toString()
+                        nicknameDuplication()
+                    }
                 }
 
             }
@@ -54,6 +96,8 @@ class SignUpBasicInfoActivity :
 
         binding.imgSignupBasicinfoNicknameCancel.setOnClickListener {
             binding.etSignupBasicinfoNickname.setText(null)
+            binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
+            binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
         }
     }
 

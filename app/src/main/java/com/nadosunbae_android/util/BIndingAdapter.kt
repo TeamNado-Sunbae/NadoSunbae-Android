@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.core.view.marginLeft
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,6 +31,15 @@ object BindingAdapter {
     }
 
 
+}
+@BindingAdapter("majorName", "majorStart")
+fun TextView.majorText(majorName: String, majorStart: String) {
+    text = "$majorName $majorStart"
+}
+
+@BindingAdapter("dateFormat_YYMMDD")
+fun TextView.dateToTextFormat(date: Date) {
+    text = SimpleDateFormat("yy/MM/dd").format(date)
 }
 
 @BindingAdapter("loadImageFromUrl")
