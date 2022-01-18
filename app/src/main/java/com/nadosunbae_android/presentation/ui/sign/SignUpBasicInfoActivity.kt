@@ -12,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.databinding.ActivitySignUpBasicInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
@@ -45,19 +46,19 @@ class SignUpBasicInfoActivity :
     private fun nicknameDuplication() {
         //닉네임 중복 체크 서버 통신
         signUpBasicInfoViewModel.nickName.observe(this){
-            signUpBasicInfoViewModel.nickNameDuplication(it)
-            Log.d("서버통신", "123123")
+            signUpBasicInfoViewModel.nickNameDuplication(RequestSignNickname(it))
+            Log.d("1111", "123123")
         }
 
         signUpBasicInfoViewModel.nickNameDuplication.observe(this){
-            Log.d("서버통신", "111111")
+            Log.d("1111", "111111")
             if(it.success){
-                binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
-                binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
+                binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
+                binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
 
             } else {
-                binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.VISIBLE
-                binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
+                binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
+                binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.VISIBLE
 
             }
         }
@@ -95,6 +96,8 @@ class SignUpBasicInfoActivity :
 
         binding.imgSignupBasicinfoNicknameCancel.setOnClickListener {
             binding.etSignupBasicinfoNickname.setText(null)
+            binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
+            binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
         }
     }
 
