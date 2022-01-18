@@ -9,7 +9,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_custom_bottom_sheet"
+        android:id="@+id/cl_filter_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -156,12 +156,12 @@
             android:paddingHorizontal="24dp"
             android:src="@drawable/ic_restart"
             android:background="@drawable/rectangle_fill_mint_14dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_filter_complete"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_filter_apply"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_filter_complete" />
+            app:layout_constraintTop_toTopOf="@+id/btn_filter_apply" />
 
         <android.widget.Button
-            android:id="@+id/btn_filter_complete"
+            android:id="@+id/btn_filter_apply"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -175,7 +175,7 @@
             android:paddingVertical="19dp"
             android:text="@string/filter_apply"
             android:textAlignment="center"
-            android:textColor="@color/gray_3"
+            android:textColor="@drawable/selector_gray_3_to_main_default_enabled"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
