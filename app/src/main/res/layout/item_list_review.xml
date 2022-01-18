@@ -6,7 +6,7 @@
     <data>
         <variable
             name="previewData"
-            type="com.nadosunbae_android.data.model.response.review.PreviewData" />
+            type="com.nadosunbae_android.data.model.ui.PreviewData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
