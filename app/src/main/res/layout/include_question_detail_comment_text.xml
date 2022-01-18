@@ -128,7 +128,7 @@
                 android:id="@+id/text_question_detail_writer_comment_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{questionDetailWriterComment.createdAt}"
+                dateToText="@{questionDetailWriterComment.createdAt}"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="12sp"
                 android:textColor="@color/gray_2"

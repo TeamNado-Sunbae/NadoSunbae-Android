@@ -15,37 +15,45 @@ import com.nadosunbae_android.databinding.ItemQuestionDetailQuestionerBinding
 import com.nadosunbae_android.databinding.ItemQuestionDetailWriterBinding
 
 
-class ClassRoomQuestionDetailAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClassRoomQuestionDetailAdapter(context: Context) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var context = context
-    private var like = 0
+    private var like = ""
+    private var likeSelect = false
+
+    //View Type
     private val WRITER_VIEW_TYPE = 0
     private val QUESTIONER_VIEW_TYPE = 1
     private val WRITER_COMMENT_VIEW_TYPE = 2
 
-    var questionDetailData  = mutableListOf<ResponseClassRoomQuestionDetail.Data.Message>()
+    var questionDetailData = mutableListOf<ResponseClassRoomQuestionDetail.Data.Message>()
 
 
-    fun setLike(num : Int) {
-       like = num
+    fun setLike(num: String, isLiked: Boolean) {
+        like = num
+        likeSelect = isLiked
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): RecyclerView.ViewHolder {
-        return when(viewType){
+        return when (viewType) {
             WRITER_VIEW_TYPE -> {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemQuestionDetailWriterBinding.inflate(layoutInflater, parent, false)
                 ClassRoomQuestionDetailWriterViewHolder(binding)
             }
-            QUESTIONER_VIEW_TYPE ->{
+            QUESTIONER_VIEW_TYPE -> {
                 val layoutInflaters = LayoutInflater.from(parent.context)
-                val binding = ItemQuestionDetailQuestionerBinding.inflate(layoutInflaters, parent, false)
+                val binding =
+                    ItemQuestionDetailQuestionerBinding.inflate(layoutInflaters, parent, false)
                 ClassRoomQuestionDetailQuestionerViewHolder(binding)
-            } else -> {
+            }
+            else -> {
                 val layoutInflaters = LayoutInflater.from(parent.context)
-                val binding = ItemQuestionDetailCommentBinding.inflate(layoutInflaters, parent, false)
+                val binding =
+                    ItemQuestionDetailCommentBinding.inflate(layoutInflaters, parent, false)
                 ClassRoomQuestionDetailWriterCommentViewHolder(binding)
             }
         }
@@ -53,13 +61,13 @@ class ClassRoomQuestionDetailAdapter(context : Context) : RecyclerView.Adapter<R
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(questionDetailData[position].writer.isQuestioner && position == 0){
+        return if (questionDetailData[position].writer.isQuestioner && position == 0) {
             WRITER_VIEW_TYPE
-        }else if(questionDetailData[position].writer.isQuestioner && position != 0) {
+        } else if (questionDetailData[position].writer.isQuestioner && position != 0) {
             WRITER_COMMENT_VIEW_TYPE
-        }else if(!questionDetailData[position].writer.isQuestioner && position != 0){
+        } else if (!questionDetailData[position].writer.isQuestioner && position != 0) {
             QUESTIONER_VIEW_TYPE
-        }else{
+        } else {
             0
         }
 
@@ -72,21 +80,30 @@ class ClassRoomQuestionDetailAdapter(context : Context) : RecyclerView.Adapter<R
         when (holder) {
             is ClassRoomQuestionDetailWriterViewHolder -> {
                 holder.onBind(questionDetailData[position], position)
-                holder.binding.imgQuestionDetailWriterMenu.setOnClickListener {
-                    Log.d("imgQuestionMenu", "작동은 되는 겁니까?")
-                    val wrapperStyle = ContextThemeWrapper(context, R.style.Widget_App_PopupMenu)
-                    val popup = PopupMenu(wrapperStyle, holder.binding.imgQuestionDetailWriterMenu)
-                    popup.menuInflater.inflate(R.menu.menu_question_detail_update, popup.menu)
-
-                    popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
-                        when(it.itemId){
-                            R.id.question_detail_update ->true
-                            else -> false
-                        }
-                    })
-                    popup.show()
+                //좋아요 처리
+                with(holder.binding) {
+                    imgQuestionDetailLike.isSelected = likeSelect
+                    textQuestionDetailLikeCount.text = like
                 }
-            }
+                    if (questionDetailData[position].writer.secondMajorName == "미진입") {
+                        holder.binding.textQuestionDetailSecondStartMajor.visibility = View.GONE
+                    }
+                    holder.binding.imgQuestionDetailWriterMenu.setOnClickListener {
+                        Log.d("imgQuestionMenu", "작동은 되는 겁니까?")
+                        val wrapperStyle = ContextThemeWrapper(context, R.style.Widget_App_PopupMenu)
+                        val popup = PopupMenu(wrapperStyle, holder.binding.imgQuestionDetailWriterMenu)
+                        popup.menuInflater.inflate(R.menu.menu_question_detail_update, popup.menu)
+
+                        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+                            when (it.itemId) {
+                                R.id.question_detail_update -> true
+                                else -> false
+                            }
+                        })
+                        popup.show()
+                    }
+                }
+
             //질문자 문답
             is ClassRoomQuestionDetailQuestionerViewHolder -> {
                 holder.onBind(questionDetailData[position])
@@ -127,14 +144,17 @@ class ClassRoomQuestionDetailAdapter(context : Context) : RecyclerView.Adapter<R
                 holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu.setOnClickListener {
                     Log.d("imgQuestionMenu", "작동은 되는 겁니까?")
                     val wrapperStyle = ContextThemeWrapper(context, R.style.Widget_App_PopupMenu)
-                    val popup = PopupMenu(wrapperStyle, holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu)
+                    val popup = PopupMenu(
+                        wrapperStyle,
+                        holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu
+                    )
                     popup.menuInflater.inflate(R.menu.menu_question_detail_update, popup.menu)
 
                     popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
-                        when(it.itemId){
+                        when (it.itemId) {
                             //수정버튼 눌렀을 때
                             R.id.question_detail_update -> {
-                                with(holder){
+                                with(holder) {
                                     holder.visibleQuestionDetailComment(1)
                                     //취소
                                     binding.includeQuestionDetailCommentUpdate.textQuestionDetailWriterCommentContentCancel.setOnClickListener {
@@ -155,9 +175,6 @@ class ClassRoomQuestionDetailAdapter(context : Context) : RecyclerView.Adapter<R
                 }
             }
         }
-
-
-
     }
 
     override fun getItemCount(): Int {
@@ -165,38 +182,47 @@ class ClassRoomQuestionDetailAdapter(context : Context) : RecyclerView.Adapter<R
     }
 
     inner class ClassRoomQuestionDetailWriterViewHolder(
-        val binding : ItemQuestionDetailWriterBinding,
+        val binding: ItemQuestionDetailWriterBinding,
 
-    ) : RecyclerView.ViewHolder(binding.root){
+        ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(questionDetailData : ResponseClassRoomQuestionDetail.Data.Message, position : Int){
-            if(position == 0)
+        fun onBind(
+            questionDetailData: ResponseClassRoomQuestionDetail.Data.Message,
+            position: Int
+        ) {
+            if (position == 0)
                 binding.textQuestionDetailLikeCount.text = like.toString()
             binding.questionDetail = questionDetailData
             binding.executePendingBindings()
-
 
 
         }
     }
 
     inner class ClassRoomQuestionDetailQuestionerViewHolder(
-        val binding : ItemQuestionDetailQuestionerBinding
-    ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(questionDetailData : ResponseClassRoomQuestionDetail.Data.Message){
-            binding.includeQuestionDetailQuestionerText.questionDetailQuestioner = questionDetailData
-            binding.includeQuestionDetailQuestionerUpdate.questionDetailQuestioner = questionDetailData
+        val binding: ItemQuestionDetailQuestionerBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(questionDetailData: ResponseClassRoomQuestionDetail.Data.Message) {
+            binding.includeQuestionDetailQuestionerText.questionDetailQuestioner =
+                questionDetailData
+            binding.includeQuestionDetailQuestionerUpdate.questionDetailQuestioner =
+                questionDetailData
             binding.executePendingBindings()
         }
-        fun visibleQuestionDetailComment(num : Int ){
-            if(num == 1){
+
+        fun visibleQuestionDetailComment(num: Int) {
+            if (num == 1) {
                 //수정시에
-                binding.includeQuestionDetailQuestionerText.clQuestionDetailQuestionerText.visibility = View.GONE
-                binding.includeQuestionDetailQuestionerUpdate.clQuestionDetailQuestionerUpdate.visibility = View.VISIBLE
-            }else{
+                binding.includeQuestionDetailQuestionerText.clQuestionDetailQuestionerText.visibility =
+                    View.GONE
+                binding.includeQuestionDetailQuestionerUpdate.clQuestionDetailQuestionerUpdate.visibility =
+                    View.VISIBLE
+            } else {
                 //수정아닐때
-                binding.includeQuestionDetailQuestionerText.clQuestionDetailQuestionerText.visibility = View.VISIBLE
-                binding.includeQuestionDetailQuestionerUpdate.clQuestionDetailQuestionerUpdate.visibility = View.GONE
+                binding.includeQuestionDetailQuestionerText.clQuestionDetailQuestionerText.visibility =
+                    View.VISIBLE
+                binding.includeQuestionDetailQuestionerUpdate.clQuestionDetailQuestionerUpdate.visibility =
+                    View.GONE
             }
         }
 
@@ -204,29 +230,35 @@ class ClassRoomQuestionDetailAdapter(context : Context) : RecyclerView.Adapter<R
     }
 
     inner class ClassRoomQuestionDetailWriterCommentViewHolder(
-        val binding : ItemQuestionDetailCommentBinding
-    ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(questionDetailData: ResponseClassRoomQuestionDetail.Data.Message){
-            binding.includeQuestionDetailCommentText.questionDetailWriterComment = questionDetailData
-            binding.includeQuestionDetailCommentUpdate.questionDetailWriterComment = questionDetailData
+        val binding: ItemQuestionDetailCommentBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(questionDetailData: ResponseClassRoomQuestionDetail.Data.Message) {
+            binding.includeQuestionDetailCommentText.questionDetailWriterComment =
+                questionDetailData
+            binding.includeQuestionDetailCommentUpdate.questionDetailWriterComment =
+                questionDetailData
             binding.executePendingBindings()
         }
 
-        fun visibleQuestionDetailComment(num : Int ){
-            if(num == 1){
+        fun visibleQuestionDetailComment(num: Int) {
+            if (num == 1) {
                 //수정시에
-                binding.includeQuestionDetailCommentText.clQuestionDetailCommentText.visibility = View.GONE
-                binding.includeQuestionDetailCommentUpdate.clQuetionDetailCommentUpdate.visibility = View.VISIBLE
-            }else{
+                binding.includeQuestionDetailCommentText.clQuestionDetailCommentText.visibility =
+                    View.GONE
+                binding.includeQuestionDetailCommentUpdate.clQuetionDetailCommentUpdate.visibility =
+                    View.VISIBLE
+            } else {
                 //수정아닐때
-                binding.includeQuestionDetailCommentText.clQuestionDetailCommentText.visibility = View.VISIBLE
-                binding.includeQuestionDetailCommentUpdate.clQuetionDetailCommentUpdate.visibility = View.GONE
+                binding.includeQuestionDetailCommentText.clQuestionDetailCommentText.visibility =
+                    View.VISIBLE
+                binding.includeQuestionDetailCommentUpdate.clQuetionDetailCommentUpdate.visibility =
+                    View.GONE
             }
         }
     }
 
 
-    fun setQuestionDetail(questionDetailData: MutableList<ResponseClassRoomQuestionDetail.Data.Message>){
+    fun setQuestionDetail(questionDetailData: MutableList<ResponseClassRoomQuestionDetail.Data.Message>) {
         this.questionDetailData = questionDetailData
         notifyDataSetChanged()
 

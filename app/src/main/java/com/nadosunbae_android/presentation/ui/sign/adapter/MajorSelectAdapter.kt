@@ -1,18 +1,13 @@
 package com.nadosunbae_android.presentation.ui.sign.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.sign.BottomSheetData
-import com.nadosunbae_android.data.model.sign.ResponseMajorData
-import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
+import com.nadosunbae_android.data.model.response.sign.BottomSheetData
 import com.nadosunbae_android.databinding.ItemBottomsheetListBinding
 import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
-import com.nadosunbae_android.presentation.ui.sign.SignUpBasicInfoActivity
 import com.nadosunbae_android.util.setTextSemiBold
 
 class MajorSelectAdapter(

@@ -31,6 +31,7 @@
     <color name="gray_background_dark">#f8f9fd</color>
     <color name="gray_spinner_line">#e9e9e9</color>
     <color name="gray_bar">#EAEBF1</color>
+    <color name="classroom_mint">#bff2ec</color>
 
     <!-- review_colors -->
     <color name="purple_tag_fill">#f4f0ff</color>

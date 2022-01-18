@@ -1,20 +1,27 @@
 package com.nadosunbae_android.data.model.response.classroom
 
-data class ResponseClassRoomQuestionDetail(
+import java.util.*
+
+data class  ResponseClassRoomQuestionDetail(
     val data: Data,
     val message: String,
     val status: Int,
     val success: Boolean
 ) {
     data class Data(
-        val answererId: Int,
+        val answererId: Any,
         val like: Like,
         val messageList: List<Message>,
         val questionerId: Int
     ) {
+        data class Like(
+            val isLiked: Boolean,
+            val likeCount: String
+        )
+
         data class Message(
             val content: String,
-            val createdAt: String,
+            val createdAt: Date?,
             val isDeleted: Boolean,
             val messageId: Int,
             val title: String,
@@ -31,9 +38,5 @@ data class ResponseClassRoomQuestionDetail(
                 val writerId: Int
             )
         }
-        data class Like(
-            val isLiked: Boolean,
-            val likeCount: Int
-        )
     }
 }
