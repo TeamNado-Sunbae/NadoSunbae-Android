@@ -12,7 +12,7 @@ data class ResponseClassRoomMainData(
         val postId: Int,
         val title: String,
         val content: String,
-        val createdAt: String,
+        val createdAt: Date?,
         val writer: Writer,
         val likeCount: String,
         val commentCount: String

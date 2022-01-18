@@ -27,7 +27,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAskPersonal()
+       // initAskPersonal()
         movePage()
     }
 
@@ -56,7 +56,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
 
     //리사이클러뷰
-    private fun initAskPersonal(){
+    /*private fun initAskPersonal(){
         val exampleData = mutableListOf(
             ResponseClassRoomMainData.Data(
                 postId = 32,
@@ -123,7 +123,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         classRoomAskEveryoneAdapter = ClassRoomAskEveryoneAdapter()
         binding.rcMyPageQuestion.adapter = classRoomAskEveryoneAdapter
         classRoomAskEveryoneAdapter.setAskEveryone(exampleData)
-    }
+    } */
 
 
 
