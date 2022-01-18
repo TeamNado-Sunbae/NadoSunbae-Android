@@ -22,12 +22,15 @@ class QuestionDetailActivity :
         }
     }
 
+
+
     private lateinit var classRoomQuestionDetailAdapter: ClassRoomQuestionDetailAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initQuestionDetail()
         divisionQuestionDetail()
+        backBtn()
     }
 
 
@@ -52,5 +55,10 @@ class QuestionDetailActivity :
         if(all == 1){
             binding.textQuestionDetailTitle.text = "질문"
         }
+    }
+
+    //뒤로가기
+    private fun backBtn(){
+        finish()
     }
 }
