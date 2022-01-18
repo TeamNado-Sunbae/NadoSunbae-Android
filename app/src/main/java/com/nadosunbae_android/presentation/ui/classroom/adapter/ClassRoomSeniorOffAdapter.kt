@@ -47,6 +47,5 @@ class ClassRoomSeniorOffAdapter : RecyclerView.Adapter<ClassRoomSeniorOffAdapter
     fun setOffQuestionUser(offQuestionUserList: MutableList<ResponseClassRoomSeniorData.Data.OffQuestionUser>){
         this.offQuestionUserList = offQuestionUserList
         notifyDataSetChanged()
-
     }
 }

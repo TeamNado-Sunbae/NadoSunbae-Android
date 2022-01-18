@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.response.review.PreviewData
+import com.nadosunbae_android.data.model.response.sign.BottomSheetData
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
 import com.nadosunbae_android.data.model.ui.PreviewData
