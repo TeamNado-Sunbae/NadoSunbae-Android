@@ -1,27 +1,40 @@
 package com.nadosunbae_android.presentation.ui.sign
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.R
-
-import androidx.databinding.DataBindingUtil
 import com.nadosunbae_android.data.model.sign.BottomSheetData
 import com.nadosunbae_android.databinding.FragmentCustomBottomSheetDialogBinding
 import com.nadosunbae_android.presentation.ui.sign.adapter.MajorSelectAdapter
+import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.util.CustomDecoration
 import com.nadosunbae_android.util.dpToPxF
 
 
 class CustomBottomSheetDialog : BottomSheetDialogFragment() {
+    private val signViewModel: SignViewModel by activityViewModels{
+        object : ViewModelProvider.Factory{
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return SignViewModel() as T
+            }
+        }
+    }
+
     private var majorSelectAdapter: MajorSelectAdapter
     private lateinit var _binding : FragmentCustomBottomSheetDialogBinding
     val binding get() = _binding!!
+    var link = DataToFragment()
 
     init {
-        majorSelectAdapter = MajorSelectAdapter()
+        majorSelectAdapter = MajorSelectAdapter(link)
     }
 
     override fun onCreateView(
@@ -32,6 +45,7 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
 
         initAdapter()
         setClickListener()
+        setCompleteBtnListener()
 
         return binding.root
     }
@@ -44,6 +58,13 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
     private fun setClickListener() {
         binding.btnBottomsheetCancel.setOnClickListener {
             activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
+        }
+    }
+
+    private fun setCompleteBtnListener() {
+        binding.btnBottomsheetComplete.setOnClickListener {
+            activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
+
         }
     }
 
@@ -61,4 +82,13 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
         majorSelectAdapter.notifyDataSetChanged()
     }
 
+    inner class DataToFragment(){
+        fun getBtnSelector(bool : Boolean){
+            binding.btnBottomsheetComplete.isSelected = bool
+
+        }
+        fun getEditTextSelector(string: String) {
+            signViewModel.text.value = string
+        }
+    }
 }

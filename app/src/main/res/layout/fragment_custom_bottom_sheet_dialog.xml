@@ -74,13 +74,12 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
             android:layout_marginVertical="16dp"
-            android:background="@drawable/selector_rectangle_gray_to_black_8"
-            android:enabled="false"
+            android:background="@drawable/selector_rectangle_gray_to_black_14dp"
             android:fontFamily="@font/pretendard_semibold"
             android:paddingVertical="19dp"
             android:text="@string/bottom_sheet_complete"
             android:textAlignment="center"
-            android:textColor="@color/gray_3"
+            android:textColor="@drawable/selector_text_gray_to_mint"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

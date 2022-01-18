@@ -5,13 +5,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.sign.BottomSheetData
 import com.nadosunbae_android.data.model.sign.ResponseMajorData
+import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.databinding.ItemBottomsheetListBinding
+import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
+import com.nadosunbae_android.presentation.ui.sign.SignUpBasicInfoActivity
 import com.nadosunbae_android.util.setTextSemiBold
 
-class MajorSelectAdapter : RecyclerView.Adapter<MajorSelectAdapter.SignSelectionViewHolder>() {
+class MajorSelectAdapter(
+    var link : CustomBottomSheetDialog.DataToFragment
+) : RecyclerView.Adapter<MajorSelectAdapter.SignSelectionViewHolder>() {
     var dataList = mutableListOf<BottomSheetData>()
     private var mSelectedPos: Int = -1
 
@@ -26,17 +32,21 @@ class MajorSelectAdapter : RecyclerView.Adapter<MajorSelectAdapter.SignSelection
 
         holder.itemView.setOnClickListener {
 
+
             when (mSelectedPos) {
                 // 새로 선택
                 NOT_SELECTED -> {
                     mSelectedPos = position
                     dataList[position].isSelected = true
+                    link.getBtnSelector(true)
+                    link.getEditTextSelector(dataList[position].name)
                 }
 
                 // 선택 해제
                 position -> {
                     mSelectedPos = NOT_SELECTED
                     dataList[position].isSelected = false
+                    link.getBtnSelector(false)
                 }
 
                 // 선택 변경
@@ -44,12 +54,22 @@ class MajorSelectAdapter : RecyclerView.Adapter<MajorSelectAdapter.SignSelection
                     dataList[mSelectedPos].isSelected = false
                     mSelectedPos = position
                     dataList[position].isSelected = true
+                    link.getBtnSelector(true)
+                    link.getEditTextSelector(dataList[position].name)
                 }
 
             }
+
             notifyDataSetChanged()
         }
+
+
+
     }
+
+
+
+
 
     override fun getItemCount(): Int = dataList.size
 
@@ -70,6 +90,8 @@ class MajorSelectAdapter : RecyclerView.Adapter<MajorSelectAdapter.SignSelection
 
             binding.executePendingBindings()
         }
+
+
     }
 
 
