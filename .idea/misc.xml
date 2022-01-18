@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+
         <entry key="..\:/Users/82104/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.2006340579710145" />
         <entry key="..\:/Users/82104/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.17572463768115942" />
         <entry key="..\:/Users/82104/NadoSunbae-Android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
@@ -166,13 +167,15 @@
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_my_page_post.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_notification.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_question_detail.xml" value="0.176" />
-<<<<<<< Updated upstream
+
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_question_write.xml" value="0.2" />
-=======
+
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_question_write.xml" value="0.12" />
->>>>>>> Stashed changes
+
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_question_write.xml" value="0.152" />
+
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_review_detail.xml" value="0.1296875" />
-        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_review_write.xml" value="0.1" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_review_write.xml" value="0.2" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_basic_info.xml" value="0.1296875" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_major_info.xml" value="0.1" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/custom_question_detail_item.xml" value="0.25364583333333335" />
@@ -211,6 +214,7 @@
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_senior_off_question.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_senior_on_question.xml" value="0.21472663139329806" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/spinner.xml" value="0.1296875" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/view_custom_edit_text.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/menu/menu.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/menu/menu_question_detail_update.xml" value="0.25364583333333335" />
       </map>

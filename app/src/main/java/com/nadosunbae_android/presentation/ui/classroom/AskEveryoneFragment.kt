@@ -7,7 +7,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.classroom.RequestClassRoom
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.databinding.FragmentAskEveryoneBinding
 import com.nadosunbae_android.presentation.base.BaseFragment

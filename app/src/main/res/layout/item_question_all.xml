@@ -63,7 +63,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pretendard_regular"
             android:includeFontPadding="false"
-            android:text="@{questionMain.createdAt}"
+            dateToText="@{questionMain.createdAt}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/text_question_all_nickname"
