@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/oval_fill_black.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_104_36_fill_main_black_8.xml" value="0.13055555555555556" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_border_.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_border_1_gray0_fill_white_8.xml" value="0.21296296296296297" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_border_gray_10dp.xml" value="0.1675925925925926" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_border_gray_14.xml" value="0.1675925925925926" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_border_gray_1_4.xml" value="0.1675925925925926" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_border_gray_8dp.xml" value="0.1675925925925926" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_border_mint_background_8.xml" value="0.14444444444444443" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_black_bottom_8.xml" value="0.2064814814814815" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_gray_0.xml" value="0.1675925925925926" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_gray_0_64.xml" value="0.21944444444444444" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_gray_0_8.xml" value="0.1675925925925926" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_gray_8dp.xml" value="0.1675925925925926" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_main_black_16.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_main_black_8.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_main_black_bottom_8.xml" value="0.21296296296296297" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_update_mint_8.xml" value="0.14444444444444443" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_white_8.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_white_8dp.xml" value="0.16296296296296298" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_main_light_14.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_no_size_fill_gray_0_8.xml" value="0.10648148148148148" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_no_size_fill_main_black_8.xml" value="0.10648148148148148" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_btn_check.xml" value="0.24351851851851852" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_btn_star.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_classroom_tab_btn.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_classroom_title_background.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_classroom_title_text.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_gray_0_to_main_black.xml" value="0.1037037037037037" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_gray_3_to_main_light_text.xml" value="0.10648148148148148" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_ic_mypage.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_ic_notice.xml" value="0.1962962962962963" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_ic_review.xml" value="0.1962962962962963" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_ic_room.xml" value="0.1962962962962963" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_rectangle_gray_to_black.xml" value="0.18981481481481483" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_rectangle_gray_to_black_14.xml" value="0.1037037037037037" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_rectangle_gray_to_main_black_8.xml" value="0.10648148148148148" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_text_gray_to_mint.xml" value="0.10648148148148148" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/selector_x_btn.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_find_pw.xml" value="0.4652908067542214" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_information_detail.xml" value="0.176" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_main.xml" value="0.16" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_my_page_post.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_notification.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_question_detail.xml" value="0.176" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_question_write.xml" value="0.2" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_review_detail.xml" value="0.1296875" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_review_write.xml" value="0.1" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_basic_info.xml" value="0.1296875" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_major_info.xml" value="0.1" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/custom_question_detail_item.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/custom_spinner_question_detail_item.xml" value="0.176" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_ask_anyone.xml" value="0.1296875" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_ask_everyone.xml" value="0.3773148148148148" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_class_room.xml" value="0.176" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_class_room_review.xml" value="0.14736842105263157" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_custom_bottom_sheet_dialog.xml" value="0.1296875" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_information.xml" value="0.32421875" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_my_page.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_my_page_post.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_notification.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_question.xml" value="0.264" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_review.xml" value="0.136" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_senior.xml" value="0.1" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_senior_persnoal.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/fragment_senior_personal.xml" value="0.176" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/include_question_detail_comment.xml" value="0.152" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/include_question_detail_comment_text.xml" value="0.10185185185185185" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/include_question_detail_comment_update.xml" value="0.176" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/include_question_detail_questioner_text.xml" value="0.176" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/include_question_detail_questioner_update.xml" value="0.176" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/include_question_detail_update.xml" value="0.264" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_classroom_senior_question.xml" value="0.264" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_information_detail.xml" value="0.2" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_list_review.xml" value="0.1296875" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_notification.xml" value="0.4" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_popup_window_item.xml" value="0.1296875" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_all.xml" value="0.2708333333333333" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_detail.xml" value="0.1296875" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_detail_comment.xml" value="0.2" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_detail_questioner.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_detail_writer.xml" value="0.144" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_senior.xml" value="0.4" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_senior_off_question.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_senior_on_question.xml" value="0.21472663139329806" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/spinner.xml" value="0.1296875" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/menu/menu.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/menu/menu_question_detail_update.xml" value="0.25364583333333335" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
