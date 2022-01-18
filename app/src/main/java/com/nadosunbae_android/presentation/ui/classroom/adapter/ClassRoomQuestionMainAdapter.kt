@@ -32,6 +32,10 @@ class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainA
         holder.onBind(questionMainData[position])
         holder.binding.root.setOnClickListener {
             val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+            intent.apply {
+                putExtra("postId", questionMainData[position].postId)
+                putExtra("all", 1)
+            }
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
     }

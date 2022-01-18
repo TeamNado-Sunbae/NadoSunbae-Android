@@ -10,7 +10,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.sign.BottomSheetData
+import com.nadosunbae_android.data.model.response.sign.BottomSheetData
 import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.adapter.SpinnerAdapter

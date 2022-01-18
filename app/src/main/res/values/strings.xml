@@ -14,7 +14,7 @@
 
 
     <!-- 메인 navigation menu -->
-    <string name="navigation_review">리뷰</string>
+    <string name="navigation_review">후기</string>
     <string name="navigation_room">과방</string>
     <string name="navigation_notice">알림</string>
     <string name="navigation_mypage">마이페이지</string>
