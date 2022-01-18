@@ -2,7 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:windowSoftInputMode="adjustPan">
 
     <data>
 
@@ -12,460 +13,501 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/text_signup_basicinfo_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="54dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:text="@string/signup_agreement_title"
-            android:textColor="@color/main_default"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/img_signup_basicinfo_delete"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/btn_x_black"
-            app:layout_constraintBottom_toBottomOf="@+id/text_signup_basicinfo_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_signup_basicinfo_title" />
-
-
-        <View
-            android:id="@+id/view_signup_basicinfo_line1"
-            android:layout_width="84dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:background="@color/gray_1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_title" />
-
-        <View
-            android:id="@+id/view_signup_basicinfo_line2"
-            android:layout_width="84dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="8dp"
-            android:background="@color/gray_1"
-            app:layout_constraintBottom_toBottomOf="@+id/view_signup_basicinfo_line1"
-            app:layout_constraintStart_toEndOf="@+id/view_signup_basicinfo_line1"
-            app:layout_constraintTop_toTopOf="@+id/view_signup_basicinfo_line1" />
-
-        <View
-            android:id="@+id/view_signup_basicinfo_line3"
-            android:layout_width="84dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="8dp"
-            android:background="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/view_signup_basicinfo_line2"
-            app:layout_constraintStart_toEndOf="@+id/view_signup_basicinfo_line2"
-            app:layout_constraintTop_toTopOf="@+id/view_signup_basicinfo_line2" />
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_bar_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/signup_agreement_process1"
-            android:textColor="@color/gray_2"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_signup_basicinfo_line1" />
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_bar_text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="57dp"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/signup_agreement_process2"
-            android:textColor="@color/gray_2"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/text_signup_basicinfo_bar_text"
-            app:layout_constraintStart_toEndOf="@+id/text_signup_basicinfo_bar_text"
-            app:layout_constraintTop_toTopOf="@+id/text_signup_basicinfo_bar_text" />
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_bar_text3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="57dp"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/signup_agreement_process3"
-            android:textColor="@color/main_black"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/text_signup_basicinfo_bar_text2"
-            app:layout_constraintStart_toEndOf="@+id/text_signup_basicinfo_bar_text2"
-            app:layout_constraintTop_toTopOf="@+id/text_signup_basicinfo_bar_text2" />
-
-        <ImageView
-            android:id="@+id/image_signup_basicinfo_diamond"
-            android:layout_width="12dp"
-            android:layout_height="11dp"
-            android:layout_marginStart="57dp"
-            android:background="@drawable/ic_diamond_mini_black"
-            app:layout_constraintBottom_toBottomOf="@+id/text_signup_basicinfo_bar_text3"
-            app:layout_constraintStart_toEndOf="@+id/text_signup_basicinfo_bar_text3"
-            app:layout_constraintTop_toTopOf="@+id/text_signup_basicinfo_bar_text3" />
-
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="26dp"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/classroom_question_nickname"
-            android:textColor="@color/gray_3"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_bar_text" />
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_signup_basicinfo_nickname"
-            android:layout_width="0dp"
+            android:id="@+id/cl_signup_basicInfo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/rectangle_border_gray_8dp"
-            app:layout_constraintEnd_toStartOf="@+id/text_signup_basicinfo_nickname_duplication"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_nickname">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/et_signup_basicinfo_nickname"
+
+            <TextView
+                android:id="@+id/text_signup_basicinfo_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_regular"
-                android:paddingLeft="16dp"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:hint="@string/signup_basicinfo_before_input"
-                android:textSize="15sp"
-                android:background="@null"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <ImageView
-                android:id="@+id/img_signup_basicinfo_nickname_cancel"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/selector_x_btn"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_nickname_duplication"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/selector_rectangle_gray_to_mint"
-            android:fontFamily="@font/pretendard_semibold"
-            android:text="@string/signup_basicinfo_check_duplication"
-            android:textColor="@drawable/selector_text_gray_to_mint"
-            android:textSize="14sp"
-            android:paddingLeft="14dp"
-            android:paddingTop="13dp"
-            android:paddingRight="14dp"
-            android:paddingBottom="13dp"
-            app:layout_constraintBottom_toBottomOf="@+id/cl_signup_basicinfo_nickname"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cl_signup_basicinfo_nickname" />
-
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_nickname_duplication_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:text="@string/signup_basicinfo_check_duplication_nickname_ok"
-            android:textColor="@color/main_dark"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_nickname"
-            app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_nickname" />
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_nickname_duplication_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:text="@string/signup_basicinfo_check_duplication_nickname_no"
-            android:textColor="@color/red"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_nickname"
-            app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_nickname" />
-
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_email_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/signup_basicinfo_email"
-            android:textColor="@color/gray_3"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_nickname_duplication_no" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_signup_basicinfo_email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/rectangle_border_gray_8dp"
-            app:layout_constraintEnd_toStartOf="@+id/text_signup_basicinfo_email_duplication"
-            app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_nickname"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_email_title">
-
-            <EditText
-                android:id="@+id/et_signup_basicinfo_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:fontFamily="@font/pretendard_regular"
-                android:hint="@string/signup_basicinfo_before_input"
-                android:paddingLeft="16dp"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="54dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="@string/signup_agreement_title"
+                android:textColor="@color/main_default"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/img_signup_basicinfo_email_cancel"
+                android:id="@+id/img_signup_basicinfo_delete"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/selector_x_btn"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/btn_x_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/text_signup_basicinfo_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/text_signup_basicinfo_title" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/view_signup_basicinfo_line1"
+                android:layout_width="84dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_title" />
 
-        <TextView
-            android:id="@+id/text_signup_basicinfo_email_duplication"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_rectangle_gray_to_mint"
-            android:fontFamily="@font/pretendard_semibold"
-            android:paddingLeft="14dp"
-            android:paddingTop="13dp"
-            android:paddingRight="14dp"
-            android:paddingBottom="13dp"
-            android:text="@string/signup_basicinfo_check_duplication"
-            android:textColor="@drawable/selector_text_gray_to_mint"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/cl_signup_basicinfo_email"
-            app:layout_constraintEnd_toEndOf="@+id/text_signup_basicinfo_nickname_duplication"
-            app:layout_constraintTop_toTopOf="@+id/cl_signup_basicinfo_email" />
+            <View
+                android:id="@+id/view_signup_basicinfo_line2"
+                android:layout_width="84dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/gray_1"
+                app:layout_constraintBottom_toBottomOf="@+id/view_signup_basicinfo_line1"
+                app:layout_constraintStart_toEndOf="@+id/view_signup_basicinfo_line1"
+                app:layout_constraintTop_toTopOf="@+id/view_signup_basicinfo_line1" />
 
+            <View
+                android:id="@+id/view_signup_basicinfo_line3"
+                android:layout_width="84dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/view_signup_basicinfo_line2"
+                app:layout_constraintStart_toEndOf="@+id/view_signup_basicinfo_line2"
+                app:layout_constraintTop_toTopOf="@+id/view_signup_basicinfo_line2" />
 
-        <TextView
-            android:id="@+id/text_signup_basicinfo_email_duplication_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:text="@string/signup_basicinfo_check_duplication_email_ok"
-            android:textColor="@color/main_dark"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_email"
-            app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_email" />
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_email_duplication_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:text="@string/signup_basicinfo_check_duplication_email_no"
-            android:textColor="@color/red"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_email"
-            app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_email" />
-
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_pw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/sign_in_pw"
-            android:textColor="@drawable/selector_text_gray_to_red"
-            android:textSize="12sp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="17dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_email_duplication_ok" />
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_pw_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="17dp"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/signup_basicinfo_password"
-            android:textColor="@drawable/selector_text_gray_to_red"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/text_signup_basicinfo_pw"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_email_duplication_no" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_signup_basicinfo_pw"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/rectangle_border_gray_8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/text_signup_basicinfo_pw"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_pw_title">
-
-            <EditText
-                android:id="@+id/et_signup_basicinfo_pw"
+            <TextView
+                android:id="@+id/text_signup_basicinfo_bar_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:fontFamily="@font/pretendard_regular"
-                android:hint="@string/signup_basicinfo_before_input"
-                android:inputType="textPassword"
-                android:paddingLeft="16dp"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:textSize="15sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/signup_agreement_process1"
+                android:textColor="@color/gray_2"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/view_signup_basicinfo_line1" />
 
-            <ImageView
-                android:id="@+id/img_signup_basicinfo_pw_cancel"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/selector_x_btn"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <TextView
-            android:id="@+id/text_signup_basicinfo_pw_check_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="17dp"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/signup_basicinfo_password_check"
-            android:textColor="@color/gray_3"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_pw" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_signup_basicinfo_pw_check"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/rectangle_border_gray_8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/text_signup_basicinfo_pw_check_title"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_pw_check_title">
-
-            <EditText
-                android:id="@+id/et_signup_basicinfo_pw_check"
+            <TextView
+                android:id="@+id/text_signup_basicinfo_bar_text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_regular"
-                android:paddingLeft="16dp"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:hint="@string/signup_basicinfo_before_input"
-                android:inputType="textPassword"
-                android:textSize="15sp"
-                android:background="@null"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginStart="57dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/signup_agreement_process2"
+                android:textColor="@color/gray_2"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_signup_basicinfo_bar_text"
+                app:layout_constraintStart_toEndOf="@+id/text_signup_basicinfo_bar_text"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_basicinfo_bar_text" />
+
+            <TextView
+                android:id="@+id/text_signup_basicinfo_bar_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="57dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/signup_agreement_process3"
+                android:textColor="@color/main_black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_signup_basicinfo_bar_text2"
+                app:layout_constraintStart_toEndOf="@+id/text_signup_basicinfo_bar_text2"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_basicinfo_bar_text2" />
 
             <ImageView
-                android:id="@+id/img_signup_basicinfo_pw_check_cancel"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/selector_x_btn"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
+                android:id="@+id/image_signup_basicinfo_diamond"
+                android:layout_width="12dp"
+                android:layout_height="11dp"
+                android:layout_marginStart="57dp"
+                android:background="@drawable/ic_diamond_mini_black"
+                app:layout_constraintBottom_toBottomOf="@+id/text_signup_basicinfo_bar_text3"
+                app:layout_constraintStart_toEndOf="@+id/text_signup_basicinfo_bar_text3"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_basicinfo_bar_text3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/text_signup_basicinfo_pw_duplication_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:text="@string/signup_basicinfo_password_same"
-            android:textColor="@color/main_dark"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_pw_check"
-            app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_pw_check" />
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/cl_signup_basicinfo_move_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicInfo">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_my_page_main_title">
 
 
-        <TextView
-            android:id="@+id/text_signup_basicinfo_pw_duplication_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:text="@string/signup_basicinfo_password_not_same"
-            android:textColor="@color/red"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_pw_check"
-            app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_pw_check" />
+            <TextView
+                    android:id="@+id/text_signup_basicinfo_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/classroom_question_nickname"
+                    android:textColor="@color/gray_3"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-         <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_signup_basicinfo_nickname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/rectangle_border_gray_8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/text_signup_basicinfo_nickname_duplication"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_nickname">
+
+                    <EditText
+                        android:id="@+id/et_signup_basicinfo_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:hint="@string/signup_basicinfo_before_input"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="13dp"
+                        android:paddingBottom="13dp"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:lines="1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <ImageView
+                        android:id="@+id/img_signup_basicinfo_nickname_cancel"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/selector_x_btn"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_nickname_duplication"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/selector_rectangle_gray_to_mint"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="13dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="13dp"
+                    android:text="@string/signup_basicinfo_check_duplication"
+                    android:textColor="@drawable/selector_text_gray_to_mint"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/cl_signup_basicinfo_nickname"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cl_signup_basicinfo_nickname" />
+
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_nickname_duplication_ok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/signup_basicinfo_check_duplication_nickname_ok"
+                    android:textColor="@color/main_dark"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_nickname" />
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_nickname_duplication_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/signup_basicinfo_check_duplication_nickname_no"
+                    android:textColor="@color/red"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_nickname" />
+
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_email_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/signup_basicinfo_email"
+                    android:textColor="@color/gray_3"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_nickname_duplication_no" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_signup_basicinfo_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/rectangle_border_gray_8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/text_signup_basicinfo_email_duplication"
+                    app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_email_title">
+
+                    <EditText
+                        android:id="@+id/et_signup_basicinfo_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:hint="@string/signup_basicinfo_before_input"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="13dp"
+                        android:paddingBottom="13dp"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:lines="1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/img_signup_basicinfo_email_cancel"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/selector_x_btn"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_email_duplication"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_rectangle_gray_to_mint"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="13dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="13dp"
+                    android:text="@string/signup_basicinfo_check_duplication"
+                    android:textColor="@drawable/selector_text_gray_to_mint"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/cl_signup_basicinfo_email"
+                    app:layout_constraintEnd_toEndOf="@+id/text_signup_basicinfo_nickname_duplication"
+                    app:layout_constraintTop_toTopOf="@+id/cl_signup_basicinfo_email" />
+
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_email_duplication_ok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/signup_basicinfo_check_duplication_email_ok"
+                    android:textColor="@color/main_dark"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_email"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_email" />
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_email_duplication_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/signup_basicinfo_check_duplication_email_no"
+                    android:textColor="@color/red"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_email"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_email" />
+
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_pw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="17dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/sign_in_pw"
+                    android:textColor="@drawable/selector_text_gray_to_red"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_email_duplication_ok" />
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_pw_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="17dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/signup_basicinfo_password"
+                    android:textColor="@drawable/selector_text_gray_to_red"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@+id/text_signup_basicinfo_pw"
+                    app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_email_duplication_no" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_signup_basicinfo_pw"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/rectangle_border_gray_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_signup_basicinfo_pw"
+                    app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_pw_title">
+
+                    <EditText
+                        android:id="@+id/et_signup_basicinfo_pw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:hint="@string/signup_basicinfo_before_input"
+                        android:inputType="textPassword"
+                        android:lines="1"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="13dp"
+                        android:paddingBottom="13dp"
+                        android:singleLine="true"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/img_signup_basicinfo_pw_cancel"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/img_signup_basicinfo_pw_cancel"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/selector_x_btn"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_pw_check_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="17dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/signup_basicinfo_password_check"
+                    android:textColor="@color/gray_3"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_pw" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_signup_basicinfo_pw_check"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/rectangle_border_gray_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_signup_basicinfo_pw_check_title"
+                    app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_pw_check_title">
+
+                    <EditText
+                        android:id="@+id/et_signup_basicinfo_pw_check"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:hint="@string/signup_basicinfo_before_input"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        android:lines="1"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="13dp"
+                        android:paddingBottom="13dp"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/img_signup_basicinfo_pw_check_cancel"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/selector_x_btn"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_pw_duplication_ok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/signup_basicinfo_password_same"
+                    android:textColor="@color/main_dark"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_pw_check"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_pw_check" />
+
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_pw_duplication_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/signup_basicinfo_password_not_same"
+                    android:textColor="@color/red"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/cl_signup_basicinfo_pw_check"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_signup_basicinfo_pw_check" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_signup_basicinfo_move_before"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -524,6 +566,5 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

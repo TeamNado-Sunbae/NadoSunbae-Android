@@ -62,6 +62,10 @@
         <entry key="..\:/Users/82104/NadoSunbae-Android/app/src/main/res/menu/menu.xml" value="0.115625" />
         <entry key="..\:/Users/82104/NadoSunbae-Android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/rectangle_border_gray_14.xml" value="0.1" />
+        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_gray0_12dp.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_gray0_14dp.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_gray_0.xml" value="0.24259259259259258" />
+        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_gray_0_64.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_white_8dp.xml" value="0.72" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/rectangle_fill_yellow_8dp.xml" value="0.23020833333333332" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/drawable/selector_btn_star.xml" value="0.2037037037037037" />
@@ -90,14 +94,14 @@
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_in.xml" value="0.2" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_in_custom_dialog.xml" value="0.1272644927536232" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_agreement.xml" value="0.2" />
-        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_basic_info.xml" value="0.176" />
+        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_basic_info.xml" value="0.2" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_finish.xml" value="0.1322463768115942" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/activity_sign_up_major_info.xml" value="0.264" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/fragment_ask_everyone.xml" value="0.1" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/fragment_class_room.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/fragment_custom_bottom_sheet_dialog.xml" value="0.1" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/fragment_information.xml" value="0.1" />
-        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/fragment_my_page.xml" value="0.1" />
+        <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/fragment_my_page.xml" value="0.152" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/fragment_my_page_information.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/fragment_my_page_question.xml" value="0.264" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/fragment_notification.xml" value="0.22291666666666668" />

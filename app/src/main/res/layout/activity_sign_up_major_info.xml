@@ -12,6 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_signup_majorInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white">
+
+
         <TextView
             android:id="@+id/text_signup_majorinfo_title"
             android:layout_width="wrap_content"
@@ -30,7 +40,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/btn_x_black"
+            android:src="@drawable/btn_x_gray"
             app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_title" />
@@ -71,10 +81,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
             android:fontFamily="@font/pretendard_medium"
             android:text="@string/signup_agreement_process1"
             android:textColor="@color/gray_2"
             android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_signup_majorinfo_line1" />
 
@@ -115,6 +127,7 @@
             app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_bar_text3" />
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/text_signup_majorInfo_univ"
             android:layout_width="wrap_content"
@@ -126,7 +139,7 @@
             android:textColor="@color/gray_3"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_majorinfo_bar_text" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_signup_majorInfo" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_signup_majorInfo_univ"

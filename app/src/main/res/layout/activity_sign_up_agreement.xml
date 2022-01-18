@@ -12,6 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_signup_agreement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/white">
+
         <TextView
             android:id="@+id/text_agreement_title"
             android:layout_width="wrap_content"
@@ -66,18 +75,20 @@
             app:layout_constraintStart_toEndOf="@+id/view_agreement_line2"
             app:layout_constraintTop_toTopOf="@+id/view_agreement_line2" />
 
-        <TextView
-            android:id="@+id/text_agreement_bar_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/signup_agreement_process1"
-            android:textColor="@color/main_black"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_agreement_line1" />
+            <TextView
+                android:id="@+id/text_agreement_bar_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/signup_agreement_process1"
+                android:textColor="@color/main_black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_agreement_line1" />
 
         <TextView
             android:id="@+id/text_agreement_bar_text2"
@@ -116,18 +127,19 @@
             app:layout_constraintTop_toTopOf="@+id/text_agreement_bar_text3" />
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_agreement_all"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="47dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/rectangle_border_gray_14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_agreement_bar_text">
+            app:layout_constraintTop_toBottomOf="@+id/cl_signup_agreement">
 
             <ImageView
                 android:id="@+id/image_agreement_check_all"
@@ -186,10 +198,10 @@
             android:id="@+id/image_agreement_move_information"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="76dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/btn_right_arrow"
             app:layout_constraintBottom_toBottomOf="@+id/text_agreement_check_information"
-            app:layout_constraintStart_toEndOf="@+id/text_agreement_check_information"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_agreement_check_information" />
 
         <ImageView
@@ -219,10 +231,9 @@
             android:id="@+id/image_agreement_move_service"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="61dp"
             android:src="@drawable/btn_right_arrow"
             app:layout_constraintBottom_toBottomOf="@+id/text_agreement_check_service"
-            app:layout_constraintStart_toEndOf="@+id/text_agreement_check_service"
+            app:layout_constraintEnd_toEndOf="@+id/image_agreement_move_information"
             app:layout_constraintTop_toTopOf="@+id/text_agreement_check_service" />
 
 
