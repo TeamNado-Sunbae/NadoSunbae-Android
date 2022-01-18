@@ -7,7 +7,7 @@ import retrofit2.Response
 interface ReviewDataSource {
 
     fun getReviewList(
-        token: String, sort: String = "recent", body: RequestReviewListData,
+        sort: String = "recent", body: RequestReviewListData,
         onResponse: (Response<ResponseReviewListData>) -> Unit,
         onFailure: (Throwable) -> Unit
     )

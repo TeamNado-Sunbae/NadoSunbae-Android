@@ -9,13 +9,12 @@ import retrofit2.Response
 class ReviewDataSourceImpl() : ReviewDataSource {
 
     override fun getReviewList(
-        token: String,
         sort: String,
         body: RequestReviewListData,
         onResponse: (Response<ResponseReviewListData>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        ApiService.reviewService.getReviewList(token, sort, body).enqueueUtil(
+        ApiService.reviewService.getReviewList(sort, body).enqueueUtil(
             onResponse, onFailure
         )
     }
