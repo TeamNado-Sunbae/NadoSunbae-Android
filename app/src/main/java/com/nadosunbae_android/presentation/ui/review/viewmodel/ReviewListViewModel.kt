@@ -1,13 +1,19 @@
 package com.nadosunbae_android.presentation.ui.review.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nadosunbae_android.data.model.request.review.RequestReviewListData
+import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
 import com.nadosunbae_android.data.model.ui.PreviewData
+import com.nadosunbae_android.data.repository.review.ReviewRepositoryImpl
 
 class ReviewListViewModel : ViewModel() {
-
-    // repository 인스턴스 생성할 자리
+    private val reviewRepository = ReviewRepositoryImpl()
+    private val _reviewListData = MutableLiveData<ResponseReviewListData>()
+    val reviewListData: LiveData<ResponseReviewListData>
+        get() = _reviewListData
 
     // 학과 그래픽 url
     private var _urlMajorGraphic = MutableLiveData<String>()
@@ -26,6 +32,21 @@ class ReviewListViewModel : ViewModel() {
 
     // 리뷰 목록 list
     val previewList = MutableLiveData<List<PreviewData>>()
+
+    fun getReviewList(sort: String = "recent", request: RequestReviewListData) {
+        reviewRepository.getReviewList(sort, request,
+            onResponse = {
+                if (it.isSuccessful) {
+                    _reviewListData.value = it.body()
+                    Log.d("reviewViewModel", "서버 통신 성공")
+                }
+            },
+            onFailure = {
+                it.printStackTrace()
+                Log.d("reviewViewModel", "서버 통신 실패")
+            }
+        )
+    }
 
 
 
