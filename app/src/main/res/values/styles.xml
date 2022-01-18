@@ -32,5 +32,13 @@
 <!--        <item name="android:background">@android:drawable/edit_text</item>-->
 <!--    </style>-->
 
+    <style name="ButtonFilterStyle" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/rectangle_fill_gray0_12dp</item>
+        <item name="android:textColor">@color/gray_3</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 
 </resources>
