@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/rectangle_fill_white_top_8dp">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_filter_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_bottomsheeet_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/review_filter"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_bottomsheet_cancel"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/btn_x_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_bottomsheet_main_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/main_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_bottomsheeet_title" />
+
+        <TextView
+            android:id="@+id/tv_filter_writer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="43dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="@string/filter_writer"
+            android:textColor="@color/black_0"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_bottomsheet_main_line" />
+
+        <android.widget.Button
+            android:id="@+id/btn_filter_first_major"
+            style="@style/ButtonFilterStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/filter_first_major_student"
+            app:layout_constraintStart_toStartOf="@+id/tv_filter_writer"
+            app:layout_constraintTop_toBottomOf="@+id/tv_filter_writer" />
+
+        <android.widget.Button
+            android:id="@+id/btn_filter_second_major"
+            style="@style/ButtonFilterStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/filter_second_major_student"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_filter_first_major"
+            app:layout_constraintStart_toEndOf="@+id/btn_filter_first_major"
+            app:layout_constraintTop_toTopOf="@+id/btn_filter_first_major" />
+
+        <TextView
+            android:id="@+id/tv_filter_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="@string/filter_content"
+            android:textColor="@color/black_0"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_filter_writer"
+            app:layout_constraintTop_toBottomOf="@+id/btn_filter_first_major" />
+
+        <android.widget.Button
+            android:id="@+id/btn_filter_curriculum"
+            style="@style/ButtonFilterStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/review_curriculum"
+            app:layout_constraintStart_toStartOf="@+id/tv_filter_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_filter_content" />
+
+        <android.widget.Button
+            android:id="@+id/btn_filter_recommend_lecture"
+            style="@style/ButtonFilterStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/review_recommend_lecture"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_filter_curriculum"
+            app:layout_constraintStart_toEndOf="@+id/btn_filter_curriculum"
+            app:layout_constraintTop_toTopOf="@+id/btn_filter_curriculum" />
+
+        <android.widget.Button
+            android:id="@+id/btn_filter_non_recommend_lecture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            style="@style/ButtonFilterStyle"
+            android:text="@string/review_non_recommend_lecture"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_filter_recommend_lecture"
+            app:layout_constraintStart_toEndOf="@+id/btn_filter_recommend_lecture"
+            app:layout_constraintTop_toTopOf="@+id/btn_filter_recommend_lecture" />
+
+        <android.widget.Button
+            android:id="@+id/btn_filter_career"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/review_career"
+            style="@style/ButtonFilterStyle"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="@+id/btn_filter_curriculum"
+            app:layout_constraintTop_toBottomOf="@+id/btn_filter_curriculum" />
+
+        <android.widget.Button
+            android:id="@+id/btn_filter_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/review_tip"
+            style="@style/ButtonFilterStyle"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_filter_career"
+            app:layout_constraintStart_toEndOf="@+id/btn_filter_career"
+            app:layout_constraintTop_toTopOf="@+id/btn_filter_career" />
+
+        <ImageButton
+            android:id="@+id/btn_filter_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginStart="24dp"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="24dp"
+            android:src="@drawable/ic_restart"
+            android:background="@drawable/rectangle_fill_mint_14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_filter_apply"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_filter_apply" />
+
+        <android.widget.Button
+            android:id="@+id/btn_filter_apply"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/selector_rectangle_gray_to_black_8"
+            android:enabled="false"
+            android:fontFamily="@font/pretendard_semibold"
+            android:paddingVertical="19dp"
+            android:text="@string/filter_apply"
+            android:textAlignment="center"
+            android:textColor="@drawable/selector_gray_3_to_main_default_enabled"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_filter_reset"
+            app:layout_constraintTop_toBottomOf="@+id/btn_filter_career"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

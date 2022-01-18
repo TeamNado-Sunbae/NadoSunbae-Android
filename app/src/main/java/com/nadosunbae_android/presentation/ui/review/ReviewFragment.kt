@@ -125,6 +125,12 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             )
             bottomSheetDialog.setDataList(majorSelectionData)
         }
+
+        binding.btnReviewFilter.setOnClickListener {
+            val filterBottomSheetData = FilterBottomSheetDialog()
+            filterBottomSheetData.show(parentFragmentManager, filterBottomSheetData.tag)
+        }
+
     }
 
     private fun setStickyHeader() {

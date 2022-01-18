@@ -97,6 +97,12 @@
     <string name="review_write_min_100">최소 100자</string>
     <string name="review_write_pros_cons">장단점</string>
 
+    <!-- filter bottom sheet -->
+    <string name="filter_writer">작성자</string>
+    <string name="filter_first_major_student">본전공생</string>
+    <string name="filter_second_major_student">제2전공생</string>
+    <string name="filter_content">후기 내용</string>
+    <string name="filter_apply">적용하기</string>
 
     <!-- 회원가입 전공정보 view -->
     <string name="signup_majorInfo_univ">학교명</string>
