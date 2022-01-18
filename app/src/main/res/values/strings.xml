@@ -14,7 +14,7 @@
 
 
     <!-- 메인 navigation menu -->
-    <string name="navigation_review">리뷰</string>
+    <string name="navigation_review">후기</string>
     <string name="navigation_room">과방</string>
     <string name="navigation_notice">알림</string>
     <string name="navigation_mypage">마이페이지</string>
@@ -77,7 +77,7 @@
     <!-- review_detail -->
     <string name="review_major_review">학과후기</string>
     <string name="review_first_major">본</string>
-    <string name="review_second_major">이중</string>
+    <string name="review_second_major">제2</string>
     <string name="review_question_on_message">선배에게 1:1 질문을 남겨보세요!</string>
     <string name="review_question_off_message">지금 이 선배에겐 질문할 수 없어요.</string>
     <string name="review_one_line">한줄평</string>

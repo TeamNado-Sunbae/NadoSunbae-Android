@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.R
 import androidx.databinding.DataBindingUtil
 import com.nadosunbae_android.databinding.FragmentFilterBottomSheetBinding
+import com.nadosunbae_android.util.finish
 
 class FilterBottomSheetDialog : BottomSheetDialogFragment() {
     private lateinit var _binding : FragmentFilterBottomSheetBinding
