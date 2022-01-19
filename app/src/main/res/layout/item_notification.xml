@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="notificationList"
-            type="com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData" />
+            name="notification"
+            type="com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData.Data.Notification" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,8 @@
             android:id="@+id/text_notification_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/notification_content_title"
+            int = "@{notification.notificationType}"
+            nickname="@{notification.sender.nickname}"
             android:fontFamily="@font/pretendard_regular"
             android:textSize="14sp"
             android:textColor="@color/gray_4"
@@ -40,7 +41,7 @@
             android:id="@+id/text_notification_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/notification_content"
+            android:text="@{notification.content}"
             android:fontFamily="@font/pretendard_regular"
             android:textSize="12sp"
             android:textColor="@color/gray_3"
@@ -51,7 +52,7 @@
             android:id="@+id/text_notification_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/notification_time"
+            dateToText="@{notification.createdAt}"
             android:fontFamily="@font/pretendard_light"
             android:textSize="10sp"
             android:textColor="@color/gray_3"

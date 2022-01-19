@@ -8,7 +8,7 @@ import com.nadosunbae_android.databinding.ItemNotificationBinding
 import com.nadosunbae_android.databinding.ItemQuestionAllBinding
 
 class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
-    val exampleData = mutableListOf<ResponseNotificationListData.Data>()
+    var notifiCationList = mutableListOf<ResponseNotificationListData.Data.Notification>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -24,18 +24,27 @@ class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.Notificatio
 
     override fun onBindViewHolder(
         holder: NotificationAdapter.NotificationViewHolder,
-
         position: Int
     ) {
-
+        holder.onBind(notifiCationList[position])
     }
 
-    override fun getItemCount(): Int = exampleData.size
+    override fun getItemCount(): Int = notifiCationList.size
 
     inner class NotificationViewHolder(
         val binding : ItemNotificationBinding
     ) : RecyclerView.ViewHolder(binding.root){
+        fun onBind(notificationList : ResponseNotificationListData.Data.Notification){
+            binding.apply {
+                notification = notificationList
+                executePendingBindings()
+            }
+        }
+    }
 
+    fun setNotification(notificationList : MutableList<ResponseNotificationListData.Data.Notification>){
+        this.notifiCationList = notificationList
+        notifyDataSetChanged()
 
     }
 }

@@ -1,5 +1,7 @@
 package com.nadosunbae_android.data.model.response.notification
 
+import java.util.*
+
 data class ResponseNotificationListData(
     val data: Data,
     val message: String,
@@ -11,7 +13,7 @@ data class ResponseNotificationListData(
     ) {
         data class Notification(
             val content: String,
-            val createdAt: String,
+            val createdAt: Date,
             val isDeleted: Boolean,
             val isRead: Boolean,
             val notificationId: Int,

@@ -1,5 +1,10 @@
 package com.nadosunbae_android.util
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -38,11 +43,33 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("notification")
-    fun notification(textView: TextView, int : Int, content : String){
+    @BindingAdapter("int","nickname", requireAll = false)
+    fun notification(textView: TextView, int : Int, nickname : String): SpannableStringBuilder {
+        val param = listOf("","작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글","1:1 질문")
+        val text = listOf("", "작성하신 질문글에 ${nickname}이 답글을 남겼습니다",
+            "작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
+            "답글을 작성하신 질문글에 ${nickname}이 답글을 남겼습니다.",
+            "답글을 작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
+            "마이페이지에 ${nickname}이 1:1질문을 남겼습니다."
+        )
+        var content = param[int]
+        var start = text[int].indexOf(content)
+        var end = start + content.length
+        var spannable  = SpannableStringBuilder(text[int])
+        spannable.setSpan(ForegroundColorSpan(Color.parseColor("#00C8B0")),start,end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        return spannable.also {textView.text = it}
 
-    }
-}
+
+
+            }
+        }
+
+
+
+
+
+
 @BindingAdapter("majorName", "majorStart")
 fun TextView.majorText(majorName: String, majorStart: String) {
     text = "$majorName $majorStart"

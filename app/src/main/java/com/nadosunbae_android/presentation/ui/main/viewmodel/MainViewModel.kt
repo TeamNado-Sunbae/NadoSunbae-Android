@@ -6,14 +6,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
+import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
 import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
+import com.nadosunbae_android.data.repository.notification.NotificationRepository
+import com.nadosunbae_android.data.repository.notification.NotificationRepositoryImpl
 import org.koin.core.time.measureDurationForResult
 
 class MainViewModel() : ViewModel() {
     val classRoomRepository: ClassRoomRepository = ClassRoomRepositoryImpl()
     val mypageRepository: MyPageRepositoryImpl = MyPageRepositoryImpl()
+
     //과방탭
     //과방탭에서 질문탭 및 정보탭 select 구분 (과방)
     var classRoomNum = MutableLiveData<Int>()
@@ -53,7 +57,6 @@ class MainViewModel() : ViewModel() {
     fun setSelectedMajor(major: String) {
         _selectedMajor.value = major
     }
-
 
 
     //과방 메인 데이터
