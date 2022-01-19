@@ -39,4 +39,11 @@ interface ClassRoomDataSource {
         onFailure: (Throwable) -> Unit
     )
 
+    //선배 개인페이지
+    fun getSeniorPersonal(
+        userId : Int,
+        onResponse : (Response<ResponseSeniorPersonalData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
+
 }

@@ -48,13 +48,20 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         }
 
     }
+    //선배 데이터 서버통신
+    private fun getSeniorInfo(){
+
+
+    }
+
 
 
 
     inner class DataToFragment{
-        fun getSeniorId(seniorId : Int){
-            mainViewModel.classRoomFragmentNum.value = seniorId
-
+        fun getSeniorId(seniorNum : Int, seniorId : Int){
+            mainViewModel.classRoomFragmentNum.value = seniorNum
+            mainViewModel.seniorId.value = seniorId
+            Log.d("seniorId", seniorId.toString())
         }
     }
 }

@@ -43,4 +43,11 @@ interface ClassRoomService {
     fun postQuestionCommentWrite(
         @Body requestQuestionCommentWriteData: RequestQuestionCommentWriteData
     ) : Call<ResponseQuestionCommentWrite>
+
+
+    //선배 개인페이지
+    @GET("user/mypage/{userId}")
+    fun getSeniorPersonal(
+        userId : Int
+    ) : Call<ResponseSeniorPersonalData>
 }

@@ -63,4 +63,15 @@ class ClassRoomDataSourceImpl() : ClassRoomDataSource {
             onResponse, onFailure
         )
     }
+
+    //선배 개인페이지
+    override fun getSeniorPersonal(
+        userId: Int,
+        onResponse: (Response<ResponseSeniorPersonalData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return ApiService.classRoomService.getSeniorPersonal(userId).enqueueUtil(
+            onResponse, onFailure
+        )
+    }
 }
