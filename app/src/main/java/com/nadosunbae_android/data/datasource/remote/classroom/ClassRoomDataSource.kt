@@ -46,4 +46,11 @@ interface ClassRoomDataSource {
         onFailure: (Throwable) -> Unit
     )
 
+    //선배 1:1 질문 조회
+    fun getSeniorQuestionList(
+        userId : Int,
+        sort : String?,
+        onResponse : (Response<ResponseSeniorQuestionData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
 }

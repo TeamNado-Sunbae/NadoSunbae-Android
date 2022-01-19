@@ -46,4 +46,12 @@ interface ClassRoomRepository {
         onResponse : (Response<ResponseSeniorPersonalData>) -> Unit,
         onFailure: (Throwable) -> Unit
     )
+
+    //선배 1:1 질문글 리스트
+    fun getSeniorQuestionList(
+        userId : Int,
+        sort : String,
+        onResponse : (Response<ResponseSeniorQuestionData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
 }

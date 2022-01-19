@@ -64,4 +64,13 @@ class ClassRoomRepositoryImpl : ClassRoomRepository {
     ) {
         return classRoomDataSource.getSeniorPersonal(userId, onResponse, onFailure)
     }
+
+    override fun getSeniorQuestionList(
+        userId: Int,
+        sort: String,
+        onResponse: (Response<ResponseSeniorQuestionData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return classRoomDataSource.getSeniorQuestionList(userId, sort, onResponse, onFailure)
+    }
 }
