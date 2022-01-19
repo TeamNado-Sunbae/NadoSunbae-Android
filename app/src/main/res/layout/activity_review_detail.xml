@@ -79,8 +79,8 @@
                     android:id="@+id/iv_review_background"
                     android:layout_width="match_parent"
                     android:layout_height="232dp"
-                    android:scaleType="center"
-                    loadImageFromUrl="@{reviewDetailViewModel.reviewDetailData.data.backgroundImage.imageUrl}"
+                    android:scaleType="centerCrop"
+                    android:src="@{reviewDetailViewModel.backgroundRes}"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 

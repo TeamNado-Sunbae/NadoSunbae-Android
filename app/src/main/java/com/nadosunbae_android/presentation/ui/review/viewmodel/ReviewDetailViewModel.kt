@@ -1,5 +1,7 @@
 package com.nadosunbae_android.presentation.ui.review.viewmodel
 
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,9 +16,9 @@ class ReviewDetailViewModel : ViewModel() {
     val reviewDetailData: LiveData<ResponseReviewDetailData>
         get() = _reviewDetailData
 
-    private var _urlBackground = MutableLiveData<String>()
-    val urlBackground: LiveData<String>
-        get() = _urlBackground
+    private val _backgroundRes = MutableLiveData<Drawable>()
+    val backgroundRes: LiveData<Drawable>
+        get() = _backgroundRes
 
 
     // 서버 통신
@@ -36,11 +38,11 @@ class ReviewDetailViewModel : ViewModel() {
         )
     }
 
- // test data 넣는 함수 (api 적용 전까지)
-    fun setBackgroundUrl(url: String) {
-        _urlBackground.value = url
-
+    fun setBackgroundRes(res: Drawable?) {
+        if (res != null)
+            _backgroundRes.value = res!!
     }
+
 
     companion object {
         const val TAG = "ReviewDetailViewModel"
