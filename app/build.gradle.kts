@@ -115,6 +115,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
 
 //CardView
+//CardView
     implementation(AndroidXDependencies.cardview)
 
 //recyclerview
@@ -136,6 +137,8 @@ dependencies {
     implementation("com.google.android.material:material:1.4.0")
 
     //google
+
     implementation("com.google.firebase:firebase-common-ktx:20.0.0")
     implementation("com.google.firebase:firebase-analytics-ktx:20.0.2")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.0.0")
 }

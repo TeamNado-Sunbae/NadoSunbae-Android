@@ -253,4 +253,7 @@
     <string name="information_title">정보글</string>
     <string name="information_question_title">정보글제목 정보글제목 글자수 제한은 없고 마진은</string>
     <string name="information_question_detail_comment">댓글 2개</string>
+
+    <!-- 알림 -->
+    <string name="firebase_notification_channel_id">나도 선배</string>
 </resources>
