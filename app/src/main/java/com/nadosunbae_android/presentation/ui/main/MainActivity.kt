@@ -29,6 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         initBottomNav()
         classRoomFragmentChange()
+        initMajorList()
     }
 
 
@@ -78,6 +79,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         })
     }
 
+
+    // 학과 목록 불러오기
+    private fun initMajorList() {
+        mainViewModel.getMajorList(1)
+    }
 
 
 

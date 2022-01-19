@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
+import com.nadosunbae_android.data.model.response.main.ResponseMajorListData
+import com.nadosunbae_android.data.model.response.sign.ResponseMajorData
 import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
@@ -29,6 +31,11 @@ class MainViewModel() : ViewModel() {
     val classRoomMain : LiveData<ResponseClassRoomMainData>
         get() = _classRoomMain
 
+
+    // 학과 목
+    private val _majorList = MutableLiveData<ResponseMajorListData>()
+    val majorList: LiveData<ResponseMajorListData>
+        get() = _majorList
 
     // 선택 학과
     private var _selectedMajor = MutableLiveData<String>()
@@ -62,9 +69,11 @@ class MainViewModel() : ViewModel() {
     fun getMajorList(universityId: Int, filter: String = "all") {
         mainRepository.getMajorList(universityId, filter,
             onResponse = {
+                _majorList.value = it.body()
                 Log.d("MainRepository", "서버 통신 성공")
             },
             onFailure = {
+                it.printStackTrace()
                 Log.d("MainRepository", "서버 통신 실패")
             }
         )

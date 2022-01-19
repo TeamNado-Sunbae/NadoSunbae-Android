@@ -1,10 +1,10 @@
 package com.nadosunbae_android.data.model.response.main
 
-data class ResponseMajorList(
-    val data: List<Data>,
-    val message: String,
+data class ResponseMajorListData(
     val status: Int,
-    val success: Boolean
+    val success: Boolean,
+    val message: String,
+    val data: List<Data>
 ) {
     data class Data(
         val isFirstMajor: Boolean,
