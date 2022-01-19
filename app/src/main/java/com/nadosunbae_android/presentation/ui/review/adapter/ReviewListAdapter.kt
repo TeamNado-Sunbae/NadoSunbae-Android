@@ -35,6 +35,12 @@ class ReviewListAdapter(): RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>(
                     t.second.visibility = View.GONE
             }
 
+            // second major visibility
+            if (data.writer.secondMajorName == NOT_ENTERED) {
+                binding.viewLineVertical.visibility = View.INVISIBLE
+                binding.tvSecondMajor.visibility = View.INVISIBLE
+            }
+
             binding.executePendingBindings()
         }
     }
@@ -71,6 +77,10 @@ class ReviewListAdapter(): RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>(
     fun setReviewListData(dataList : MutableList<ResponseReviewListData.Data>){
         this.dataList = dataList
         notifyDataSetChanged()
+    }
+
+    companion object {
+        const val NOT_ENTERED = "미진입"
     }
 
 }
