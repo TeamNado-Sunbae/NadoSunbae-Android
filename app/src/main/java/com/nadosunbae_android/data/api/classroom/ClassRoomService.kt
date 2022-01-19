@@ -48,6 +48,8 @@ interface ClassRoomService {
     //선배 개인페이지
     @GET("user/mypage/{userId}")
     fun getSeniorPersonal(
-        userId : Int
+       @Path("userId") userId : Int
     ) : Call<ResponseSeniorPersonalData>
+
+    //선배 개인페이지 1:1 질문 글
 }
