@@ -8,6 +8,7 @@ import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMai
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
 import com.nadosunbae_android.data.model.response.main.ResponseMajorListData
 import com.nadosunbae_android.data.model.response.sign.ResponseMajorData
+import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl

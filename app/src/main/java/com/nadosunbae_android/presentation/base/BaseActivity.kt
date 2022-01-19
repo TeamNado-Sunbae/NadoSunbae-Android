@@ -22,5 +22,19 @@ abstract class BaseActivity<T : ViewDataBinding>(
         _binding = null
     }
 
+    fun observeBottomSheet(viewModel: MainViewModel, majorBottomSheetDialog: CustomBottomSheetDialog) {
+        viewModel.majorList.observe(this) {
+            val responseData = viewModel.majorList.value?.data
+            val dialogInput = mutableListOf<BottomSheetData>()
+
+            // null check
+            if (responseData != null) {
+                for (d in responseData)
+                    dialogInput.add(BottomSheetData(d.majorId, d.majorName, false))
+            }
+
+            majorBottomSheetDialog.setDataList(dialogInput)
+        }
+    }
 
 }
