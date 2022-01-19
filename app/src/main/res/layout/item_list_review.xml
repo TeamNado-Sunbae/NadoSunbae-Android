@@ -210,7 +210,7 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/pretendard_medium"
             majorName="@{previewData.writer.secondMajorName}"
-            majorStart="@{previewData.writer.firstMajorStart}"
+            majorStart="@{previewData.writer.secondMajorStart}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
