@@ -1,7 +1,7 @@
-package com.nadosunbae_android.data.model.response
+package com.nadosunbae_android.data.model.response.main
 
 data class ResponseMajorList(
-    val `data`: List<Data>,
+    val data: List<Data>,
     val message: String,
     val status: Int,
     val success: Boolean
