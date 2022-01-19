@@ -9,10 +9,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
+import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.databinding.FragmentQuestionBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.util.CustomBottomSheetDialog
 
 
 class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment_question) {
@@ -36,12 +38,17 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
 
     override fun onResume() {
         super.onResume()
-        mainViewModel.getClassRoomMain(2,5)
+        mainViewModel.selectedMajor.observe(viewLifecycleOwner){
+            mainViewModel.getClassRoomMain(2,it.majorId)
+        }
     }
 
     //질문 메인 데이터 받아오기
     private fun initQuestionMain(){
-        mainViewModel.getClassRoomMain(2,5)
+        mainViewModel.selectedMajor.observe(viewLifecycleOwner){
+            mainViewModel.getClassRoomMain(2,it.majorId)
+        }
+
         classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
         binding.rcQuestionAll.adapter = classRoomQuestionMainAdapter
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){
@@ -98,7 +105,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
             val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
             startActivity(intent)
         }
-
-
     }
+
+
 }
