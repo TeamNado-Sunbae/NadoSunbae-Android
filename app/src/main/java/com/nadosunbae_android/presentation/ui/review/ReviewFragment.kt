@@ -156,7 +156,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     }
 
     private fun setTestData() {
-        reviewListViewModel.setGraphicUrl("https://user-images.githubusercontent.com/37872134/149070363-b5fa6564-3c83-4285-b426-13e6095b8016.png")
         reviewListViewModel.setPageUrl("https://www.naver.com")
         reviewListViewModel.setSubjectTableUrl("https://www.daum.net")
         mainViewModel.setSelectedMajor("국어국문학과")

@@ -15,11 +15,6 @@ class ReviewListViewModel : ViewModel() {
     val reviewListData: LiveData<ResponseReviewListData>
         get() = _reviewListData
 
-    // 학과 그래픽 url
-    private var _urlMajorGraphic = MutableLiveData<String>()
-    val urlMajorGraphic: LiveData<String>
-        get() = _urlMajorGraphic
-
     // 선택 학과홈페이지 링크
     private var _urlHomepage = MutableLiveData<String>()
     val urlHomepage: LiveData<String>
@@ -53,9 +48,6 @@ class ReviewListViewModel : ViewModel() {
     /*       --------- test용 data set 코드 ---------
                     ( api 연결되면 다 지울 예정!)
      */
-    fun setGraphicUrl(url: String) {
-        _urlMajorGraphic.value = url
-    }
     fun setPageUrl(url: String) {
         _urlHomepage.value = url
     }
