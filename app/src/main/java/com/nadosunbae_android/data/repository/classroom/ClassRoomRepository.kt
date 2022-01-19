@@ -1,8 +1,10 @@
 package com.nadosunbae_android.data.repository.classroom
 
+import android.view.inspector.IntFlagMapping
 import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
+import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomWriteData
 import retrofit2.Response
 
@@ -24,5 +26,12 @@ interface ClassRoomRepository {
         requestClassRoomPostData: RequestClassRoomPostData,
         onResponse: (Response<ResponseClassRoomWriteData>) -> Unit,
         onFailure : (Throwable) -> Unit
+    )
+
+    //구성원 전체보기
+    fun getClassRoomSenior(
+        majorId: Int,
+        onResponse : (Response<ResponseClassRoomSeniorData>) -> Unit,
+        onFailure: (Throwable) -> Unit
     )
 }

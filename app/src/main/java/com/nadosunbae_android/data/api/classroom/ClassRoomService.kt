@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.api.classroom
 import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
+import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomWriteData
 import retrofit2.Call
 import retrofit2.http.*
@@ -31,4 +32,11 @@ interface ClassRoomService {
     fun postClassRoomWrite(
         @Body requestClassRoomPostData: RequestClassRoomPostData
     ) : Call<ResponseClassRoomWriteData>
+
+
+    // 가능한 선배들 모음
+    @GET("user/mypage/list/major/{majorId}")
+    fun getClassRoomSenior(
+        @Path("majorId") majorId: Int
+    ) : Call<ResponseClassRoomSeniorData>
 }

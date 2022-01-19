@@ -13,6 +13,7 @@ import java.util.*
 
 object BindingAdapter {
 
+    //날짜 변환
     @JvmStatic
     @BindingAdapter("dateToText")
     fun getDateToText(textView: TextView, date: Date?) {
@@ -28,6 +29,12 @@ object BindingAdapter {
     @BindingAdapter("intToText")
     fun getIntToText(textView: TextView, int: Int): String {
         return int.toString().also { textView.text = it }
+    }
+
+    @JvmStatic
+    @BindingAdapter("plusStart")
+    fun plusStart(textView: TextView, text : String) : String{
+        return (text + "진입").also { textView.text = it }
     }
 
 
