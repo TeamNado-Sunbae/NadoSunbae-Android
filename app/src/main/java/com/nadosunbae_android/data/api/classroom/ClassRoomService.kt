@@ -37,6 +37,6 @@ interface ClassRoomService {
     // 가능한 선배들 모음
     @GET("user/mypage/list/major/{majorId}")
     fun getClassRoomSenior(
-        @Path("mjaorId") majorId: Int
+        @Path("majorId") majorId: Int
     ) : Call<ResponseClassRoomSeniorData>
 }

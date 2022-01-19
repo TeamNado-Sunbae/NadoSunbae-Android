@@ -44,7 +44,7 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         binding.rcSeniorQuestionOn.adapter = classRoomSeniorOnAdapter
         mainViewModel.seniorData.observe(viewLifecycleOwner){
             classRoomSeniorOnAdapter.setOnQuestionUser(it.onQuestionUserList as MutableList<ResponseClassRoomSeniorData.Data.OnQuestionUser>)
-            classRoomSeniorOffAdapter.setOffQuestionUser(it.onQuestionUserList as MutableList<ResponseClassRoomSeniorData.Data.OffQuestionUser>)
+            classRoomSeniorOffAdapter.setOffQuestionUser(it.offQuestionUserList as MutableList<ResponseClassRoomSeniorData.Data.OffQuestionUser>)
         }
 
     }
