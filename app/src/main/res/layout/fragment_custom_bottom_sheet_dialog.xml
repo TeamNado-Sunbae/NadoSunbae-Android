@@ -9,6 +9,10 @@
             name="title"
             type="String" />
 
+        <variable
+            name="fragment"
+            type="com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog"/>
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,6 +85,7 @@
             android:textAlignment="center"
             android:textColor="@drawable/selector_text_gray_to_mint"
             android:textSize="16sp"
+            android:onClick="@{fragment.completeBtnListener}"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
 

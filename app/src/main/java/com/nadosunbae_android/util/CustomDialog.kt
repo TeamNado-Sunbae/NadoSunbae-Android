@@ -2,6 +2,7 @@ package com.nadosunbae_android.util
 
 import android.content.Context
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nadosunbae_android.presentation.base.BaseActivity
 
 class CustomDialog(context : Context) {
 

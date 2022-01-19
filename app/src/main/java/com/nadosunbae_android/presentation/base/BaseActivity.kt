@@ -5,6 +5,9 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.nadosunbae_android.data.model.response.sign.BottomSheetData
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
 
 abstract class BaseActivity<T : ViewDataBinding>(
     @LayoutRes private val layoutResId: Int
