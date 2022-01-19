@@ -59,9 +59,6 @@ class MainViewModel() : ViewModel() {
     var mypageFragmentNum = MutableLiveData<Int>()
 
 
-    /*
-        test data (api에서 불러오면 다 지울 예정)
-     */
     fun setSelectedMajor(majorData: MajorData) {
         _selectedMajor.value = majorData
     }

@@ -118,6 +118,10 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         return majorSelectAdapter.selectedData.value!!
     }
 
+    fun setSelectedData(dataId: Int) {
+        majorSelectAdapter.setSelectedData(dataId)
+    }
+
 
     inner class DataToFragment(){
         fun getBtnSelector(bool : Boolean){

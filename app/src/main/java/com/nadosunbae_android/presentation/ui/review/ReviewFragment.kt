@@ -63,14 +63,17 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         binding.reviewListViewModel = reviewListViewModel
     }
 
+
+
     private fun setReviewListData() {
-        reviewListViewModel.getReviewList(
-            "recent", RequestReviewListData(5, 1, listOf(1, 2, 3, 4, 5))
-        )
+        // reviewListViewModel observe (목록에 표시되도록)
         reviewListViewModel.reviewListData.observe(viewLifecycleOwner) {
             reviewListAdapter.setReviewListData(it.data as MutableList<ResponseReviewListData.Data>)
         }
+
     }
+
+
 
 
     private fun initReviewListAdapter() {
@@ -107,9 +110,17 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             startActivity(intent)
         }
 
-        binding.btnSelectMajor.setOnClickListener {
+        val showMajorBottomSheetDialog = {
             majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
+
+            // (학과 선택) 기본 선택값 적용 (MainActivity setDefaultMajor에서 관리)
+            majorBottomSheetDialog.setSelectedData(mainViewModel.selectedMajor.value!!.majorId)
         }
+
+        binding.btnSelectMajor.setOnClickListener { showMajorBottomSheetDialog() }
+        binding.tvMajorSelected.setOnClickListener { showMajorBottomSheetDialog() }
+
+
 
         binding.btnReviewFilter.setOnClickListener {
             filterBottomSheetDialog.show(parentFragmentManager, filterBottomSheetDialog.tag)
@@ -147,7 +158,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 reviewListViewModel.getReviewList("recent", request)
 
                 // 학과 홈페이지, 이수 일람표 링크 갱신
-                
+
             }
 
         }
@@ -164,6 +175,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             val majorData = MajorData(selectedData.id, selectedData.name)
             mainViewModel.setSelectedMajor(majorData)
         }
+
     }
 
     private fun setTestData() {

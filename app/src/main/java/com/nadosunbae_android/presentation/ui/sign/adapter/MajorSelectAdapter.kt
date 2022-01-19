@@ -1,6 +1,7 @@
 package com.nadosunbae_android.presentation.ui.sign.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,15 +41,18 @@ class MajorSelectAdapter(
                 NOT_SELECTED -> {
                     mSelectedPos = position
                     dataList[position].isSelected = true
+                    /*
                     link.getBtnSelector(true)
                     link.getEditTextSelector(dataList[position].name)
+
+                     */
                 }
 
                 // 선택 해제
                 position -> {
                     mSelectedPos = NOT_SELECTED
                     dataList[position].isSelected = false
-                    link.getBtnSelector(false)
+                    // link.getBtnSelector(false)
                 }
 
                 // 선택 변경
@@ -56,8 +60,11 @@ class MajorSelectAdapter(
                     dataList[mSelectedPos].isSelected = false
                     mSelectedPos = position
                     dataList[position].isSelected = true
+                    /*
                     link.getBtnSelector(true)
                     link.getEditTextSelector(dataList[position].name)
+
+                     */
                 }
 
             }
@@ -101,6 +108,16 @@ class MajorSelectAdapter(
         if (mSelectedPos != NOT_SELECTED)
             return dataList[mSelectedPos]
         return BottomSheetData(-1, "", false)
+    }
+
+    fun setSelectedData(dataId: Int) {
+        for (d in dataList) {
+            if (d.id == dataId) {
+                mSelectedPos = dataList.indexOf(d)
+                d.isSelected = true
+                break
+            }
+        }
     }
 
     companion object {
