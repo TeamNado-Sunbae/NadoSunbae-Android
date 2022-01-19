@@ -1,19 +1,40 @@
 package com.nadosunbae_android.presentation.ui.review.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
-import com.nadosunbae_android.data.model.ui.PreviewData
+import com.nadosunbae_android.data.model.response.review.ResponseReviewListData.Data.Tag
 import com.nadosunbae_android.databinding.ItemListReviewBinding
 
-class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() {
+class ReviewListAdapter(): RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() {
+    // list data
     var dataList = mutableListOf<ResponseReviewListData.Data>()
 
-    class ReviewHolder(private val binding: ItemListReviewBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ReviewHolder(private val binding: ItemListReviewBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
+        // tag info data
+        private val tagLink = listOf(
+            Pair(Tag(context.getString(R.string.review_curriculum)), binding.tvTagCurriculum ),
+            Pair(Tag(context.getString(R.string.review_recommend_lecture)), binding.tvTagRecommendLecture),
+            Pair(Tag(context.getString(R.string.review_non_recommend_lecture)), binding.tvTagNonRecommendLecture),
+            Pair(Tag(context.getString(R.string.review_career)), binding.tvTagCareer),
+            Pair(Tag(context.getString(R.string.review_tip)), binding.tvTagTip)
+        )
+
         fun onBind(data: ResponseReviewListData.Data) {
             binding.previewData = data
+
+            // Apply tag data
+            for (t in tagLink) {
+                if (data.tagList.contains(t.first))
+                    t.second.visibility = View.VISIBLE
+                else
+                    t.second.visibility = View.GONE
+            }
+
             binding.executePendingBindings()
         }
     }
@@ -24,7 +45,7 @@ class ReviewListAdapter: RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() 
             parent, false
         )
 
-        return ReviewHolder(binding)
+        return ReviewHolder(binding, parent.context)
     }
 
     override fun onBindViewHolder(holder: ReviewHolder, position: Int) {
