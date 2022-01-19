@@ -52,10 +52,9 @@ class SignUpBasicInfoActivity :
 
         signUpBasicInfoViewModel.nickNameDuplication.observe(this){
             Log.d("1111", "111111")
-            if(it.success){
+            if(it){
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
-
             } else {
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.VISIBLE
