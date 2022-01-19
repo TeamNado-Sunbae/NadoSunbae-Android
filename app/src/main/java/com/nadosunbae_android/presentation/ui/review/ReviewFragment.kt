@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -13,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
-import com.nadosunbae_android.data.model.response.sign.BottomSheetData
 import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.databinding.FragmentReviewBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
@@ -21,8 +19,6 @@ import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
-import org.koin.android.ext.android.get
-import java.util.logging.Filter
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
@@ -53,8 +49,9 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         setBinding()
         setStickyHeader()
         initReviewListAdapter()
-        initReviewListData()
+        setReviewListData()
         setClickListener()
+        observeSelectedMajor()
         observePreviewList()
         initBottomSheet()
         setTestData()
@@ -66,7 +63,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         binding.reviewListViewModel = reviewListViewModel
     }
 
-    private fun initReviewListData() {
+    private fun setReviewListData() {
         reviewListViewModel.getReviewList(
             "recent", RequestReviewListData(5, 1, listOf(1, 2, 3, 4, 5))
         )
@@ -135,6 +132,24 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     private fun observePreviewList() {
         reviewListViewModel.previewList.observe(viewLifecycleOwner) {
             // recyclerView adaper에 적용
+        }
+    }
+
+    private fun observeSelectedMajor() {
+        // 선택 학과 observe
+        mainViewModel.selectedMajor.observe(viewLifecycleOwner) {
+
+            // null check
+            if (mainViewModel.selectedMajor != null) {
+
+                // review list 갱신
+                val request = RequestReviewListData(mainViewModel.selectedMajor.value!!.majorId, 1, listOf(1, 2, 3, 4, 5))
+                reviewListViewModel.getReviewList("recent", request)
+
+                // 학과 홈페이지, 이수 일람표 링크 갱신
+                
+            }
+
         }
     }
 
