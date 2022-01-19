@@ -25,9 +25,15 @@ import com.nadosunbae_android.util.dpToPxF
 import com.nadosunbae_android.util.finish
 
 
+
+
+
+
+
 class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFragment() {
-    private val signViewModel: SignViewModel by activityViewModels{
-        object : ViewModelProvider.Factory{
+
+    private val signViewModel: SignViewModel by activityViewModels {
+        object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return SignViewModel() as T
             }
@@ -42,7 +48,7 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
     var completeOperation: () -> Unit = { }
 
     private var majorSelectAdapter: MajorSelectAdapter
-    private lateinit var _binding : FragmentCustomBottomSheetDialogBinding
+    private lateinit var _binding: FragmentCustomBottomSheetDialogBinding
     val binding get() = _binding!!
     var link = DataToFragment()
 
@@ -54,7 +60,12 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_custom_bottom_sheet_dialog,container, false)
+        _binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_custom_bottom_sheet_dialog,
+            container,
+            false
+        )
 
         initTitle()
         initAdapter()
@@ -66,7 +77,8 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.clCustomBottomSheet.layoutParams.height = resources.displayMetrics.heightPixels * 72/100
+        binding.clCustomBottomSheet.layoutParams.height =
+            resources.displayMetrics.heightPixels * 72 / 100
         binding.tvBottomsheeetTitle.text = title
         binding.executePendingBindings()
     }
@@ -83,6 +95,7 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         binding.fragment = this
     }
 
+    //타이틀 왼쪽에 표시되는 제목
     private fun initTitle() {
         titleData.observe(viewLifecycleOwner) {
             binding.tvBottomsheeetTitle.text = titleData.value
@@ -93,7 +106,8 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
 
     private fun initAdapter() {
         // Recycler view 구분선 추가
-        val decoration = CustomDecoration(1.dpToPxF, 0.0f, requireContext().getColor(R.color.gray_1))
+        val decoration =
+            CustomDecoration(1.dpToPxF, 0.0f, requireContext().getColor(R.color.gray_1))
         binding.rvBottomsheet.addItemDecoration(decoration)
 
         binding.rvBottomsheet.adapter = majorSelectAdapter
@@ -101,7 +115,8 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
 
     private fun observeSelectedData() {
         majorSelectAdapter.selectedData.observe(viewLifecycleOwner) {
-            binding.btnBottomsheetComplete.isEnabled = majorSelectAdapter.selectedData.value!!.isSelected
+            binding.btnBottomsheetComplete.isEnabled =
+                majorSelectAdapter.selectedData.value!!.isSelected
         }
     }
 
@@ -129,13 +144,15 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
     }
 
 
-    inner class DataToFragment(){
-        fun getBtnSelector(bool : Boolean){
+    inner class DataToFragment() {
+        fun getBtnSelector(bool: Boolean) {
             binding.btnBottomsheetComplete.isSelected = bool
 
         }
-        fun getEditTextSelector(string: String) {
-            signViewModel.text.value = string
-        }
+
+
+
+
     }
 }
+
