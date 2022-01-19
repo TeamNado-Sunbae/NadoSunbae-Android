@@ -4,6 +4,7 @@ import com.nadosunbae_android.data.api.ApiService
 import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
+import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomWriteData
 import com.nadosunbae_android.util.enqueueUtil
 import retrofit2.Response
@@ -40,6 +41,16 @@ class ClassRoomDataSourceImpl() : ClassRoomDataSource {
         onFailure: (Throwable) -> Unit
     ) {
         return ApiService.classRoomService.postClassRoomWrite(requestClassRoomPostData).enqueueUtil(
+            onResponse, onFailure
+        )
+    }
+
+    override fun getClassRoomSenior(
+        majorId: Int,
+        onResponse: (Response<ResponseClassRoomSeniorData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return ApiService.classRoomService.getClassRoomSenior(majorId).enqueueUtil(
             onResponse, onFailure
         )
     }

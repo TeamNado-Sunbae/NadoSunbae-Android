@@ -30,105 +30,26 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initSeniorOn()
-        initSeniorOff()
+        initSenior()
+
     }
 
 
-    // 질문 가능한 구성원 보여주기
-    private fun initSeniorOn(){
+    // 구성원 보여주기
+    private fun initSenior(){
+        mainViewModel.getClassRoomSenior(5)
         classRoomSeniorOnAdapter = ClassRoomSeniorOnAdapter(link)
-        binding.rcSeniorQuestionOn.adapter = classRoomSeniorOnAdapter
-        var exampleData = mutableListOf(ResponseClassRoomSeniorData.Data.OnQuestionUser(
-            isFirstMajor = true,
-            isOnQuestion = true,
-            majorStart = "18-1 진입",
-            "뿌꾸뿌구",
-            1
-        ),
-            ResponseClassRoomSeniorData.Data.OnQuestionUser(
-                isFirstMajor = true,
-                isOnQuestion = true,
-                majorStart = "18-1 진입",
-                "뿌꾸뿌구",
-                2
-            ),
-            ResponseClassRoomSeniorData.Data.OnQuestionUser(
-                isFirstMajor = true,
-                isOnQuestion = true,
-                majorStart = "18-1 진입",
-                "뿌꾸뿌구",
-                3
-            ),
-            ResponseClassRoomSeniorData.Data.OnQuestionUser(
-                isFirstMajor = true,
-                isOnQuestion = true,
-                majorStart = "18-1 진입",
-                "뿌꾸뿌구",
-                4
-            ))
-        classRoomSeniorOnAdapter.setOnQuestionUser(exampleData)
-    }
-
-    // 질문 불가능한 구성원 보여주기
-    private fun initSeniorOff(){
         classRoomSeniorOffAdapter = ClassRoomSeniorOffAdapter()
         binding.rcSeniorQuestionOff.adapter = classRoomSeniorOffAdapter
-        var exampleData = mutableListOf(ResponseClassRoomSeniorData.Data.OffQuestionUser(
-            isFirstMajor = true,
-            isOnQuestion = false,
-            majorStart = "18-1 진입",
-            "뿌꾸뿌구",
-            1
-        ),
-            ResponseClassRoomSeniorData.Data.OffQuestionUser(
-                isFirstMajor = true,
-                isOnQuestion = false,
-                majorStart = "18-1 진입",
-                "뿌꾸뿌구",
-                2
-            ),
-            ResponseClassRoomSeniorData.Data.OffQuestionUser(
-                isFirstMajor = true,
-                isOnQuestion = false,
-                majorStart = "18-1 진입",
-                "뿌꾸뿌구",
-                3
-            ),
-            ResponseClassRoomSeniorData.Data.OffQuestionUser(
-                isFirstMajor = true,
-                isOnQuestion = false,
-                majorStart = "18-1 진입",
-                "뿌꾸뿌구",
-                4
-            ),
-            ResponseClassRoomSeniorData.Data.OffQuestionUser(
-                isFirstMajor = true,
-                isOnQuestion = false,
-                majorStart = "18-1 진입",
-                "뿌꾸뿌구",
-                3
-            ),ResponseClassRoomSeniorData.Data.OffQuestionUser(
-                isFirstMajor = true,
-                isOnQuestion = false,
-                majorStart = "18-1 진입",
-                "뿌꾸뿌구",
-                3
-            ),ResponseClassRoomSeniorData.Data.OffQuestionUser(
-                isFirstMajor = true,
-                isOnQuestion = false,
-                majorStart = "18-1 진입",
-                "뿌꾸뿌구",
-                3
-            ),ResponseClassRoomSeniorData.Data.OffQuestionUser(
-                isFirstMajor = true,
-                isOnQuestion = false,
-                majorStart = "18-1 진입",
-                "뿌꾸뿌구",
-                3
-            ),)
-        classRoomSeniorOffAdapter.setOffQuestionUser(exampleData)
+        binding.rcSeniorQuestionOn.adapter = classRoomSeniorOnAdapter
+        mainViewModel.seniorData.observe(viewLifecycleOwner){
+            classRoomSeniorOnAdapter.setOnQuestionUser(it.onQuestionUserList as MutableList<ResponseClassRoomSeniorData.Data.OnQuestionUser>)
+            classRoomSeniorOffAdapter.setOffQuestionUser(it.onQuestionUserList as MutableList<ResponseClassRoomSeniorData.Data.OffQuestionUser>)
+        }
+
     }
+
+
 
     inner class DataToFragment{
         fun getSeniorId(seniorId : Int){

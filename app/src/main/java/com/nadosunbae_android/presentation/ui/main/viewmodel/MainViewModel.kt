@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
+import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
 import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
@@ -31,6 +32,12 @@ class MainViewModel() : ViewModel() {
     val selectedMajor: LiveData<String>
         get() = _selectedMajor
 
+    // 구성원 전체보기
+
+    private val _seniorData = MutableLiveData<ResponseClassRoomSeniorData.Data>()
+    val seniorData : LiveData<ResponseClassRoomSeniorData.Data>
+        get() = _seniorData
+
 
     //마이페이지
     //마이페이지 탭에서 질문탭 및 정보탭 select 구분
@@ -49,7 +56,7 @@ class MainViewModel() : ViewModel() {
 
 
 
-
+    //과방 메인 데이터
     fun getClassRoomMain(postTypeId : Int, majorId : Int, sort : String = "recent"){
         classRoomRepository.getClassRoomMain(postTypeId, majorId, sort,
             onResponse = {
@@ -62,6 +69,20 @@ class MainViewModel() : ViewModel() {
                     Log.d("classRoomMain", "메인 서버 통신 실패")
             }
         )
+    }
 
+    //과방 구성원 전체
+    fun getClassRoomSenior(majorId : Int){
+        classRoomRepository.getClassRoomSenior(majorId,
+            onResponse = {
+                if(it.isSuccessful){
+
+                _seniorData.value = it.body()?.data
+                Log.d("classRoomSenior", "구성원 서버 통신 성공")
+            }},
+            onFailure = {
+                it.printStackTrace()
+                Log.d("classRoomSenior", "구성원 서버 통신 실패")
+            })
     }
 }
