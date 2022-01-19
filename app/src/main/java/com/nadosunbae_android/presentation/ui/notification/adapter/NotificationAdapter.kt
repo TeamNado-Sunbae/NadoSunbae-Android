@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
 import com.nadosunbae_android.databinding.ItemNotificationBinding
 import com.nadosunbae_android.databinding.ItemQuestionAllBinding
+import com.nadosunbae_android.presentation.ui.notification.NotificationFragment
 
-class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
+class NotificationAdapter(
+    var link : NotificationFragment.DataToFragment
+) : RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
     var notifiCationList = mutableListOf<ResponseNotificationListData.Data.Notification>()
 
     override fun onCreateViewHolder(
@@ -27,6 +30,10 @@ class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.Notificatio
         position: Int
     ) {
         holder.onBind(notifiCationList[position])
+        holder.binding.imgNotificationDelete.setOnClickListener {
+            link.getNotificationId(notifiCationList[position].notificationId)
+        }
+
     }
 
     override fun getItemCount(): Int = notifiCationList.size

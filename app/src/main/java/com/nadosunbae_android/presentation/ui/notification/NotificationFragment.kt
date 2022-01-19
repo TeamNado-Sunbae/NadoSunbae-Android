@@ -24,6 +24,8 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(R.layout.
         }
     }
 
+    var link = DataToFragment()
+
     private lateinit var notificationAdapter : NotificationAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,11 +36,24 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding>(R.layout.
 
     //알림 리스트 조회
     private fun initNotificationList(){
-        notificationAdapter = NotificationAdapter()
+        notificationAdapter = NotificationAdapter(link)
         binding.rcNotification.adapter = notificationAdapter
         notificationViewModel.getNotification(3)
         notificationViewModel.notificationList.observe(viewLifecycleOwner){
             notificationAdapter.setNotification(it.data.notificationList as MutableList<ResponseNotificationListData.Data.Notification>)
         }
+    }
+
+    inner class DataToFragment(){
+        fun getNotificationId(id : Int){
+            //알림삭제
+            notificationViewModel.deleteNotification(id)
+            notificationViewModel.deleteNotification.observe(viewLifecycleOwner){
+                if(it.data.isDeleted){
+                    notificationViewModel.getNotification(3)
+                }
+            }
+        }
+
     }
 }
