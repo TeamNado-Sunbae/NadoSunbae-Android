@@ -89,6 +89,10 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
         }
         fun getEditTextSelector(string: String) {
             signViewModel.text.value = string
+//            signViewModel.firstMajor.value = string
+//            signViewModel.firstMajorPeriod.value = string
+//            signViewModel.secondMajor.value = string
+//            signViewModel.secondMajorPeriod.value = string
         }
     }
 }

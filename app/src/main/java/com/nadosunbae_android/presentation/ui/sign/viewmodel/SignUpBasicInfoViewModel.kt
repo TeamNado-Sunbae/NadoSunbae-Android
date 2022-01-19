@@ -22,6 +22,7 @@ class SignUpBasicInfoViewModel : ViewModel() {
 
     //제 1전공
     val firstDepartment = MutableLiveData<ResponseFirstDepartment>()
+    val secondDepartment = MutableLiveData<ResponseFirstDepartment>()
 
 
     //닉네임
@@ -29,7 +30,6 @@ class SignUpBasicInfoViewModel : ViewModel() {
 
     //이메일
     var email = MutableLiveData<String>()
-
 
 
     //닉네임 중복 체크
@@ -69,18 +69,33 @@ class SignUpBasicInfoViewModel : ViewModel() {
             })
     }
 
-    fun getFirstDepartment(universityId : Int, filter : String) {
-        signRepository.getFirstDepartment(universityId, filter,{
+    //본 전공 선택
+    fun getFirstDepartment(universityId: Int, filter: String) {
+        signRepository.getFirstDepartment(universityId, filter, {
             //onResponse
-            if(it.isSuccessful) {
+            if (it.isSuccessful) {
                 firstDepartment.value = it.body()
                 Log.d("firstDepartment", "서버 통신 성공")
             }
         }) {
-           //onFailure
-
+            //onFailure
+            it.printStackTrace()
+            Log.d("firstDepartment", "서버 통신 실패")
         }
-
     }
 
+    // 제 2전공 선택
+    fun getSecondDepartment(universityId: Int, filter: String) {
+        signRepository.getFirstDepartment(universityId, filter, {
+            //onResponse
+            if (it.isSuccessful) {
+                secondDepartment.value = it.body()
+                Log.d("secondDepartment", "서버 통신 성공")
+            }
+        }) {
+            //onFailure
+            it.printStackTrace()
+            Log.d("secondDepartment", "서버 통신 실패")
+        }
+    }
 }

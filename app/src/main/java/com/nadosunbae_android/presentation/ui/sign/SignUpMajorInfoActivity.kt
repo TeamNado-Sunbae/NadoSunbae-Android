@@ -63,6 +63,7 @@ class SignUpMajorInfoActivity :
         secondMajorPeriod()
 
         firstMajor()
+        secondMajor()
     }
 
     //X버튼 클릭 리스너
@@ -104,6 +105,7 @@ class SignUpMajorInfoActivity :
         }
     }
 
+    //제 1전공 학과 선택 바텀시트
     private fun firstMajor() {
         binding.clSignupMajorInfoMajor.setOnClickListener {
             firstDepartmentBottomSheetDialog.show(
@@ -114,12 +116,17 @@ class SignUpMajorInfoActivity :
         signUpBasicInfoViewModel.getFirstDepartment(1, "firstMajor")
         signUpBasicInfoViewModel.firstDepartment.observe(this) {
 
-            firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }.map { BottomSheetData(it.majorId, it.majorName, false) }.toMutableList() )
-//                var firstDepartment = mutableListOf()
+            firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
+                .map { BottomSheetData(it.majorId, it.majorName, false) }.toMutableList())
+        }
+        signViewModel.firstMajor.observe(this) {
+            binding.textSignupMajorinfoMajor.text = it
+            binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
+            binding.textSignupMajorinfoMajorMint.setText("변경")
         }
     }
 
-
+    //제 1전공 진입시기 선택 바텀시트
     private fun firstMajorPeriod() {
         //bottomSheetDialog.binding.tvBottomsheeetTitle.setText("본 전공 진입시기")
         binding.clSignupMajorInfoMajorTime.setOnClickListener {
@@ -147,10 +154,35 @@ class SignUpMajorInfoActivity :
                 BottomSheetData(16, "15년 이전", false)
             )
             firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
-            firstMajorTextUpdate()
+            signViewModel.firstMajorPeriod.observe(this) {
+                binding.textSignupMajorinfoMajorTime.text = it
+                binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
+                binding.textSignupMajorinfoMajorTimeMint.setText("변경")
+            }
         }
     }
 
+
+    //제 2전공 학과 선택 바텀시트
+    private fun secondMajor() {
+        binding.clSignupMajorInfoDoubleMajor.setOnClickListener {
+            secondDepartmentBottomSheetDialog.show(
+                supportFragmentManager,
+                secondDepartmentBottomSheetDialog.tag
+            )
+            signUpBasicInfoViewModel.getSecondDepartment(1, "secondMajor")
+        }
+
+        signUpBasicInfoViewModel.secondDepartment.observe(this) {
+
+            secondDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isSecondMajor }
+                .map { BottomSheetData(it.majorId, it.majorName, false) }.toMutableList())
+//                var firstDepartment = mutableListOf()
+        }
+    }
+
+
+    //제 2전공 진입시기 바텀시트
     private fun secondMajorPeriod() {
         binding.clSignupMajorInfoDoubleMajorTime.setOnClickListener {
             secondDepartmentPeriodBottomSheetDialog.show(
@@ -180,16 +212,21 @@ class SignUpMajorInfoActivity :
 
             )
             secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
+            signViewModel.secondMajorPeriod.observe(this) {
+                binding.textSignupMajorinfoMajorTime.text = it
+                binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
+                binding.textSignupMajorinfoMajorTimeMint.setText("변경")
+            }
         }
 
     }
 
     private fun firstMajorTextUpdate() {
-        signViewModel.text.observe(this) {
-            binding.textSignupMajorinfoMajorTime.text = it
-            binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
-            binding.textSignupMajorinfoMajorTimeMint.setText("변경")
-        }
+//        signViewModel.text.observe(this) {
+//            binding.textSignupMajorinfoMajorTime.text = it
+//            binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
+//            binding.textSignupMajorinfoMajorTimeMint.setText("변경")
+//        }
     }
 
 
@@ -198,33 +235,6 @@ class SignUpMajorInfoActivity :
         val spinnerAdapter = SpinnerAdapter(this, R.layout.spinner_item, list)
         binding.spinnerSignupMajorinfoUniv.adapter = spinnerAdapter
         binding.spinnerSignupMajorinfoUniv.dropDownVerticalOffset = PixelRatio().dpToPx(52)
-
-
-        //우선은 남겨놔주세여..
-//        object : ArrayAdapter<String>(this, R.layout.spinner_item,R.id.tv_spinner, years){
-//            @SuppressLint("ResourceAsColor")
-//            override fun getDropDownView(
-//                position: Int,
-//                convertView: View?,
-//                parent: ViewGroup
-//            ): View {
-//                val view: ConstraintLayout = super.getDropDownView(position, convertView, parent) as ConstraintLayout
-//
-//
-//                if (position == 1){
-//                    view.tv_spinner.isSelected = true
-//                } else {
-//                    view.img_spinner_check.isSelected = true
-//                }
-//
-//                return view
-//            }
-//
-//            override fun isEnabled(position: Int): Boolean {
-//                return position == 0
-//
-//            }
-//        }
     }
 
 
