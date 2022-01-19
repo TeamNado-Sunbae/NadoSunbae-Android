@@ -240,6 +240,7 @@
 
     <!-- Custom Bottom Sheet -->
     <string name="bottom_sheet_complete">선택 완료</string>
+    <string name="bottom_sheet_title_major">학과 선택</string>
 
 
     <!-- 알림 -->

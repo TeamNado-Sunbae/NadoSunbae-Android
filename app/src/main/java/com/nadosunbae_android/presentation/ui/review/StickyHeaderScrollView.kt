@@ -25,14 +25,16 @@ class StickyHeaderScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayout
             field = value
             field?.let {
                 it.translationZ = 1f
-                /*
+
                 it.setOnClickListener { _ ->
-                    // 클릭 시 헤더뷰가 최상단으로 오게 스크롤을 이동
+
+                /*    // 클릭 시 헤더뷰가 최상단으로 오게 스크롤을 이동
 
                     this.smoothScrollTo(scrollX, it.top)
                     callStickListener()
-                }
                  */
+                }
+
             }
         }
 
