@@ -1,11 +1,9 @@
 package com.nadosunbae_android.presentation.ui.review.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
@@ -34,7 +32,7 @@ class ReviewListAdapter(): RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>(
                 if (data.tagList.contains(t.first))
                     t.second.visibility = View.VISIBLE
                 else
-                    t.second.visibility = View.INVISIBLE
+                    t.second.visibility = View.GONE
             }
 
             binding.executePendingBindings()
