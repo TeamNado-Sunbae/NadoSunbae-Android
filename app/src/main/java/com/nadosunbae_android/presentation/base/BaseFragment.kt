@@ -10,7 +10,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.nadosunbae_android.data.model.response.sign.BottomSheetData
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
+import com.nadosunbae_android.util.CustomBottomSheetDialog
 
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) : Fragment() {
     private var _binding: T? = null

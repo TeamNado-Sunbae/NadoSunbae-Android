@@ -1,4 +1,4 @@
-package com.nadosunbae_android.presentation.ui.sign
+package com.nadosunbae_android.util
 
 
 import android.os.Bundle

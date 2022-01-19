@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.nadosunbae_android.data.model.response.sign.BottomSheetData
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
+import com.nadosunbae_android.util.CustomBottomSheetDialog
 
 abstract class BaseActivity<T : ViewDataBinding>(
     @LayoutRes private val layoutResId: Int

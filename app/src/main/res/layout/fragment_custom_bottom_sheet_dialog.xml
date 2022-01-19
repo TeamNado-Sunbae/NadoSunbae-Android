@@ -11,7 +11,7 @@
 
         <variable
             name="fragment"
-            type="com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog"/>
+            type="com.nadosunbae_android.util.CustomBottomSheetDialog"/>
 
     </data>
 

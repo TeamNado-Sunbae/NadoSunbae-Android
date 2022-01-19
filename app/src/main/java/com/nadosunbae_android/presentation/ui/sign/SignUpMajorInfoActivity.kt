@@ -15,6 +15,7 @@ import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.adapter.SpinnerAdapter
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignViewModel
+import com.nadosunbae_android.util.CustomBottomSheetDialog
 import com.nadosunbae_android.util.PixelRatio
 import com.nadosunbae_android.util.SignInCustomDialog
 import kotlinx.android.synthetic.main.fragment_custom_bottom_sheet_dialog.*
