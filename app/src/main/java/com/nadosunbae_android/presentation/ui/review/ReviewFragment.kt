@@ -12,17 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
-import com.nadosunbae_android.data.model.response.sign.BottomSheetData
+import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.databinding.FragmentReviewBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel
-import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
+import com.nadosunbae_android.util.CustomBottomSheetDialog
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
     private lateinit var reviewListAdapter : ReviewListAdapter
+
+    private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
+    private lateinit var filterBottomSheetDialog: FilterBottomSheetDialog
 
     private val mainViewModel: MainViewModel by activityViewModels {
         object : ViewModelProvider.Factory {
@@ -46,10 +49,11 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         setBinding()
         setStickyHeader()
         initReviewListAdapter()
-        initReviewListData()
+        setReviewListData()
         setClickListener()
+        observeSelectedMajor()
         observePreviewList()
-
+        initBottomSheet()
         setTestData()
     }
 
@@ -59,14 +63,17 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         binding.reviewListViewModel = reviewListViewModel
     }
 
-    private fun initReviewListData() {
-        reviewListViewModel.getReviewList(
-            "recent", RequestReviewListData(5, 1, listOf(1, 2, 3, 4, 5))
-        )
+
+
+    private fun setReviewListData() {
+        // reviewListViewModel observe (목록에 표시되도록)
         reviewListViewModel.reviewListData.observe(viewLifecycleOwner) {
             reviewListAdapter.setReviewListData(it.data as MutableList<ResponseReviewListData.Data>)
         }
+
     }
+
+
 
 
     private fun initReviewListAdapter() {
@@ -103,36 +110,20 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             startActivity(intent)
         }
 
-        binding.btnSelectMajor.setOnClickListener {
-            val bottomSheetDialog = CustomBottomSheetDialog()
-            bottomSheetDialog.show(parentFragmentManager, bottomSheetDialog.tag)
+        val showMajorBottomSheetDialog = {
+            majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
 
-
-            // test data
-            var majorSelectionData = mutableListOf(
-                BottomSheetData(1,"xxx학과", false),
-                BottomSheetData(2,"aaa학과", false),
-                BottomSheetData(3,"bbb학과", false),
-                BottomSheetData(4,"ccc학", false),
-                BottomSheetData(5,"ddd학과", false),
-                BottomSheetData(6,"eeee학과", false),
-                BottomSheetData(7,"iow학과", false),
-                BottomSheetData(8,"컴퓨터공학", false),
-                BottomSheetData(9,"18-1", false),
-                BottomSheetData(10,"17-2", false),
-                BottomSheetData(11,"17-1", false),
-                BottomSheetData(12,"16-2", false),
-                BottomSheetData(13,"16-1", false),
-                BottomSheetData(14,"15-2", false),
-                BottomSheetData(15,"15-1", false),
-                BottomSheetData(16,"15년 이전", false),
-            )
-            bottomSheetDialog.setDataList(majorSelectionData)
+            // (학과 선택) 기본 선택값 적용 (MainActivity setDefaultMajor에서 관리)
+            majorBottomSheetDialog.setSelectedData(mainViewModel.selectedMajor.value!!.majorId)
         }
 
+        binding.btnSelectMajor.setOnClickListener { showMajorBottomSheetDialog() }
+        binding.tvMajorSelected.setOnClickListener { showMajorBottomSheetDialog() }
+
+
+
         binding.btnReviewFilter.setOnClickListener {
-            val filterBottomSheetData = FilterBottomSheetDialog()
-            filterBottomSheetData.show(parentFragmentManager, filterBottomSheetData.tag)
+            filterBottomSheetDialog.show(parentFragmentManager, filterBottomSheetDialog.tag)
         }
 
     }
@@ -155,10 +146,41 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         }
     }
 
+    private fun observeSelectedMajor() {
+        // 선택 학과 observe
+        mainViewModel.selectedMajor.observe(viewLifecycleOwner) {
+
+            // null check
+            if (mainViewModel.selectedMajor != null) {
+
+                // review list 갱신
+                val request = RequestReviewListData(mainViewModel.selectedMajor.value!!.majorId, 1, listOf(1, 2, 3, 4, 5))
+                reviewListViewModel.getReviewList("recent", request)
+
+                // 학과 홈페이지, 이수 일람표 링크 갱신
+
+            }
+
+        }
+    }
+
+    private fun initBottomSheet() {
+
+        majorBottomSheetDialog = CustomBottomSheetDialog(resources.getString(R.string.bottom_sheet_title_major))
+        filterBottomSheetDialog = FilterBottomSheetDialog()
+
+        observeBottomSheet(mainViewModel, majorBottomSheetDialog)
+        majorBottomSheetDialog.setCompleteListener {
+            val selectedData = majorBottomSheetDialog.getSelectedData()
+            val majorData = MajorData(selectedData.id, selectedData.name)
+            mainViewModel.setSelectedMajor(majorData)
+        }
+
+    }
+
     private fun setTestData() {
         reviewListViewModel.setPageUrl("https://www.naver.com")
         reviewListViewModel.setSubjectTableUrl("https://www.daum.net")
-        mainViewModel.setSelectedMajor("국어국문학과")
     }
 
 }

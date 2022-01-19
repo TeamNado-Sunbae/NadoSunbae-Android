@@ -15,6 +15,7 @@ import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.adapter.SpinnerAdapter
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignViewModel
+import com.nadosunbae_android.util.CustomBottomSheetDialog
 import com.nadosunbae_android.util.PixelRatio
 import com.nadosunbae_android.util.SignInCustomDialog
 import kotlinx.android.synthetic.main.fragment_custom_bottom_sheet_dialog.*
@@ -32,7 +33,7 @@ class SignUpMajorInfoActivity :
         }
     }
 
-    val bottomSheetDialog = CustomBottomSheetDialog()
+    private val bottomSheetDialog = CustomBottomSheetDialog(resources.getString(R.string.signup_first_major))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,8 +82,7 @@ class SignUpMajorInfoActivity :
     private fun onClickbottomSheetUniv() {
         binding.clSignupMajorInfoUniv.setOnClickListener {
 
-            val bottomSheetFragment = CustomBottomSheetDialog()
-            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+            bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
 
         }
     }

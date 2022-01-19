@@ -1,25 +1,30 @@
-package com.nadosunbae_android.presentation.ui.sign
+package com.nadosunbae_android.util
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.sign.BottomSheetData
 import com.nadosunbae_android.databinding.FragmentCustomBottomSheetDialogBinding
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.sign.adapter.MajorSelectAdapter
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.util.CustomDecoration
 import com.nadosunbae_android.util.dpToPxF
+import com.nadosunbae_android.util.finish
 
 
-class CustomBottomSheetDialog : BottomSheetDialogFragment() {
+class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFragment() {
     private val signViewModel: SignViewModel by activityViewModels{
         object : ViewModelProvider.Factory{
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -27,6 +32,13 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
             }
         }
     }
+
+    // 바텀시트 타이틀
+    private var _titleData = MutableLiveData<String>()
+    val titleData: LiveData<String>
+        get() = _titleData
+
+    var completeOperation: () -> Unit = { }
 
     private var majorSelectAdapter: MajorSelectAdapter
     private lateinit var _binding : FragmentCustomBottomSheetDialogBinding
@@ -43,9 +55,10 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_custom_bottom_sheet_dialog,container, false)
 
+        initTitle()
         initAdapter()
         setClickListener()
-        setCompleteBtnListener()
+        observeSelectedData()
 
         return binding.root
     }
@@ -53,19 +66,22 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.clCustomBottomSheet.layoutParams.height = resources.displayMetrics.heightPixels * 72/100
+        binding.tvBottomsheeetTitle.text = title
+        binding.executePendingBindings()
     }
 
     private fun setClickListener() {
         binding.btnBottomsheetCancel.setOnClickListener {
             activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
         }
+        binding.fragment = this
     }
 
-    private fun setCompleteBtnListener() {
-        binding.btnBottomsheetComplete.setOnClickListener {
-            activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
-
+    private fun initTitle() {
+        titleData.observe(viewLifecycleOwner) {
+            binding.tvBottomsheeetTitle.text = titleData.value
         }
+        _titleData.value = title
     }
 
 
@@ -77,10 +93,35 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
         binding.rvBottomsheet.adapter = majorSelectAdapter
     }
 
+    private fun observeSelectedData() {
+        majorSelectAdapter.selectedData.observe(viewLifecycleOwner) {
+            binding.btnBottomsheetComplete.isEnabled = majorSelectAdapter.selectedData.value!!.isSelected
+        }
+    }
+
+
+    fun setCompleteListener(operation: () -> Unit) {
+        completeOperation = operation
+    }
+
+    fun completeBtnListener(view: View) {
+        completeOperation()
+        finish()
+    }
+
     fun setDataList(dataList: MutableList<BottomSheetData>) {
         majorSelectAdapter.dataList.addAll(dataList)
         majorSelectAdapter.notifyDataSetChanged()
     }
+
+    fun getSelectedData(): BottomSheetData {
+        return majorSelectAdapter.selectedData.value!!
+    }
+
+    fun setSelectedData(dataId: Int) {
+        majorSelectAdapter.setSelectedData(dataId)
+    }
+
 
     inner class DataToFragment(){
         fun getBtnSelector(bool : Boolean){

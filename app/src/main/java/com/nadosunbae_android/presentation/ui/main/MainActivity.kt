@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.databinding.ActivityMainBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.classroom.*
@@ -29,6 +30,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         initBottomNav()
         classRoomFragmentChange()
+        initMajorList()
+        setDefaultMajor()
     }
 
 
@@ -79,8 +82,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
 
+    // 학과 목록 불러오기
+    private fun initMajorList() {
+        mainViewModel.getMajorList(1)
+    }
 
-
+    // 본전공이 선택되어 있도록
+    private fun setDefaultMajor() {
+        mainViewModel.setSelectedMajor(MajorData(5, "경영학과"))
+    }
 
 
 

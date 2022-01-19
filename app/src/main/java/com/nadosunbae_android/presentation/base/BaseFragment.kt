@@ -8,6 +8,9 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.nadosunbae_android.data.model.response.sign.BottomSheetData
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.util.CustomBottomSheetDialog
 
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) : Fragment() {
     private var _binding: T? = null
@@ -27,5 +30,20 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun observeBottomSheet(viewModel: MainViewModel, majorBottomSheetDialog: CustomBottomSheetDialog) {
+        viewModel.majorList.observe(viewLifecycleOwner) {
+            val responseData = viewModel.majorList.value?.data
+            val dialogInput = mutableListOf<BottomSheetData>()
+
+            // null check
+            if (responseData != null) {
+                for (d in responseData)
+                    dialogInput.add(BottomSheetData(d.majorId, d.majorName, false))
+            }
+
+            majorBottomSheetDialog.setDataList(dialogInput)
+        }
     }
 }
