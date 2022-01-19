@@ -9,9 +9,12 @@ import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSen
 import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
+import com.nadosunbae_android.data.repository.main.MainRepository
+import com.nadosunbae_android.data.repository.main.MainRepositoryImpl
 import org.koin.core.time.measureDurationForResult
 
 class MainViewModel() : ViewModel() {
+    val mainRepository: MainRepository = MainRepositoryImpl()
     val classRoomRepository: ClassRoomRepository = ClassRoomRepositoryImpl()
     val mypageRepository: MyPageRepositoryImpl = MyPageRepositoryImpl()
     //과방탭
@@ -54,6 +57,18 @@ class MainViewModel() : ViewModel() {
         _selectedMajor.value = major
     }
 
+
+    // 학과 목록 데이터
+    fun getMajorList(universityId: Int, filter: String = "all") {
+        mainRepository.getMajorList(universityId, filter,
+            onResponse = {
+                Log.d("MainRepository", "서버 통신 성공")
+            },
+            onFailure = {
+                Log.d("MainRepository", "서버 통신 실패")
+            }
+        )
+    }
 
 
     //과방 메인 데이터
