@@ -4,6 +4,7 @@ package com.nadosunbae_android.presentation.ui.sign
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import androidx.activity.viewModels
@@ -94,7 +95,15 @@ class SignUpMajorInfoActivity :
         }
     }
 
+
     private fun nextBtnActivate() {
+//        if(binding.textSignupMajorinfoMajorMint.text == "변경") {
+//            binding.clSignupMajorInfoMoveNext.isSelected = true
+//        }
+//        else {
+//            binding.clSignupMajorInfoMoveNext.isSelected = false
+//        }
+        //binding.clSignupMajorInfoMoveNext.isSelected = true
         binding.clSignupMajorInfoMoveNext.setOnClickListener {
             startActivity(Intent(this, SignUpBasicInfoActivity::class.java))
         }
@@ -217,28 +226,39 @@ class SignUpMajorInfoActivity :
                 secondDepartmentPeriodBottomSheetDialog.tag
             )
 
+
             // test data
             var secondMajorSelectionPeriodData = mutableListOf(
-                BottomSheetData(1, "미진입", false),
-                BottomSheetData(2, "22-1", false),
-                BottomSheetData(3, "21-2", false),
-                BottomSheetData(4, "21-1", false),
-                BottomSheetData(5, "20-2", false),
-                BottomSheetData(6, "20-1", false),
-                BottomSheetData(7, "19-2", false),
-                BottomSheetData(8, "19-1", false),
-                BottomSheetData(9, "18-2", false),
-                BottomSheetData(10, "18-1", false),
-                BottomSheetData(11, "17-2", false),
-                BottomSheetData(12, "17-1", false),
-                BottomSheetData(13, "16-2", false),
-                BottomSheetData(14, "16-1", false),
-                BottomSheetData(15, "15-2", false),
-                BottomSheetData(16, "15-1", false),
-                BottomSheetData(17, "15년 이전", false)
+                BottomSheetData(1, "22-1", false),
+                BottomSheetData(2, "21-2", false),
+                BottomSheetData(3, "21-1", false),
+                BottomSheetData(4, "20-2", false),
+                BottomSheetData(5, "20-1", false),
+                BottomSheetData(6, "19-2", false),
+                BottomSheetData(7, "19-1", false),
+                BottomSheetData(8, "18-2", false),
+                BottomSheetData(9, "18-1", false),
+                BottomSheetData(10, "17-2", false),
+                BottomSheetData(11, "17-1", false),
+                BottomSheetData(12, "16-2", false),
+                BottomSheetData(13, "16-1", false),
+                BottomSheetData(14, "15-2", false),
+                BottomSheetData(15, "15-1", false),
+                BottomSheetData(16, "15년 이전", false)
 
             )
-            secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
+
+            var secondMajorSelectionPeriodDatNot = mutableListOf(
+                BottomSheetData(1,"미진입", false)
+            )
+
+            //secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
+
+            if(binding.textSignupMajorinfoDoubleMajor.text == "미진입") {
+                secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodDatNot)
+            } else {
+                secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
+            }
 
             secondDepartmentPeriodBottomSheetDialog.setCompleteListener {
                 val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
