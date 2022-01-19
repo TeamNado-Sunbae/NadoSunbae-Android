@@ -1,6 +1,7 @@
 package com.nadosunbae_android.util
 
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -70,6 +71,11 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         binding.executePendingBindings()
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        majorSelectAdapter.clearSelect()
+    }
+
     private fun setClickListener() {
         binding.btnBottomsheetCancel.setOnClickListener {
             activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
@@ -106,7 +112,7 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
 
     fun completeBtnListener(view: View) {
         completeOperation()
-        finish()
+        dismiss()
     }
 
     fun setDataList(dataList: MutableList<BottomSheetData>) {

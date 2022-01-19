@@ -119,6 +119,12 @@ class MajorSelectAdapter(
         }
     }
 
+    fun clearSelect() {
+        for (d in dataList)
+            d.isSelected = false
+        mSelectedPos = NOT_SELECTED
+    }
+
     companion object {
         const val NOT_SELECTED = -1
     }
