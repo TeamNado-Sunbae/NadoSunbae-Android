@@ -60,10 +60,16 @@ object BindingAdapter {
         spannable.setSpan(ForegroundColorSpan(Color.parseColor("#00C8B0")),start, end,
             Spannable.SPAN_INCLUSIVE_INCLUSIVE)
         return spannable.also {textView.text = it}
-
-
-
             }
+
+    @JvmStatic
+    @BindingAdapter("notificationOval")
+    fun notificationOval(imageView: ImageView, isRead : Boolean){
+        if(isRead) imageView.visibility = View.GONE else View.VISIBLE
+
+    }
+
+
         }
 
 

@@ -119,6 +119,7 @@
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/layout/view_custom_edit_text.xml" value="0.11367753623188406" />
         <entry key="..\:/Users/82104/user/NadoSunbae-Android/app/src/main/res/menu/menu.xml" value="0.1" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/oval_fill_black.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/oval_fill_notification_oval_6_6.xml" value="0.1" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_104_36_fill_main_black_8.xml" value="0.13055555555555556" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_border_.xml" value="0.18055555555555555" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/drawable/rectangle_border_1_gray0_fill_white_8.xml" value="0.21296296296296297" />
@@ -196,7 +197,7 @@
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_classroom_senior_question.xml" value="0.264" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_information_detail.xml" value="0.2" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_list_review.xml" value="0.1296875" />
-        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_notification.xml" value="0.264" />
+        <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_notification.xml" value="0.4" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_popup_window_item.xml" value="0.1296875" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_all.xml" value="0.2708333333333333" />
         <entry key="..\:/Users/kht07/NadoSunbae-Android/app/src/main/res/layout/item_question_detail.xml" value="0.1296875" />
