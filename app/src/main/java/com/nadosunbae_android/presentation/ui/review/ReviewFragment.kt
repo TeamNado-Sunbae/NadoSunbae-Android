@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -13,16 +14,22 @@ import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
 import com.nadosunbae_android.data.model.response.sign.BottomSheetData
+import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.databinding.FragmentReviewBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
+import org.koin.android.ext.android.get
+import java.util.logging.Filter
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
     private lateinit var reviewListAdapter : ReviewListAdapter
+
+    private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
+    private lateinit var filterBottomSheetDialog: FilterBottomSheetDialog
 
     private val mainViewModel: MainViewModel by activityViewModels {
         object : ViewModelProvider.Factory {
@@ -49,7 +56,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         initReviewListData()
         setClickListener()
         observePreviewList()
-
+        initBottomSheet()
         setTestData()
     }
 
@@ -104,35 +111,11 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         }
 
         binding.btnSelectMajor.setOnClickListener {
-            val bottomSheetDialog = CustomBottomSheetDialog()
-            bottomSheetDialog.show(parentFragmentManager, bottomSheetDialog.tag)
-
-
-            // test data
-            var majorSelectionData = mutableListOf(
-                BottomSheetData(1,"xxx학과", false),
-                BottomSheetData(2,"aaa학과", false),
-                BottomSheetData(3,"bbb학과", false),
-                BottomSheetData(4,"ccc학", false),
-                BottomSheetData(5,"ddd학과", false),
-                BottomSheetData(6,"eeee학과", false),
-                BottomSheetData(7,"iow학과", false),
-                BottomSheetData(8,"컴퓨터공학", false),
-                BottomSheetData(9,"18-1", false),
-                BottomSheetData(10,"17-2", false),
-                BottomSheetData(11,"17-1", false),
-                BottomSheetData(12,"16-2", false),
-                BottomSheetData(13,"16-1", false),
-                BottomSheetData(14,"15-2", false),
-                BottomSheetData(15,"15-1", false),
-                BottomSheetData(16,"15년 이전", false),
-            )
-            bottomSheetDialog.setDataList(majorSelectionData)
+            majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
         }
 
         binding.btnReviewFilter.setOnClickListener {
-            val filterBottomSheetData = FilterBottomSheetDialog()
-            filterBottomSheetData.show(parentFragmentManager, filterBottomSheetData.tag)
+            filterBottomSheetDialog.show(parentFragmentManager, filterBottomSheetDialog.tag)
         }
 
     }
@@ -155,10 +138,22 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         }
     }
 
+    private fun initBottomSheet() {
+
+        majorBottomSheetDialog = CustomBottomSheetDialog(resources.getString(R.string.bottom_sheet_title_major))
+        filterBottomSheetDialog = FilterBottomSheetDialog()
+
+        observeBottomSheet(mainViewModel, majorBottomSheetDialog)
+        majorBottomSheetDialog.setCompleteListener {
+            val selectedData = majorBottomSheetDialog.getSelectedData()
+            val majorData = MajorData(selectedData.id, selectedData.name)
+            mainViewModel.setSelectedMajor(majorData)
+        }
+    }
+
     private fun setTestData() {
         reviewListViewModel.setPageUrl("https://www.naver.com")
         reviewListViewModel.setSubjectTableUrl("https://www.daum.net")
-        mainViewModel.setSelectedMajor("국어국문학과")
     }
 
 }

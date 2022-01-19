@@ -20,6 +20,7 @@ class MainViewModel() : ViewModel() {
     val mainRepository: MainRepository = MainRepositoryImpl()
     val classRoomRepository: ClassRoomRepository = ClassRoomRepositoryImpl()
     val mypageRepository: MyPageRepositoryImpl = MyPageRepositoryImpl()
+
     //과방탭
     //과방탭에서 질문탭 및 정보탭 select 구분 (과방)
     var classRoomNum = MutableLiveData<Int>()
@@ -39,8 +40,8 @@ class MainViewModel() : ViewModel() {
         get() = _majorList
 
     // 선택 학과
-    private var _selectedMajor = MutableLiveData<String>()
-    val selectedMajor: LiveData<String>
+    private var _selectedMajor = MutableLiveData<MajorData>()
+    val selectedMajor: LiveData<MajorData>
         get() = _selectedMajor
 
     // 구성원 전체보기
@@ -61,8 +62,8 @@ class MainViewModel() : ViewModel() {
     /*
         test data (api에서 불러오면 다 지울 예정)
      */
-    fun setSelectedMajor(major: String) {
-        _selectedMajor.value = major
+    fun setSelectedMajor(majorData: MajorData) {
+        _selectedMajor.value = majorData
     }
 
 
@@ -110,4 +111,5 @@ class MainViewModel() : ViewModel() {
                 Log.d("classRoomSenior", "구성원 서버 통신 실패")
             })
     }
+
 }

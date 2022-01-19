@@ -32,7 +32,7 @@ class SignUpMajorInfoActivity :
         }
     }
 
-    val bottomSheetDialog = CustomBottomSheetDialog()
+    private val bottomSheetDialog = CustomBottomSheetDialog(resources.getString(R.string.signup_first_major))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,8 +81,7 @@ class SignUpMajorInfoActivity :
     private fun onClickbottomSheetUniv() {
         binding.clSignupMajorInfoUniv.setOnClickListener {
 
-            val bottomSheetFragment = CustomBottomSheetDialog()
-            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+            bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
 
         }
     }
