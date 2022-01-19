@@ -12,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
 import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.databinding.ActivitySignUpBasicInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
@@ -47,11 +48,9 @@ class SignUpBasicInfoActivity :
         //닉네임 중복 체크 서버 통신
         signUpBasicInfoViewModel.nickName.observe(this){
             signUpBasicInfoViewModel.nickNameDuplication(RequestSignNickname(it))
-            Log.d("1111", "123123")
         }
 
         signUpBasicInfoViewModel.nickNameDuplication.observe(this){
-            Log.d("1111", "111111")
             if(it){
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
@@ -61,7 +60,27 @@ class SignUpBasicInfoActivity :
 
             }
         }
+    }
 
+
+    private fun emailDuplication() {
+        //이메일 중복 체크 서버 통신
+        signUpBasicInfoViewModel.email.observe(this){
+            signUpBasicInfoViewModel.emailDuplication(RequestSignEmail(it))
+            Log.d("1111", "123123")
+        }
+
+        signUpBasicInfoViewModel.emailDuplication.observe(this){
+            Log.d("1111", "111111")
+            if(it){
+                binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
+                binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
+            } else {
+                binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
+                binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.VISIBLE
+
+            }
+        }
     }
 
     //닉네임 textwatcher
@@ -119,6 +138,11 @@ class SignUpBasicInfoActivity :
                     binding.imgSignupBasicinfoEmailCancel.isSelected = false
                 } else {
                     binding.imgSignupBasicinfoEmailCancel.isSelected = true
+
+                    binding.textSignupBasicinfoEmailDuplication.setOnClickListener {
+                        signUpBasicInfoViewModel.email.value = p0.toString()
+                        emailDuplication()
+                    }
                 }
 
             }
@@ -127,6 +151,8 @@ class SignUpBasicInfoActivity :
 
         binding.imgSignupBasicinfoEmailCancel.setOnClickListener {
             binding.etSignupBasicinfoEmail.setText(null)
+            binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
+            binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
         }
     }
 
