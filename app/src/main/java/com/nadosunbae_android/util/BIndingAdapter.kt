@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.core.view.marginLeft
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.nadosunbae_android.R
 import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
@@ -75,7 +76,11 @@ object BindingAdapter {
 
 
 
-
+@BindingAdapter("isOnQuestion")
+fun TextView.isOnQuestion(isOnQuestion: Boolean) {
+    text = if (isOnQuestion) context.getString(R.string.review_question_on_message)
+            else context.getString(R.string.review_question_off_message)
+}
 
 @BindingAdapter("majorName", "majorStart")
 fun TextView.majorText(majorName: String?, majorStart: String?) {
