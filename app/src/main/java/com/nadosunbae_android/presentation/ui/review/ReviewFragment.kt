@@ -171,8 +171,11 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         observeBottomSheet(mainViewModel, majorBottomSheetDialog)
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
-            val majorData = MajorData(selectedData.id, selectedData.name)
-            mainViewModel.setSelectedMajor(majorData)
+            if (selectedData != null) {
+                val majorData = MajorData(selectedData.id, selectedData.name)
+                mainViewModel.setSelectedMajor(majorData)
+            }
+
         }
 
     }
