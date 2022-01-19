@@ -31,6 +31,7 @@ class ReviewDetailActivity :
 
         initTagBoxAdapter()
         initBinding()
+        getServerData()
         setClickListener()
         observeBackground()
         setTestData()
@@ -45,6 +46,15 @@ class ReviewDetailActivity :
     private fun initBinding() {
         binding.lifecycleOwner = this
         binding.reviewDetailViewModel = reviewDetailViewModel
+    }
+
+    private fun getServerData() {
+        val postId = intent.getIntExtra("postId", NOT_POST_ID)
+
+        // intent extra check
+        if (postId != NOT_POST_ID)
+            reviewDetailViewModel.getReviewDetail(postId)
+
     }
 
     private fun setClickListener() {
@@ -75,6 +85,11 @@ class ReviewDetailActivity :
         reviewTagBoxAdapter.setReviewTagBoxData(sampleList)
 
         reviewDetailViewModel.setBackgroundUrl("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/166af9e7-07e2-4f74-bb1f-e0a33151ef5e.png")
+    }
+
+    companion object {
+        const val TAG = "ReviewDetailActivity"
+        const val NOT_POST_ID = -1
     }
 
 }
