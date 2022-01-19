@@ -120,8 +120,8 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         majorSelectAdapter.notifyDataSetChanged()
     }
 
-    fun getSelectedData(): BottomSheetData {
-        return majorSelectAdapter.selectedData.value!!
+    fun getSelectedData(): BottomSheetData? {
+        return majorSelectAdapter.selectedData.value
     }
 
     fun setSelectedData(dataId: Int) {
