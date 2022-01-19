@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
 import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
+import com.nadosunbae_android.data.model.response.sign.ResponseFirstDepartment
 import com.nadosunbae_android.data.model.response.sign.ResponseSignNickname
 import com.nadosunbae_android.data.repository.sign.SignRepository
 import com.nadosunbae_android.data.repository.sign.SignRepositoryImpl
@@ -19,11 +20,17 @@ class SignUpBasicInfoViewModel : ViewModel() {
     //이메일 중복 체크 변수
     var emailDuplication = MutableLiveData<Boolean>()
 
+    //제 1전공
+    val firstDepartment = MutableLiveData<ResponseFirstDepartment>()
+
+
     //닉네임
     var nickName = MutableLiveData<String>()
 
     //이메일
     var email = MutableLiveData<String>()
+
+
 
     //닉네임 중복 체크
     fun nickNameDuplication(requestSignNickname: RequestSignNickname) {
@@ -60,6 +67,20 @@ class SignUpBasicInfoViewModel : ViewModel() {
                 it.printStackTrace()
                 Log.d("emailDuplication", "서버 통신 실패")
             })
+    }
+
+    fun getFirstDepartment(universityId : Int, filter : String) {
+        signRepository.getFirstDepartment(universityId, filter,{
+            //onResponse
+            if(it.isSuccessful) {
+                firstDepartment.value = it.body()
+                Log.d("firstDepartment", "서버 통신 성공")
+            }
+        }) {
+           //onFailure
+
+        }
+
     }
 
 }

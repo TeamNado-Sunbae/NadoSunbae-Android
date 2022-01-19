@@ -10,10 +10,13 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.data.model.response.sign.BottomSheetData
+import com.nadosunbae_android.data.model.response.sign.ResponseFirstDepartment
 import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.adapter.SpinnerAdapter
+import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.util.PixelRatio
 import com.nadosunbae_android.util.SignInCustomDialog
@@ -32,7 +35,19 @@ class SignUpMajorInfoActivity :
         }
     }
 
-    val bottomSheetDialog = CustomBottomSheetDialog()
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return SignUpBasicInfoViewModel() as T
+            }
+        }
+    }
+
+    val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog()
+    val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog()
+
+    val secondDepartmentBottomSheetDialog = CustomBottomSheetDialog()
+    val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +61,8 @@ class SignUpMajorInfoActivity :
         setupSpinner()
         setupSpinnerHandler()
         secondMajorPeriod()
+
+        firstMajor()
     }
 
     //X버튼 클릭 리스너
@@ -87,12 +104,29 @@ class SignUpMajorInfoActivity :
         }
     }
 
+    private fun firstMajor() {
+        binding.clSignupMajorInfoMajor.setOnClickListener {
+            firstDepartmentBottomSheetDialog.show(
+                supportFragmentManager,
+                firstDepartmentBottomSheetDialog.tag
+            )
+        }
+        signUpBasicInfoViewModel.getFirstDepartment(1, "firstMajor")
+        signUpBasicInfoViewModel.firstDepartment.observe(this) {
+
+            firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }.map { BottomSheetData(it.majorId, it.majorName, false) }.toMutableList() )
+//                var firstDepartment = mutableListOf()
+        }
+    }
+
 
     private fun firstMajorPeriod() {
         //bottomSheetDialog.binding.tvBottomsheeetTitle.setText("본 전공 진입시기")
         binding.clSignupMajorInfoMajorTime.setOnClickListener {
-            bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
-
+            firstDepartmentPeriodBottomSheetDialog.show(
+                supportFragmentManager,
+                firstDepartmentPeriodBottomSheetDialog.tag
+            )
             // local data
             var firstMajorSelectionPeriodData = mutableListOf(
                 BottomSheetData(1, "22-1", false),
@@ -112,15 +146,17 @@ class SignUpMajorInfoActivity :
                 BottomSheetData(15, "15-1", false),
                 BottomSheetData(16, "15년 이전", false)
             )
-            bottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
+            firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
             firstMajorTextUpdate()
         }
     }
 
     private fun secondMajorPeriod() {
         binding.clSignupMajorInfoDoubleMajorTime.setOnClickListener {
-            bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
-
+            secondDepartmentPeriodBottomSheetDialog.show(
+                supportFragmentManager,
+                secondDepartmentPeriodBottomSheetDialog.tag
+            )
 
             // test data
             var secondMajorSelectionPeriodData = mutableListOf(
@@ -143,7 +179,7 @@ class SignUpMajorInfoActivity :
                 BottomSheetData(17, "15년 이전", false)
 
             )
-            bottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
+            secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
         }
 
     }
