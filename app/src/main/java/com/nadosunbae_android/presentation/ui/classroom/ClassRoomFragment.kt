@@ -8,9 +8,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.databinding.FragmentClassRoomBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.util.CustomBottomSheetDialog
 
 
 class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragment_class_room) {
@@ -22,11 +24,13 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
             }
         }
     }
-
+    private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         selectTitle()
-
+        clickBottomSheet()
+        initBottomSheet()
+        changeTitle()
     }
 
 
@@ -68,6 +72,37 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
             .commit()
 
     }
+    //바텀시트 선택
+    private fun initBottomSheet(){
+        majorBottomSheetDialog = CustomBottomSheetDialog(resources.getString(R.string.bottom_sheet_title_major))
+        observeBottomSheet(mainViewModel, majorBottomSheetDialog)
 
+        majorBottomSheetDialog.setCompleteListener {
+            val selectedData = majorBottomSheetDialog.getSelectedData()
+            if (selectedData != null) {
+                val majorData = MajorData(selectedData.id, selectedData.name)
+                mainViewModel.setSelectedMajor(majorData)
+            }
+
+        }
+    }
+    //바텀시트 클릭
+    private fun clickBottomSheet(){
+        val showMajorBottomSheetDialog = {
+            majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
+
+            // (학과 선택) 기본 선택값 적용 (MainActivity setDefaultMajor에서 관리)
+            majorBottomSheetDialog.setSelectedData(mainViewModel.selectedMajor.value!!.majorId )
+        }
+        binding.textClassroomTitle.setOnClickListener { showMajorBottomSheetDialog() }
+        binding.imgClassroomQuestionTitle.setOnClickListener { showMajorBottomSheetDialog() }
+    }
+
+    //타이틀 변경
+    private fun changeTitle(){
+        mainViewModel.selectedMajor.observe(this){
+            binding.textClassroomTitle.text = it.majorName
+        }
+    }
 
 }

@@ -1,10 +1,8 @@
 package com.nadosunbae_android.data.api.classroom
 
 import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomWriteData
+import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.data.model.response.classroom.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -39,4 +37,10 @@ interface ClassRoomService {
     fun getClassRoomSenior(
         @Path("majorId") majorId: Int
     ) : Call<ResponseClassRoomSeniorData>
+
+    // 1:1질문, 전체 질문, 정보글에 댓글 등록
+    @POST("comment")
+    fun postQuestionCommentWrite(
+        @Body requestQuestionCommentWriteData: RequestQuestionCommentWriteData
+    ) : Call<ResponseQuestionCommentWrite>
 }

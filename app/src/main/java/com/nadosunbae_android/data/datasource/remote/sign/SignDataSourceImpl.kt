@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.datasource.remote.sign
 import com.nadosunbae_android.data.api.ApiService
 import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
 import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
+import com.nadosunbae_android.data.model.response.sign.ResponseFirstDepartment
 import com.nadosunbae_android.data.model.response.sign.ResponseSignEmail
 import com.nadosunbae_android.data.model.response.sign.ResponseSignNickname
 import com.nadosunbae_android.util.enqueueUtil
@@ -25,6 +26,17 @@ class SignDataSourceImpl : SignDataSource {
         onFailure: (Throwable) -> Unit
     ) {
         return ApiService.signService.postSignEmail(requestSignEmail).enqueueUtil(
+            onResponse, onFailure
+        )
+    }
+
+    override fun getFirstDepartment(
+        universityId: Int,
+        filter: String,
+        onResponse: (Response<ResponseFirstDepartment>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return ApiService.signService.getFirstDepartment(universityId, filter).enqueueUtil(
             onResponse, onFailure
         )
     }

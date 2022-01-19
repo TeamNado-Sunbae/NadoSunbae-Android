@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
-        android:paddingBottom="24dp"
+        android:paddingBottom="12dp"
         android:paddingTop="8dp">
 
        <include
