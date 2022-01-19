@@ -107,6 +107,9 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
             //질문자 문답
             is ClassRoomQuestionDetailQuestionerViewHolder -> {
                 holder.onBind(questionDetailData[position])
+                if (questionDetailData[position].writer.secondMajorName == "미진입") {
+                    holder.binding.includeQuestionDetailQuestionerText.textQuestionDetailQuestionerSecondStartMajor.visibility = View.GONE
+                }
                 holder.binding.includeQuestionDetailQuestionerText.imgQuestionDetailQuestionerMenu.setOnClickListener {
                     val wrapperStyle = ContextThemeWrapper(context, R.style.Widget_App_PopupMenu)
                     val popup = PopupMenu(
@@ -141,6 +144,9 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
             }
             is ClassRoomQuestionDetailWriterCommentViewHolder -> {
                 holder.onBind(questionDetailData[position])
+                if (questionDetailData[position].writer.secondMajorName == "미진입") {
+                    holder.binding.includeQuestionDetailCommentText.textQuestionDetailWriterCommentSecondStartMajor.visibility = View.GONE
+                }
                 holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu.setOnClickListener {
                     Log.d("imgQuestionMenu", "작동은 되는 겁니까?")
                     val wrapperStyle = ContextThemeWrapper(context, R.style.Widget_App_PopupMenu)
@@ -180,7 +186,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
     override fun getItemCount(): Int {
         return questionDetailData.size
     }
-
+    //첫번쨰
     inner class ClassRoomQuestionDetailWriterViewHolder(
         val binding: ItemQuestionDetailWriterBinding,
 
@@ -198,7 +204,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
 
         }
     }
-
+    //두번째
     inner class ClassRoomQuestionDetailQuestionerViewHolder(
         val binding: ItemQuestionDetailQuestionerBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -228,7 +234,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
 
 
     }
-
+    //3번쨰
     inner class ClassRoomQuestionDetailWriterCommentViewHolder(
         val binding: ItemQuestionDetailCommentBinding
     ) : RecyclerView.ViewHolder(binding.root) {
