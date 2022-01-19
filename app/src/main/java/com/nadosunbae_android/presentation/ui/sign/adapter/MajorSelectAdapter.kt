@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.response.sign.BottomSheetData
 import com.nadosunbae_android.databinding.ItemBottomsheetListBinding
@@ -15,6 +17,11 @@ class MajorSelectAdapter(
 ) : RecyclerView.Adapter<MajorSelectAdapter.SignSelectionViewHolder>() {
     var dataList = mutableListOf<BottomSheetData>()
     private var mSelectedPos: Int = -1
+
+    private val _selectedData = MutableLiveData<BottomSheetData>()
+    val selectedData: LiveData<BottomSheetData>
+        get() = _selectedData
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MajorSelectAdapter.SignSelectionViewHolder {
         val binding = ItemBottomsheetListBinding.inflate(LayoutInflater.from(parent.context),parent, false)
@@ -55,6 +62,7 @@ class MajorSelectAdapter(
 
             }
 
+            _selectedData.value = getSelectedData()
             notifyDataSetChanged()
         }
 
@@ -90,7 +98,9 @@ class MajorSelectAdapter(
     }
 
     fun getSelectedData(): BottomSheetData {
-        return dataList[mSelectedPos]
+        if (mSelectedPos != NOT_SELECTED)
+            return dataList[mSelectedPos]
+        return BottomSheetData(-1, "", false)
     }
 
     companion object {

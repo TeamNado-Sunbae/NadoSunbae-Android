@@ -33,7 +33,6 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         }
     }
 
-
     // 바텀시트 타이틀
     private var _titleData = MutableLiveData<String>()
     val titleData: LiveData<String>
@@ -59,6 +58,7 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         initTitle()
         initAdapter()
         setClickListener()
+        observeSelectedData()
 
         return binding.root
     }
@@ -93,6 +93,13 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         binding.rvBottomsheet.adapter = majorSelectAdapter
     }
 
+    private fun observeSelectedData() {
+        majorSelectAdapter.selectedData.observe(viewLifecycleOwner) {
+            binding.btnBottomsheetComplete.isEnabled = majorSelectAdapter.selectedData.value!!.isSelected
+        }
+    }
+
+
     fun setCompleteListener(operation: () -> Unit) {
         completeOperation = operation
     }
@@ -108,8 +115,9 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
     }
 
     fun getSelectedData(): BottomSheetData {
-        return majorSelectAdapter.getSelectedData()
+        return majorSelectAdapter.selectedData.value!!
     }
+
 
     inner class DataToFragment(){
         fun getBtnSelector(bool : Boolean){
