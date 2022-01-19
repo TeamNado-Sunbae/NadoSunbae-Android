@@ -5,6 +5,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -45,7 +46,7 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("int","nickname", requireAll = false)
     fun notification(textView: TextView, int : Int, nickname : String): SpannableStringBuilder {
-        val param = listOf("","작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글","1:1 질문")
+        val param = listOf("","작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글","1:1질문")
         val text = listOf("", "작성하신 질문글에 ${nickname}이 답글을 남겼습니다",
             "작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
             "답글을 작성하신 질문글에 ${nickname}이 답글을 남겼습니다.",
@@ -56,8 +57,8 @@ object BindingAdapter {
         var start = text[int].indexOf(content)
         var end = start + content.length
         var spannable  = SpannableStringBuilder(text[int])
-        spannable.setSpan(ForegroundColorSpan(Color.parseColor("#00C8B0")),start,end,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(ForegroundColorSpan(Color.parseColor("#00C8B0")),start, end,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE)
         return spannable.also {textView.text = it}
 
 
