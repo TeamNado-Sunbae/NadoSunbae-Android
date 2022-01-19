@@ -28,7 +28,7 @@
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            dateFormat_YYMMDD="@{previewData.createdAt}"
+            dateFormat_yyMMdd="@{previewData.createdAt}"
             tools:text="@string/review_example_create_at" />
 
         <TextView

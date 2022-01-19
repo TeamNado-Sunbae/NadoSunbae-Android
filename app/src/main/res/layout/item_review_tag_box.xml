@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="tagBoxData"
-            type="com.nadosunbae_android.data.model.ui.ReviewTagBoxData" />
+            name="contentBox"
+            type="com.nadosunbae_android.data.model.response.review.ResponseReviewDetailData.Data.Post.Content" />
 
     </data>
 
@@ -40,7 +40,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_tag_icon"
             tools:text="@string/review_example_label_name"
-            android:text="@{tagBoxData.labelName}"
+            android:text="@{contentBox.title}"
             />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_marginTop="36dp"
             android:layout_marginBottom="24dp"
             android:layout_marginEnd="24dp"
-            android:text="@{tagBoxData.labelContent}"
+            android:text="@{contentBox.content}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_tag_title"
