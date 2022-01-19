@@ -134,7 +134,7 @@ class SignUpMajorInfoActivity :
         //데이터 넣기
         firstDepartmentBottomSheetDialog.setCompleteListener {
             val firstMajor = firstDepartmentBottomSheetDialog.getSelectedData()
-            signViewModel.firstMajor.value = firstMajor.name
+            signViewModel.firstMajor.value = firstMajor?.name
         }
         signViewModel.firstMajor
             .observe(this) {
@@ -176,7 +176,7 @@ class SignUpMajorInfoActivity :
 
             firstDepartmentPeriodBottomSheetDialog.setCompleteListener {
                 val firstMajorPeriod = firstDepartmentPeriodBottomSheetDialog.getSelectedData()
-                signViewModel.firstMajorPeriod.value = firstMajorPeriod.name
+                signViewModel.firstMajorPeriod.value = firstMajorPeriod?.name
             }
             signViewModel.firstMajorPeriod.observe(this) {
                 binding.textSignupMajorinfoMajorTime.setText(it)
@@ -205,7 +205,7 @@ class SignUpMajorInfoActivity :
 
         secondDepartmentBottomSheetDialog.setCompleteListener {
             val secondMajor = secondDepartmentBottomSheetDialog.getSelectedData()
-            signViewModel.secondMajor.value = secondMajor.name
+            signViewModel.secondMajor.value = secondMajor?.name
         }
         signViewModel.secondMajor
             .observe(this) {
@@ -262,7 +262,7 @@ class SignUpMajorInfoActivity :
 
             secondDepartmentPeriodBottomSheetDialog.setCompleteListener {
                 val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
-                signViewModel.secondMajorPeriod.value = secondMajorPeriod.name
+                signViewModel.secondMajorPeriod.value = secondMajorPeriod?.name
             }
 
             signViewModel.secondMajorPeriod.observe(this) {

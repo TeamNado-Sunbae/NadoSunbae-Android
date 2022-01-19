@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
 import com.nadosunbae_android.databinding.ActivityQuestionDetailBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
@@ -35,7 +36,7 @@ class QuestionDetailActivity :
 
 
 
-    // 1:1 질문 상세보기
+    // 전체 질문 상세보기
     private fun initQuestionDetail() {
         val postId = intent.getIntExtra("postId", 0)
         questionDetailViewModel.getClassRoomQuestionDetail(postId)
@@ -45,10 +46,28 @@ class QuestionDetailActivity :
         questionDetailViewModel.questionDetailData.observe(this){
             classRoomQuestionDetailAdapter.setLike(it.data.like.likeCount, it.data.like.isLiked)
             classRoomQuestionDetailAdapter.setQuestionDetail(it.data.messageList as MutableList<ResponseClassRoomQuestionDetail.Data.Message>)
+            registerComment(postId)
         }
 
 
     }
+    // 전체 질문 상세 댓글 등록
+    private fun registerComment(postId : Int){
+        binding.imgQuestionCommentComplete.setOnClickListener {
+            questionDetailViewModel.postQuestionCommentWrite(RequestQuestionCommentWriteData(
+                postId, binding.etQuestionComment.text.toString()
+            ))
+        }
+
+        questionDetailViewModel.registerComment.observe(this){
+            if(it.success){
+                binding.etQuestionComment.setText("")
+                questionDetailViewModel.getClassRoomQuestionDetail(postId)
+            }
+        }
+
+    }
+
 
     //전체 질문 1:1질문 구분
     private fun divisionQuestionDetail(){

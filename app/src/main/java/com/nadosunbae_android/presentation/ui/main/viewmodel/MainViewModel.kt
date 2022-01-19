@@ -6,21 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
-import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
-import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
-import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
-import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
-import com.nadosunbae_android.data.repository.notification.NotificationRepository
-import com.nadosunbae_android.data.repository.notification.NotificationRepositoryImpl
 import com.nadosunbae_android.data.model.response.main.ResponseMajorListData
-import com.nadosunbae_android.data.model.response.sign.ResponseMajorData
 import com.nadosunbae_android.data.model.ui.MajorData
-import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
 import com.nadosunbae_android.data.repository.main.MainRepository
 import com.nadosunbae_android.data.repository.main.MainRepositoryImpl
-import org.koin.core.time.measureDurationForResult
+import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
 
 class MainViewModel() : ViewModel() {
     val mainRepository: MainRepository = MainRepositoryImpl()

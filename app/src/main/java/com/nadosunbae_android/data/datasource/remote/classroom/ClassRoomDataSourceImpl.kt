@@ -2,10 +2,8 @@ package com.nadosunbae_android.data.datasource.remote.classroom
 
 import com.nadosunbae_android.data.api.ApiService
 import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomWriteData
+import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.data.model.response.classroom.*
 import com.nadosunbae_android.util.enqueueUtil
 import retrofit2.Response
 
@@ -51,6 +49,17 @@ class ClassRoomDataSourceImpl() : ClassRoomDataSource {
         onFailure: (Throwable) -> Unit
     ) {
         return ApiService.classRoomService.getClassRoomSenior(majorId).enqueueUtil(
+            onResponse, onFailure
+        )
+    }
+
+    //댓글 작성
+    override fun postQuestionCommentWrite(
+        requestQuestionCommentWriteData: RequestQuestionCommentWriteData,
+        onResponse: (Response<ResponseQuestionCommentWrite>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return ApiService.classRoomService.postQuestionCommentWrite(requestQuestionCommentWriteData).enqueueUtil(
             onResponse, onFailure
         )
     }
