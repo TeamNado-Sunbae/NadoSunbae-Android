@@ -18,6 +18,7 @@ import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.adapter.SpinnerAdapter
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignViewModel
+import com.nadosunbae_android.util.CustomBottomSheetDialog
 import com.nadosunbae_android.util.PixelRatio
 import com.nadosunbae_android.util.SignInCustomDialog
 import kotlinx.android.synthetic.main.fragment_custom_bottom_sheet_dialog.*
@@ -43,11 +44,14 @@ class SignUpMajorInfoActivity :
         }
     }
 
-    val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog()
-    val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog()
+    val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
+    val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
 
-    val secondDepartmentBottomSheetDialog = CustomBottomSheetDialog()
-    val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog()
+    val secondDepartmentBottomSheetDialog = CustomBottomSheetDialog("제2전공")
+    val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("제2전공 진입시기")
+
+    private val bottomSheetDialog = CustomBottomSheetDialog("본전공")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,8 +103,7 @@ class SignUpMajorInfoActivity :
     private fun onClickbottomSheetUniv() {
         binding.clSignupMajorInfoUniv.setOnClickListener {
 
-            val bottomSheetFragment = CustomBottomSheetDialog()
-            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+            bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
 
         }
     }
@@ -119,14 +122,18 @@ class SignUpMajorInfoActivity :
             firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
                 .map { BottomSheetData(it.majorId, it.majorName, false) }.toMutableList())
         }
-
+        //데이터 넣기
+        firstDepartmentBottomSheetDialog.setCompleteListener {
+            val firstMajor = firstDepartmentBottomSheetDialog.getSelectedData()
+            signViewModel.firstMajor.value = firstMajor.name
+        }
         signViewModel.firstMajor
             .observe(this) {
-            binding.textSignupMajorinfoMajor.setText(it)
-            binding.textSignupMajorinfoMajor.text = it
-            binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
-            binding.textSignupMajorinfoMajorMint.setText("변경")
-        }
+                binding.textSignupMajorinfoMajor.setText(it)
+                binding.textSignupMajorinfoMajor.text = it
+                binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
+                binding.textSignupMajorinfoMajorMint.setText("변경")
+            }
     }
 
     //제 1전공 진입시기 선택 바텀시트
@@ -158,6 +165,10 @@ class SignUpMajorInfoActivity :
             )
             firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
 
+            firstDepartmentPeriodBottomSheetDialog.setCompleteListener {
+                val firstMajorPeriod = firstDepartmentPeriodBottomSheetDialog.getSelectedData()
+                signViewModel.firstMajorPeriod.value = firstMajorPeriod.name
+            }
             signViewModel.firstMajorPeriod.observe(this) {
                 binding.textSignupMajorinfoMajorTime.setText(it)
                 binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
@@ -181,8 +192,20 @@ class SignUpMajorInfoActivity :
 
             secondDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isSecondMajor }
                 .map { BottomSheetData(it.majorId, it.majorName, false) }.toMutableList())
-//                var firstDepartment = mutableListOf()
         }
+
+        secondDepartmentBottomSheetDialog.setCompleteListener {
+            val secondMajor = secondDepartmentBottomSheetDialog.getSelectedData()
+            signViewModel.secondMajor.value = secondMajor.name
+        }
+        signViewModel.secondMajor
+            .observe(this) {
+                binding.textSignupMajorinfoDoubleMajor.setText(it)
+                binding.textSignupMajorinfoDoubleMajor.text = it
+                binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
+                binding.textSignupMajorinfoDoubleMajorMint.setText("변경")
+            }
+
     }
 
 
@@ -216,19 +239,20 @@ class SignUpMajorInfoActivity :
 
             )
             secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
+
+            secondDepartmentPeriodBottomSheetDialog.setCompleteListener {
+                val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
+                signViewModel.secondMajorPeriod.value = secondMajorPeriod.name
+            }
+
             signViewModel.secondMajorPeriod.observe(this) {
-                binding.textSignupMajorinfoMajorTime.text = it
-                binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
-                binding.textSignupMajorinfoMajorTimeMint.setText("변경")
+                binding.textSignupMajorinfoDoubleMajorTime.text = it
+                binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
+                binding.textSignupMajorinfoDoubleMajorMintTime.setText("변경")
             }
         }
 
     }
-
-    private fun firstMajorTextUpdate() {
-
-    }
-
 
     private fun setupSpinner() {
         val list = listOf("고려대학교", "타 대학은 현재 준비중입니다")

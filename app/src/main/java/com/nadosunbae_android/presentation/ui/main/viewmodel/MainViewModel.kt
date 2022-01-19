@@ -5,14 +5,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
+import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
+import com.nadosunbae_android.data.model.response.main.ResponseMajorListData
+import com.nadosunbae_android.data.model.response.sign.ResponseMajorData
+import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
+import com.nadosunbae_android.data.repository.main.MainRepository
+import com.nadosunbae_android.data.repository.main.MainRepositoryImpl
 import org.koin.core.time.measureDurationForResult
 
 class MainViewModel() : ViewModel() {
+    val mainRepository: MainRepository = MainRepositoryImpl()
     val classRoomRepository: ClassRoomRepository = ClassRoomRepositoryImpl()
     val mypageRepository: MyPageRepositoryImpl = MyPageRepositoryImpl()
+
     //과방탭
     //과방탭에서 질문탭 및 정보탭 select 구분 (과방)
     var classRoomNum = MutableLiveData<Int>()
@@ -26,10 +34,21 @@ class MainViewModel() : ViewModel() {
         get() = _classRoomMain
 
 
+    // 학과 목
+    private val _majorList = MutableLiveData<ResponseMajorListData>()
+    val majorList: LiveData<ResponseMajorListData>
+        get() = _majorList
+
     // 선택 학과
-    private var _selectedMajor = MutableLiveData<String>()
-    val selectedMajor: LiveData<String>
+    private var _selectedMajor = MutableLiveData<MajorData>()
+    val selectedMajor: LiveData<MajorData>
         get() = _selectedMajor
+
+    // 구성원 전체보기
+
+    private val _seniorData = MutableLiveData<ResponseClassRoomSeniorData.Data>()
+    val seniorData : LiveData<ResponseClassRoomSeniorData.Data>
+        get() = _seniorData
 
 
     //마이페이지
@@ -40,16 +59,27 @@ class MainViewModel() : ViewModel() {
     var mypageFragmentNum = MutableLiveData<Int>()
 
 
-    /*
-        test data (api에서 불러오면 다 지울 예정)
-     */
-    fun setSelectedMajor(major: String) {
-        _selectedMajor.value = major
+    fun setSelectedMajor(majorData: MajorData) {
+        _selectedMajor.value = majorData
     }
 
 
+    // 학과 목록 데이터
+    fun getMajorList(universityId: Int, filter: String = "all") {
+        mainRepository.getMajorList(universityId, filter,
+            onResponse = {
+                _majorList.value = it.body()
+                Log.d("MainRepository", "서버 통신 성공")
+            },
+            onFailure = {
+                it.printStackTrace()
+                Log.d("MainRepository", "서버 통신 실패")
+            }
+        )
+    }
 
 
+    //과방 메인 데이터
     fun getClassRoomMain(postTypeId : Int, majorId : Int, sort : String = "recent"){
         classRoomRepository.getClassRoomMain(postTypeId, majorId, sort,
             onResponse = {
@@ -62,6 +92,21 @@ class MainViewModel() : ViewModel() {
                     Log.d("classRoomMain", "메인 서버 통신 실패")
             }
         )
-
     }
+
+    //과방 구성원 전체
+    fun getClassRoomSenior(majorId : Int){
+        classRoomRepository.getClassRoomSenior(majorId,
+            onResponse = {
+                if(it.isSuccessful){
+
+                _seniorData.value = it.body()?.data
+                Log.d("classRoomSenior", "구성원 서버 통신 성공")
+            }},
+            onFailure = {
+                it.printStackTrace()
+                Log.d("classRoomSenior", "구성원 서버 통신 실패")
+            })
+    }
+
 }

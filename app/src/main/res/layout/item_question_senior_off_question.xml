@@ -63,7 +63,7 @@
                 android:id="@+id/text_senior_major_start_off"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{seniorOff.majorStart}"
+                plusStart="@{seniorOff.majorStart}"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="12sp"
                 android:textColor="@color/gray_4"

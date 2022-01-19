@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.response.sign.BottomSheetData
 import com.nadosunbae_android.databinding.ItemBottomsheetListBinding
-import com.nadosunbae_android.presentation.ui.sign.CustomBottomSheetDialog
+import com.nadosunbae_android.util.CustomBottomSheetDialog
 import com.nadosunbae_android.util.setTextSemiBold
 
 class MajorSelectAdapter(
@@ -15,6 +17,11 @@ class MajorSelectAdapter(
 ) : RecyclerView.Adapter<MajorSelectAdapter.SignSelectionViewHolder>() {
     var dataList = mutableListOf<BottomSheetData>()
     private var mSelectedPos: Int = -1
+
+    private val _selectedData = MutableLiveData<BottomSheetData>()
+    val selectedData: LiveData<BottomSheetData>
+        get() = _selectedData
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MajorSelectAdapter.SignSelectionViewHolder {
         val binding = ItemBottomsheetListBinding.inflate(LayoutInflater.from(parent.context),parent, false)
@@ -33,15 +40,18 @@ class MajorSelectAdapter(
                 NOT_SELECTED -> {
                     mSelectedPos = position
                     dataList[position].isSelected = true
+                    /*
                     link.getBtnSelector(true)
                     link.getEditTextSelector(dataList[position].name)
+
+                     */
                 }
 
                 // 선택 해제
                 position -> {
                     mSelectedPos = NOT_SELECTED
                     dataList[position].isSelected = false
-                    link.getBtnSelector(false)
+                    // link.getBtnSelector(false)
                 }
 
                 // 선택 변경
@@ -49,12 +59,16 @@ class MajorSelectAdapter(
                     dataList[mSelectedPos].isSelected = false
                     mSelectedPos = position
                     dataList[position].isSelected = true
+                    /*
                     link.getBtnSelector(true)
                     link.getEditTextSelector(dataList[position].name)
+
+                     */
                 }
 
             }
 
+            _selectedData.value = getSelectedData()
             notifyDataSetChanged()
         }
 
@@ -89,6 +103,27 @@ class MajorSelectAdapter(
 
     }
 
+    fun getSelectedData(): BottomSheetData {
+        if (mSelectedPos != NOT_SELECTED)
+            return dataList[mSelectedPos]
+        return BottomSheetData(-1, "", false)
+    }
+
+    fun setSelectedData(dataId: Int) {
+        for (d in dataList) {
+            if (d.id == dataId) {
+                mSelectedPos = dataList.indexOf(d)
+                d.isSelected = true
+                break
+            }
+        }
+    }
+
+    fun clearSelect() {
+        for (d in dataList)
+            d.isSelected = false
+        mSelectedPos = NOT_SELECTED
+    }
 
     companion object {
         const val NOT_SELECTED = -1

@@ -44,7 +44,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@{mainViewModel.selectedMajor}"
+                android:text="@{mainViewModel.selectedMajor.majorName}"
                 tools:text="@string/review_example_major_selected" />
 
             <ImageButton
@@ -187,11 +187,10 @@
                 <ImageView
                     android:id="@+id/iv_major_graphic"
                     android:layout_width="match_parent"
-                    android:layout_height="192dp"
-                    android:scaleType="center"
-                    loadImageFromUrl="@{reviewListViewModel.urlMajorGraphic}"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_review_main"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <android.widget.Button
                     android:id="@+id/btn_subject_table"
