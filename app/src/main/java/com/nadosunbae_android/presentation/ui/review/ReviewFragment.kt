@@ -86,8 +86,10 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         reviewListAdapter.setItemClickListener(
             object: ReviewListAdapter.ItemClickListener {
                 override fun onClick(view: View, position: Int) {
-                    // reviewId 값을 intent로 넘겨줄 것!!
-                    var intent = Intent(context, ReviewDetailActivity::class.java)
+                    // postId Intent로 전달
+                    val intent = Intent(context, ReviewDetailActivity::class.java)
+                    val postId = reviewListViewModel.reviewListData.value!!.data[position].postId
+                    intent.putExtra("postId", postId)
                     startActivity(intent)
                 }
 
