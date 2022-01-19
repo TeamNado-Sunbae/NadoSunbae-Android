@@ -40,8 +40,6 @@ class SignUpBasicInfoActivity :
         beforeBtnClick()
         closePage()
         nextPage()
-
-//        nicknameDuplication()
     }
 
     private fun nicknameDuplication() {
@@ -52,13 +50,16 @@ class SignUpBasicInfoActivity :
 
         signUpBasicInfoViewModel.nickNameDuplication.observe(this){
             if(it){
-                binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
+                binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
             } else {
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.VISIBLE
-
             }
+        }
+        if (binding.etSignupBasicinfoNickname.text.toString() == "") {
+            binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
+            binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
         }
     }
 
@@ -76,10 +77,14 @@ class SignUpBasicInfoActivity :
                 binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
                 binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
             } else {
-                binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.VISIBLE
+                binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
 
             }
+        }
+        if (binding.etSignupBasicinfoNickname.text.toString() == "") {
+            binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
+            binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
         }
     }
 
@@ -98,6 +103,9 @@ class SignUpBasicInfoActivity :
                 if (binding.etSignupBasicinfoNickname.text.toString() == "") {
                     binding.imgSignupBasicinfoNicknameCancel.isSelected = false
                     binding.textSignupBasicinfoNicknameDuplication.isSelected = false
+                    binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
+                    binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
+
                 } else {
                     binding.imgSignupBasicinfoNicknameCancel.isSelected = true
                     binding.textSignupBasicinfoNicknameDuplication.isSelected = true
@@ -136,6 +144,8 @@ class SignUpBasicInfoActivity :
 
                 if (binding.etSignupBasicinfoEmail.text.toString() == "") {
                     binding.imgSignupBasicinfoEmailCancel.isSelected = false
+                    binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
+                    binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
                 } else {
                     binding.imgSignupBasicinfoEmailCancel.isSelected = true
 
@@ -154,6 +164,7 @@ class SignUpBasicInfoActivity :
             binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
             binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
         }
+
     }
 
 
