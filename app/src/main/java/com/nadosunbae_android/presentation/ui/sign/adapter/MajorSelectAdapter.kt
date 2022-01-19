@@ -89,6 +89,9 @@ class MajorSelectAdapter(
 
     }
 
+    fun getSelectedData(): BottomSheetData {
+        return dataList[mSelectedPos]
+    }
 
     companion object {
         const val NOT_SELECTED = -1
