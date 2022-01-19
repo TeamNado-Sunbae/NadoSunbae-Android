@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.api
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
+import com.nadosunbae_android.data.api.notification.NotificationService
 import com.nadosunbae_android.data.api.sign.SignService
 import com.nadosunbae_android.data.api.review.ReviewService
 import okhttp3.Interceptor
@@ -64,5 +65,6 @@ object ApiService {
     val classRoomService : ClassRoomService = retrofit.create(ClassRoomService::class.java)
     val signService : SignService = retrofit.create(SignService::class.java)
     val reviewService : ReviewService = retrofit.create(ReviewService::class.java)
+    val notificationService : NotificationService = retrofit.create(NotificationService::class.java)
 
 }

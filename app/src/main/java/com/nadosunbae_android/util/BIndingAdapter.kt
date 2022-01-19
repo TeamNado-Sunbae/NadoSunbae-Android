@@ -37,7 +37,11 @@ object BindingAdapter {
         return (text + "진입").also { textView.text = it }
     }
 
+    @JvmStatic
+    @BindingAdapter("notification")
+    fun notification(textView: TextView, int : Int, content : String){
 
+    }
 }
 @BindingAdapter("majorName", "majorStart")
 fun TextView.majorText(majorName: String, majorStart: String) {

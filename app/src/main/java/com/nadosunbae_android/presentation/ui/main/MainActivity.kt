@@ -1,10 +1,15 @@
 package com.nadosunbae_android.presentation.ui.main
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 import com.nadosunbae_android.R
 import com.nadosunbae_android.databinding.ActivityMainBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
@@ -29,7 +34,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         initBottomNav()
         classRoomFragmentChange()
+        deviceToken()
     }
+
+
+    // 디바이스 등록
+    private fun deviceToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{ task ->
+            if(!task.isSuccessful){
+                Log.d("deviceToken", "디바이스 토큰 정보 가저오기 실패", task.exception)
+                return@OnCompleteListener
+            }
+
+            val token = task.result
+
+            Log.d("token", token)
+
+        } )
+    }
+
+
 
 
     //바텀네비
