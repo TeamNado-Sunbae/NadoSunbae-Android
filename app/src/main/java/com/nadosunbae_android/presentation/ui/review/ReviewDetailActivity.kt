@@ -1,6 +1,7 @@
 package com.nadosunbae_android.presentation.ui.review
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
