@@ -2,8 +2,10 @@ package com.nadosunbae_android.data.repository.classroom
 
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSource
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSourceImpl
+import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
+import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomWriteData
 import retrofit2.Response
 
 class ClassRoomRepositoryImpl : ClassRoomRepository {
@@ -25,5 +27,13 @@ class ClassRoomRepositoryImpl : ClassRoomRepository {
         onFailure: (Throwable) -> Unit
     ) {
         return classRoomDataSource.getClassRoomQuestionDetail(postId,onResponse, onFailure)
+    }
+
+    override fun postClassRoomWrite(
+        requestClassRoomPostData: RequestClassRoomPostData,
+        onResponse: (Response<ResponseClassRoomWriteData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return classRoomDataSource.postClassRoomWrite(requestClassRoomPostData, onResponse, onFailure)
     }
 }

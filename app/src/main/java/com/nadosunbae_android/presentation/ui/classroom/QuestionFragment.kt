@@ -34,13 +34,16 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
         goQuestionWriteAll()
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.getClassRoomMain(2,5)
+    }
 
+    //질문 메인 데이터 받아오기
     private fun initQuestionMain(){
         mainViewModel.getClassRoomMain(2,5)
-
         classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
         binding.rcQuestionAll.adapter = classRoomQuestionMainAdapter
-
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){
             Log.d("cclassRoomMain", it.data.toString())
             classRoomQuestionMainAdapter.setQuestionMain(it.data as MutableList<ResponseClassRoomMainData.Data>)

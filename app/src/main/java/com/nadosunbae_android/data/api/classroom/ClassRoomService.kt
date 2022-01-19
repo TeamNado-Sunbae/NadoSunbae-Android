@@ -1,11 +1,11 @@
 package com.nadosunbae_android.data.api.classroom
 
+import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
+import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomWriteData
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ClassRoomService {
 
@@ -24,4 +24,11 @@ interface ClassRoomService {
         @Path("postId") postId : Int
     ) : Call<ResponseClassRoomQuestionDetail>
 
+
+    // 1:1질문, 전체 질문, 정보글 등록
+
+    @POST("classroom-post")
+    fun postClassRoomWrite(
+        @Body requestClassRoomPostData: RequestClassRoomPostData
+    ) : Call<ResponseClassRoomWriteData>
 }

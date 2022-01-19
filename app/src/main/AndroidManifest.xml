@@ -28,7 +28,7 @@
         <activity
             android:name=".presentation.ui.classroom.QuestionWriteActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.ui.review.ReviewDetailActivity"
             android:exported="false" />
