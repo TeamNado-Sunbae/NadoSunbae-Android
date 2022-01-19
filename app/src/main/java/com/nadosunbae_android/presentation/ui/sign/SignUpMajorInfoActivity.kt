@@ -119,7 +119,10 @@ class SignUpMajorInfoActivity :
             firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
                 .map { BottomSheetData(it.majorId, it.majorName, false) }.toMutableList())
         }
-        signViewModel.firstMajor.observe(this) {
+
+        signViewModel.firstMajor
+            .observe(this) {
+            binding.textSignupMajorinfoMajor.setText(it)
             binding.textSignupMajorinfoMajor.text = it
             binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorMint.setText("변경")
@@ -154,8 +157,9 @@ class SignUpMajorInfoActivity :
                 BottomSheetData(16, "15년 이전", false)
             )
             firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
+
             signViewModel.firstMajorPeriod.observe(this) {
-                binding.textSignupMajorinfoMajorTime.text = it
+                binding.textSignupMajorinfoMajorTime.setText(it)
                 binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
                 binding.textSignupMajorinfoMajorTimeMint.setText("변경")
             }
@@ -222,11 +226,7 @@ class SignUpMajorInfoActivity :
     }
 
     private fun firstMajorTextUpdate() {
-//        signViewModel.text.observe(this) {
-//            binding.textSignupMajorinfoMajorTime.text = it
-//            binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
-//            binding.textSignupMajorinfoMajorTimeMint.setText("변경")
-//        }
+
     }
 
 

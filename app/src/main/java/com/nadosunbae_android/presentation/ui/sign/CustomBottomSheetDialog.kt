@@ -19,7 +19,9 @@ import com.nadosunbae_android.util.CustomDecoration
 import com.nadosunbae_android.util.dpToPxF
 
 
-class CustomBottomSheetDialog : BottomSheetDialogFragment() {
+class CustomBottomSheetDialog() : BottomSheetDialogFragment() {
+
+
     private val signViewModel: SignViewModel by activityViewModels{
         object : ViewModelProvider.Factory{
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -88,11 +90,16 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment() {
 
         }
         fun getEditTextSelector(string: String) {
-            signViewModel.text.value = string
-//            signViewModel.firstMajor.value = string
-//            signViewModel.firstMajorPeriod.value = string
-//            signViewModel.secondMajor.value = string
-//            signViewModel.secondMajorPeriod.value = string
+
+                 signViewModel.firstMajor.value = string
+                signViewModel.firstMajorPeriod.value = string
+                 signViewModel.secondMajor.value = string
+                 signViewModel.secondMajorPeriod.value = string
+            }
+
+
+
+
+
         }
     }
-}
