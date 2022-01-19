@@ -5,21 +5,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.response.review.ResponseReviewDetailData
 import com.nadosunbae_android.data.model.ui.ReviewTagBoxData
 import com.nadosunbae_android.databinding.ItemReviewTagBoxBinding
 
 class ReviewTagBoxAdapter(private val context: Context) : RecyclerView.Adapter<ReviewTagBoxAdapter.ReviewTagBoxHolder>() {
-    var dataList = mutableListOf<ReviewTagBoxData>()
+    var dataList = listOf<ResponseReviewDetailData.Data.Post.Content>()
 
     class ReviewTagBoxHolder(private val binding: ItemReviewTagBoxBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: ReviewTagBoxData) {
-            binding.tagBoxData = data
+        fun onBind(data: ResponseReviewDetailData.Data.Post.Content) {
+            binding.contentBox = data
             binding.executePendingBindings()
 
             // 라벨 아이콘 이미지 소스
             var imageResource = 0
 
-            when (data.labelName) {
+            when (data.title) {
                 context.getString(R.string.review_pros_cons) -> imageResource = R.drawable.ic_graphic_cube
                 context.getString(R.string.review_curriculum) -> imageResource = R.drawable.ic_graphic_pencil
                 context.getString(R.string.review_recommend_lecture) -> imageResource = R.drawable.ic_graphic_diamond
@@ -45,7 +46,7 @@ class ReviewTagBoxAdapter(private val context: Context) : RecyclerView.Adapter<R
 
     override fun getItemCount(): Int = dataList.size
 
-    fun setReviewTagBoxData(dataList: MutableList<ReviewTagBoxData>) {
+    fun setReviewTagBoxData(dataList: List<ResponseReviewDetailData.Data.Post.Content>) {
         this.dataList = dataList
         notifyDataSetChanged()
     }

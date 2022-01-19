@@ -1,5 +1,6 @@
 package com.nadosunbae_android.util
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -40,13 +41,15 @@ object BindingAdapter {
 
 }
 @BindingAdapter("majorName", "majorStart")
-fun TextView.majorText(majorName: String, majorStart: String) {
-    text = "$majorName $majorStart"
+fun TextView.majorText(majorName: String?, majorStart: String?) {
+    if (majorName != null && majorStart != null)
+        text = "$majorName ($majorStart)"
 }
 
-@BindingAdapter("dateFormat_YYMMDD")
-fun TextView.dateToTextFormat(date: Date) {
-    text = SimpleDateFormat("yy/MM/dd").format(date)
+@BindingAdapter("dateFormat_yyMMdd")
+fun TextView.dateToTextFormat(date: Date?) {
+    if (date != null)
+        text = SimpleDateFormat("yy/MM/dd").format(date)
 }
 
 @BindingAdapter("loadImageFromUrl")

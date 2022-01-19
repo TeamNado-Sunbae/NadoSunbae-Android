@@ -1,5 +1,7 @@
 package com.nadosunbae_android.data.model.response.review
 
+import java.util.*
+
 data class ResponseReviewDetailData(
     val data: Data,
     val message: String,
@@ -24,7 +26,7 @@ data class ResponseReviewDetailData(
 
         data class Post(
             val contentList: List<Content>,
-            val createdAt: String,
+            val createdAt: Date,
             val oneLineReview: String,
             val postId: Int
         ) {
