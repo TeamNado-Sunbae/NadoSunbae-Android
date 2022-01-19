@@ -54,7 +54,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         observeSelectedMajor()
         observePreviewList()
         initBottomSheet()
-        setTestData()
     }
 
     private fun setBinding() {
@@ -157,12 +156,12 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 val request = RequestReviewListData(mainViewModel.selectedMajor.value!!.majorId, 1, listOf(1, 2, 3, 4, 5))
                 reviewListViewModel.getReviewList("recent", request)
 
-                // 학과 홈페이지, 이수 일람표 링크 갱신
-
+                // 선택된 학과 정보 불러오기
+                reviewListViewModel.getMajorInfo(mainViewModel.selectedMajor.value!!.majorId)
             }
-
         }
     }
+
 
     private fun initBottomSheet() {
 
@@ -176,11 +175,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             mainViewModel.setSelectedMajor(majorData)
         }
 
-    }
-
-    private fun setTestData() {
-        reviewListViewModel.setPageUrl("https://www.naver.com")
-        reviewListViewModel.setSubjectTableUrl("https://www.daum.net")
     }
 
 }

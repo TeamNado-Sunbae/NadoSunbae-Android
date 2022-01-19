@@ -33,12 +33,28 @@ class ReviewListViewModel : ViewModel() {
             onResponse = {
                 if (it.isSuccessful) {
                     _reviewListData.value = it.body()
-                    Log.d("reviewViewModel", "서버 통신 성공")
+                    Log.d(TAG, "서버 통신 성공")
                 }
             },
             onFailure = {
                 it.printStackTrace()
-                Log.d("reviewViewModel", "서버 통신 실패")
+                Log.d(TAG, "서버 통신 실패")
+            }
+        )
+    }
+
+    fun getMajorInfo(majorId: Int) {
+        reviewRepository.getMajorInfo(majorId,
+            onResponse = {
+                if (it.isSuccessful && it.body() != null) {
+                    _urlHomepage.value = it.body()!!.data.homepage
+                    _urlSubjectTable.value = it.body()!!.data.subjectTable
+                    Log.d(TAG, "서버 통신 성공")
+                }
+            },
+            onFailure = {
+                it.printStackTrace()
+                Log.d(TAG, "서버 통신 실패")
             }
         )
     }
@@ -53,5 +69,9 @@ class ReviewListViewModel : ViewModel() {
     }
     fun setSubjectTableUrl(url: String) {
         _urlSubjectTable.value = url
+    }
+
+    companion object {
+        const val TAG = "reviewListViewModel"
     }
 }
