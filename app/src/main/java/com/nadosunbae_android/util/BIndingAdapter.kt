@@ -102,6 +102,12 @@ fun ImageView.loadImageFromUrl(url: String?) {
         .into(this)
 }
 
+@BindingAdapter("loadImageFromId")
+fun ImageView.loadImageFromId(resId: Int?) {
+    if (resId != null)
+        this.setImageResource(resId)
+}
+
 @BindingAdapter("layoutMarginStart")
 fun View.layoutMarginStart(margin: Int) {
     if (margin != 0) {

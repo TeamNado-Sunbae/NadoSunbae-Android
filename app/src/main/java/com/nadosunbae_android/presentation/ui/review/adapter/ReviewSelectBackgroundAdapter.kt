@@ -1,12 +1,16 @@
 package com.nadosunbae_android.presentation.ui.review.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.ui.SelectBackgroundBoxData
 import com.nadosunbae_android.databinding.ItemListBackgroundBinding
+import com.nadosunbae_android.util.getBackgroundImage
+import org.koin.core.instance.getArguments
 
 class ReviewSelectBackgroundAdapter : RecyclerView.Adapter<ReviewSelectBackgroundAdapter.ReviewSelectBackgroundHolder>() {
     var dataList = mutableListOf<SelectBackgroundBoxData>()
@@ -14,7 +18,14 @@ class ReviewSelectBackgroundAdapter : RecyclerView.Adapter<ReviewSelectBackgroun
 
     class ReviewSelectBackgroundHolder(val binding: ItemListBackgroundBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: SelectBackgroundBoxData) {
+
+            // 배경 id 따라서 클라에서 처리하도록 분기처리
+            binding.imageResId = getBackgroundImage(data.imageId)
+
+            /*
+            url로 load할 때 사용 (현재는 클라에서 id로 분기처리)
             binding.imageUrl = data.imageUrl
+             */
             if (data.isSelected) {
                 binding.clSelectedBackground.visibility = View.VISIBLE
             }

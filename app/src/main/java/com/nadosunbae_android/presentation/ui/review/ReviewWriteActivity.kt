@@ -3,16 +3,29 @@ package com.nadosunbae_android.presentation.ui.review
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.response.review.ResponseBackgroundImageListData
 import com.nadosunbae_android.data.model.ui.SelectBackgroundBoxData
 import com.nadosunbae_android.databinding.ActivityReviewWriteBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewSelectBackgroundAdapter
+import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewWriteViewModel
 
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
 
     private lateinit var reviewSelectBackgroundAdapter: ReviewSelectBackgroundAdapter
 
+    private val reviewWriteViewModel: ReviewWriteViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return ReviewWriteViewModel() as T
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +35,9 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         setOneLineTextWatcher()
         setWriteRequireTextWatcher()
         setOnClickListener()
+        observeBackgroundImageList()
+        loadBackgroundImage()
 
-        setTestData()
     }
 
     private fun initBinding() {
@@ -80,20 +94,29 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         }
     }
 
-    // test용 data 넣기 (서버 통신 이후 지울 에정)
-    private fun setTestData() {
+    private fun observeBackgroundImageList() {
+        reviewWriteViewModel.backgroundImageList.observe(this) {
 
-        reviewSelectBackgroundAdapter.dataList.addAll(
-            mutableListOf(
-                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false),
-                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false),
-                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false),
-                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false),
-                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false),
-                SelectBackgroundBoxData("https://cdn.zeplin.io/61d5107362df6f18539e470d/assets/a87872d0-0419-47de-a5c2-8a278ac4828a-4x.png", false)
-            )
-        )
-        reviewSelectBackgroundAdapter.notifyDataSetChanged()
+            val responseBackgroundList: ResponseBackgroundImageListData? = reviewWriteViewModel.backgroundImageList.value
+
+            // null check
+            if (responseBackgroundList != null) {
+                val dataList = reviewSelectBackgroundAdapter.dataList
+                Log.d("sdf ds fds ", dataList.toString())
+                // 갱신을 위해 기존 data clear
+                dataList.clear()
+                // response data add
+                for (bg in responseBackgroundList.data.backgroundImageList) {
+                    dataList.add(SelectBackgroundBoxData(bg.imageId, bg.imageUrl, false))
+                }
+                reviewSelectBackgroundAdapter.notifyDataSetChanged()
+
+            }
+        }
+    }
+
+    private fun loadBackgroundImage() {
+        reviewWriteViewModel.getBackgroundImageList()
     }
 
     companion object {

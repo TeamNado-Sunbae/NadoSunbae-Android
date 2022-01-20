@@ -10,6 +10,7 @@ import com.nadosunbae_android.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewTagBoxAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewDetailViewModel
+import com.nadosunbae_android.util.getBackgroundImage
 
 
 class ReviewDetailActivity :
@@ -78,16 +79,7 @@ class ReviewDetailActivity :
                 reviewTagBoxAdapter.setReviewTagBoxData(contentList)
 
                 // Background Resource 선택
-                var backgroundRes = R.drawable.img_bg_1
-                when (responseValue.data.backgroundImage.imageId) {
-                    1 -> backgroundRes = R.drawable.img_bg_1
-                    2 -> backgroundRes = R.drawable.img_bg_2
-                    3 -> backgroundRes = R.drawable.img_bg_3
-                    4 -> backgroundRes = R.drawable.img_bg_4
-                    5 -> backgroundRes = R.drawable.img_bg_5
-                    6 -> backgroundRes = R.drawable.img_bg_6
-                    7 -> backgroundRes = R.drawable.img_bg_7
-                }
+                val backgroundRes = getBackgroundImage(responseValue.data.backgroundImage.imageId)
                 reviewDetailViewModel.setBackgroundRes(resources.getDrawable(backgroundRes))
             }
         }
