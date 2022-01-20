@@ -141,7 +141,9 @@
                     android:text="@string/classroom_question_zero_count"
                     app:layout_constraintEnd_toEndOf="@+id/line_question"
                     app:layout_constraintStart_toStartOf="@+id/line_question"
-                    app:layout_constraintTop_toBottomOf="@+id/line_question" />
+                    app:layout_constraintTop_toBottomOf="@+id/line_question"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="36dp"/>
 
 
                 <androidx.recyclerview.widget.RecyclerView

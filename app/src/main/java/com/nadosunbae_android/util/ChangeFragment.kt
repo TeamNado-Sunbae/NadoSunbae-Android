@@ -2,11 +2,12 @@ package com.nadosunbae_android.util
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
-fun AppCompatActivity.changeFragment(layoutRes: Int, fragment: Fragment) {
+fun AppCompatActivity.changeFragment(layoutRes: Int, fragment: Fragment, name: String) {
     val transaction = supportFragmentManager.beginTransaction()
     transaction.replace(layoutRes, fragment)
-        .addToBackStack(null)
+        .addToBackStack(name)
         .commit()
 }
 
@@ -14,4 +15,8 @@ fun AppCompatActivity.changeFragmentNoBackStack(layoutRes: Int, fragment: Fragme
     val transaction = supportFragmentManager.beginTransaction()
     transaction.replace(layoutRes, fragment)
         .commit()
+}
+
+fun AppCompatActivity.popFragmentBackStack(name: String) {
+    supportFragmentManager.popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 }

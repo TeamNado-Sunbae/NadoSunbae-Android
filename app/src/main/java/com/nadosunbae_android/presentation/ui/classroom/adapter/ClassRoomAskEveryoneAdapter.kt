@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
+import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.presentation.ui.classroom.QuestionDetailActivity
 
 
 // 전체 게시물 보기
 class ClassRoomAskEveryoneAdapter : RecyclerView.Adapter<ClassRoomAskEveryoneAdapter.ClassRoomAskEveryoneViewHolder>() {
-    var askEveryoneData = mutableListOf<ResponseClassRoomMainData.Data>()
+    var askEveryoneData = mutableListOf<ClassRoomData>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -48,7 +49,7 @@ class ClassRoomAskEveryoneAdapter : RecyclerView.Adapter<ClassRoomAskEveryoneAda
     inner class ClassRoomAskEveryoneViewHolder(
         val binding : ItemQuestionAllBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(askEveryoneData : ResponseClassRoomMainData.Data){
+        fun onBind(askEveryoneData : ClassRoomData){
             binding.apply {
                 questionMain = askEveryoneData
                 executePendingBindings()
@@ -56,7 +57,7 @@ class ClassRoomAskEveryoneAdapter : RecyclerView.Adapter<ClassRoomAskEveryoneAda
         }
     }
 
-    fun setAskEveryone(askEveryoneData: MutableList<ResponseClassRoomMainData.Data>){
+    fun setAskEveryone(askEveryoneData: MutableList<ClassRoomData>){
         this.askEveryoneData = askEveryoneData
         notifyDataSetChanged()
 

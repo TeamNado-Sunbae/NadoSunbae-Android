@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="seniorPersonal"
+            type="com.nadosunbae_android.data.model.response.classroom.ResponseSeniorPersonalData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,7 +82,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:includeFontPadding="false"
-                android:text="@string/senior_personal_title"
+                android:text="@{seniorPersonal.data.nickname}"
                 android:textColor="@color/origin_black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/img_senior_personal_profile"
@@ -131,7 +133,7 @@
                 android:layout_marginStart="6dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@string/senior_personal_major_name"
+                android:text="@{seniorPersonal.data.firstMajorName}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/line_senior_personal_major"
@@ -144,7 +146,7 @@
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@string/mypage_first_major_time"
+                android:text="@{seniorPersonal.data.firstMajorStart}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_personal_major_name"
@@ -181,7 +183,7 @@
                 android:layout_marginStart="7dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@string/senior_personal_second_major_name"
+                android:text="@{seniorPersonal.data.secondMajorName}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/line_senior_personal_second_major"
@@ -194,7 +196,7 @@
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@string/senior_personal_second_major_start"
+                android:text="@{seniorPersonal.data.secondMajorStart}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_personal_second_major_name"

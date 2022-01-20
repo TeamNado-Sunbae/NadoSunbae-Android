@@ -1,10 +1,15 @@
 package com.nadosunbae_android.presentation.ui.main
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.databinding.ActivityMainBinding
@@ -16,6 +21,7 @@ import com.nadosunbae_android.presentation.ui.notification.NotificationFragment
 import com.nadosunbae_android.presentation.ui.review.ReviewFragment
 import com.nadosunbae_android.util.changeFragment
 import com.nadosunbae_android.util.changeFragmentNoBackStack
+import com.nadosunbae_android.util.popFragmentBackStack
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -30,9 +36,29 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         initBottomNav()
         classRoomFragmentChange()
+        deviceToken()
         initMajorList()
         setDefaultMajor()
+        classRoomBack()
     }
+
+
+    // 디바이스 등록
+    private fun deviceToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{ task ->
+            if(!task.isSuccessful){
+                Log.d("deviceToken", "디바이스 토큰 정보 가저오기 실패", task.exception)
+                return@OnCompleteListener
+            }
+
+            val token = task.result
+
+            Log.d("token", token)
+
+        } )
+    }
+
+
 
 
     //바텀네비
@@ -68,17 +94,29 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun classRoomFragmentChange(){
         mainViewModel.classRoomFragmentNum.observe(this, Observer {
             when (it) {
-                2 -> changeFragment(R.id.fragment_container_main,AskEveryoneFragment())
+                2 -> changeFragment(R.id.fragment_container_main,AskEveryoneFragment(), "askEveryOne")
 
                 1 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
 
-                3 -> changeFragment(R.id.fragment_container_main, SeniorFragment())
+                3 -> changeFragment(R.id.fragment_container_main, SeniorFragment(),"senior")
 
-                4 -> changeFragment(R.id.fragment_container_main, SeniorPersonalFragment())
+                4 -> changeFragment(R.id.fragment_container_main, SeniorPersonalFragment(),"seniorPersonal")
 
-                5 -> changeFragment(R.id.fragment_container_main, ClassRoomReviewFragment())
+                5 -> changeFragment(R.id.fragment_container_main, ClassRoomReviewFragment(),"classRoomReview")
             }
         })
+    }
+
+    //과방 뒤로가기 전환
+    private fun classRoomBack(){
+        mainViewModel.classRoomBackFragmentNum.observe(this){
+            when (it) {
+                1 -> popFragmentBackStack("seniorPersonal")
+                2 -> popFragmentBackStack("senior")
+            }
+
+        }
+
     }
 
 

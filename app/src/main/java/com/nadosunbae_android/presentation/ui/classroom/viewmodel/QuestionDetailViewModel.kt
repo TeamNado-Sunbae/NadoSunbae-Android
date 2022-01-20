@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
+import com.nadosunbae_android.data.model.response.classroom.ResponseQuestionCommentWrite
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
 
@@ -17,7 +19,8 @@ class QuestionDetailViewModel : ViewModel() {
         get() = _questionDetailData
 
 
-
+    //댓글 등록
+    var registerComment = MutableLiveData<ResponseQuestionCommentWrite>()
 
 
 
@@ -34,6 +37,20 @@ class QuestionDetailViewModel : ViewModel() {
                 Log.d("classRoomMain", "메인 서버 통신 실패")
             }
         )
+    }
 
+    //댓글 등록 서버 통신
+    fun postQuestionCommentWrite(requestQuestionCommentWriteData: RequestQuestionCommentWriteData){
+        classRoomRepository.postQuestionCommentWrite(requestQuestionCommentWriteData,
+            onResponse = {
+                if(it.isSuccessful){
+                    registerComment.value = it.body()
+                    Log.d("questionComment", "댓글 통신 성공")
+                }},
+            onFailure = {
+                it.printStackTrace()
+                Log.d("questionComment", "댓글 통신 실패 ")
+            }
+        )
     }
 }

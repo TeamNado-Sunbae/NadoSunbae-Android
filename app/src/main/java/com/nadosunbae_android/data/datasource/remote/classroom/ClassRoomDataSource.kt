@@ -1,10 +1,8 @@
 package com.nadosunbae_android.data.datasource.remote.classroom
 
 import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomWriteData
+import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.data.model.response.classroom.*
 import retrofit2.Response
 
 interface ClassRoomDataSource {
@@ -34,4 +32,25 @@ interface ClassRoomDataSource {
         onFailure: (Throwable) -> Unit
     )
 
+    //1:1질문, 전체 질문, 정보 댓글작성
+    fun postQuestionCommentWrite(
+        requestQuestionCommentWriteData: RequestQuestionCommentWriteData,
+        onResponse: (Response<ResponseQuestionCommentWrite>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
+
+    //선배 개인페이지
+    fun getSeniorPersonal(
+        userId : Int,
+        onResponse : (Response<ResponseSeniorPersonalData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
+
+    //선배 1:1 질문 조회
+    fun getSeniorQuestionList(
+        userId : Int,
+        sort : String?,
+        onResponse : (Response<ResponseSeniorQuestionData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
 }
