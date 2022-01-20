@@ -51,7 +51,7 @@ class SeniorPersonalFragment :
     //선배에게 온 1:1 질문 목록
     private fun initSeniorQuestion() {
 
-        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
+        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(2)
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
         seniorPersonalViewModel.seniorQuestion.observe(viewLifecycleOwner) {
             Log.d("seniorQuestionAdapter", "좀 되라")

@@ -51,7 +51,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
             mainViewModel.getClassRoomMain(2,it.majorId)
         }
 
-        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
+        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(1)
         binding.rcQuestionAll.adapter = classRoomQuestionMainAdapter
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){
             Log.d("cclassRoomMain", it.data.toString())
