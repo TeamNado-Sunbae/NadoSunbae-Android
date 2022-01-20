@@ -2,7 +2,7 @@
 <resources>
     <style name="Widget.BottomNavigationView"
         parent="Widget.Design.BottomNavigationView">
-        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="fontFamily">@drawable/selector_text_regular_to_medium</item>
     </style>
 
     <style name="Widget.App.PopupMenu" parent="Widget.MaterialComponents.PopupMenu">

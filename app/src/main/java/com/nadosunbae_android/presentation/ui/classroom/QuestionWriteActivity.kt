@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
@@ -48,6 +49,8 @@ class QuestionWriteActivity :
             override fun afterTextChanged(s: Editable?) {
                 questionWriteViewModel.title.value = s.toString().isNotEmpty()
                 questionWriteViewModel.titleData.value = s.toString()
+                binding.viewQuestionWriteAllTitleLineGray.isVisible = false
+                binding.viewQuestionWriteAllTitleLineBlack.isVisible = true
             }
         })
     }
@@ -56,7 +59,7 @@ class QuestionWriteActivity :
     private fun writeContent() {
         binding.etQuestionWriteAllContent.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
+                binding.etQuestionWriteAllTitle.isSelected = false
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -66,6 +69,8 @@ class QuestionWriteActivity :
             override fun afterTextChanged(s: Editable?) {
                 questionWriteViewModel.content.value = s.toString().isNotEmpty()
                 questionWriteViewModel.contentData.value = s.toString()
+                binding.viewQuestionWriteAllTitleLineBlack.isVisible = false
+                binding.viewQuestionWriteAllTitleLineGray.isVisible = true
             }
         })
     }
