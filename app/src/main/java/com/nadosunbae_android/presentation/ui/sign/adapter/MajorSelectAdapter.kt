@@ -40,18 +40,12 @@ class MajorSelectAdapter(
                 NOT_SELECTED -> {
                     mSelectedPos = position
                     dataList[position].isSelected = true
-                    /*
-                    link.getBtnSelector(true)
-                    link.getEditTextSelector(dataList[position].name)
-
-                     */
                 }
 
                 // 선택 해제
                 position -> {
                     mSelectedPos = NOT_SELECTED
                     dataList[position].isSelected = false
-                    // link.getBtnSelector(false)
                 }
 
                 // 선택 변경
@@ -59,11 +53,6 @@ class MajorSelectAdapter(
                     dataList[mSelectedPos].isSelected = false
                     mSelectedPos = position
                     dataList[position].isSelected = true
-                    /*
-                    link.getBtnSelector(true)
-                    link.getEditTextSelector(dataList[position].name)
-
-                     */
                 }
 
             }

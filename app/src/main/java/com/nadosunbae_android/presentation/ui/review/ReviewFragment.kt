@@ -107,15 +107,20 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         }
 
         binding.btnWriteReview.setOnClickListener {
+            val intent = Intent(context, ReviewWriteActivity::class.java)
+
             val selectedMajor = mainViewModel.selectedMajor.value
+            val firstMajor = mainViewModel.firstMajor.value
+            val secondMajor = mainViewModel.secondMajor.value
             // null check
-
-            if (selectedMajor != null) {
-                var intent = Intent(context, ReviewWriteActivity::class.java)
-
+            if (selectedMajor != null)
                 intent.putExtra("selectedMajor", selectedMajor)
-                startActivity(intent)
-            }
+            if (firstMajor != null)
+                intent.putExtra("firstMajor", firstMajor)
+            if (secondMajor != null)
+                intent.putExtra("secondMajor", secondMajor)
+
+            startActivity(intent)
         }
 
         val showMajorBottomSheetDialog = {

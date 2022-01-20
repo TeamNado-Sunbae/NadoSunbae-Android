@@ -51,9 +51,10 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         observeBackgroundImageList()
         observeMajorSelected()
         observeMajorList()
+        observeDropDownSelect()
         loadBackgroundImage()
         loadMajorList()
-        getSelectedMajorFromIntent()
+        getMajorFromIntent()
 
     }
 
@@ -110,26 +111,25 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         binding.btnClose.setOnClickListener {
             finish()
         }
-        // 학과 선택
+
         binding.clReviewWriteSelectMajor.setOnClickListener {
+            // 학과 선택
+            val selectableList = mutableListOf<SelectableData>()
 
-            // null check
-            val majorList = mainViewModel.majorList.value
-            if (majorList != null) {
+            // 본전공 추가
+            val firstMajor = mainViewModel.firstMajor.value
+            if (firstMajor != null)
+                selectableList.add(SelectableData(firstMajor.majorId, firstMajor.majorName, false))
 
-                val menuList = mutableListOf<SelectableData>()
-                for (d in majorList.data) {
-                    menuList.add(SelectableData(d.majorId, d.majorName, false))
-                }
+            // 제2전공 추가
+            val secondMajor = mainViewModel.secondMajor.value
+            if (secondMajor != null)
+                selectableList.add(SelectableData(secondMajor.majorId, secondMajor.majorName, false))
 
-                var selectedMajorId: Int = NOT_SELECTED
-                if (mainViewModel.selectedMajor.value != null)
-                    selectedMajorId = mainViewModel.selectedMajor.value!!.majorId
-
-                showCustomDropDown(binding.clReviewWriteSelectMajor, binding.clReviewWriteSelectMajor.width, selectedMajorId, menuList)
-
-            }
+            // 드롭다윤 메뉴 띄우기
+            showCustomDropDown(reviewWriteViewModel, binding.clReviewWriteSelectMajor, binding.clReviewWriteSelectMajor.width, mainViewModel.selectedMajor.value!!.majorId, selectableList)
         }
+
     }
 
     private fun observeBackgroundImageList() {
@@ -177,12 +177,32 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         }
     }
 
-    private fun getSelectedMajorFromIntent() {
-        val selectedMajor = intent.getSerializableExtra("selectedMajor") as MajorData
+    private fun observeDropDownSelect() {
+        reviewWriteViewModel.dropDownSelected.observe(this) {
+            val selected = reviewWriteViewModel.dropDownSelected.value
+
+            // null check
+            if (selected != null) {
+                mainViewModel.setSelectedMajor(MajorData(selected.id, selected.name))
+            }
+            
+        }
+    }
+
+    private fun getMajorFromIntent() {
+        val selectedMajor = intent.getSerializableExtra("selectedMajor") as MajorData?
+        val firstMajor = intent.getSerializableExtra("firstMajor") as MajorData?
+        val secondMajor = intent.getSerializableExtra("secondMajor") as MajorData?
 
         // null check
         if (selectedMajor != null)
             mainViewModel.setSelectedMajor(selectedMajor)
+
+        if (firstMajor != null)
+            mainViewModel.setFirstMajor(firstMajor)
+
+        if (secondMajor != null)
+            mainViewModel.setSecondMajor(secondMajor)
     }
 
     private fun loadBackgroundImage() = reviewWriteViewModel.getBackgroundImageList()
@@ -191,7 +211,6 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     companion object {
         const val ONE_LINE_MAX_LENGTH = 40
-        const val NOT_SELECTED = -1
     }
 
 }

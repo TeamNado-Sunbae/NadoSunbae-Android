@@ -5,11 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.response.review.ResponseBackgroundImageListData
+import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.data.repository.review.ReviewRepositoryImpl
+import com.nadosunbae_android.util.DropDownSelectableViewModel
 
-class ReviewWriteViewModel : ViewModel() {
+class ReviewWriteViewModel : ViewModel(), DropDownSelectableViewModel {
     private val reviewRepository = ReviewRepositoryImpl()
+
+    override var dropDownSelected = MutableLiveData<SelectableData>()
 
     private val _backgroundImageList = MutableLiveData<ResponseBackgroundImageListData>()
     val backgroundImageList: LiveData<ResponseBackgroundImageListData>
@@ -35,4 +39,5 @@ class ReviewWriteViewModel : ViewModel() {
     companion object {
         const val TAG = "ReviewWriteViewModel"
     }
+
 }

@@ -8,12 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.databinding.ItemDropDownBinding
 
-class CustomDropDownAdapter : RecyclerView.Adapter<CustomDropDownAdapter.DropDownViewHolder>() {
+class CustomDropDownAdapter(val viewModel: DropDownSelectableViewModel, val selectedItemId: Int) : RecyclerView.Adapter<CustomDropDownAdapter.DropDownViewHolder>() {
 
-    var dataList = mutableListOf<SelectableData>()
+    private var dataList = mutableListOf<SelectableData>()
+
+    private var _selectedId = selectedItemId
+    val selectedId: Int
+        get() = _selectedId
 
     class DropDownViewHolder(private val binding: ItemDropDownBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: SelectableData) {
+            if (data.isSelected)
+                binding.ivChecked.visibility = View.VISIBLE
+            else
+                binding.ivChecked.visibility = View.INVISIBLE
+
             binding.title = data.name
             binding.executePendingBindings()
         }
@@ -32,6 +41,7 @@ class CustomDropDownAdapter : RecyclerView.Adapter<CustomDropDownAdapter.DropDow
         holder.onBind(dataList[position])
 
         holder.itemView.setOnClickListener {
+            viewModel.dropDownSelected.value = dataList[position]
             itemClickListener.onClick(it, position)
         }
     }
@@ -46,8 +56,16 @@ class CustomDropDownAdapter : RecyclerView.Adapter<CustomDropDownAdapter.DropDow
         this.itemClickListener = itemClickListener
     }
 
-    fun setMenuData(dataList: MutableList<SelectableData>) {
+
+    fun setMenuList(dataList: MutableList<SelectableData>) {
         this.dataList = dataList
+
+        // 초기 선택된 데이터 처리
+        for (d in dataList) {
+            if (d.id == selectedItemId)
+                d.isSelected = true
+        }
+
         notifyDataSetChanged()
     }
 
