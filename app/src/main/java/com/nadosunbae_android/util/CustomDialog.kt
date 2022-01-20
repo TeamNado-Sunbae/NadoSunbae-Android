@@ -39,6 +39,8 @@ class CustomDialog(context : Context) {
                 여기 안에다 이벤트 작성
                 }
      */
+
+
 }
 
 fun BottomSheetDialogFragment.finish() {
