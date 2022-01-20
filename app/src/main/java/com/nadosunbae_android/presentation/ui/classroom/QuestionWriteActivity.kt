@@ -3,6 +3,7 @@ package com.nadosunbae_android.presentation.ui.classroom
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -115,21 +116,38 @@ class QuestionWriteActivity :
         dialog.writeCompleteDialog(R.layout.dialog_question_write_complete)
         dialog.setOnClickedListener(object : CustomDialog.ButtonClickListener{
             override fun onClicked(num: Int) {
-                if(num == 2) questionWrite()
+                if(num == 2) selectQuestionWrite()
             }
         })
     }
+    //작성 서버통신 분기처리( 2-> 정보, 3-> 질문(전체), 4 -> 질문(1:1)
+    private fun selectQuestionWrite(){
+        val postTypeId = intent.getIntExtra("postTypeId", 1)
+        val answerId = intent.getIntExtra("userId", 1)
+        val majorId = intent.getIntExtra("majorId",5)
+
+
+        when(postTypeId){
+            2 -> questionWrite(majorId, null, 2)
+            3 -> questionWrite(majorId,null, 3)
+            4 -> questionWrite(majorId, answerId, 4)
+        }
+
+    }
+
 
     //작성 서버통신
-    private fun questionWrite(){
+    private fun questionWrite(majorId : Int,answerId : Int?, postTypeId : Int){
+        Log.d("나 서버통신", "나 강림")
         questionWriteViewModel.postClassRoomWrite(
             RequestClassRoomPostData(
-                5, null, 2,
+                majorId, answerId, postTypeId,
                 questionWriteViewModel.titleData.value.toString(),
                 questionWriteViewModel.contentData.value.toString()
             )
         )
         questionWriteViewModel.postDataWrite.observe(this){its ->
+            Log.d("its", its.success.toString())
             if(its.success){
                 finish()
             }
