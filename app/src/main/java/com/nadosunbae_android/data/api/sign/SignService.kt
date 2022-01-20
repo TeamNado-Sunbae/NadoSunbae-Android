@@ -1,12 +1,10 @@
 package com.nadosunbae_android.data.api.sign
 
 import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
+import com.nadosunbae_android.data.model.request.sign.RequestSignIn
 import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.data.model.request.sign.RequestSignUp
-import com.nadosunbae_android.data.model.response.sign.ResponseSignUp
-import com.nadosunbae_android.data.model.response.sign.ResponseFirstDepartment
-import com.nadosunbae_android.data.model.response.sign.ResponseSignEmail
-import com.nadosunbae_android.data.model.response.sign.ResponseSignNickname
+import com.nadosunbae_android.data.model.response.sign.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -31,4 +29,9 @@ interface SignService {
     fun postSignUp(
         @Body requestSignUp: RequestSignUp
     ) : Call<ResponseSignUp>
+
+    @POST("auth/login")
+    fun postSignIn(
+        @Body requestSignIn: RequestSignIn
+    ) : Call<ResponseSignIn>
 }
