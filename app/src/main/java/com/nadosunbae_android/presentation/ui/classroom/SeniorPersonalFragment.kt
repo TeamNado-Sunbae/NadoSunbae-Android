@@ -78,6 +78,8 @@ class SeniorPersonalFragment :
 
         seniorPersonalViewModel.seniorPersonal.observe(viewLifecycleOwner) {
             binding.seniorPersonal = it
+            if(it.data.secondMajorName == "미진입")
+                binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
         }
     }
 
