@@ -38,7 +38,7 @@ class MainViewModel() : ViewModel() {
         get() = _classRoomMain
 
 
-    // 학과 목
+    // 학과 목록
     private val _majorList = MutableLiveData<ResponseMajorListData>()
     val majorList: LiveData<ResponseMajorListData>
         get() = _majorList
@@ -58,6 +58,16 @@ class MainViewModel() : ViewModel() {
     val seniorData : LiveData<ResponseClassRoomSeniorData.Data>
         get() = _seniorData
 
+    // 본전공
+    private val _firstMajor = MutableLiveData<MajorData>()
+    val firstMajor: LiveData<MajorData>
+        get() = _firstMajor
+
+    // 제2전공
+    private val _secondMajor = MutableLiveData<MajorData>()
+    val secondMajor: LiveData<MajorData>
+        get() = _secondMajor
+
 
     //마이페이지
     //마이페이지 탭에서 질문탭 및 정보탭 select 구분
@@ -66,10 +76,6 @@ class MainViewModel() : ViewModel() {
     //마이페이지 프래그먼트 전환
     var mypageFragmentNum = MutableLiveData<Int>()
 
-
-    fun setSelectedMajor(majorData: MajorData) {
-        _selectedMajor.value = majorData
-    }
 
     // 학과 목록 데이터
     fun getMajorList(universityId: Int, filter: String = "all") {
@@ -119,5 +125,16 @@ class MainViewModel() : ViewModel() {
     }
 
 
+    fun setSelectedMajor(majorData: MajorData) {
+        _selectedMajor.value = majorData
+    }
+
+    fun setFirstMajor(majorData: MajorData) {
+        _firstMajor.value = majorData
+    }
+
+    fun setSecondMajor(majorData: MajorData) {
+        _secondMajor.value = majorData
+    }
 
 }

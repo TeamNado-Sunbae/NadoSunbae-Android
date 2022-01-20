@@ -8,7 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.nadosunbae_android.data.model.response.sign.BottomSheetData
+import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.util.CustomBottomSheetDialog
 
@@ -35,12 +35,12 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
     fun observeBottomSheet(viewModel: MainViewModel, majorBottomSheetDialog: CustomBottomSheetDialog) {
         viewModel.majorList.observe(viewLifecycleOwner) {
             val responseData = viewModel.majorList.value?.data
-            val dialogInput = mutableListOf<BottomSheetData>()
+            val dialogInput = mutableListOf<SelectableData>()
 
             // null check
             if (responseData != null) {
                 for (d in responseData)
-                    dialogInput.add(BottomSheetData(d.majorId, d.majorName, false))
+                    dialogInput.add(SelectableData(d.majorId, d.majorName, false))
             }
 
             majorBottomSheetDialog.setDataList(dialogInput)

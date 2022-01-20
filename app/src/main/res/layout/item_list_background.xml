@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="imageUrl"
-            type="String" />
+            name="imageResId"
+            type="Integer" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -20,7 +20,7 @@
             android:id="@+id/iv_item_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            loadImageFromUrl="@{imageUrl}"
+            loadImageFromId="@{imageResId}"
             android:scaleType="centerCrop"
             android:background="@drawable/rectangle_fill_white_8dp"
             app:layout_constraintStart_toStartOf="parent"

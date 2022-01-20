@@ -3,7 +3,6 @@ package com.nadosunbae_android.util
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,19 +14,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.sign.BottomSheetData
+import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.databinding.FragmentCustomBottomSheetDialogBinding
-import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.sign.adapter.MajorSelectAdapter
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignViewModel
-import com.nadosunbae_android.util.CustomDecoration
-import com.nadosunbae_android.util.dpToPxF
-import com.nadosunbae_android.util.finish
-
-
-
-
-
 
 
 class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFragment() {
@@ -130,12 +120,12 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         dismiss()
     }
 
-    fun setDataList(dataList: MutableList<BottomSheetData>) {
+    fun setDataList(dataList: MutableList<SelectableData>) {
         majorSelectAdapter.dataList.addAll(dataList)
         majorSelectAdapter.notifyDataSetChanged()
     }
 
-    fun getSelectedData(): BottomSheetData? {
+    fun getSelectedData(): SelectableData? {
         return majorSelectAdapter.selectedData.value
     }
 

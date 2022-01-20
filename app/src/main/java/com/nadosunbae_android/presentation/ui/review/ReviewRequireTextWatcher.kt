@@ -3,11 +3,17 @@ package com.nadosunbae_android.presentation.ui.review
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.databinding.ActivityReviewWriteBinding
 
 class ReviewRequireTextWatcher(private var binding: ActivityReviewWriteBinding) : TextWatcher {
 
     private var optionalEditTexts = mutableListOf<EditText>()
+
+    private val _validTextInput = MutableLiveData<Boolean>()
+    val validTextInput: LiveData<Boolean>
+        get() = _validTextInput
 
     init {
         optionalEditTexts.addAll(
@@ -48,7 +54,7 @@ class ReviewRequireTextWatcher(private var binding: ActivityReviewWriteBinding) 
         }
 
         // 조건 만족
-        binding.btnWriteComplete.isEnabled = validOneLine && validProsCons && validOptional
+        _validTextInput.value = validOneLine && validProsCons && validOptional
     }
 
     companion object {

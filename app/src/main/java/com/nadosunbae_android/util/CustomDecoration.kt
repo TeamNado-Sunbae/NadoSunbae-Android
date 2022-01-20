@@ -3,6 +3,8 @@ package com.nadosunbae_android.util
 import android.graphics.Canvas
 import android.graphics.Paint
 import androidx.annotation.ColorInt
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -23,6 +25,8 @@ class CustomDecoration(
         val right = parent.width - parent.paddingEnd - padding
 
         for(i in 0 until parent.childCount){
+            if (i == parent.childCount - 1)
+                break
             val child = parent.getChildAt(i)
             val params = child.layoutParams as RecyclerView.LayoutParams
 
