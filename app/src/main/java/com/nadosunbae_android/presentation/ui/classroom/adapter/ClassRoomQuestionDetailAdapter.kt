@@ -155,7 +155,6 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
                         holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu
                     )
                     popup.menuInflater.inflate(R.menu.menu_question_detail_update, popup.menu)
-
                     popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
                         when (it.itemId) {
                             //수정버튼 눌렀을 때

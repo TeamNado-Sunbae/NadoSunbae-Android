@@ -256,4 +256,10 @@
 
     <!-- 알림 -->
     <string name="firebase_notification_channel_id">나도 선배</string>
+
+    <!-- 질문 작성 알럿 -->
+    <string name="question_write_cancel">페이지를 나가면\n작성중인 글이 삭제돼요.</string>
+    <string name="question_write_complete">글을 올리시겠습니까?</string>
+    <string name="question_write_complete_no">아니요</string>
+    <string name="question_write_complete_yes">예</string>
 </resources>

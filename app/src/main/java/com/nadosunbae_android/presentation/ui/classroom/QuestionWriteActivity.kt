@@ -11,9 +11,11 @@ import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostD
 import com.nadosunbae_android.databinding.ActivityQuestionWriteBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.classroom.viewmodel.QuestionWriteViewModel
+import com.nadosunbae_android.util.CustomDialog
 
 class QuestionWriteActivity :
     BaseActivity<ActivityQuestionWriteBinding>(R.layout.activity_question_write) {
+    private lateinit var dialog : CustomDialog
     private val questionWriteViewModel: QuestionWriteViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -76,19 +78,7 @@ class QuestionWriteActivity :
             //완료 버튼 누를 때
             if (it) {
                 binding.textQuestionWriteAllBtn.setOnClickListener {
-                    questionWriteViewModel.postClassRoomWrite(
-                        RequestClassRoomPostData(
-                            5, null, 2,
-                            questionWriteViewModel.titleData.value.toString(),
-                            questionWriteViewModel.contentData.value.toString()
-                        )
-                    )
-                    questionWriteViewModel.postDataWrite.observe(this){its ->
-                        if(its.success){
-                            finish()
-                        }
-                    }
-
+                    initCompleteDialog()
                 }
             }
         }
@@ -104,7 +94,45 @@ class QuestionWriteActivity :
     //종료 버튼 클릭
     private fun cancelWrite(){
         binding.imgQuestionWriteAllCancle.setOnClickListener {
-            finish()
+            initCancelDialog()
+        }
+    }
+
+    //작성취소 다이얼로그 띄우기
+    private fun initCancelDialog(){
+        dialog = CustomDialog(this)
+        dialog.writeCancelDialog(R.layout.dialog_question_write_cancel)
+        dialog.setOnClickedListener(object : CustomDialog.ButtonClickListener{
+            override fun onClicked(num: Int) {
+                if(num == 1) finish()
+            }
+        })
+    }
+
+    //작성 완료 다이얼로그 띄우기
+    private fun initCompleteDialog(){
+        dialog = CustomDialog(this)
+        dialog.writeCompleteDialog(R.layout.dialog_question_write_complete)
+        dialog.setOnClickedListener(object : CustomDialog.ButtonClickListener{
+            override fun onClicked(num: Int) {
+                if(num == 2) questionWrite()
+            }
+        })
+    }
+
+    //작성 서버통신
+    private fun questionWrite(){
+        questionWriteViewModel.postClassRoomWrite(
+            RequestClassRoomPostData(
+                5, null, 2,
+                questionWriteViewModel.titleData.value.toString(),
+                questionWriteViewModel.contentData.value.toString()
+            )
+        )
+        questionWriteViewModel.postDataWrite.observe(this){its ->
+            if(its.success){
+                finish()
+            }
         }
 
     }
