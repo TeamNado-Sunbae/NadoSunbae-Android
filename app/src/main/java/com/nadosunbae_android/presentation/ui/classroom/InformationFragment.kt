@@ -42,7 +42,6 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
            Log.d("classRoomInfo", it.data.toString())
            classRoomInfoMainAdapter.setQuestionMain(Mapper.mapperToQuestionMain(it) as MutableList<ClassRoomData>)
-
        }
 
 

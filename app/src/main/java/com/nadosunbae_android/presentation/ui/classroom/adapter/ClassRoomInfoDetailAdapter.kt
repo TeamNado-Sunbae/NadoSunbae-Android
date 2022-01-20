@@ -30,8 +30,11 @@ class ClassRoomInfoDetailAdapter: RecyclerView.Adapter<ClassRoomInfoDetailAdapte
         position: Int
     ) {
         holder.onBind(questionMainData[position])
-        holder.binding.root.setOnClickListener {
+        holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, InformationDetailActivity::class.java)
+            intent.apply {
+                putExtra("postId", questionMainData[position].postId)
+            }
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
     }
