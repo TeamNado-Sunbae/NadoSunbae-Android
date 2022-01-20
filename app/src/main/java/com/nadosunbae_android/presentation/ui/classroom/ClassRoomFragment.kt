@@ -100,7 +100,7 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
 
     //타이틀 변경
     private fun changeTitle(){
-        mainViewModel.selectedMajor.observe(this){
+        mainViewModel.selectedMajor.observe(viewLifecycleOwner){
             binding.textClassroomTitle.text = it.majorName
         }
     }
