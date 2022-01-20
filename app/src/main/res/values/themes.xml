@@ -32,10 +32,10 @@
     <style name="Theme.NadoSunbaeAndroid.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="BottomSheetDialogStyle" parent="Theme.Design.BottomSheetDialog">
-        <item name = "bottomSheetStyle">@style/ModalStyle</item>
+        <item name="bottomSheetStyle">@style/ModalStyle</item>
     </style>
 
     <style name="ModalStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name = "android:background">@drawable/rectangle_fill_white_top_8dp</item>
+        <item name="android:background">@drawable/rectangle_fill_white_top_8dp</item>
     </style>
 </resources>
