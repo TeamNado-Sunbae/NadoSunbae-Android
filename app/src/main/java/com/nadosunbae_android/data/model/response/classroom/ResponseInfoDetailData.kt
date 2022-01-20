@@ -9,20 +9,16 @@ data class ResponseInfoDetailData(
     val success: Boolean
 ) {
     data class Data(
-        val commentCount: CommentCount,
+        val commentCount: String,
         val commentList: List<Comment>,
         val like: Like,
         val post: Post,
         val writer: Writer
     ) {
-        data class CommentCount(
-            val commentCount: String
-        )
-
         data class Comment(
             val commentId: Int,
             val content: String,
-            val createdAt: String,
+            val createdAt: Date?,
             val isDeleted: Boolean,
             val writer: Writer
         ) {

@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.nadosunbae_android.R
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -71,8 +72,18 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("commentCount")
     fun commentCount(textView : TextView, text : String?){
-
         textView.text = "댓글 ${text}개"
+    }
+
+    @JvmStatic
+    @BindingAdapter("writerVisible")
+    fun writerVisible(textView : TextView, isPosterWriter : Boolean){
+        if(isPosterWriter){
+            textView.visibility = View.VISIBLE
+        }else{
+            textView.visibility = View.GONE
+        }
+
     }
 
 }
