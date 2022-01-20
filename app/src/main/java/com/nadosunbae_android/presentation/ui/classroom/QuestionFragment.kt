@@ -51,7 +51,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
             mainViewModel.getClassRoomMain(2,it.majorId)
         }
 
-        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
+        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(1)
         binding.rcQuestionAll.adapter = classRoomQuestionMainAdapter
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){
             Log.d("cclassRoomMain", it.data.toString())
@@ -105,6 +105,9 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     private fun goQuestionWriteAll(){
         binding.textQuestionWrite.setOnClickListener {
             val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+            intent.apply {
+                putExtra("title", "전체에게 질문 작성")
+            }
             startActivity(intent)
         }
     }

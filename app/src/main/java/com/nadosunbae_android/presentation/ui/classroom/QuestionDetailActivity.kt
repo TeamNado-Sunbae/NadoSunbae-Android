@@ -74,6 +74,8 @@ class QuestionDetailActivity :
         val all = intent.getIntExtra("all", 1)
         if(all == 1){
             binding.textQuestionDetailTitle.text = "질문"
+        }else{
+            binding.textQuestionDetailTitle.text = "1:1질문"
         }
     }
 

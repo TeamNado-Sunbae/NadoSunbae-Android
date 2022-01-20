@@ -10,7 +10,7 @@ import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.presentation.ui.classroom.QuestionDetailActivity
 
-class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder>() {
+class ClassRoomQuestionMainAdapter(private val num : Int) : RecyclerView.Adapter<ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder>() {
     var questionMainData = mutableListOf<ClassRoomData>()
 
     override fun onCreateViewHolder(
@@ -35,7 +35,7 @@ class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainA
             val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
             intent.apply {
                 putExtra("postId", questionMainData[position].postId)
-                putExtra("all", 1)
+                putExtra("all", num)
             }
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }

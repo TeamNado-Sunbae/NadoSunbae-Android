@@ -30,6 +30,7 @@ class QuestionWriteActivity :
         writeContent()
         completeBtnCheck()
         cancelWrite()
+        titleChange()
     }
 
 
@@ -92,6 +93,13 @@ class QuestionWriteActivity :
             }
         }
     }
+    //제목 변경
+    private fun titleChange(){
+        val title = intent.getStringExtra("title")
+        binding.textQuestionWriteAllTitle.text = title.toString()
+
+    }
+
 
     //종료 버튼 클릭
     private fun cancelWrite(){
