@@ -4,9 +4,11 @@ import com.nadosunbae_android.data.datasource.remote.sign.SignDataSource
 import com.nadosunbae_android.data.datasource.remote.sign.SignDataSourceImpl
 import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
 import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
+import com.nadosunbae_android.data.model.request.sign.RequestSignUp
 import com.nadosunbae_android.data.model.response.sign.ResponseFirstDepartment
 import com.nadosunbae_android.data.model.response.sign.ResponseSignEmail
 import com.nadosunbae_android.data.model.response.sign.ResponseSignNickname
+import com.nadosunbae_android.data.model.response.sign.ResponseSignUp
 import retrofit2.Response
 
 class SignRepositoryImpl : SignRepository {
@@ -35,5 +37,13 @@ class SignRepositoryImpl : SignRepository {
         onFailure: (Throwable) -> Unit
     ) {
         return signDataSource.getFirstDepartment(universityId, filter, onResponse, onFailure)
+    }
+
+    override fun postSignUp(
+        requestSignUp: RequestSignUp,
+        onResponse: (Response<ResponseSignUp>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return signDataSource.postSignUp(requestSignUp, onResponse, onFailure)
     }
 }
