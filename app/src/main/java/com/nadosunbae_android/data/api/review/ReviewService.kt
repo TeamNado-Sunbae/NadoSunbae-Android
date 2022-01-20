@@ -1,10 +1,8 @@
 package com.nadosunbae_android.data.api.review
 
+import com.nadosunbae_android.data.model.request.review.RequestPostReview
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
-import com.nadosunbae_android.data.model.response.review.ResponseBackgroundImageListData
-import com.nadosunbae_android.data.model.response.review.ResponseMajorData
-import com.nadosunbae_android.data.model.response.review.ResponseReviewDetailData
-import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
+import com.nadosunbae_android.data.model.response.review.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -28,5 +26,10 @@ interface ReviewService {
 
     @GET("review-post/background-image/list")
     fun getBackgroundImageList() : Call<ResponseBackgroundImageListData>
+
+    @POST("review-post")
+    fun postReview(
+        @Body requestBody: RequestPostReview
+    ) : Call<ResponsePostReview>
 
 }

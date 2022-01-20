@@ -1,11 +1,9 @@
 package com.nadosunbae_android.data.datasource.remote.review
 
 import com.nadosunbae_android.data.api.ApiService
+import com.nadosunbae_android.data.model.request.review.RequestPostReview
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
-import com.nadosunbae_android.data.model.response.review.ResponseBackgroundImageListData
-import com.nadosunbae_android.data.model.response.review.ResponseMajorData
-import com.nadosunbae_android.data.model.response.review.ResponseReviewDetailData
-import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
+import com.nadosunbae_android.data.model.response.review.*
 import com.nadosunbae_android.util.enqueueUtil
 import retrofit2.Response
 
@@ -47,6 +45,16 @@ class ReviewDataSourceImpl() : ReviewDataSource {
         onFailure: (Throwable) -> Unit
     ) {
         ApiService.reviewService.getBackgroundImageList().enqueueUtil(
+            onResponse, onFailure
+        )
+    }
+
+    override fun postReview(
+        requestBody: RequestPostReview,
+        onResponse: (Response<ResponsePostReview>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        ApiService.reviewService.postReview(requestBody).enqueueUtil(
             onResponse, onFailure
         )
     }
