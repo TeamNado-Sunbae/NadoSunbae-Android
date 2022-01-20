@@ -9,11 +9,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
+import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentSeniorPersonalBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.util.Mapper
 
 class SeniorPersonalFragment : BaseFragment<FragmentSeniorPersonalBinding>(R.layout.fragment_senior_personal) {
     private lateinit var classRoomQuestionMainAdapter : ClassRoomQuestionMainAdapter
@@ -38,79 +40,20 @@ class SeniorPersonalFragment : BaseFragment<FragmentSeniorPersonalBinding>(R.lay
         // initSeniorQuestion()
         goClassRoomReview()
         getSeniorPersonal()
+        initSeniorQuestion()
     }
 
     //선배에게 온 1:1 질문 목록
-  /*  private fun initSeniorQuestion(){
-        val exampleData = mutableListOf(
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ),
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ),
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ),
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ),
-            ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ), ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ), ResponseClassRoomMainData.Data(
-                postId = 32,
-                writer = ResponseClassRoomMainData.Data.Writer("호렉",1,1),
-                title = "제목",
-                content = "내용",
-                createdAt = "2021-11-28T18:56:42.040Z",
-                likeCount = "2",
-                commentCount = "2"
-            ),
-        )
+  private fun initSeniorQuestion(){
 
         classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
-        classRoomQuestionMainAdapter.setQuestionMain(exampleData)
+        seniorPersonalViewModel.seniorQuestion.observe(viewLifecycleOwner){
+            classRoomQuestionMainAdapter.setQuestionMain(Mapper.mapperToSeniorQuestion(it) as MutableList<ClassRoomData>)
+        }
 
-    } */
+
+    }
 
     //리뷰 보러가기기
    private fun goClassRoomReview(){
@@ -124,6 +67,7 @@ class SeniorPersonalFragment : BaseFragment<FragmentSeniorPersonalBinding>(R.lay
         mainViewModel.seniorId.observe(viewLifecycleOwner){
             Log.d("seniorId", it.toString())
             seniorPersonalViewModel.getSeniorPersonal(it)
+            seniorPersonalViewModel.getSeniorQuestionList(it,"recent")
         }
 
         seniorPersonalViewModel.seniorPersonal.observe(viewLifecycleOwner){

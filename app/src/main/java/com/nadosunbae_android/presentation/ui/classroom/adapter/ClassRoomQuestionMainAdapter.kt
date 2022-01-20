@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
+import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.presentation.ui.classroom.QuestionDetailActivity
 
 class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder>() {
-    var questionMainData = mutableListOf<ResponseClassRoomMainData.Data>()
+    var questionMainData = mutableListOf<ClassRoomData>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -48,7 +49,7 @@ class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainA
     inner class ClassRoomQuestionMainViewHolder(
         val binding : ItemQuestionAllBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(questionMainData : ResponseClassRoomMainData.Data){
+        fun onBind(questionMainData : ClassRoomData){
             binding.apply {
                 questionMain = questionMainData
                 executePendingBindings()
@@ -56,7 +57,7 @@ class ClassRoomQuestionMainAdapter : RecyclerView.Adapter<ClassRoomQuestionMainA
         }
     }
 
-    fun setQuestionMain(questionMainData: MutableList<ResponseClassRoomMainData.Data>){
+    fun setQuestionMain(questionMainData: MutableList<ClassRoomData>){
         this.questionMainData = questionMainData
         notifyDataSetChanged()
 

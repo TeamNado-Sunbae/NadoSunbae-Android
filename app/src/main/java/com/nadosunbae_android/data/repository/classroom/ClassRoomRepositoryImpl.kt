@@ -65,6 +65,7 @@ class ClassRoomRepositoryImpl : ClassRoomRepository {
         return classRoomDataSource.getSeniorPersonal(userId, onResponse, onFailure)
     }
 
+    //선배 1:1 질문 리스트
     override fun getSeniorQuestionList(
         userId: Int,
         sort: String,
