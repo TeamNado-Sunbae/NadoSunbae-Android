@@ -4,17 +4,33 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
+import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
+import com.nadosunbae_android.data.model.ui.MyPageData
+import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentMyPageBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomAskEveryoneAdapter
+import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.presentation.ui.mypage.viewmodel.MyPageViewModel
+import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
+import com.nadosunbae_android.util.Mapper
 
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
+
+    private val myPageViewModel: MyPageViewModel by viewModels{
+        object : ViewModelProvider.Factory{
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return MyPageViewModel() as T
+            }
+        }
+    }
 
     private val mainViewModel: MainViewModel by activityViewModels{
         object : ViewModelProvider.Factory{
@@ -23,11 +39,14 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             }
         }
     }
-    private lateinit var classRoomAskEveryoneAdapter : ClassRoomAskEveryoneAdapter
+
+
+
+    private lateinit var myPageQuestionAdapter : ClassRoomQuestionMainAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // initAskPersonal()
+        initAskPersonal()
         movePage()
     }
 
@@ -54,6 +73,27 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         }
     }
 
+
+
+    private fun initAskPersonal() {
+        myPageViewModel.getMyPageQuestion(49, "recent")
+
+        myPageQuestionAdapter = ClassRoomQuestionMainAdapter(2)
+        binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
+        //classRoomAskEveryoneAdapter.setAskEveryone()
+
+        myPageViewModel.personalQuestion.observe(viewLifecycleOwner){
+            myPageQuestionAdapter.setQuestionMain(Mapper.mapperToMyPageQuestion(it) as MutableList<ClassRoomData>)
+        }
+
+        }
+
+
+        /*
+        myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
+            classRoomAskEveryoneAdapter.setAskEveryone(Mapper.mapperToQuestionMain() as MutableList<ClassRoomData>)
+        }*/
+    }
 
     //리사이클러뷰
     /*private fun initAskPersonal(){
@@ -129,4 +169,3 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
 
 
-}
