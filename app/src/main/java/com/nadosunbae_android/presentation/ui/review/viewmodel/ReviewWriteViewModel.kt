@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nadosunbae_android.data.model.request.review.RequestPostReview
 import com.nadosunbae_android.data.model.response.review.ResponseBackgroundImageListData
 import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.data.model.ui.MajorData
@@ -27,6 +28,21 @@ class ReviewWriteViewModel : ViewModel(), DropDownSelectableViewModel {
 
                     Log.d(TAG, "서버통신 성공")
                 }
+            },
+            onFailure = {
+                it.printStackTrace()
+                Log.d(TAG, "서버통신 실패")
+            }
+        )
+    }
+
+    fun postReview(requestBody: RequestPostReview) {
+        reviewRepository.postReview(requestBody,
+            onResponse = {
+                 if (it.isSuccessful) {
+                     Log.d(TAG, "Post Review의 Resopnse: ${it.body().toString()}")
+                     Log.d(TAG, "서버통신 성공")
+                 }
             },
             onFailure = {
                 it.printStackTrace()

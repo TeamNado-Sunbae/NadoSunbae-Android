@@ -3,10 +3,12 @@ package com.nadosunbae_android.presentation.ui.review
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.request.review.RequestPostReview
 import com.nadosunbae_android.data.model.response.main.ResponseMajorListData
 import com.nadosunbae_android.data.model.response.review.ResponseBackgroundImageListData
 import com.nadosunbae_android.data.model.response.sign.SelectableData
@@ -18,10 +20,12 @@ import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewSelectBackgroundAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewWriteViewModel
 import com.nadosunbae_android.util.showCustomDropDown
+import okhttp3.RequestBody
 
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
 
     private lateinit var reviewSelectBackgroundAdapter: ReviewSelectBackgroundAdapter
+    private lateinit var reviewRequireTextWatcher: ReviewRequireTextWatcher
 
     private val mainViewModel: MainViewModel by viewModels {
         object : ViewModelProvider.Factory {
@@ -45,10 +49,12 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
         initBinding()
         initReviewSelectBackgroundAdapter()
+        initReviewRequireTextWatcher()
         setOneLineTextWatcher()
         setWriteRequireTextWatcher()
         setOnClickListener()
         observeBackgroundImageList()
+        observeValidInput()
         observeMajorSelected()
         observeMajorList()
         observeDropDownSelect()
@@ -66,6 +72,11 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         reviewSelectBackgroundAdapter = ReviewSelectBackgroundAdapter()
         binding.rvSelectBackground.adapter = reviewSelectBackgroundAdapter
     }
+
+    private fun initReviewRequireTextWatcher() {
+        reviewRequireTextWatcher = ReviewRequireTextWatcher(binding)
+    }
+
 
     private fun setOneLineTextWatcher() {
         binding.etOneLine.addTextChangedListener(object : TextWatcher {
@@ -94,7 +105,6 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     private fun setWriteRequireTextWatcher() {
         // 리뷰 작성 입력값을 검사하기 위한 TextWatcher
-        val reviewRequireTextWatcher = ReviewRequireTextWatcher(binding)
         with (binding) {
             etOneLine.addTextChangedListener(reviewRequireTextWatcher)
             etProsCons.editText.addTextChangedListener(reviewRequireTextWatcher)
@@ -104,6 +114,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             etCareer.editText.addTextChangedListener(reviewRequireTextWatcher)
             etTip.editText.addTextChangedListener(reviewRequireTextWatcher)
         }
+
     }
 
     private fun setOnClickListener() {
@@ -112,8 +123,9 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             finish()
         }
 
+        // 학과 선택
         binding.clReviewWriteSelectMajor.setOnClickListener {
-            // 학과 선택
+
             val selectableList = mutableListOf<SelectableData>()
 
             // 본전공 추가
@@ -128,6 +140,34 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
             // 드롭다윤 메뉴 띄우기
             showCustomDropDown(reviewWriteViewModel, binding.clReviewWriteSelectMajor, binding.clReviewWriteSelectMajor.width, mainViewModel.selectedMajor.value!!.majorId, selectableList)
+        }
+
+        // 작성 완료
+        binding.btnWriteComplete.setOnClickListener {
+
+            val selectedMajor = reviewWriteViewModel.dropDownSelected.value
+            val selectedBackgroundId = reviewSelectBackgroundAdapter.getSelectedBackgroundId()
+
+            // null check
+            if (selectedMajor != null && selectedBackgroundId != null) {
+                val requestBody = RequestPostReview(
+                    selectedMajor.id,
+                    reviewSelectBackgroundAdapter.getSelectedBackgroundId()!!,
+                    binding.etOneLine.text.toString(),
+                    binding.etProsCons.editText.text.toString(),
+                    binding.etCurriculum.editText.text.toString(),
+                    binding.etRecommendLecture.editText.text.toString(),
+                    binding.etNonRecommendLecture.editText.text.toString(),
+                    binding.etCareer.editText.text.toString(),
+                    binding.etTip.editText.text.toString()
+                )
+                Log.d("sdf sdaf sd", requestBody.toString())
+                reviewWriteViewModel.postReview(requestBody)
+
+                // 알럿
+                finish()
+            }
+
         }
 
     }
@@ -185,8 +225,29 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             if (selected != null) {
                 mainViewModel.setSelectedMajor(MajorData(selected.id, selected.name))
             }
-            
+
         }
+    }
+
+    private fun observeValidInput() {
+
+        reviewRequireTextWatcher.validTextInput.observe(this) {
+            applyInputValid()
+        }
+
+        reviewSelectBackgroundAdapter.mSelectedPos.observe(this) {
+            applyInputValid()
+        }
+
+    }
+
+    private fun applyInputValid() {
+        val validTextInput = reviewRequireTextWatcher.validTextInput.value
+        val validBackground = reviewSelectBackgroundAdapter.getSelectedBackgroundId()
+
+        // null check 및 배경 선택 여부 검사
+        binding.btnWriteComplete.isEnabled = validTextInput != null && validTextInput && validBackground != null
+
     }
 
     private fun getMajorFromIntent() {
@@ -198,9 +259,12 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         if (selectedMajor != null)
             mainViewModel.setSelectedMajor(selectedMajor)
 
-        if (firstMajor != null)
+        if (firstMajor != null) {
             mainViewModel.setFirstMajor(firstMajor)
 
+            // 드롭다운 default 선택
+            reviewWriteViewModel.dropDownSelected.value = SelectableData(firstMajor.majorId, firstMajor.majorName, true)
+        }
         if (secondMajor != null)
             mainViewModel.setSecondMajor(secondMajor)
     }
