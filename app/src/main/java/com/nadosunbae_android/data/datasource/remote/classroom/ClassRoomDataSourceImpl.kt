@@ -86,4 +86,15 @@ class ClassRoomDataSourceImpl() : ClassRoomDataSource {
             onResponse, onFailure
         )
     }
+
+    // 정보 상세 조회
+    override fun getInformationDetail(
+        postId: Int,
+        onResponse: (Response<ResponseInfoDetailData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return ApiService.classRoomService.getInformationDetail(postId).enqueueUtil(
+            onResponse, onFailure
+        )
+    }
 }

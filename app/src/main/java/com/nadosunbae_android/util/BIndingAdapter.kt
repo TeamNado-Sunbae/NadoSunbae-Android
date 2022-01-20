@@ -2,15 +2,12 @@ package com.nadosunbae_android.util
 
 import android.graphics.Color
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.marginLeft
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.nadosunbae_android.R
@@ -24,9 +21,9 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("dateToText")
     fun getDateToText(textView: TextView, date: Date?) {
-        if(date == null){
+        if (date == null) {
             textView.text = ""
-        }else{
+        } else {
             val format = SimpleDateFormat("a HH:MM")
             format.format(date).also { textView.text = it }
         }
@@ -40,15 +37,16 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("plusStart")
-    fun plusStart(textView: TextView, text : String) : String{
+    fun plusStart(textView: TextView, text: String): String {
         return (text + "진입").also { textView.text = it }
     }
 
     @JvmStatic
-    @BindingAdapter("int","nickname", requireAll = false)
-    fun notification(textView: TextView, int : Int, nickname : String): SpannableStringBuilder {
-        val param = listOf("","작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글","1:1질문")
-        val text = listOf("", "작성하신 질문글에 ${nickname}이 답글을 남겼습니다",
+    @BindingAdapter("int", "nickname", requireAll = false)
+    fun notification(textView: TextView, int: Int, nickname: String): SpannableStringBuilder {
+        val param = listOf("", "작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글", "1:1질문")
+        val text = listOf(
+            "", "작성하신 질문글에 ${nickname}이 답글을 남겼습니다",
             "작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
             "답글을 작성하신 질문글에 ${nickname}이 답글을 남겼습니다.",
             "답글을 작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
@@ -57,29 +55,44 @@ object BindingAdapter {
         var content = param[int]
         var start = text[int].indexOf(content)
         var end = start + content.length
-        var spannable  = SpannableStringBuilder(text[int])
-        spannable.setSpan(ForegroundColorSpan(Color.parseColor("#00C8B0")),start, end,
-            Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-        return spannable.also {textView.text = it}
-            }
+        var spannable = SpannableStringBuilder(text[int])
+        spannable.setSpan(
+            ForegroundColorSpan(Color.parseColor("#00C8B0")), start, end,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        return spannable.also { textView.text = it }
+    }
 
     @JvmStatic
     @BindingAdapter("notificationOval")
-    fun notificationOval(imageView: ImageView, isRead : Boolean){
-        if(isRead) imageView.visibility = View.GONE else View.VISIBLE
+    fun notificationOval(imageView: ImageView, isRead: Boolean) {
+        if (isRead) imageView.visibility = View.GONE else View.VISIBLE
+    }
+
+    @JvmStatic
+    @BindingAdapter("commentCount")
+    fun commentCount(textView : TextView, text : String?){
+        textView.text = "댓글 ${text}개"
+    }
+
+    @JvmStatic
+    @BindingAdapter("writerVisible")
+    fun writerVisible(textView : TextView, isPosterWriter : Boolean){
+        if(isPosterWriter){
+            textView.visibility = View.VISIBLE
+        }else{
+            textView.visibility = View.GONE
+        }
 
     }
 
-
-        }
-
-
+}
 
 
 @BindingAdapter("isOnQuestion")
 fun TextView.isOnQuestion(isOnQuestion: Boolean) {
     text = if (isOnQuestion) context.getString(R.string.review_question_on_message)
-            else context.getString(R.string.review_question_off_message)
+    else context.getString(R.string.review_question_off_message)
 }
 
 @BindingAdapter("majorName", "majorStart")
@@ -139,8 +152,7 @@ fun View.layoutMarginTop(margin: Int) {
 
 @BindingAdapter("layoutMarginBottom")
 fun View.layoutMarginBottom(margin: Int) {
-    if (margin != 0)
-    {
+    if (margin != 0) {
         val layoutParams = this.layoutParams as ViewGroup.MarginLayoutParams
         layoutParams.bottomMargin = margin.dpToPx
         this.layoutParams = layoutParams

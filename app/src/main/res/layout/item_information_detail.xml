@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="infoDetailListData"
+            type="com.nadosunbae_android.data.model.response.classroom.ResponseInfoDetailData.Data.Comment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +26,7 @@
             android:id="@+id/text_information_detail_comment_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/question_detail_writer"
+            android:text="@{infoDetailListData.writer.nickname}"
             android:fontFamily="@font/pretendard_semibold"
             android:textSize="14sp"
             android:textColor="@color/gray_4"
@@ -32,12 +34,29 @@
             app:layout_constraintStart_toEndOf="@+id/img_information_detail_comment_profile"
             android:layout_marginStart="8dp"/>
 
+        <TextView
+            android:id="@+id/text_information_detail_comment_writer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_writer"
+            android:fontFamily="@font/pretendard_medium"
+            writerVisible = "@{infoDetailListData.writer.postWriter}"
+            android:textSize="10sp"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="3dp"
+            android:textColor="@color/main_default"
+            android:background="@drawable/rectangle_fill_main_light_6"
+            app:layout_constraintTop_toTopOf="@+id/text_information_detail_comment_name"
+            app:layout_constraintStart_toEndOf="@id/text_information_detail_comment_name"
+            android:layout_marginStart="7dp"/>
+
+
 
         <TextView
             android:id="@+id/text_information_detail_comment_major"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/question_detail_major"
+            android:text="@{infoDetailListData.writer.firstMajorName}"
             android:fontFamily="@font/pretendard_medium"
             android:textSize="12sp"
             android:textColor="@color/gray_2"
@@ -50,7 +69,7 @@
             android:id="@+id/text_information_detail_comment_major_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mypage_first_major_time"
+            android:text="@{infoDetailListData.writer.firstMajorStart}"
             android:fontFamily="@font/pretendard_medium"
             android:textSize="12sp"
             android:textColor="@color/gray_2"
@@ -72,7 +91,7 @@
             android:id="@+id/text_information_detail_comment_second_major"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/question_detail_second_major"
+            android:text="@{infoDetailListData.writer.secondMajorName}"
             android:fontFamily="@font/pretendard_medium"
             android:textSize="12sp"
             android:textColor="@color/gray_2"
@@ -84,7 +103,7 @@
             android:id="@+id/text_information_detail_content_second_major_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mypage_first_major_time"
+            android:text="@{infoDetailListData.writer.secondMajorStart}"
             android:fontFamily="@font/pretendard_medium"
             android:textSize="12sp"
             android:textColor="@color/gray_2"
@@ -104,7 +123,7 @@
             android:id="@+id/text_information_detail_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/classroom_question_count"
+            android:text="@{infoDetailListData.content}"
             android:fontFamily="@font/pretendard_regular"
             android:textSize="14sp"
             android:textColor="@color/gray_4"
@@ -118,7 +137,7 @@
             android:id="@+id/text_information_detail_content_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/question_detail_time"
+            dateToText="@{infoDetailListData.createdAt}"
             android:fontFamily="@font/pretendard_regular"
             android:textSize="12sp"
             android:textColor="@color/gray_2"
