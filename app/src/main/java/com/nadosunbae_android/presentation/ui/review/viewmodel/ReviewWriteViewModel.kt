@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.response.review.ResponseBackgroundImageListData
+import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.data.repository.review.ReviewRepositoryImpl
 
 class ReviewWriteViewModel : ViewModel() {
