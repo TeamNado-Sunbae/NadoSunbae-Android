@@ -70,11 +70,9 @@ class SignUpBasicInfoActivity :
         //이메일 중복 체크 서버 통신
         signUpBasicInfoViewModel.email.observe(this){
             signUpBasicInfoViewModel.emailDuplication(RequestSignEmail(it))
-            Log.d("1111", "123123")
         }
 
         signUpBasicInfoViewModel.emailDuplication.observe(this){
-            Log.d("1111", "111111")
             if(it){
                 binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
                 binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
