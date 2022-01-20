@@ -48,17 +48,18 @@
 
         <TextView
             android:id="@+id/tv_one_line_review"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:ellipsize="end"
             android:fontFamily="@font/pretendard_medium"
             android:maxLength="40"
             android:maxLines="1"
-            android:ellipsize="end"
             android:text="@{previewData.oneLineReview}"
             android:textColor="@color/black_0"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_create_at"
+            app:layout_constraintEnd_toEndOf="@+id/view_line_horizontal"
+            app:layout_constraintStart_toStartOf="@+id/view_line_horizontal"
             app:layout_constraintTop_toBottomOf="@+id/tv_create_at"
             tools:text="@string/review_example_one_line_review" />
 
