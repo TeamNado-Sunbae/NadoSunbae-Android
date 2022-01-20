@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.main.ResponseMajorListData
 import com.nadosunbae_android.data.model.response.review.ResponseBackgroundImageListData
+import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.data.model.ui.SelectBackgroundBoxData
 import com.nadosunbae_android.databinding.ActivityReviewWriteBinding
@@ -16,6 +17,7 @@ import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewSelectBackgroundAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewWriteViewModel
+import com.nadosunbae_android.util.showCustomDropDown
 
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
 
@@ -104,8 +106,29 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     }
 
     private fun setOnClickListener() {
+        // 닫기 버튼
         binding.btnClose.setOnClickListener {
             finish()
+        }
+        // 학과 선택
+        binding.clReviewWriteSelectMajor.setOnClickListener {
+
+            // null check
+            val majorList = mainViewModel.majorList.value
+            if (majorList != null) {
+
+                val menuList = mutableListOf<SelectableData>()
+                for (d in majorList.data) {
+                    menuList.add(SelectableData(d.majorId, d.majorName, false))
+                }
+
+                var selectedMajorId: Int = NOT_SELECTED
+                if (mainViewModel.selectedMajor.value != null)
+                    selectedMajorId = mainViewModel.selectedMajor.value!!.majorId
+
+                showCustomDropDown(binding.clReviewWriteSelectMajor, binding.clReviewWriteSelectMajor.width, selectedMajorId, menuList)
+
+            }
         }
     }
 
@@ -168,6 +191,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     companion object {
         const val ONE_LINE_MAX_LENGTH = 40
+        const val NOT_SELECTED = -1
     }
 
 }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.response.sign.BottomSheetData
+import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.databinding.ItemBottomsheetListBinding
 import com.nadosunbae_android.util.CustomBottomSheetDialog
 import com.nadosunbae_android.util.setTextSemiBold
@@ -15,11 +15,11 @@ import com.nadosunbae_android.util.setTextSemiBold
 class MajorSelectAdapter(
     var link : CustomBottomSheetDialog.DataToFragment
 ) : RecyclerView.Adapter<MajorSelectAdapter.SignSelectionViewHolder>() {
-    var dataList = mutableListOf<BottomSheetData>()
+    var dataList = mutableListOf<SelectableData>()
     private var mSelectedPos: Int = -1
 
-    private val _selectedData = MutableLiveData<BottomSheetData>()
-    val selectedData: LiveData<BottomSheetData>
+    private val _selectedData = MutableLiveData<SelectableData>()
+    val selectedData: LiveData<SelectableData>
         get() = _selectedData
 
 
@@ -83,7 +83,7 @@ class MajorSelectAdapter(
     override fun getItemCount(): Int = dataList.size
 
     inner class SignSelectionViewHolder(val binding : ItemBottomsheetListBinding) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(bottomSheetData : BottomSheetData){
+        fun onBind(bottomSheetData : SelectableData){
             binding.data = bottomSheetData
             binding.tvBottomsheeetContent.isSelected = bottomSheetData.isSelected
 
@@ -103,10 +103,10 @@ class MajorSelectAdapter(
 
     }
 
-    fun getSelectedData(): BottomSheetData {
+    fun getSelectedData(): SelectableData {
         if (mSelectedPos != NOT_SELECTED)
             return dataList[mSelectedPos]
-        return BottomSheetData(-1, "", false)
+        return SelectableData(-1, "", false)
     }
 
     fun setSelectedData(dataId: Int) {

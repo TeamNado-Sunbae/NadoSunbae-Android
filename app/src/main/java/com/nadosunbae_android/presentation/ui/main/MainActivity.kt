@@ -127,6 +127,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     // 본전공이 선택되어 있도록
     private fun setDefaultMajor() {
+        mainViewModel.setFirstMajor(MajorData(5, "경영학과"))
+        mainViewModel.setSecondMajor(MajorData(13, "금융공학"))
         mainViewModel.setSelectedMajor(MajorData(5, "경영학과"))
     }
 

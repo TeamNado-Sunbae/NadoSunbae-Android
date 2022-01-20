@@ -4,16 +4,13 @@ package com.nadosunbae_android.presentation.ui.sign
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
-import com.nadosunbae_android.data.model.response.sign.BottomSheetData
-import com.nadosunbae_android.data.model.response.sign.ResponseFirstDepartment
+import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.adapter.SpinnerAdapter
@@ -129,7 +126,7 @@ class SignUpMajorInfoActivity :
         signUpBasicInfoViewModel.firstDepartment.observe(this) {
 
             firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
-                .map { BottomSheetData(it.majorId, it.majorName, false) }.toMutableList())
+                .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
         }
         //데이터 넣기
         firstDepartmentBottomSheetDialog.setCompleteListener {
@@ -155,22 +152,22 @@ class SignUpMajorInfoActivity :
             )
             // local data
             var firstMajorSelectionPeriodData = mutableListOf(
-                BottomSheetData(1, "22-1", false),
-                BottomSheetData(2, "21-2", false),
-                BottomSheetData(3, "21-1", false),
-                BottomSheetData(4, "20-2", false),
-                BottomSheetData(5, "20-1", false),
-                BottomSheetData(6, "19-2", false),
-                BottomSheetData(7, "19-1", false),
-                BottomSheetData(8, "18-2", false),
-                BottomSheetData(9, "18-1", false),
-                BottomSheetData(10, "17-2", false),
-                BottomSheetData(11, "17-1", false),
-                BottomSheetData(12, "16-2", false),
-                BottomSheetData(13, "16-1", false),
-                BottomSheetData(14, "15-2", false),
-                BottomSheetData(15, "15-1", false),
-                BottomSheetData(16, "15년 이전", false)
+                SelectableData(1, "22-1", false),
+                SelectableData(2, "21-2", false),
+                SelectableData(3, "21-1", false),
+                SelectableData(4, "20-2", false),
+                SelectableData(5, "20-1", false),
+                SelectableData(6, "19-2", false),
+                SelectableData(7, "19-1", false),
+                SelectableData(8, "18-2", false),
+                SelectableData(9, "18-1", false),
+                SelectableData(10, "17-2", false),
+                SelectableData(11, "17-1", false),
+                SelectableData(12, "16-2", false),
+                SelectableData(13, "16-1", false),
+                SelectableData(14, "15-2", false),
+                SelectableData(15, "15-1", false),
+                SelectableData(16, "15년 이전", false)
             )
             firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
 
@@ -200,7 +197,7 @@ class SignUpMajorInfoActivity :
         signUpBasicInfoViewModel.secondDepartment.observe(this) {
 
             secondDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isSecondMajor }
-                .map { BottomSheetData(it.majorId, it.majorName, false) }.toMutableList())
+                .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
         }
 
         secondDepartmentBottomSheetDialog.setCompleteListener {
@@ -229,27 +226,27 @@ class SignUpMajorInfoActivity :
 
             // test data
             var secondMajorSelectionPeriodData = mutableListOf(
-                BottomSheetData(1, "22-1", false),
-                BottomSheetData(2, "21-2", false),
-                BottomSheetData(3, "21-1", false),
-                BottomSheetData(4, "20-2", false),
-                BottomSheetData(5, "20-1", false),
-                BottomSheetData(6, "19-2", false),
-                BottomSheetData(7, "19-1", false),
-                BottomSheetData(8, "18-2", false),
-                BottomSheetData(9, "18-1", false),
-                BottomSheetData(10, "17-2", false),
-                BottomSheetData(11, "17-1", false),
-                BottomSheetData(12, "16-2", false),
-                BottomSheetData(13, "16-1", false),
-                BottomSheetData(14, "15-2", false),
-                BottomSheetData(15, "15-1", false),
-                BottomSheetData(16, "15년 이전", false)
+                SelectableData(1, "22-1", false),
+                SelectableData(2, "21-2", false),
+                SelectableData(3, "21-1", false),
+                SelectableData(4, "20-2", false),
+                SelectableData(5, "20-1", false),
+                SelectableData(6, "19-2", false),
+                SelectableData(7, "19-1", false),
+                SelectableData(8, "18-2", false),
+                SelectableData(9, "18-1", false),
+                SelectableData(10, "17-2", false),
+                SelectableData(11, "17-1", false),
+                SelectableData(12, "16-2", false),
+                SelectableData(13, "16-1", false),
+                SelectableData(14, "15-2", false),
+                SelectableData(15, "15-1", false),
+                SelectableData(16, "15년 이전", false)
 
             )
 
             var secondMajorSelectionPeriodDatNot = mutableListOf(
-                BottomSheetData(1,"미진입", false)
+                SelectableData(1,"미진입", false)
             )
 
             //secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
