@@ -1,6 +1,7 @@
 package com.nadosunbae_android.presentation.ui.classroom.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.data.model.response.classroom.ResponseInfoDetailData
@@ -26,6 +27,9 @@ class ClassRoomInfoDetailAdapter : RecyclerView.Adapter<ClassRoomInfoDetailAdapt
         position: Int
     ) {
         holder.onBind(infoDetailData[position])
+        if(infoDetailData[position].writer.secondMajorName == "미진입"){
+            holder.binding.textInformationDetailContentSecondMajorStart.visibility = View.GONE
+        }
     }
 
     override fun getItemCount(): Int = infoDetailData.size

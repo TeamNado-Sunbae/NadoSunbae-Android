@@ -1,6 +1,7 @@
 package com.nadosunbae_android.presentation.ui.classroom
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +37,10 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
         binding.rcInformationDetailQuestionComment.adapter = classRoomInfoDetailAdapter
         infoDetailViewModel.infoDetailData.observe(this){
             binding.informationDetail = it
+            if(it.data.writer.secondMajorName == "미진입"){
+                binding.textInformationDetailQuestionSecondMajorStart.visibility = View.GONE
+            }
+
             classRoomInfoDetailAdapter.setInfoDetail(it.data.commentList as MutableList<ResponseInfoDetailData.Data.Comment>)
         }
     }
