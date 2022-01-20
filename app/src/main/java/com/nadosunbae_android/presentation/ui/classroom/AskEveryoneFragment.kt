@@ -7,14 +7,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentAskEveryoneBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomAskEveryoneAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.util.Mapper
-import okhttp3.internal.http.toHttpDateOrNull
 
 
 class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fragment_ask_everyone) {
@@ -45,7 +43,11 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
 
     //리사이클러뷰
     private fun initAskEveryone(){
-        mainViewModel.getClassRoomMain(2,5)
+        //majorId 넣음
+        mainViewModel.majorId.observe(viewLifecycleOwner){
+            mainViewModel.getClassRoomMain(3,it)
+        }
+
         classRoomAskEveryoneAdapter = ClassRoomAskEveryoneAdapter()
         binding.rcAskEveryone.adapter = classRoomAskEveryoneAdapter
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){

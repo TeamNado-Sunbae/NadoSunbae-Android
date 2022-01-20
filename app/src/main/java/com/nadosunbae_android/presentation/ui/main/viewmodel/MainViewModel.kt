@@ -43,6 +43,11 @@ class MainViewModel() : ViewModel() {
     val majorList: LiveData<ResponseMajorListData>
         get() = _majorList
 
+
+    //학과 목록 id
+    var majorId = MutableLiveData<Int>()
+
+
     // 선택 학과
     private var _selectedMajor = MutableLiveData<MajorData>()
     val selectedMajor: LiveData<MajorData>
@@ -71,6 +76,7 @@ class MainViewModel() : ViewModel() {
         mainRepository.getMajorList(universityId, filter,
             onResponse = {
                 _majorList.value = it.body()
+
                 Log.d("MainRepository", "서버 통신 성공")
             },
             onFailure = {

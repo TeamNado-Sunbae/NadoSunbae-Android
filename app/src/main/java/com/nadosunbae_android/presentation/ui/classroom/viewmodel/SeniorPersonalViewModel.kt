@@ -21,6 +21,9 @@ class SeniorPersonalViewModel : ViewModel() {
     val seniorQuestion : LiveData<ResponseSeniorQuestionData>
         get() = _seniorQuestion
 
+    //선배 userId
+    var userId = MutableLiveData<Int>()
+
 
     //선배 개인페이지 정보 서버통신
     fun getSeniorPersonal(userId : Int){
