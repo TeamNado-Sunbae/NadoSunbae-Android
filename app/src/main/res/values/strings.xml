@@ -262,4 +262,5 @@
     <string name="question_write_complete">글을 올리시겠습니까?</string>
     <string name="question_write_complete_no">아니요</string>
     <string name="question_write_complete_yes">예</string>
+    <string name="title_activity_senior_personal">SeniorPersonalActivity</string>
 </resources>
