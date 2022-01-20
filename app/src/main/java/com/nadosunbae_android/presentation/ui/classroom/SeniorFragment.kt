@@ -31,7 +31,7 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSenior()
-
+        goQuestionFragment()
     }
 
 
@@ -48,13 +48,14 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         }
 
     }
-    //선배 데이터 서버통신
-    private fun getSeniorInfo(){
 
 
+    //뒤로가기
+    private fun goQuestionFragment(){
+        binding.imgSeniorTitle.setOnClickListener {
+            mainViewModel.classRoomBackFragmentNum.value = 2
+        }
     }
-
-
 
 
     inner class DataToFragment{
