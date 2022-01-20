@@ -32,12 +32,16 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         super.onViewCreated(view, savedInstanceState)
         initSenior()
         goQuestionFragment()
+        changeTitle()
     }
 
 
     // 구성원 보여주기
     private fun initSenior(){
-        mainViewModel.getClassRoomSenior(5)
+        mainViewModel.selectedMajor.observe(viewLifecycleOwner){
+            mainViewModel.getClassRoomSenior(it.majorId)
+        }
+
         classRoomSeniorOnAdapter = ClassRoomSeniorOnAdapter(link)
         classRoomSeniorOffAdapter = ClassRoomSeniorOffAdapter()
         binding.rcSeniorQuestionOff.adapter = classRoomSeniorOffAdapter
@@ -57,7 +61,12 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         }
     }
 
-
+    //타이틀 변경
+    private fun changeTitle(){
+        mainViewModel.selectedMajor.observe(viewLifecycleOwner){
+            binding.textSeniorTitle.text = it.majorName
+        }
+    }
     inner class DataToFragment{
         fun getSeniorId(seniorNum : Int, seniorId : Int){
             mainViewModel.classRoomFragmentNum.value = seniorNum

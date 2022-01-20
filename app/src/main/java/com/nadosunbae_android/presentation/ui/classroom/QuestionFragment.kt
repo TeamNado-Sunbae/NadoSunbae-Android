@@ -41,17 +41,18 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     override fun onResume() {
         super.onResume()
         mainViewModel.selectedMajor.observe(viewLifecycleOwner){
-            mainViewModel.getClassRoomMain(2,it.majorId)
+            mainViewModel.getClassRoomMain(3,it.majorId)
         }
     }
 
     //질문 메인 데이터 받아오기
     private fun initQuestionMain(){
         mainViewModel.selectedMajor.observe(viewLifecycleOwner){
-            mainViewModel.getClassRoomMain(2,it.majorId)
+            mainViewModel.majorId.value = it.majorId
+            mainViewModel.getClassRoomMain(3,it.majorId)
         }
 
-        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
+        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(1)
         binding.rcQuestionAll.adapter = classRoomQuestionMainAdapter
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){
             Log.d("cclassRoomMain", it.data.toString())
@@ -102,9 +103,15 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     }
 
     //전체 질문 작성으로 이동
+    // 질문 전체(3)
     private fun goQuestionWriteAll(){
         binding.textQuestionWrite.setOnClickListener {
             val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+            intent.apply {
+                putExtra("postTypeId", 3)
+                putExtra("majorId", mainViewModel.majorId.value)
+                putExtra("title", "전체에게 질문 작성")
+            }
             startActivity(intent)
         }
     }

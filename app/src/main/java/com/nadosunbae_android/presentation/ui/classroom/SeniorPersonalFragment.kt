@@ -1,6 +1,7 @@
 package com.nadosunbae_android.presentation.ui.classroom
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -46,12 +47,13 @@ class SeniorPersonalFragment :
         getSeniorPersonal()
         initSeniorQuestion()
         goSeniorFragment()
+        goQuestionWrite()
     }
 
     //선배에게 온 1:1 질문 목록
     private fun initSeniorQuestion() {
 
-        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter()
+        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(2)
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
         seniorPersonalViewModel.seniorQuestion.observe(viewLifecycleOwner) {
             Log.d("seniorQuestionAdapter", "좀 되라")
@@ -77,6 +79,7 @@ class SeniorPersonalFragment :
         }
 
         seniorPersonalViewModel.seniorPersonal.observe(viewLifecycleOwner) {
+            seniorPersonalViewModel.userId.value = it.data.userId
             binding.seniorPersonal = it
             if(it.data.secondMajorName == "미진입")
                 binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
@@ -91,7 +94,23 @@ class SeniorPersonalFragment :
 
     }
 
+    //작성창으로 이동
+    private fun goQuestionWrite(){
+        binding.btnGoQuestionWrite.setOnClickListener {
+            val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+            intent.apply {
+                putExtra("majorId", mainViewModel.majorId.value)
+                putExtra("userId", seniorPersonalViewModel.userId.value)
+                Log.d("answerId", seniorPersonalViewModel.userId.value.toString())
+                putExtra("postTypeId", 4)
+                putExtra("title", "1:1질문 작성")
+            }
+            startActivity(intent)
+        }
+    }
 
-
-
+    override fun onResume() {
+        super.onResume()
+        getSeniorPersonal()
+    }
 }

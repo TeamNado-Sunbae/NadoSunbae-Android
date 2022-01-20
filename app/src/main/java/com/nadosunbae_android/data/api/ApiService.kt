@@ -56,7 +56,7 @@ object ApiService {
                 Response = with(chain) {
             val newRequest = request().newBuilder()
                 .addHeader("accesstoken","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrdTVAa29yZWEuYWMua3IiLCJuaWNrbmFtZSI6Imt1NSIsImZpcmViYXNlSWQiOiJRakw2dTdVR0NEVGhEN1pCUVBpcTZCeHNxNVEyIiwiaWF0IjoxNjQyNjIyOTM0LCJleHAiOjE2NDUyMTQ5MzQsImlzcyI6Im5hZG9TdW5iYWUifQ.3z0k4Xo0tSOu8cqYjhTF-2IXdWgW1wSi3NnBP9Lg7B0")
-                .addHeader("content-Type", "application/json")
+                .addHeader("Content-Type", "application/json")
                 .build()
             proceed(newRequest)
         }
@@ -67,5 +67,4 @@ object ApiService {
     val signService : SignService = retrofit.create(SignService::class.java)
     val reviewService : ReviewService = retrofit.create(ReviewService::class.java)
     val notificationService : NotificationService = retrofit.create(NotificationService::class.java)
-
 }

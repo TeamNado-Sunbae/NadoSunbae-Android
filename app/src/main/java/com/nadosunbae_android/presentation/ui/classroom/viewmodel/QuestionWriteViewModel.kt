@@ -19,6 +19,12 @@ class QuestionWriteViewModel : ViewModel() {
     var titleData = MutableLiveData<String>()
     var contentData = MutableLiveData<String>()
 
+    //작성시 필요한 데이터
+    var majorId = MutableLiveData<Int>()
+    var answerId = MutableLiveData<Int>()
+    var postTypeId = MutableLiveData<Int>()
+
+
     //1:1, 전체 질문글, 정보글 작성
     var postDataWrite : MutableLiveData<ResponseClassRoomWriteData> = MutableLiveData()
 

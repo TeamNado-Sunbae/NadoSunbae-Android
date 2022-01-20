@@ -33,6 +33,7 @@
     <color name="gray_bar">#EAEBF1</color>
     <color name="classroom_mint">#bff2ec</color>
     <color name="notification_oval">#FE6231</color>
+    <color name="mint_bar">#B4E4DF</color>
 
     <!-- review_colors -->
     <color name="purple_tag_fill">#f4f0ff</color>

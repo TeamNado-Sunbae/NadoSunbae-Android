@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
 import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
+import com.nadosunbae_android.data.model.request.sign.RequestSignUp
+import com.nadosunbae_android.data.model.response.sign.ResponseSignUp
 import com.nadosunbae_android.databinding.ActivitySignUpBasicInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
@@ -79,7 +81,6 @@ class SignUpBasicInfoActivity :
             } else {
                 binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.VISIBLE
                 binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
-
             }
         }
         if (binding.etSignupBasicinfoNickname.text.toString() == "") {
@@ -303,7 +304,37 @@ class SignUpBasicInfoActivity :
     }
 
     private fun nextPage() {
+        signUpBasicInfoViewModel.requestSignUp.email = binding.etSignupBasicinfoEmail.text.toString()
+        signUpBasicInfoViewModel.requestSignUp.nickname = binding.etSignupBasicinfoNickname.text.toString()
+        signUpBasicInfoViewModel.requestSignUp.password = binding.etSignupBasicinfoPw.text.toString()
+        val signData = signUpBasicInfoViewModel.signUp.value
+        if (signData != null) {
+//            val request = RequestSignUp(
+//                signUpBasicInfoViewModel.requestSignUp.email,
+//                signUpBasicInfoViewModel.requestSignUp.nickname,
+//                signUpBasicInfoViewModel.requestSignUp.password,
+//                1,
+//                signUpBasicInfoViewModel.requestSignUp.firstMajorId,
+//                signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
+//                signUpBasicInfoViewModel.requestSignUp.secondMajorId,
+//                signUpBasicInfoViewModel.requestSignUp.secondMajorStart
+//            )
+
+        }
+
         binding.clSignupBasicinfoMoveNext.setOnClickListener {
+            Log.d("signUp", "post0")
+            signUpBasicInfoViewModel.signUp(RequestSignUp(
+                signUpBasicInfoViewModel.requestSignUp.email,
+                signUpBasicInfoViewModel.requestSignUp.nickname,
+                signUpBasicInfoViewModel.requestSignUp.password,
+                1,
+                signUpBasicInfoViewModel.requestSignUp.firstMajorId,
+                signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
+                signUpBasicInfoViewModel.requestSignUp.secondMajorId,
+                signUpBasicInfoViewModel.requestSignUp.secondMajorStart
+            ))
+            Log.d("signUp", "post1")
             startActivity(Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java))
             finish()
         }

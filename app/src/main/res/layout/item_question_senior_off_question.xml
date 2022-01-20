@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/img_profile"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +40,6 @@
                 android:fontFamily="@font/pretendard_semibold"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/img_senior_title_off"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +53,6 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="12sp"
                 android:textColor="@color/main_default"
-                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/text_senior_nickname_off"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="17dp" />
@@ -67,7 +65,6 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="12sp"
                 android:textColor="@color/gray_4"
-                android:includeFontPadding="false"
                 app:layout_constraintTop_toTopOf="@+id/text_senior_major_off"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_major_off"
                 android:layout_marginStart="4dp" />
