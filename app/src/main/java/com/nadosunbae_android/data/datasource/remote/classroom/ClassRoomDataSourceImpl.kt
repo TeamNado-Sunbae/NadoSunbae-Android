@@ -63,4 +63,27 @@ class ClassRoomDataSourceImpl() : ClassRoomDataSource {
             onResponse, onFailure
         )
     }
+
+    //선배 개인페이지
+    override fun getSeniorPersonal(
+        userId: Int,
+        onResponse: (Response<ResponseSeniorPersonalData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return ApiService.classRoomService.getSeniorPersonal(userId).enqueueUtil(
+            onResponse, onFailure
+        )
+    }
+
+    //선배 1:1 질문글 리스트
+    override fun getSeniorQuestionList(
+        userId: Int,
+        sort: String?,
+        onResponse: (Response<ResponseSeniorQuestionData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return ApiService.classRoomService.getSeniorQuestionList(userId, sort).enqueueUtil(
+            onResponse, onFailure
+        )
+    }
 }

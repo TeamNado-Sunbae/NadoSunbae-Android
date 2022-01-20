@@ -21,6 +21,7 @@ import com.nadosunbae_android.presentation.ui.notification.NotificationFragment
 import com.nadosunbae_android.presentation.ui.review.ReviewFragment
 import com.nadosunbae_android.util.changeFragment
 import com.nadosunbae_android.util.changeFragmentNoBackStack
+import com.nadosunbae_android.util.popFragmentBackStack
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -38,6 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         deviceToken()
         initMajorList()
         setDefaultMajor()
+        classRoomBack()
     }
 
 
@@ -92,17 +94,29 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun classRoomFragmentChange(){
         mainViewModel.classRoomFragmentNum.observe(this, Observer {
             when (it) {
-                2 -> changeFragment(R.id.fragment_container_main,AskEveryoneFragment())
+                2 -> changeFragment(R.id.fragment_container_main,AskEveryoneFragment(), "askEveryOne")
 
                 1 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
 
-                3 -> changeFragment(R.id.fragment_container_main, SeniorFragment())
+                3 -> changeFragment(R.id.fragment_container_main, SeniorFragment(),"senior")
 
-                4 -> changeFragment(R.id.fragment_container_main, SeniorPersonalFragment())
+                4 -> changeFragment(R.id.fragment_container_main, SeniorPersonalFragment(),"seniorPersonal")
 
-                5 -> changeFragment(R.id.fragment_container_main, ClassRoomReviewFragment())
+                5 -> changeFragment(R.id.fragment_container_main, ClassRoomReviewFragment(),"classRoomReview")
             }
         })
+    }
+
+    //과방 뒤로가기 전환
+    private fun classRoomBack(){
+        mainViewModel.classRoomBackFragmentNum.observe(this){
+            when (it) {
+                1 -> popFragmentBackStack("seniorPersonal")
+                2 -> popFragmentBackStack("senior")
+            }
+
+        }
+
     }
 
 

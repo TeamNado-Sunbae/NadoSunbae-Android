@@ -54,4 +54,24 @@ class ClassRoomRepositoryImpl : ClassRoomRepository {
     ) {
         return classRoomDataSource.postQuestionCommentWrite(requestQuestionCommentWriteData, onResponse, onFailure)
     }
+
+
+    //선배 개인페이지
+    override fun getSeniorPersonal(
+        userId: Int,
+        onResponse: (Response<ResponseSeniorPersonalData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return classRoomDataSource.getSeniorPersonal(userId, onResponse, onFailure)
+    }
+
+    //선배 1:1 질문 리스트
+    override fun getSeniorQuestionList(
+        userId: Int,
+        sort: String,
+        onResponse: (Response<ResponseSeniorQuestionData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return classRoomDataSource.getSeniorQuestionList(userId, sort, onResponse, onFailure)
+    }
 }

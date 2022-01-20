@@ -43,4 +43,19 @@ interface ClassRoomService {
     fun postQuestionCommentWrite(
         @Body requestQuestionCommentWriteData: RequestQuestionCommentWriteData
     ) : Call<ResponseQuestionCommentWrite>
+
+
+    //선배 개인페이지
+    @GET("user/mypage/{userId}")
+    fun getSeniorPersonal(
+       @Path("userId") userId : Int
+    ) : Call<ResponseSeniorPersonalData>
+
+    //선배 개인페이지 1:1 질문 글 목록
+    @GET("user/mypage/{userId}/classroom-post/list")
+    fun getSeniorQuestionList(
+        @Path("userId") userId : Int,
+        @Query("sort") sort : String ?= "recent"
+    ) : Call<ResponseSeniorQuestionData>
+
 }

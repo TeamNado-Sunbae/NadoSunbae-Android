@@ -26,6 +26,12 @@ class MainViewModel() : ViewModel() {
     //과방탭 프래그먼트 전환 (1 -> 과방 메인, 2 -> 전체에게 질문 3 -> 질문 구성원 목록 4 -> 선배 개인 페이지 5-> 학과 후기)
     var classRoomFragmentNum = MutableLiveData<Int>()
 
+    //과방탭 뒤로가기 전환( 1 : 선배개인페이지 -> 구성원, 2: 구성원 -> 과방 메인)
+    var classRoomBackFragmentNum = MutableLiveData<Int>()
+
+    //과방탭 1:1 선배 Id
+    var seniorId  = MutableLiveData<Int>()
+
     //과방탭 질문글 메인 조회
     private val _classRoomMain = MutableLiveData<ResponseClassRoomMainData>()
     val classRoomMain : LiveData<ResponseClassRoomMainData>
@@ -43,7 +49,6 @@ class MainViewModel() : ViewModel() {
         get() = _selectedMajor
 
     // 구성원 전체보기
-
     private val _seniorData = MutableLiveData<ResponseClassRoomSeniorData.Data>()
     val seniorData : LiveData<ResponseClassRoomSeniorData.Data>
         get() = _seniorData
@@ -60,8 +65,6 @@ class MainViewModel() : ViewModel() {
     fun setSelectedMajor(majorData: MajorData) {
         _selectedMajor.value = majorData
     }
-
-
 
     // 학과 목록 데이터
     fun getMajorList(universityId: Int, filter: String = "all") {

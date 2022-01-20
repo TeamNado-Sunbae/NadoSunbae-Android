@@ -29,6 +29,7 @@ class QuestionWriteActivity :
         writeTitle()
         writeContent()
         completeBtnCheck()
+        cancelWrite()
     }
 
 
@@ -89,6 +90,13 @@ class QuestionWriteActivity :
 
                 }
             }
+        }
+    }
+
+    //종료 버튼 클릭
+    private fun cancelWrite(){
+        binding.imgQuestionWriteAllCancle.setOnClickListener {
+            finish()
         }
 
     }
