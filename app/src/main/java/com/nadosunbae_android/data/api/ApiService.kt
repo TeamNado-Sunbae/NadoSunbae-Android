@@ -65,5 +65,4 @@ object ApiService {
     val classRoomService : ClassRoomService = retrofit.create(ClassRoomService::class.java)
     val signService : SignService = retrofit.create(SignService::class.java)
     val reviewService : ReviewService = retrofit.create(ReviewService::class.java)
-
 }

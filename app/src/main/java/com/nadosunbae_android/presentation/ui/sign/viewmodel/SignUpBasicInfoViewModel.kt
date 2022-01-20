@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
 import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
+import com.nadosunbae_android.data.model.request.sign.RequestSignUp
 import com.nadosunbae_android.data.model.response.sign.ResponseFirstDepartment
 import com.nadosunbae_android.data.model.response.sign.ResponseSignNickname
+import com.nadosunbae_android.data.model.response.sign.ResponseSignUp
 import com.nadosunbae_android.data.repository.sign.SignRepository
 import com.nadosunbae_android.data.repository.sign.SignRepositoryImpl
 
@@ -20,16 +22,26 @@ class SignUpBasicInfoViewModel : ViewModel() {
     //이메일 중복 체크 변수
     var emailDuplication = MutableLiveData<Boolean>()
 
-    //제 1전공
-    val firstDepartment = MutableLiveData<ResponseFirstDepartment>()
-    val secondDepartment = MutableLiveData<ResponseFirstDepartment>()
+    //회원가입
+    var signUp = MutableLiveData<ResponseSignUp>()
 
+    //회원가입 request
+    val requestSignUp = RequestSignUp("", "", "", 0, 0, "", 0, "")
 
     //닉네임
     var nickName = MutableLiveData<String>()
 
     //이메일
     var email = MutableLiveData<String>()
+
+    //비밀번호
+    var password = MutableLiveData<String>()
+
+    //제 1전공
+    val firstDepartment = MutableLiveData<ResponseFirstDepartment>()
+
+    //제 2전공
+    val secondDepartment = MutableLiveData<ResponseFirstDepartment>()
 
 
     //닉네임 중복 체크
@@ -68,6 +80,21 @@ class SignUpBasicInfoViewModel : ViewModel() {
                 Log.d("emailDuplication", "서버 통신 실패")
             })
     }
+
+    //회원가입
+    fun signUp(requestSignUp: RequestSignUp) {
+        signRepository.postSignUp(requestSignUp,
+        onResponse = {
+            if(it.isSuccessful) {
+                signUp.value = it.body()
+                Log.d("Signup", "서버 통신 성공")
+            }
+        },
+        onFailure = {
+            Log.d("signUp", "서버 통신 실패")
+        })
+    }
+
 
     //본 전공 선택
     fun getFirstDepartment(universityId: Int, filter: String) {

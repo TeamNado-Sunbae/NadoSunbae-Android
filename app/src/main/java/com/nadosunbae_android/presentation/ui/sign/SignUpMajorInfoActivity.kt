@@ -105,7 +105,18 @@ class SignUpMajorInfoActivity :
 //        }
         //binding.clSignupMajorInfoMoveNext.isSelected = true
         binding.clSignupMajorInfoMoveNext.setOnClickListener {
-            startActivity(Intent(this, SignUpBasicInfoActivity::class.java))
+
+            // 버튼 활성화 CHECK
+//            if (binding.clSignupMajorInfoMoveNext.isSelected) {
+                //signUpBasicInfoViewModel.requestSignUp.firstMajorId = binding.textSignupMajorInfoMajor.id
+                signUpBasicInfoViewModel.requestSignUp.firstMajorStart = binding.textSignupMajorInfoMajorTime.text.toString()
+                signUpBasicInfoViewModel.requestSignUp.secondMajorId = binding.textSignupMajorInfoMajor.id
+                signUpBasicInfoViewModel.requestSignUp.secondMajorStart = binding.textSignupMajorInfoDoubleMajorTime.text.toString()
+
+                startActivity(Intent(this, SignUpBasicInfoActivity::class.java))
+            //}
+
+
         }
     }
 
@@ -131,18 +142,25 @@ class SignUpMajorInfoActivity :
             firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
                 .map { BottomSheetData(it.majorId, it.majorName, false) }.toMutableList())
         }
+
         //데이터 넣기
         firstDepartmentBottomSheetDialog.setCompleteListener {
             val firstMajor = firstDepartmentBottomSheetDialog.getSelectedData()
-            signViewModel.firstMajor.value = firstMajor.name
+            signViewModel.firstMajor.value = firstMajor?.name
         }
+
         signViewModel.firstMajor
             .observe(this) {
                 binding.textSignupMajorinfoMajor.setText(it)
                 binding.textSignupMajorinfoMajor.text = it
+
                 binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
                 binding.textSignupMajorinfoMajorMint.setText("변경")
+
+                //val firstDepartment = signUpBasicInfoViewModel.firstDepartment.value
             }
+//        signUpBasicInfoViewModel.signUp.observe(this) {
+//        }
     }
 
     //제 1전공 진입시기 선택 바텀시트
@@ -176,7 +194,7 @@ class SignUpMajorInfoActivity :
 
             firstDepartmentPeriodBottomSheetDialog.setCompleteListener {
                 val firstMajorPeriod = firstDepartmentPeriodBottomSheetDialog.getSelectedData()
-                signViewModel.firstMajorPeriod.value = firstMajorPeriod.name
+                signViewModel.firstMajorPeriod.value = firstMajorPeriod?.name
             }
             signViewModel.firstMajorPeriod.observe(this) {
                 binding.textSignupMajorinfoMajorTime.setText(it)
@@ -205,7 +223,7 @@ class SignUpMajorInfoActivity :
 
         secondDepartmentBottomSheetDialog.setCompleteListener {
             val secondMajor = secondDepartmentBottomSheetDialog.getSelectedData()
-            signViewModel.secondMajor.value = secondMajor.name
+            signViewModel.secondMajor.value = secondMajor?.name
         }
         signViewModel.secondMajor
             .observe(this) {
@@ -262,7 +280,7 @@ class SignUpMajorInfoActivity :
 
             secondDepartmentPeriodBottomSheetDialog.setCompleteListener {
                 val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
-                signViewModel.secondMajorPeriod.value = secondMajorPeriod.name
+                signViewModel.secondMajorPeriod.value = secondMajorPeriod?.name
             }
 
             signViewModel.secondMajorPeriod.observe(this) {
