@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="myPageInfo"
+            type="com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo" />
     </data>
 
 
@@ -133,7 +135,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp"
                     android:fontFamily="@font/pretendard_medium"
-                    android:text="@string/mypage_my_nickname"
+                    android:text="@{myPageInfo.Data.nickname}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/img_my_page_main"
@@ -196,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:fontFamily="@font/pretendard_regular"
-                    android:text="@string/mypage_first_major_name"
+                    android:text="@{myPageInfo.Data.firstMajorName}"
                     android:textColor="@color/gray_2"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/view_my_page_bar1"
@@ -210,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/pretendard_regular"
-                    android:text="@string/mypage_first_major_time"
+                    android:text="@{myPageInfo.Data.firstMajorStart}"
                     android:textColor="@color/gray_2"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/text_my_page_first_major_name"
@@ -246,7 +248,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:fontFamily="@font/pretendard_regular"
-                    android:text="@string/mypage_second_major_name"
+                    android:text="@{myPageInfo.Data.secondMajorName}"
                     android:textColor="@color/gray_2"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/view_my_page_bar2"
@@ -260,7 +262,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/pretendard_regular"
-                    android:text="@string/mypage_second_major_time"
+                    android:text="@{myPageInfo.Data.secondMajorStart}"
                     android:textColor="@color/gray_2"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/text_my_page_second_major_name"
@@ -424,7 +426,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/pretendard_regular"
-                android:text="@string/mypage_like_list_num"
+                android:text="@{myPageInfo.Data.likeCount}"
                 android:textColor="@color/main_default"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/text_my_page_like_list"
