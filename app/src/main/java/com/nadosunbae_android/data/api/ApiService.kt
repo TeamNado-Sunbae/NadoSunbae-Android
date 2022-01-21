@@ -1,6 +1,7 @@
 package com.nadosunbae_android.data.api
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
