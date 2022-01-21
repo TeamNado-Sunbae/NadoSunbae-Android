@@ -44,14 +44,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setDefaultMajor()
         getSignDataFromIntent()
         classRoomBack()
-        clickBottomNav()
+       // clickBottomNav()
     }
 
 
 
 
     //바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
-    private fun clickBottomNav(){
+   /* private fun clickBottomNav(){
         mainViewModel.notificationClickNum.observe(this){
             when(it){
                 2 -> binding.btNvMain.menu.findItem(R.id.navigation_room).setChecked(true)
@@ -60,7 +60,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
 
 
-    }
+    } */
 
 
     //바텀네비
