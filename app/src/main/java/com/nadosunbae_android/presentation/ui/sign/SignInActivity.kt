@@ -8,6 +8,8 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.request.sign.RequestSignIn
 import com.nadosunbae_android.databinding.ActivitySignInBinding
@@ -28,7 +30,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        deviceToken()
         onViewId()
         moveFindPw()
         moveSignUp()
@@ -52,7 +54,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                 } else {
                     binding.imgSignInIdCancel.isSelected = true
                 }
-
+                signUpBasicInfoViewModel.email.value = p0.toString()
                 isEmptyText()
             }
         })
@@ -80,7 +82,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                 } else {
                     binding.imgSignInPwCancel.isSelected = true
                 }
-
+                signUpBasicInfoViewModel.password.value = p0.toString()
                 isEmptyText()
 
             }
@@ -117,11 +119,24 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         }
     }
 
+    // 디바이스 등록
+    private fun deviceToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{ task ->
+            if(!task.isSuccessful){
+                Log.d("deviceToken", "디바이스 토큰 정보 가저오기 실패", task.exception)
+                return@OnCompleteListener
+            }
+
+            val token = task.result
+            signUpBasicInfoViewModel.deviceToken.value = token
+            Log.d("token", token)
+
+        } )
+    }
     //로그인 버튼 클릭 이벤트
     private fun moveMainPage() {
         Log.d("SignUp", "서버 통신 성공!")
 
-        //val token = mainActivity.task.result
         binding.clLogin.setOnClickListener {
 
             signUpBasicInfoViewModel.signIn(
@@ -131,11 +146,17 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                     signUpBasicInfoViewModel.deviceToken.value.toString()
                 )
             )
-            signUpBasicInfoViewModel.signIn.observe(this){its ->
+
+            signUpBasicInfoViewModel.signIn.observe(this) { its ->
                 Log.d("its", its.success.toString())
-                if(its.success) {
-                    startActivity(Intent(this, MainActivity::class.java))
-                }
+                if (its.success) {
+                   val intent = Intent(this, MainActivity::class.java)
+                    val data = its.data.user
+                    intent.apply {
+                        putExtra("signData", data)
+                    }
+                    startActivity(intent)
+             }
             }
         }
     }

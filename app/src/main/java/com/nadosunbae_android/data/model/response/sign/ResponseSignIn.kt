@@ -1,5 +1,7 @@
 package com.nadosunbae_android.data.model.response.sign
 
+import java.io.Serializable
+
 data class ResponseSignIn(
     val data: Data,
     val message: String,
@@ -19,6 +21,6 @@ data class ResponseSignIn(
             val secondMajorName: String,
             val universityId: Int,
             val userId: Int
-        )
+        ) : Serializable
     }
 }

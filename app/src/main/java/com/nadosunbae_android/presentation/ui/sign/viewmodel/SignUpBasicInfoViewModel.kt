@@ -16,6 +16,7 @@ import com.nadosunbae_android.data.repository.sign.SignRepositoryImpl
 class SignUpBasicInfoViewModel : ViewModel() {
     val signRepository: SignRepository = SignRepositoryImpl()
 
+
     //닉네임 중복 체크 변수
     var nickNameDuplication = MutableLiveData<Boolean>()
 
@@ -86,10 +87,10 @@ class SignUpBasicInfoViewModel : ViewModel() {
 
     //로그인
     fun signIn(requestSignIn: RequestSignIn) {
-        signRepository.postSignUp(requestSignUp,
+        signRepository.postSignIn(requestSignIn,
         onResponse = {
             if(it.isSuccessful) {
-
+                signIn.value = it.body()
                 Log.d("SignIn", "서버 통신 성공")
             }
         },

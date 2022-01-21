@@ -32,6 +32,9 @@ class MainViewModel() : ViewModel() {
     //과방탭 1:1 선배 Id
     var seniorId  = MutableLiveData<Int>()
 
+
+    var myId = MutableLiveData<Int>()
+
     //과방탭 질문글 메인 조회
     private val _classRoomMain = MutableLiveData<ResponseClassRoomMainData>()
     val classRoomMain : LiveData<ResponseClassRoomMainData>
