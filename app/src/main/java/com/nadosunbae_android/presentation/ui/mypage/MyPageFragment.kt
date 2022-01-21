@@ -72,6 +72,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private fun initAskPersonal() {
         //마이페이지 선배 1:1
+        mainViewModel.signData.observe(viewLifecycleOwner){
+            myPageViewModel.getMyPageQuestion(it.userId)
+        }
+
         myPageQuestionAdapter = ClassRoomQuestionMainAdapter(2)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
         myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
