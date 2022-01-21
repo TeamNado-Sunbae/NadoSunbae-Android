@@ -19,6 +19,7 @@ import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewSelectBackgroundAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewWriteViewModel
+import com.nadosunbae_android.util.CustomDialog
 import com.nadosunbae_android.util.showCustomDropDown
 import okhttp3.RequestBody
 
@@ -147,31 +148,49 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         // 작성 완료
         binding.btnWriteComplete.setOnClickListener {
 
-            val selectedMajor = reviewWriteViewModel.dropDownSelected.value
-            val selectedBackgroundId = reviewSelectBackgroundAdapter.getSelectedBackgroundId()
+            // 작성 성공 알럿
+            CustomDialog(this).genericDialog(
+                CustomDialog.DialogData(
+                    getString(R.string.alert_write_review_title),
+                    getString(R.string.alert_write_review_complete),
+                    getString(R.string.alert_write_review_cancel)
+                ),
+                complete = {
+                    completeWriteReview()
+                },
+                cancel = {
 
-            // null check
-            if (selectedMajor != null && selectedBackgroundId != null) {
-                val requestBody = RequestPostReview(
-                    selectedMajor.id,
-                    reviewSelectBackgroundAdapter.getSelectedBackgroundId()!!,
-                    binding.etOneLine.text.toString(),
-                    binding.etProsCons.editText.text.toString(),
-                    binding.etCurriculum.editText.text.toString(),
-                    binding.etRecommendLecture.editText.text.toString(),
-                    binding.etNonRecommendLecture.editText.text.toString(),
-                    binding.etCareer.editText.text.toString(),
-                    binding.etTip.editText.text.toString()
-                )
-                
-                reviewWriteViewModel.postReview(requestBody)
-
-                // 알럿
-                finish()
-            }
+                }
+            )
 
         }
 
+    }
+
+    private fun completeWriteReview() {
+
+        val selectedMajor = reviewWriteViewModel.dropDownSelected.value
+        val selectedBackgroundId = reviewSelectBackgroundAdapter.getSelectedBackgroundId()
+
+        // null check
+        if (selectedMajor != null && selectedBackgroundId != null) {
+            val requestBody = RequestPostReview(
+                selectedMajor.id,
+                reviewSelectBackgroundAdapter.getSelectedBackgroundId()!!,
+                binding.etOneLine.text.toString(),
+                binding.etProsCons.editText.text.toString(),
+                binding.etCurriculum.editText.text.toString(),
+                binding.etRecommendLecture.editText.text.toString(),
+                binding.etNonRecommendLecture.editText.text.toString(),
+                binding.etCareer.editText.text.toString(),
+                binding.etTip.editText.text.toString()
+            )
+
+            reviewWriteViewModel.postReview(requestBody)
+
+            // 액티비티 종료
+            finish()
+        }
     }
 
     private fun observeBackgroundImageList() {
