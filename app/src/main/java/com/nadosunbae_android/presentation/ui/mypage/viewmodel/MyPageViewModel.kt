@@ -18,6 +18,11 @@ class MyPageViewModel : ViewModel() {
     val myPagePersonal : LiveData<ResponseMypageMyInfo>
     get() = _myPagePersonal
 
+    //마이페이지 1:1 질문 구분 변수
+
+
+
+
     /*
     //마이페이지 1:1 질문 메인 조회
     private val _myPageMain = MutableLiveData<ResponseMypageQuestionData>()
