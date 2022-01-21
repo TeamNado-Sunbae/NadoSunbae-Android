@@ -16,6 +16,7 @@ import com.nadosunbae_android.databinding.ActivitySignInBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.main.MainActivity
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
+import com.nadosunbae_android.util.NadoSunBaeSharedPreference
 
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
@@ -150,6 +151,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             signUpBasicInfoViewModel.signIn.observe(this) { its ->
                 Log.d("its", its.success.toString())
                 if (its.success) {
+                    NadoSunBaeSharedPreference.setAccessToken(this,its.data.accessToken)
                    val intent = Intent(this, MainActivity::class.java)
                     val data = its.data.user
                     intent.apply {

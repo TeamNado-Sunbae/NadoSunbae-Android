@@ -126,16 +126,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     // 로그인 response 전달  받기
     private fun getSignDataFromIntent() {
-        // real code
-        //val signData = intent.getSerializableExtra("signData") as ResponseSignIn
+        // 로그인 데이터 받아오기
+        val signData = intent.getSerializableExtra("signData") as ResponseSignIn.Data.User
 
         //test data
-        val signData = ResponseSignIn(ResponseSignIn.Data("d", ResponseSignIn.Data.User("ku2@korea.ac.kr", 3, "건축사회공학부", true, 42, "소프트웨어벤처", 1, 2)), "test", 200, true)
+        //val signData = ResponseSignIn(ResponseSignIn.Data("d", ResponseSignIn.Data.User("ku2@korea.ac.kr", 3, "건축사회공학부", true, 42, "소프트웨어벤처", 1, 2)), "test", 200, true)
+
         // null check
         if (signData != null) {
             mainViewModel.setSignData(signData)
 
-            val user = signData.data.user
+            val user = signData
             // 본전공이 default 선택
             mainViewModel.setSelectedMajor(MajorData(user.firstMajorId, user.secondMajorName))
             mainViewModel.setFirstMajor(MajorData(user.firstMajorId, user.firstMajorName))
@@ -156,7 +157,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             // null check
             if (signData != null) {
-                val user = signData.data.user
+                val user = signData
                 mainViewModel.setSelectedMajor(MajorData(user.firstMajorId, user.firstMajorName))
             }
         }
