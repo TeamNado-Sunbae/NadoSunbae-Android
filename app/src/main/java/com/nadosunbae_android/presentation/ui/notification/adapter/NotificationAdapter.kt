@@ -30,6 +30,10 @@ class NotificationAdapter(
         position: Int
     ) {
         holder.onBind(notifiCationList[position])
+        holder.itemView.setOnClickListener {
+            link.getNotificationMove(notifiCationList[position].postId, notifiCationList[position].isQuestionToPerson,
+            notifiCationList[position].notificationType)
+        }
         holder.binding.imgNotificationDelete.setOnClickListener {
             link.getNotificationId(notifiCationList[position].notificationId)
         }
