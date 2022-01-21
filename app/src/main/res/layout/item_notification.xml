@@ -28,8 +28,8 @@
 
             <ImageView
                 android:id="@+id/img_notification_profile"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="18dp"
                 profileImgSmall="@{notification.sender.profileImageId}"
