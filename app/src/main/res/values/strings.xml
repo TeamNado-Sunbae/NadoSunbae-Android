@@ -53,7 +53,7 @@
     <string name="review_subject_table">이수과목 일람표</string>
     <string name="review_filter">필터</string>
     <string name="review_latest_order">최신순</string>
-    <string name="review_likes_order">도움</string>
+    <string name="review_likes_order">도움순</string>
     <string name="review_reviews">후기</string>
     <string name="review_pros_cons">장단점</string>
     <string name="review_career">향후 진로</string>

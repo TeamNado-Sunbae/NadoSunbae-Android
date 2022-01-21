@@ -62,8 +62,7 @@ class CustomDropDownAdapter(val viewModel: DropDownSelectableViewModel, val sele
 
         // 초기 선택된 데이터 처리
         for (d in dataList) {
-            if (d.id == selectedItemId)
-                d.isSelected = true
+            d.isSelected = d.id == selectedItemId
         }
 
         notifyDataSetChanged()
