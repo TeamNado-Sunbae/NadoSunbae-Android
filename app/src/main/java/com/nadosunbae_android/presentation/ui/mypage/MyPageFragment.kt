@@ -2,24 +2,17 @@ package com.nadosunbae_android.presentation.ui.mypage
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
-import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
-import com.nadosunbae_android.data.model.ui.MyPageData
 import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentMyPageBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
-import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomAskEveryoneAdapter
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.util.Mapper
 
 
@@ -29,6 +22,14 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return MyPageViewModel() as T
+            }
+        }
+    }
+
+    private val mainViewModel: MainViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return MainViewModel() as T
             }
         }
     }
@@ -68,7 +69,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
 
     private fun initAskPersonal() {
-        myPageViewModel.getMyPageQuestion(37, "recent")
+        mainViewModel.myId.observe(viewLifecycleOwner) {
+            myPageViewModel.getMyPageQuestion(it)
+            myPageViewModel.getMyPageQuestion(it, "recent")
+        }
+
 
         myPageQuestionAdapter = ClassRoomQuestionMainAdapter(2)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter

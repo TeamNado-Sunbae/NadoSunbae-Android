@@ -1,15 +1,16 @@
 package com.nadosunbae_android.presentation.ui.main
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.FirebaseMessagingService
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.data.model.ui.MajorData
@@ -38,34 +39,33 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         initBottomNav()
         classRoomFragmentChange()
-        deviceToken()
+
         initMajorList()
         setDefaultMajor()
         getSignDataFromIntent()
         classRoomBack()
+        clickBottomNav()
     }
 
 
-    // 디바이스 등록
-    private fun deviceToken(){
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{ task ->
-            if(!task.isSuccessful){
-                Log.d("deviceToken", "디바이스 토큰 정보 가저오기 실패", task.exception)
-                return@OnCompleteListener
+
+
+    //바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
+    private fun clickBottomNav(){
+        mainViewModel.notificationClickNum.observe(this){
+            when(it){
+                2 -> binding.btNvMain.menu.findItem(R.id.navigation_room).setChecked(true)
+                3 -> binding.btNvMain.menu.findItem(R.id.navigation_mypage).setChecked(true)
             }
+        }
 
-            val token = task.result
 
-            Log.d("token", token)
-
-        } )
     }
-
-
 
 
     //바텀네비
     private fun initBottomNav(){
+
         // 첫 프래그먼트
         changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
 
@@ -106,6 +106,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 4 -> changeFragment(R.id.fragment_container_main, SeniorPersonalFragment(),"seniorPersonal")
 
                 5 -> changeFragment(R.id.fragment_container_main, ClassRoomReviewFragment(),"classRoomReview")
+
+                6 -> changeFragment(R.id.fragment_container_main, MyPageFragment(), "myPage")
             }
         })
     }

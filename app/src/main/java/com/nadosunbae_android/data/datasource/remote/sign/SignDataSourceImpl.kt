@@ -2,12 +2,10 @@ package com.nadosunbae_android.data.datasource.remote.sign
 
 import com.nadosunbae_android.data.api.ApiService
 import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
+import com.nadosunbae_android.data.model.request.sign.RequestSignIn
 import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.data.model.request.sign.RequestSignUp
-import com.nadosunbae_android.data.model.response.sign.ResponseFirstDepartment
-import com.nadosunbae_android.data.model.response.sign.ResponseSignEmail
-import com.nadosunbae_android.data.model.response.sign.ResponseSignNickname
-import com.nadosunbae_android.data.model.response.sign.ResponseSignUp
+import com.nadosunbae_android.data.model.response.sign.*
 import com.nadosunbae_android.util.enqueueUtil
 import retrofit2.Response
 
@@ -49,6 +47,16 @@ class SignDataSourceImpl : SignDataSource {
         onFailure: (Throwable) -> Unit
     ) {
         return ApiService.signService.postSignUp(requestSignUp).enqueueUtil(
+            onResponse, onFailure
+        )
+    }
+
+    override fun postSignIn(
+        requestSignIn: RequestSignIn,
+        onResponse: (Response<ResponseSignIn>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return ApiService.signService.postSignIn(requestSignIn).enqueueUtil(
             onResponse, onFailure
         )
     }
