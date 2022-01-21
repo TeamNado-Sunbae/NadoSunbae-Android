@@ -69,17 +69,24 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
 
     private fun initAskPersonal() {
-        mainViewModel.myId.observe(viewLifecycleOwner) {
-            myPageViewModel.getMyPageQuestion(it)
-            myPageViewModel.getMyPageQuestion(it, "recent")
-        }
-
+        myPageViewModel.getMyPageQuestion(2, "recent")
 
         myPageQuestionAdapter = ClassRoomQuestionMainAdapter(2)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
         myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
             myPageQuestionAdapter.setQuestionMain(Mapper.mapperToMyPageQuestion(it) as MutableList<ClassRoomData>)
         }
+//        mainViewModel.myId.observe(viewLifecycleOwner) {
+//            myPageViewModel.getMyPageQuestion(it)
+//            myPageViewModel.getMyPageQuestion(it, "recent")
+//        }
+//
+//
+//        myPageQuestionAdapter = ClassRoomQuestionMainAdapter(2)
+//        binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
+//        myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
+//            myPageQuestionAdapter.setQuestionMain(Mapper.mapperToMyPageQuestion(it) as MutableList<ClassRoomData>)
+//        }
 
     }
 
