@@ -98,14 +98,12 @@ object BindingAdapter {
     @BindingAdapter("profileImgBig")
     fun setProfileImg(imageView : ImageView, imageId : Int){
         when(imageId){
-            1 -> imageSelect(imageView, R.drawable.people1_72 )
-            2 -> imageSelect(imageView, R.drawable.people2_72)
-            3 -> imageSelect(imageView, R.drawable.people3_72)
-            4 -> imageSelect(imageView, R.drawable.people4_72)
-            5 -> imageSelect(imageView, R.drawable.people5_72)
+            1 -> imageSelect(imageView, R.drawable.mask_group_1)
+            2 -> imageSelect(imageView, R.drawable.mask_group_2)
+            3 -> imageSelect(imageView, R.drawable.mask_group_3)
+            4 -> imageSelect(imageView, R.drawable.mask_group_4)
+            5 -> imageSelect(imageView, R.drawable.mask_group_5)
         }
-
-
     }
 
     fun imageSelect(imageView : ImageView, image : Int){
