@@ -35,7 +35,7 @@ class SignUpBasicInfoViewModel : ViewModel() {
     var deviceToken = MutableLiveData<String>()
 
     //로그인
-    val signIn : MutableLiveData<ResponseSignIn> =MutableLiveData()
+    val signIn : MutableLiveData<ResponseSignIn> = MutableLiveData()
 
 
     //닉네임
@@ -91,11 +91,13 @@ class SignUpBasicInfoViewModel : ViewModel() {
         onResponse = {
             if(it.isSuccessful) {
                 signIn.value = it.body()
+                Log.d("signIn", it.body().toString())
                 Log.d("SignIn", "서버 통신 성공")
             }
         },
         onFailure = {
-            Log.d("signUp", "서버 통신 실패")
+            it.printStackTrace()
+            Log.d("signIn", "서버 통신 실패")
         })
     }
 

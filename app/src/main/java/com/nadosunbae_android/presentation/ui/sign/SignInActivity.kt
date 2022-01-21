@@ -121,9 +121,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     // 디바이스 등록
-    private fun deviceToken(){
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{ task ->
-            if(!task.isSuccessful){
+    private fun deviceToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
                 Log.d("deviceToken", "디바이스 토큰 정보 가저오기 실패", task.exception)
                 return@OnCompleteListener
             }
@@ -132,8 +132,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             signUpBasicInfoViewModel.deviceToken.value = token
             Log.d("token", token)
 
-        } )
+        })
     }
+
     //로그인 버튼 클릭 이벤트
     private fun moveMainPage() {
         Log.d("SignUp", "서버 통신 성공!")
@@ -149,18 +150,18 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             )
 
             signUpBasicInfoViewModel.signIn.observe(this) { its ->
-                Log.d("its", its.success.toString())
+
                 if (its.success) {
-                    NadoSunBaeSharedPreference.setAccessToken(this,its.data.accessToken)
-                   val intent = Intent(this, MainActivity::class.java)
+                    NadoSunBaeSharedPreference.setAccessToken(this, its.data.accesstoken)
+                    val intent = Intent(this, MainActivity::class.java)
                     val data = its.data.user
                     intent.apply {
                         putExtra("signData", data)
                     }
                     startActivity(intent)
-             }
+                }
             }
+
         }
     }
-
 }
