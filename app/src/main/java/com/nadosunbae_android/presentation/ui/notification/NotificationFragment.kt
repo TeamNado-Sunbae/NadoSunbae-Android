@@ -54,7 +54,7 @@ class NotificationFragment :
     private fun initNotificationList() {
         notificationAdapter = NotificationAdapter(link)
         binding.rcNotification.adapter = notificationAdapter
-
+        mainVi
         notificationViewModel.getNotification(3)
         notificationViewModel.notificationList.observe(viewLifecycleOwner) {
             notificationAdapter.setNotification(it.data.notificationList as MutableList<ResponseNotificationListData.Data.Notification>)
