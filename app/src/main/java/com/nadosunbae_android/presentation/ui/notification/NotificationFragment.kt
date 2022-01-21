@@ -54,6 +54,7 @@ class NotificationFragment :
     private fun initNotificationList() {
         notificationAdapter = NotificationAdapter(link)
         binding.rcNotification.adapter = notificationAdapter
+
         notificationViewModel.getNotification(3)
         notificationViewModel.notificationList.observe(viewLifecycleOwner) {
             notificationAdapter.setNotification(it.data.notificationList as MutableList<ResponseNotificationListData.Data.Notification>)
@@ -94,17 +95,23 @@ class NotificationFragment :
                     }
                 }
             } else {
-                if (notificationType == 2 or 4) {
-                    Log.d("noti", notificationType.toString())
-                    mainViewModel.classRoomFragmentNum.value = 1
-                    mainViewModel.notificationClickNum.value = 2
+                when (notificationType) {
+                    2 or 4 -> {
+                        Log.d("noti", notificationType.toString())
+                        mainViewModel.classRoomFragmentNum.value = 1
+                        mainViewModel.notificationClickNum.value = 2
+                        mainViewModel.classRoomNum.value = 1
 
-                    mainViewModel.classRoomNum.value = 1
-
-                } else {
-                    mainViewModel.classRoomFragmentNum.value = 1
-                    mainViewModel.notificationClickNum.value = 2
-                    mainViewModel.classRoomNum.value = 2
+                    }
+                    1 -> {
+                        mainViewModel.notificationClickNum.value = 3
+                        mainViewModel.classRoomFragmentNum.value = 6
+                    }
+                    else -> {
+                        mainViewModel.classRoomFragmentNum.value = 1
+                        mainViewModel.notificationClickNum.value = 2
+                        mainViewModel.classRoomNum.value = 2
+                    }
                 }
             }
 
