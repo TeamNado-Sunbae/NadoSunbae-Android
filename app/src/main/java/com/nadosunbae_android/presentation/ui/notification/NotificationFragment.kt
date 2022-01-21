@@ -55,7 +55,10 @@ class NotificationFragment :
         notificationAdapter = NotificationAdapter(link)
         binding.rcNotification.adapter = notificationAdapter
 
-        notificationViewModel.getNotification(3)
+        mainViewModel.signData.observe(viewLifecycleOwner) {
+            notificationViewModel.getNotification(it.userId)
+        }
+
         notificationViewModel.notificationList.observe(viewLifecycleOwner) {
             notificationAdapter.setNotification(it.data.notificationList as MutableList<ResponseNotificationListData.Data.Notification>)
         }
@@ -78,46 +81,23 @@ class NotificationFragment :
                 "notificationKing",
                 postId.toString() + isQuestionToPerson.toString() + notificationType.toString()
             )
-            if (isQuestionToPerson) {
-                when (notificationType) {
-                    2 or 4 -> {
-                        val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
-                        intent.putExtra("postId", postId)
-                        startActivity(intent)
-                    }
-                    1 -> {
-                        mainViewModel.classRoomFragmentNum.value = 6
-                    }
-                    else -> {
-                        val intent = Intent(requireActivity(), InformationDetailActivity::class.java)
-                        intent.putExtra("postId", postId)
-                        startActivity(intent)
-                    }
+            when (notificationType) {
+                 2 or 4 -> {
+                    val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
+                    intent.putExtra("postId", postId)
+                    startActivity(intent)
                 }
-            } else {
-                when (notificationType) {
-                    2 or 4 -> {
-                        Log.d("noti", notificationType.toString())
-                        mainViewModel.classRoomFragmentNum.value = 1
-                        mainViewModel.notificationClickNum.value = 2
-                        mainViewModel.classRoomNum.value = 1
-
-                    }
-                    1 -> {
-                        mainViewModel.notificationClickNum.value = 3
-                        mainViewModel.classRoomFragmentNum.value = 6
-                    }
-                    else -> {
-                        mainViewModel.classRoomFragmentNum.value = 1
-                        mainViewModel.notificationClickNum.value = 2
-                        mainViewModel.classRoomNum.value = 2
-                    }
+                else -> {
+                    val intent = Intent(requireActivity(), InformationDetailActivity::class.java)
+                    intent.putExtra("postId", postId)
+                    startActivity(intent)
                 }
             }
-
         }
 
     }
+
 }
+
 
 

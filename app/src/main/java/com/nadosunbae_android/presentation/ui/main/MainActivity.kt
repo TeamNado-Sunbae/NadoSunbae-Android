@@ -1,16 +1,10 @@
 package com.nadosunbae_android.presentation.ui.main
 
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.messaging.FirebaseMessaging
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.data.model.ui.MajorData
@@ -24,7 +18,6 @@ import com.nadosunbae_android.presentation.ui.review.ReviewFragment
 import com.nadosunbae_android.util.changeFragment
 import com.nadosunbae_android.util.changeFragmentNoBackStack
 import com.nadosunbae_android.util.popFragmentBackStack
-import kotlin.math.sign
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -44,14 +37,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setDefaultMajor()
         getSignDataFromIntent()
         classRoomBack()
-        clickBottomNav()
+       // clickBottomNav()
     }
 
 
 
 
     //바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
-    private fun clickBottomNav(){
+   /* private fun clickBottomNav(){
         mainViewModel.notificationClickNum.observe(this){
             when(it){
                 2 -> binding.btNvMain.menu.findItem(R.id.navigation_room).setChecked(true)
@@ -60,7 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
 
 
-    }
+    } */
 
 
     //바텀네비
