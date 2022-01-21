@@ -96,7 +96,7 @@ object BindingAdapter {
     //프로필 이미지72
     @JvmStatic
     @BindingAdapter("profileImgBig")
-    fun setProfileImg(imageView : ImageView, imageId : Int){
+    fun setProfileImgBig(imageView : ImageView, imageId : Int){
         when(imageId){
             1 -> imageSelect(imageView, R.drawable.mask_group_1)
             2 -> imageSelect(imageView, R.drawable.mask_group_2)
@@ -105,7 +105,17 @@ object BindingAdapter {
             5 -> imageSelect(imageView, R.drawable.mask_group_5)
         }
     }
-
+    @JvmStatic
+    @BindingAdapter("profileImgSmall")
+    fun setProfileImgSmall(imageView : ImageView, imageId : Int){
+        when(imageId){
+            1 -> imageSelect(imageView, R.drawable.mask_group_1_64)
+            2 -> imageSelect(imageView, R.drawable.mask_group_2_64)
+            3 -> imageSelect(imageView, R.drawable.mask_group_3_64)
+            4 -> imageSelect(imageView, R.drawable.mask_group_4_64)
+            5 -> imageSelect(imageView, R.drawable.mask_group_5_64)
+        }
+    }
     fun imageSelect(imageView : ImageView, image : Int){
         Glide.with(imageView.context)
             .load(image)
