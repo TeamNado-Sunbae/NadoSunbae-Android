@@ -127,21 +127,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     // 로그인 response 전달  받기
     private fun getSignDataFromIntent() {
         // real code
-        //val signData = intent.getSerializableExtra("signData") as ResponseSignIn
-
+        val signData = intent.getSerializableExtra("signData") as ResponseSignIn.Data.User?
         //test data
+        /*
         val signData =
             ResponseSignIn.Data.User("ku2@korea.ac.kr", 3, "건축사회공학부", true, 42, "소프트웨어벤처", 1, 2)
 
+         */
         // null check
         if (signData != null) {
             mainViewModel.setSignData(signData)
 
-            val user = signData
             // 본전공이 default 선택
-            mainViewModel.setSelectedMajor(MajorData(user.firstMajorId, user.secondMajorName))
-            mainViewModel.setFirstMajor(MajorData(user.firstMajorId, user.firstMajorName))
-            mainViewModel.setSecondMajor(MajorData(user.secondMajorId, user.secondMajorName))
+            mainViewModel.setSelectedMajor(MajorData(signData.firstMajorId, signData.secondMajorName))
+            mainViewModel.setFirstMajor(MajorData(signData.firstMajorId, signData.firstMajorName))
+            mainViewModel.setSecondMajor(MajorData(signData.secondMajorId, signData.secondMajorName))
         }
     }
 
