@@ -159,6 +159,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                         putExtra("signData", data)
                     }
                     startActivity(intent)
+                    finish()
                 }
             }
 

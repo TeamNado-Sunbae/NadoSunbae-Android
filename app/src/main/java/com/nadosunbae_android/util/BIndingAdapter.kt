@@ -44,13 +44,14 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("int", "nickname", requireAll = false)
     fun notification(textView: TextView, int: Int, nickname: String): SpannableStringBuilder {
-        val param = listOf("", "작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글", "1:1질문")
+        val param = listOf("","1:1질문", "작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글" )
         val text = listOf(
-            "", "작성하신 질문글에 ${nickname}이 답글을 남겼습니다",
+            "","마이페이지에 ${nickname}이 1:1질문을 남겼습니다.",
+            "작성하신 질문글에 ${nickname}이 답글을 남겼습니다",
             "작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
             "답글을 작성하신 질문글에 ${nickname}이 답글을 남겼습니다.",
             "답글을 작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
-            "마이페이지에 ${nickname}이 1:1질문을 남겼습니다."
+
         )
         var content = param[int]
         var start = text[int].indexOf(content)
@@ -66,15 +67,21 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("notificationOval")
     fun notificationOval(imageView: ImageView, isRead: Boolean) {
-        if (isRead) imageView.visibility = View.GONE else View.VISIBLE
+        if (isRead){
+            imageView.visibility = View.GONE
+        } else{
+            imageView.visibility = View.VISIBLE
+        }
     }
-
+    
+    //댓글 개수 보이게
     @JvmStatic
     @BindingAdapter("commentCount")
     fun commentCount(textView : TextView, text : String?){
         textView.text = "댓글 ${text}개"
     }
 
+    //작성자 처리
     @JvmStatic
     @BindingAdapter("writerVisible")
     fun writerVisible(textView : TextView, isPosterWriter : Boolean){
