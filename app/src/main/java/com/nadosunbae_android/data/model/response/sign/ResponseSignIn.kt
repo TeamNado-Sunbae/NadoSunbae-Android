@@ -1,7 +1,7 @@
 package com.nadosunbae_android.data.model.response.sign
 
 data class ResponseSignIn(
-    val `data`: Data,
+    val data: Data,
     val message: String,
     val status: Int,
     val success: Boolean

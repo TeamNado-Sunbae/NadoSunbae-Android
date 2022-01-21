@@ -4,13 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.request.sign.RequestSignIn
 import com.nadosunbae_android.databinding.ActivitySignInBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.main.MainActivity
+import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
+    private lateinit var mainActivity: MainActivity
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return SignUpBasicInfoViewModel() as T
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -102,12 +117,27 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         }
     }
 
-
+    //로그인 버튼 클릭 이벤트
     private fun moveMainPage() {
+        Log.d("SignUp", "서버 통신 성공!")
+
+        //val token = mainActivity.task.result
         binding.clLogin.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
 
+            signUpBasicInfoViewModel.signIn(
+                RequestSignIn(
+                    signUpBasicInfoViewModel.email.value.toString(),
+                    signUpBasicInfoViewModel.password.value.toString(),
+                    signUpBasicInfoViewModel.deviceToken.value.toString()
+                )
+            )
+            signUpBasicInfoViewModel.signIn.observe(this){its ->
+                Log.d("its", its.success.toString())
+                if(its.success) {
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
+            }
         }
-
     }
+
 }
