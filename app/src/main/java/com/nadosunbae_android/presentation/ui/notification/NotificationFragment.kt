@@ -3,14 +3,11 @@ package com.nadosunbae_android.presentation.ui.notification
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
 import com.nadosunbae_android.databinding.FragmentNotificationBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
@@ -119,9 +116,16 @@ class NotificationFragment :
             }
         }
 
+        //알림 읽기
+        fun getReadNotification(notificationId: Int) {
+            notificationViewModel.putReadNotification(notificationId)
+        }
     }
 
+
 }
+
+
 
 
 

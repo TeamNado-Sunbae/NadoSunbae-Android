@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationDeleteData
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
+import com.nadosunbae_android.data.model.response.notification.ResponseNotificationReadData
 import com.nadosunbae_android.data.repository.notification.NotificationRepository
 import com.nadosunbae_android.data.repository.notification.NotificationRepositoryImpl
 
@@ -18,6 +19,9 @@ class NotificationViewModel : ViewModel() {
 
     //알림 삭제 데이터
     var deleteNotification : MutableLiveData<ResponseNotificationDeleteData> = MutableLiveData()
+
+    //알림 읽기
+    var notificationRead : MutableLiveData<ResponseNotificationReadData> = MutableLiveData()
 
     //전체 알림 리스트 보기
     fun getNotification(receiverId : Int){
@@ -47,5 +51,18 @@ class NotificationViewModel : ViewModel() {
         )
     }
 
+
+    //알림 읽기
+    fun putReadNotification(notificationId : Int){
+        notificationRepository.putReadNotification(notificationId,
+        onResponse = {
+            notificationRead.value = it.body()
+            Log.d("putNotificationRead", "알림 읽기 성공")
+        },
+        onFailure = {
+            it.printStackTrace()
+            Log.d("putNotificationRead", "알림 읽기 실패")
+        })
+    }
 
 }

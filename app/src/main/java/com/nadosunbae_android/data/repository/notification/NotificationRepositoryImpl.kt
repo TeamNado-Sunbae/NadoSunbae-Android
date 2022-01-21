@@ -4,6 +4,7 @@ import com.nadosunbae_android.data.datasource.remote.notification.NotificationDa
 import com.nadosunbae_android.data.datasource.remote.notification.NotificationDataSourceImpl
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationDeleteData
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
+import com.nadosunbae_android.data.model.response.notification.ResponseNotificationReadData
 import retrofit2.Response
 
 class NotificationRepositoryImpl : NotificationRepository {
@@ -23,5 +24,13 @@ class NotificationRepositoryImpl : NotificationRepository {
         onFailure: (Throwable) -> Unit
     ) {
         return notificationDataSource.deleteNotification(notificationId, onResponse, onFailure)
+    }
+
+    override fun putReadNotification(
+        notificationId: Int,
+        onResponse: (Response<ResponseNotificationReadData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return notificationDataSource.putReadNotification(notificationId, onResponse, onFailure)
     }
 }
