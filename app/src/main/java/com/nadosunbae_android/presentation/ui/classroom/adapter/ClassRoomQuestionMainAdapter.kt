@@ -10,7 +10,8 @@ import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.presentation.ui.classroom.QuestionDetailActivity
 
-class ClassRoomQuestionMainAdapter(private val num : Int) : RecyclerView.Adapter<ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder>() {
+class ClassRoomQuestionMainAdapter(private val num: Int, private val userId: Int, private val myPageNum : Int) :
+    RecyclerView.Adapter<ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder>() {
     var questionMainData = mutableListOf<ClassRoomData>()
 
     override fun onCreateViewHolder(
@@ -34,6 +35,8 @@ class ClassRoomQuestionMainAdapter(private val num : Int) : RecyclerView.Adapter
         holder.binding.root.setOnClickListener {
             val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
             intent.apply {
+                putExtra("myPageNum",myPageNum)
+                putExtra("userId", userId)
                 putExtra("postId", questionMainData[position].postId)
                 putExtra("all", num)
             }
@@ -42,14 +45,14 @@ class ClassRoomQuestionMainAdapter(private val num : Int) : RecyclerView.Adapter
     }
 
     override fun getItemCount(): Int {
-        return if(questionMainData.size < 6) questionMainData.size else 5
+        return if (questionMainData.size < 6) questionMainData.size else 5
 
     }
 
     inner class ClassRoomQuestionMainViewHolder(
-        val binding : ItemQuestionAllBinding
-    ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(questionMainData : ClassRoomData){
+        val binding: ItemQuestionAllBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(questionMainData: ClassRoomData) {
             binding.apply {
                 questionMain = questionMainData
                 executePendingBindings()
@@ -57,7 +60,7 @@ class ClassRoomQuestionMainAdapter(private val num : Int) : RecyclerView.Adapter
         }
     }
 
-    fun setQuestionMain(questionMainData: MutableList<ClassRoomData>){
+    fun setQuestionMain(questionMainData: MutableList<ClassRoomData>) {
         this.questionMainData = questionMainData
         notifyDataSetChanged()
 

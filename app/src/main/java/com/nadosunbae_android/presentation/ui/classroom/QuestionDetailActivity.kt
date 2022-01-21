@@ -31,7 +31,7 @@ class QuestionDetailActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initQuestionDetail()
-        divisionQuestionDetail()
+
         backBtn()
     }
 
@@ -40,6 +40,11 @@ class QuestionDetailActivity :
     // 전체 질문 상세보기
     private fun initQuestionDetail() {
         val postId = intent.getIntExtra("postId", 0)
+        val userId = intent.getIntExtra("userId", 0)
+        val all = intent.getIntExtra("all", 0)
+        val myPageNum = intent.getIntExtra("myPageNum", 0)
+        Log.d("postId", postId.toString())
+        Log.d("userId", userId.toString())
         questionDetailViewModel.getClassRoomQuestionDetail(postId)
         classRoomQuestionDetailAdapter = ClassRoomQuestionDetailAdapter(this)
         binding.rcQuestionDetail.adapter = classRoomQuestionDetailAdapter
@@ -48,6 +53,19 @@ class QuestionDetailActivity :
             classRoomQuestionDetailAdapter.setLike(it.data.like.likeCount, it.data.like.isLiked)
             classRoomQuestionDetailAdapter.setQuestionDetail(it.data.messageList as MutableList<ResponseClassRoomQuestionDetail.Data.Message>)
             registerComment(postId)
+
+            //1:1질문 타인 글 쓰는거 막기
+           if(myPageNum != 1 && all != 1 && userId != it.data.questionerId && userId != it.data.answererId){
+                binding.etQuestionComment.isEnabled = false
+                binding.etQuestionComment.hint = getString(R.string.text_comment_impossible)
+            }
+
+            //전체질문 1:1질문 구분
+            if(all == 1){
+                binding.textQuestionDetailTitle.text = "질문"
+            }else{
+                binding.textQuestionDetailTitle.text = "1:1질문"
+            }
         }
 
 
@@ -71,21 +89,12 @@ class QuestionDetailActivity :
     }
 
 
-    //전체 질문 1:1질문 구분
-    private fun divisionQuestionDetail(){
-        val all = intent.getIntExtra("all", 0)
-        if(all == 1){
-            binding.textQuestionDetailTitle.text = "질문"
-        }else{
-            binding.textQuestionDetailTitle.text = "1:1질문"
-        }
-    }
+
 
     //뒤로가기
     private fun backBtn(){
         binding.imgQuestionDetailTitle.setOnClickListener {
             finish()
         }
-
     }
 }

@@ -109,6 +109,7 @@ class NotificationFragment :
                 1 -> {
                     val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
                     intent.apply {
+                        putExtra("myPageNum",1)
                         putExtra("postId", postId)
                         putExtra("all", 2)
                     }

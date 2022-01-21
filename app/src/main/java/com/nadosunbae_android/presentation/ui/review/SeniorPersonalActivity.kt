@@ -56,7 +56,7 @@ class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.lay
     //선배에게 온 1:1 질문 목록
     private fun initSeniorQuestion() {
 
-        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(2)
+        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(2, 0,0)
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
         seniorPersonalViewModel.seniorQuestion.observe(this) {
             Log.d("seniorQuestionAdapter", "좀 되라")

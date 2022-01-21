@@ -284,4 +284,7 @@
     <string name="alert_cancel_write_complete">계속 작성</string>
     <string name="alert_cancel_write_cancel">나갈래요</string>
 
+
+    <!-- 댓글 작성 못하게 -->
+    <string name="text_comment_impossible">다른 선배 개인 페이지에서는 답글 불가!</string>
 </resources>
