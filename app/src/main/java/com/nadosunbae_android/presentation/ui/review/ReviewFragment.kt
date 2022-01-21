@@ -19,6 +19,7 @@ import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.util.CustomBottomSheetDialog
+import com.nadosunbae_android.util.CustomDialog
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
@@ -86,7 +87,24 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         reviewListAdapter.setItemClickListener(
             object: ReviewListAdapter.ItemClickListener {
                 override fun onClick(view: View, position: Int) {
-                    // postId Intent로 전달
+
+                    // 후기 작성 여부 확인
+                    val signData = mainViewModel.signData.value
+                    if (!signData!!.data.user.isReviewed) {
+                        // 후기 미작성시 알럿 띄우기
+                        CustomDialog(requireContext())
+                            .genericDialog(CustomDialog.DialogData("aaa", "sss", "ddd"),
+                            complete = {
+
+                            },
+                            cancel = {
+
+                                }
+                            )
+                        return
+                    }
+
+                    // postId Intent로 전달 (후기 상세보기 이동)
                     val intent = Intent(context, ReviewDetailActivity::class.java)
                     val postId = reviewListViewModel.reviewListData.value!!.data[position].postId
                     intent.putExtra("postId", postId)

@@ -163,7 +163,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                     binding.etCareer.editText.text.toString(),
                     binding.etTip.editText.text.toString()
                 )
-                Log.d("sdf sdaf sd", requestBody.toString())
+                
                 reviewWriteViewModel.postReview(requestBody)
 
                 // 알럿
