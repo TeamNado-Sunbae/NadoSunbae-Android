@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_filter_empty"
+                        android:drawableLeft="@drawable/selector_icon_filter"
                         android:drawablePadding="6dp"
                         android:fontFamily="@font/pretendard_light"
                         android:includeFontPadding="false"

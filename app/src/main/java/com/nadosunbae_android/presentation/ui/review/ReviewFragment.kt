@@ -170,6 +170,11 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
             mainViewModel.filterData.value = MainViewModel.FilterData(writerFilter, tagFilter)
         }
+
+        // 필터 리셋 시
+        filterBottomSheetDialog.resetFilterOperation = {
+            mainViewModel.filterData.value = MainViewModel.FilterData(FILTER_ALL, listOf(1, 2, 3, 4, 5))
+        }
     }
 
     private fun openReviewWrite() {
@@ -228,9 +233,21 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
             // null check
             if (filter != null) {
+
                 filterBottomSheetDialog.setFilter(filter)
+
+                // 필터 활성화
+                binding.btnReviewFilter.isSelected =
+                    filter.writerFilter != FILTER_ALL && filter.tagFilter != listOf(1, 2, 3, 4, 5)
+
+                binding.executePendingBindings()
+
+                Log.d("dfs dsf  ", filter.toString())
+                // 후기 불러오기
                 loadReviewList()
+
             }
+
 
         }
 
@@ -246,6 +263,10 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         if (filterData != null) {
             writerFilter = filterData.writerFilter
             tagFilter = filterData.tagFilter
+
+            // tag 비어있으면 모두 선택
+            if (tagFilter.isEmpty())
+                tagFilter = listOf(1, 2, 3, 4, 5)
         }
 
         // review list 갱신

@@ -21,6 +21,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
     val binding get() = _binding!!
 
     var applyOperation: () -> Unit = { }
+    var resetFilterOperation: () -> Unit = { }
 
     private var filterData = MainViewModel.FilterData(FILTER_ALL, listOf(1, 2, 3, 4, 5))
 
@@ -95,6 +96,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         for (btn in filterButtonList) {
             btn.isSelected = false
         }
+        resetFilterOperation()
     }
 
     // 적용하기 버튼 활성화 로직
