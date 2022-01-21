@@ -2,6 +2,7 @@ package com.nadosunbae_android.data.datasource.remote.notification
 
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationDeleteData
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
+import com.nadosunbae_android.data.model.response.notification.ResponseNotificationReadData
 import retrofit2.Response
 
 interface NotificationDataSource {
@@ -17,5 +18,11 @@ interface NotificationDataSource {
         notificationId : Int,
         onResponse: (Response<ResponseNotificationDeleteData>) -> Unit,
         onFailure : (Throwable) -> Unit)
+
+    //알림 읽기
+    fun putReadNotification(
+        notificationId : Int,
+        onResponse: (Response<ResponseNotificationReadData>) -> Unit,
+        onFailure: (Throwable) -> Unit)
 
 }

@@ -40,7 +40,6 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
             if(it.data.writer.secondMajorName == "미진입"){
                 binding.textInformationDetailQuestionSecondMajorStart.visibility = View.GONE
             }
-
             classRoomInfoDetailAdapter.setInfoDetail(it.data.commentList as MutableList<ResponseInfoDetailData.Data.Comment>)
         }
     }

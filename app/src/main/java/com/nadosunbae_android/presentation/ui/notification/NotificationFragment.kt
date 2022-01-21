@@ -3,14 +3,11 @@ package com.nadosunbae_android.presentation.ui.notification
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
 import com.nadosunbae_android.databinding.FragmentNotificationBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
@@ -49,6 +46,12 @@ class NotificationFragment :
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.signData.observe(viewLifecycleOwner) {
+            notificationViewModel.getNotification(it.userId)
+        }
+    }
 
     //알림 리스트 조회
     private fun initNotificationList() {
@@ -60,6 +63,7 @@ class NotificationFragment :
         }
 
         notificationViewModel.notificationList.observe(viewLifecycleOwner) {
+
             notificationAdapter.setNotification(it.data.notificationList as MutableList<ResponseNotificationListData.Data.Notification>)
         }
     }
@@ -76,15 +80,38 @@ class NotificationFragment :
         }
 
         //알림 이동
-        fun getNotificationMove(postId: Int, isQuestionToPerson: Boolean, notificationType: Int) {
+        fun getNotificationMove(
+            postId: Int,
+            notificationType: Int
+        ) {
             Log.d(
                 "notificationKing",
-                postId.toString() + isQuestionToPerson.toString() + notificationType.toString()
+                "postId:" + postId.toString() + "notification:" + notificationType.toString()
             )
+            // 2,4 -> 질문글, 3,5 -> 정보글, 1 -> 1:1질문글
             when (notificationType) {
-                 2 or 4 -> {
+                2 -> {
                     val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
-                    intent.putExtra("postId", postId)
+                    intent.apply {
+                        putExtra("postId", postId)
+                        putExtra("all", 1)
+                    }
+                    startActivity(intent)
+                }
+                4 -> {
+                    val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
+                    intent.apply {
+                        putExtra("postId", postId)
+                        putExtra("all", 1)
+                    }
+                    startActivity(intent)
+                }
+                1 -> {
+                    val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
+                    intent.apply {
+                        putExtra("postId", postId)
+                        putExtra("all", 2)
+                    }
                     startActivity(intent)
                 }
                 else -> {
@@ -95,9 +122,16 @@ class NotificationFragment :
             }
         }
 
+        //알림 읽기
+        fun getReadNotification(notificationId: Int) {
+            notificationViewModel.putReadNotification(notificationId)
+        }
     }
 
+
 }
+
+
 
 
 

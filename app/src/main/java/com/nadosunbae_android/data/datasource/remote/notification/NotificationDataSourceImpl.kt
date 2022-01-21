@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.datasource.remote.notification
 import com.nadosunbae_android.data.api.ApiService
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationDeleteData
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
+import com.nadosunbae_android.data.model.response.notification.ResponseNotificationReadData
 import com.nadosunbae_android.util.enqueueUtil
 import retrofit2.Response
 
@@ -24,6 +25,16 @@ class NotificationDataSourceImpl : NotificationDataSource {
         onFailure: (Throwable) -> Unit
     ) {
         return ApiService.notificationService.deleteNotification(notificationId).enqueueUtil(
+            onResponse, onFailure
+        )
+    }
+
+    override fun putReadNotification(
+        notificationId: Int,
+        onResponse: (Response<ResponseNotificationReadData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return ApiService.notificationService.putReadNotification(notificationId).enqueueUtil(
             onResponse, onFailure
         )
     }
