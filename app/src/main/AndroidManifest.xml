@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid">
         <activity
+            android:name=".presentation.ui.review.SeniorPersonalActivity"
+            android:exported="false"
+            android:label="@string/title_activity_senior_personal"
+            android:theme="@style/Theme.NadoSunbaeAndroid.NoActionBar" />
+        <activity
             android:name=".presentation.ui.classroom.InformationDetailActivity"
             android:exported="false" />
         <activity
@@ -52,8 +57,7 @@
             android:exported="true" />
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".presentation.ui.mypage.ServiceInqueryActivity"
             android:exported="false" />
@@ -69,7 +73,6 @@
         <activity
             android:name=".presentation.ui.mypage.ModifyMyInfoActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentation.ui.mypage.MyPageSettingActivity"
             android:exported="false" />
@@ -80,13 +83,12 @@
             android:name=".presentation.ui.mypage.MyPagePostActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
-
         <activity
             android:name=".presentation.ui.review.ReviewWriteActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.main.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -98,7 +100,7 @@
             android:name=".presentation.ui.notification.MyFirebaseMessagingService"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>

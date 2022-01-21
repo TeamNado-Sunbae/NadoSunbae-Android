@@ -58,4 +58,10 @@ interface ClassRoomService {
         @Query("sort") sort : String ?= "recent"
     ) : Call<ResponseSeniorQuestionData>
 
+
+    //정보글 상세보기
+    @GET("classroom-post/information/{postId}")
+    fun getInformationDetail(
+        @Path("postId") postId : Int
+    ) : Call<ResponseInfoDetailData>
 }

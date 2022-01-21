@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+        <variable
+            name="dialogText"
+            type="com.nadosunbae_android.util.CustomDialog.DialogData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/cl_question_write_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <TextView
+            android:id="@+id/tv_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@{dialogText.title}"
+            android:textAlignment="center"
+            android:textColor="@color/main_text"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btn_dialog_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="14dp"
+            android:background="@drawable/rectangle_fill_gray0_12dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingLeft="32dp"
+            android:paddingTop="15dp"
+            android:paddingRight="32dp"
+            android:paddingBottom="15dp"
+            android:text="@{dialogText.cancel}"
+            android:textColor="@color/gray_3"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dialog_title" />
+
+
+        <TextView
+            android:id="@+id/btn_dialog_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:background="@drawable/rectangle_fill_black_12dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingLeft="32dp"
+            android:paddingTop="15dp"
+            android:paddingRight="32dp"
+            android:paddingBottom="15dp"
+            android:text="@{dialogText.complete}"
+            android:textColor="@color/main_default"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_dialog_cancel"
+            app:layout_constraintTop_toTopOf="@+id/btn_dialog_cancel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

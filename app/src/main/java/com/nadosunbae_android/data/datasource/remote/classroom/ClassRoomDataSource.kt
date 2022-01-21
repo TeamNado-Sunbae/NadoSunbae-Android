@@ -53,4 +53,11 @@ interface ClassRoomDataSource {
         onResponse : (Response<ResponseSeniorQuestionData>) -> Unit,
         onFailure: (Throwable) -> Unit
     )
+
+    //정보 상세 조회
+    fun getInformationDetail(
+        postId: Int,
+        onResponse : (Response<ResponseInfoDetailData>) -> Unit,
+        onFailure: (Throwable) -> Unit)
+
 }

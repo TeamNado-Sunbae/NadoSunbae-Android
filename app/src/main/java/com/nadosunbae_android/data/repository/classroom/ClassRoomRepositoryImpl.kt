@@ -74,4 +74,13 @@ class ClassRoomRepositoryImpl : ClassRoomRepository {
     ) {
         return classRoomDataSource.getSeniorQuestionList(userId, sort, onResponse, onFailure)
     }
+
+    //정보 상세 조회
+    override fun getInformationDetail(
+        postId: Int,
+        onResponse: (Response<ResponseInfoDetailData>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return classRoomDataSource.getInformationDetail(postId, onResponse, onFailure)
+    }
 }

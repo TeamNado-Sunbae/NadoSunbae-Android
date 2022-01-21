@@ -1,7 +1,7 @@
 package com.nadosunbae_android.data.model.response.sign
 
-import java.io.Serializable
 
+import java.io.Serializable
 data class ResponseSignIn(
     val data: Data,
     val message: String,
@@ -9,7 +9,7 @@ data class ResponseSignIn(
     val success: Boolean
 ) {
     data class Data(
-        val accesstoken: String,
+        val accessToken: String,
         val user: User
     ) {
         data class User(

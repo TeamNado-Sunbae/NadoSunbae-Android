@@ -19,6 +19,7 @@ import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.util.CustomBottomSheetDialog
+import com.nadosunbae_android.util.CustomDialog
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
@@ -86,7 +87,28 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         reviewListAdapter.setItemClickListener(
             object: ReviewListAdapter.ItemClickListener {
                 override fun onClick(view: View, position: Int) {
-                    // postId Intent로 전달
+
+                    // 후기 작성 여부 확인
+                    val signData = mainViewModel.signData.value
+                    if (!signData!!.data.user.isReviewed) {
+                        // 후기 미작성시 알럿 띄우기
+                        CustomDialog(requireContext())
+                            .genericDialog(CustomDialog.DialogData(
+                                getString(R.string.alert_no_review_title),
+                                getString(R.string.alert_no_review_complete),
+                                getString(R.string.alert_no_review_cancel)
+                            ),
+                            complete = {
+                                   openReviewWrite()
+                            },
+                            cancel = {
+
+                                }
+                            )
+                        return
+                    }
+
+                    // postId Intent로 전달 (후기 상세보기 이동)
                     val intent = Intent(context, ReviewDetailActivity::class.java)
                     val postId = reviewListViewModel.reviewListData.value!!.data[position].postId
                     intent.putExtra("postId", postId)
@@ -106,21 +128,9 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             startActivity(intent)
         }
 
+
         binding.btnWriteReview.setOnClickListener {
-            val intent = Intent(context, ReviewWriteActivity::class.java)
-
-            val selectedMajor = mainViewModel.selectedMajor.value
-            val firstMajor = mainViewModel.firstMajor.value
-            val secondMajor = mainViewModel.secondMajor.value
-            // null check
-            if (selectedMajor != null)
-                intent.putExtra("selectedMajor", selectedMajor)
-            if (firstMajor != null)
-                intent.putExtra("firstMajor", firstMajor)
-            if (secondMajor != null)
-                intent.putExtra("secondMajor", secondMajor)
-
-            startActivity(intent)
+            openReviewWrite()
         }
 
         val showMajorBottomSheetDialog = {
@@ -139,6 +149,23 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             filterBottomSheetDialog.show(parentFragmentManager, filterBottomSheetDialog.tag)
         }
 
+    }
+
+    private fun openReviewWrite() {
+        val intent = Intent(context, ReviewWriteActivity::class.java)
+
+        val selectedMajor = mainViewModel.selectedMajor.value
+        val firstMajor = mainViewModel.firstMajor.value
+        val secondMajor = mainViewModel.secondMajor.value
+        // null check
+        if (selectedMajor != null)
+            intent.putExtra("selectedMajor", firstMajor)
+        if (firstMajor != null)
+            intent.putExtra("firstMajor", firstMajor)
+        if (secondMajor != null)
+            intent.putExtra("secondMajor", secondMajor)
+
+        startActivity(intent)
     }
 
     private fun setStickyHeader() {

@@ -2,15 +2,17 @@ package com.nadosunbae_android.util
 
 import android.app.Dialog
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.WindowManager
 import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.R
-import com.nadosunbae_android.presentation.base.BaseActivity
+import com.nadosunbae_android.databinding.DialogGenericBinding
 import kotlinx.android.synthetic.main.dialog_question_write_cancel.*
 import kotlinx.android.synthetic.main.dialog_question_write_complete.*
 
-class CustomDialog(context : Context) {
+class CustomDialog(val context : Context) {
     private val dialog = Dialog(context)
     private lateinit var onClickedListener : ButtonClickListener
     interface ButtonClickListener{
@@ -55,11 +57,37 @@ class CustomDialog(context : Context) {
         }
     }
 
+    fun genericDialog(dialogText: DialogData,
+                      complete: () -> Unit,
+                      cancel: () -> Unit) {
+        val binding = DataBindingUtil.inflate<DialogGenericBinding>(LayoutInflater.from(context), R.layout.dialog_generic, null, false)
+        binding.dialogText = dialogText
+        binding.btnDialogCancel.setOnClickListener {
+            cancel()
+            dialog.dismiss()
+        }
+        binding.btnDialogComplete.setOnClickListener {
+            complete()
+            dialog.dismiss()
+        }
+
+        dialog.setContentView(binding.root)
+        dialog.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
+        dialog.show()
+
+    }
 
 
+    data class DialogData(
+        val title: String,
+        val complete: String,
+        val cancel: String
+    )
 
 }
 
 fun BottomSheetDialogFragment.finish() {
     activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
 }
+
