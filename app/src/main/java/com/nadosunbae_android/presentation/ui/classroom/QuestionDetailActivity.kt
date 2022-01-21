@@ -57,11 +57,12 @@ class QuestionDetailActivity :
             questionDetailViewModel.postQuestionCommentWrite(RequestQuestionCommentWriteData(
                 postId, binding.etQuestionComment.text.toString()
             ))
+            binding.etQuestionComment.setText("")
         }
 
         questionDetailViewModel.registerComment.observe(this){
             if(it.success){
-                binding.etQuestionComment.setText("")
+
                 questionDetailViewModel.getClassRoomQuestionDetail(postId)
             }
         }

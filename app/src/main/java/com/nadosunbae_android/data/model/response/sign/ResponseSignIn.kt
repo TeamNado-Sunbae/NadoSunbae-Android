@@ -9,7 +9,7 @@ data class ResponseSignIn(
     val success: Boolean
 ) {
     data class Data(
-        val accessToken: String,
+        val accesstoken: String,
         val user: User
     ) {
         data class User(

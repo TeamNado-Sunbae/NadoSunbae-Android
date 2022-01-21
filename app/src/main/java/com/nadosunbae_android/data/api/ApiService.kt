@@ -1,5 +1,6 @@
 package com.nadosunbae_android.data.api
 
+import android.app.Application
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
@@ -8,6 +9,8 @@ import com.nadosunbae_android.data.api.main.MainService
 import com.nadosunbae_android.data.api.mypage.MyPageService
 import com.nadosunbae_android.data.api.sign.SignService
 import com.nadosunbae_android.data.api.review.ReviewService
+import com.nadosunbae_android.util.NadoSunBaeApplication
+import com.nadosunbae_android.util.NadoSunBaeSharedPreference
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -56,7 +59,7 @@ object ApiService {
         override fun intercept(chain: Interceptor.Chain):
                 Response = with(chain) {
             val newRequest = request().newBuilder()
-                .addHeader("accesstoken","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrdTJAa29yZWEuYWMua3IiLCJuaWNrbmFtZSI6Imt1MiIsImZpcmViYXNlSWQiOiJOT1ZDYktEUUlEY3IybmJsam9ZazhSSnJ0NTUyIiwiaWF0IjoxNjQyMzI5OTMwLCJleHAiOjE2NDQ5MjE5MzAsImlzcyI6Im5hZG9TdW5iYWUifQ.tiblhyT4Y9-DDH1KTwIm37wevbChJ-R8-ECSb3QpZUI")
+                .addHeader("accesstoken",NadoSunBaeSharedPreference.getAccessToken(NadoSunBaeApplication.context()))
                 .addHeader("Content-Type", "application/json")
                 .build()
             proceed(newRequest)

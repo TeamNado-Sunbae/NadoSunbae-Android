@@ -30,6 +30,7 @@ interface SignService {
         @Body requestSignUp: RequestSignUp
     ) : Call<ResponseSignUp>
 
+    //로그인
     @POST("auth/login")
     fun postSignIn(
         @Body requestSignIn: RequestSignIn

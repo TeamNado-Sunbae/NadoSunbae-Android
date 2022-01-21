@@ -16,6 +16,7 @@ import com.nadosunbae_android.databinding.ActivitySignInBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.main.MainActivity
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
+import com.nadosunbae_android.util.NadoSunBaeSharedPreference
 
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
@@ -120,9 +121,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     // 디바이스 등록
-    private fun deviceToken(){
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{ task ->
-            if(!task.isSuccessful){
+    private fun deviceToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
                 Log.d("deviceToken", "디바이스 토큰 정보 가저오기 실패", task.exception)
                 return@OnCompleteListener
             }
@@ -131,8 +132,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             signUpBasicInfoViewModel.deviceToken.value = token
             Log.d("token", token)
 
-        } )
+        })
     }
+
     //로그인 버튼 클릭 이벤트
     private fun moveMainPage() {
         Log.d("SignUp", "서버 통신 성공!")
@@ -148,17 +150,18 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             )
 
             signUpBasicInfoViewModel.signIn.observe(this) { its ->
-                Log.d("its", its.success.toString())
+
                 if (its.success) {
-                   val intent = Intent(this, MainActivity::class.java)
+                    NadoSunBaeSharedPreference.setAccessToken(this, its.data.accesstoken)
+                    val intent = Intent(this, MainActivity::class.java)
                     val data = its.data.user
                     intent.apply {
                         putExtra("signData", data)
                     }
                     startActivity(intent)
-             }
+                }
             }
+
         }
     }
-
 }
