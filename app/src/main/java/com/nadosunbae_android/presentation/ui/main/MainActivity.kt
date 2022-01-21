@@ -3,11 +3,14 @@ package com.nadosunbae_android.presentation.ui.main
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.nadosunbae_android.R
@@ -40,6 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         initMajorList()
         setDefaultMajor()
         classRoomBack()
+        clickBottomNav()
     }
 
 
@@ -58,11 +62,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         } )
     }
 
+    //바텀네비 클릭
+    private fun clickBottomNav(){
+        mainViewModel.notificationClickNum.observe(this){
+            when(it){
+                2 -> binding.btNvMain.menu.findItem(R.id.navigation_room).setChecked(true)
 
+            }
+        }
+    
+
+    }
 
 
     //바텀네비
     private fun initBottomNav(){
+
         // 첫 프래그먼트
         changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
 

@@ -79,6 +79,11 @@ class MainViewModel() : ViewModel() {
     var mypageFragmentNum = MutableLiveData<Int>()
 
 
+    //알림
+    //알림 클릭 이벤트(1->후기, 2->과방, 3->알람, 4->마이페이지)
+    var notificationClickNum = MutableLiveData<Int>()
+
+
     // 학과 목록 데이터
     fun getMajorList(universityId: Int, filter: String = "all") {
         mainRepository.getMajorList(universityId, filter,

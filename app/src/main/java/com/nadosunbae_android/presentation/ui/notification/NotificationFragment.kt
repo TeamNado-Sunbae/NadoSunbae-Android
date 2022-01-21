@@ -3,15 +3,12 @@ package com.nadosunbae_android.presentation.ui.notification
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
-import androidx.core.view.children
-import androidx.core.view.get
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
@@ -26,7 +23,7 @@ import com.nadosunbae_android.presentation.ui.notification.viewmodel.Notificatio
 
 
 class NotificationFragment :
-    BaseFragment<FragmentNotificationBinding>(R.layout.fragment_notification) {
+    BaseFragment<FragmentNotificationBinding>(com.nadosunbae_android.R.layout.fragment_notification) {
     private val notificationViewModel: NotificationViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -100,11 +97,13 @@ class NotificationFragment :
                 if (notificationType == 2 or 4) {
                     Log.d("noti", notificationType.toString())
                     mainViewModel.classRoomFragmentNum.value = 1
-                    val roomMenu = mainActivity.binding.btNvMain.selectedItemId = R.id.navigation_room
+                    mainViewModel.notificationClickNum.value = 2
+
                     mainViewModel.classRoomNum.value = 1
 
                 } else {
                     mainViewModel.classRoomFragmentNum.value = 1
+                    mainViewModel.notificationClickNum.value = 2
                     mainViewModel.classRoomNum.value = 2
                 }
             }
