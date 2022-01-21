@@ -224,7 +224,14 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     private fun observeFilter() {
 
         mainViewModel.filterData.observe(viewLifecycleOwner) {
-            loadReviewList()
+            val filter = mainViewModel.filterData.value
+
+            // null check
+            if (filter != null) {
+                filterBottomSheetDialog.setFilter(filter)
+                loadReviewList()
+            }
+
         }
 
     }
