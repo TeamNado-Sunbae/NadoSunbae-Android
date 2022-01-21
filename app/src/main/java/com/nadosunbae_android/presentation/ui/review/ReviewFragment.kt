@@ -90,7 +90,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
                     // 후기 작성 여부 확인
                     val signData = mainViewModel.signData.value
-                    if (!signData!!.data.user.isReviewed) {
+                    if (!signData!!.isReviewed) {
                         // 후기 미작성시 알럿 띄우기
                         CustomDialog(requireContext())
                             .genericDialog(CustomDialog.DialogData(

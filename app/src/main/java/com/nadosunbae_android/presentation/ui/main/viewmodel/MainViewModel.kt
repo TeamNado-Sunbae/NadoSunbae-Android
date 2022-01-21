@@ -22,8 +22,8 @@ class MainViewModel() : ViewModel() {
     val mypageRepository: MyPageRepositoryImpl = MyPageRepositoryImpl()
 
     // 로그인 response 데이터
-    private val _signData = MutableLiveData<ResponseSignIn>()
-    val signData: LiveData<ResponseSignIn>
+    private val _signData = MutableLiveData<ResponseSignIn.Data.User>()
+    val signData: LiveData<ResponseSignIn.Data.User>
         get() = _signData
 
     //과방탭
@@ -144,7 +144,7 @@ class MainViewModel() : ViewModel() {
         _secondMajor.value = majorData
     }
 
-    fun setSignData(signData: ResponseSignIn) {
+    fun setSignData(signData: ResponseSignIn.Data.User) {
         _signData.value = signData
     }
 
