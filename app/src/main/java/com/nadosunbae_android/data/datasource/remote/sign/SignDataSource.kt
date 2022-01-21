@@ -1,13 +1,10 @@
 package com.nadosunbae_android.data.datasource.remote.sign
 
 import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
+import com.nadosunbae_android.data.model.request.sign.RequestSignIn
 import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.data.model.request.sign.RequestSignUp
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
-import com.nadosunbae_android.data.model.response.sign.ResponseFirstDepartment
-import com.nadosunbae_android.data.model.response.sign.ResponseSignEmail
-import com.nadosunbae_android.data.model.response.sign.ResponseSignNickname
-import com.nadosunbae_android.data.model.response.sign.ResponseSignUp
+import com.nadosunbae_android.data.model.response.sign.*
 import retrofit2.Response
 
 interface SignDataSource {
@@ -30,6 +27,12 @@ interface SignDataSource {
     fun postSignUp(
         requestSignUp: RequestSignUp,
         onResponse: (Response<ResponseSignUp>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
+
+    fun postSignIn(
+        requestSignIn: RequestSignIn,
+        onResponse: (Response<ResponseSignIn>) -> Unit,
         onFailure: (Throwable) -> Unit
     )
 }

@@ -1,20 +1,21 @@
 package com.nadosunbae_android.presentation.ui.sign.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
+import com.nadosunbae_android.data.model.request.sign.RequestSignIn
 import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.data.model.request.sign.RequestSignUp
 import com.nadosunbae_android.data.model.response.sign.ResponseFirstDepartment
-import com.nadosunbae_android.data.model.response.sign.ResponseSignNickname
+import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.data.model.response.sign.ResponseSignUp
 import com.nadosunbae_android.data.repository.sign.SignRepository
 import com.nadosunbae_android.data.repository.sign.SignRepositoryImpl
 
 class SignUpBasicInfoViewModel : ViewModel() {
     val signRepository: SignRepository = SignRepositoryImpl()
+
 
     //닉네임 중복 체크 변수
     var nickNameDuplication = MutableLiveData<Boolean>()
@@ -28,14 +29,17 @@ class SignUpBasicInfoViewModel : ViewModel() {
     //회원가입 request
     val requestSignUp = RequestSignUp("", "", "", 0, 0, "", 0, "")
 
+    //로그인시 필요한 값 -> email, password, deviceToken
+    var email = MutableLiveData<String>()
+    var password = MutableLiveData<String>()
+    var deviceToken = MutableLiveData<String>()
+
+    //로그인
+    val signIn : MutableLiveData<ResponseSignIn> =MutableLiveData()
+
+
     //닉네임
     var nickName = MutableLiveData<String>()
-
-    //이메일
-    var email = MutableLiveData<String>()
-
-    //비밀번호
-    var password = MutableLiveData<String>()
 
     //제 1전공
     val firstDepartment = MutableLiveData<ResponseFirstDepartment>()
@@ -79,6 +83,20 @@ class SignUpBasicInfoViewModel : ViewModel() {
                 it.printStackTrace()
                 Log.d("emailDuplication", "서버 통신 실패")
             })
+    }
+
+    //로그인
+    fun signIn(requestSignIn: RequestSignIn) {
+        signRepository.postSignIn(requestSignIn,
+        onResponse = {
+            if(it.isSuccessful) {
+                signIn.value = it.body()
+                Log.d("SignIn", "서버 통신 성공")
+            }
+        },
+        onFailure = {
+            Log.d("signUp", "서버 통신 실패")
+        })
     }
 
     //회원가입
