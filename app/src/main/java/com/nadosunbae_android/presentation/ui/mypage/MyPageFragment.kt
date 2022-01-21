@@ -83,6 +83,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         myPageQuestionAdapter = ClassRoomQuestionMainAdapter(2, mainViewModel.userId.value ?: 0,1)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
         myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
+
             myPageQuestionAdapter.setQuestionMain(Mapper.mapperToMyPageQuestion(it) as MutableList<ClassRoomData>)
         }
     }

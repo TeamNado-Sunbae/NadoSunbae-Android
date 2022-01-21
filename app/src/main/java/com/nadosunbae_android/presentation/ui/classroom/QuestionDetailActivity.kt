@@ -81,7 +81,6 @@ class QuestionDetailActivity :
 
         questionDetailViewModel.registerComment.observe(this){
             if(it.success){
-
                 questionDetailViewModel.getClassRoomQuestionDetail(postId)
             }
         }
