@@ -2,7 +2,9 @@ package com.nadosunbae_android.presentation.ui.mypage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -26,7 +28,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         }
     }
 
-    private val mainViewModel: MainViewModel by viewModels {
+    private val mainViewModel: MainViewModel by activityViewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return MainViewModel() as T
@@ -69,11 +71,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
 
     private fun initAskPersonal() {
-        mainViewModel.signData.observe(viewLifecycleOwner) {
+        mainViewModel.signData.observe(viewLifecycleOwner){
             myPageViewModel.getMyPageQuestion(it.userId)
-            myPageViewModel.getMyPageQuestion(it.userId, "recent")
-        }
 
+        }
         //마이페이지 선배 1:1
         myPageQuestionAdapter = ClassRoomQuestionMainAdapter(2)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
@@ -91,8 +92,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             if(it.data.secondMajorName == "미진입")
                 binding.textMyPageSecondMajorTime.visibility = View.GONE
         }
-
-
     }
 }
 
