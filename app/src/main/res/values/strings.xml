@@ -279,4 +279,9 @@
     <string name="alert_delete_review_complete">삭제</string>
     <string name="alert_delete_review_cancel">아니요</string>
 
+    <!-- 후기 작성 취소 알럿 -->
+    <string name="alert_cancel_write_title">페이지를 나가면\n작성중인 글은 삭제돼요.</string>
+    <string name="alert_cancel_write_complete">계속 작성</string>
+    <string name="alert_cancel_write_cancel">나갈래요</string>
+
 </resources>

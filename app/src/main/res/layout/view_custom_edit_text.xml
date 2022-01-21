@@ -21,7 +21,8 @@
         android:paddingStart="12dp"
         android:paddingEnd="16dp"
         android:scrollbars="vertical"
-        android:textColor="@color/gray_2"
+        android:textColor="@color/main_text"
+        android:textColorHint="@color/gray_2"
         android:textSize="14sp"
         app:layout_constraintTop_toTopOf="parent"/>
 

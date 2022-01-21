@@ -57,6 +57,12 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         initBottomSheet()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        loadReviewList()
+    }
+
     private fun setBinding() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.mainViewModel = mainViewModel
@@ -193,14 +199,18 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             // null check
             if (mainViewModel.selectedMajor != null) {
 
-                // review list 갱신
-                val request = RequestReviewListData(mainViewModel.selectedMajor.value!!.majorId, 1, listOf(1, 2, 3, 4, 5))
-                reviewListViewModel.getReviewList("recent", request)
-
+                loadReviewList()
                 // 선택된 학과 정보 불러오기
                 reviewListViewModel.getMajorInfo(mainViewModel.selectedMajor.value!!.majorId)
             }
         }
+    }
+
+    private fun loadReviewList() {
+
+        // review list 갱신
+        val request = RequestReviewListData(mainViewModel.selectedMajor.value!!.majorId, 1, listOf(1, 2, 3, 4, 5))
+        reviewListViewModel.getReviewList("recent", request)
     }
 
 

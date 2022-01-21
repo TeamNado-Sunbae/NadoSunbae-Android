@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
@@ -65,6 +66,18 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     }
 
+    override fun onBackPressed() {
+        if (existInput()) {
+            val confirm = confirmExit()
+            confirm.observe(this) {
+                if (confirm.value!!)
+                    super.onBackPressed()
+            }
+        }
+        else
+            super.onBackPressed()
+    }
+
     private fun initBinding() {
         binding.lifecycleOwner = this
     }
@@ -121,7 +134,17 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     private fun setOnClickListener() {
         // 닫기 버튼
         binding.btnClose.setOnClickListener {
-            finish()
+
+            if (existInput()) {
+
+                val confirm = confirmExit()
+                confirm.observe(this) {
+                    if (confirm.value!!)
+                        finish()
+                }
+            }
+            else
+                finish()
         }
 
         // 학과 선택
@@ -131,12 +154,12 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
             // 본전공 추가
             val firstMajor = mainViewModel.firstMajor.value
-            if (firstMajor != null)
+            if (firstMajor != null && isValidMajor(firstMajor.majorId))
                 selectableList.add(SelectableData(firstMajor.majorId, firstMajor.majorName, false))
 
             // 제2전공 추가
             val secondMajor = mainViewModel.secondMajor.value
-            if (secondMajor != null)
+            if (secondMajor != null && isValidMajor(secondMajor.majorId))
                 selectableList.add(SelectableData(secondMajor.majorId, secondMajor.majorName, false))
 
             // 드롭다윤 메뉴 띄우기
@@ -290,12 +313,44 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             mainViewModel.setSecondMajor(secondMajor)
     }
 
+    private fun confirmExit(): MutableLiveData<Boolean> {
+
+        val confirm = MutableLiveData<Boolean>()
+        CustomDialog(this).genericDialog(
+            CustomDialog.DialogData(
+                getString(R.string.alert_cancel_write_title),
+                getString(R.string.alert_cancel_write_complete),
+                getString(R.string.alert_cancel_write_cancel)
+            ),
+            complete = {
+                confirm.value = false
+            },
+            cancel = {
+                confirm.value = true
+            }
+        )
+        return confirm
+    }
+
+    private fun existInput() = binding.etOneLine.text.isNotEmpty()
+            || binding.etProsCons.editText.text.isNotEmpty()
+            || binding.etCareer.editText.text.isNotEmpty()
+            || binding.etCurriculum.editText.text.isNotEmpty()
+            || binding.etRecommendLecture.editText.text.isNotEmpty()
+            || binding.etNonRecommendLecture.editText.text.isNotEmpty()
+            || binding.etTip.editText.text.isNotEmpty()
+
+    private fun isValidMajor(majorId: Int) =
+            majorId != NOT_ENTERED && majorId != NO_INFORMATION
+
     private fun loadBackgroundImage() = reviewWriteViewModel.getBackgroundImageList()
 
     private fun loadMajorList() = mainViewModel.getMajorList(1)
 
     companion object {
         const val ONE_LINE_MAX_LENGTH = 40
+        const val NOT_ENTERED = 126
+        const val NO_INFORMATION = 127
     }
 
 }
