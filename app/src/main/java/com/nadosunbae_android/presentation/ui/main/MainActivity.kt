@@ -103,6 +103,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 4 -> changeFragment(R.id.fragment_container_main, SeniorPersonalFragment(),"seniorPersonal")
 
                 5 -> changeFragment(R.id.fragment_container_main, ClassRoomReviewFragment(),"classRoomReview")
+
+                6 -> changeFragment(R.id.fragment_container_main, MyPageFragment(), "myPage")
             }
         })
     }
