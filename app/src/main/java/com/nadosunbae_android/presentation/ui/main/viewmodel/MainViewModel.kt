@@ -41,7 +41,8 @@ class MainViewModel() : ViewModel() {
     //과방탭 1:1 선배 Id
     var seniorId  = MutableLiveData<Int>()
 
-
+    //유저 아이디
+    var userId = MutableLiveData<Int>()
 
     //과방탭 질문글 메인 조회
     private val _classRoomMain = MutableLiveData<ResponseClassRoomMainData>()
@@ -155,6 +156,7 @@ class MainViewModel() : ViewModel() {
 
     fun setSignData(signData: ResponseSignIn.Data.User) {
         _signData.value = signData
+        userId.value = signData.userId
     }
 
 }

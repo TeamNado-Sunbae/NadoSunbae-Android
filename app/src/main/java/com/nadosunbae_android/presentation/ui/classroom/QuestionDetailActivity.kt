@@ -40,6 +40,9 @@ class QuestionDetailActivity :
     // 전체 질문 상세보기
     private fun initQuestionDetail() {
         val postId = intent.getIntExtra("postId", 0)
+        val userId = intent.getIntExtra("userId", 0)
+        Log.d("postId", postId.toString())
+        Log.d("userId", userId.toString())
         questionDetailViewModel.getClassRoomQuestionDetail(postId)
         classRoomQuestionDetailAdapter = ClassRoomQuestionDetailAdapter(this)
         binding.rcQuestionDetail.adapter = classRoomQuestionDetailAdapter
