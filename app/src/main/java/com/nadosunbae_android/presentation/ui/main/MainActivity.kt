@@ -128,12 +128,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun getSignDataFromIntent() {
         // real code
         val signData = intent.getSerializableExtra("signData") as ResponseSignIn.Data.User?
-        //test data
-        /*
-        val signData =
-            ResponseSignIn.Data.User("ku2@korea.ac.kr", 3, "건축사회공학부", true, 42, "소프트웨어벤처", 1, 2)
 
-         */
         // null check
         if (signData != null) {
             mainViewModel.setSignData(signData)
@@ -157,9 +152,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             val signData = mainViewModel.signData.value
 
             // null check
-            if (signData != null) {
+            if (signData != null)
                 mainViewModel.setSelectedMajor(MajorData(signData.firstMajorId, signData.firstMajorName))
-            }
+
         }
     }
 
