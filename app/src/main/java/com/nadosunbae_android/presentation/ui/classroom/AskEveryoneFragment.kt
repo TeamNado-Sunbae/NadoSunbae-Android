@@ -59,6 +59,13 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.majorId.observe(viewLifecycleOwner){
+            mainViewModel.getClassRoomMain(3,it)
+        }
+    }
+
     //전체 질문 작성으로 이동
     private fun goQuestionWrite(){
         binding.btnGoQuestionWrite.setOnClickListener {
