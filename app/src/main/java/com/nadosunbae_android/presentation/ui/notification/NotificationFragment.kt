@@ -60,6 +60,7 @@ class NotificationFragment :
         }
 
         notificationViewModel.notificationList.observe(viewLifecycleOwner) {
+
             notificationAdapter.setNotification(it.data.notificationList as MutableList<ResponseNotificationListData.Data.Notification>)
         }
     }
@@ -81,10 +82,22 @@ class NotificationFragment :
                 "notificationKing",
                 postId.toString() + isQuestionToPerson.toString() + notificationType.toString()
             )
+            // 2,4 -> 질문글, 3,5 -> 정보글, 1 -> 1:1질문글
             when (notificationType) {
-                 2 or 4 -> {
+                2 or 4 -> {
                     val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
-                    intent.putExtra("postId", postId)
+                    intent.apply {
+                        putExtra("postId", postId)
+                        putExtra("all", 1)
+                    }
+                    startActivity(intent)
+                }
+                1 -> {
+                    val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
+                    intent.apply {
+                        putExtra("postId", postId)
+                        putExtra("all", 2)
+                    }
                     startActivity(intent)
                 }
                 else -> {
