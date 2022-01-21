@@ -121,7 +121,7 @@
                         android:id="@+id/img_my_page_main"
                         android:layout_width="72dp"
                         android:layout_height="72dp"
-                        android:background="@drawable/rectangle_fill_gray0_14dp"
+                        profileImgBig="@{myPageInfo.data.profileImageId}"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
