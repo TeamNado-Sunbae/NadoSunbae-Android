@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
 import com.nadosunbae_android.data.model.response.classroom.ResponseInfoDetailData
 import com.nadosunbae_android.databinding.ActivityInformationDetailBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
@@ -41,6 +42,26 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
                 binding.textInformationDetailQuestionSecondMajorStart.visibility = View.GONE
             }
             classRoomInfoDetailAdapter.setInfoDetail(it.data.commentList as MutableList<ResponseInfoDetailData.Data.Comment>)
+            binding.imgInformationCommentComplete.setOnClickListener {
+                registerComment(postId)
+                binding.etInformationComment.setText("")
+            }
+
         }
+    }
+
+    //정보 상세보기 댓글 달기
+    private fun registerComment(postId : Int){
+        infoDetailViewModel.postInfoCommentWrite(RequestQuestionCommentWriteData(
+            postId, binding.etInformationComment.text.toString()
+        ) )
+
+        infoDetailViewModel.registerInfoComment.observe(this){
+            if(it.success){
+                infoDetailViewModel.getInfoDetail(postId)
+
+            }
+        }
+
     }
 }

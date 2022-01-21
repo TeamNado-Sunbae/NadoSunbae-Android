@@ -71,7 +71,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
                 imgQuestionAllGo.visibility = View.GONE
                 textQuestionAllNoComment.visibility = View.VISIBLE
             }
-        }else if(classRoomQuestionMainAdapter.questionMainData.size in 1..4){
+        }else if(classRoomQuestionMainAdapter.questionMainData.size in 1..5){
             with(binding){
                 rcQuestionAll.visibility = View.VISIBLE
                 textQuestionAllGo.visibility = View.GONE
