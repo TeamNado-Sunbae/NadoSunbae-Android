@@ -16,6 +16,7 @@ import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.databinding.FragmentReviewBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.util.CustomBottomSheetDialog
@@ -54,7 +55,9 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         setClickListener()
         observeSelectedMajor()
         observePreviewList()
+        observeFilter()
         initBottomSheet()
+
     }
 
     override fun onResume() {
@@ -157,6 +160,18 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     }
 
+    private fun setFilterApplyListener() {
+
+        // 필터 적용 버튼 클릭 시
+        filterBottomSheetDialog.applyOperation = {
+
+            val writerFilter = filterBottomSheetDialog.getWriterFilter()
+            val tagFilter = filterBottomSheetDialog.getTagFilter()
+
+            mainViewModel.filterData.value = MainViewModel.FilterData(writerFilter, tagFilter)
+        }
+    }
+
     private fun openReviewWrite() {
         val intent = Intent(context, ReviewWriteActivity::class.java)
 
@@ -206,11 +221,30 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         }
     }
 
+    private fun observeFilter() {
+
+        mainViewModel.filterData.observe(viewLifecycleOwner) {
+            loadReviewList()
+        }
+
+    }
+
     private fun loadReviewList() {
 
+        val filterData = mainViewModel.filterData.value
+        var writerFilter = FILTER_ALL
+        var tagFilter = listOf(1, 2, 3, 4, 5)
+
+        // null check
+        if (filterData != null) {
+            writerFilter = filterData.writerFilter
+            tagFilter = filterData.tagFilter
+        }
+
         // review list 갱신
-        val request = RequestReviewListData(mainViewModel.selectedMajor.value!!.majorId, 1, listOf(1, 2, 3, 4, 5))
+        val request = RequestReviewListData(mainViewModel.selectedMajor.value!!.majorId, writerFilter, tagFilter)
         reviewListViewModel.getReviewList("recent", request)
+
     }
 
 
@@ -228,6 +262,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             }
 
         }
+
+        setFilterApplyListener()
 
     }
 

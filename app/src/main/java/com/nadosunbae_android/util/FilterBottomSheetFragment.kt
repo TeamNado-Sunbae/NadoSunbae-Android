@@ -10,11 +10,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.R
 import androidx.databinding.DataBindingUtil
 import com.nadosunbae_android.databinding.FragmentFilterBottomSheetBinding
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_FIRST_MAJOR
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_SECOND_MAJOR
 import com.nadosunbae_android.util.finish
 
 class FilterBottomSheetDialog : BottomSheetDialogFragment() {
     private lateinit var _binding : FragmentFilterBottomSheetBinding
     val binding get() = _binding!!
+
+    var applyOperation: () -> Unit = { }
 
     private var filterButtonList = mutableListOf<Button>()
 
@@ -32,6 +37,38 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
 
         initFilterButtonList()
         setClickListener()
+        setApplyListener()
+    }
+
+    private fun setApplyListener() {
+        // 적용하기 버튼
+        binding.btnFilterApply.setOnClickListener {
+            applyOperation()
+            finish()
+        }
+    }
+
+    fun getWriterFilter(): Int {
+        if (binding.btnFilterFirstMajor.isSelected)
+            return FILTER_FIRST_MAJOR
+        if (binding.btnFilterSecondMajor.isSelected)
+            return FILTER_SECOND_MAJOR
+        return FILTER_ALL
+    }
+
+    fun getTagFilter(): List<Int> {
+        val ret = mutableListOf<Int>()
+        if (binding.btnFilterCurriculum.isSelected)
+            ret.add(1)
+        if (binding.btnFilterRecommendLecture.isSelected)
+            ret.add(2)
+        if (binding.btnFilterNonRecommendLecture.isSelected)
+            ret.add(3)
+        if (binding.btnFilterCareer.isSelected)
+            ret.add(4)
+        if (binding.btnFilterTip.isSelected)
+            ret.add(5)
+        return ret.toList()
     }
 
     private fun initFilterButtonList() {
@@ -80,11 +117,6 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
                 btn.isSelected = !btn.isSelected
                 setApplyButton()
             }
-        }
-
-        // 적용하기 버튼
-        binding.btnFilterApply.setOnClickListener {
-            Log.d("TEST", "Filter Apply")
         }
 
         // 닫기 버튼
