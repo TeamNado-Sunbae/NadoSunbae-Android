@@ -61,7 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         // 첫 프래그먼트
         changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
-
+        binding.btNvMain.itemIconTintList = null
         binding.btNvMain.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.navigation_review -> {
