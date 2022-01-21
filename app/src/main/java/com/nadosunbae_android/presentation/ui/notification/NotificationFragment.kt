@@ -46,6 +46,12 @@ class NotificationFragment :
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.signData.observe(viewLifecycleOwner) {
+            notificationViewModel.getNotification(it.userId)
+        }
+    }
 
     //알림 리스트 조회
     private fun initNotificationList() {

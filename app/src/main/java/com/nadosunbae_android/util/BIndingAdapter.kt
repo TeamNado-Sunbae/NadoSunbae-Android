@@ -67,15 +67,21 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("notificationOval")
     fun notificationOval(imageView: ImageView, isRead: Boolean) {
-        if (isRead) imageView.visibility = View.GONE else View.VISIBLE
+        if (isRead){
+            imageView.visibility = View.GONE
+        } else{
+            imageView.visibility = View.VISIBLE
+        }
     }
-
+    
+    //댓글 개수 보이게
     @JvmStatic
     @BindingAdapter("commentCount")
     fun commentCount(textView : TextView, text : String?){
         textView.text = "댓글 ${text}개"
     }
 
+    //작성자 처리
     @JvmStatic
     @BindingAdapter("writerVisible")
     fun writerVisible(textView : TextView, isPosterWriter : Boolean){
