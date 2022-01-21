@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.nadosunbae_android.R
+import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.databinding.ActivityMainBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
@@ -22,6 +23,7 @@ import com.nadosunbae_android.presentation.ui.review.ReviewFragment
 import com.nadosunbae_android.util.changeFragment
 import com.nadosunbae_android.util.changeFragmentNoBackStack
 import com.nadosunbae_android.util.popFragmentBackStack
+import kotlin.math.sign
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -39,6 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         deviceToken()
         initMajorList()
         setDefaultMajor()
+        getSignDataFromIntent()
         classRoomBack()
     }
 
@@ -119,6 +122,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     }
 
+    // 로그인 response 전달  받기
+    private fun getSignDataFromIntent() {
+        // real code
+        //val signData = intent.getSerializableExtra("signData") as ResponseSignIn
+
+        //test data
+        val signData = ResponseSignIn(ResponseSignIn.Data("d", ResponseSignIn.Data.User("ku2@korea.ac.kr", 3, "건축사회공학부", false, 42, "소프트웨어벤처", 1, 2)), "test", 200, true)
+        // null check
+        if (signData != null) {
+            mainViewModel.setSignData(signData)
+
+            val user = signData.data.user
+            // 본전공이 default 선택
+            mainViewModel.setSelectedMajor(MajorData(user.firstMajorId, user.secondMajorName))
+            mainViewModel.setFirstMajor(MajorData(user.firstMajorId, user.firstMajorName))
+            mainViewModel.setSecondMajor(MajorData(user.secondMajorId, user.secondMajorName))
+        }
+    }
+
 
     // 학과 목록 불러오기
     private fun initMajorList() {
@@ -127,9 +149,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     // 본전공이 선택되어 있도록
     private fun setDefaultMajor() {
-        mainViewModel.setFirstMajor(MajorData(3, "건축사회환경공학부"))
-        mainViewModel.setSecondMajor(MajorData(42, "소프트웨어벤처"))
-        mainViewModel.setSelectedMajor(MajorData(3, "건축사회환경공학부"))
+        mainViewModel.signData.observe(this) {
+            val signData = mainViewModel.signData.value
+
+            // null check
+            if (signData != null) {
+                val user = signData.data.user
+                mainViewModel.setSelectedMajor(MajorData(user.firstMajorId, user.firstMajorName))
+            }
+        }
     }
 
 

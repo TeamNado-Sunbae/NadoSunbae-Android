@@ -139,7 +139,9 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                 selectableList.add(SelectableData(secondMajor.majorId, secondMajor.majorName, false))
 
             // 드롭다윤 메뉴 띄우기
-            showCustomDropDown(reviewWriteViewModel, binding.clReviewWriteSelectMajor, binding.clReviewWriteSelectMajor.width, mainViewModel.selectedMajor.value!!.majorId, selectableList)
+            showCustomDropDown(reviewWriteViewModel, binding.clReviewWriteSelectMajor,
+                binding.clReviewWriteSelectMajor.width, reviewWriteViewModel.dropDownSelected.value!!.id,
+                selectableList)
         }
 
         // 작성 완료

@@ -114,7 +114,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             val secondMajor = mainViewModel.secondMajor.value
             // null check
             if (selectedMajor != null)
-                intent.putExtra("selectedMajor", selectedMajor)
+                intent.putExtra("selectedMajor", firstMajor)
             if (firstMajor != null)
                 intent.putExtra("firstMajor", firstMajor)
             if (secondMajor != null)
