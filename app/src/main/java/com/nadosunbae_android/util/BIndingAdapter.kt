@@ -1,5 +1,6 @@
 package com.nadosunbae_android.util
 
+import android.content.Context
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -90,9 +91,29 @@ object BindingAdapter {
         }else{
             textView.visibility = View.GONE
         }
+    }
+
+    //프로필 이미지72
+    @JvmStatic
+    @BindingAdapter("profileImgBig")
+    fun setProfileImg(imageView : ImageView, imageId : Int){
+        when(imageId){
+            1 -> imageSelect(imageView, R.drawable.people1_72 )
+            2 -> imageSelect(imageView, R.drawable.people2_72)
+            3 -> imageSelect(imageView, R.drawable.people3_72)
+            4 -> imageSelect(imageView, R.drawable.people4_72)
+            5 -> imageSelect(imageView, R.drawable.people5_72)
+        }
+
 
     }
 
+    fun imageSelect(imageView : ImageView, image : Int){
+        Glide.with(imageView.context)
+            .load(image)
+            .override(72.dpToPx, 72.dpToPx)
+            .into(imageView)
+    }
 }
 
 

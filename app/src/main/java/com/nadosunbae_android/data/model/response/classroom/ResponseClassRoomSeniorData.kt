@@ -11,6 +11,7 @@ data class ResponseClassRoomSeniorData(
         val onQuestionUserList: List<OnQuestionUser>
     ) {
         data class OffQuestionUser(
+            val profileImageId : Int,
             val isFirstMajor: Boolean,
             val isOnQuestion: Boolean,
             val majorStart: String,
@@ -19,6 +20,7 @@ data class ResponseClassRoomSeniorData(
         )
 
         data class OnQuestionUser(
+            val profileImageId : Int,
             val isFirstMajor: Boolean,
             val isOnQuestion: Boolean,
             val majorStart: String,
