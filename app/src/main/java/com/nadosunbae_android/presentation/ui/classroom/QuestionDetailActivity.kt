@@ -1,6 +1,7 @@
 package com.nadosunbae_android.presentation.ui.classroom
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -72,7 +73,7 @@ class QuestionDetailActivity :
 
     //전체 질문 1:1질문 구분
     private fun divisionQuestionDetail(){
-        val all = intent.getIntExtra("all", 1)
+        val all = intent.getIntExtra("all", 0)
         if(all == 1){
             binding.textQuestionDetailTitle.text = "질문"
         }else{

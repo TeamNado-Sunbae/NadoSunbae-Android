@@ -44,13 +44,14 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("int", "nickname", requireAll = false)
     fun notification(textView: TextView, int: Int, nickname: String): SpannableStringBuilder {
-        val param = listOf("", "작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글", "1:1질문")
+        val param = listOf("","1:1질문", "작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글" )
         val text = listOf(
-            "", "작성하신 질문글에 ${nickname}이 답글을 남겼습니다",
+            "","마이페이지에 ${nickname}이 1:1질문을 남겼습니다.",
+            "작성하신 질문글에 ${nickname}이 답글을 남겼습니다",
             "작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
             "답글을 작성하신 질문글에 ${nickname}이 답글을 남겼습니다.",
             "답글을 작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
-            "마이페이지에 ${nickname}이 1:1질문을 남겼습니다."
+
         )
         var content = param[int]
         var start = text[int].indexOf(content)

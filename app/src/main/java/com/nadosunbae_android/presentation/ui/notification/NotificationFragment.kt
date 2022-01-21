@@ -77,14 +77,25 @@ class NotificationFragment :
         }
 
         //알림 이동
-        fun getNotificationMove(postId: Int, isQuestionToPerson: Boolean, notificationType: Int) {
+        fun getNotificationMove(
+            postId: Int,
+            notificationType: Int
+        ) {
             Log.d(
                 "notificationKing",
-                postId.toString() + isQuestionToPerson.toString() + notificationType.toString()
+                "postId:" + postId.toString() + "notification:" + notificationType.toString()
             )
             // 2,4 -> 질문글, 3,5 -> 정보글, 1 -> 1:1질문글
             when (notificationType) {
-                2 or 4 -> {
+                2 -> {
+                    val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
+                    intent.apply {
+                        putExtra("postId", postId)
+                        putExtra("all", 1)
+                    }
+                    startActivity(intent)
+                }
+                4 -> {
                     val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
                     intent.apply {
                         putExtra("postId", postId)
