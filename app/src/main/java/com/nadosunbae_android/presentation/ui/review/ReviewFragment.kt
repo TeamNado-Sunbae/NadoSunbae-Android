@@ -12,14 +12,18 @@ import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
+import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.databinding.FragmentReviewBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.util.CustomBottomSheetDialog
 import com.nadosunbae_android.util.CustomDialog
+import com.nadosunbae_android.util.dpToPx
+import com.nadosunbae_android.util.showCustomDropDown
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
@@ -52,9 +56,14 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         initReviewListAdapter()
         setReviewListData()
         setClickListener()
+        initSortSelected()
         observeSelectedMajor()
         observePreviewList()
+        observeFilter()
+        observeSort()
         initBottomSheet()
+
+
     }
 
     override fun onResume() {
@@ -139,6 +148,17 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             openReviewWrite()
         }
 
+        // 정렬 버튼
+        binding.btnSort.setOnClickListener {
+            val dropDownList = mutableListOf<SelectableData>(
+                SelectableData(1, getString(R.string.review_latest_order), true),
+                SelectableData(2, getString(R.string.review_likes_order), false)
+            )
+
+
+            showCustomDropDown(reviewListViewModel, binding.btnSort, 160f.dpToPx, reviewListViewModel.dropDownSelected.value!!.id, dropDownList)
+        }
+
         val showMajorBottomSheetDialog = {
             majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
 
@@ -155,6 +175,23 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             filterBottomSheetDialog.show(parentFragmentManager, filterBottomSheetDialog.tag)
         }
 
+    }
+
+    private fun setFilterApplyListener() {
+
+        // 필터 적용 버튼 클릭 시
+        filterBottomSheetDialog.applyOperation = {
+
+            val writerFilter = filterBottomSheetDialog.getWriterFilter()
+            val tagFilter = filterBottomSheetDialog.getTagFilter()
+
+            mainViewModel.filterData.value = MainViewModel.FilterData(writerFilter, tagFilter)
+        }
+
+        // 필터 리셋 시
+        filterBottomSheetDialog.resetFilterOperation = {
+            mainViewModel.filterData.value = MainViewModel.FilterData(FILTER_ALL, listOf(1, 2, 3, 4, 5))
+        }
     }
 
     private fun openReviewWrite() {
@@ -206,11 +243,80 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         }
     }
 
+    private fun observeFilter() {
+
+        mainViewModel.filterData.observe(viewLifecycleOwner) {
+            val filter = mainViewModel.filterData.value
+
+            // null check
+            if (filter != null) {
+
+                filterBottomSheetDialog.setFilter(filter)
+
+                // 필터 활성화
+                binding.btnReviewFilter.isSelected =
+                    filter.writerFilter != FILTER_ALL && filter.tagFilter != listOf(1, 2, 3, 4, 5)
+
+                binding.executePendingBindings()
+
+
+                // 후기 불러오기
+                loadReviewList()
+
+            }
+
+
+        }
+
+    }
+
+    private fun observeSort() {
+        reviewListViewModel.dropDownSelected.observe(viewLifecycleOwner) {
+            val sortData = reviewListViewModel.dropDownSelected.value
+            if (sortData != null) {
+                if (sortData.id == 1)
+                    binding.btnSort.text = getString(R.string.review_latest_order)
+                else
+                    binding.btnSort.text = getString(R.string.review_likes_order)
+            }
+
+            loadReviewList()
+        }
+    }
+
     private fun loadReviewList() {
 
+        val filterData = mainViewModel.filterData.value
+        var writerFilter = FILTER_ALL
+        var tagFilter = listOf(1, 2, 3, 4, 5)
+
+        // null check
+        if (filterData != null) {
+            writerFilter = filterData.writerFilter
+            tagFilter = filterData.tagFilter
+
+            // tag 비어있으면 모두 선택
+            if (tagFilter.isEmpty())
+                tagFilter = listOf(1, 2, 3, 4, 5)
+        }
+
         // review list 갱신
-        val request = RequestReviewListData(mainViewModel.selectedMajor.value!!.majorId, 1, listOf(1, 2, 3, 4, 5))
-        reviewListViewModel.getReviewList("recent", request)
+        val request = RequestReviewListData(mainViewModel.selectedMajor.value!!.majorId, writerFilter, tagFilter)
+
+        // 정렬
+        var sort = "recent"
+        if (reviewListViewModel.dropDownSelected.value != null) {
+            sort = if (reviewListViewModel.dropDownSelected.value!!.id == 1)
+                "recent"
+            else
+                "like"
+        }
+        reviewListViewModel.getReviewList(sort, request)
+
+    }
+
+    private fun initSortSelected() {
+        reviewListViewModel.dropDownSelected.value = SelectableData(1, getString(R.string.review_latest_order), true)
     }
 
 
@@ -228,6 +334,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             }
 
         }
+
+        setFilterApplyListener()
 
     }
 

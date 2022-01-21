@@ -95,10 +95,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     private fun setOneLineTextWatcher() {
         binding.etOneLine.addTextChangedListener(object : TextWatcher {
 
-            private var prevString = ""
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                prevString = s.toString()
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -106,11 +103,21 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
             override fun afterTextChanged(s: Editable?) {
 
-                // 최대 글자수 체크 및 개행 문자 방지 (한줄평이므로)
-                if (s?.length!! > ONE_LINE_MAX_LENGTH || binding.etOneLine.text.contains("\n")) {
-                    binding.etOneLine.setText(prevString)
-                    binding.etOneLine.setSelection(prevString.length - 1)
+                if (s != null) {
+
+                    // 최대 글자수 체크
+                    if (s.length > ONE_LINE_MAX_LENGTH) {
+                        val newStr = s.toString().substring(0, ONE_LINE_MAX_LENGTH)
+                        binding.etOneLine.setText(newStr)
+                    }
+
+                    // 개행 문자 방지 (한줄평이므로)
+                    if (s.contains("\n")) {
+                        val newStr = s.toString().replace("\n", "")
+                        binding.etOneLine.setText(newStr)
+                    }
                 }
+
 
             }
 

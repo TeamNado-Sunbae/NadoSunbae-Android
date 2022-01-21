@@ -10,11 +10,20 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.R
 import androidx.databinding.DataBindingUtil
 import com.nadosunbae_android.databinding.FragmentFilterBottomSheetBinding
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_FIRST_MAJOR
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_SECOND_MAJOR
 import com.nadosunbae_android.util.finish
 
 class FilterBottomSheetDialog : BottomSheetDialogFragment() {
     private lateinit var _binding : FragmentFilterBottomSheetBinding
     val binding get() = _binding!!
+
+    var applyOperation: () -> Unit = { }
+    var resetFilterOperation: () -> Unit = { }
+
+    private var filterData = MainViewModel.FilterData(FILTER_ALL, listOf(1, 2, 3, 4, 5))
 
     private var filterButtonList = mutableListOf<Button>()
 
@@ -32,6 +41,41 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
 
         initFilterButtonList()
         setClickListener()
+        setApplyListener()
+        applyFilterSelected()
+    }
+
+    private fun setApplyListener() {
+        // 적용하기 버튼
+        binding.btnFilterApply.setOnClickListener {
+            applyOperation()
+            finish()
+        }
+    }
+
+    fun getWriterFilter(): Int {
+        if (binding.btnFilterFirstMajor.isSelected && binding.btnFilterSecondMajor.isSelected)
+            return FILTER_ALL
+        if (binding.btnFilterFirstMajor.isSelected)
+            return FILTER_FIRST_MAJOR
+        if (binding.btnFilterSecondMajor.isSelected)
+            return FILTER_SECOND_MAJOR
+        return FILTER_ALL
+    }
+
+    fun getTagFilter(): List<Int> {
+        val ret = mutableListOf<Int>()
+        if (binding.btnFilterCurriculum.isSelected)
+            ret.add(1)
+        if (binding.btnFilterRecommendLecture.isSelected)
+            ret.add(2)
+        if (binding.btnFilterNonRecommendLecture.isSelected)
+            ret.add(3)
+        if (binding.btnFilterCareer.isSelected)
+            ret.add(4)
+        if (binding.btnFilterTip.isSelected)
+            ret.add(5)
+        return ret.toList()
     }
 
     private fun initFilterButtonList() {
@@ -52,6 +96,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         for (btn in filterButtonList) {
             btn.isSelected = false
         }
+        resetFilterOperation()
     }
 
     // 적용하기 버튼 활성화 로직
@@ -82,14 +127,40 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
             }
         }
 
-        // 적용하기 버튼
-        binding.btnFilterApply.setOnClickListener {
-            Log.d("TEST", "Filter Apply")
-        }
-
         // 닫기 버튼
         binding.btnBottomsheetCancel.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun applyFilterSelected() {
+        clearFilterSelect()
+
+        when (filterData.writerFilter) {
+            FILTER_FIRST_MAJOR -> binding.btnFilterFirstMajor.isSelected = true
+            FILTER_SECOND_MAJOR -> binding.btnFilterSecondMajor.isSelected = true
+        }
+
+        if (filterData.tagFilter != listOf(1, 2, 3, 4, 5)) {
+            for (t in filterData.tagFilter) {
+                when (t) {
+                    1 -> binding.btnFilterCurriculum.isSelected = true
+                    2 -> binding.btnFilterRecommendLecture.isSelected = true
+                    3 -> binding.btnFilterNonRecommendLecture.isSelected = true
+                    4 -> binding.btnFilterCareer.isSelected = true
+                    5 -> binding.btnFilterTip.isSelected = true
+                }
+            }
+        }
+    }
+
+    fun setFilter(filterData: MainViewModel.FilterData) {
+        this.filterData = filterData
+    }
+
+    private fun clearFilterSelect() {
+        for (b in filterButtonList) {
+            b.isSelected = false
         }
     }
 

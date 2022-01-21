@@ -64,6 +64,9 @@ class MainViewModel() : ViewModel() {
     val selectedMajor: LiveData<MajorData>
         get() = _selectedMajor
 
+    // 필터
+    val filterData = MutableLiveData<FilterData>(FilterData(1, listOf(1, 2, 3, 4, 5)))
+
     // 구성원 전체보기
     private val _seniorData = MutableLiveData<ResponseClassRoomSeniorData.Data>()
     val seniorData : LiveData<ResponseClassRoomSeniorData.Data>
@@ -156,5 +159,16 @@ class MainViewModel() : ViewModel() {
     fun setSignData(signData: ResponseSignIn.Data.User) {
         _signData.value = signData
     }
+
+    companion object {
+        const val FILTER_ALL = 1
+        const val FILTER_FIRST_MAJOR = 2
+        const val FILTER_SECOND_MAJOR = 3
+    }
+
+    data class FilterData(
+        val writerFilter: Int,
+        val tagFilter: List<Int>
+    )
 
 }

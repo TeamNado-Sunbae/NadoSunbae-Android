@@ -6,14 +6,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
+import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.data.model.ui.PreviewData
 import com.nadosunbae_android.data.repository.review.ReviewRepositoryImpl
+import com.nadosunbae_android.util.DropDownSelectableViewModel
 
-class ReviewListViewModel : ViewModel() {
+class ReviewListViewModel : ViewModel(), DropDownSelectableViewModel {
     private val reviewRepository = ReviewRepositoryImpl()
     private val _reviewListData = MutableLiveData<ResponseReviewListData>()
     val reviewListData: LiveData<ResponseReviewListData>
         get() = _reviewListData
+
+    override var dropDownSelected = MutableLiveData<SelectableData>()
 
     // 선택 학과홈페이지 링크
     private var _urlHomepage = MutableLiveData<String>()
