@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
 import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
 import com.nadosunbae_android.data.model.response.main.ResponseMajorListData
+import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
+import com.nadosunbae_android.data.model.response.sign.ResponseSignUp
 import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
@@ -18,6 +20,11 @@ class MainViewModel() : ViewModel() {
     val mainRepository: MainRepository = MainRepositoryImpl()
     val classRoomRepository: ClassRoomRepository = ClassRoomRepositoryImpl()
     val mypageRepository: MyPageRepositoryImpl = MyPageRepositoryImpl()
+
+    // 로그인 response 데이터
+    private val _signData = MutableLiveData<ResponseSignIn>()
+    val signData: LiveData<ResponseSignIn>
+        get() = _signData
 
     //과방탭
     //과방탭에서 질문탭 및 정보탭 select 구분 (과방)
@@ -135,6 +142,10 @@ class MainViewModel() : ViewModel() {
 
     fun setSecondMajor(majorData: MajorData) {
         _secondMajor.value = majorData
+    }
+
+    fun setSignData(signData: ResponseSignIn) {
+        _signData.value = signData
     }
 
 }
