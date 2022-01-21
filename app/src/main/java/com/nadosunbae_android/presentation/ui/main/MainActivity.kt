@@ -128,7 +128,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         //val signData = intent.getSerializableExtra("signData") as ResponseSignIn
 
         //test data
-        val signData = ResponseSignIn(ResponseSignIn.Data("d", ResponseSignIn.Data.User("ku2@korea.ac.kr", 3, "건축사회공학부", false, 42, "소프트웨어벤처", 1, 2)), "test", 200, true)
+        val signData = ResponseSignIn(ResponseSignIn.Data("d", ResponseSignIn.Data.User("ku2@korea.ac.kr", 3, "건축사회공학부", true, 42, "소프트웨어벤처", 1, 2)), "test", 200, true)
         // null check
         if (signData != null) {
             mainViewModel.setSignData(signData)

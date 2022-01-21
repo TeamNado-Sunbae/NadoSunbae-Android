@@ -63,11 +63,11 @@ class CustomDialog(val context : Context) {
         val binding = DataBindingUtil.inflate<DialogGenericBinding>(LayoutInflater.from(context), R.layout.dialog_generic, null, false)
         binding.dialogText = dialogText
         binding.btnDialogCancel.setOnClickListener {
-            cancel
+            cancel()
             dialog.dismiss()
         }
         binding.btnDialogComplete.setOnClickListener {
-            complete
+            complete()
             dialog.dismiss()
         }
 

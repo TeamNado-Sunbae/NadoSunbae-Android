@@ -93,9 +93,13 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                     if (!signData!!.data.user.isReviewed) {
                         // 후기 미작성시 알럿 띄우기
                         CustomDialog(requireContext())
-                            .genericDialog(CustomDialog.DialogData("aaa", "sss", "ddd"),
+                            .genericDialog(CustomDialog.DialogData(
+                                getString(R.string.alert_no_review_title),
+                                getString(R.string.alert_no_review_complete),
+                                getString(R.string.alert_no_review_cancel)
+                            ),
                             complete = {
-
+                                   openReviewWrite()
                             },
                             cancel = {
 
@@ -124,21 +128,9 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             startActivity(intent)
         }
 
+
         binding.btnWriteReview.setOnClickListener {
-            val intent = Intent(context, ReviewWriteActivity::class.java)
-
-            val selectedMajor = mainViewModel.selectedMajor.value
-            val firstMajor = mainViewModel.firstMajor.value
-            val secondMajor = mainViewModel.secondMajor.value
-            // null check
-            if (selectedMajor != null)
-                intent.putExtra("selectedMajor", firstMajor)
-            if (firstMajor != null)
-                intent.putExtra("firstMajor", firstMajor)
-            if (secondMajor != null)
-                intent.putExtra("secondMajor", secondMajor)
-
-            startActivity(intent)
+            openReviewWrite()
         }
 
         val showMajorBottomSheetDialog = {
@@ -157,6 +149,23 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             filterBottomSheetDialog.show(parentFragmentManager, filterBottomSheetDialog.tag)
         }
 
+    }
+
+    private fun openReviewWrite() {
+        val intent = Intent(context, ReviewWriteActivity::class.java)
+
+        val selectedMajor = mainViewModel.selectedMajor.value
+        val firstMajor = mainViewModel.firstMajor.value
+        val secondMajor = mainViewModel.secondMajor.value
+        // null check
+        if (selectedMajor != null)
+            intent.putExtra("selectedMajor", firstMajor)
+        if (firstMajor != null)
+            intent.putExtra("firstMajor", firstMajor)
+        if (secondMajor != null)
+            intent.putExtra("secondMajor", secondMajor)
+
+        startActivity(intent)
     }
 
     private fun setStickyHeader() {

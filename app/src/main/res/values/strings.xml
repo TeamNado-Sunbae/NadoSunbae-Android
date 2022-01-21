@@ -263,4 +263,10 @@
     <string name="question_write_complete_no">아니요</string>
     <string name="question_write_complete_yes">예</string>
     <string name="title_activity_senior_personal">SeniorPersonalActivity</string>
+
+    <!-- 후기 미작성자 알럿 -->
+    <string name="alert_no_review_title">내 학과 후기를 작성해야\n이용할 수 있는 기능이에요.</string>
+    <string name="alert_no_review_cancel">다음에 작성</string>
+    <string name="alert_no_review_complete">후기 작성</string>
+
 </resources>
