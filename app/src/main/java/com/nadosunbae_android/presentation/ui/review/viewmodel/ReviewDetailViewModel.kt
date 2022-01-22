@@ -6,11 +6,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nadosunbae_android.data.model.request.like.RequestPostLike
 import com.nadosunbae_android.data.model.response.review.ResponseReviewDetailData
+import com.nadosunbae_android.data.repository.like.LikeRepositoryImpl
 import com.nadosunbae_android.data.repository.review.ReviewRepositoryImpl
 
 class ReviewDetailViewModel : ViewModel() {
     private val reviewRepository = ReviewRepositoryImpl()
+    private val likeRepository = LikeRepositoryImpl()
 
     private val _reviewDetailData = MutableLiveData<ResponseReviewDetailData>()
     val reviewDetailData: LiveData<ResponseReviewDetailData>
@@ -30,6 +33,23 @@ class ReviewDetailViewModel : ViewModel() {
 
                     Log.d(TAG, "서버통신 성공")
                 }
+            },
+            onFailure = {
+                it.printStackTrace()
+                Log.d(TAG, "서버통신 실패")
+            }
+        )
+    }
+
+    // 좋아요
+    fun postLikeReview(postId: Int) {
+        likeRepository.likeDataSource.postLike(
+            RequestPostLike(postId, 1),
+            onResponse = {
+                 if (it.isSuccessful) {
+                     //_reviewDetailData.value!!.data.like.isLiked = it.body()!!.data.isLiked
+                     Log.d(TAG, "서버통신 성공")
+                 }
             },
             onFailure = {
                 it.printStackTrace()

@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
+import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.notification.NotificationService
 import com.nadosunbae_android.data.api.main.MainService
 import com.nadosunbae_android.data.api.mypage.MyPageService
@@ -73,4 +74,5 @@ object ApiService {
     val reviewService : ReviewService = retrofit.create(ReviewService::class.java)
     val notificationService : NotificationService = retrofit.create(NotificationService::class.java)
     val mypageService : MyPageService = retrofit.create(MyPageService::class.java)
+    val likeService : LikeService = retrofit.create(LikeService::class.java)
 }
