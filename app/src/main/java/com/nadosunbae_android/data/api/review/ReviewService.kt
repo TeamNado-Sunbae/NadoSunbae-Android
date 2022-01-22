@@ -2,6 +2,7 @@ package com.nadosunbae_android.data.api.review
 
 import com.nadosunbae_android.data.model.request.review.RequestPostReview
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
+import com.nadosunbae_android.data.model.response.like.ResponsePostLike
 import com.nadosunbae_android.data.model.response.review.*
 import retrofit2.Call
 import retrofit2.http.*

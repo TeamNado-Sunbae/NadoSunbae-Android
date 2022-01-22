@@ -18,6 +18,7 @@ class ReviewDetailActivity :
     BaseActivity<ActivityReviewDetailBinding>(R.layout.activity_review_detail) {
 
     private lateinit var reviewTagBoxAdapter: ReviewTagBoxAdapter
+    private var postId = NOT_POST_ID
 
     private val reviewDetailViewModel: ReviewDetailViewModel by viewModels {
         object : ViewModelProvider.Factory {
@@ -49,11 +50,12 @@ class ReviewDetailActivity :
     }
 
     private fun getServerData() {
-        val postId = intent.getIntExtra("postId", NOT_POST_ID)
+        postId = intent.getIntExtra("postId", NOT_POST_ID)
 
         // intent extra check
-        if (postId != NOT_POST_ID)
+        if (postId != NOT_POST_ID) {
             reviewDetailViewModel.getReviewDetail(postId)
+        }
 
     }
 
@@ -63,7 +65,9 @@ class ReviewDetailActivity :
         }
 
         binding.btnReviewLike.setOnClickListener {
-            binding.btnReviewLike.isSelected = !binding.btnReviewLike.isSelected
+            // binding.btnReviewLike.isSelected = !binding.btnReviewLike.isSelected
+            reviewDetailViewModel.postLikeReview(postId)
+            reviewDetailViewModel.getReviewDetail(postId)
         }
 
         // 선배 프로필
@@ -93,6 +97,10 @@ class ReviewDetailActivity :
                 // Background Resource 선택
                 val backgroundRes = getBackgroundImage(responseValue.data.backgroundImage.imageId)
                 reviewDetailViewModel.setBackgroundRes(resources.getDrawable(backgroundRes))
+
+                // like
+                binding.btnReviewLike.isSelected = responseValue.data.like.isLiked
+                binding.executePendingBindings()
             }
         }
     }

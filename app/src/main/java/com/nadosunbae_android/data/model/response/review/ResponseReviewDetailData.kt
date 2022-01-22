@@ -20,7 +20,7 @@ data class ResponseReviewDetailData(
         )
 
         data class Like(
-            val isLiked: Boolean,
+            var isLiked: Boolean,
             val likeCount: String
         )
 
