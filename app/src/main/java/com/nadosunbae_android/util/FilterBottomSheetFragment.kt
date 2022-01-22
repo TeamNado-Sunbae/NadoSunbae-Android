@@ -117,6 +117,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         binding.btnFilterReset.setOnClickListener {
             resetFilters()
             setApplyButton()
+            finish()
         }
 
         // 필터 버튼들 선택 리스너
