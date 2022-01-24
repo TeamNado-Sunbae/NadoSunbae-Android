@@ -73,8 +73,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         }
 
         binding.imgMyPageSetting.setOnClickListener {
-            val intentSetting = Intent(getActivity(), MyPageSettingActivity::class.java)
-            startActivity(intentSetting)
+            mainViewModel.mypageFragmentNum.value = 1
         }
     }
 
