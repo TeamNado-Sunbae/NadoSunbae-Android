@@ -1,9 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.ui.mypage.MyPageSettingActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_mypage_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_mypage_setting_move_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/btn_left_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_mypage_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="내 설정"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_mypage_setting_move_page"
+                app:layout_constraintStart_toEndOf="@+id/img_mypage_setting_move_page"
+                app:layout_constraintTop_toTopOf="@+id/img_mypage_setting_move_page" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_mypage_setting_modify_information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="21dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="내 정보 수정"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_mypage_setting" />
+
+        <ImageView
+            android:id="@+id/text_mypage_setting_modify_information_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/btn_right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_modify_information"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_modify_information" />
+
+        <View
+            android:id="@+id/view_mypage_bar1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_modify_information" />
+
+        <TextView
+            android:id="@+id/text_mypage_setting_chagne_pw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="21dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="비밀번호 변경"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_modify_information"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar1" />
+
+        <ImageView
+            android:id="@+id/img_mypage_setting_chagne_pw_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_chagne_pw"
+            app:layout_constraintEnd_toEndOf="@+id/text_mypage_setting_modify_information_arrow"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_modify_information_arrow"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_chagne_pw" />
+
+        <View
+            android:id="@+id/view_mypage_bar2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_0"
+            app:layout_constraintEnd_toEndOf="@+id/text_mypage_setting_chagne_pw"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_chagne_pw"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_chagne_pw" />
+
+        <TextView
+            android:id="@+id/text_mypage_setting_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="21dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="알림 설정"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_chagne_pw"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar2" />
+
+        <ImageView
+            android:id="@+id/img_mypage_setting_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_alarm"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_setting_chagne_pw_arrow"
+            app:layout_constraintStart_toStartOf="@+id/img_mypage_setting_chagne_pw_arrow"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_alarm" />
+
+
+        <View
+            android:id="@+id/view_mypage_bar3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_0"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_setting_alarm"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_alarm"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_alarm" />
+
+        <TextView
+            android:id="@+id/text_mypage_setting_qa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="21dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="서비스 문의"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_chagne_pw"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar3" />
+
+        <ImageView
+            android:id="@+id/img_mypage_setting_qa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_qa"
+            app:layout_constraintStart_toStartOf="@+id/img_mypage_setting_alarm"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_qa" />
+
+        <View
+            android:id="@+id/view_mypage_bar4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_0"
+            app:layout_constraintEnd_toEndOf="@+id/text_mypage_setting_qa"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_qa"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_qa" />
+
+        <TextView
+            android:id="@+id/text_mypage_setting_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="21dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="로그아웃"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_chagne_pw"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar4" />
+
+        <ImageView
+            android:id="@+id/img_mypage_setting_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_logout"
+            app:layout_constraintStart_toStartOf="@+id/img_mypage_setting_qa"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_logout" />
+
+        <View
+            android:id="@+id/view_mypage_bar5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_0"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_setting_logout"
+            app:layout_constraintHorizontal_bias="0.545"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_logout"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_logout" />
+
+        <TextView
+            android:id="@+id/text_mypage_setting_quit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="21dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="탈퇴"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_logout"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar5" />
+
+        <ImageView
+            android:id="@+id/img_mypage_setting_quit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_quit"
+            app:layout_constraintStart_toStartOf="@+id/img_mypage_setting_logout"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_quit" />
+
+        <View
+            android:id="@+id/view_mypage_bar6"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_0"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_setting_quit"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_quit"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_quit" />
+
+        <TextView
+            android:id="@+id/text_mypage_setting_opensource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="21dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="오픈소스 라이선스"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_quit"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar6" />
+
+        <ImageView
+            android:id="@+id/img_mypage_setting_opensource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_opensource"
+            app:layout_constraintStart_toStartOf="@+id/img_mypage_setting_quit"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_opensource" />
+
+        <View
+            android:id="@+id/view_mypage_bar7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_0"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_setting_opensource"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_opensource"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_opensource" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
