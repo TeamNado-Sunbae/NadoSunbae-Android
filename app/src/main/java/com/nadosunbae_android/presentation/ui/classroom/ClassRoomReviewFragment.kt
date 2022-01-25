@@ -3,8 +3,7 @@ package com.nadosunbae_android.presentation.ui.classroom
 import android.os.Bundle
 import android.view.View
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
-import com.nadosunbae_android.data.model.ui.PreviewData
+import com.nadosunbae_android.model.response.review.ResponseReviewListData
 import com.nadosunbae_android.databinding.FragmentClassRoomReviewBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter

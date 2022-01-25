@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.response.sign.SelectableData
+import com.nadosunbae_android.model.response.sign.SelectableData
 import com.nadosunbae_android.databinding.ItemBottomsheetListBinding
 import com.nadosunbae_android.util.CustomBottomSheetDialog
 import com.nadosunbae_android.util.setTextSemiBold

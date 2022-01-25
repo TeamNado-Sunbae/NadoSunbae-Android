@@ -1,15 +1,14 @@
 package com.nadosunbae_android.presentation.ui.review.viewmodel
 
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.data.model.request.like.RequestPostLike
-import com.nadosunbae_android.data.model.response.review.ResponseReviewDetailData
-import com.nadosunbae_android.data.repository.like.LikeRepositoryImpl
-import com.nadosunbae_android.data.repository.review.ReviewRepositoryImpl
+import com.nadosunbae_android.model.request.like.RequestPostLike
+import com.nadosunbae_android.model.response.review.ResponseReviewDetailData
+import com.nadosunbae_android.repositoryimpl.like.LikeRepositoryImpl
+import com.nadosunbae_android.repositoryimpl.review.ReviewRepositoryImpl
 
 class ReviewDetailViewModel : ViewModel() {
     private val reviewRepository = ReviewRepositoryImpl()

@@ -3,18 +3,17 @@ package com.nadosunbae_android.presentation.ui.review
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.review.RequestPostReview
-import com.nadosunbae_android.data.model.response.main.ResponseMajorListData
-import com.nadosunbae_android.data.model.response.review.ResponseBackgroundImageListData
-import com.nadosunbae_android.data.model.response.sign.SelectableData
-import com.nadosunbae_android.data.model.ui.MajorData
-import com.nadosunbae_android.data.model.ui.SelectBackgroundBoxData
+import com.nadosunbae_android.model.request.review.RequestPostReview
+import com.nadosunbae_android.model.response.main.ResponseMajorListData
+import com.nadosunbae_android.model.response.review.ResponseBackgroundImageListData
+import com.nadosunbae_android.model.response.sign.SelectableData
+import com.nadosunbae_android.model.ui.MajorData
+import com.nadosunbae_android.model.ui.SelectBackgroundBoxData
 import com.nadosunbae_android.databinding.ActivityReviewWriteBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
@@ -22,7 +21,6 @@ import com.nadosunbae_android.presentation.ui.review.adapter.ReviewSelectBackgro
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewWriteViewModel
 import com.nadosunbae_android.util.CustomDialog
 import com.nadosunbae_android.util.showCustomDropDown
-import okhttp3.RequestBody
 
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
 

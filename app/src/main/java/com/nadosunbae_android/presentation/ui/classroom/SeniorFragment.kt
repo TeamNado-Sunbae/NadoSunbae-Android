@@ -7,13 +7,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
+import com.nadosunbae_android.model.response.classroom.ResponseClassRoomSeniorData
 import com.nadosunbae_android.databinding.FragmentSeniorBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomSeniorOffAdapter
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.util.CustomDialog
 
 
 class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_senior) {

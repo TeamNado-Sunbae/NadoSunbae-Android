@@ -3,9 +3,8 @@ package com.nadosunbae_android.presentation.ui.notification.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
+import com.nadosunbae_android.model.response.notification.ResponseNotificationListData
 import com.nadosunbae_android.databinding.ItemNotificationBinding
-import com.nadosunbae_android.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.presentation.ui.notification.NotificationFragment
 
 class NotificationAdapter(

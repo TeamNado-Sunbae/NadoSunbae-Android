@@ -6,13 +6,12 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
+import com.nadosunbae_android.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.model.response.classroom.ResponseClassRoomQuestionDetail
 import com.nadosunbae_android.databinding.ActivityQuestionDetailBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionDetailAdapter
 import com.nadosunbae_android.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
-import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 
 class QuestionDetailActivity :
     BaseActivity<ActivityQuestionDetailBinding>(R.layout.activity_question_detail) {

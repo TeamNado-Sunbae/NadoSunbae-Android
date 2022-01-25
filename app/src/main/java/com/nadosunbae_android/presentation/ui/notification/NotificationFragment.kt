@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
+import com.nadosunbae_android.model.response.notification.ResponseNotificationListData
 import com.nadosunbae_android.databinding.FragmentNotificationBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.InformationDetailActivity

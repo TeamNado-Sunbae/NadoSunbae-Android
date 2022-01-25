@@ -12,9 +12,9 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
-import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
-import com.nadosunbae_android.data.model.request.sign.RequestSignUp
+import com.nadosunbae_android.model.request.sign.RequestSignEmail
+import com.nadosunbae_android.model.request.sign.RequestSignNickname
+import com.nadosunbae_android.model.request.sign.RequestSignUp
 import com.nadosunbae_android.databinding.ActivitySignUpBasicInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel

@@ -4,17 +4,16 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomSeniorData
-import com.nadosunbae_android.data.model.response.main.ResponseMajorListData
-import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.data.model.response.sign.ResponseSignUp
-import com.nadosunbae_android.data.model.ui.MajorData
-import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
-import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
-import com.nadosunbae_android.data.repository.main.MainRepository
-import com.nadosunbae_android.data.repository.main.MainRepositoryImpl
-import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
+import com.nadosunbae_android.model.response.classroom.ResponseClassRoomMainData
+import com.nadosunbae_android.model.response.classroom.ResponseClassRoomSeniorData
+import com.nadosunbae_android.model.response.main.ResponseMajorListData
+import com.nadosunbae_android.model.response.sign.ResponseSignIn
+import com.nadosunbae_android.model.ui.MajorData
+import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepository
+import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepositoryImpl
+import com.nadosunbae_android.repositoryimpl.main.MainRepository
+import com.nadosunbae_android.repositoryimpl.main.MainRepositoryImpl
+import com.nadosunbae_android.repositoryimpl.mypage.MyPageRepositoryImpl
 
 class MainViewModel() : ViewModel() {
     val mainRepository: MainRepository = MainRepositoryImpl()

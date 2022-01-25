@@ -4,10 +4,10 @@ import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomWriteData
-import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
-import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
+import com.nadosunbae_android.model.request.classroom.RequestClassRoomPostData
+import com.nadosunbae_android.model.response.classroom.ResponseClassRoomWriteData
+import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepository
+import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepositoryImpl
 
 class QuestionWriteViewModel : ViewModel() {
     private val classRoomRepository : ClassRoomRepository = ClassRoomRepositoryImpl()

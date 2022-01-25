@@ -4,10 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
-import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
-import com.nadosunbae_android.data.repository.mypage.MyPageRepository
-import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
+import com.nadosunbae_android.model.response.mypage.ResponseMypageMyInfo
+import com.nadosunbae_android.model.response.mypage.ResponseMypageQuestionData
+import com.nadosunbae_android.repositoryimpl.mypage.MyPageRepository
+import com.nadosunbae_android.repositoryimpl.mypage.MyPageRepositoryImpl
 
 class MyPageViewModel : ViewModel() {
     val myPageRepository: MyPageRepository = MyPageRepositoryImpl()

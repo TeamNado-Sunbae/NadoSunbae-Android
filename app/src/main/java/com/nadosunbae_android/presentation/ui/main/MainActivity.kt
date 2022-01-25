@@ -6,8 +6,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.data.model.ui.MajorData
+import com.nadosunbae_android.model.response.sign.ResponseSignIn
+import com.nadosunbae_android.model.ui.MajorData
 import com.nadosunbae_android.databinding.ActivityMainBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.classroom.*

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
+import com.nadosunbae_android.model.response.classroom.ResponseClassRoomQuestionDetail
 import com.nadosunbae_android.databinding.ItemQuestionDetailCommentBinding
 import com.nadosunbae_android.databinding.ItemQuestionDetailQuestionerBinding
 import com.nadosunbae_android.databinding.ItemQuestionDetailWriterBinding

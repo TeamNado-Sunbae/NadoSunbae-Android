@@ -4,11 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.data.model.request.review.RequestPostReview
-import com.nadosunbae_android.data.model.response.review.ResponseBackgroundImageListData
-import com.nadosunbae_android.data.model.response.sign.SelectableData
-import com.nadosunbae_android.data.model.ui.MajorData
-import com.nadosunbae_android.data.repository.review.ReviewRepositoryImpl
+import com.nadosunbae_android.model.request.review.RequestPostReview
+import com.nadosunbae_android.model.response.review.ResponseBackgroundImageListData
+import com.nadosunbae_android.model.response.sign.SelectableData
+import com.nadosunbae_android.repositoryimpl.review.ReviewRepositoryImpl
 import com.nadosunbae_android.util.DropDownSelectableViewModel
 
 class ReviewWriteViewModel : ViewModel(), DropDownSelectableViewModel {

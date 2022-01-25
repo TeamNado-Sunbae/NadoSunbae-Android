@@ -1,6 +1,5 @@
 package com.nadosunbae_android.presentation.ui.classroom
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,14 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
-import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
+import com.nadosunbae_android.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentSeniorPersonalBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.util.Mapper
+import com.nadosunbae_android.mapper.Mapper
 
 class SeniorPersonalFragment :
     BaseFragment<FragmentSeniorPersonalBinding>(R.layout.fragment_senior_personal) {

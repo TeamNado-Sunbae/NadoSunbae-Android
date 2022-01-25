@@ -2,22 +2,19 @@ package com.nadosunbae_android.presentation.ui.mypage
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
+import com.nadosunbae_android.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentMyPageBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.util.BindingAdapter
-import com.nadosunbae_android.util.Mapper
+import com.nadosunbae_android.mapper.Mapper
 
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {

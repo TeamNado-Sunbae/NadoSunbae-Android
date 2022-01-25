@@ -10,10 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.review.RequestReviewListData
-import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
-import com.nadosunbae_android.data.model.response.sign.SelectableData
-import com.nadosunbae_android.data.model.ui.MajorData
+import com.nadosunbae_android.model.request.review.RequestReviewListData
+import com.nadosunbae_android.model.response.review.ResponseReviewListData
+import com.nadosunbae_android.model.response.sign.SelectableData
+import com.nadosunbae_android.model.ui.MajorData
 import com.nadosunbae_android.databinding.FragmentReviewBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel

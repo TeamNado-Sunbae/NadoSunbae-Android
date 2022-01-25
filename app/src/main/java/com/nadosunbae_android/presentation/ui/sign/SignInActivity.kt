@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.sign.RequestSignIn
+import com.nadosunbae_android.model.request.sign.RequestSignIn
 import com.nadosunbae_android.databinding.ActivitySignInBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.main.MainActivity

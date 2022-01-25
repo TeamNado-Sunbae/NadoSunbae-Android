@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
-import com.nadosunbae_android.data.model.response.classroom.ResponseInfoDetailData
-import com.nadosunbae_android.data.model.response.classroom.ResponseQuestionCommentWrite
-import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
-import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
+import com.nadosunbae_android.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.model.response.classroom.ResponseInfoDetailData
+import com.nadosunbae_android.model.response.classroom.ResponseQuestionCommentWrite
+import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepository
+import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepositoryImpl
 
 class InfoDetailViewModel : ViewModel() {
     private val classRoomRepository: ClassRoomRepository = ClassRoomRepositoryImpl()

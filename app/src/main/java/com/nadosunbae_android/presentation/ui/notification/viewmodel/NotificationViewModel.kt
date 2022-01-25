@@ -1,14 +1,13 @@
 package com.nadosunbae_android.presentation.ui.notification.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.data.model.response.notification.ResponseNotificationDeleteData
-import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
-import com.nadosunbae_android.data.model.response.notification.ResponseNotificationReadData
-import com.nadosunbae_android.data.repository.notification.NotificationRepository
-import com.nadosunbae_android.data.repository.notification.NotificationRepositoryImpl
+import com.nadosunbae_android.model.response.notification.ResponseNotificationDeleteData
+import com.nadosunbae_android.model.response.notification.ResponseNotificationListData
+import com.nadosunbae_android.model.response.notification.ResponseNotificationReadData
+import com.nadosunbae_android.repositoryimpl.notification.NotificationRepository
+import com.nadosunbae_android.repositoryimpl.notification.NotificationRepositoryImpl
 
 class NotificationViewModel : ViewModel() {
     private val notificationRepository : NotificationRepository = NotificationRepositoryImpl()

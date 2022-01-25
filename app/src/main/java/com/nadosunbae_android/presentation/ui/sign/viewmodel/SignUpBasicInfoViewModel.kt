@@ -3,15 +3,15 @@ package com.nadosunbae_android.presentation.ui.sign.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
-import com.nadosunbae_android.data.model.request.sign.RequestSignIn
-import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
-import com.nadosunbae_android.data.model.request.sign.RequestSignUp
-import com.nadosunbae_android.data.model.response.sign.ResponseFirstDepartment
-import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.data.model.response.sign.ResponseSignUp
-import com.nadosunbae_android.data.repository.sign.SignRepository
-import com.nadosunbae_android.data.repository.sign.SignRepositoryImpl
+import com.nadosunbae_android.model.request.sign.RequestSignEmail
+import com.nadosunbae_android.model.request.sign.RequestSignIn
+import com.nadosunbae_android.model.request.sign.RequestSignNickname
+import com.nadosunbae_android.model.request.sign.RequestSignUp
+import com.nadosunbae_android.model.response.sign.ResponseFirstDepartment
+import com.nadosunbae_android.model.response.sign.ResponseSignIn
+import com.nadosunbae_android.model.response.sign.ResponseSignUp
+import com.nadosunbae_android.repositoryimpl.sign.SignRepository
+import com.nadosunbae_android.repositoryimpl.sign.SignRepositoryImpl
 
 class SignUpBasicInfoViewModel : ViewModel() {
     val signRepository: SignRepository = SignRepositoryImpl()

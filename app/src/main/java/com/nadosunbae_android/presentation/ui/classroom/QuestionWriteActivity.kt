@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
+import com.nadosunbae_android.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.databinding.ActivityQuestionWriteBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.classroom.viewmodel.QuestionWriteViewModel

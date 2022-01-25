@@ -8,15 +8,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomMainData
-import com.nadosunbae_android.data.model.ui.MajorData
-import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
+import com.nadosunbae_android.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentQuestionBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.util.CustomBottomSheetDialog
-import com.nadosunbae_android.util.Mapper
+import com.nadosunbae_android.mapper.Mapper
 
 
 class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment_question) {

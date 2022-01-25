@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
+import com.nadosunbae_android.model.ui.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.presentation.ui.classroom.InformationDetailActivity
 
