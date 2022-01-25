@@ -6,13 +6,9 @@ import retrofit2.Response
 
 interface MyPageDataSource {
 
-    fun getMyPageQuestion(
+    suspend fun getMyPageQuestion(
         userId : Int,
-        sort : String,
-        onResponse: (Response<ResponseMypageQuestionData>) -> Unit,
-        onFailure: (Throwable) -> Unit)
+        sort : String) : ResponseMypageQuestionData
 
-    fun getMyPageMyInfo(
-        onResponse: (Response<ResponseMypageMyInfo>) -> Unit,
-        onFailure: (Throwable) -> Unit)
+    suspend fun getMyPageMyInfo() : ResponseMypageMyInfo
 }

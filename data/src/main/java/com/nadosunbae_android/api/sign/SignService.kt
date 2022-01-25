@@ -10,29 +10,29 @@ import retrofit2.http.*
 
 interface SignService {
     @POST("auth/duplication-check/nickname")
-    fun postSignNickname(
+    suspend fun postSignNickname(
         @Body requestSignNickname: RequestSignNickname
-    ): Call<ResponseSignNickname>
+    ): ResponseSignNickname
 
     @POST("auth/duplication-check/email")
-    fun postSignEmail(
+    suspend fun postSignEmail(
         @Body requestSignEmail: RequestSignEmail
-    ) : Call<ResponseSignEmail>
+    ) : ResponseSignEmail
 
     @GET("major/list/{universityId}")
-    fun getFirstDepartment(
+    suspend fun getFirstDepartment(
         @Path("universityId") universityId :Int,
         @Query("filter") filter : String
-    ) : Call<ResponseFirstDepartment>
+    ) : ResponseFirstDepartment
 
     @POST("auth/signup")
-    fun postSignUp(
+    suspend fun postSignUp(
         @Body requestSignUp: RequestSignUp
-    ) : Call<ResponseSignUp>
+    ) : ResponseSignUp
 
     //로그인
     @POST("auth/login")
-    fun postSignIn(
+    suspend fun postSignIn(
         @Body requestSignIn: RequestSignIn
-    ) : Call<ResponseSignIn>
+    ) : ResponseSignIn
 }

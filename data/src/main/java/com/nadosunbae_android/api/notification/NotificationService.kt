@@ -14,19 +14,19 @@ interface NotificationService {
 
     //전체 알림 리스트 조회
     @GET("notification/list/{receiverId}")
-    fun getNotification(
+    suspend fun getNotification(
         @Path("receiverId") receiverId: Int
-    ): Call<ResponseNotificationListData>
+    ): ResponseNotificationListData
 
     //알림 삭제
     @DELETE("notification/{notificationId}")
-    fun deleteNotification(
+    suspend fun deleteNotification(
         @Path("notificationId") notificationId : Int
-    ) : Call<ResponseNotificationDeleteData>
+    ) : ResponseNotificationDeleteData
 
     //알림 읽음 처리
     @PUT("notification/read/{notificationId}")
-    fun putReadNotification(
+    suspend fun putReadNotification(
         @Path("notificationId") notificationId : Int
-    )  : Call<ResponseNotificationReadData>
+    )  : ResponseNotificationReadData
 }

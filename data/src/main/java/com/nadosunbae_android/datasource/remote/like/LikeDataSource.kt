@@ -6,9 +6,5 @@ import retrofit2.Response
 
 interface LikeDataSource {
 
-    fun postLike(
-        requestBody: RequestPostLike,
-        onResponse: (Response<ResponsePostLike>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    suspend fun postLike(requestBody: RequestPostLike) : ResponsePostLike
 }

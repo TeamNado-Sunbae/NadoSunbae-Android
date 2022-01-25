@@ -7,33 +7,15 @@ import retrofit2.Response
 
 interface ReviewDataSource {
 
-    fun getReviewList(
-        sort: String = "recent", body: RequestReviewListData,
-        onResponse: (Response<ResponseReviewListData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    suspend fun getReviewList(
+        sort: String = "recent", body: RequestReviewListData) : ResponseReviewListData
 
-    fun getMajorInfo(
-        majorId: Int,
-        onResponse: (Response<ResponseMajorData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    suspend fun getMajorInfo(majorId: Int) : ResponseMajorData
 
-    fun getReviewDetail(
-        postId: Int,
-        onResponse: (Response<ResponseReviewDetailData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    suspend fun getReviewDetail(postId: Int) : ResponseReviewDetailData
 
-    fun getBackgroundImageList(
-        onResponse: (Response<ResponseBackgroundImageListData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    suspend fun getBackgroundImageList() : ResponseBackgroundImageListData
 
-    fun postReview(
-        requestBody: RequestPostReview,
-        onResponse: (Response<ResponsePostReview>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    suspend fun postReview(requestBody: RequestPostReview) : ResponsePostReview
 
 }

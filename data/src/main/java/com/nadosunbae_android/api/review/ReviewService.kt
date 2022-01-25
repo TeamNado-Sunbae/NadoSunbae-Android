@@ -9,27 +9,27 @@ import retrofit2.http.*
 interface ReviewService {
 
     @POST("review-post/list")
-    fun getReviewList(
+    suspend fun getReviewList(
         @Query("sort") sort: String = "recent",
         @Body requestBody: RequestReviewListData
-    ) : Call<ResponseReviewListData>
+    ) : ResponseReviewListData
 
     @GET("major/{majorId}")
-    fun getMajorInfo(
+    suspend fun getMajorInfo(
         @Path("majorId") majorId: Int
-    ) : Call<ResponseMajorData>
+    ) : ResponseMajorData
 
     @GET("review-post/{postId}")
-    fun getReviewDetail(
+    suspend fun getReviewDetail(
         @Path("postId") postId: Int
-    ) : Call<ResponseReviewDetailData>
+    ) : ResponseReviewDetailData
 
     @GET("review-post/background-image/list")
-    fun getBackgroundImageList() : Call<ResponseBackgroundImageListData>
+    suspend fun getBackgroundImageList() : ResponseBackgroundImageListData
 
     @POST("review-post")
-    fun postReview(
+    suspend fun postReview(
         @Body requestBody: RequestPostReview
-    ) : Call<ResponsePostReview>
+    ) : ResponsePostReview
 
 }

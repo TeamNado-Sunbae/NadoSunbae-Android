@@ -1,30 +1,17 @@
 package com.nadosunbae_android.datasource.remote.mypage
 
-import com.nadosunbae_android.api.ApiService
+import com.nadosunbae_android.api.mypage.MyPageService
 import com.nadosunbae_android.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.model.response.mypage.ResponseMypageQuestionData
-import com.nadosunbae_android.util.enqueueUtil
-import retrofit2.Response
 
-class MyPageDataSourceImpl : MyPageDataSource {
+class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSource {
 
-    override fun getMyPageQuestion(
-        userId: Int,
-        sort: String,
-        onResponse: (Response<ResponseMypageQuestionData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        return ApiService.mypageService.getMyPageQuestion(userId, sort).enqueueUtil(
-            onResponse, onFailure
-        )
+
+    override suspend fun getMyPageQuestion(userId: Int, sort: String): ResponseMypageQuestionData {
+        return service.getMyPageQuestion(userId, sort)
     }
 
-    override fun getMyPageMyInfo(
-        onResponse: (Response<ResponseMypageMyInfo>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        return ApiService.mypageService.getMyPageMyInfo().enqueueUtil(
-            onResponse, onFailure
-        )
+    override suspend fun getMyPageMyInfo(): ResponseMypageMyInfo {
+        return service.getMyPageMyInfo()
     }
 }

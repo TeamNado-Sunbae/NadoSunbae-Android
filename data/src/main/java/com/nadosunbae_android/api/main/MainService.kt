@@ -9,9 +9,9 @@ import retrofit2.http.Query
 interface MainService {
 
     @GET("major/list/{universityId}")
-    fun getMajorList (
+    suspend fun getMajorList (
         @Path("universityId") universityId: Int,
         @Query("filter") filter: String = "all"
-    ) : Call<ResponseMajorListData>
+    ) : ResponseMajorListData
 
 }

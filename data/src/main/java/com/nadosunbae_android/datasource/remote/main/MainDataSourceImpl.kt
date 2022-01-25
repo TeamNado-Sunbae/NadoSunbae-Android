@@ -1,21 +1,11 @@
 package com.nadosunbae_android.datasource.remote.main
 
-import com.nadosunbae_android.api.ApiService
+import com.nadosunbae_android.api.main.MainService
 import com.nadosunbae_android.model.response.main.ResponseMajorListData
-import com.nadosunbae_android.util.enqueueUtil
-import retrofit2.Response
 
-class MainDataSourceImpl() : MainDataSource {
+class MainDataSourceImpl(private val service : MainService) : MainDataSource {
 
-    override fun getMajorList(
-        universityId: Int,
-        filter: String,
-        onResponse: (Response<ResponseMajorListData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        ApiService.mainService.getMajorList(universityId, filter).enqueueUtil(
-            onResponse, onFailure
-        )
+    override suspend fun getMajorList(universityId: Int, filter: String): ResponseMajorListData {
+        return service.getMajorList(universityId, filter)
     }
-
 }

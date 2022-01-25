@@ -5,10 +5,8 @@ import retrofit2.Response
 
 interface MainDataSource {
 
-    fun getMajorList(
+    suspend fun getMajorList(
         universityId: Int,
-        filter: String = "all",
-        onResponse: (Response<ResponseMajorListData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+        filter: String = "all"
+    ) : ResponseMajorListData
 }

@@ -8,21 +8,14 @@ import retrofit2.Response
 interface NotificationDataSource {
 
     // 전체 알림 리스트 조회
-    fun getNotification(
-        receiverId : Int,
-        onResponse: (Response<ResponseNotificationListData>) -> Unit,
-        onFailure : (Throwable) -> Unit)
+    suspend fun getNotification(
+        receiverId : Int) : ResponseNotificationListData
 
     //알림 삭제
-    fun deleteNotification(
-        notificationId : Int,
-        onResponse: (Response<ResponseNotificationDeleteData>) -> Unit,
-        onFailure : (Throwable) -> Unit)
+    suspend fun deleteNotification(
+        notificationId : Int) : ResponseNotificationDeleteData
 
     //알림 읽기
-    fun putReadNotification(
-        notificationId : Int,
-        onResponse: (Response<ResponseNotificationReadData>) -> Unit,
-        onFailure: (Throwable) -> Unit)
+    suspend fun putReadNotification(notificationId : Int) : ResponseNotificationReadData
 
 }

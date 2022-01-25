@@ -9,7 +9,7 @@ import retrofit2.http.POST
 interface LikeService {
 
     @POST("like")
-    fun postLike(
+    suspend fun postLike(
         @Body requestBody: RequestPostLike
-    ) : Call<ResponsePostLike>
+    ) : ResponsePostLike
 }

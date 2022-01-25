@@ -9,11 +9,11 @@ import retrofit2.http.Query
 
 interface MyPageService {
     @GET("user/mypage/{userId}/classroom-post/list")
-    fun getMyPageQuestion(
+    suspend fun getMyPageQuestion(
         @Path("userId") userId :Int,
         @Query("sort") sort : String
-    ) : Call<ResponseMypageQuestionData>
+    ) : ResponseMypageQuestionData
 
     @GET("user/mypage")
-    fun getMyPageMyInfo() : Call<ResponseMypageMyInfo>
+    suspend fun getMyPageMyInfo() : ResponseMypageMyInfo
 }
