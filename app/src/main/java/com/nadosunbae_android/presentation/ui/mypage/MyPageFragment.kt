@@ -71,6 +71,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             val intentHeartList = Intent(getActivity(), MyPageLikeListActivity::class.java)
             startActivity(intentHeartList)
         }
+
+        binding.imgMyPageSetting.setOnClickListener {
+            mainViewModel.mypageFragmentNum.value = 1
+        }
     }
 
 
@@ -97,6 +101,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 binding.textMyPageSecondMajorTime.visibility = View.GONE
         }
     }
+
 }
 
 
