@@ -254,18 +254,14 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 filterBottomSheetDialog.setFilter(filter)
 
                 // 필터 활성화
-                binding.btnReviewFilter.isSelected =
-                    filter.writerFilter != FILTER_ALL && filter.tagFilter != listOf(1, 2, 3, 4, 5)
-
+                val onFilter = !(filter.writerFilter == FILTER_ALL && filter.tagFilter == listOf(1, 2, 3, 4, 5))
+                binding.btnReviewFilter.isSelected = onFilter
                 binding.executePendingBindings()
-
 
                 // 후기 불러오기
                 loadReviewList()
 
             }
-
-
         }
 
     }
