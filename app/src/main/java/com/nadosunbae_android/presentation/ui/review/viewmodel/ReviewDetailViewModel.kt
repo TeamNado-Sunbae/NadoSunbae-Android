@@ -67,6 +67,22 @@ class ReviewDetailViewModel : ViewModel(), DropDownSelectableViewModel {
         )
     }
 
+    // 후기 삭제
+    fun deleteReview(postId: Int) {
+        reviewRepository.deleteReview(postId,
+            onResponse = {
+                if (it.isSuccessful) {
+
+                    Log.d(TAG, "서버통신 성공")
+                }
+            },
+            onFailure = {
+                it.printStackTrace()
+                Log.d(TAG, "서버통신 실패")
+            }
+        )
+    }
+
     // 로그인 유저 정보 불러오기
     fun getSignUserId() {
         myPageRepository.getMyPageMyInfo(

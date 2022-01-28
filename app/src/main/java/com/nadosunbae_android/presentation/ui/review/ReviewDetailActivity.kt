@@ -13,6 +13,7 @@ import com.nadosunbae_android.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewTagBoxAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewDetailViewModel
+import com.nadosunbae_android.util.CustomDialog
 import com.nadosunbae_android.util.dpToPx
 import com.nadosunbae_android.util.getBackgroundImage
 import com.nadosunbae_android.util.showCustomDropDown
@@ -91,6 +92,50 @@ class ReviewDetailActivity :
                 dropDownList = writerDropDownList
 
             showCustomDropDown(reviewDetailViewModel, binding.btnMoreVert, 160f.dpToPx, 0, dropDownList)
+
+            // 드롭다운 메뉴 선택 시
+            reviewDetailViewModel.dropDownSelected.observe(this) {
+                val selected = reviewDetailViewModel.dropDownSelected.value
+
+                if (selected != null) {
+
+                    when (selected.id) {
+                        // 수정 버튼
+                        REVIEW_EDIT -> {
+
+                        }
+
+                        // 삭제 버튼
+                        REVIEW_DELETE -> {
+
+                            // 삭제 확인 다이얼로그
+                            CustomDialog(this).genericDialog(
+                                CustomDialog.DialogData(
+                                    getString(R.string.alert_delete_review_title),
+                                    getString(R.string.alert_delete_review_complete),
+                                    getString(R.string.alert_delete_review_cancel)
+                                ),
+                                complete = {
+                                    reviewDetailViewModel.deleteReview(postId)
+                                    finish()
+                                },
+                                cancel = {
+                                    reviewDetailViewModel.dropDownSelected.value = null
+                                }
+                            )
+
+                        }
+                        // 신고 버튼
+                        REVIEW_REPORT -> {
+
+                        }
+
+                    }
+
+                }
+
+            }
+
         }
 
         binding.btnBack.setOnClickListener {

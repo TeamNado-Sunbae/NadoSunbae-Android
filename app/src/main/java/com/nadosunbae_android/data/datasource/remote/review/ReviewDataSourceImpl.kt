@@ -40,6 +40,16 @@ class ReviewDataSourceImpl() : ReviewDataSource {
         )
     }
 
+    override fun deleteReview(
+        postId: Int,
+        onResponse: (Response<ResponseDeleteReview>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        ApiService.reviewService.deleteReview(postId).enqueueUtil(
+            onResponse, onFailure
+        )
+    }
+
     override fun getBackgroundImageList(
         onResponse: (Response<ResponseBackgroundImageListData>) -> Unit,
         onFailure: (Throwable) -> Unit

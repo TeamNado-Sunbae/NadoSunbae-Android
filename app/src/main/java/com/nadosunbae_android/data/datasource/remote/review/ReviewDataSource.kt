@@ -25,6 +25,12 @@ interface ReviewDataSource {
         onFailure: (Throwable) -> Unit
     )
 
+    fun deleteReview(
+        postId: Int,
+        onResponse: (Response<ResponseDeleteReview>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
+
     fun getBackgroundImageList(
         onResponse: (Response<ResponseBackgroundImageListData>) -> Unit,
         onFailure: (Throwable) -> Unit

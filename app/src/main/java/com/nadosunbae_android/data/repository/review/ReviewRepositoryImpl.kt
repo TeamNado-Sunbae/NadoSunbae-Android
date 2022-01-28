@@ -35,6 +35,14 @@ class ReviewRepositoryImpl : ReviewRepository {
         return reviewDataSource.getReviewDetail(postId, onResponse, onFailure)
     }
 
+    override fun deleteReview(
+        postId: Int,
+        onResponse: (Response<ResponseDeleteReview>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return reviewDataSource.deleteReview(postId, onResponse, onFailure)
+    }
+
     override fun getBackgroundImageList(
         onResponse: (Response<ResponseBackgroundImageListData>) -> Unit,
         onFailure: (Throwable) -> Unit
