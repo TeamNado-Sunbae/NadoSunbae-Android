@@ -1,9 +1,6 @@
 package com.nadosunbae_android.data.model.response.review
 
-import java.io.Serializable
-import java.util.*
-
-data class ResponseReviewDetailData(
+data class ResponsePutReview(
     val data: Data,
     val message: String,
     val status: Int,
@@ -14,39 +11,38 @@ data class ResponseReviewDetailData(
         val like: Like,
         val post: Post,
         val writer: Writer
-    ) : Serializable {
+    ) {
         data class BackgroundImage(
             val imageId: Int,
             val imageUrl: String
-        ) : Serializable
+        )
 
         data class Like(
-            var isLiked: Boolean,
+            val isLiked: Boolean,
             val likeCount: String
-        ) : Serializable
+        )
 
         data class Post(
             val contentList: List<Content>,
-            val createdAt: Date,
+            val createdAt: String,
             val oneLineReview: String,
-            val postId: Int
-        ) : Serializable {
+            val postId: Int,
+            val updatedAt: String
+        ) {
             data class Content(
                 val content: String,
                 val title: String
-            ) : Serializable
+            )
         }
 
         data class Writer(
             val firstMajorName: String,
             val firstMajorStart: String,
-            val isOnQuestion: Boolean,
-            val isReviewd: Boolean,
             val nickname: String,
             val profileImageId: Int,
             val secondMajorName: String,
             val secondMajorStart: String,
             val writerId: Int
-        ) : Serializable
+        )
     }
 }

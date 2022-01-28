@@ -1,6 +1,7 @@
 package com.nadosunbae_android.data.datasource.remote.review
 
 import com.nadosunbae_android.data.model.request.review.RequestPostReview
+import com.nadosunbae_android.data.model.request.review.RequestPutReview
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.*
 import retrofit2.Response
@@ -28,6 +29,13 @@ interface ReviewDataSource {
     fun deleteReview(
         postId: Int,
         onResponse: (Response<ResponseDeleteReview>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
+
+    fun putReview(
+        postId: Int,
+        requestBody: RequestPutReview,
+        onResponse: (Response<ResponsePutReview>) -> Unit,
         onFailure: (Throwable) -> Unit
     )
 

@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.repository.review
 import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSource
 import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSourceImpl
 import com.nadosunbae_android.data.model.request.review.RequestPostReview
+import com.nadosunbae_android.data.model.request.review.RequestPutReview
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.*
 import retrofit2.Response
@@ -41,6 +42,15 @@ class ReviewRepositoryImpl : ReviewRepository {
         onFailure: (Throwable) -> Unit
     ) {
         return reviewDataSource.deleteReview(postId, onResponse, onFailure)
+    }
+
+    override fun putReview(
+        postId: Int,
+        body: RequestPutReview,
+        onResponse: (Response<ResponsePutReview>) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+        return reviewDataSource.putReview(postId, body, onResponse, onFailure)
     }
 
     override fun getBackgroundImageList(
