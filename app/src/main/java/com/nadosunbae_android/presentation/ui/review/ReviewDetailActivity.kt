@@ -47,11 +47,17 @@ class ReviewDetailActivity :
 
         initTagBoxAdapter()
         initBinding()
-        loadServerData()
         setClickListener()
         observeContent()
 
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        loadServerData()
+    }
+
 
     private fun initTagBoxAdapter() {
         reviewTagBoxAdapter = ReviewTagBoxAdapter(this)
@@ -110,8 +116,16 @@ class ReviewDetailActivity :
                         // 수정 버튼
                         REVIEW_EDIT -> {
                             val intent = Intent(this, ReviewWriteActivity::class.java)
-                            intent.putExtra("mode", MODE_MODIFY)
-                            startActivity(intent)
+                            val responseData = reviewDetailViewModel.reviewDetailData.value
+
+                            // null check
+                            if (responseData != null) {
+
+                                intent.putExtra("mode", MODE_MODIFY)
+                                // 후기 수정을 위해 기존 데이터를 넘겨줌
+                                intent.putExtra("modifyData", responseData.data)
+                                startActivity(intent)
+                            }
                         }
 
                         // 삭제 버튼
