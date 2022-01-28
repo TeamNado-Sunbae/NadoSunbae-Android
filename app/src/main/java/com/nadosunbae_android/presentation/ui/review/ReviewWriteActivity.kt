@@ -22,12 +22,13 @@ import com.nadosunbae_android.presentation.ui.review.adapter.ReviewSelectBackgro
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewWriteViewModel
 import com.nadosunbae_android.util.CustomDialog
 import com.nadosunbae_android.util.showCustomDropDown
-import okhttp3.RequestBody
 
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
 
     private lateinit var reviewSelectBackgroundAdapter: ReviewSelectBackgroundAdapter
     private lateinit var reviewRequireTextWatcher: ReviewRequireTextWatcher
+
+    private var mode = MODE_NEW
 
     private val mainViewModel: MainViewModel by viewModels {
         object : ViewModelProvider.Factory {
@@ -49,6 +50,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        getModeFromExtra()
         initBinding()
         initReviewSelectBackgroundAdapter()
         initReviewRequireTextWatcher()
@@ -62,7 +64,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         observeDropDownSelect()
         loadBackgroundImage()
         loadMajorList()
-        getMajorFromIntent()
+        setDropDownDefault()
 
     }
 
@@ -76,6 +78,10 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         }
         else
             super.onBackPressed()
+    }
+
+    private fun getModeFromExtra() {
+        this.mode = intent.getIntExtra("mode", MODE_NEW)
     }
 
     private fun initBinding() {
@@ -160,12 +166,12 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             val selectableList = mutableListOf<SelectableData>()
 
             // 본전공 추가
-            val firstMajor = mainViewModel.firstMajor.value
+            val firstMajor = ReviewGlobals.firstMajor
             if (firstMajor != null && isValidMajor(firstMajor.majorId))
                 selectableList.add(SelectableData(firstMajor.majorId, firstMajor.majorName, false))
 
             // 제2전공 추가
-            val secondMajor = mainViewModel.secondMajor.value
+            val secondMajor = ReviewGlobals.secondMajor
             if (secondMajor != null && isValidMajor(secondMajor.majorId))
                 selectableList.add(SelectableData(secondMajor.majorId, secondMajor.majorName, false))
 
@@ -238,6 +244,10 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                 for (bg in responseBackgroundList.data.backgroundImageList) {
                     dataList.add(SelectBackgroundBoxData(bg.imageId, bg.imageUrl, false))
                 }
+
+                // default 설정
+                reviewSelectBackgroundAdapter.setSelectedBackground(6)
+
                 reviewSelectBackgroundAdapter.notifyDataSetChanged()
 
             }
@@ -301,23 +311,13 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     }
 
-    private fun getMajorFromIntent() {
-        val selectedMajor = intent.getSerializableExtra("selectedMajor") as MajorData?
-        val firstMajor = intent.getSerializableExtra("firstMajor") as MajorData?
-        val secondMajor = intent.getSerializableExtra("secondMajor") as MajorData?
+    private fun setDropDownDefault() {
 
-        // null check
-        if (selectedMajor != null)
-            mainViewModel.setSelectedMajor(selectedMajor)
 
-        if (firstMajor != null) {
-            mainViewModel.setFirstMajor(firstMajor)
+        val firstMajor = ReviewGlobals.firstMajor
+        if (firstMajor != null)
+           reviewWriteViewModel.dropDownSelected.value = SelectableData(firstMajor.majorId, firstMajor.majorName, true)
 
-            // 드롭다운 default 선택
-            reviewWriteViewModel.dropDownSelected.value = SelectableData(firstMajor.majorId, firstMajor.majorName, true)
-        }
-        if (secondMajor != null)
-            mainViewModel.setSecondMajor(secondMajor)
     }
 
     private fun confirmExit(): MutableLiveData<Boolean> {
@@ -356,8 +356,16 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     companion object {
         const val ONE_LINE_MAX_LENGTH = 40
+
+        // 학과 - 미진입
         const val NOT_ENTERED = 126
+        // 학과 - 정보없음
         const val NO_INFORMATION = 127
+
+        // 새로 작성하기
+        const val MODE_NEW = 1
+        // 기존 후기 수정하기
+        const val MODE_MODIFY = 2
     }
 
 }

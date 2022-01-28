@@ -11,6 +11,9 @@ import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
+import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.presentation.ui.review.ReviewWriteActivity.Companion.MODE_MODIFY
+import com.nadosunbae_android.presentation.ui.review.ReviewWriteActivity.Companion.MODE_NEW
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewTagBoxAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewDetailViewModel
 import com.nadosunbae_android.util.CustomDialog
@@ -23,9 +26,13 @@ class ReviewDetailActivity :
     BaseActivity<ActivityReviewDetailBinding>(R.layout.activity_review_detail) {
 
     private lateinit var reviewTagBoxAdapter: ReviewTagBoxAdapter
+    // 후기글 id
     private var postId = NOT_POST_ID
+    // 후기글 작성자 id
     private var writerId: Int? = null
+    // 로그인 유저 id
     private var userId: Int? = null
+
 
     private val reviewDetailViewModel: ReviewDetailViewModel by viewModels {
         object : ViewModelProvider.Factory {
@@ -102,7 +109,9 @@ class ReviewDetailActivity :
                     when (selected.id) {
                         // 수정 버튼
                         REVIEW_EDIT -> {
-
+                            val intent = Intent(this, ReviewWriteActivity::class.java)
+                            intent.putExtra("mode", MODE_MODIFY)
+                            startActivity(intent)
                         }
 
                         // 삭제 버튼
@@ -120,7 +129,6 @@ class ReviewDetailActivity :
                                     finish()
                                 },
                                 cancel = {
-                                    reviewDetailViewModel.dropDownSelected.value = null
                                 }
                             )
 
@@ -128,11 +136,16 @@ class ReviewDetailActivity :
                         // 신고 버튼
                         REVIEW_REPORT -> {
 
+                            // 플로우 확정되면 구현 예정
+
                         }
 
                     }
 
+                    // 선택된 드롭다운 다시 취소
+                    reviewDetailViewModel.dropDownSelected.value = null
                 }
+
 
             }
 
