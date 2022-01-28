@@ -3,15 +3,17 @@ package com.nadosunbae_android.presentation.ui.review
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.data.model.request.review.RequestPostReview
+import com.nadosunbae_android.data.model.request.review.RequestPutReview
 import com.nadosunbae_android.data.model.response.main.ResponseMajorListData
 import com.nadosunbae_android.data.model.response.review.ResponseBackgroundImageListData
+import com.nadosunbae_android.data.model.response.review.ResponseReviewDetailData
 import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.data.model.ui.MajorData
 import com.nadosunbae_android.data.model.ui.SelectBackgroundBoxData
@@ -22,12 +24,14 @@ import com.nadosunbae_android.presentation.ui.review.adapter.ReviewSelectBackgro
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewWriteViewModel
 import com.nadosunbae_android.util.CustomDialog
 import com.nadosunbae_android.util.showCustomDropDown
-import okhttp3.RequestBody
 
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
 
     private lateinit var reviewSelectBackgroundAdapter: ReviewSelectBackgroundAdapter
     private lateinit var reviewRequireTextWatcher: ReviewRequireTextWatcher
+
+    private var mode = MODE_NEW
+    private lateinit var modifyData: ResponseReviewDetailData.Data
 
     private val mainViewModel: MainViewModel by viewModels {
         object : ViewModelProvider.Factory {
@@ -49,6 +53,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initWriteMode()
         initBinding()
         initReviewSelectBackgroundAdapter()
         initReviewRequireTextWatcher()
@@ -62,7 +67,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         observeDropDownSelect()
         loadBackgroundImage()
         loadMajorList()
-        getMajorFromIntent()
+        setDropDownDefault()
 
     }
 
@@ -76,6 +81,38 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         }
         else
             super.onBackPressed()
+    }
+
+    private fun initWriteMode() {
+        mode = intent.getIntExtra("mode", MODE_NEW)
+
+        // 수정하기 일 때 기존 데이터 불러오기
+        if (mode == MODE_MODIFY) {
+            modifyData = intent.getSerializableExtra("modifyData") as ResponseReviewDetailData.Data
+
+            // 불러온 데이터로 텍스트 상자 채워넣기
+            with (binding) {
+                etOneLine.setText(modifyData.post.oneLineReview)
+
+                // content list -> 해당 되는 edit text의 value로
+                for (c in modifyData.post.contentList) {
+                    when (c.title) {
+                        getString(R.string.review_pros_cons) -> etProsCons.editText.setText(c.content)
+                        getString(R.string.review_curriculum) -> etCurriculum.editText.setText(c.content)
+                        getString(R.string.review_recommend_lecture) -> etRecommendLecture.editText.setText(c.content)
+                        getString(R.string.review_non_recommend_lecture) -> etNonRecommendLecture.editText.setText(c.content)
+                        getString(R.string.review_career) -> etCareer.editText.setText(c.content)
+                        getString(R.string.review_tip) -> etTip.editText.setText(c.content)
+                    }
+                }
+
+                // 학과 선택 숨기기
+                clReviewWriteSelectMajorBox.visibility = View.GONE
+
+            }
+
+        }
+
     }
 
     private fun initBinding() {
@@ -160,12 +197,12 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             val selectableList = mutableListOf<SelectableData>()
 
             // 본전공 추가
-            val firstMajor = mainViewModel.firstMajor.value
+            val firstMajor = ReviewGlobals.firstMajor
             if (firstMajor != null && isValidMajor(firstMajor.majorId))
                 selectableList.add(SelectableData(firstMajor.majorId, firstMajor.majorName, false))
 
             // 제2전공 추가
-            val secondMajor = mainViewModel.secondMajor.value
+            val secondMajor = ReviewGlobals.secondMajor
             if (secondMajor != null && isValidMajor(secondMajor.majorId))
                 selectableList.add(SelectableData(secondMajor.majorId, secondMajor.majorName, false))
 
@@ -178,32 +215,49 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         // 작성 완료
         binding.btnWriteComplete.setOnClickListener {
 
-            // 작성 성공 알럿
-            CustomDialog(this).genericDialog(
-                CustomDialog.DialogData(
-                    getString(R.string.alert_write_review_title),
-                    getString(R.string.alert_write_review_complete),
-                    getString(R.string.alert_write_review_cancel)
-                ),
-                complete = {
-                    completeWriteReview()
-                },
-                cancel = {
+            // 새로 작성
+            var dialogTitle = getString(R.string.alert_write_review_title)
+            var dialogComplete = getString(R.string.alert_write_review_complete)
+            var dialogCancel = getString(R.string.alert_write_review_cancel)
 
+            if (mode == MODE_MODIFY) {
+                dialogTitle = getString(R.string.alert_modify_review_title)
+                dialogComplete = getString(R.string.alert_modify_review_complete)
+                dialogCancel = getString(R.string.alert_modify_review_cancel)
+            }
+
+            CustomDialog(this).genericDialog(
+            CustomDialog.DialogData(
+                dialogTitle,
+                dialogComplete,
+                dialogCancel
+            ),
+            complete = {
+                when (mode) {
+                    MODE_NEW -> completeWriteNewReview()
+                    MODE_MODIFY -> completeModifyReview()
                 }
+            },
+            cancel = {
+
+            }
             )
+
 
         }
 
     }
 
-    private fun completeWriteReview() {
+    // 후기글 새로 등록
+    private fun completeWriteNewReview() {
 
         val selectedMajor = reviewWriteViewModel.dropDownSelected.value
         val selectedBackgroundId = reviewSelectBackgroundAdapter.getSelectedBackgroundId()
 
         // null check
         if (selectedMajor != null && selectedBackgroundId != null) {
+
+
             val requestBody = RequestPostReview(
                 selectedMajor.id,
                 reviewSelectBackgroundAdapter.getSelectedBackgroundId()!!,
@@ -218,9 +272,41 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
             reviewWriteViewModel.postReview(requestBody)
 
-            // 액티비티 종료
-            finish()
+
+            }
+
+        // 액티비티 종료
+        finish()
+
+    }
+
+    // 후기글 수정
+    private fun completeModifyReview() {
+
+        val selectedBackgroundId = reviewSelectBackgroundAdapter.getSelectedBackgroundId()
+
+        // null check
+        if (selectedBackgroundId != null) {
+
+            with (binding) {
+
+                val requestBody = RequestPutReview(
+                    selectedBackgroundId,
+                    etOneLine.text.toString(),
+                    etProsCons.editText.text.toString(),
+                    etCurriculum.editText.text.toString(),
+                    etCareer.editText.text.toString(),
+                    etRecommendLecture.editText.text.toString(),
+                    etNonRecommendLecture.editText.text.toString(),
+                    etTip.editText.text.toString()
+                )
+
+                reviewWriteViewModel.putReview(modifyData.post.postId, requestBody)
+            }
+
         }
+
+        finish()
     }
 
     private fun observeBackgroundImageList() {
@@ -238,6 +324,13 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                 for (bg in responseBackgroundList.data.backgroundImageList) {
                     dataList.add(SelectBackgroundBoxData(bg.imageId, bg.imageUrl, false))
                 }
+
+                // default 설정
+                when (mode) {
+                    MODE_NEW -> reviewSelectBackgroundAdapter.setSelectedBackground(DEFAULT_BACKGROUND)
+                    MODE_MODIFY -> reviewSelectBackgroundAdapter.setSelectedBackground(modifyData.backgroundImage.imageId)
+                }
+
                 reviewSelectBackgroundAdapter.notifyDataSetChanged()
 
             }
@@ -301,23 +394,13 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     }
 
-    private fun getMajorFromIntent() {
-        val selectedMajor = intent.getSerializableExtra("selectedMajor") as MajorData?
-        val firstMajor = intent.getSerializableExtra("firstMajor") as MajorData?
-        val secondMajor = intent.getSerializableExtra("secondMajor") as MajorData?
+    private fun setDropDownDefault() {
 
-        // null check
-        if (selectedMajor != null)
-            mainViewModel.setSelectedMajor(selectedMajor)
 
-        if (firstMajor != null) {
-            mainViewModel.setFirstMajor(firstMajor)
+        val firstMajor = ReviewGlobals.firstMajor
+        if (firstMajor != null)
+           reviewWriteViewModel.dropDownSelected.value = SelectableData(firstMajor.majorId, firstMajor.majorName, true)
 
-            // 드롭다운 default 선택
-            reviewWriteViewModel.dropDownSelected.value = SelectableData(firstMajor.majorId, firstMajor.majorName, true)
-        }
-        if (secondMajor != null)
-            mainViewModel.setSecondMajor(secondMajor)
     }
 
     private fun confirmExit(): MutableLiveData<Boolean> {
@@ -356,8 +439,19 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     companion object {
         const val ONE_LINE_MAX_LENGTH = 40
+
+        // 학과 - 미진입
         const val NOT_ENTERED = 126
+        // 학과 - 정보없음
         const val NO_INFORMATION = 127
+
+        // 새로 작성하기
+        const val MODE_NEW = 1
+        // 기존 후기 수정하기
+        const val MODE_MODIFY = 2
+
+        // default 배경 id
+        const val DEFAULT_BACKGROUND = 6
     }
 
 }

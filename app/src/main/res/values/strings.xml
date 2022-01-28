@@ -81,6 +81,9 @@
     <string name="review_question_on_message">선배에게 1:1 질문을 남겨보세요!</string>
     <string name="review_question_off_message">지금 이 선배에겐 질문할 수 없어요.</string>
     <string name="review_one_line">한줄평</string>
+    <string name="review_edit">수정하기</string>
+    <string name="review_delete">삭제하기</string>
+    <string name="review_report">신고하기</string>
 
     <!-- review_write -->
     <string name="review_write_title">후기작성</string>
@@ -283,6 +286,11 @@
     <string name="alert_cancel_write_title">페이지를 나가면\n작성중인 글은 삭제돼요.</string>
     <string name="alert_cancel_write_complete">계속 작성</string>
     <string name="alert_cancel_write_cancel">나갈래요</string>
+
+    <!-- 후기 수정 알럿 -->네
+    <string name="alert_modify_review_title">수정하시겠습니까?</string>
+    <string name="alert_modify_review_complete">네</string>
+    <string name="alert_modify_review_cancel">아니요</string>
 
 
     <!-- 댓글 작성 못하게 -->

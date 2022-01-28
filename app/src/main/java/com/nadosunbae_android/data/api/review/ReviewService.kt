@@ -1,6 +1,7 @@
 package com.nadosunbae_android.data.api.review
 
 import com.nadosunbae_android.data.model.request.review.RequestPostReview
+import com.nadosunbae_android.data.model.request.review.RequestPutReview
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.like.ResponsePostLike
 import com.nadosunbae_android.data.model.response.review.*
@@ -25,6 +26,18 @@ interface ReviewService {
         @Path("postId") postId: Int
     ) : Call<ResponseReviewDetailData>
 
+
+    @DELETE("review-post/{postId}")
+    fun deleteReview(
+        @Path("postId") postId: Int
+    ) : Call<ResponseDeleteReview>
+
+    @PUT("review-post/{postId}")
+    fun putReview(
+        @Path("postId") postId: Int,
+        @Body requestBody: RequestPutReview
+    ) : Call<ResponsePutReview>
+
     @GET("review-post/background-image/list")
     fun getBackgroundImageList() : Call<ResponseBackgroundImageListData>
 
@@ -32,5 +45,6 @@ interface ReviewService {
     fun postReview(
         @Body requestBody: RequestPostReview
     ) : Call<ResponsePostReview>
+
 
 }

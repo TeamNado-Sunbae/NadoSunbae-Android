@@ -155,7 +155,7 @@
                         android:paddingStart="5dp"
                         android:paddingEnd="7dp"
                         android:text="@string/review_filter"
-                        android:textColor="@color/gray_3"
+                        android:textColor="@drawable/selector_gray_3_to_main_default"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/btn_sort"

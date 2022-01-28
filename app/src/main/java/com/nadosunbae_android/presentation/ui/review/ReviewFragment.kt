@@ -18,6 +18,7 @@ import com.nadosunbae_android.databinding.FragmentReviewBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
+import com.nadosunbae_android.presentation.ui.review.ReviewWriteActivity.Companion.MODE_NEW
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.util.CustomBottomSheetDialog
@@ -197,16 +198,18 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     private fun openReviewWrite() {
         val intent = Intent(context, ReviewWriteActivity::class.java)
 
+        intent.putExtra("mode", MODE_NEW)
+
         val selectedMajor = mainViewModel.selectedMajor.value
         val firstMajor = mainViewModel.firstMajor.value
         val secondMajor = mainViewModel.secondMajor.value
         // null check
         if (selectedMajor != null)
-            intent.putExtra("selectedMajor", firstMajor)
+            ReviewGlobals.selectedMajor = selectedMajor
         if (firstMajor != null)
-            intent.putExtra("firstMajor", firstMajor)
+            ReviewGlobals.firstMajor = firstMajor
         if (secondMajor != null)
-            intent.putExtra("secondMajor", secondMajor)
+            ReviewGlobals.secondMajor = secondMajor
 
         startActivity(intent)
     }
@@ -254,18 +257,13 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 filterBottomSheetDialog.setFilter(filter)
 
                 // 필터 활성화
-                binding.btnReviewFilter.isSelected =
-                    filter.writerFilter != FILTER_ALL && filter.tagFilter != listOf(1, 2, 3, 4, 5)
-
+                binding.btnReviewFilter.isSelected = !(filter.writerFilter == FILTER_ALL && filter.tagFilter == listOf(1, 2, 3, 4, 5))
                 binding.executePendingBindings()
-
 
                 // 후기 불러오기
                 loadReviewList()
 
             }
-
-
         }
 
     }
