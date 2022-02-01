@@ -36,94 +36,23 @@ class ClassRoomRepositoryImpl(private val dataSource : ClassRoomDataSource) : Cl
 
     // 1:1질문, 전체 질문, 정보글에 댓글 등록
     override suspend fun postQuestionCommentWrite(questionCommentWriteItem: QuestionCommentWriteItem): QuestionCommentWriteData {
-        return
+        return ClassRoomMapper.mapperToQuestionCommentWriteData(dataSource.postQuestionCommentWrite(
+            ClassRoomMapper.mapperToQuestionCommentWriteItem(questionCommentWriteItem)
+        ))
     }
-
+    // 선배 개인페이지
     override suspend fun getSeniorPersonal(userId: Int): QuestionCommentWriteData {
-        TODO("Not yet implemented")
+        return ClassRoomMapper.mapperToQuestionCommentWriteData(dataSource.getSeniorPersonal(userId))
     }
 
-    override suspend fun getSeniorQuestionList(userId: Int, sort: String): ClassRoomData {
-        TODO("Not yet implemented")
+    // 선배 질문 리스트
+    override suspend fun getSeniorQuestionList(userId: Int, sort: String): List<ClassRoomData> {
+        return ClassRoomMapper.mapperToSeniorQuestion(dataSource.getSeniorQuestionList(userId, sort))
     }
 
+    // 정보글 상세
     override suspend fun getInformationDetail(postId: Int): InfoDetailData {
-        TODO("Not yet implemented")
-    }
-
-
-    override fun getClassRoomMain(
-        postTypeId: Int,
-        majorId: Int,
-        sort: String,
-        onResponse: (Response<ResponseClassRoomMainData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        return classRoomDataSource.getClassRoomMain(postTypeId, majorId, sort, onResponse, onFailure)
-    }
-
-    override fun getClassRoomQuestionDetail(
-        postId: Int,
-        onResponse: (Response<ResponseClassRoomQuestionDetail>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        return classRoomDataSource.getClassRoomQuestionDetail(postId,onResponse, onFailure)
-    }
-
-    // 작성하기
-    override fun postClassRoomWrite(
-        requestClassRoomPostData: RequestClassRoomPostData,
-        onResponse: (Response<ResponseClassRoomWriteData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        return classRoomDataSource.postClassRoomWrite(requestClassRoomPostData, onResponse, onFailure)
-    }
-
-
-    //구성원 전체 보기
-    override fun getClassRoomSenior(
-        majorId: Int,
-        onResponse: (Response<ResponseClassRoomSeniorData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        return classRoomDataSource.getClassRoomSenior(majorId, onResponse, onFailure)
-    }
-
-    override fun postQuestionCommentWrite(
-        requestQuestionCommentWriteData: RequestQuestionCommentWriteData,
-        onResponse: (Response<ResponseQuestionCommentWrite>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        return classRoomDataSource.postQuestionCommentWrite(requestQuestionCommentWriteData, onResponse, onFailure)
-    }
-
-
-    //선배 개인페이지
-    override fun getSeniorPersonal(
-        userId: Int,
-        onResponse: (Response<ResponseSeniorPersonalData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        return classRoomDataSource.getSeniorPersonal(userId, onResponse, onFailure)
-    }
-
-    //선배 1:1 질문 리스트
-    override fun getSeniorQuestionList(
-        userId: Int,
-        sort: String,
-        onResponse: (Response<ResponseSeniorQuestionData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        return classRoomDataSource.getSeniorQuestionList(userId, sort, onResponse, onFailure)
-    }
-
-    //정보 상세 조회
-    override fun getInformationDetail(
-        postId: Int,
-        onResponse: (Response<ResponseInfoDetailData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        return classRoomDataSource.getInformationDetail(postId, onResponse, onFailure)
+        return ClassRoomMapper.mapperToInfoDetailData(dataSource.getInformationDetail(postId))
     }
 
 }

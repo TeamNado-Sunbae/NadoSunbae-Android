@@ -22,7 +22,7 @@ interface ClassRoomRepository {
     suspend fun getSeniorPersonal(userId : Int) : QuestionCommentWriteData
 
     //선배 1:1 질문글 리스트
-    suspend fun getSeniorQuestionList(userId : Int, sort : String) : ClassRoomData
+    suspend fun getSeniorQuestionList(userId : Int, sort : String) : List<ClassRoomData>
 
     //정보 상세 조회
     suspend fun getInformationDetail(postId: Int) : InfoDetailData

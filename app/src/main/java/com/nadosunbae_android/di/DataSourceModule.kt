@@ -18,11 +18,11 @@ import org.koin.core.scope.get
 import org.koin.dsl.module
 
 val dataSourceModule = module{
-    single<ClassRoomDataSource>  { ClassRoomDataSourceImpl() }
-    single<LikeDataSource> {LikeDataSourceImpl()}
-    single<MainDataSource> {MainDataSourceImpl()}
-    single<MyPageDataSource> {MyPageDataSourceImpl()}
-    single<NotificationDataSource> {NotificationDataSourceImpl()}
-    single<ReviewDataSource>{ReviewDataSourceImpl()}
-    single<SignDataSource>{SignDataSourceImpl()}
+    single<ClassRoomDataSource>  { ClassRoomDataSourceImpl(get()) }
+    single<LikeDataSource> {LikeDataSourceImpl(get())}
+    single<MainDataSource> {MainDataSourceImpl(get())}
+    single<MyPageDataSource> {MyPageDataSourceImpl(get())}
+    single<NotificationDataSource> {NotificationDataSourceImpl(get())}
+    single<ReviewDataSource>{ReviewDataSourceImpl(get())}
+    single<SignDataSource>{SignDataSourceImpl(get())}
 }
