@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.model.request.review.RequestPostReview
 import com.nadosunbae_android.model.response.review.ResponseBackgroundImageListData
 import com.nadosunbae_android.model.response.sign.SelectableData
-import com.nadosunbae_android.repositoryimpl.review.ReviewRepositoryImpl
 import com.nadosunbae_android.util.DropDownSelectableViewModel
 
 class ReviewWriteViewModel : ViewModel(), DropDownSelectableViewModel {

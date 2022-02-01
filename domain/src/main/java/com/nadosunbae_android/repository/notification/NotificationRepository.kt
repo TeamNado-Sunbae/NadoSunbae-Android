@@ -1,4 +1,4 @@
-package com.nadosunbae_android.repositoryimpl.notification
+package com.nadosunbae_android.repository.notification
 
 import com.nadosunbae_android.model.response.notification.ResponseNotificationDeleteData
 import com.nadosunbae_android.model.response.notification.ResponseNotificationListData

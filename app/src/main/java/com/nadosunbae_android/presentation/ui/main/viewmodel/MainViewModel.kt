@@ -9,9 +9,9 @@ import com.nadosunbae_android.model.response.classroom.ResponseClassRoomSeniorDa
 import com.nadosunbae_android.model.response.main.ResponseMajorListData
 import com.nadosunbae_android.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.model.ui.MajorData
-import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepository
+import com.nadosunbae_android.repository.classroom.ClassRoomRepository
+import com.nadosunbae_android.repository.main.MainRepository
 import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepositoryImpl
-import com.nadosunbae_android.repositoryimpl.main.MainRepository
 import com.nadosunbae_android.repositoryimpl.main.MainRepositoryImpl
 import com.nadosunbae_android.repositoryimpl.mypage.MyPageRepositoryImpl
 

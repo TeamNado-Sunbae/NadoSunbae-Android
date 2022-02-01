@@ -9,7 +9,7 @@ data class  ResponseClassRoomQuestionDetail(
     val success: Boolean
 ) {
     data class Data(
-        val answererId: Any,
+        val answererId: Int,
         val like: Like,
         val messageList: List<Message>,
         val questionerId: Int

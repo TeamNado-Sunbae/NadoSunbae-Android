@@ -1,4 +1,4 @@
-package com.nadosunbae_android.repositoryimpl.main
+package com.nadosunbae_android.repository.main
 
 import com.nadosunbae_android.model.response.main.ResponseMajorListData
 import retrofit2.Response

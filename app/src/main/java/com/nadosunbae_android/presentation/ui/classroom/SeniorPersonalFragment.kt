@@ -10,13 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.model.ui.classroom.ClassRoomData
+import com.nadosunbae_android.model.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentSeniorPersonalBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.mapper.Mapper
+import com.nadosunbae_android.mapper.classroom.ClassRoomMapper
 
 class SeniorPersonalFragment :
     BaseFragment<FragmentSeniorPersonalBinding>(R.layout.fragment_senior_personal) {
@@ -55,7 +55,7 @@ class SeniorPersonalFragment :
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
         seniorPersonalViewModel.seniorQuestion.observe(viewLifecycleOwner) {
             Log.d("seniorQuestionAdapter", "좀 되라")
-            classRoomQuestionMainAdapter.setQuestionMain(Mapper.mapperToSeniorQuestion(it) as MutableList<ClassRoomData>)
+            classRoomQuestionMainAdapter.setQuestionMain(ClassRoomMapper.mapperToSeniorQuestion(it) as MutableList<ClassRoomData>)
         }
 
 

@@ -1,4 +1,4 @@
-package com.nadosunbae_android.repositoryimpl.mypage
+package com.nadosunbae_android.repository.mypage
 
 import com.nadosunbae_android.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.model.response.mypage.ResponseMypageQuestionData

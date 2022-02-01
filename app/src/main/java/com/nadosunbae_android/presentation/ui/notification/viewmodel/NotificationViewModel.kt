@@ -7,7 +7,6 @@ import com.nadosunbae_android.model.response.notification.ResponseNotificationDe
 import com.nadosunbae_android.model.response.notification.ResponseNotificationListData
 import com.nadosunbae_android.model.response.notification.ResponseNotificationReadData
 import com.nadosunbae_android.repositoryimpl.notification.NotificationRepository
-import com.nadosunbae_android.repositoryimpl.notification.NotificationRepositoryImpl
 
 class NotificationViewModel : ViewModel() {
     private val notificationRepository : NotificationRepository = NotificationRepositoryImpl()

@@ -8,7 +8,6 @@ import com.nadosunbae_android.model.request.classroom.RequestQuestionCommentWrit
 import com.nadosunbae_android.model.response.classroom.ResponseClassRoomQuestionDetail
 import com.nadosunbae_android.model.response.classroom.ResponseQuestionCommentWrite
 import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepository
-import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepositoryImpl
 
 class QuestionDetailViewModel : ViewModel() {
     val classRoomRepository: ClassRoomRepository = ClassRoomRepositoryImpl()

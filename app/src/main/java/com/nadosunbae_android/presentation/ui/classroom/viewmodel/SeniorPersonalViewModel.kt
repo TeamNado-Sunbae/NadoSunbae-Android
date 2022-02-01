@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.model.response.classroom.ResponseSeniorPersonalData
 import com.nadosunbae_android.model.response.classroom.ResponseSeniorQuestionData
 import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepository
-import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepositoryImpl
 
 class SeniorPersonalViewModel : ViewModel() {
     private val classRoomRepository : ClassRoomRepository = ClassRoomRepositoryImpl()

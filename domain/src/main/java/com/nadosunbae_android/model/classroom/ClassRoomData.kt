@@ -1,4 +1,4 @@
-package com.nadosunbae_android.model.ui.classroom
+package com.nadosunbae_android.model.classroom
 
 import java.util.*
 

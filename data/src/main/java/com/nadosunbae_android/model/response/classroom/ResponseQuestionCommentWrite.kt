@@ -1,7 +1,7 @@
 package com.nadosunbae_android.model.response.classroom
 
 data class ResponseQuestionCommentWrite(
-    val `data`: Data,
+    val data: Data,
     val message: String,
     val status: Int,
     val success: Boolean

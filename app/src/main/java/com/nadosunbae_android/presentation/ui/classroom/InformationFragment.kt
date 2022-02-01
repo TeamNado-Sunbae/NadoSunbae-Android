@@ -7,12 +7,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.model.ui.classroom.ClassRoomData
+import com.nadosunbae_android.model.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentInformationBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomInfoMainAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.mapper.Mapper
+import com.nadosunbae_android.mapper.classroom.ClassRoomMapper
 
 
 class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fragment_information) {
@@ -40,7 +40,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
         binding.rcClassroomInfo.adapter = classRoomInfoMainAdapter
        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
            Log.d("classRoomInfo", it.data.toString())
-           classRoomInfoMainAdapter.setQuestionMain(Mapper.mapperToQuestionMain(it) as MutableList<ClassRoomData>)
+           classRoomInfoMainAdapter.setQuestionMain(ClassRoomMapper.mapperToQuestionMain(it) as MutableList<ClassRoomData>)
        }
 
 

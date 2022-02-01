@@ -7,8 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.model.request.like.RequestPostLike
 import com.nadosunbae_android.model.response.review.ResponseReviewDetailData
-import com.nadosunbae_android.repositoryimpl.like.LikeRepositoryImpl
-import com.nadosunbae_android.repositoryimpl.review.ReviewRepositoryImpl
 
 class ReviewDetailViewModel : ViewModel() {
     private val reviewRepository = ReviewRepositoryImpl()

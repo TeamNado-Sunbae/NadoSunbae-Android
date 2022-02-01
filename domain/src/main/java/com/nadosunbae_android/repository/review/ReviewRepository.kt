@@ -1,4 +1,4 @@
-package com.nadosunbae_android.repositoryimpl.review
+package com.nadosunbae_android.repository.review
 
 import com.nadosunbae_android.model.request.review.RequestPostReview
 import com.nadosunbae_android.model.request.review.RequestReviewListData

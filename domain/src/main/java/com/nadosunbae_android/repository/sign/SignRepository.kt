@@ -1,4 +1,4 @@
-package com.nadosunbae_android.repositoryimpl.sign
+package com.nadosunbae_android.repository.sign
 
 import com.nadosunbae_android.model.request.sign.RequestSignEmail
 import com.nadosunbae_android.model.request.sign.RequestSignIn

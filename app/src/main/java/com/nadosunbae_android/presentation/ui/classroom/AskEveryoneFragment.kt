@@ -7,12 +7,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.model.ui.classroom.ClassRoomData
+import com.nadosunbae_android.model.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentAskEveryoneBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomAskEveryoneAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.mapper.Mapper
+import com.nadosunbae_android.mapper.classroom.ClassRoomMapper
 
 
 class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fragment_ask_everyone) {
@@ -54,7 +54,7 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
         classRoomAskEveryoneAdapter = ClassRoomAskEveryoneAdapter()
         binding.rcAskEveryone.adapter = classRoomAskEveryoneAdapter
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){
-            classRoomAskEveryoneAdapter.setAskEveryone(Mapper.mapperToQuestionMain(it) as MutableList<ClassRoomData>)
+            classRoomAskEveryoneAdapter.setAskEveryone(ClassRoomMapper.mapperToQuestionMain(it) as MutableList<ClassRoomData>)
         }
 
     }

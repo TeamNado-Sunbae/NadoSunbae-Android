@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.model.response.mypage.ResponseMypageQuestionData
+import com.nadosunbae_android.repository.mypage.MyPageRepository
 import com.nadosunbae_android.repositoryimpl.mypage.MyPageRepository
 import com.nadosunbae_android.repositoryimpl.mypage.MyPageRepositoryImpl
 

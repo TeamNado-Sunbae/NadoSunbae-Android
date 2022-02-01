@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.model.response.classroom.ResponseClassRoomWriteData
 import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepository
-import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepositoryImpl
 
 class QuestionWriteViewModel : ViewModel() {
     private val classRoomRepository : ClassRoomRepository = ClassRoomRepositoryImpl()

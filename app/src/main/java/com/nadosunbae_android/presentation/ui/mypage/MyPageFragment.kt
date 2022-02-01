@@ -8,13 +8,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.model.ui.classroom.ClassRoomData
+import com.nadosunbae_android.model.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentMyPageBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.mapper.Mapper
+import com.nadosunbae_android.mapper.classroom.ClassRoomMapper
 
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
@@ -81,7 +81,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
         myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
 
-            myPageQuestionAdapter.setQuestionMain(Mapper.mapperToMyPageQuestion(it) as MutableList<ClassRoomData>)
+            myPageQuestionAdapter.setQuestionMain(ClassRoomMapper.mapperToMyPageQuestion(it) as MutableList<ClassRoomData>)
         }
     }
 

@@ -8,12 +8,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.model.ui.classroom.ClassRoomData
+import com.nadosunbae_android.model.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentQuestionBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.mapper.Mapper
+import com.nadosunbae_android.mapper.classroom.ClassRoomMapper
 
 
 class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment_question) {
@@ -53,7 +53,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
         binding.rcQuestionAll.adapter = classRoomQuestionMainAdapter
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){
             Log.d("cclassRoomMain", it.data.toString())
-            classRoomQuestionMainAdapter.setQuestionMain(Mapper.mapperToQuestionMain(it) as MutableList<ClassRoomData>)
+            classRoomQuestionMainAdapter.setQuestionMain(ClassRoomMapper.mapperToQuestionMain(it) as MutableList<ClassRoomData>)
             visibleQuestion()
         }
 

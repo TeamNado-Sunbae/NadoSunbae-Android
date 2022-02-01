@@ -11,7 +11,6 @@ import com.nadosunbae_android.model.response.sign.ResponseFirstDepartment
 import com.nadosunbae_android.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.model.response.sign.ResponseSignUp
 import com.nadosunbae_android.repositoryimpl.sign.SignRepository
-import com.nadosunbae_android.repositoryimpl.sign.SignRepositoryImpl
 
 class SignUpBasicInfoViewModel : ViewModel() {
     val signRepository: SignRepository = SignRepositoryImpl()
