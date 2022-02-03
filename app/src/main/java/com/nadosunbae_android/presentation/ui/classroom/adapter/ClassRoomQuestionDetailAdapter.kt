@@ -13,6 +13,7 @@ import com.nadosunbae_android.model.response.classroom.ResponseClassRoomQuestion
 import com.nadosunbae_android.databinding.ItemQuestionDetailCommentBinding
 import com.nadosunbae_android.databinding.ItemQuestionDetailQuestionerBinding
 import com.nadosunbae_android.databinding.ItemQuestionDetailWriterBinding
+import com.nadosunbae_android.model.classroom.QuestionDetailData
 
 
 class ClassRoomQuestionDetailAdapter(context: Context) :
@@ -26,7 +27,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
     private val QUESTIONER_VIEW_TYPE = 1
     private val WRITER_COMMENT_VIEW_TYPE = 2
 
-    var questionDetailData = mutableListOf<ResponseClassRoomQuestionDetail.Data.Message>()
+    var questionDetailData = mutableListOf<QuestionDetailData.Message>()
 
 
     fun setLike(num: String, isLiked: Boolean) {
@@ -61,11 +62,11 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (questionDetailData[position].writer.isQuestioner && position == 0) {
+        return if (questionDetailData[position].isQuestioner && position == 0) {
             WRITER_VIEW_TYPE
-        } else if (questionDetailData[position].writer.isQuestioner && position != 0) {
+        } else if (questionDetailData[position].isQuestioner && position != 0) {
             WRITER_COMMENT_VIEW_TYPE
-        } else if (!questionDetailData[position].writer.isQuestioner && position != 0) {
+        } else if (!questionDetailData[position].isQuestioner && position != 0) {
             QUESTIONER_VIEW_TYPE
         } else {
             0
@@ -85,7 +86,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
                     imgQuestionDetailLike.isSelected = likeSelect
                     textQuestionDetailLikeCount.text = like
                 }
-                    if (questionDetailData[position].writer.secondMajorName == "미진입") {
+                    if (questionDetailData[position].secondMajorName == "미진입") {
                         holder.binding.textQuestionDetailSecondStartMajor.visibility = View.GONE
                     }
                     holder.binding.imgQuestionDetailWriterMenu.setOnClickListener {
@@ -107,7 +108,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
             //질문자 문답
             is ClassRoomQuestionDetailQuestionerViewHolder -> {
                 holder.onBind(questionDetailData[position])
-                if (questionDetailData[position].writer.secondMajorName == "미진입") {
+                if (questionDetailData[position].secondMajorName == "미진입") {
                     holder.binding.includeQuestionDetailQuestionerText.textQuestionDetailQuestionerSecondStartMajor.visibility = View.GONE
                 }
                 holder.binding.includeQuestionDetailQuestionerText.imgQuestionDetailQuestionerMenu.setOnClickListener {
@@ -144,7 +145,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
             }
             is ClassRoomQuestionDetailWriterCommentViewHolder -> {
                 holder.onBind(questionDetailData[position])
-                if (questionDetailData[position].writer.secondMajorName == "미진입") {
+                if (questionDetailData[position].secondMajorName == "미진입") {
                     holder.binding.includeQuestionDetailCommentText.textQuestionDetailWriterCommentSecondStartMajor.visibility = View.GONE
                 }
                 holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu.setOnClickListener {
@@ -192,7 +193,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
         ) : RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(
-            questionDetailData: ResponseClassRoomQuestionDetail.Data.Message,
+            questionDetailData: QuestionDetailData.Message,
             position: Int
         ) {
             if (position == 0)
@@ -207,7 +208,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
     inner class ClassRoomQuestionDetailQuestionerViewHolder(
         val binding: ItemQuestionDetailQuestionerBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(questionDetailData: ResponseClassRoomQuestionDetail.Data.Message) {
+        fun onBind(questionDetailData: QuestionDetailData.Message) {
             binding.includeQuestionDetailQuestionerText.questionDetailQuestioner =
                 questionDetailData
             binding.includeQuestionDetailQuestionerUpdate.questionDetailQuestioner =
@@ -237,7 +238,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
     inner class ClassRoomQuestionDetailWriterCommentViewHolder(
         val binding: ItemQuestionDetailCommentBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(questionDetailData: ResponseClassRoomQuestionDetail.Data.Message) {
+        fun onBind(questionDetailData: QuestionDetailData.Message) {
             binding.includeQuestionDetailCommentText.questionDetailWriterComment =
                 questionDetailData
             binding.includeQuestionDetailCommentUpdate.questionDetailWriterComment =
@@ -263,7 +264,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
     }
 
 
-    fun setQuestionDetail(questionDetailData: MutableList<ResponseClassRoomQuestionDetail.Data.Message>) {
+    fun setQuestionDetail(questionDetailData: MutableList<QuestionDetailData.Message>) {
         this.questionDetailData = questionDetailData
         notifyDataSetChanged()
 

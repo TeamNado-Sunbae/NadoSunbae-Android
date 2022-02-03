@@ -4,21 +4,20 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.model.response.classroom.ResponseClassRoomMainData
-import com.nadosunbae_android.model.response.classroom.ResponseClassRoomSeniorData
+import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.model.classroom.ClassRoomData
+import com.nadosunbae_android.model.classroom.ClassRoomSeniorData
 import com.nadosunbae_android.model.response.main.ResponseMajorListData
 import com.nadosunbae_android.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.model.ui.MajorData
-import com.nadosunbae_android.repository.classroom.ClassRoomRepository
-import com.nadosunbae_android.repository.main.MainRepository
-import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepositoryImpl
-import com.nadosunbae_android.repositoryimpl.main.MainRepositoryImpl
-import com.nadosunbae_android.repositoryimpl.mypage.MyPageRepositoryImpl
+import com.nadosunbae_android.usecase.classroom.GetClassRoomMainDataUseCase
+import com.nadosunbae_android.usecase.classroom.GetSeniorDataUseCase
+import kotlinx.coroutines.launch
 
-class MainViewModel() : ViewModel() {
-    val mainRepository: MainRepository = MainRepositoryImpl()
-    val classRoomRepository: ClassRoomRepository = ClassRoomRepositoryImpl()
-    val mypageRepository: MyPageRepositoryImpl = MyPageRepositoryImpl()
+class MainViewModel(
+    val getClassRoomMainDataUseCase : GetClassRoomMainDataUseCase
+    val getSeniorDataUseCase : GetSeniorDataUseCase
+) : ViewModel() {
 
     // 로그인 response 데이터
     private val _signData = MutableLiveData<ResponseSignIn.Data.User>()
@@ -44,8 +43,8 @@ class MainViewModel() : ViewModel() {
     var userId = MutableLiveData<Int>()
 
     //과방탭 질문글 메인 조회
-    private val _classRoomMain = MutableLiveData<ResponseClassRoomMainData>()
-    val classRoomMain : LiveData<ResponseClassRoomMainData>
+    private val _classRoomMain = MutableLiveData<List<ClassRoomData>>()
+    val classRoomMain : LiveData<List<ClassRoomData>>
         get() = _classRoomMain
 
 
@@ -68,8 +67,8 @@ class MainViewModel() : ViewModel() {
     val filterData = MutableLiveData<FilterData>(FilterData(1, listOf(1, 2, 3, 4, 5)))
 
     // 구성원 전체보기
-    private val _seniorData = MutableLiveData<ResponseClassRoomSeniorData.Data>()
-    val seniorData : LiveData<ResponseClassRoomSeniorData.Data>
+    private val _seniorData = MutableLiveData<ClassRoomSeniorData>()
+    val seniorData : LiveData<ClassRoomSeniorData>
         get() = _seniorData
 
     // 본전공
@@ -115,32 +114,32 @@ class MainViewModel() : ViewModel() {
 
     //과방 메인 데이터
     fun getClassRoomMain(postTypeId : Int, majorId : Int, sort : String = "recent"){
-        classRoomRepository.getClassRoomMain(postTypeId, majorId, sort,
-            onResponse = {
-                if(it.isSuccessful){
-                    _classRoomMain.value = it.body()
-                    Log.d("classRoomMain", "메인 서버 통신 성공")
-                }},
-                onFailure = {
-                    it.printStackTrace()
-                    Log.d("classRoomMain", "메인 서버 통신 실패")
-            }
-        )
+       viewModelScope.launch {
+           runCatching { getClassRoomMainDataUseCase(postTypeId, majorId, sort) }
+               .onSuccess {
+                   _classRoomMain.value = it
+                   Log.d("classRoomMain", "서버 통신 성공")
+               }
+               .onFailure {
+                   it.printStackTrace()
+                   Log.d("classRoomMain", "서버 통신 실패")
+               }
+       }
     }
 
     //과방 구성원 전체
     fun getClassRoomSenior(majorId : Int){
-        classRoomRepository.getClassRoomSenior(majorId,
-            onResponse = {
-                if(it.isSuccessful){
-
-                _seniorData.value = it.body()?.data
-                Log.d("classRoomSenior", "구성원 서버 통신 성공")
-            }},
-            onFailure = {
-                it.printStackTrace()
-                Log.d("classRoomSenior", "구성원 서버 통신 실패")
-            })
+        viewModelScope.launch {
+            runCatching { getSeniorDataUseCase(majorId) }
+                .onSuccess {
+                    _seniorData.value = it
+                    Log.d("classRoomSenior", "구성원 서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("classRoomSenior", "구성원 서버 통신 실패")
+                }
+        }
     }
 
 

@@ -17,20 +17,20 @@ val viewModelModule = module {
 
     //classRoom
     viewModel { ClassRoomViewModel() }
-    viewModel { InfoDetailViewModel() }
-    viewModel { QuestionDetailViewModel() }
-    viewModel { QuestionWriteViewModel() }
-    viewModel { SeniorPersonalViewModel() }
+    viewModel { InfoDetailViewModel(get(),get()) }
+    viewModel { QuestionDetailViewModel(get(),get()) }
+    viewModel { QuestionWriteViewModel(get()) }
+    viewModel { SeniorPersonalViewModel(get(),get()) }
 
 
     //main
-    viewModel { MainViewModel() }
+    viewModel { MainViewModel(get(),get()) }
 
     //myPage
     viewModel { MyPageViewModel() }
 
     //notification
-    viewModel {NotificationViewModel()}
+    viewModel {NotificationViewModel(get(),get(),get())}
 
     //review
     viewModel {ReviewDetailViewModel()}

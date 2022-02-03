@@ -7,7 +7,7 @@
 
         <variable
             name="informationDetail"
-            type="com.nadosunbae_android.data.model.response.classroom.ResponseInfoDetailData" />
+            type="com.nadosunbae_android.model.classroom.InfoDetailData" />
 
 
     </data>
@@ -107,7 +107,7 @@
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/pretendard_semibold"
-                        android:text="@{informationDetail.data.post.title}"
+                        android:text="@{informationDetail.title}"
                         android:textColor="@color/main_default"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -120,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/pretendard_semibold"
-                        android:text="@{informationDetail.data.writer.nickname}"
+                        android:text="@{informationDetail.nickname}"
                         android:textColor="@color/gray_4"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_title"
@@ -132,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:text="@{informationDetail.data.writer.firstMajorName}"
+                        android:text="@{informationDetail.firstMajorName}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_name"
@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:text="@{informationDetail.data.writer.firstMajorStart}"
+                        android:text="@{informationDetail.firstMajorStart}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_major"
@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:text="@{informationDetail.data.writer.secondMajorName}"
+                        android:text="@{informationDetail.secondMajorName}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@+id/line_information_detail_question"
@@ -178,7 +178,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:text="@{informationDetail.data.writer.secondMajorStart}"
+                        android:text="@{informationDetail.secondMajorStart}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_second_major"
@@ -190,7 +190,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
                         android:fontFamily="@font/pretendard_regular"
-                        android:text="@{informationDetail.data.post.content}"
+                        android:text="@{informationDetail.content}"
                         android:textColor="@color/main_text"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/text_information_detail_question_title"
@@ -199,7 +199,7 @@
 
                     <TextView
                         android:id="@+id/text_information_detail_question_time"
-                        dateToText="@{informationDetail.data.post.createdAt}"
+                        dateToText="@{informationDetail.createdAt}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="44dp"
@@ -254,7 +254,7 @@
 
                     <TextView
                         android:id="@+id/text_information_detail_question_comment_count"
-                        commentCount="@{informationDetail.data.commentCount}"
+                        commentCount="@{informationDetail.commentCount}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"

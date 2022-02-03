@@ -24,7 +24,7 @@ interface ClassRoomDataSource {
     suspend fun postQuestionCommentWrite(requestQuestionCommentWriteData: RequestQuestionCommentWriteData) : ResponseQuestionCommentWrite
 
     //선배 개인페이지
-    suspend fun getSeniorPersonal(userId : Int) : ResponseQuestionCommentWrite
+    suspend fun getSeniorPersonal(userId : Int) : ResponseSeniorPersonalData
 
     //선배 1:1 질문 조회
     suspend fun getSeniorQuestionList(userId : Int, sort : String?) : ResponseSeniorQuestionData

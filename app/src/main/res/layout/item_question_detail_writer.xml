@@ -6,7 +6,7 @@
 
         <variable
             name="questionDetail"
-            type="com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail.Data.Message" />
+            type="com.nadosunbae_android.model.classroom.QuestionDetailData.Message" />
 
 
     </data>
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/pretendard_semibold"
-                android:text="@{questionDetail.Writer.nickname}"
+                android:text="@{questionDetail.nickname}"
                 android:textColor="@color/gray_4"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/text_question_detail_writer_title"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/pretendard_medium"
-                android:text="@{questionDetail.Writer.firstMajorName}"
+                android:text="@{questionDetail.firstMajorName}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/text_question_detail_writer_name"
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/pretendard_regular"
-                android:text="@{questionDetail.Writer.firstMajorStart}"
+                android:text="@{questionDetail.firstMajorStart}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_question_detail_major"
@@ -105,7 +105,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/pretendard_medium"
-                android:text="@{questionDetail.Writer.secondMajorName}"
+                android:text="@{questionDetail.secondMajorName}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/line_question_detail"
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/pretendard_regular"
-                android:text="@{questionDetail.Writer.secondMajorStart}"
+                android:text="@{questionDetail.secondMajorStart}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_question_detail_second_major"

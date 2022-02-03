@@ -1,6 +1,7 @@
 package com.nadosunbae_android.model.classroom
 
 data class ClassRoomPostWriteData(
+        val success: Boolean,
         val content: String,
         val createdAt: String,
         val postId: Int,

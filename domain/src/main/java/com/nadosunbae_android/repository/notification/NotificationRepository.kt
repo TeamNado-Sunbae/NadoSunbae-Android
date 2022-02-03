@@ -1,29 +1,20 @@
 package com.nadosunbae_android.repository.notification
 
-import com.nadosunbae_android.model.response.notification.ResponseNotificationDeleteData
-import com.nadosunbae_android.model.response.notification.ResponseNotificationListData
-import com.nadosunbae_android.model.response.notification.ResponseNotificationReadData
-import retrofit2.Response
+import com.nadosunbae_android.model.notification.NotificationDeleteData
+import com.nadosunbae_android.model.notification.NotificationListData
+import com.nadosunbae_android.model.notification.NotificationReadData
 
 interface NotificationRepository {
 
     // 전체 알림 리스트 조회
-    fun getNotification(
-        receiverId : Int,
-        onResponse: (Response<ResponseNotificationListData>) -> Unit,
-        onFailure : (Throwable) -> Unit)
+    suspend fun getNotification(receiverId : Int) : List<NotificationListData>
+
 
     //알림 삭제
-    fun deleteNotification(
-        notificationId : Int,
-        onResponse: (Response<ResponseNotificationDeleteData>) -> Unit,
-        onFailure : (Throwable) -> Unit)
+    suspend fun deleteNotification(notificationId : Int) : NotificationDeleteData
 
 
     //알림 읽기
-    fun putReadNotification(
-        notificationId : Int,
-        onResponse: (Response<ResponseNotificationReadData>) -> Unit,
-        onFailure: (Throwable) -> Unit)
+    suspend fun putReadNotification(notificationId : Int) : NotificationReadData
 
 }

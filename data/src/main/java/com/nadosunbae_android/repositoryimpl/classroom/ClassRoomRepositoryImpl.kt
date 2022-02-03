@@ -40,9 +40,10 @@ class ClassRoomRepositoryImpl(private val dataSource : ClassRoomDataSource) : Cl
             ClassRoomMapper.mapperToQuestionCommentWriteItem(questionCommentWriteItem)
         ))
     }
+
     // 선배 개인페이지
-    override suspend fun getSeniorPersonal(userId: Int): QuestionCommentWriteData {
-        return ClassRoomMapper.mapperToQuestionCommentWriteData(dataSource.getSeniorPersonal(userId))
+    override suspend fun getSeniorPersonal(userId: Int): SeniorPersonalData {
+        return ClassRoomMapper.mapperToSeniorPersonalData(dataSource.getSeniorPersonal(userId))
     }
 
     // 선배 질문 리스트

@@ -30,7 +30,7 @@ class ClassRoomDataSourceImpl(private val service : ClassRoomService) : ClassRoo
         return service.postQuestionCommentWrite(requestQuestionCommentWriteData)
     }
 
-    override suspend fun getSeniorPersonal(userId: Int): ResponseQuestionCommentWrite {
+    override suspend fun getSeniorPersonal(userId: Int): ResponseSeniorPersonalData {
         return service.getSeniorPersonal(userId)
     }
 

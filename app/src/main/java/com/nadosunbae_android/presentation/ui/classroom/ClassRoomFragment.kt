@@ -13,17 +13,12 @@ import com.nadosunbae_android.databinding.FragmentClassRoomBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.util.CustomBottomSheetDialog
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragment_class_room) {
     //메인뷰모델 초기화
-    private val mainViewModel: MainViewModel by activityViewModels{
-        object : ViewModelProvider.Factory{
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MainViewModel() as T
-            }
-        }
-    }
+    private val mainViewModel: MainViewModel by sharedViewModel()
     private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
