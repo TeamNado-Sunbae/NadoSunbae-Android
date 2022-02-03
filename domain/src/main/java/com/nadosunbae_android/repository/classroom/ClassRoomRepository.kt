@@ -19,7 +19,7 @@ interface ClassRoomRepository {
     suspend fun postQuestionCommentWrite(questionCommentWriteItem: QuestionCommentWriteItem) : QuestionCommentWriteData
 
     //선배 개인페이지
-    suspend fun getSeniorPersonal(userId : Int) : QuestionCommentWriteData
+    suspend fun getSeniorPersonal(userId : Int) : SeniorPersonalData
 
     //선배 1:1 질문글 리스트
     suspend fun getSeniorQuestionList(userId : Int, sort : String) : List<ClassRoomData>

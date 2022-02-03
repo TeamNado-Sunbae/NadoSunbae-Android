@@ -212,7 +212,20 @@ object ClassRoomMapper {
                 )
             }
         )
+    }
 
+    // 선배 개인페이지 정보
+    fun mapperToSeniorPersonalData(responseSeniorPersonalData: ResponseSeniorPersonalData) : SeniorPersonalData{
+        return SeniorPersonalData(
+            firstMajorName = responseSeniorPersonalData.data.firstMajorName,
+        firstMajorStart = responseSeniorPersonalData.data.firstMajorStart,
+        isOnQuestion = responseSeniorPersonalData.data.isOnQuestion,
+        nickname = responseSeniorPersonalData.data.nickname,
+        profileImageId = responseSeniorPersonalData.data.profileImageId,
+        secondMajorName = responseSeniorPersonalData.data.secondMajorName,
+        secondMajorStart = responseSeniorPersonalData.data.secondMajorStart,
+        userId = responseSeniorPersonalData.data.userId
+        )
 
     }
 }

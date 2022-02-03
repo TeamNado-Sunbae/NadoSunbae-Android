@@ -4,12 +4,17 @@ import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.model.classroom.ClassRoomPostWriteData
+import com.nadosunbae_android.model.classroom.ClassRoomPostWriteItem
 import com.nadosunbae_android.model.request.classroom.RequestClassRoomPostData
-import com.nadosunbae_android.model.response.classroom.ResponseClassRoomWriteData
-import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepository
+import com.nadosunbae_android.usecase.classroom.PostClassRoomWriteUseCase
+import kotlinx.coroutines.launch
 
-class QuestionWriteViewModel : ViewModel() {
-    private val classRoomRepository : ClassRoomRepository = ClassRoomRepositoryImpl()
+class QuestionWriteViewModel(
+    val postClassRoomWriteUseCase: PostClassRoomWriteUseCase
+) : ViewModel() {
+
     //전체 질문글 작성 제목 및 내용 있는지 체크
     var title = MutableLiveData<Boolean>()
     var content = MutableLiveData<Boolean>()
@@ -25,7 +30,7 @@ class QuestionWriteViewModel : ViewModel() {
 
 
     //1:1, 전체 질문글, 정보글 작성
-    var postDataWrite : MutableLiveData<ResponseClassRoomWriteData> = MutableLiveData()
+    var postDataWrite : MutableLiveData<ClassRoomPostWriteData> = MutableLiveData()
 
     var completeBtn = MediatorLiveData<Boolean>().apply {
         this.addSource(title){
@@ -42,20 +47,18 @@ class QuestionWriteViewModel : ViewModel() {
     }
 
     //1:1, 질문, 정보글 등록
-    fun postClassRoomWrite(requestClassRoomPostData: RequestClassRoomPostData){
-        classRoomRepository.postClassRoomWrite(requestClassRoomPostData,
-            onResponse = {
-                if(it.isSuccessful){
-                    postDataWrite.value = it.body()
+    fun postClassRoomWrite(classRoomPostWriteItem: ClassRoomPostWriteItem){
+        viewModelScope.launch {
+            runCatching { postClassRoomWriteUseCase(classRoomPostWriteItem) }
+                .onSuccess {
+                    postDataWrite.value = it
                     Log.d("classRoomWrite", "글 작성 등록 완료")
                 }
-            },
-            onFailure = {
-                it.printStackTrace()
-                Log.d("classRoomWrite", "글 작성 등록 실패")
-            }
-        )
-
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("classRoomWrite", "글 작성 등록 실패")
+                }
+        }
     }
 
 

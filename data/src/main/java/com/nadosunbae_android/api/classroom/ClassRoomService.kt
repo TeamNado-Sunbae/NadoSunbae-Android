@@ -49,7 +49,7 @@ interface ClassRoomService {
     @GET("user/mypage/{userId}")
     suspend fun getSeniorPersonal(
        @Path("userId") userId : Int
-    ) : ResponseQuestionCommentWrite
+    ) : ResponseSeniorPersonalData
 
     //선배 개인페이지 1:1 질문 글 목록
     @GET("user/mypage/{userId}/classroom-post/list")
