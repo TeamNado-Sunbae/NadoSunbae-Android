@@ -1,6 +1,7 @@
 package com.nadosunbae_android.model.classroom
 
 data class QuestionCommentWriteData(
+    val success : Boolean,
     val commentId: Int,
     val content: String,
     val createdAt: String,

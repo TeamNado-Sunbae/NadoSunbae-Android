@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.model.response.classroom.ResponseClassRoomSeniorData
 import com.nadosunbae_android.databinding.ItemQuestionSeniorOffQuestionBinding
+import com.nadosunbae_android.model.classroom.ClassRoomSeniorData
 
 class ClassRoomSeniorOffAdapter : RecyclerView.Adapter<ClassRoomSeniorOffAdapter.ClassRoomSeniorOffViewHolder>() {
-    var offQuestionUserList = mutableListOf<ResponseClassRoomSeniorData.Data.OffQuestionUser>()
+    var offQuestionUserList = mutableListOf<ClassRoomSeniorData.OffQuestionUser>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -35,7 +36,7 @@ class ClassRoomSeniorOffAdapter : RecyclerView.Adapter<ClassRoomSeniorOffAdapter
     inner class ClassRoomSeniorOffViewHolder(
         val binding : ItemQuestionSeniorOffQuestionBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(offQuestionUserList :ResponseClassRoomSeniorData.Data.OffQuestionUser ){
+        fun onBind(offQuestionUserList :ClassRoomSeniorData.OffQuestionUser ){
             binding.apply {
                 seniorOff = offQuestionUserList
                 executePendingBindings()
@@ -44,7 +45,7 @@ class ClassRoomSeniorOffAdapter : RecyclerView.Adapter<ClassRoomSeniorOffAdapter
         }
     }
 
-    fun setOffQuestionUser(offQuestionUserList: MutableList<ResponseClassRoomSeniorData.Data.OffQuestionUser>){
+    fun setOffQuestionUser(offQuestionUserList: MutableList<ClassRoomSeniorData.OffQuestionUser>){
         this.offQuestionUserList = offQuestionUserList
         notifyDataSetChanged()
     }

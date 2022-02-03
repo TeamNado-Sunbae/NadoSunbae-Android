@@ -126,6 +126,7 @@ object ClassRoomMapper {
     // 1:1질문, 전체질문, 정보글 등록 받는 데이터
     fun mapperToClassRoomPostWriteData(responseClassRoomWriteData: ResponseClassRoomWriteData): ClassRoomPostWriteData {
         return ClassRoomPostWriteData(
+            success = responseClassRoomWriteData.success,
             content = responseClassRoomWriteData.data.post.content,
             createdAt = responseClassRoomWriteData.data.post.createdAt,
             postId = responseClassRoomWriteData.data.post.postId,
@@ -162,6 +163,7 @@ object ClassRoomMapper {
     // 1:1질문, 전체 질문, 정보글에 댓글 등록 받는 데이터
     fun mapperToQuestionCommentWriteData(responseQuestionCommentWrite: ResponseQuestionCommentWrite): QuestionCommentWriteData {
         return QuestionCommentWriteData(
+            success = responseQuestionCommentWrite.success,
             commentId = responseQuestionCommentWrite.data.commentId,
             content = responseQuestionCommentWrite.data.content,
             createdAt = responseQuestionCommentWrite.data.createdAt,
