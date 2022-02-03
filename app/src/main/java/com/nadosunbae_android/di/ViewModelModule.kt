@@ -30,7 +30,7 @@ val viewModelModule = module {
     viewModel { MyPageViewModel() }
 
     //notification
-    viewModel {NotificationViewModel()}
+    viewModel {NotificationViewModel(get(),get(),get())}
 
     //review
     viewModel {ReviewDetailViewModel()}
