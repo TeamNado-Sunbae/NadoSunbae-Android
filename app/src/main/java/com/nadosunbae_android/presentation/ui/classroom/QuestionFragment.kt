@@ -49,8 +49,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
         classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(1, mainViewModel.userId.value ?: 0,0)
         binding.rcQuestionAll.adapter = classRoomQuestionMainAdapter
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){
-            Log.d("cclassRoomMain", it.data.toString())
-            classRoomQuestionMainAdapter.setQuestionMain(ClassRoomMapper.mapperToQuestionMain(it) as MutableList<ClassRoomData>)
+            classRoomQuestionMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
             visibleQuestion()
         }
 

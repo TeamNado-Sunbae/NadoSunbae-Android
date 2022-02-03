@@ -4,56 +4,61 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.model.request.classroom.RequestQuestionCommentWriteData
-import com.nadosunbae_android.model.response.classroom.ResponseInfoDetailData
-import com.nadosunbae_android.model.response.classroom.ResponseQuestionCommentWrite
-import com.nadosunbae_android.repositoryimpl.classroom.ClassRoomRepository
+import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.model.classroom.InfoDetailData
+import com.nadosunbae_android.model.classroom.QuestionCommentWriteData
+import com.nadosunbae_android.model.classroom.QuestionCommentWriteItem
+import com.nadosunbae_android.usecase.classroom.GetInformationDetailUseCase
+import com.nadosunbae_android.usecase.classroom.PostQuestionCommentWriteUseCase
+import kotlinx.coroutines.launch
 
-class InfoDetailViewModel : ViewModel() {
-    private val classRoomRepository: ClassRoomRepository = ClassRoomRepositoryImpl()
+class InfoDetailViewModel(
+    val getInformationDetailUseCase: GetInformationDetailUseCase,
+    val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase
+) : ViewModel() {
 
 
     //정보 상세 조회
-    private val _infoDetailData = MutableLiveData<ResponseInfoDetailData>()
-    val infoDetailData: LiveData<ResponseInfoDetailData>
+    private val _infoDetailData = MutableLiveData<InfoDetailData>()
+    val infoDetailData: LiveData<InfoDetailData>
         get() = _infoDetailData
 
     //정보 댓글 등록
-    var registerInfoComment = MutableLiveData<ResponseQuestionCommentWrite>()
+    var registerInfoComment = MutableLiveData<QuestionCommentWriteData>()
 
 
     //정보 상세 조회 서버통신
     fun getInfoDetail(postId: Int) {
-        classRoomRepository.getInformationDetail(postId,
-            onResponse = {
-                if (it.isSuccessful) {
-                    _infoDetailData.value = it.body()
+        viewModelScope.launch {
+            runCatching { getInformationDetailUseCase(postId) }
+                .onSuccess {
+                    _infoDetailData.value = it
                     Log.d("infoDetail", "정보 상세보기 서버 통신 성공")
                 }
-            },
-            onFailure = {
-                it.printStackTrace()
-                Log.d("infoDetail", "정보 상세보기 서버 통신 실패")
-            }
-        )
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("infoDetail", "정보 상세보기 서버 통신 실패")
+                }
+        }
+
     }
 
     //정보 상세 댓글 등록
     fun postInfoCommentWrite(
-        requestQuestionCommentWriteData: RequestQuestionCommentWriteData
+        questionCommentWriteItem: QuestionCommentWriteItem
     ) {
-        classRoomRepository.postQuestionCommentWrite(requestQuestionCommentWriteData,
-            onResponse = {
-                if (it.isSuccessful) {
-                    registerInfoComment.value = it.body()
+        viewModelScope.launch {
+            runCatching { postQuestionCommentWriteUseCase(questionCommentWriteItem) }
+                .onSuccess {
+                    registerInfoComment.value = it
                     Log.d("infoComment", "댓글 통신 성공")
                 }
-            },
-            onFailure = {
-                it.printStackTrace()
-                Log.d("infoComment", "댓글 통신 실패 ")
-            }
-        )
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("infoComment", "댓글 통신 실패 ")
+                }
+        }
+
     }
 }
 
