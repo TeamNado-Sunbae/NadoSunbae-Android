@@ -14,16 +14,13 @@ import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.mapper.classroom.ClassRoomMapper
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment_question) {
-    private val mainViewModel: MainViewModel by activityViewModels{
-        object : ViewModelProvider.Factory{
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MainViewModel() as T
-            }
-        }
-    }
+    private val mainViewModel: MainViewModel by sharedViewModel()
+
+
     private lateinit var classRoomQuestionMainAdapter : ClassRoomQuestionMainAdapter
 
 

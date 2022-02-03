@@ -24,7 +24,7 @@ val viewModelModule = module {
 
 
     //main
-    viewModel { MainViewModel() }
+    viewModel { MainViewModel(get()) }
 
     //myPage
     viewModel { MyPageViewModel() }

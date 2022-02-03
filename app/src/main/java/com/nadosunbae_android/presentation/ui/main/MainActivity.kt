@@ -18,16 +18,13 @@ import com.nadosunbae_android.presentation.ui.review.ReviewFragment
 import com.nadosunbae_android.util.changeFragment
 import com.nadosunbae_android.util.changeFragmentNoBackStack
 import com.nadosunbae_android.util.popFragmentBackStack
+import org.koin.android.compat.ScopeCompat.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val mainViewModel: MainViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-               return MainViewModel() as T
-            }
-        }
-    }
+    private val mainViewModel: MainViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBottomNav()
