@@ -1,5 +1,6 @@
 package com.nadosunbae_android.model.sign
 
+//로그인
 data class SignInData(
     val success: Boolean
     val accesstoken: String,
