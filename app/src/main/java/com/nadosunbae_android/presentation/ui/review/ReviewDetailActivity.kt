@@ -3,23 +3,18 @@ package com.nadosunbae_android.presentation.ui.review
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.databinding.ActivityReviewDetailBinding
+import com.nadosunbae_android.model.response.sign.SelectableData
 import com.nadosunbae_android.presentation.base.BaseActivity
-import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.ReviewWriteActivity.Companion.MODE_MODIFY
-import com.nadosunbae_android.presentation.ui.review.ReviewWriteActivity.Companion.MODE_NEW
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewTagBoxAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewDetailViewModel
 import com.nadosunbae_android.util.CustomDialog
 import com.nadosunbae_android.util.dpToPx
 import com.nadosunbae_android.util.getBackgroundImage
 import com.nadosunbae_android.util.showCustomDropDown
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ReviewDetailActivity :
@@ -34,13 +29,7 @@ class ReviewDetailActivity :
     private var userId: Int? = null
 
 
-    private val reviewDetailViewModel: ReviewDetailViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return ReviewDetailViewModel() as T
-            }
-        }
-    }
+    private val reviewDetailViewModel: ReviewDetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +80,7 @@ class ReviewDetailActivity :
             // 로그인 유저가 해당 글 작성자일 때 -> 수정/삭제 권한
             val writerDropDownList = mutableListOf(
                 SelectableData(REVIEW_EDIT, getString(R.string.review_edit), false),
-                SelectableData(REVIEW_DELETE, getString(R.string.review_delete), false)
+                SelectableData(REVIEW_DELETE, getString(R.string.review_delete), false),
             )
 
             // 다른 유저의 글일 때 -> 신고만 가능
@@ -123,7 +112,7 @@ class ReviewDetailActivity :
 
                                 intent.putExtra("mode", MODE_MODIFY)
                                 // 후기 수정을 위해 기존 데이터를 넘겨줌
-                                intent.putExtra("modifyData", responseData.data)
+                                intent.putExtra("modifyData", responseData)
                                 startActivity(intent)
                             }
                         }
@@ -181,7 +170,7 @@ class ReviewDetailActivity :
             val reviewData = reviewDetailViewModel.reviewDetailData.value
 
             if (reviewData != null)
-                intent.putExtra("userId", reviewData.data.writer.writerId)
+                intent.putExtra("userId", reviewData.writerId)
 
             startActivity(intent)
         }
@@ -193,23 +182,23 @@ class ReviewDetailActivity :
 
         // 후기 내용 data
         reviewDetailViewModel.reviewDetailData.observe(this) {
-            val responseValue = reviewDetailViewModel.reviewDetailData.value
+            val reviewDetail = reviewDetailViewModel.reviewDetailData.value
 
             // null check
-            if (responseValue != null) {
+            if (reviewDetail != null) {
                 // RecyclerView 적용
-                val contentList = responseValue.data.post.contentList
+                val contentList = reviewDetail.contentList
                 reviewTagBoxAdapter.setReviewTagBoxData(contentList)
 
                 // Background Resource 선택
-                val backgroundRes = getBackgroundImage(responseValue.data.backgroundImage.imageId)
+                val backgroundRes = getBackgroundImage(reviewDetail.backgroundImageId)
                 reviewDetailViewModel.setBackgroundRes(resources.getDrawable(backgroundRes))
 
                 // writer
-                writerId = responseValue.data.writer.writerId
+                writerId = reviewDetail.writerId
 
                 // like
-                binding.btnReviewLike.isSelected = responseValue.data.like.isLiked
+                binding.btnReviewLike.isSelected = reviewDetail.isLiked
                 binding.executePendingBindings()
             }
         }

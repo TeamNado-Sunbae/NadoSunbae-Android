@@ -9,19 +9,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.model.request.review.RequestPostReviewData
 import com.nadosunbae_android.model.response.major.ResponseMajorListData
-import com.nadosunbae_android.model.response.review.ResponseBackgroundImageListData
 import com.nadosunbae_android.model.response.sign.SelectableData
 import com.nadosunbae_android.model.ui.MajorKeyData
 import com.nadosunbae_android.model.ui.SelectBackgroundBoxData
 import com.nadosunbae_android.databinding.ActivityReviewWriteBinding
+import com.nadosunbae_android.model.main.MajorData
+import com.nadosunbae_android.model.review.BackgroundImageData
+import com.nadosunbae_android.model.review.ReviewDetailData
+import com.nadosunbae_android.model.review.ReviewEditItem
+import com.nadosunbae_android.model.review.ReviewWriteItem
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.review.adapter.ReviewSelectBackgroundAdapter
 import com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewWriteViewModel
 import com.nadosunbae_android.util.CustomDialog
 import com.nadosunbae_android.util.showCustomDropDown
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
 
@@ -29,24 +33,11 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     private lateinit var reviewRequireTextWatcher: ReviewRequireTextWatcher
 
     private var mode = MODE_NEW
-    private lateinit var modifyData: ResponseReviewDetailData.Data
+    private lateinit var modifyData: ReviewDetailData
 
-    private val mainViewModel: MainViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MainViewModel() as T
-            }
+    private val mainViewModel: MainViewModel by viewModel()
 
-        }
-    }
-
-    private val reviewWriteViewModel: ReviewWriteViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return ReviewWriteViewModel() as T
-            }
-        }
-    }
+    private val reviewWriteViewModel: ReviewWriteViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,14 +77,14 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
         // 수정하기 일 때 기존 데이터 불러오기
         if (mode == MODE_MODIFY) {
-            modifyData = intent.getSerializableExtra("modifyData") as ResponseReviewDetailData.Data
+            modifyData = intent.getSerializableExtra("modifyData") as ReviewDetailData
 
             // 불러온 데이터로 텍스트 상자 채워넣기
             with (binding) {
-                etOneLine.setText(modifyData.post.oneLineReview)
+                etOneLine.setText(modifyData.oneLineReview)
 
                 // content list -> 해당 되는 edit text의 value로
-                for (c in modifyData.post.contentList) {
+                for (c in modifyData.contentList) {
                     when (c.title) {
                         getString(R.string.review_pros_cons) -> etProsCons.editText.setText(c.content)
                         getString(R.string.review_curriculum) -> etCurriculum.editText.setText(c.content)
@@ -256,7 +247,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         if (selectedMajor != null && selectedBackgroundId != null) {
 
 
-            val requestBody = RequestPostReviewData(
+            val requestBody = ReviewWriteItem(
                 selectedMajor.id,
                 reviewSelectBackgroundAdapter.getSelectedBackgroundId()!!,
                 binding.etOneLine.text.toString(),
@@ -288,7 +279,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
             with (binding) {
 
-                val requestBody = RequestPutReview(
+                val requestBody = ReviewEditItem(
                     selectedBackgroundId,
                     etOneLine.text.toString(),
                     etProsCons.editText.text.toString(),
@@ -299,7 +290,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                     etTip.editText.text.toString()
                 )
 
-                reviewWriteViewModel.putReview(modifyData.post.postId, requestBody)
+                reviewWriteViewModel.putReview(modifyData.postId, requestBody)
             }
 
         }
@@ -310,23 +301,23 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     private fun observeBackgroundImageList() {
         reviewWriteViewModel.backgroundImageList.observe(this) {
 
-            val responseBackgroundList: ResponseBackgroundImageListData? = reviewWriteViewModel.backgroundImageList.value
+            val backgroundList: List<BackgroundImageData>? = reviewWriteViewModel.backgroundImageList.value
 
             // null check
-            if (responseBackgroundList != null) {
+            if (backgroundList != null) {
                 val dataList = reviewSelectBackgroundAdapter.dataList
 
                 // 갱신을 위해 기존 data clear
                 dataList.clear()
                 // response data add
-                for (bg in responseBackgroundList.data.backgroundImageList) {
+                for (bg in backgroundList) {
                     dataList.add(SelectBackgroundBoxData(bg.imageId, bg.imageUrl, false))
                 }
 
                 // default 설정
                 when (mode) {
                     MODE_NEW -> reviewSelectBackgroundAdapter.setSelectedBackground(DEFAULT_BACKGROUND)
-                    MODE_MODIFY -> reviewSelectBackgroundAdapter.setSelectedBackground(modifyData.backgroundImage.imageId)
+                    MODE_MODIFY -> reviewSelectBackgroundAdapter.setSelectedBackground(modifyData.backgroundImageId)
                 }
 
                 reviewSelectBackgroundAdapter.notifyDataSetChanged()
@@ -348,7 +339,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     private fun observeMajorList() {
         mainViewModel.majorList.observe(this) {
-            val majorList: ResponseMajorListData? = mainViewModel.majorList.value
+            val majorList: List<MajorData>? = mainViewModel.majorList.value
 
             // null check
             if (majorList != null) {
