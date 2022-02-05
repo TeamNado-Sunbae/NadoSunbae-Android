@@ -5,15 +5,12 @@ import com.nadosunbae_android.data.model.response.review.ResponseDeleteReview
 import com.nadosunbae_android.data.model.response.review.ResponsePutReviewData
 import com.nadosunbae_android.model.request.review.RequestPostReviewData
 import com.nadosunbae_android.model.request.review.RequestReviewListData
-import com.nadosunbae_android.model.response.review.ResponseBackgroundImageListData
-import com.nadosunbae_android.model.response.review.ResponseMajorData
-import com.nadosunbae_android.model.response.review.ResponsePostReviewData
-import com.nadosunbae_android.model.response.review.ResponseReviewListData
+import com.nadosunbae_android.model.response.review.*
 import com.nadosunbae_android.model.review.*
 
 object ReviewMapper {
 
-    // 후기 불러오기 request
+    // 후기목록 불러오기 request
     fun mapperToReviewFilterItem(reviewFilterItem: ReviewFilterItem): RequestReviewListData {
         return RequestReviewListData(
             majorId = reviewFilterItem.majorId,
@@ -22,7 +19,7 @@ object ReviewMapper {
         )
     }
 
-    // 후기 불러오기 response
+    // 후기목록 불러오기 response
     fun mapperToReviewPreviewData(responseReviewListData: ResponseReviewListData): List<ReviewPreviewData> {
         return responseReviewListData.data.map {
             ReviewPreviewData(
@@ -46,6 +43,34 @@ object ReviewMapper {
                 )
             )
         }
+    }
+
+    // 후기 상세보기 response
+    fun mapperToReviewDetailData(responseReviewDetailData: ResponseReviewDetailData): ReviewDetailData {
+        return ReviewDetailData(
+            backgroundImageId = responseReviewDetailData.data.backgroundImage.imageId,
+            backgroundImageUrl = responseReviewDetailData.data.backgroundImage.imageUrl,
+            isLiked = responseReviewDetailData.data.like.isLiked,
+            likeCount = responseReviewDetailData.data.like.likeCount,
+            contentList = responseReviewDetailData.data.post.contentList.map {
+                ReviewDetailData.Content(
+                    title = it.title,
+                    content = it.content
+                )
+            },
+            createdAt = responseReviewDetailData.data.post.createdAt,
+            oneLineReview = responseReviewDetailData.data.post.oneLineReview,
+            postId = responseReviewDetailData.data.post.postId,
+            firstMajorStart = responseReviewDetailData.data.writer.firstMajorStart,
+            firstMajorName = responseReviewDetailData.data.writer.firstMajorName,
+            isOnQuestion = responseReviewDetailData.data.writer.isOnQuestion,
+            isReviewed = responseReviewDetailData.data.writer.isReviewd,
+            nickname = responseReviewDetailData.data.writer.nickname,
+            profileImageId = responseReviewDetailData.data.writer.profileImageId,
+            secondMajorStart = responseReviewDetailData.data.writer.secondMajorStart,
+            secondMajorName = responseReviewDetailData.data.writer.secondMajorName,
+            writerId = responseReviewDetailData.data.writer.writerId
+        )
     }
 
 

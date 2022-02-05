@@ -23,6 +23,6 @@ interface ReviewRepository {
     suspend fun deleteReview(postId: Int): ReviewDeleteData
 
     // 후기 배경목록 불러오기
-    suspend fun getBackgroundImageList(): BackgroundImageListData
+    suspend fun getBackgroundImageList(): List<BackgroundImageData>
 
 }
