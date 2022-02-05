@@ -1,6 +1,6 @@
 package com.nadosunbae_android.model.request.review
 
-data class RequestPostReview(
+data class RequestPostReviewData(
     val majorId: Int,
     val backgroundImageId: Int,
     val oneLineReview: String,

@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.model.request.review.RequestPostReview
+import com.nadosunbae_android.model.request.review.RequestPostReviewData
 import com.nadosunbae_android.model.response.main.ResponseMajorListData
 import com.nadosunbae_android.model.response.review.ResponseBackgroundImageListData
 import com.nadosunbae_android.model.response.sign.SelectableData
@@ -256,7 +256,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         if (selectedMajor != null && selectedBackgroundId != null) {
 
 
-            val requestBody = RequestPostReview(
+            val requestBody = RequestPostReviewData(
                 selectedMajor.id,
                 reviewSelectBackgroundAdapter.getSelectedBackgroundId()!!,
                 binding.etOneLine.text.toString(),

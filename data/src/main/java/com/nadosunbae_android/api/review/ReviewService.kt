@@ -1,12 +1,11 @@
 package com.nadosunbae_android.api.review
 
-import com.nadosunbae_android.data.model.request.review.RequestPutReview
+import com.nadosunbae_android.data.model.request.review.RequestPutReviewData
 import com.nadosunbae_android.data.model.response.review.ResponseDeleteReview
-import com.nadosunbae_android.data.model.response.review.ResponsePutReview
-import com.nadosunbae_android.model.request.review.RequestPostReview
+import com.nadosunbae_android.data.model.response.review.ResponsePutReviewData
+import com.nadosunbae_android.model.request.review.RequestPostReviewData
 import com.nadosunbae_android.model.request.review.RequestReviewListData
 import com.nadosunbae_android.model.response.review.*
-import retrofit2.Call
 import retrofit2.http.*
 
 interface ReviewService {
@@ -35,15 +34,15 @@ interface ReviewService {
     @PUT("review-post/{postId}")
     fun putReview(
         @Path("postId") postId: Int,
-        @Body requestBody: RequestPutReview
-    ) : ResponsePutReview
+        @Body requestBody: RequestPutReviewData
+    ) : ResponsePutReviewData
 
     @GET("review-post/background-image/list")
     suspend fun getBackgroundImageList() : ResponseBackgroundImageListData
 
     @POST("review-post")
     suspend fun postReview(
-        @Body requestBody: RequestPostReview
-    ) : ResponsePostReview
+        @Body requestBody: RequestPostReviewData
+    ) : ResponsePostReviewData
 
 }

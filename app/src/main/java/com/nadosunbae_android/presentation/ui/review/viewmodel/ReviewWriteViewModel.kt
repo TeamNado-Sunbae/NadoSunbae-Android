@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.model.request.review.RequestPostReview
+import com.nadosunbae_android.model.request.review.RequestPostReviewData
 import com.nadosunbae_android.model.response.review.ResponseBackgroundImageListData
 import com.nadosunbae_android.model.response.sign.SelectableData
 import com.nadosunbae_android.util.DropDownSelectableViewModel
@@ -34,7 +34,7 @@ class ReviewWriteViewModel : ViewModel(), DropDownSelectableViewModel {
         )
     }
 
-    fun postReview(requestBody: RequestPostReview) {
+    fun postReview(requestBody: RequestPostReviewData) {
         reviewRepository.postReview(requestBody,
             onResponse = {
                  if (it.isSuccessful) {

@@ -1,8 +1,6 @@
-package com.nadosunbae_android.model.response.review
+package com.nadosunbae_android.data.model.response.review
 
-import java.util.*
-
-data class ResponsePostReview(
+data class ResponsePutReviewData(
     val data: Data,
     val message: String,
     val status: Int,
@@ -16,23 +14,20 @@ data class ResponsePostReview(
     ) {
         data class BackgroundImage(
             val imageId: Int,
-            val imageUrl: ImageUrl
-        ) {
-            data class ImageUrl(
-                val imageUrl: String
-            )
-        }
+            val imageUrl: String
+        )
 
         data class Like(
             val isLiked: Boolean,
-            val likeCount: Int
+            val likeCount: String
         )
 
         data class Post(
             val contentList: List<Content>,
-            val createdAt: Date,
+            val createdAt: String,
             val oneLineReview: String,
-            val postId: Int
+            val postId: Int,
+            val updatedAt: String
         ) {
             data class Content(
                 val content: String,
@@ -43,8 +38,6 @@ data class ResponsePostReview(
         data class Writer(
             val firstMajorName: String,
             val firstMajorStart: String,
-            val isOnQuestion: Boolean,
-            val isReviewed: Boolean,
             val nickname: String,
             val profileImageId: Int,
             val secondMajorName: String,
