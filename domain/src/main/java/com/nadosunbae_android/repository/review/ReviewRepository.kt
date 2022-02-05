@@ -8,7 +8,7 @@ interface ReviewRepository {
     suspend fun getReviewList(reviewFilterItem: ReviewFilterItem, sort: String = "recent"): List<ReviewPreviewData>
 
     // 학과정보 불러오기
-    suspend fun getMajorInfo(majorId: Int): MajorData
+    suspend fun getMajorInfo(majorId: Int): MajorInfoData
 
     // 후기 상세정보 불러오기
     suspend fun getReviewDetail(postId: Int): ReviewDetailData

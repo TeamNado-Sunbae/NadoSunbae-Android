@@ -1,12 +1,10 @@
 package com.nadosunbae_android.repository.main
 
-import com.nadosunbae_android.model.response.main.ResponseMajorListData
-import retrofit2.Response
+import com.nadosunbae_android.model.main.MajorData
 
 interface MainRepository {
 
-    fun getMajorList(universityId: Int, filter: String = "all",
-        onResponse: (Response<ResponseMajorListData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-        )
+    // 학과 목록 불러오기
+    suspend fun getMajorList(universityId: Int, filter: String = "all"): List<MajorData>
+
 }

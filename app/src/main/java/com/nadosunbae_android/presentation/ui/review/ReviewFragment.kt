@@ -5,14 +5,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.model.request.review.RequestReviewListData
-import com.nadosunbae_android.model.response.review.ResponseReviewListData
 import com.nadosunbae_android.model.response.sign.SelectableData
-import com.nadosunbae_android.model.ui.MajorData
+import com.nadosunbae_android.model.ui.MajorKeyData
 import com.nadosunbae_android.databinding.FragmentReviewBinding
 import com.nadosunbae_android.model.review.ReviewFilterItem
 import com.nadosunbae_android.model.review.ReviewPreviewData
@@ -342,7 +337,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
             if (selectedData != null) {
-                val majorData = MajorData(selectedData.id, selectedData.name)
+                val majorData = MajorKeyData(selectedData.id, selectedData.name)
                 mainViewModel.setSelectedMajor(majorData)
             }
 

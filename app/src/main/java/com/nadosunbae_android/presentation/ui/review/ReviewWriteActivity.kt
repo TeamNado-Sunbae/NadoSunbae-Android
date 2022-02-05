@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.model.request.review.RequestPostReviewData
-import com.nadosunbae_android.model.response.main.ResponseMajorListData
+import com.nadosunbae_android.model.response.major.ResponseMajorListData
 import com.nadosunbae_android.model.response.review.ResponseBackgroundImageListData
 import com.nadosunbae_android.model.response.sign.SelectableData
-import com.nadosunbae_android.model.ui.MajorData
+import com.nadosunbae_android.model.ui.MajorKeyData
 import com.nadosunbae_android.model.ui.SelectBackgroundBoxData
 import com.nadosunbae_android.databinding.ActivityReviewWriteBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
@@ -365,7 +365,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
             // null check
             if (selected != null) {
-                mainViewModel.setSelectedMajor(MajorData(selected.id, selected.name))
+                mainViewModel.setSelectedMajor(MajorKeyData(selected.id, selected.name))
             }
 
         }

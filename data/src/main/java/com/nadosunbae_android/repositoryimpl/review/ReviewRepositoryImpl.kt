@@ -2,12 +2,8 @@ package com.nadosunbae_android.repositoryimpl.review
 
 import com.nadosunbae_android.datasource.remote.review.ReviewDataSource
 import com.nadosunbae_android.mapper.review.ReviewMapper
-import com.nadosunbae_android.model.request.review.RequestPostReviewData
-import com.nadosunbae_android.model.request.review.RequestReviewListData
-import com.nadosunbae_android.model.response.review.*
 import com.nadosunbae_android.model.review.*
 import com.nadosunbae_android.repository.review.ReviewRepository
-import retrofit2.Response
 
 class ReviewRepositoryImpl(private val dataSource: ReviewDataSource) : ReviewRepository {
 
@@ -20,7 +16,7 @@ class ReviewRepositoryImpl(private val dataSource: ReviewDataSource) : ReviewRep
         ))
     }
 
-    override suspend fun getMajorInfo(majorId: Int): MajorData {
+    override suspend fun getMajorInfo(majorId: Int): MajorInfoData {
         return ReviewMapper.mapperToMajorData(dataSource.getMajorInfo(majorId))
     }
 

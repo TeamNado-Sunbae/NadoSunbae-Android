@@ -28,19 +28,16 @@ object ReviewMapper {
                 oneLineReview = it.oneLineReview,
                 postId = it.postId,
                 tagList = it.tagList.map {
-                     ReviewPreviewData.Tag(
-                         tagName = it.tagName
-                     )
+                    it.tagName
                 },
-                writer = ReviewPreviewData.Writer(
-                    firstMajorName = it.writer.firstMajorName,
-                    firstMajorStart = it.writer.firstMajorStart,
-                    nickname = it.writer.nickname,
-                    profileImageId = it.writer.profileImageId,
-                    secondMajorName = it.writer.secondMajorName,
-                    secondMajorStart = it.writer.secondMajorStart,
-                    writerId = it.writer.writerId
-                )
+                writerId = it.writer.writerId,
+                firstMajorName = it.writer.firstMajorName,
+                firstMajorStart = it.writer.firstMajorStart,
+                nickname = it.writer.nickname,
+                profileImageId = it.writer.profileImageId,
+                secondMajorName = it.writer.secondMajorName,
+                secondMajorStart = it.writer.secondMajorStart,
+
             )
         }
     }
@@ -157,8 +154,8 @@ object ReviewMapper {
 
 
     // 학과정보 불러오기 response
-    fun mapperToMajorData(responseMajorData: ResponseMajorData): MajorData {
-        return MajorData(
+    fun mapperToMajorData(responseMajorData: ResponseMajorData): MajorInfoData {
+        return MajorInfoData(
             homepage = responseMajorData.data.homepage,
             majorName = responseMajorData.data.majorName,
             subjectTable = responseMajorData.data.subjectTable

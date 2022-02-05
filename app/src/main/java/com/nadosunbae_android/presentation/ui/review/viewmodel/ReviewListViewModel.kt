@@ -5,11 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.model.request.review.RequestReviewListData
-import com.nadosunbae_android.model.response.review.ResponseReviewListData
 import com.nadosunbae_android.model.response.sign.SelectableData
-import com.nadosunbae_android.model.review.MajorData
-import com.nadosunbae_android.model.review.ReviewDetailData
+import com.nadosunbae_android.model.review.MajorInfoData
 import com.nadosunbae_android.model.review.ReviewFilterItem
 import com.nadosunbae_android.model.review.ReviewPreviewData
 import com.nadosunbae_android.model.ui.PreviewData
@@ -29,8 +26,8 @@ class ReviewListViewModel(
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
 
-    private val _majorInfo = MutableLiveData<MajorData>()
-    val majorInfo: LiveData<MajorData>
+    private val _majorInfo = MutableLiveData<MajorInfoData>()
+    val majorInfo: LiveData<MajorInfoData>
         get()  =_majorInfo
 
 
