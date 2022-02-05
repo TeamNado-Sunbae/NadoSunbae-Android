@@ -12,7 +12,14 @@ import com.nadosunbae_android.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.model.response.sign.ResponseSignUp
 import com.nadosunbae_android.repositoryimpl.sign.SignRepository
 
-class SignUpBasicInfoViewModel : ViewModel() {
+class SignUpBasicInfoViewModel(
+    val getFirstDepartmentUseCase : GetFirstDepartmentUseCase,
+    val postSignEmailUseCase : PostSignEmailUseCase,
+    val postSignInUseCase : PostSignInUseCase,
+    val postSignNicknameUseCase : PostSignNicknameUseCase,
+    val postSignUpUseCase : PostSignUpUseCase
+
+) : ViewModel() {
     val signRepository: SignRepository = SignRepositoryImpl()
 
 
