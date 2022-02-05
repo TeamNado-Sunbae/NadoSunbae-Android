@@ -49,6 +49,22 @@ class ReviewWriteViewModel : ViewModel(), DropDownSelectableViewModel {
         )
     }
 
+    fun putReview(postId: Int, requestBody: RequestPutReview) {
+        reviewRepository.putReview(postId, requestBody,
+            onResponse = {
+                 if (it.isSuccessful) {
+
+                     Log.d(TAG, "서버통신 성공")
+                 }
+
+            },
+            onFailure = {
+                it.printStackTrace()
+                Log.d(TAG, "서버통신 실패")
+            }
+        )
+    }
+
 
     companion object {
         const val TAG = "ReviewWriteViewModel"

@@ -13,6 +13,7 @@ import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.classroom.*
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.mypage.MyPageFragment
+import com.nadosunbae_android.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.presentation.ui.notification.NotificationFragment
 import com.nadosunbae_android.presentation.ui.review.ReviewFragment
 import com.nadosunbae_android.util.changeFragment
@@ -35,6 +36,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getSignDataFromIntent()
         classRoomBack()
        // clickBottomNav()
+
+        myPageFragmentChange()
     }
 
 
@@ -146,6 +149,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 mainViewModel.setSelectedMajor(MajorData(signData.firstMajorId, signData.firstMajorName))
 
         }
+    }
+
+    //마이페이지 프래그먼트 전환
+    private fun myPageFragmentChange() {
+        mainViewModel.mypageFragmentNum.observe(this, Observer {
+            when(it) {
+                1 -> changeFragment(R.id.fragment_container_main, MyPageSettingFragment(), "myPageSetting")
+            }
+        })
     }
 
 
