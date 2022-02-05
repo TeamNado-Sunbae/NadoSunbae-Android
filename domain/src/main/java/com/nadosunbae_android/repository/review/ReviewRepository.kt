@@ -1,45 +1,28 @@
 package com.nadosunbae_android.repository.review
 
-import com.nadosunbae_android.model.request.review.RequestPostReview
-import com.nadosunbae_android.model.request.review.RequestReviewListData
-import com.nadosunbae_android.model.response.review.*
-import retrofit2.Response
+import com.nadosunbae_android.model.review.*
 
 interface ReviewRepository {
 
-    fun getReviewList(sort: String = "recent", body: RequestReviewListData,
-        onResponse: (Response<ResponseReviewListData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    // 리뷰 목록 불러오기
+    suspend fun getReviewList(reviewFilterItem: ReviewFilterItem, sort: String = "recent"): List<ReviewPreviewData>
 
-    fun getMajorInfo(majorId: Int,
-         onResponse: (Response<ResponseMajorData>) -> Unit,
-         onFailure: (Throwable) -> Unit
-     )
+    // 학과정보 불러오기
+    suspend fun getMajorInfo(majorId: Int): MajorData
 
-    fun getReviewDetail(postId: Int,
-        onResponse: (Response<ResponseReviewDetailData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    // 후기 상세정보 불러오기
+    suspend fun getReviewDetail(postId: Int): ReviewDetailData
 
-    fun deleteReview(postId: Int,
-        onResponse: (Response<ResponseDeleteReview>) -> Unit,
-        onFailure: (Throwable) -> Unit
-     )
+    // 후기 작성
+    suspend fun postReview(reviewWriteItem: ReviewWriteItem): ReviewWriteData
 
-    fun putReview(postId: Int, body: RequestPutReview,
-        onResponse: (Response<ResponsePutReview>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    // 후기 수정
+    suspend fun putReview(postId: Int, reviewEditItem: ReviewEditItem): ReviewWriteData
 
-    fun getBackgroundImageList(
-        onResponse: (Response<ResponseBackgroundImageListData>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    // 후기 삭제
+    suspend fun deleteReview(postId: Int): ReviewDeleteData
 
-    fun postReview(requestBody: RequestPostReview,
-       onResponse: (Response<ResponsePostReview>) -> Unit,
-       onFailure: (Throwable) -> Unit
-    )
+    // 후기 배경목록 불러오기
+    suspend fun getBackgroundImageList(): BackgroundImageListData
 
 }

@@ -1,6 +1,6 @@
 package com.nadosunbae_android.model.review
 
-data class ReviewEditData(
+data class ReviewEditItem(
     val backgroundImageId: Int,
     val oneLineReview: String,
     val prosCons: String,
