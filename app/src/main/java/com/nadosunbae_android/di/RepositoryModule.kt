@@ -30,5 +30,5 @@ val repositoryModule = module{
     single<MyPageRepository> { MyPageRepositoryImpl() }
     single<NotificationRepository> { NotificationRepositoryImpl(get()) }
     single<ReviewRepository>{ ReviewRepositoryImpl() }
-    single<SignRepository>{ SignRepositoryImpl() }
+    single<SignRepository>{ SignRepositoryImpl(get()) }
 }

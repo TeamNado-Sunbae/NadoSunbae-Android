@@ -40,7 +40,7 @@ object SignMapper {
 
 
     //로그인
-    fun mapperSignUpData(responseSignInData: ResponseSignInData): SignInData {
+    fun mapperToSignInData(responseSignInData: ResponseSignInData): SignInData {
         return responseSignInData.data.map {
             SignInData(
                 success = responseSignInData.success,
@@ -60,7 +60,7 @@ object SignMapper {
     }
 
     //회원가입
-    fun mapperSignUpData(responseSignUpData: ResponseSignUpData): SignUpData {
+    fun mapperToSignUpData(responseSignUpData: ResponseSignUpData): SignUpData {
         return responseSignUpData.data.map {
             SignUpData(
                 success = responseSignUpData.success,
@@ -74,7 +74,7 @@ object SignMapper {
     }
 
     //selectable Data
-    fun mapperSelectableData(responseSelectableData: ResponseSelectableData): SelectableData {
+    fun mapperToSelectableData(responseSelectableData: ResponseSelectableData): SelectableData {
         return SelectableData(
             id = responseSelectableData.id,
             name = responseSelectableData.name,
@@ -93,8 +93,8 @@ object SignMapper {
     }
 
     //SignEmail
-    fun mapperToSignEmail(signEmail: SignEmail) : RequestSignEmailCheck {
-        return RequestSignEmailCheck(
+    fun mapperToSignEmail(signEmail: SignEmail) : RequestSignEmail {
+        return RequestSignEmail(
             email = signEmail.email
         )
     }
@@ -110,8 +110,8 @@ object SignMapper {
 
 
     //SignNickname
-    fun mapperToSignNickname(signNickname: SignNickname) : RequestSignNicknameCheck {
-        return RequestSignNicknameCheck(
+    fun mapperToSignNickname(signNickname: SignNickname) : RequestSignNickname {
+        return RequestSignNickname(
             nickname = signNickname.nickname
         )
     }
