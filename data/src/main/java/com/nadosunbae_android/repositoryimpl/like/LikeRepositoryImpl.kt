@@ -1,19 +1,19 @@
 package com.nadosunbae_android.repositoryimpl.like
 
 import com.nadosunbae_android.datasource.remote.like.LikeDataSource
-import com.nadosunbae_android.datasource.remote.like.LikeDataSourceImpl
-import com.nadosunbae_android.model.request.like.RequestPostLike
-import com.nadosunbae_android.model.response.like.ResponsePostLike
-import retrofit2.Response
+import com.nadosunbae_android.mapper.like.LikeMapper
+import com.nadosunbae_android.model.like.LikeData
+import com.nadosunbae_android.model.like.LikeItem
+import com.nadosunbae_android.repository.like.LikeRepository
 
-class LikeRepositoryImpl : LikeRepository {
-    val likeDataSource: LikeDataSource = LikeDataSourceImpl()
+class LikeRepositoryImpl(
+    private val dataSource: LikeDataSource
+) : LikeRepository {
 
-    override fun postLike(
-        requestBody: RequestPostLike,
-        onResponse: (Response<ResponsePostLike>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    ) {
-        return likeDataSource.postLike(requestBody, onResponse, onFailure)
+    override suspend fun postLike(likeItem: LikeItem): LikeData {
+        return LikeMapper.mapperToLikeData(dataSource.postLike(
+                LikeMapper.mapperToLikeItem(likeItem)
+            ))
     }
+
 }

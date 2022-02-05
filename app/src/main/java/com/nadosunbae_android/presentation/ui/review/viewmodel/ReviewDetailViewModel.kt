@@ -6,10 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.model.like.LikeItem
 import com.nadosunbae_android.model.request.like.RequestPostLike
 import com.nadosunbae_android.model.response.review.ResponseReviewDetailData
 import com.nadosunbae_android.model.response.sign.SelectableData
 import com.nadosunbae_android.model.review.ReviewDetailData
+import com.nadosunbae_android.usecase.like.PostLikeDataUseCase
 import com.nadosunbae_android.usecase.review.DeleteReviewDataUseCase
 import com.nadosunbae_android.usecase.review.GetReviewDetailDataUseCase
 import com.nadosunbae_android.util.DropDownSelectableViewModel
@@ -17,7 +19,8 @@ import kotlinx.coroutines.launch
 
 class ReviewDetailViewModel(
     private val getReviewDetailDataUseCase: GetReviewDetailDataUseCase,
-    private val deleteReviewDataUseCase: DeleteReviewDataUseCase
+    private val deleteReviewDataUseCase: DeleteReviewDataUseCase,
+    private val postLikeDataUseCase: PostLikeDataUseCase
 ) : ViewModel(), DropDownSelectableViewModel {
 
     private val _reviewDetailData = MutableLiveData<ReviewDetailData>()
@@ -49,42 +52,22 @@ class ReviewDetailViewModel(
         }
     }
 
-    /*
-
-    fun getReviewDetail(postId: Int) {
-        reviewRepository.getReviewDetail(postId,
-            onResponse = {
-                if (it.isSuccessful) {
-                    _reviewDetailData.value = it.body()
-
-                    Log.d(TAG, "서버통신 성공")
-                }
-            },
-            onFailure = {
-                it.printStackTrace()
-                Log.d(TAG, "서버통신 실패")
-            }
-        )
-    }
-
-     */
-
     // 좋아요
     fun postLikeReview(postId: Int) {
-        likeRepository.likeDataSource.postLike(
-            RequestPostLike(postId, 1),
-            onResponse = {
-                 if (it.isSuccessful) {
-                     //_reviewDetailData.value!!.data.like.isLiked = it.body()!!.data.isLiked
-                     Log.d(TAG, "서버통신 성공")
-                 }
-            },
-            onFailure = {
-                it.printStackTrace()
-                Log.d(TAG, "서버통신 실패")
-            }
-        )
+        val likeItem = LikeItem(postId, POST_TYPE_REVIEW)
+
+        viewModelScope.launch {
+            runCatching { postLikeDataUseCase(likeItem) }
+                .onSuccess {
+                    Log.d(TAG, "서버통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d(TAG, "서버통신 실패")
+                }
+        }
     }
+
 
     // 후기 삭제
     fun deleteReview(postId: Int) {
@@ -100,25 +83,6 @@ class ReviewDetailViewModel(
         }
     }
 
-
-    /*
-    // 후기 삭제
-    fun deleteReview(postId: Int) {
-        reviewRepository.deleteReview(postId,
-            onResponse = {
-                if (it.isSuccessful) {
-
-                    Log.d(TAG, "서버통신 성공")
-                }
-            },
-            onFailure = {
-                it.printStackTrace()
-                Log.d(TAG, "서버통신 실패")
-            }
-        )
-    }
-
-     */
 
     // 로그인 유저 정보 불러오기
     fun getSignUserId() {
@@ -149,6 +113,8 @@ class ReviewDetailViewModel(
 
     companion object {
         const val TAG = "ReviewDetailViewModel"
+        const val POST_TYPE_REVIEW = 1
+
     }
 
 }

@@ -158,8 +158,8 @@ class ReviewDetailActivity :
             finish()
         }
 
+        // 좋아요 버튼
         binding.btnReviewLike.setOnClickListener {
-            // binding.btnReviewLike.isSelected = !binding.btnReviewLike.isSelected
             reviewDetailViewModel.postLikeReview(postId)
             reviewDetailViewModel.getReviewDetail(postId)
         }

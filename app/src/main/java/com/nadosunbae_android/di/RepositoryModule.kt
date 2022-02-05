@@ -18,7 +18,7 @@ import org.koin.dsl.module
 
 val repositoryModule = module{
     single<ClassRoomRepository> { ClassRoomRepositoryImpl(get()) }
-    single<LikeRepository> { LikeRepositoryImpl() }
+    single<LikeRepository> { LikeRepositoryImpl(get()) }
     single<MainRepository> { MainRepositoryImpl(get()) }
     single<MyPageRepository> { MyPageRepositoryImpl() }
     single<NotificationRepository> { NotificationRepositoryImpl(get()) }
