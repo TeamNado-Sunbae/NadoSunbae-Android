@@ -3,7 +3,7 @@ package com.nadosunbae_android.model.review
 import java.util.*
 
 data class ReviewWriteData(
-    val success: String,
+    val success: Boolean,
     val postId: Int,
     val createdAt: Date,
     val oneLineReview: String,
