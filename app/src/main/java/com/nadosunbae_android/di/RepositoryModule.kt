@@ -17,7 +17,6 @@ import com.nadosunbae_android.repositoryimpl.mypage.MyPageRepository
 import com.nadosunbae_android.repositoryimpl.mypage.MyPageRepositoryImpl
 import com.nadosunbae_android.repositoryimpl.notification.NotificationRepository
 import com.nadosunbae_android.repositoryimpl.notification.NotificationRepositoryImpl
-import com.nadosunbae_android.repositoryimpl.review.ReviewRepository
 import com.nadosunbae_android.repositoryimpl.review.ReviewRepositoryImpl
 import com.nadosunbae_android.repositoryimpl.sign.SignRepository
 import com.nadosunbae_android.repositoryimpl.sign.SignRepositoryImpl
@@ -29,6 +28,6 @@ val repositoryModule = module{
     single<MainRepository> { MainRepositoryImpl() }
     single<MyPageRepository> { MyPageRepositoryImpl() }
     single<NotificationRepository> { NotificationRepositoryImpl(get()) }
-    single<ReviewRepository>{ ReviewRepositoryImpl() }
+    single<ReviewRepository>{ ReviewRepositoryImpl(get()) }
     single<SignRepository>{ SignRepositoryImpl() }
 }
