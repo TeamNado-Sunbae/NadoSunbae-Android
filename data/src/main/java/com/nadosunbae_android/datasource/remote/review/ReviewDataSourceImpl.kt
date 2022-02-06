@@ -1,10 +1,10 @@
 package com.nadosunbae_android.datasource.remote.review
 
 import com.nadosunbae_android.api.review.ReviewService
-import com.nadosunbae_android.data.model.request.review.RequestPutReview
+import com.nadosunbae_android.data.model.request.review.RequestPutReviewData
 import com.nadosunbae_android.data.model.response.review.ResponseDeleteReview
-import com.nadosunbae_android.data.model.response.review.ResponsePutReview
-import com.nadosunbae_android.model.request.review.RequestPostReview
+import com.nadosunbae_android.data.model.response.review.ResponsePutReviewData
+import com.nadosunbae_android.model.request.review.RequestPostReviewData
 import com.nadosunbae_android.model.request.review.RequestReviewListData
 import com.nadosunbae_android.model.response.review.*
 
@@ -28,7 +28,7 @@ class ReviewDataSourceImpl(private val service : ReviewService) : ReviewDataSour
         return service.deleteReview(postId)
     }
 
-    override suspend fun putReview(postId: Int, requestBody: RequestPutReview): ResponsePutReview {
+    override suspend fun putReview(postId: Int, requestBody: RequestPutReviewData): ResponsePutReviewData {
         return service.putReview(postId, requestBody)
     }
 
@@ -36,7 +36,7 @@ class ReviewDataSourceImpl(private val service : ReviewService) : ReviewDataSour
         return service.getBackgroundImageList()
     }
 
-    override suspend fun postReview(requestBody: RequestPostReview): ResponsePostReview {
+    override suspend fun postReview(requestBody: RequestPostReviewData): ResponsePostReviewData {
         return service.postReview(requestBody)
     }
 }

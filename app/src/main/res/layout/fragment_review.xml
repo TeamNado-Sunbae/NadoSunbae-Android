@@ -9,9 +9,6 @@
             name="mainViewModel"
             type="com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel" />
 
-        <variable
-            name="reviewListViewModel"
-            type="com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

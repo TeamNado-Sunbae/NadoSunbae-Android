@@ -14,27 +14,27 @@ data class ResponseReviewDetailData(
         val like: Like,
         val post: Post,
         val writer: Writer
-    ) : Serializable {
+    ) {
         data class BackgroundImage(
             val imageId: Int,
             val imageUrl: String
-        ) : Serializable
+        )
 
         data class Like(
             var isLiked: Boolean,
             val likeCount: String
-        ) : Serializable
+        )
 
         data class Post(
             val contentList: List<Content>,
             val createdAt: Date,
             val oneLineReview: String,
             val postId: Int
-        ) : Serializable {
+        ) {
             data class Content(
                 val content: String,
                 val title: String
-            ) : Serializable
+            )
         }
 
         data class Writer(
@@ -47,6 +47,6 @@ data class ResponseReviewDetailData(
             val secondMajorName: String,
             val secondMajorStart: String,
             val writerId: Int
-        ) : Serializable
+        )
     }
 }

@@ -5,17 +5,23 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.model.request.like.RequestPostLike
 import com.nadosunbae_android.model.response.review.ResponseReviewDetailData
+import com.nadosunbae_android.model.response.sign.SelectableData
+import com.nadosunbae_android.model.review.ReviewDetailData
+import com.nadosunbae_android.usecase.review.DeleteReviewDataUseCase
+import com.nadosunbae_android.usecase.review.GetReviewDetailDataUseCase
 import com.nadosunbae_android.util.DropDownSelectableViewModel
+import kotlinx.coroutines.launch
 
-class ReviewDetailViewModel : ViewModel(), DropDownSelectableViewModel {
-    private val reviewRepository = ReviewRepositoryImpl()
-    private val likeRepository = LikeRepositoryImpl()
-    private val myPageRepository = MyPageRepositoryImpl()
+class ReviewDetailViewModel(
+    private val getReviewDetailDataUseCase: GetReviewDetailDataUseCase,
+    private val deleteReviewDataUseCase: DeleteReviewDataUseCase
+) : ViewModel(), DropDownSelectableViewModel {
 
-    private val _reviewDetailData = MutableLiveData<ResponseReviewDetailData>()
-    val reviewDetailData: LiveData<ResponseReviewDetailData>
+    private val _reviewDetailData = MutableLiveData<ReviewDetailData>()
+    val reviewDetailData: LiveData<ReviewDetailData>
         get() = _reviewDetailData
 
     private val _backgroundRes = MutableLiveData<Drawable>()
@@ -28,7 +34,23 @@ class ReviewDetailViewModel : ViewModel(), DropDownSelectableViewModel {
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
 
-    // 서버 통신
+    // 후기 상세정보 불러오기
+    fun getReviewDetail(postId: Int) {
+        viewModelScope.launch {
+            runCatching { getReviewDetailDataUseCase(postId) }
+                .onSuccess {
+                    _reviewDetailData.value = it
+                    Log.d(TAG, "서버통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d(TAG, "서버통신 실패")
+                }
+        }
+    }
+
+    /*
+
     fun getReviewDetail(postId: Int) {
         reviewRepository.getReviewDetail(postId,
             onResponse = {
@@ -44,6 +66,8 @@ class ReviewDetailViewModel : ViewModel(), DropDownSelectableViewModel {
             }
         )
     }
+
+     */
 
     // 좋아요
     fun postLikeReview(postId: Int) {
@@ -64,6 +88,22 @@ class ReviewDetailViewModel : ViewModel(), DropDownSelectableViewModel {
 
     // 후기 삭제
     fun deleteReview(postId: Int) {
+        viewModelScope.launch {
+            runCatching { deleteReviewDataUseCase(postId) }
+                .onSuccess {
+                    Log.d(TAG, "서버통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d(TAG, "서버통신 실패")
+                }
+        }
+    }
+
+
+    /*
+    // 후기 삭제
+    fun deleteReview(postId: Int) {
         reviewRepository.deleteReview(postId,
             onResponse = {
                 if (it.isSuccessful) {
@@ -77,6 +117,8 @@ class ReviewDetailViewModel : ViewModel(), DropDownSelectableViewModel {
             }
         )
     }
+
+     */
 
     // 로그인 유저 정보 불러오기
     fun getSignUserId() {

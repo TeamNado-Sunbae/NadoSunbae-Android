@@ -1,6 +1,6 @@
-package com.nadosunbae_android.data.model.request.review
+package com.nadosunbae_android.model.review
 
-data class RequestPutReview(
+data class ReviewEditItem(
     val backgroundImageId: Int,
     val oneLineReview: String,
     val prosCons: String,
