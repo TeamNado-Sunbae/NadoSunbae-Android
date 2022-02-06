@@ -1,41 +1,20 @@
 package com.nadosunbae_android.repository.sign
 
-import com.nadosunbae_android.model.request.sign.RequestSignEmail
-import com.nadosunbae_android.model.request.sign.RequestSignIn
-import com.nadosunbae_android.model.request.sign.RequestSignNickname
-import com.nadosunbae_android.model.request.sign.RequestSignUp
-import com.nadosunbae_android.model.response.sign.*
-import com.nadosunbae_android.model.sign.NicknameDuplicationCheck
-import retrofit2.Response
+import com.nadosunbae_android.model.sign.*
 
 interface SignRepository {
     //닉네임 중복확인
-    suspend fun postSignNickname(requestSignNickname: RequestSignNickname)
+    suspend fun postSignNickname(nickname : String) : NicknameDuplicationCheck
 
     //이메일 중복확인
-    suspend fun postSignEmail(
-        requestSignEmail: RequestSignEmail,
-        onResponse: (Response<ResponseSignEmail>) -> Unit,
-        onFailure: (Throwable) -> Unit)
+    suspend fun postSignEmail(email : String) : EmailDuplicationCheck
 
     //학과선택 바텀시트
-    suspend fun getFirstDepartment(
-        universityId : Int,
-        filter : String,
-        onResponse: (Response<ResponseFirstDepartment>) -> Unit,
-        onFailure: (Throwable) -> Unit)
+    suspend fun getFirstDepartment(universityId : Int, filter : String) : SignMajorBottomSheet
 
     //회원가입
-    suspend fun postSignUp(
-        requestSignUp: RequestSignUp,
-        onResponse: (Response<ResponseSignUp>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    suspend fun postSignUp(email: String, nickname: String, password: String, universityId: Int, firstMajorId: Int, firstMajorStart: String, secondMajorId: Int, secondMajorStart: String) : SignUpData
 
     //로그인
-    suspend fun postSignIn(
-        requestSignIn: RequestSignIn,
-        onResponse: (Response<ResponseSignIn>) -> Unit,
-        onFailure: (Throwable) -> Unit
-    )
+    suspend fun postSignIn(email: String, password: String, deviceToken: String) : SignInData
 }
