@@ -1,8 +1,10 @@
 package com.nadosunbae_android.repository.like
 
-import com.nadosunbae_android.model.request.like.RequestPostLike
+import com.nadosunbae_android.model.like.LikeData
+import com.nadosunbae_android.model.like.LikeItem
 
 interface LikeRepository {
 
-    suspend fun postLike(requestBody: RequestPostLike)
+    // 좋아요
+    suspend fun postLike(likeItem: LikeItem): LikeData
 }

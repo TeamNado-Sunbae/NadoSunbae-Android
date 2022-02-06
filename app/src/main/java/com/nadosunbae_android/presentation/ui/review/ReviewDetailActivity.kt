@@ -68,7 +68,11 @@ class ReviewDetailActivity :
         }
 
         // 로그인 유저 id 불러오기
+        /*
+        TODO: 후기 수정 권한 확인시 필요!!! MyPage CA 리팩토링 완료되면 적용할 것!!!
         reviewDetailViewModel.getSignUserId()
+
+         */
 
     }
 
@@ -158,8 +162,8 @@ class ReviewDetailActivity :
             finish()
         }
 
+        // 좋아요 버튼
         binding.btnReviewLike.setOnClickListener {
-            // binding.btnReviewLike.isSelected = !binding.btnReviewLike.isSelected
             reviewDetailViewModel.postLikeReview(postId)
             reviewDetailViewModel.getReviewDetail(postId)
         }
