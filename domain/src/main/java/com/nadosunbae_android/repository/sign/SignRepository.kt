@@ -5,14 +5,12 @@ import com.nadosunbae_android.model.request.sign.RequestSignIn
 import com.nadosunbae_android.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.model.request.sign.RequestSignUp
 import com.nadosunbae_android.model.response.sign.*
+import com.nadosunbae_android.model.sign.NicknameDuplicationCheck
 import retrofit2.Response
 
 interface SignRepository {
     //닉네임 중복확인
-    suspend fun postSignNickname(
-        requestSignNickname: RequestSignNickname,
-        onResponse: (Response<ResponseSignNickname>) -> Unit,
-        onFailure: (Throwable) -> Unit)
+    suspend fun postSignNickname(requestSignNickname: RequestSignNickname)
 
     //이메일 중복확인
     suspend fun postSignEmail(

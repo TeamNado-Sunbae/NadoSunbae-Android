@@ -1,78 +1,71 @@
 package com.nadosunbae_android.mapper.classroom
 
+import androidx.lifecycle.Transformations.map
 import com.nadosunbae_android.model.classroom.*
 import com.nadosunbae_android.model.response.mypage.ResponseMypageQuestionData
 import com.nadosunbae_android.model.request.classroom.RequestClassRoomData
 import com.nadosunbae_android.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.model.request.sign.RequestSignEmail
+import com.nadosunbae_android.model.request.sign.RequestSignIn
+import com.nadosunbae_android.model.request.sign.RequestSignNickname
+import com.nadosunbae_android.model.request.sign.RequestSignUp
 import com.nadosunbae_android.model.response.classroom.*
+import com.nadosunbae_android.model.response.sign.*
+import com.nadosunbae_android.model.sign.*
+import kotlinx.coroutines.channels.ChannelResult.Companion.success
+import retrofit2.Response.success
 import java.util.*
+import kotlin.Result.Companion.success
 
 object SignMapper {
     //response
     //닉네임 중복 확인
-    fun mapperToNicknameDuplication(responseNicknameDuplication: ResponseNicknameDuplication): NicknameDuplication {
-        return NicknameDuplication(
-            sucess = ResponseNicknameDuplication.success
+    fun mapperToNicknameDuplication(responseSignnNickname: ResponseSignNickname): NicknameDuplicationCheck {
+        return NicknameDuplicationCheck(
+            success = responseSignnNickname.success,
         )
     }
 
     //이메일 중복확인
-    fun mapperToEmailDuplication(responseEmailDuplication: ResponseEmailDuplication): EmailDuplication {
-        return EmailDuplication(
-            sucess = responseEmailDuplication.success
+    fun mapperToEmailDuplication(responseSignEmail: ResponseSignEmail): EmailDuplicationCheck {
+        return EmailDuplicationCheck(
+            success = responseSignEmail.success
         )
     }
-
-    //학과선택 바텀시트
-    fun mapperToSignMajorBottomSheet(responseSignMajorBottomSheet: ResponseSignMajorBottomSheet): SignMajorBottomSheet {
-        return responseSignMajorBottomSheet.data.map {
-            BottomSheetData(
-                isFirstMajor = responseSignMajorBottomSheet.data.isFirstMajor,
-                isSecondMajor = responseSignMajorBottomSheet.data.isSecondMajor,
-                majorId = responseSignMajorBottomSheet.data.majorId,
-                majorName = responseSignMajorBottomSheet.data.majorName
-            )
-        }
-    }
-
-    //ResponseMajorData?
-
 
     //로그인
-    fun mapperToSignInData(responseSignInData: ResponseSignInData): SignInData {
-        return responseSignInData(
-
-            success = responseSignInData.success,
-            accesstoken = responseSignInData.data.accesstoken,
-            user = responseSignInData.User(
-                email = responseSignInData.data.email,
-                firstMajorId = responseSignInData.data.firstMajorId,
-                firstMajorName = responseSignInData.data.firstMajorName,
-                isReviewed = responseSignInData.data.isReviewed,
-                secondMajorId = responseSignInData.data.secondMajorId,
-                secondMajorName = responseSignInData.data.secondMajorName,
-                universityId = responseSignInData.data.universityId,
-                userId = responseSignInData.data.userId
-            )
+    fun mapperToSignInData(responseSignIn: ResponseSignIn): SignInData {
+        return SignInData(
+            success = responseSignIn.success,
+            accesstoken = responseSignIn.data.accesstoken,
+            user = responseSignIn.data.user.map {
+                SignInData.User(
+                    email = responseSignIn.data.user.email,
+                    firstMajorId = responseSignIn.data.user.firstMajorId,
+                    firstMajorName = responseSignIn.data.user.firstMajorName,
+                    isReviewed = responseSignIn.data.user.isReviewed,
+                    secondMajorId = responseSignIn.data.user.secondMajorId,
+                    secondMajorName = responseSignIn.data.user.secondMajorName,
+                    universityId = responseSignIn.data.user.universityId,
+                    userId = responseSignIn.data.user.userId
+                )
+            }
         )
-
     }
 
+
     //회원가입
-    fun mapperToSignUpData(responseSignUpData: ResponseSignUpData): SignUpData {
+    fun mapperToSignUpData(responseSignup: ResponseSignUp): SignUpData {
         return SignUpData(
-            success = responseSignUpData.success,
-            accesstoken = responseSignUpData.accesstoken,
-            user = SignUpData.User(
-                createdAt = it.createdAt,
-                userId = it.userId
-            )
+            success = responseSignup.success,
+            userId = responseSignup.userId,
+            accesstoken = responseSignup.accesstoken
         )
     }
 
     //selectable Data
-    fun mapperToSelectableData(responseSelectableData: ResponseSelectableData): SelectableData {
+    fun mapperToSelectableData(responseSelectableData: SelectableData): SelectableData {
         return SelectableData(
             id = responseSelectableData.id,
             name = responseSelectableData.name,
@@ -80,10 +73,21 @@ object SignMapper {
         )
     }
 
-    //request
-    //BottomSheetData
-    fun mapperToBottomSheetData(bottomSheetData: BottomSheetData): RequestBottomSheetData {
-        return RequestBottomSheetData(
+//    fun mapperToFirstDepartment(responseFirstDepartment: ResponseFirstDepartment) : ResponseFirstDepartment {
+//
+//    }
+//
+//    fun mapperToMajorData(responseMajorData: ResponseMajorData) : ResponseMajorData {
+//        return ResponseMajorData(
+//            data = responseMajorData.data,
+//            success = responseMajorData.success
+//        )
+//    }
+
+//request
+//BottomSheetData
+    fun mapperToBottomSheetData(bottomSheetData: BottomSheetData): BottomSheetData {
+        return BottomSheetData(
             id = bottomSheetData.id,
             name = bottomSheetData.name,
             isSelected = bottomSheetData.isSelected
@@ -91,40 +95,40 @@ object SignMapper {
     }
 
     //SignEmail
-    fun mapperToSignEmail(signEmail: SignEmail): RequestSignEmail {
+    fun mapperToSignEmail(requestSignEmail: RequestSignEmail): RequestSignEmail {
         return RequestSignEmail(
-            email = signEmail.email
+            email = requestSignEmail.email
         )
     }
 
     //SignIn
-    fun mapperToSignIn(signInData: SignInData): RequestSignIn {
+    fun mapperToSignIn(requestSignIn: RequestSignIn): RequestSignIn {
         return RequestSignIn(
-            email = signInData.email,
-            password = signInData.password,
-            deviceToken = signInData.deviceToken
+            email = requestSignIn.email,
+            password = requestSignIn.password,
+            deviceToken = requestSignIn.deviceToken
         )
     }
 
 
     //SignNickname
-    fun mapperToSignNickname(signNickname: SignNickname): RequestSignNickname {
+    fun mapperToSignNickname(requestSignNickname: RequestSignNickname): RequestSignNickname {
         return RequestSignNickname(
-            nickname = signNickname.nickname
+            nickname = requestSignNickname.nickname
         )
     }
 
     //SignUp
-    fun mapperToSignUp(signUpData: SignUpData): RequestSignUp {
+    fun mapperToSignUp(requestSignUpData: RequestSignUp): RequestSignUp {
         return RequestSignUp(
-            email = signUpData.email,
-            nickname = signUpData.nickname,
-            password = signUpData.password,
-            universityId = signUpData.universityId,
-            firstMajorId = signUpData.firstMajorId,
-            firstMajorStart = signUpData.firstMajorStart,
-            secondMajorId = signUpData.secondMajorId,
-            secondMajorStart = signUpData.seconMajorStart
+            email = requestSignUpData.email,
+            nickname = requestSignUpData.nickname,
+            password = requestSignUpData.password,
+            universityId = requestSignUpData.universityId,
+            firstMajorId = requestSignUpData.firstMajorId,
+            firstMajorStart = requestSignUpData.firstMajorStart,
+            secondMajorId = requestSignUpData.secondMajorId,
+            secondMajorStart = requestSignUpData.secondMajorStart
         )
     }
 }

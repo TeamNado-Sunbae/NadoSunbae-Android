@@ -17,9 +17,7 @@ interface SignDataSource {
         requestSignEmail: RequestSignEmail) : ResponseSignEmail
 
     //학과선택 BottomSheet
-    suspend fun getFirstDepartment(
-        universityId : Int,
-        filter : String) : ResponseFirstDepartment
+    suspend fun getFirstDepartment(universityId : Int, filter : String) : ResponseFirstDepartment
 
     //회원가입
     suspend fun postSignUp(requestSignUp: RequestSignUp) : ResponseSignUp
