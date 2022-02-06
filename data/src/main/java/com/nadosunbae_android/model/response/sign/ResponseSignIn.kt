@@ -10,7 +10,7 @@ data class ResponseSignIn(
 ) {
     data class Data(
         val accesstoken: String,
-        val user: User
+        val user: List<User>
     ) {
         data class User(
             val email: String,
