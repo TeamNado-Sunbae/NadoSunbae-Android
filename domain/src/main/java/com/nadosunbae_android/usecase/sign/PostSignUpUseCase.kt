@@ -1,12 +1,11 @@
 package com.nadosunbae_android.usecase.classroom
 
-import com.nadosunbae_android.model.classroom.ClassRoomData
-import com.nadosunbae_android.model.sign.SignUpData
-import com.nadosunbae_android.repository.classroom.ClassRoomRepository
+import com.nadosunbae_android.model.sign.SignInData
+import com.nadosunbae_android.model.sign.SignUpItem
 import com.nadosunbae_android.repository.sign.SignRepository
 
-class PostSignUpUseCase(private val repository : SignRepository) {
-    suspend operator fun invoke(signUpData: SignUpData) : SignUpData{
+class PostSignUpUseCase(val repository : SignRepository) {
+    suspend operator fun invoke(signUpData: SignInData) : SignUpItem{
         return repository.postSignUp(signUpData)
     }
 }

@@ -335,6 +335,7 @@ class SignUpBasicInfoActivity :
             startActivity(Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java))
             finish()
         }
+
         //맞는 로직인지는 잘 모르겠는데 서버 들어오고 수정해야할 듯
 //        if(binding.textSignupBasicinfoNicknameDuplicationNo.visibility == View.VISIBLE ||
 //                    binding.textSignupBasicinfoEmailDuplicationNo.visibility == View.VISIBLE) {

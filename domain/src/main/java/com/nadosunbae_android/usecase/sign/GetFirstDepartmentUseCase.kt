@@ -7,6 +7,6 @@ import com.nadosunbae_android.repository.sign.SignRepository
 
 class GetFirstDepartmentUseCase(private val repository : SignRepository) {
     suspend operator fun invoke(universityId : Int, filter : String) : SignMajorBottomSheet {
-        return repository.getFirstDepartment(postTypeId, majorId, sort)
+        return repository.getFirstDepartment(universityId, filter)
     }
 }

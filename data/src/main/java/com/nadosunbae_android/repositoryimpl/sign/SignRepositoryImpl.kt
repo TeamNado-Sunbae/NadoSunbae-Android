@@ -8,46 +8,36 @@ import com.nadosunbae_android.repository.sign.SignRepository
 class SignRepositoryImpl(private val signDataSource : SignDataSource) : SignRepository {
 
     //닉네임 중복확인
-    override suspend fun postSignNickname(nickname: String): NicknameDuplicationCheck {
+    override suspend fun postSignNickname(nicknameDuplicationData: NicknameDuplicationData): NicknameDuplicationCheck {
         return SignMapper.mapperToNicknameDuplication(signDataSource.postSignNickname(
-            SignMapper.mapperToSignNickname(nickname)
+            SignMapper.mapperToSignNickname(nicknameDuplicationData)
         ))
     }
 
     //이메일 중복확인
-    override suspend fun postSignEmail(email: String): EmailDuplicationCheck {
+    override suspend fun postSignEmail(emailDuplicationData: EmailDuplicationData): EmailDuplicationCheck {
         return SignMapper.mapperToEmailDuplication(signDataSource.postSignEmail(
-            SignMapper.mapperToSignEmail(email)
+            SignMapper.mapperToSignEmail(emailDuplicationData)
         ))
     }
 
     //학과선택 bottomsheet
-    override suspend fun getFirstDepartment(universityId: Int, filter: String): BottomSheetData {
-        return SignMapper.mapperToBottomSheetData(signDataSource.getFirstDepartment(universityId, filter))
+    override suspend fun getFirstDepartment(universityId: Int, filter: String): SignMajorBottomSheet {
+        //return SignMapper.mapperToBottomSheetData(signDataSource.getFirstDepartment(universityId, filter))
+
     }
 
-    override suspend fun postSignUp(
-        email: String,
-        nickname: String,
-        password: String,
-        universityId: Int,
-        firstMajorId: Int,
-        firstMajorStart: String,
-        secondMajorId: Int,
-        secondMajorStart: String
-    ): SignUpData {
+    //회원가입
+    override suspend fun postSignUp(signUpData: SignUpData): SignUpItem {
         return SignMapper.mapperToSignUpData(signDataSource.postSignUp(
-            SignMapper.mapperToSignUp()
+            SignMapper.mapperToSignUp(signUpData)
         ))
     }
 
-    override suspend fun postSignIn(
-        email: String,
-        password: String,
-        deviceToken: String
-    ): SignInData {
+    //로그인
+    override suspend fun postSignIn(signInData: SignInData): SignInItem {
         return SignMapper.mapperToSignInData(signDataSource.postSignIn(
-            SignMapper.mapperToSignIn()
+            SignMapper.mapperToSignIn(signInData)
         ))
     }
 }

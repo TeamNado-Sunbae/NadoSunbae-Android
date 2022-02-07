@@ -22,4 +22,11 @@ val useCaseModule = module{
     single {DeleteNotificationUseCase(get())}
     single {GetNotificationListDataUseCase(get())}
     single {ReadNotificationUseCase(get())}
+
+    //sign
+    single {GetFirstDepartmentUseCase(get())}
+    single {PostSignEmailUseCase(get())}
+    single {PostSignInUseCase(get())}
+    single {PostSignNicknameUseCase(get())}
+    single {PostSignUpUseCase(get())}
 }
