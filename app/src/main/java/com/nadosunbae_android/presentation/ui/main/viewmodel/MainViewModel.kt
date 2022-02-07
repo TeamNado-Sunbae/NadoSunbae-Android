@@ -7,16 +7,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.model.classroom.ClassRoomData
 import com.nadosunbae_android.model.classroom.ClassRoomSeniorData
-import com.nadosunbae_android.model.response.main.ResponseMajorListData
+import com.nadosunbae_android.model.main.MajorData
 import com.nadosunbae_android.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.model.ui.MajorData
+import com.nadosunbae_android.model.ui.MajorKeyData
 import com.nadosunbae_android.usecase.classroom.GetClassRoomMainDataUseCase
 import com.nadosunbae_android.usecase.classroom.GetSeniorDataUseCase
+import com.nadosunbae_android.usecase.main.GetMajorListDataUseCase
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    val getClassRoomMainDataUseCase : GetClassRoomMainDataUseCase
-    val getSeniorDataUseCase : GetSeniorDataUseCase
+    val getClassRoomMainDataUseCase : GetClassRoomMainDataUseCase,
+    val getSeniorDataUseCase : GetSeniorDataUseCase,
+    val getMajorListDataUseCase: GetMajorListDataUseCase
 ) : ViewModel() {
 
     // 로그인 response 데이터
@@ -49,8 +51,8 @@ class MainViewModel(
 
 
     // 학과 목록
-    private val _majorList = MutableLiveData<ResponseMajorListData>()
-    val majorList: LiveData<ResponseMajorListData>
+    private val _majorList = MutableLiveData<List<MajorData>>()
+    val majorList: LiveData<List<MajorData>>
         get() = _majorList
 
 
@@ -59,8 +61,8 @@ class MainViewModel(
 
 
     // 선택 학과
-    private var _selectedMajor = MutableLiveData<MajorData>()
-    val selectedMajor: LiveData<MajorData>
+    private var _selectedMajor = MutableLiveData<MajorKeyData>()
+    val selectedMajor: LiveData<MajorKeyData>
         get() = _selectedMajor
 
     // 필터
@@ -72,13 +74,13 @@ class MainViewModel(
         get() = _seniorData
 
     // 본전공
-    private val _firstMajor = MutableLiveData<MajorData>()
-    val firstMajor: LiveData<MajorData>
+    private val _firstMajor = MutableLiveData<MajorKeyData>()
+    val firstMajor: LiveData<MajorKeyData>
         get() = _firstMajor
 
     // 제2전공
-    private val _secondMajor = MutableLiveData<MajorData>()
-    val secondMajor: LiveData<MajorData>
+    private val _secondMajor = MutableLiveData<MajorKeyData>()
+    val secondMajor: LiveData<MajorKeyData>
         get() = _secondMajor
 
 
@@ -97,19 +99,18 @@ class MainViewModel(
 
     // 학과 목록 데이터
     fun getMajorList(universityId: Int, filter: String = "all") {
-        mainRepository.getMajorList(universityId, filter,
-            onResponse = {
-                _majorList.value = it.body()
-
-                Log.d("MainRepository", "서버 통신 성공")
-            },
-            onFailure = {
-                it.printStackTrace()
-                Log.d("MainRepository", "서버 통신 실패")
-            }
-        )
+        viewModelScope.launch {
+            runCatching { getMajorListDataUseCase(universityId, filter) }
+                .onSuccess {
+                    _majorList.value = it
+                    Log.d("MainRepository", "서버통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("MainRepository", "서버통신 실패")
+                }
+        }
     }
-
 
 
     //과방 메인 데이터
@@ -143,15 +144,15 @@ class MainViewModel(
     }
 
 
-    fun setSelectedMajor(majorData: MajorData) {
+    fun setSelectedMajor(majorData: MajorKeyData) {
         _selectedMajor.value = majorData
     }
 
-    fun setFirstMajor(majorData: MajorData) {
+    fun setFirstMajor(majorData: MajorKeyData) {
         _firstMajor.value = majorData
     }
 
-    fun setSecondMajor(majorData: MajorData) {
+    fun setSecondMajor(majorData: MajorKeyData) {
         _secondMajor.value = majorData
     }
 

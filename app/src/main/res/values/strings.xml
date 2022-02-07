@@ -81,6 +81,9 @@
     <string name="review_question_on_message">선배에게 1:1 질문을 남겨보세요!</string>
     <string name="review_question_off_message">지금 이 선배에겐 질문할 수 없어요.</string>
     <string name="review_one_line">한줄평</string>
+    <string name="review_edit">수정하기</string>
+    <string name="review_delete">삭제하기</string>
+    <string name="review_report">신고하기</string>
 
     <!-- review_write -->
     <string name="review_write_title">후기작성</string>
@@ -284,7 +287,23 @@
     <string name="alert_cancel_write_complete">계속 작성</string>
     <string name="alert_cancel_write_cancel">나갈래요</string>
 
+    <!-- 후기 수정 알럿 -->
+    <string name="alert_modify_review_title">수정하시겠습니까?</string>
+    <string name="alert_modify_review_complete">네</string>
+    <string name="alert_modify_review_cancel">아니요</string>
+
 
     <!-- 댓글 작성 못하게 -->
     <string name="text_comment_impossible">다른 선배 개인 페이지에서는 답글 불가!</string>
+
+    <!-- 마이페이지 내 설정 -->
+    <string name="mypage_setting_my_setting">내 설정</string>
+    <string name="mypage_setting_modify_my_info">내 정보 수정</string>
+    <string name="mypage_setting_change_pw">비밀번호 변경</string>
+    <string name="mypage_setting_notification">알림 설정</string>
+    <string name="mypage_setting_service_inquery">서비스 문의</string>
+    <string name="mypage_setting_logout">로그아웃</string>
+    <string name="mypage_setting_quit">탈퇴</string>
+    <string name="mypage_setting_opensource">오픈소스 라이선스</string>
+
 </resources>

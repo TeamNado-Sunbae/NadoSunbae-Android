@@ -17,26 +17,15 @@ import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestio
 import com.nadosunbae_android.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.mapper.classroom.ClassRoomMapper
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.layout.activity_senior_personal) {
 
     private lateinit var classRoomQuestionMainAdapter: ClassRoomQuestionMainAdapter
     private lateinit var callback: OnBackPressedCallback
-    private val mainViewModel: MainViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MainViewModel() as T
-            }
-        }
-    }
+    private val mainViewModel: MainViewModel by viewModel()
 
-    private val seniorPersonalViewModel: SeniorPersonalViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SeniorPersonalViewModel() as T
-            }
-        }
-    }
+    private val seniorPersonalViewModel: SeniorPersonalViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +35,6 @@ class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.lay
         initSeniorQuestion()
         goSeniorFragment()
         goQuestionWrite()
-        getSeniorIdFromIntent()
     }
 
 
@@ -79,9 +67,9 @@ class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.lay
         }
 
         seniorPersonalViewModel.seniorPersonal.observe(this) {
-            seniorPersonalViewModel.userId.value = it.data.userId
+            seniorPersonalViewModel.userId.value = it.userId
             binding.seniorPersonal = it
-            if (it.data.secondMajorName == "미진입")
+            if (it.secondMajorName == "미진입")
                 binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
         }
     }

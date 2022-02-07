@@ -1,5 +1,6 @@
 package com.nadosunbae_android.model.response.review
 
+import java.io.Serializable
 import java.util.*
 
 data class ResponseReviewDetailData(

@@ -4,11 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.model.ui.MajorData
+import com.nadosunbae_android.model.ui.MajorKeyData
 import com.nadosunbae_android.databinding.FragmentClassRoomBinding
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
@@ -75,7 +72,7 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
             if (selectedData != null) {
-                val majorData = MajorData(selectedData.id, selectedData.name)
+                val majorData = MajorKeyData(selectedData.id, selectedData.name)
                 mainViewModel.setSelectedMajor(majorData)
             }
 

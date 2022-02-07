@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.R
 import com.nadosunbae_android.model.response.review.ResponseReviewDetailData
 import com.nadosunbae_android.databinding.ItemReviewTagBoxBinding
+import com.nadosunbae_android.model.review.ReviewDetailData
 
 class ReviewTagBoxAdapter(private val context: Context) : RecyclerView.Adapter<ReviewTagBoxAdapter.ReviewTagBoxHolder>() {
-    var dataList = listOf<ResponseReviewDetailData.Data.Post.Content>()
+    var dataList = listOf<ReviewDetailData.Content>()
 
     class ReviewTagBoxHolder(private val binding: ItemReviewTagBoxBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: ResponseReviewDetailData.Data.Post.Content) {
+        fun onBind(data: ReviewDetailData.Content) {
             binding.contentBox = data
             binding.executePendingBindings()
 
@@ -45,7 +46,7 @@ class ReviewTagBoxAdapter(private val context: Context) : RecyclerView.Adapter<R
 
     override fun getItemCount(): Int = dataList.size
 
-    fun setReviewTagBoxData(dataList: List<ResponseReviewDetailData.Data.Post.Content>) {
+    fun setReviewTagBoxData(dataList: List<ReviewDetailData.Content>) {
         this.dataList = dataList
         notifyDataSetChanged()
     }

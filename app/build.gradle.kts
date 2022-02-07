@@ -141,4 +141,7 @@ dependencies {
     implementation("com.google.firebase:firebase-common-ktx:20.0.0")
     implementation("com.google.firebase:firebase-analytics-ktx:20.0.2")
     implementation("com.google.firebase:firebase-messaging-ktx:23.0.0")
+
+    implementation("androidx.work:work-runtime:2.8.0-alpha01")
+
 }

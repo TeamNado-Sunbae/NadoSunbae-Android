@@ -88,6 +88,16 @@ class ReviewSelectBackgroundAdapter : RecyclerView.Adapter<ReviewSelectBackgroun
         return dataList[mSelectedPos.value!!].imageId
     }
 
+    // 선택된 배경 설정 (default 지정시에만 사용할 것)
+    fun setSelectedBackground(backgroundId: Int) {
+        for (d in dataList) {
+            if (d.imageId == backgroundId) {
+                _mSelectedPos.value = dataList.indexOf(d)
+                d.isSelected = true
+            }
+        }
+    }
+
     interface ItemClickListener {
         fun onClick(view: View, position: Int)
     }

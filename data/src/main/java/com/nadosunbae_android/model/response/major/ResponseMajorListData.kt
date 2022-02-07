@@ -1,4 +1,4 @@
-package com.nadosunbae_android.model.response.main
+package com.nadosunbae_android.model.response.major
 
 data class ResponseMajorListData(
     val status: Int,

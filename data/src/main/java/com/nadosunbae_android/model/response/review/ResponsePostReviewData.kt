@@ -2,7 +2,7 @@ package com.nadosunbae_android.model.response.review
 
 import java.util.*
 
-data class ResponsePostReview(
+data class ResponsePostReviewData(
     val data: Data,
     val message: String,
     val status: Int,

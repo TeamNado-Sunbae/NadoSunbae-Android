@@ -1,24 +1,21 @@
 package com.nadosunbae_android.presentation.ui.main
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.model.ui.MajorData
+import com.nadosunbae_android.model.ui.MajorKeyData
 import com.nadosunbae_android.databinding.ActivityMainBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.classroom.*
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.mypage.MyPageFragment
+import com.nadosunbae_android.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.presentation.ui.notification.NotificationFragment
 import com.nadosunbae_android.presentation.ui.review.ReviewFragment
 import com.nadosunbae_android.util.changeFragment
 import com.nadosunbae_android.util.changeFragmentNoBackStack
 import com.nadosunbae_android.util.popFragmentBackStack
-import org.koin.android.compat.ScopeCompat.viewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -35,6 +32,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getSignDataFromIntent()
         classRoomBack()
        // clickBottomNav()
+
+        myPageFragmentChange()
     }
 
 
@@ -124,9 +123,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             mainViewModel.setSignData(signData)
 
             // 본전공이 default 선택
-            mainViewModel.setSelectedMajor(MajorData(signData.firstMajorId, signData.secondMajorName))
-            mainViewModel.setFirstMajor(MajorData(signData.firstMajorId, signData.firstMajorName))
-            mainViewModel.setSecondMajor(MajorData(signData.secondMajorId, signData.secondMajorName))
+            mainViewModel.setSelectedMajor(MajorKeyData(signData.firstMajorId, signData.secondMajorName))
+            mainViewModel.setFirstMajor(MajorKeyData(signData.firstMajorId, signData.firstMajorName))
+            mainViewModel.setSecondMajor(MajorKeyData(signData.secondMajorId, signData.secondMajorName))
         }
     }
 
@@ -143,9 +142,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             // null check
             if (signData != null)
-                mainViewModel.setSelectedMajor(MajorData(signData.firstMajorId, signData.firstMajorName))
+                mainViewModel.setSelectedMajor(MajorKeyData(signData.firstMajorId, signData.firstMajorName))
 
         }
+    }
+
+    //마이페이지 프래그먼트 전환
+    private fun myPageFragmentChange() {
+        mainViewModel.mypageFragmentNum.observe(this, Observer {
+            when(it) {
+                1 -> changeFragment(R.id.fragment_container_main, MyPageSettingFragment(), "myPageSetting")
+            }
+        })
     }
 
 

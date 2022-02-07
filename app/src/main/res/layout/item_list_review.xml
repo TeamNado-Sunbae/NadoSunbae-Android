@@ -6,7 +6,7 @@
     <data>
         <variable
             name="previewData"
-            type="com.nadosunbae_android.data.model.response.review.ResponseReviewListData.Data" />
+            type="com.nadosunbae_android.model.review.ReviewPreviewData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -168,7 +168,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="9dp"
             android:fontFamily="@font/pretendard_semibold"
-            android:text="@{previewData.writer.nickname}"
+            android:text="@{previewData.nickname}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -182,8 +182,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/pretendard_medium"
-            majorName="@{previewData.writer.firstMajorName}"
-            majorStart="@{previewData.writer.firstMajorStart}"
+            majorName="@{previewData.firstMajorName}"
+            majorStart="@{previewData.firstMajorStart}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
@@ -208,8 +208,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/pretendard_medium"
-            majorName="@{previewData.writer.secondMajorName}"
-            majorStart="@{previewData.writer.secondMajorStart}"
+            majorName="@{previewData.secondMajorName}"
+            majorStart="@{previewData.secondMajorStart}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
