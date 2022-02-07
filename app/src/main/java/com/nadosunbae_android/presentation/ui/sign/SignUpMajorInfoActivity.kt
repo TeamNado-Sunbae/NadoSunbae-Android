@@ -26,21 +26,23 @@ import kotlinx.android.synthetic.main.spinner_item.view.*
 
 class SignUpMajorInfoActivity :
     BaseActivity<ActivitySignUpMajorInfoBinding>(R.layout.activity_sign_up_major_info) {
-    private val signViewModel: SignViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SignViewModel() as T
-            }
-        }
-    }
+    private val signViewModel: SignViewModel by viewModels()
+//    {
+//        object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//                return SignViewModel() as T
+//            }
+//        }
+//    }
 
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SignUpBasicInfoViewModel() as T
-            }
-        }
-    }
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+//    {
+//        object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//                return SignUpBasicInfoViewModel() as T
+//            }
+//        }
+//    }
 
     val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
     val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")

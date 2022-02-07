@@ -12,7 +12,7 @@ object SignMapper {
     //닉네임 중복 확인
     fun mapperToNicknameDuplication(responseSignNickname: ResponseSignNickname): NicknameDuplicationCheck {
         return NicknameDuplicationCheck(
-            success = responseSignNickname.success,
+            success = responseSignNickname.success
         )
     }
 
@@ -28,18 +28,16 @@ object SignMapper {
         return SignInItem(
             success = responseSignIn.success,
             accesstoken = responseSignIn.data.accesstoken,
-            user = responseSignIn.data.user.map {
-                SignInItem.User(
-                    email = it.email,
-                    firstMajorId = it.firstMajorId,
-                    firstMajorName = it.firstMajorName,
-                    isReviewed = it.isReviewed,
-                    secondMajorId = it.secondMajorId,
-                    secondMajorName = it.secondMajorName,
-                    universityId = it.universityId,
-                    userId = it.userId
-                )
-            }
+            user = SignInItem.User(
+                email = responseSignIn.data.user.email,
+                firstMajorId = responseSignIn.data.user.firstMajorId,
+                firstMajorName = responseSignIn.data.user.firstMajorName,
+                isReviewed = responseSignIn.data.user.isReviewed,
+                secondMajorId = responseSignIn.data.user.secondMajorId,
+                secondMajorName = responseSignIn.data.user.secondMajorName,
+                universityId = responseSignIn.data.user.universityId,
+                userId = responseSignIn.data.user.userId
+            )
         )
     }
 
@@ -62,21 +60,15 @@ object SignMapper {
         )
     }
 
-    // 학과선택 바텀시트
-    fun mapperToMajorData(responseMajorData: ResponseMajorData) : SignMajorBottomSheet {
-        return SignMajorBottomSheet(
-            data = responseMajorData.data.map {
-                SignMajorBottomSheet.Data(
-
-                )
-            }
-        )
-    }
+// 학과선택 바텀시트
+//fun mapperToMajorData(responseMajorData: ResponseMajorData): SignMajorBottomSheet {
+//    return SignMajorBottomSheet(
+//
+//    )
+//}
 
 
-
-
-//request
+    //request
 //BottomSheetData
     fun mapperToBottomSheetData(bottomSheetData: BottomSheetData): BottomSheetData {
         return BottomSheetData(

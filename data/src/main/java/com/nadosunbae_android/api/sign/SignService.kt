@@ -5,6 +5,7 @@ import com.nadosunbae_android.model.request.sign.RequestSignIn
 import com.nadosunbae_android.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.model.request.sign.RequestSignUp
 import com.nadosunbae_android.model.response.sign.*
+import com.nadosunbae_android.model.sign.NicknameDuplicationCheck
 import retrofit2.Call
 import retrofit2.http.*
 

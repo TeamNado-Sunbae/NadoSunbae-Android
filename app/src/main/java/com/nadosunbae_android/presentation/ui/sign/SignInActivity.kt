@@ -13,6 +13,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.nadosunbae_android.R
 import com.nadosunbae_android.model.request.sign.RequestSignIn
 import com.nadosunbae_android.databinding.ActivitySignInBinding
+import com.nadosunbae_android.model.sign.SignInData
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.main.MainActivity
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
@@ -21,13 +22,14 @@ import com.nadosunbae_android.util.NadoSunBaeSharedPreference
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private lateinit var mainActivity: MainActivity
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SignUpBasicInfoViewModel() as T
-            }
-        }
-    }
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+//    {
+//        object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//                return SignUpBasicInfoViewModel() as T
+//            }
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -142,7 +144,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         binding.clLogin.setOnClickListener {
 
             signUpBasicInfoViewModel.signIn(
-                RequestSignIn(
+                SignInData(
                     signUpBasicInfoViewModel.email.value.toString(),
                     signUpBasicInfoViewModel.password.value.toString(),
                     signUpBasicInfoViewModel.deviceToken.value.toString()
@@ -152,9 +154,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             signUpBasicInfoViewModel.signIn.observe(this) { its ->
 
                 if (its.success) {
-                    NadoSunBaeSharedPreference.setAccessToken(this, its.data.accesstoken)
+                    NadoSunBaeSharedPreference.setAccessToken(this, its.accesstoken)
                     val intent = Intent(this, MainActivity::class.java)
-                    val data = its.data.user
+                    val data = its.user
                     intent.apply {
                         putExtra("signData", data)
                     }

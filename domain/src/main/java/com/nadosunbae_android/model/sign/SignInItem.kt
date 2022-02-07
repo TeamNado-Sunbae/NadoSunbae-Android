@@ -1,6 +1,7 @@
 package com.nadosunbae_android.model.sign
 
-//로그인 ResponseData
+import java.io.Serializable
+
 data class SignInItem(
     val success: Boolean,
     val accesstoken: String,
@@ -15,5 +16,5 @@ data class SignInItem(
         val secondMajorName: String,
         val universityId: Int,
         val userId: Int
-    )
+    ) : Serializable
 }

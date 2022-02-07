@@ -16,6 +16,10 @@ import com.nadosunbae_android.model.request.sign.RequestSignEmail
 import com.nadosunbae_android.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.model.request.sign.RequestSignUp
 import com.nadosunbae_android.databinding.ActivitySignUpBasicInfoBinding
+import com.nadosunbae_android.model.sign.EmailDuplicationData
+import com.nadosunbae_android.model.sign.NicknameDuplicationCheck
+import com.nadosunbae_android.model.sign.NicknameDuplicationData
+import com.nadosunbae_android.model.sign.SignUpData
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.util.SignInCustomDialog
@@ -24,13 +28,14 @@ import java.util.regex.Pattern
 
 class SignUpBasicInfoActivity :
     BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels{
-        object : ViewModelProvider.Factory{
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SignUpBasicInfoViewModel() as T
-            }
-        }
-    }
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+//    {
+//        object : ViewModelProvider.Factory{
+//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//                return SignUpBasicInfoViewModel() as T
+//            }
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +51,7 @@ class SignUpBasicInfoActivity :
     private fun nicknameDuplication() {
         //닉네임 중복 체크 서버 통신
         signUpBasicInfoViewModel.nickName.observe(this){
-            signUpBasicInfoViewModel.nickNameDuplication(RequestSignNickname(it))
+            signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(it))
         }
 
         signUpBasicInfoViewModel.nickNameDuplication.observe(this){
@@ -68,7 +73,7 @@ class SignUpBasicInfoActivity :
     private fun emailDuplication() {
         //이메일 중복 체크 서버 통신
         signUpBasicInfoViewModel.email.observe(this){
-            signUpBasicInfoViewModel.emailDuplication(RequestSignEmail(it))
+            signUpBasicInfoViewModel.emailDuplication(EmailDuplicationData(it))
         }
 
         signUpBasicInfoViewModel.emailDuplication.observe(this){
@@ -321,7 +326,8 @@ class SignUpBasicInfoActivity :
 
         binding.clSignupBasicinfoMoveNext.setOnClickListener {
             Log.d("signUp", "post0")
-            signUpBasicInfoViewModel.signUp(RequestSignUp(
+            signUpBasicInfoViewModel.signUp(
+                SignUpData(
                 signUpBasicInfoViewModel.requestSignUp.email,
                 signUpBasicInfoViewModel.requestSignUp.nickname,
                 signUpBasicInfoViewModel.requestSignUp.password,
@@ -330,7 +336,8 @@ class SignUpBasicInfoActivity :
                 signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
                 signUpBasicInfoViewModel.requestSignUp.secondMajorId,
                 signUpBasicInfoViewModel.requestSignUp.secondMajorStart
-            ))
+            )
+            )
             Log.d("signUp", "post1")
             startActivity(Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java))
             finish()

@@ -4,17 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.model.request.sign.RequestSignEmail
-import com.nadosunbae_android.model.request.sign.RequestSignIn
-import com.nadosunbae_android.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.model.request.sign.RequestSignUp
 import com.nadosunbae_android.model.response.sign.ResponseFirstDepartment
-import com.nadosunbae_android.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.model.response.sign.ResponseSignUp
-import com.nadosunbae_android.model.sign.EmailDuplicationData
-import com.nadosunbae_android.model.sign.NicknameDuplicationData
-import com.nadosunbae_android.model.sign.SignInData
-import com.nadosunbae_android.repositoryimpl.sign.SignRepository
+import com.nadosunbae_android.model.sign.*
 import com.nadosunbae_android.usecase.classroom.*
 import kotlinx.coroutines.launch
 
@@ -36,7 +28,7 @@ class SignUpBasicInfoViewModel(
     var emailDuplication = MutableLiveData<Boolean>()
 
     //회원가입
-    var signUp = MutableLiveData<ResponseSignUp>()
+    //var signUp = MutableLiveData<ResponseSignUp>()
 
     //회원가입 request
     val requestSignUp = RequestSignUp("", "", "", 0, 0, "", 0, "")
@@ -47,8 +39,10 @@ class SignUpBasicInfoViewModel(
     var deviceToken = MutableLiveData<String>()
 
     //로그인
-    val signIn: MutableLiveData<ResponseSignIn> = MutableLiveData()
+    val signIn: MutableLiveData<SignInItem> = MutableLiveData()
 
+    //회원가입
+    val signUp: MutableLiveData<SignUpItem> = MutableLiveData()
 
     //닉네임
     var nickName = MutableLiveData<String>()
@@ -65,7 +59,7 @@ class SignUpBasicInfoViewModel(
         viewModelScope.launch {
             kotlin.runCatching { postSignNicknameUseCase(nicknameDuplicationData) }
                 .onSuccess {
-                    nickName.value = it.toString()
+                    nickNameDuplication.value = it.success
                     Log.d("nickNameDuplication", "서버 통신 성공")
                 }
                 .onFailure {
@@ -81,7 +75,7 @@ class SignUpBasicInfoViewModel(
         viewModelScope.launch {
             kotlin.runCatching { postSignEmailUseCase(emailDuplicationData) }
                 .onSuccess {
-                    email.value = it.toString()
+                    emailDuplication.value = it.success
                     Log.d("emailDuplication", "서버 통신 성공")
                 }
                 .onFailure {
@@ -96,8 +90,7 @@ class SignUpBasicInfoViewModel(
         viewModelScope.launch {
             kotlin.runCatching { postSignInUseCase(signInData) }
                 .onSuccess {
-                    //받아오는 부분 -> activity에서 email, pw, devicetoken 선언
-
+                    signIn.value = it
                     Log.d("SignIn", "서버 통신 성공")
                 }
                 .onFailure {
@@ -108,11 +101,11 @@ class SignUpBasicInfoViewModel(
     }
 
     //회원가입
-    fun signUp(signUpData: SignInData) {
+    fun signUp(signUpData: SignUpData) {
         viewModelScope.launch {
             kotlin.runCatching { postSignUpUseCase(signUpData) }
                 .onSuccess {
-                    signUp.value =
+                    signUp.value = it
                     Log.d("SignUp", "서버 통신 성공")
                 }
                 .onFailure {
