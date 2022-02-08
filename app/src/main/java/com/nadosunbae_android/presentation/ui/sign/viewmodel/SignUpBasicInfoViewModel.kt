@@ -5,30 +5,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.model.request.sign.RequestSignUp
-import com.nadosunbae_android.model.response.sign.ResponseFirstDepartment
 import com.nadosunbae_android.model.sign.*
 import com.nadosunbae_android.usecase.classroom.*
+import com.nadosunbae_android.usecase.sign.GetSecondDepartmentUseCase
 import kotlinx.coroutines.launch
 
 class SignUpBasicInfoViewModel(
     val getFirstDepartmentUseCase: GetFirstDepartmentUseCase,
+    val getSecondDepartmentUseCase: GetSecondDepartmentUseCase,
     val postSignEmailUseCase: PostSignEmailUseCase,
     val postSignInUseCase: PostSignInUseCase,
     val postSignNicknameUseCase: PostSignNicknameUseCase,
     val postSignUpUseCase: PostSignUpUseCase
 
 ) : ViewModel() {
-//    val signRepository: SignRepository = SignRepositoryImpl()
-
-
     //닉네임 중복 체크 변수
     var nickNameDuplication = MutableLiveData<Boolean>()
 
     //이메일 중복 체크 변수
     var emailDuplication = MutableLiveData<Boolean>()
-
-    //회원가입
-    //var signUp = MutableLiveData<ResponseSignUp>()
 
     //회원가입 request
     val requestSignUp = RequestSignUp("", "", "", 0, 0, "", 0, "")
@@ -48,10 +43,10 @@ class SignUpBasicInfoViewModel(
     var nickName = MutableLiveData<String>()
 
     //제 1전공
-    val firstDepartment = MutableLiveData<ResponseFirstDepartment>()
+    val firstDepartment = MutableLiveData<SignBottomSheetItem>()
 
     //제 2전공
-    val secondDepartment = MutableLiveData<ResponseFirstDepartment>()
+    val secondDepartment = MutableLiveData<SignBottomSheetItem>()
 
 
     //닉네임 중복 체크
@@ -116,33 +111,33 @@ class SignUpBasicInfoViewModel(
     }
 
 
-//    //본 전공 선택
-//    fun getFirstDepartment(universityId: Int, filter: String) {
-//        signRepository.getFirstDepartment(universityId, filter, {
-//            //onResponse
-//            if (it.isSuccessful) {
-//                firstDepartment.value = it.body()
-//                Log.d("firstDepartment", "서버 통신 성공")
-//            }
-//        }) {
-//            //onFailure
-//            it.printStackTrace()
-//            Log.d("firstDepartment", "서버 통신 실패")
-//        }
-//    }
-//
-//    // 제 2전공 선택
-//    fun getSecondDepartment(universityId: Int, filter: String) {
-//        signRepository.getFirstDepartment(universityId, filter, {
-//            //onResponse
-//            if (it.isSuccessful) {
-//                secondDepartment.value = it.body()
-//                Log.d("secondDepartment", "서버 통신 성공")
-//            }
-//        }) {
-//            //onFailure
-//            it.printStackTrace()
-//            Log.d("secondDepartment", "서버 통신 실패")
-//        }
-//    }
+    //본 전공 선택
+    fun getFirstDepartment(universityId: Int, filter: String) {
+        viewModelScope.launch {
+            kotlin.runCatching { getFirstDepartmentUseCase(universityId, filter) }
+                .onSuccess {
+                    firstDepartment.value = it
+                    Log.d("FirstMajorBottomSheet", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("FirstMajorBottomSheet", "서버 통신 실패")
+                }
+        }
+    }
+
+    // 제 2전공 선택
+    fun getSecondDepartment(universityId: Int, filter: String) {
+        viewModelScope.launch {
+            kotlin.runCatching { getSecondDepartmentUseCase(universityId, filter) }
+                .onSuccess {
+                    firstDepartment.value = it
+                    Log.d("FirstMajorBottomSheet", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("FirstMajorBottomSheet", "서버 통신 실패")
+                }
+        }
+    }
 }

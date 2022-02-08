@@ -23,13 +23,6 @@ import com.nadosunbae_android.util.NadoSunBaeSharedPreference
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private lateinit var mainActivity: MainActivity
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
-//    {
-//        object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                return SignUpBasicInfoViewModel() as T
-//            }
-//        }
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

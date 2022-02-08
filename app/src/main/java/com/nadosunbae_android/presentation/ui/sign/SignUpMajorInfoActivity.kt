@@ -27,22 +27,8 @@ import kotlinx.android.synthetic.main.spinner_item.view.*
 class SignUpMajorInfoActivity :
     BaseActivity<ActivitySignUpMajorInfoBinding>(R.layout.activity_sign_up_major_info) {
     private val signViewModel: SignViewModel by viewModels()
-//    {
-//        object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                return SignViewModel() as T
-//            }
-//        }
-//    }
 
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
-//    {
-//        object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                return SignUpBasicInfoViewModel() as T
-//            }
-//        }
-//    }
 
     val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
     val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
@@ -164,7 +150,7 @@ class SignUpMajorInfoActivity :
 
     //제 1전공 진입시기 선택 바텀시트
     private fun firstMajorPeriod() {
-        //bottomSheetDialog.binding.tvBottomsheeetTitle.setText("본 전공 진입시기")
+        bottomSheetDialog.binding.tvBottomsheeetTitle.setText("본 전공 진입시기")
         binding.clSignupMajorInfoMajorTime.setOnClickListener {
             firstDepartmentPeriodBottomSheetDialog.show(
                 supportFragmentManager,
@@ -269,7 +255,7 @@ class SignUpMajorInfoActivity :
                 SelectableData(1,"미진입", false)
             )
 
-            //secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
+            secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
 
             if(binding.textSignupMajorinfoDoubleMajor.text == "미진입") {
                 secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodDatNot)

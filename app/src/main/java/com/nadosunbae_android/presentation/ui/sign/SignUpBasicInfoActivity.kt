@@ -29,13 +29,6 @@ import java.util.regex.Pattern
 class SignUpBasicInfoActivity :
     BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
-//    {
-//        object : ViewModelProvider.Factory{
-//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                return SignUpBasicInfoViewModel() as T
-//            }
-//        }
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -311,16 +304,16 @@ class SignUpBasicInfoActivity :
         signUpBasicInfoViewModel.requestSignUp.password = binding.etSignupBasicinfoPw.text.toString()
         val signData = signUpBasicInfoViewModel.signUp.value
         if (signData != null) {
-//            val request = RequestSignUp(
-//                signUpBasicInfoViewModel.requestSignUp.email,
-//                signUpBasicInfoViewModel.requestSignUp.nickname,
-//                signUpBasicInfoViewModel.requestSignUp.password,
-//                1,
-//                signUpBasicInfoViewModel.requestSignUp.firstMajorId,
-//                signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
-//                signUpBasicInfoViewModel.requestSignUp.secondMajorId,
-//                signUpBasicInfoViewModel.requestSignUp.secondMajorStart
-//            )
+            val request = RequestSignUp(
+                signUpBasicInfoViewModel.requestSignUp.email,
+                signUpBasicInfoViewModel.requestSignUp.nickname,
+                signUpBasicInfoViewModel.requestSignUp.password,
+                1,
+                signUpBasicInfoViewModel.requestSignUp.firstMajorId,
+                signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
+                signUpBasicInfoViewModel.requestSignUp.secondMajorId,
+                signUpBasicInfoViewModel.requestSignUp.secondMajorStart
+            )
 
         }
 

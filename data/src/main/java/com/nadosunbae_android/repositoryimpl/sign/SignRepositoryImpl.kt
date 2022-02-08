@@ -26,8 +26,8 @@ class SignRepositoryImpl(private val signDataSource : SignDataSource) : SignRepo
     }
 
     //학과선택 bottomsheet
-    override suspend fun getFirstDepartment(universityId: Int, filter: String): SignMajorBottomSheet {
-        return SignMapper.mapperToBottomSheetData(signDataSource.getFirstDepartment(universityId, filter))
+    override suspend fun getFirstDepartment(universityId: Int, filter: String): SignBottomSheetItem {
+        return SignMapper.mapperToMajorData(signDataSource.getFirstDepartment(universityId, filter))
     }
 
     //회원가입

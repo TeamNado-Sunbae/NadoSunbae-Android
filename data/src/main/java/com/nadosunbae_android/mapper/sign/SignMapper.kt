@@ -51,30 +51,30 @@ object SignMapper {
         )
     }
 
-    //selectable Data
-    fun mapperToSelectableData(responseSelectableData: SelectableData): SelectableData {
-        return SelectableData(
-            id = responseSelectableData.id,
-            name = responseSelectableData.name,
-            isSelected = responseSelectableData.isSelected
+
+    //학과선택 바텀시트
+    fun mapperToMajorData(responseFirstDepartment: ResponseFirstDepartment): SignBottomSheetItem {
+        return SignBottomSheetItem(
+            success = responseFirstDepartment.success,
+            data = responseFirstDepartment.data.map {
+                SignBottomSheetItem.Data(
+                    isFirstMajor = it.isFirstMajor,
+                    isSecondMajor = it.isSecondMajor,
+                    majorId = it.majorId,
+                    majorName = it.majorName
+                )
+            }
         )
     }
 
-// 학과선택 바텀시트
-//fun mapperToMajorData(responseMajorData: ResponseMajorData): SignMajorBottomSheet {
-//    return SignMajorBottomSheet(
-//
-//    )
-//}
-
 
     //request
-//BottomSheetData
-    fun mapperToBottomSheetData(bottomSheetData: BottomSheetData): BottomSheetData {
-        return BottomSheetData(
-            id = bottomSheetData.id,
-            name = bottomSheetData.name,
-            isSelected = bottomSheetData.isSelected
+    //BottomSheetData
+    fun mapperToBottomSheetData(selectableCheck: SelectableCheck): SelectableCheck {
+        return SelectableCheck(
+            id = selectableCheck.id,
+            name = selectableCheck.name,
+            isSelected = selectableCheck.isSelected
         )
     }
 
