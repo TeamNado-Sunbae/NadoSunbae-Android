@@ -1,17 +1,10 @@
 package com.nadosunbae_android.repository.mypage
 
-import com.nadosunbae_android.model.response.mypage.ResponseMypageMyInfo
-import com.nadosunbae_android.model.response.mypage.ResponseMypageQuestionData
-import retrofit2.Response
+import com.nadosunbae_android.model.mypage.MyPageMyInfo
+import com.nadosunbae_android.model.mypage.MyPageQuestionData
 
 interface MyPageRepository {
-    fun getMyPageQuestion(
-        userId : Int,
-        sort : String,
-        onResponse: (Response<ResponseMypageQuestionData>) -> Unit,
-        onFailure: (Throwable) -> Unit)
+    suspend fun getMyPageQuestion(userId : Int, sort : String) : MyPageQuestionData
 
-    fun getMyPageMyInfo(
-        onResponse: (Response<ResponseMypageMyInfo>) -> Unit,
-        onFailure: (Throwable) -> Unit)
+    suspend fun getMyPageMyInfo(): MyPageMyInfo
 }

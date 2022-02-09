@@ -4,73 +4,58 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.model.mypage.MyPageMyInfo
+import com.nadosunbae_android.model.mypage.MyPageQuestionData
 import com.nadosunbae_android.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.model.response.mypage.ResponseMypageQuestionData
 import com.nadosunbae_android.repository.mypage.MyPageRepository
-import com.nadosunbae_android.repositoryimpl.mypage.MyPageRepository
 import com.nadosunbae_android.repositoryimpl.mypage.MyPageRepositoryImpl
+import com.nadosunbae_android.usecase.mypage.GetMyPageMyInfoUseCase
+import com.nadosunbae_android.usecase.mypage.GetMyPageQuestionUseCase
+import kotlinx.coroutines.launch
 
-class MyPageViewModel : ViewModel() {
-    val myPageRepository: MyPageRepository = MyPageRepositoryImpl()
-    val personalQuestion = MutableLiveData<ResponseMypageQuestionData>()
-    val personalInfo = MutableLiveData<ResponseMypageMyInfo>()
+class MyPageViewModel(
+    val getMyPageMyInfoUseCase: GetMyPageMyInfoUseCase,
+    val getMyPageQuestionUseCase: GetMyPageQuestionUseCase
+
+    ) : ViewModel() {
+    val personalQuestion = MutableLiveData<MyPageQuestionData>()
+    val personalInfo = MutableLiveData<MyPageMyInfo>()
 
     private val _myPagePersonal = MutableLiveData<ResponseMypageMyInfo>()
     val myPagePersonal : LiveData<ResponseMypageMyInfo>
     get() = _myPagePersonal
 
-    //마이페이지 1:1 질문 구분 변수
-
-
-
-
-    /*
-    //마이페이지 1:1 질문 메인 조회
-    private val _myPageMain = MutableLiveData<ResponseMypageQuestionData>()
-    val myPageMain: LiveData<ResponseMypageQuestionData>
-        get() = _myPageMain
-
-     */
-
-    //마이페이지 개인 정보 조회
-    /*
-    private val _myPagePersonal = MutableLiveData<ResponseMypageMyInfo>()
-    val myPagePersonal : LiveData<ResponseMypageMyInfo>
-        get() = _myPagePersonal
-
-     */
-
     //마이페이지 1:1 질문
     fun getMyPageQuestion(userId: Int, sort: String = "recent") {
-        myPageRepository.getMyPageQuestion(userId, sort,
-            onResponse = {
-                if (it.isSuccessful) {
-                    personalQuestion.value = it.body()
-                    Log.d("MyPageQuestion", "서버 통신 성공")
-                }},
-            onFailure= {
-                it.printStackTrace()
-                Log.d("MyPageQuestion", "서버 통신 실패")
-            }
-        )
+        viewModelScope.launch {
+            kotlin.runCatching { getMyPageQuestionUseCase(userId, sort) }
+                .onSuccess {
+                    personalQuestion.value = it
+                    Log.d("nickNameDuplication", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("nickNameDuplication", "서버 통신 실패")
+                }
+
+        }
     }
 
     //마이페이지 개인 정보 서버통신
     fun getPersonalInfo(){
-        myPageRepository.getMyPageMyInfo(
-            onResponse = {
-                if(it.isSuccessful){
-                    personalInfo.value = it.body()
+        viewModelScope.launch {
+            kotlin.runCatching { getMyPageMyInfoUseCase() }
+                .onSuccess {
+                    personalInfo.value = it
                     Log.d("myPageInfo", "서버 통신 완료")
                 }
-            },
-            onFailure ={
-                it.printStackTrace()
-                Log.d("myPageInfo", "서버 통신 실패")
-            }
-        )
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("nickNameDuplication", "서버 통신 실패")
+                }
+        }
     }
-
-
 }
 

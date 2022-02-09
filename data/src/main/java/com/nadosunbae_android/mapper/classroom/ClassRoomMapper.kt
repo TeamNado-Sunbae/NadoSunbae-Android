@@ -1,12 +1,10 @@
 package com.nadosunbae_android.mapper.classroom
 
 import com.nadosunbae_android.model.classroom.*
-import com.nadosunbae_android.model.response.mypage.ResponseMypageQuestionData
-import com.nadosunbae_android.model.request.classroom.RequestClassRoomData
+import com.nadosunbae_android.model.mypage.MyPageQuestionData
 import com.nadosunbae_android.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.model.request.classroom.RequestQuestionCommentWriteData
 import com.nadosunbae_android.model.response.classroom.*
-import java.util.*
 
 object ClassRoomMapper {
     //QuestionFragment
@@ -76,7 +74,7 @@ object ClassRoomMapper {
     }
 
     //마이페이지
-    fun mapperToMyPageQuestion(responseMypageQuestionData: ResponseMypageQuestionData): List<ClassRoomData> {
+    fun mapperToMyPageQuestion(responseMypageQuestionData: MyPageQuestionData): List<ClassRoomData> {
         return responseMypageQuestionData.data.classroomPostList.map {
             ClassRoomData(
                 postId = it.postId,
