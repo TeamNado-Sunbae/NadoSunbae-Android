@@ -20,7 +20,7 @@ class SignUpBasicInfoViewModel(
 
 ) : ViewModel() {
     //닉네임 중복 체크 변수
-    var nickNameDuplication = MutableLiveData<Boolean>()
+    var nickNameDuplication = MutableLiveData<Int>()
 
     //이메일 중복 체크 변수
     var emailDuplication = MutableLiveData<Boolean>()
@@ -54,10 +54,18 @@ class SignUpBasicInfoViewModel(
         viewModelScope.launch {
             kotlin.runCatching { postSignNicknameUseCase(nicknameDuplicationData) }
                 .onSuccess {
-                    nickNameDuplication.value = it.success
-                    Log.d("nickNameDuplication", "서버 통신 성공")
+                    if(it.status == 200) {
+                        nickNameDuplication.value = it.status
+                        Log.d("nickNameDuplication", "서버 통신 성공")
+                    }
+                    else if(it.status == 409) {
+                        Log.d("NickNameDuplication", "중복된 닉네임")
+                    }
                 }
                 .onFailure {
+                    if(nickNameDuplication. == 400) {
+
+                    }
                     it.printStackTrace()
                     Log.d("nickNameDuplication", "서버 통신 실패")
                 }
@@ -72,6 +80,7 @@ class SignUpBasicInfoViewModel(
                 .onSuccess {
                     emailDuplication.value = it.success
                     Log.d("emailDuplication", "서버 통신 성공")
+
                 }
                 .onFailure {
                     it.printStackTrace()

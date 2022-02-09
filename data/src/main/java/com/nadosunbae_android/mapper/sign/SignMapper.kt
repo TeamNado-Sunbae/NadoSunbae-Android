@@ -8,10 +8,10 @@ import com.nadosunbae_android.model.response.sign.*
 import com.nadosunbae_android.model.sign.*
 
 object SignMapper {
-    //response
     //닉네임 중복 확인
     fun mapperToNicknameDuplication(responseSignNickname: ResponseSignNickname): NicknameDuplicationCheck {
         return NicknameDuplicationCheck(
+            status = responseSignNickname.status,
             success = responseSignNickname.success
         )
     }
@@ -68,15 +68,6 @@ object SignMapper {
     }
 
 
-    //request
-    //BottomSheetData
-    fun mapperToBottomSheetData(selectableCheck: SelectableCheck): SelectableCheck {
-        return SelectableCheck(
-            id = selectableCheck.id,
-            name = selectableCheck.name,
-            isSelected = selectableCheck.isSelected
-        )
-    }
 
     //SignEmail
     fun mapperToSignEmail(emailDuplicationData: EmailDuplicationData): RequestSignEmail {
