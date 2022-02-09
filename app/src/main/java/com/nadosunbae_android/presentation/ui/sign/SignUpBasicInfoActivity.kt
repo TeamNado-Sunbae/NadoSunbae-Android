@@ -303,19 +303,6 @@ class SignUpBasicInfoActivity :
         signUpBasicInfoViewModel.requestSignUp.nickname = binding.etSignupBasicinfoNickname.text.toString()
         signUpBasicInfoViewModel.requestSignUp.password = binding.etSignupBasicinfoPw.text.toString()
         val signData = signUpBasicInfoViewModel.signUp.value
-        if (signData != null) {
-            val request = RequestSignUp(
-                signUpBasicInfoViewModel.requestSignUp.email,
-                signUpBasicInfoViewModel.requestSignUp.nickname,
-                signUpBasicInfoViewModel.requestSignUp.password,
-                1,
-                signUpBasicInfoViewModel.requestSignUp.firstMajorId,
-                signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
-                signUpBasicInfoViewModel.requestSignUp.secondMajorId,
-                signUpBasicInfoViewModel.requestSignUp.secondMajorStart
-            )
-
-        }
 
         binding.clSignupBasicinfoMoveNext.setOnClickListener {
             Log.d("signUp", "post0")

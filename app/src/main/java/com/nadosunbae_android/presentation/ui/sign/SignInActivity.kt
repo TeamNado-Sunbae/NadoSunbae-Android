@@ -144,12 +144,11 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                 )
             )
 
-            signUpBasicInfoViewModel.signIn.observe(this) { its ->
-
-                if (its.success) {
-                    NadoSunBaeSharedPreference.setAccessToken(this, its.accesstoken)
+            signUpBasicInfoViewModel.signIn.observe(this) {
+                if (it.success) {
+                    NadoSunBaeSharedPreference.setAccessToken(this, it.accesstoken)
                     val intent = Intent(this, MainActivity::class.java)
-                    val data = its.user
+                    val data = it.user
                     intent.apply {
                         putExtra("signData", data)
                     }

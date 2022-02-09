@@ -140,7 +140,7 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoMajor.text = it
 
                 binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
-                binding.textSignupMajorinfoMajorMint.setText("변경")
+                binding.textSignupMajorinfoMajorMint.text = "변경"
 
                 //val firstDepartment = signUpBasicInfoViewModel.firstDepartment.value
             }
@@ -150,7 +150,7 @@ class SignUpMajorInfoActivity :
 
     //제 1전공 진입시기 선택 바텀시트
     private fun firstMajorPeriod() {
-        bottomSheetDialog.binding.tvBottomsheeetTitle.setText("본 전공 진입시기")
+        bottomSheetDialog.binding.tvBottomsheeetTitle.text = "본 전공 진입시기"
         binding.clSignupMajorInfoMajorTime.setOnClickListener {
             firstDepartmentPeriodBottomSheetDialog.show(
                 supportFragmentManager,
@@ -184,7 +184,7 @@ class SignUpMajorInfoActivity :
             signViewModel.firstMajorPeriod.observe(this) {
                 binding.textSignupMajorinfoMajorTime.setText(it)
                 binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
-                binding.textSignupMajorinfoMajorTimeMint.setText("변경")
+                binding.textSignupMajorinfoMajorTimeMint.text= "변경"
             }
         }
     }
@@ -215,7 +215,7 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoDoubleMajor.setText(it)
                 binding.textSignupMajorinfoDoubleMajor.text = it
                 binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
-                binding.textSignupMajorinfoDoubleMajorMint.setText("변경")
+                binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
             }
 
     }
