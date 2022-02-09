@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:context=".presentation.ui.review.ReviewDetailActivity">
+        tools:context=".app.presentation.ui.review.ReviewDetailActivity">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

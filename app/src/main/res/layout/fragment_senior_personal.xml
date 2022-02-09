@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".presentation.ui.classroom.SeniorPersnoalFragment">
+        tools:context=".app.presentation.ui.classroom.SeniorPersnoalFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_senior_personal_title"
