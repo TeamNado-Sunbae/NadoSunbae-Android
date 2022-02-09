@@ -48,7 +48,7 @@ class SignUpBasicInfoActivity :
         }
 
         signUpBasicInfoViewModel.nickNameDuplication.observe(this){
-            if(it){
+            if(it.success){
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
             } else {

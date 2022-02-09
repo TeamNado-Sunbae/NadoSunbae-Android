@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
 import com.nadosunbae_android.model.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentMyPageBinding
@@ -19,21 +17,8 @@ import com.nadosunbae_android.mapper.classroom.ClassRoomMapper
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
 
-    private val myPageViewModel: MyPageViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MyPageViewModel() as T
-            }
-        }
-    }
-
-    private val mainViewModel: MainViewModel by activityViewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MainViewModel() as T
-            }
-        }
-    }
+    private val myPageViewModel: MyPageViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     private lateinit var myPageQuestionAdapter: ClassRoomQuestionMainAdapter
 
