@@ -2,10 +2,8 @@ package com.nadosunbae_android.app.presentation.ui.main
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import com.nadosunbae_android.R
-import com.nadosunbae_android.domain.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.domain.model.ui.MajorKeyData
-import com.nadosunbae_android.databinding.ActivityMainBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.*
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
@@ -16,6 +14,8 @@ import com.nadosunbae_android.app.presentation.ui.review.ReviewFragment
 import com.nadosunbae_android.app.util.changeFragment
 import com.nadosunbae_android.app.util.changeFragmentNoBackStack
 import com.nadosunbae_android.app.util.popFragmentBackStack
+import com.nadosunbae_android.domain.model.response.sign.ResponseSignIn
+import com.nadosunbae_android.domain.model.ui.MajorKeyData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
