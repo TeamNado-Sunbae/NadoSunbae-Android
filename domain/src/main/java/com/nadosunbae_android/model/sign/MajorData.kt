@@ -1,6 +1,6 @@
-package com.nadosunbae_android.model.response.sign
+package com.nadosunbae_android.model.sign
 
-data class ResponseMajorData(
+data class MajorData(
     val data: Data,
     val message: String,
     val status: Int,

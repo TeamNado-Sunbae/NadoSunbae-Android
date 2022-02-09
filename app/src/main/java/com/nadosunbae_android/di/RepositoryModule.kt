@@ -21,7 +21,7 @@ val repositoryModule = module{
     single<LikeRepository> { LikeRepositoryImpl(get()) }
     single<MainRepository> { MainRepositoryImpl(get()) }
     single<MyPageRepository> { MyPageRepositoryImpl() }
-    single<NotificationRepository> { NotificationRepositoryImpl(get()) }
+    single<SignRepository>{ SignRepositoryImpl(get()) }
     single<ReviewRepository>{ ReviewRepositoryImpl(get()) }
-    single<SignRepository>{ SignRepositoryImpl() }
+
 }

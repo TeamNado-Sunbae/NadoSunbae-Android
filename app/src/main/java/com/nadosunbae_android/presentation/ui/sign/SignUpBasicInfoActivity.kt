@@ -16,6 +16,10 @@ import com.nadosunbae_android.model.request.sign.RequestSignEmail
 import com.nadosunbae_android.model.request.sign.RequestSignNickname
 import com.nadosunbae_android.model.request.sign.RequestSignUp
 import com.nadosunbae_android.databinding.ActivitySignUpBasicInfoBinding
+import com.nadosunbae_android.model.sign.EmailDuplicationData
+import com.nadosunbae_android.model.sign.NicknameDuplicationCheck
+import com.nadosunbae_android.model.sign.NicknameDuplicationData
+import com.nadosunbae_android.model.sign.SignUpData
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.util.SignInCustomDialog
@@ -24,13 +28,7 @@ import java.util.regex.Pattern
 
 class SignUpBasicInfoActivity :
     BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels{
-        object : ViewModelProvider.Factory{
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SignUpBasicInfoViewModel() as T
-            }
-        }
-    }
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +44,7 @@ class SignUpBasicInfoActivity :
     private fun nicknameDuplication() {
         //닉네임 중복 체크 서버 통신
         signUpBasicInfoViewModel.nickName.observe(this){
-            signUpBasicInfoViewModel.nickNameDuplication(RequestSignNickname(it))
+            signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(it))
         }
 
         signUpBasicInfoViewModel.nickNameDuplication.observe(this){
@@ -68,7 +66,7 @@ class SignUpBasicInfoActivity :
     private fun emailDuplication() {
         //이메일 중복 체크 서버 통신
         signUpBasicInfoViewModel.email.observe(this){
-            signUpBasicInfoViewModel.emailDuplication(RequestSignEmail(it))
+            signUpBasicInfoViewModel.emailDuplication(EmailDuplicationData(it))
         }
 
         signUpBasicInfoViewModel.emailDuplication.observe(this){
@@ -305,23 +303,11 @@ class SignUpBasicInfoActivity :
         signUpBasicInfoViewModel.requestSignUp.nickname = binding.etSignupBasicinfoNickname.text.toString()
         signUpBasicInfoViewModel.requestSignUp.password = binding.etSignupBasicinfoPw.text.toString()
         val signData = signUpBasicInfoViewModel.signUp.value
-        if (signData != null) {
-//            val request = RequestSignUp(
-//                signUpBasicInfoViewModel.requestSignUp.email,
-//                signUpBasicInfoViewModel.requestSignUp.nickname,
-//                signUpBasicInfoViewModel.requestSignUp.password,
-//                1,
-//                signUpBasicInfoViewModel.requestSignUp.firstMajorId,
-//                signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
-//                signUpBasicInfoViewModel.requestSignUp.secondMajorId,
-//                signUpBasicInfoViewModel.requestSignUp.secondMajorStart
-//            )
-
-        }
 
         binding.clSignupBasicinfoMoveNext.setOnClickListener {
             Log.d("signUp", "post0")
-            signUpBasicInfoViewModel.signUp(RequestSignUp(
+            signUpBasicInfoViewModel.signUp(
+                SignUpData(
                 signUpBasicInfoViewModel.requestSignUp.email,
                 signUpBasicInfoViewModel.requestSignUp.nickname,
                 signUpBasicInfoViewModel.requestSignUp.password,
@@ -330,11 +316,13 @@ class SignUpBasicInfoActivity :
                 signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
                 signUpBasicInfoViewModel.requestSignUp.secondMajorId,
                 signUpBasicInfoViewModel.requestSignUp.secondMajorStart
-            ))
+            )
+            )
             Log.d("signUp", "post1")
             startActivity(Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java))
             finish()
         }
+
         //맞는 로직인지는 잘 모르겠는데 서버 들어오고 수정해야할 듯
 //        if(binding.textSignupBasicinfoNicknameDuplicationNo.visibility == View.VISIBLE ||
 //                    binding.textSignupBasicinfoEmailDuplicationNo.visibility == View.VISIBLE) {

@@ -25,6 +25,13 @@ val useCaseModule = module{
     single {GetNotificationListDataUseCase(get())}
     single {ReadNotificationUseCase(get())}
 
+    //sign
+    single {GetFirstDepartmentUseCase(get())}
+    single {PostSignEmailUseCase(get())}
+    single {PostSignInUseCase(get())}
+    single {PostSignNicknameUseCase(get())}
+    single {PostSignUpUseCase(get())}
+
     // main
     single {GetMajorListDataUseCase(get())}
 
@@ -36,4 +43,5 @@ val useCaseModule = module{
     single {DeleteReviewDataUseCase(get())}
     single {GetBackgroundImageListDataUseCase(get())}
     single {GetMajorInfoDataUseCase(get())}
+
 }
