@@ -9,10 +9,11 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.R
+import com.nadosunbae_android.app.databinding.ItemQuestionDetailQuestionerBinding
+import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding
 import com.nadosunbae_android.databinding.ItemQuestionDetailCommentBinding
 import com.nadosunbae_android.databinding.ItemQuestionDetailQuestionerBinding
-import com.nadosunbae_android.databinding.ItemQuestionDetailWriterBinding
-import com.nadosunbae_android.data.model.classroom.QuestionDetailData
+import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 
 
 class ClassRoomQuestionDetailAdapter(context: Context) :

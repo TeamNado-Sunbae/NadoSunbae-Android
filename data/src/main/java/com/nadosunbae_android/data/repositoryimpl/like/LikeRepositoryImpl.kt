@@ -2,8 +2,8 @@ package com.nadosunbae_android.data.repositoryimpl.like
 
 import com.nadosunbae_android.data.datasource.remote.like.LikeDataSource
 import com.nadosunbae_android.data.mapper.like.LikeMapper
-import com.nadosunbae_android.data.model.like.LikeData
-import com.nadosunbae_android.data.model.like.LikeItem
+import com.nadosunbae_android.domain.model.like.LikeData
+import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.repository.like.LikeRepository
 
 class LikeRepositoryImpl(

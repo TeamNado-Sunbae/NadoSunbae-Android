@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.data.model.classroom.ClassRoomData
-import com.nadosunbae_android.data.model.classroom.SeniorPersonalData
+import com.nadosunbae_android.domain.model.classroom.ClassRoomData
+import com.nadosunbae_android.domain.model.classroom.SeniorPersonalData
 import com.nadosunbae_android.domain.usecase.classroom.GetQuestionSeniorListDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorPersonalDataUseCase
 import kotlinx.coroutines.launch

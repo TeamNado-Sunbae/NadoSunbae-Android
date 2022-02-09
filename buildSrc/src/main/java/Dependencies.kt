@@ -4,7 +4,7 @@ object Apps {
     const val targetSdk = 31
     var versionCode = 1
     var versionName = "1.0.0"
-    const val pacakageName = "com.nadosunbae_android.app"
+    const val pacakageName = "com.nadosunbae_android"
 }
 object Versions {
     const val kotlin_version = "1.5.21"

@@ -7,7 +7,7 @@
 
         <variable
             name="mainViewModel"
-            type="com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel" />
+            type="com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel" />
 
     </data>
 

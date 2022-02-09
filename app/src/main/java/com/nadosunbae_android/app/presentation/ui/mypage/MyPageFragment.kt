@@ -6,7 +6,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.classroom.ClassRoomData
+import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.FragmentMyPageBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter

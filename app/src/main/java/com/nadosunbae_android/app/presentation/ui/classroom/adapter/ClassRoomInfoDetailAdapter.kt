@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.databinding.ItemInformationDetailBinding
-import com.nadosunbae_android.data.model.classroom.InfoDetailData
+import com.nadosunbae_android.app.databinding.ItemInformationDetailBinding
+import com.nadosunbae_android.domain.model.classroom.InfoDetailData
 
 class ClassRoomInfoDetailAdapter : RecyclerView.Adapter<ClassRoomInfoDetailAdapter.ClassRoomInfoDetailViewHolder>() {
     var infoDetailData = mutableListOf<InfoDetailData.Comment>()

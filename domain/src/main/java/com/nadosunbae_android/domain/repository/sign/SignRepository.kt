@@ -1,6 +1,6 @@
 package com.nadosunbae_android.domain.repository.sign
 
-import com.nadosunbae_android.data.model.sign.*
+import com.nadosunbae_android.domain.model.sign.*
 
 interface SignRepository {
     //닉네임 중복확인

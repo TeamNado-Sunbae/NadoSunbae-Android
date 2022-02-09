@@ -2,7 +2,7 @@ package com.nadosunbae_android.data.repositoryimpl.classroom
 
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSource
 import com.nadosunbae_android.data.mapper.classroom.ClassRoomMapper
-import com.nadosunbae_android.data.model.classroom.*
+import com.nadosunbae_android.domain.model.classroom.*
 import com.nadosunbae_android.domain.repository.classroom.ClassRoomRepository
 
 class ClassRoomRepositoryImpl(private val dataSource : ClassRoomDataSource) : ClassRoomRepository {

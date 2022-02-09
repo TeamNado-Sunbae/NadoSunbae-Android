@@ -1,12 +1,12 @@
 package com.nadosunbae_android.data.datasource.remote.review
 
 import com.nadosunbae_android.data.api.review.ReviewService
-import com.nadosunbae_android.data.model.request.review.RequestPutReviewData
-import com.nadosunbae_android.data.model.response.review.ResponseDeleteReview
-import com.nadosunbae_android.data.model.response.review.ResponsePutReviewData
-import com.nadosunbae_android.data.model.request.review.RequestPostReviewData
-import com.nadosunbae_android.data.model.request.review.RequestReviewListData
-import com.nadosunbae_android.data.model.response.review.*
+import com.nadosunbae_android.domain.model.request.review.RequestPutReviewData
+import com.nadosunbae_android.domain.model.response.review.ResponseDeleteReview
+import com.nadosunbae_android.domain.model.response.review.ResponsePutReviewData
+import com.nadosunbae_android.domain.model.request.review.RequestPostReviewData
+import com.nadosunbae_android.domain.model.request.review.RequestReviewListData
+import com.nadosunbae_android.domain.model.response.review.*
 
 class ReviewDataSourceImpl(private val service : ReviewService) : ReviewDataSource {
     override suspend fun getReviewList(

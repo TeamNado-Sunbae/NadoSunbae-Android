@@ -2,7 +2,7 @@ package com.nadosunbae_android.data.repositoryimpl.review
 
 import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSource
 import com.nadosunbae_android.data.mapper.review.ReviewMapper
-import com.nadosunbae_android.data.model.review.*
+import com.nadosunbae_android.domain.model.review.*
 import com.nadosunbae_android.domain.repository.review.ReviewRepository
 
 class ReviewRepositoryImpl(private val dataSource: ReviewDataSource) : ReviewRepository {

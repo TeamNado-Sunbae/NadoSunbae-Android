@@ -11,9 +11,9 @@ import android.view.View
 import androidx.activity.viewModels
 import com.nadosunbae_android.R
 import com.nadosunbae_android.databinding.ActivitySignUpBasicInfoBinding
-import com.nadosunbae_android.data.model.sign.EmailDuplicationData
-import com.nadosunbae_android.data.model.sign.NicknameDuplicationData
-import com.nadosunbae_android.data.model.sign.SignUpData
+import com.nadosunbae_android.domain.model.sign.EmailDuplicationData
+import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
+import com.nadosunbae_android.domain.model.sign.SignUpData
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.SignInCustomDialog

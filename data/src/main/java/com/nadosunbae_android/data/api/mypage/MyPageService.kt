@@ -1,7 +1,7 @@
 package com.nadosunbae_android.data.api.mypage
 
-import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
-import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
+import com.nadosunbae_android.domain.model.response.mypage.ResponseMypageMyInfo
+import com.nadosunbae_android.domain.model.response.mypage.ResponseMypageQuestionData
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

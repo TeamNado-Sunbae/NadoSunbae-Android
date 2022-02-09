@@ -1,7 +1,7 @@
 package com.nadosunbae_android.domain.repository.like
 
-import com.nadosunbae_android.data.model.like.LikeData
-import com.nadosunbae_android.data.model.like.LikeItem
+import com.nadosunbae_android.domain.model.like.LikeData
+import com.nadosunbae_android.domain.model.like.LikeItem
 
 interface LikeRepository {
 

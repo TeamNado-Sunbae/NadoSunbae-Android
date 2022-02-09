@@ -1,8 +1,8 @@
 package com.nadosunbae_android.data.datasource.remote.classroom
 
-import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
-import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
-import com.nadosunbae_android.data.model.response.classroom.*
+import com.nadosunbae_android.domain.model.request.classroom.RequestClassRoomPostData
+import com.nadosunbae_android.domain.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.domain.model.response.classroom.*
 
 interface ClassRoomDataSource {
     //메인 정보 조회

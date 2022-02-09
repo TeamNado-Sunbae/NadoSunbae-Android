@@ -1,6 +1,6 @@
 package com.nadosunbae_android.domain.usecase.classroom
 
-import com.nadosunbae_android.data.model.classroom.SeniorPersonalData
+import com.nadosunbae_android.domain.model.classroom.SeniorPersonalData
 import com.nadosunbae_android.domain.repository.classroom.ClassRoomRepository
 
 class GetSeniorPersonalDataUseCase(private val repository : ClassRoomRepository) {

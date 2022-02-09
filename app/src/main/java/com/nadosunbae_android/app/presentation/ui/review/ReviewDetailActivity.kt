@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.nadosunbae_android.R
 import com.nadosunbae_android.databinding.ActivityReviewDetailBinding
-import com.nadosunbae_android.data.model.response.sign.SelectableData
+import com.nadosunbae_android.domain.model.response.sign.SelectableData
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Companion.MODE_MODIFY
 import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewTagBoxAdapter

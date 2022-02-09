@@ -5,8 +5,8 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.data.model.classroom.ClassRoomPostWriteData
-import com.nadosunbae_android.data.model.classroom.ClassRoomPostWriteItem
+import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteData
+import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteItem
 import com.nadosunbae_android.domain.usecase.classroom.PostClassRoomWriteUseCase
 import kotlinx.coroutines.launch
 

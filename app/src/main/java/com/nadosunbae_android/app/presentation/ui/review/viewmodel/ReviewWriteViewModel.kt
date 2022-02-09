@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.data.model.response.sign.SelectableData
-import com.nadosunbae_android.data.model.review.BackgroundImageData
-import com.nadosunbae_android.data.model.review.ReviewEditItem
-import com.nadosunbae_android.data.model.review.ReviewWriteItem
+import com.nadosunbae_android.domain.model.response.sign.SelectableData
+import com.nadosunbae_android.domain.model.review.BackgroundImageData
+import com.nadosunbae_android.domain.model.review.ReviewEditItem
+import com.nadosunbae_android.domain.model.review.ReviewWriteItem
 import com.nadosunbae_android.domain.usecase.review.GetBackgroundImageListDataUseCase
 import com.nadosunbae_android.domain.usecase.review.PostReviewDataUseCase
 import com.nadosunbae_android.domain.usecase.review.PutReviewDataUseCase

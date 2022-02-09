@@ -90,9 +90,6 @@
             android:name=".presentation.ui.mypage.ModifyMyInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.mypage.MyPageSettingActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.ui.mypage.MyPageClassroomReviewActivity"
             android:exported="false" />
         <activity

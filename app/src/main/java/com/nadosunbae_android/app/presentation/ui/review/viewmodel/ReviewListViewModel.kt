@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.data.model.response.sign.SelectableData
-import com.nadosunbae_android.data.model.review.MajorInfoData
-import com.nadosunbae_android.data.model.review.ReviewFilterItem
-import com.nadosunbae_android.data.model.review.ReviewPreviewData
-import com.nadosunbae_android.data.model.ui.PreviewData
+import com.nadosunbae_android.domain.model.response.sign.SelectableData
+import com.nadosunbae_android.domain.model.review.MajorInfoData
+import com.nadosunbae_android.domain.model.review.ReviewFilterItem
+import com.nadosunbae_android.domain.model.review.ReviewPreviewData
+import com.nadosunbae_android.domain.model.ui.PreviewData
 import com.nadosunbae_android.domain.usecase.review.GetMajorInfoDataUseCase
 import com.nadosunbae_android.domain.usecase.review.GetReviewListDataUseCase
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel

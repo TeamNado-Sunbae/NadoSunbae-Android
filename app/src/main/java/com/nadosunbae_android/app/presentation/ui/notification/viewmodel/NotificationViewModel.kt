@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.data.model.notification.NotificationDeleteData
-import com.nadosunbae_android.data.model.notification.NotificationListData
-import com.nadosunbae_android.data.model.notification.NotificationReadData
+import com.nadosunbae_android.domain.model.notification.NotificationDeleteData
+import com.nadosunbae_android.domain.model.notification.NotificationListData
+import com.nadosunbae_android.domain.model.notification.NotificationReadData
 import com.nadosunbae_android.domain.usecase.notification.DeleteNotificationUseCase
 import com.nadosunbae_android.domain.usecase.notification.GetNotificationListDataUseCase
 import com.nadosunbae_android.domain.usecase.notification.ReadNotificationUseCase

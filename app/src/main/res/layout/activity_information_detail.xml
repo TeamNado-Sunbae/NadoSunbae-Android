@@ -7,7 +7,7 @@
 
         <variable
             name="informationDetail"
-            type="com.nadosunbae_android.model.classroom.InfoDetailData" />
+            type="com.nadosunbae_android.domain.model.classroom.InfoDetailData" />
 
 
     </data>

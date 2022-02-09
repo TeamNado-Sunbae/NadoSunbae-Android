@@ -6,13 +6,12 @@
     <data>
         <variable
             name="reviewDetailViewModel"
-            type="com.nadosunbae_android.presentation.ui.review.viewmodel.ReviewDetailViewModel" />
+            type="com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         tools:context=".app.presentation.ui.review.ReviewDetailActivity">
 
 
@@ -99,7 +98,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/iv_review_background"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_review_background"
-                    android:text="@{reviewDetailViewModel.reviewDetailData.data.post.oneLineReview}"
+                    android:text="@{reviewDetailViewModel.reviewDetailData.oneLineReview}"
                     tools:text="@string/review_example_one_line_max"
                     />
 
@@ -134,7 +133,7 @@
                         android:layout_height="0dp"
                         android:layout_marginVertical="36dp"
                         android:layout_marginStart="24dp"
-                        profileImgBig="@{reviewDetailViewModel.reviewDetailData.data.writer.writerId}"
+                        profileImgBig="@{reviewDetailViewModel.reviewDetailData.writerId}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="1"
                         app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +148,7 @@
                         android:textColor="@color/main_text"
                         android:textSize="14sp"
                         android:fontFamily="@font/pretendard_semibold"
-                        android:text="@{reviewDetailViewModel.reviewDetailData.data.writer.nickname}"
+                        android:text="@{reviewDetailViewModel.reviewDetailData.nickname}"
                         tools:text="@string/review_example_nickname"
                         app:layout_constraintStart_toEndOf="@id/iv_profile"
                         app:layout_constraintTop_toTopOf="parent"
@@ -221,8 +220,8 @@
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         android:layout_marginStart="5dp"
-                        majorName="@{reviewDetailViewModel.reviewDetailData.data.writer.firstMajorName}"
-                        majorStart="@{reviewDetailViewModel.reviewDetailData.data.writer.firstMajorStart}"
+                        majorName="@{reviewDetailViewModel.reviewDetailData.firstMajorName}"
+                        majorStart="@{reviewDetailViewModel.reviewDetailData.firstMajorStart}"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_first_major"
                         app:layout_constraintStart_toEndOf="@+id/view_line_vertical_first_major"
                         app:layout_constraintTop_toTopOf="@+id/tv_first_major"
@@ -236,8 +235,8 @@
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         android:layout_marginStart="5dp"
-                        majorName="@{reviewDetailViewModel.reviewDetailData.data.writer.secondMajorName}"
-                        majorStart="@{reviewDetailViewModel.reviewDetailData.data.writer.secondMajorStart}"
+                        majorName="@{reviewDetailViewModel.reviewDetailData.secondMajorName}"
+                        majorStart="@{reviewDetailViewModel.reviewDetailData.secondMajorStart}"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_second_major"
                         app:layout_constraintStart_toEndOf="@+id/view_line_vertical_second_major"
                         app:layout_constraintTop_toTopOf="@+id/tv_second_major"
@@ -248,7 +247,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        isOnQuestion="@{reviewDetailViewModel.reviewDetailData.data.writer.onQuestion}"
+                        isOnQuestion="@{reviewDetailViewModel.reviewDetailData.onQuestion}"
                         android:textSize="12sp"
                         android:fontFamily="@font/pretendard_regular"
                         android:textColor="@color/main_dark"
@@ -276,7 +275,7 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="12sp"
                 android:textColor="@color/gray_2"
-                dateFormat_yyMMdd="@{reviewDetailViewModel.reviewDetailData.data.post.createdAt}"
+                dateFormat_yyMMdd="@{reviewDetailViewModel.reviewDetailData.createdAt}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -287,7 +286,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/borderlessButtonStyle"
-                android:text="@{reviewDetailViewModel.reviewDetailData.data.like.likeCount}"
+                android:text="@{reviewDetailViewModel.reviewDetailData.likeCount}"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
                 android:layout_marginEnd="20dp"

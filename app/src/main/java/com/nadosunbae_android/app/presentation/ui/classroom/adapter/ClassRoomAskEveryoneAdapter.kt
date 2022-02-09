@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.classroom.ClassRoomData
-import com.nadosunbae_android.databinding.ItemQuestionAllBinding
+import com.nadosunbae_android.app.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
+import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 
 
 // 전체 게시물 보기

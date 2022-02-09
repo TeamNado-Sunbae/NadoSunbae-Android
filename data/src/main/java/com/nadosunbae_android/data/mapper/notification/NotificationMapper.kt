@@ -1,11 +1,11 @@
 package com.nadosunbae_android.data.mapper.notification
 
-import com.nadosunbae_android.data.model.notification.NotificationDeleteData
-import com.nadosunbae_android.data.model.notification.NotificationListData
-import com.nadosunbae_android.data.model.notification.NotificationReadData
-import com.nadosunbae_android.data.model.response.notification.ResponseNotificationDeleteData
-import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
-import com.nadosunbae_android.data.model.response.notification.ResponseNotificationReadData
+import com.nadosunbae_android.domain.model.notification.NotificationDeleteData
+import com.nadosunbae_android.domain.model.notification.NotificationListData
+import com.nadosunbae_android.domain.model.notification.NotificationReadData
+import com.nadosunbae_android.domain.model.response.notification.ResponseNotificationDeleteData
+import com.nadosunbae_android.domain.model.response.notification.ResponseNotificationListData
+import com.nadosunbae_android.domain.model.response.notification.ResponseNotificationReadData
 
 object NotificationMapper {
 

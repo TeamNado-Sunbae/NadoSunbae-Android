@@ -2,13 +2,13 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.os.Bundle
 import android.view.View
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.ActivityInformationDetailBinding
-import com.nadosunbae_android.data.model.classroom.InfoDetailData
-import com.nadosunbae_android.data.model.classroom.QuestionCommentWriteItem
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ActivityInformationDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInfoDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.InfoDetailViewModel
+import com.nadosunbae_android.domain.model.classroom.InfoDetailData
+import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>(R.layout.activity_information_detail) {

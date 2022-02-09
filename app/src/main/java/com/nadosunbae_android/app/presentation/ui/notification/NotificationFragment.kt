@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.nadosunbae_android.databinding.FragmentNotificationBinding
-import com.nadosunbae_android.data.model.notification.NotificationListData
+import com.nadosunbae_android.domain.model.notification.NotificationListData
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity

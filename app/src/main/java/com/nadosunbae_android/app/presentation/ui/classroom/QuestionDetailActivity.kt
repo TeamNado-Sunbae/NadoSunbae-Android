@@ -2,13 +2,13 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.os.Bundle
 import android.util.Log
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.ActivityQuestionDetailBinding
-import com.nadosunbae_android.data.model.classroom.QuestionCommentWriteItem
-import com.nadosunbae_android.data.model.classroom.QuestionDetailData
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ActivityQuestionDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
+import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
+import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class QuestionDetailActivity :

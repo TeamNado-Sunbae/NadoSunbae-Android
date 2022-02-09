@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.ItemListReviewBinding
-import com.nadosunbae_android.data.model.review.ReviewPreviewData
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ItemListReviewBinding
+import com.nadosunbae_android.domain.model.review.ReviewPreviewData
 
 class ReviewListAdapter(): RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() {
     // list data

@@ -6,7 +6,7 @@ import com.nadosunbae_android.data.mapper.classroom.SignMapper.mapperToSignEmail
 import com.nadosunbae_android.data.mapper.classroom.SignMapper.mapperToSignIn
 import com.nadosunbae_android.data.mapper.classroom.SignMapper.mapperToSignNickname
 import com.nadosunbae_android.data.mapper.classroom.SignMapper.mapperToSignUp
-import com.nadosunbae_android.data.model.sign.*
+import com.nadosunbae_android.domain.model.sign.*
 import com.nadosunbae_android.domain.repository.sign.SignRepository
 
 class SignRepositoryImpl(private val signDataSource : SignDataSource) : SignRepository {

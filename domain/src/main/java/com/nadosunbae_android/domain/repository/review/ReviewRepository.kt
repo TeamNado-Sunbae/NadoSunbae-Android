@@ -1,6 +1,6 @@
 package com.nadosunbae_android.domain.repository.review
 
-import com.nadosunbae_android.data.model.review.*
+import com.nadosunbae_android.domain.model.review.*
 
 interface ReviewRepository {
 

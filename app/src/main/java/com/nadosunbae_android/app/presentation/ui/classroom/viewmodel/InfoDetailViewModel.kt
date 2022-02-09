@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.data.model.classroom.InfoDetailData
-import com.nadosunbae_android.data.model.classroom.QuestionCommentWriteData
-import com.nadosunbae_android.data.model.classroom.QuestionCommentWriteItem
+import com.nadosunbae_android.domain.model.classroom.InfoDetailData
+import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteData
+import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.usecase.classroom.GetInformationDetailUseCase
 import com.nadosunbae_android.domain.usecase.classroom.PostQuestionCommentWriteUseCase
 import kotlinx.coroutines.launch

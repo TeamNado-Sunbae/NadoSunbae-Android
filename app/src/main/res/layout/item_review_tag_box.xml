@@ -6,7 +6,7 @@
 
         <variable
             name="contentBox"
-            type="com.nadosunbae_android.model.review.ReviewDetailData.Content" />
+            type="com.nadosunbae_android.domain.model.review.ReviewDetailData.Content" />
 
     </data>
 

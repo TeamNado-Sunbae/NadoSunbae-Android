@@ -1,6 +1,6 @@
 package com.nadosunbae_android.domain.repository.classroom
 
-import com.nadosunbae_android.data.model.classroom.*
+import com.nadosunbae_android.domain.model.classroom.*
 
 interface ClassRoomRepository {
     //질문 메인

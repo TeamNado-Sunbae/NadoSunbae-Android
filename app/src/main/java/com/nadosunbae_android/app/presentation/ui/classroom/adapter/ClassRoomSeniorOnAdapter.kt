@@ -3,9 +3,9 @@ package com.nadosunbae_android.app.presentation.ui.classroom.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.databinding.ItemQuestionSeniorOnQuestionBinding
-import com.nadosunbae_android.data.model.classroom.ClassRoomSeniorData
+import com.nadosunbae_android.app.databinding.ItemQuestionSeniorOnQuestionBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.SeniorFragment
+import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 
 class ClassRoomSeniorOnAdapter(
     var link : SeniorFragment.DataToFragment

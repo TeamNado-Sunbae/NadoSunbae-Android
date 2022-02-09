@@ -10,7 +10,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.nadosunbae_android.R
 import com.nadosunbae_android.databinding.ActivitySignInBinding
-import com.nadosunbae_android.data.model.sign.SignInData
+import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel

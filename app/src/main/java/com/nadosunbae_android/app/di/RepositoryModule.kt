@@ -18,7 +18,7 @@ val repositoryModule = module{
     single<ClassRoomRepository> { ClassRoomRepositoryImpl(get()) }
     single<LikeRepository> { LikeRepositoryImpl(get()) }
     single<MainRepository> { MainRepositoryImpl(get()) }
-    single<MyPageRepository> { MyPageRepositoryImpl() }
+    single<MyPageRepository> { MyPageRepositoryImpl(get()) }
     single<SignRepository>{ SignRepositoryImpl(get()) }
     single<ReviewRepository>{ ReviewRepositoryImpl(get()) }
 

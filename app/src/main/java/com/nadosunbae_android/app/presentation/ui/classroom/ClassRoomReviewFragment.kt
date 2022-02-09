@@ -2,11 +2,12 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.os.Bundle
 import android.view.View
-import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
-import com.nadosunbae_android.databinding.FragmentClassRoomReviewBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.FragmentClassRoomReviewBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewListAdapter
+import com.nadosunbae_android.domain.model.response.review.ResponseReviewListData
+import com.nadosunbae_android.domain.model.review.ReviewPreviewData
 import java.text.SimpleDateFormat
 
 
@@ -23,14 +24,13 @@ class ClassRoomReviewFragment : BaseFragment<FragmentClassRoomReviewBinding>(R.l
     private fun initClassRoomReview(){
         val from = "2022-01-18 10:10:10"
         val transFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val sampleData: ResponseReviewListData.Data = ResponseReviewListData.Data(
+        val sampleData = ReviewPreviewData(
                transFormat.parse(from),
             "2", "한줄평", 12, listOf(
-                ResponseReviewListData.Data.Tag("월 배우나요?"),
-                ResponseReviewListData.Data.Tag("향후 진로")
-            ), ResponseReviewListData.Data.Writer("컴퓨터공학", "18-1", "홍길동", 13, "물리학", "19-1", 22)
+                "월 배우나요?",
+                "향후 진로"
+            ), "컴퓨터공학", "18-1", "홍길동", 13, "물리학", "19-1", 22)
 
-        )
 
         val previewData = mutableListOf(
             sampleData,

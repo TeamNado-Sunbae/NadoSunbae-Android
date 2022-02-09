@@ -3,8 +3,8 @@ package com.nadosunbae_android.app.presentation.ui.main
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.data.model.ui.MajorKeyData
+import com.nadosunbae_android.domain.model.response.sign.ResponseSignIn
+import com.nadosunbae_android.domain.model.ui.MajorKeyData
 import com.nadosunbae_android.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.*

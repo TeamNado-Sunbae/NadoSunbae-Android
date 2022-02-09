@@ -3,8 +3,8 @@ package com.nadosunbae_android.app.presentation.ui.classroom.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.databinding.ItemQuestionSeniorOffQuestionBinding
-import com.nadosunbae_android.data.model.classroom.ClassRoomSeniorData
+import com.nadosunbae_android.app.databinding.ItemQuestionSeniorOffQuestionBinding
+import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 
 class ClassRoomSeniorOffAdapter : RecyclerView.Adapter<ClassRoomSeniorOffAdapter.ClassRoomSeniorOffViewHolder>() {
     var offQuestionUserList = mutableListOf<ClassRoomSeniorData.OffQuestionUser>()

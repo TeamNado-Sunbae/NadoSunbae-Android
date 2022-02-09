@@ -1,6 +1,6 @@
 package com.nadosunbae_android.domain.usecase.review
 
-import com.nadosunbae_android.data.model.review.MajorInfoData
+import com.nadosunbae_android.domain.model.review.MajorInfoData
 import com.nadosunbae_android.domain.repository.review.ReviewRepository
 
 class GetMajorInfoDataUseCase(private val repository: ReviewRepository) {

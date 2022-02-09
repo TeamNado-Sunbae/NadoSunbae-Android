@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.ui.MajorKeyData
-import com.nadosunbae_android.databinding.FragmentClassRoomBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.FragmentClassRoomBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
+import com.nadosunbae_android.domain.model.ui.MajorKeyData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 

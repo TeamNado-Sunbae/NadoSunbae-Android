@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.classroom.ClassRoomData
-import com.nadosunbae_android.databinding.FragmentSeniorPersonalBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.FragmentSeniorPersonalBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

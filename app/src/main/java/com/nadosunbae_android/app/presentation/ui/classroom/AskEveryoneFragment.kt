@@ -3,9 +3,9 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.classroom.ClassRoomData
-import com.nadosunbae_android.databinding.FragmentAskEveryoneBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.FragmentAskEveryoneBinding
+import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomAskEveryoneAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel

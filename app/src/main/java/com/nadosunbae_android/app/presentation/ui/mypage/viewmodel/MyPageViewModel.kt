@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.data.model.mypage.MyPageMyInfo
-import com.nadosunbae_android.data.model.mypage.MyPageQuestionData
-import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
+import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
+import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
+import com.nadosunbae_android.domain.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.domain.usecase.mypage.GetMyPageMyInfoUseCase
 import com.nadosunbae_android.domain.usecase.mypage.GetMyPageQuestionUseCase
 import kotlinx.coroutines.launch

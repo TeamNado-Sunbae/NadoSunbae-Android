@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.R
 import com.nadosunbae_android.databinding.ItemReviewTagBoxBinding
-import com.nadosunbae_android.data.model.review.ReviewDetailData
+import com.nadosunbae_android.domain.model.review.ReviewDetailData
 
 class ReviewTagBoxAdapter(private val context: Context) : RecyclerView.Adapter<ReviewTagBoxAdapter.ReviewTagBoxHolder>() {
     var dataList = listOf<ReviewDetailData.Content>()

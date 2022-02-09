@@ -5,12 +5,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import androidx.core.view.isVisible
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.ActivityQuestionWriteBinding
-import com.nadosunbae_android.data.model.classroom.ClassRoomPostWriteItem
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ActivityQuestionWriteBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionWriteViewModel
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class QuestionWriteActivity :

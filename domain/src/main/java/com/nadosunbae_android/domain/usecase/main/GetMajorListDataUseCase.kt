@@ -1,6 +1,6 @@
 package com.nadosunbae_android.domain.usecase.main
 
-import com.nadosunbae_android.data.model.main.MajorData
+import com.nadosunbae_android.domain.model.main.MajorData
 import com.nadosunbae_android.domain.repository.main.MainRepository
 
 class GetMajorListDataUseCase(private val repository: MainRepository) {

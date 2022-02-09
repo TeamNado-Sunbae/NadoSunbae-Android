@@ -6,7 +6,7 @@
     <data>
         <variable
             name="seniorPersonal"
-            type="com.nadosunbae_android.model.classroom.SeniorPersonalData" />
+            type="com.nadosunbae_android.domain.model.classroom.SeniorPersonalData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

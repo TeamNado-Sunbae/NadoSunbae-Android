@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.data.model.classroom.ClassRoomData
-import com.nadosunbae_android.data.model.classroom.ClassRoomSeniorData
-import com.nadosunbae_android.data.model.main.MajorData
-import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.data.model.ui.MajorKeyData
+import com.nadosunbae_android.domain.model.classroom.ClassRoomData
+import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
+import com.nadosunbae_android.domain.model.main.MajorData
+import com.nadosunbae_android.domain.model.response.sign.ResponseSignIn
+import com.nadosunbae_android.domain.model.ui.MajorKeyData
 import com.nadosunbae_android.domain.usecase.classroom.GetClassRoomMainDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetMajorListDataUseCase

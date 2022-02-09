@@ -23,20 +23,20 @@ val viewModelModule = module {
 
 
     //main
-    viewModel { MainViewModel(get(),get()) }
+    viewModel { MainViewModel(get(),get(),get()) }
 
     //myPage
-    viewModel { MyPageViewModel() }
+    viewModel { MyPageViewModel(get(),get()) }
 
     //notification
     viewModel {NotificationViewModel(get(),get(),get())}
 
     //review
-    viewModel {ReviewDetailViewModel()}
-    viewModel { ReviewListViewModel() }
-    viewModel { ReviewWriteViewModel() }
+    viewModel {ReviewDetailViewModel(get(),get(),get())}
+    viewModel { ReviewListViewModel(get(),get()) }
+    viewModel { ReviewWriteViewModel(get(),get(),get()) }
 
     //sign
-    viewModel { SignUpBasicInfoViewModel() }
+    viewModel { SignUpBasicInfoViewModel(get(),get(),get(),get(),get(),get())}
     viewModel { SignViewModel()}
 }
