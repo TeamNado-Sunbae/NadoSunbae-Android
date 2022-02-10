@@ -9,22 +9,18 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
+import com.nadosunbae_android.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.databinding.ActivityQuestionWriteBinding
+import com.nadosunbae_android.model.classroom.ClassRoomPostWriteItem
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.classroom.viewmodel.QuestionWriteViewModel
 import com.nadosunbae_android.util.CustomDialog
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class QuestionWriteActivity :
     BaseActivity<ActivityQuestionWriteBinding>(R.layout.activity_question_write) {
     private lateinit var dialog : CustomDialog
-    private val questionWriteViewModel: QuestionWriteViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return QuestionWriteViewModel() as T
-            }
-        }
-    }
+    private val questionWriteViewModel: QuestionWriteViewModel by viewModel()
     var title = false
     var content = false
 
@@ -145,7 +141,7 @@ class QuestionWriteActivity :
     private fun questionWrite(majorId : Int,answerId : Int?, postTypeId : Int){
         Log.d("나 서버통신", "나 강림")
         questionWriteViewModel.postClassRoomWrite(
-            RequestClassRoomPostData(
+            ClassRoomPostWriteItem(
                 majorId, answerId, postTypeId,
                 questionWriteViewModel.titleData.value.toString(),
                 questionWriteViewModel.contentData.value.toString()

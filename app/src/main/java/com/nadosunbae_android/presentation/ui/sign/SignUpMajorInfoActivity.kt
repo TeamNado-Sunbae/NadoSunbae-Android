@@ -10,7 +10,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.sign.SelectableData
+import com.nadosunbae_android.model.response.sign.SelectableData
 import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.adapter.SpinnerAdapter
@@ -26,21 +26,9 @@ import kotlinx.android.synthetic.main.spinner_item.view.*
 
 class SignUpMajorInfoActivity :
     BaseActivity<ActivitySignUpMajorInfoBinding>(R.layout.activity_sign_up_major_info) {
-    private val signViewModel: SignViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SignViewModel() as T
-            }
-        }
-    }
+    private val signViewModel: SignViewModel by viewModels()
 
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SignUpBasicInfoViewModel() as T
-            }
-        }
-    }
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
 
     val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
     val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
@@ -157,7 +145,7 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoMajor.text = it
 
                 binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
-                binding.textSignupMajorinfoMajorMint.setText("변경")
+                binding.textSignupMajorinfoMajorMint.text = "변경"
 
                 //val firstDepartment = signUpBasicInfoViewModel.firstDepartment.value
             }
@@ -167,7 +155,7 @@ class SignUpMajorInfoActivity :
 
     //제 1전공 진입시기 선택 바텀시트
     private fun firstMajorPeriod() {
-        //bottomSheetDialog.binding.tvBottomsheeetTitle.setText("본 전공 진입시기")
+        bottomSheetDialog.binding.tvBottomsheeetTitle.text = "본 전공 진입시기"
         binding.clSignupMajorInfoMajorTime.setOnClickListener {
             firstDepartmentPeriodBottomSheetDialog.show(
                 supportFragmentManager,
@@ -201,7 +189,7 @@ class SignUpMajorInfoActivity :
             signViewModel.firstMajorPeriod.observe(this) {
                 binding.textSignupMajorinfoMajorTime.setText(it)
                 binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
-                binding.textSignupMajorinfoMajorTimeMint.setText("변경")
+                binding.textSignupMajorinfoMajorTimeMint.text= "변경"
             }
         }
     }
@@ -240,7 +228,7 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoDoubleMajor.setText(it)
                 binding.textSignupMajorinfoDoubleMajor.text = it
                 binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
-                binding.textSignupMajorinfoDoubleMajorMint.setText("변경")
+                binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
             }
 
     }
@@ -279,7 +267,7 @@ class SignUpMajorInfoActivity :
                 SelectableData(1, "미진입", false)
             )
 
-            //secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
+            secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
 
             if (binding.textSignupMajorinfoDoubleMajor.text == "미진입") {
                 secondDepartmentPeriodBottomSheetDialog.setDataList(

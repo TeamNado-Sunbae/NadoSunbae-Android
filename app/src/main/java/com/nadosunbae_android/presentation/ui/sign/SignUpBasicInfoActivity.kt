@@ -13,10 +13,14 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
-import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
-import com.nadosunbae_android.data.model.request.sign.RequestSignUp
+import com.nadosunbae_android.model.request.sign.RequestSignEmail
+import com.nadosunbae_android.model.request.sign.RequestSignNickname
+import com.nadosunbae_android.model.request.sign.RequestSignUp
 import com.nadosunbae_android.databinding.ActivitySignUpBasicInfoBinding
+import com.nadosunbae_android.model.sign.EmailDuplicationData
+import com.nadosunbae_android.model.sign.NicknameDuplicationCheck
+import com.nadosunbae_android.model.sign.NicknameDuplicationData
+import com.nadosunbae_android.model.sign.SignUpData
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.util.SignInCustomDialog
@@ -25,13 +29,8 @@ import java.util.regex.Pattern
 
 class SignUpBasicInfoActivity :
     BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SignUpBasicInfoViewModel() as T
-            }
-        }
-    }
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +46,11 @@ class SignUpBasicInfoActivity :
     private fun nicknameDuplication() {
         //닉네임 중복 체크 서버 통신
         signUpBasicInfoViewModel.nickName.observe(this) {
-            signUpBasicInfoViewModel.nickNameDuplication(RequestSignNickname(it))
+            signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(it))
         }
 
         signUpBasicInfoViewModel.nickNameDuplication.observe(this) {
-            if (it) {
+            if (it.success) {
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
             } else {
@@ -69,7 +68,7 @@ class SignUpBasicInfoActivity :
     private fun emailDuplication() {
         //이메일 중복 체크 서버 통신
         signUpBasicInfoViewModel.email.observe(this) {
-            signUpBasicInfoViewModel.emailDuplication(RequestSignEmail(it))
+            signUpBasicInfoViewModel.emailDuplication(EmailDuplicationData(it))
         }
 
         signUpBasicInfoViewModel.emailDuplication.observe(this) {
@@ -339,24 +338,11 @@ class SignUpBasicInfoActivity :
         signUpBasicInfoViewModel.requestSignUp.password =
             binding.etSignupBasicinfoPw.text.toString()
         val signData = signUpBasicInfoViewModel.signUp.value
-        if (signData != null) {
-//            val request = RequestSignUp(
-//                signUpBasicInfoViewModel.requestSignUp.email,
-//                signUpBasicInfoViewModel.requestSignUp.nickname,
-//                signUpBasicInfoViewModel.requestSignUp.password,
-//                1,
-//                signUpBasicInfoViewModel.requestSignUp.firstMajorId,
-//                signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
-//                signUpBasicInfoViewModel.requestSignUp.secondMajorId,
-//                signUpBasicInfoViewModel.requestSignUp.secondMajorStart
-//            )
-
-        }
 
         binding.clSignupBasicinfoMoveNext.setOnClickListener {
             Log.d("signUp", "post0")
             signUpBasicInfoViewModel.signUp(
-                RequestSignUp(
+                SignUpData(
                     signUpBasicInfoViewModel.requestSignUp.email,
                     signUpBasicInfoViewModel.requestSignUp.nickname,
                     signUpBasicInfoViewModel.requestSignUp.password,

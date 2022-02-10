@@ -3,15 +3,15 @@ package com.nadosunbae_android.presentation.ui.notification.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
+import com.nadosunbae_android.model.response.notification.ResponseNotificationListData
 import com.nadosunbae_android.databinding.ItemNotificationBinding
-import com.nadosunbae_android.databinding.ItemQuestionAllBinding
+import com.nadosunbae_android.model.notification.NotificationListData
 import com.nadosunbae_android.presentation.ui.notification.NotificationFragment
 
 class NotificationAdapter(
     var link : NotificationFragment.DataToFragment
 ) : RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
-    var notifiCationList = mutableListOf<ResponseNotificationListData.Data.Notification>()
+    var notifiCationList = mutableListOf<NotificationListData>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -46,7 +46,7 @@ class NotificationAdapter(
     inner class NotificationViewHolder(
         val binding : ItemNotificationBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(notificationList : ResponseNotificationListData.Data.Notification){
+        fun onBind(notificationList : NotificationListData){
             binding.apply {
                 notification = notificationList
                 executePendingBindings()
@@ -54,7 +54,7 @@ class NotificationAdapter(
         }
     }
 
-    fun setNotification(notificationList : MutableList<ResponseNotificationListData.Data.Notification>){
+    fun setNotification(notificationList : MutableList<NotificationListData>){
         this.notifiCationList = notificationList
         notifyDataSetChanged()
 

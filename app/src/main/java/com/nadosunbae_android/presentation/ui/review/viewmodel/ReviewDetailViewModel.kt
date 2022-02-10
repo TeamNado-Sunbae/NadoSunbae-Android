@@ -1,26 +1,30 @@
 package com.nadosunbae_android.presentation.ui.review.viewmodel
 
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.data.model.request.like.RequestPostLike
-import com.nadosunbae_android.data.model.response.review.ResponseReviewDetailData
-import com.nadosunbae_android.data.model.response.sign.SelectableData
-import com.nadosunbae_android.data.repository.like.LikeRepositoryImpl
-import com.nadosunbae_android.data.repository.mypage.MyPageRepositoryImpl
-import com.nadosunbae_android.data.repository.review.ReviewRepositoryImpl
+import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.model.like.LikeItem
+import com.nadosunbae_android.model.request.like.RequestPostLike
+import com.nadosunbae_android.model.response.review.ResponseReviewDetailData
+import com.nadosunbae_android.model.response.sign.SelectableData
+import com.nadosunbae_android.model.review.ReviewDetailData
+import com.nadosunbae_android.usecase.like.PostLikeDataUseCase
+import com.nadosunbae_android.usecase.review.DeleteReviewDataUseCase
+import com.nadosunbae_android.usecase.review.GetReviewDetailDataUseCase
 import com.nadosunbae_android.util.DropDownSelectableViewModel
+import kotlinx.coroutines.launch
 
-class ReviewDetailViewModel : ViewModel(), DropDownSelectableViewModel {
-    private val reviewRepository = ReviewRepositoryImpl()
-    private val likeRepository = LikeRepositoryImpl()
-    private val myPageRepository = MyPageRepositoryImpl()
+class ReviewDetailViewModel(
+    private val getReviewDetailDataUseCase: GetReviewDetailDataUseCase,
+    private val deleteReviewDataUseCase: DeleteReviewDataUseCase,
+    private val postLikeDataUseCase: PostLikeDataUseCase
+) : ViewModel(), DropDownSelectableViewModel {
 
-    private val _reviewDetailData = MutableLiveData<ResponseReviewDetailData>()
-    val reviewDetailData: LiveData<ResponseReviewDetailData>
+    private val _reviewDetailData = MutableLiveData<ReviewDetailData>()
+    val reviewDetailData: LiveData<ReviewDetailData>
         get() = _reviewDetailData
 
     private val _backgroundRes = MutableLiveData<Drawable>()
@@ -33,55 +37,55 @@ class ReviewDetailViewModel : ViewModel(), DropDownSelectableViewModel {
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
 
-    // 서버 통신
+    // 후기 상세정보 불러오기
     fun getReviewDetail(postId: Int) {
-        reviewRepository.getReviewDetail(postId,
-            onResponse = {
-                if (it.isSuccessful) {
-                    _reviewDetailData.value = it.body()
-
+        viewModelScope.launch {
+            runCatching { getReviewDetailDataUseCase(postId) }
+                .onSuccess {
+                    _reviewDetailData.value = it
                     Log.d(TAG, "서버통신 성공")
                 }
-            },
-            onFailure = {
-                it.printStackTrace()
-                Log.d(TAG, "서버통신 실패")
-            }
-        )
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d(TAG, "서버통신 실패")
+                }
+        }
     }
 
     // 좋아요
     fun postLikeReview(postId: Int) {
-        likeRepository.likeDataSource.postLike(
-            RequestPostLike(postId, 1),
-            onResponse = {
-                 if (it.isSuccessful) {
-                     //_reviewDetailData.value!!.data.like.isLiked = it.body()!!.data.isLiked
-                     Log.d(TAG, "서버통신 성공")
-                 }
-            },
-            onFailure = {
-                it.printStackTrace()
-                Log.d(TAG, "서버통신 실패")
-            }
-        )
+        val likeItem = LikeItem(postId, POST_TYPE_REVIEW)
+
+        viewModelScope.launch {
+            runCatching { postLikeDataUseCase(likeItem) }
+                .onSuccess {
+                    Log.d(TAG, "서버통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d(TAG, "서버통신 실패")
+                }
+        }
     }
+
 
     // 후기 삭제
     fun deleteReview(postId: Int) {
-        reviewRepository.deleteReview(postId,
-            onResponse = {
-                if (it.isSuccessful) {
-
+        viewModelScope.launch {
+            runCatching { deleteReviewDataUseCase(postId) }
+                .onSuccess {
                     Log.d(TAG, "서버통신 성공")
                 }
-            },
-            onFailure = {
-                it.printStackTrace()
-                Log.d(TAG, "서버통신 실패")
-            }
-        )
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d(TAG, "서버통신 실패")
+                }
+        }
     }
+
+
+    /*
+    TODO: MyPage CA 적용 끝난 후에 적용할 예정, 후기 수정 권한 확인 시 필요!!
 
     // 로그인 유저 정보 불러오기
     fun getSignUserId() {
@@ -104,6 +108,8 @@ class ReviewDetailViewModel : ViewModel(), DropDownSelectableViewModel {
 
     }
 
+     */
+
     fun setBackgroundRes(res: Drawable?) {
         if (res != null)
             _backgroundRes.value = res!!
@@ -112,6 +118,8 @@ class ReviewDetailViewModel : ViewModel(), DropDownSelectableViewModel {
 
     companion object {
         const val TAG = "ReviewDetailViewModel"
+        const val POST_TYPE_REVIEW = 1
+
     }
 
 }

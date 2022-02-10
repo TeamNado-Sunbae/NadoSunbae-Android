@@ -5,16 +5,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.review.RequestReviewListData
-import com.nadosunbae_android.data.model.response.review.ResponseReviewListData
-import com.nadosunbae_android.data.model.response.sign.SelectableData
-import com.nadosunbae_android.data.model.ui.MajorData
+import com.nadosunbae_android.model.response.sign.SelectableData
+import com.nadosunbae_android.model.ui.MajorKeyData
 import com.nadosunbae_android.databinding.FragmentReviewBinding
+import com.nadosunbae_android.model.review.ReviewFilterItem
+import com.nadosunbae_android.model.review.ReviewPreviewData
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
@@ -25,29 +21,22 @@ import com.nadosunbae_android.util.CustomBottomSheetDialog
 import com.nadosunbae_android.util.CustomDialog
 import com.nadosunbae_android.util.dpToPx
 import com.nadosunbae_android.util.showCustomDropDown
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
+
+
+    // main vm
+    private val mainViewModel: MainViewModel by sharedViewModel()
+
+    // reviewList vm
+    private val reviewListViewModel: ReviewListViewModel by viewModel()
 
     private lateinit var reviewListAdapter : ReviewListAdapter
 
     private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
     private lateinit var filterBottomSheetDialog: FilterBottomSheetDialog
-
-    private val mainViewModel: MainViewModel by activityViewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MainViewModel() as T
-            }
-        }
-    }
-
-    private val reviewListViewModel: ReviewListViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return ReviewListViewModel() as T
-            }
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,7 +65,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     private fun setBinding() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.mainViewModel = mainViewModel
-        binding.reviewListViewModel = reviewListViewModel
     }
 
 
@@ -84,7 +72,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     private fun setReviewListData() {
         // reviewListViewModel observe (목록에 표시되도록)
         reviewListViewModel.reviewListData.observe(viewLifecycleOwner) {
-            reviewListAdapter.setReviewListData(it.data as MutableList<ResponseReviewListData.Data>)
+            reviewListAdapter.setReviewListData(it as MutableList<ReviewPreviewData>)
         }
 
     }
@@ -124,24 +112,43 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                         return
                     }
 
-                    // postId Intent로 전달 (후기 상세보기 이동)
-                    val intent = Intent(context, ReviewDetailActivity::class.java)
-                    val postId = reviewListViewModel.reviewListData.value!!.data[position].postId
-                    intent.putExtra("postId", postId)
-                    startActivity(intent)
+                    val reviewListData = reviewListViewModel.reviewListData.value
+
+                    // null check
+                    if (reviewListData != null) {
+                        // postId Intent로 전달 (후기 상세보기 이동)
+                        val intent = Intent(context, ReviewDetailActivity::class.java)
+                        val postId = reviewListData[position].postId
+                        intent.putExtra("postId", postId)
+                        startActivity(intent)
+                    }
+
+
                 }
 
             }
         )
 
         binding.btnMajorPage.setOnClickListener {
-            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(reviewListViewModel.urlHomepage.value))
-            startActivity(intent)
+            val majorInfo = reviewListViewModel.majorInfo.value
+            if (majorInfo != null) {
+                var intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(majorInfo.homepage)
+                )
+                startActivity(intent)
+            }
         }
 
         binding.btnSubjectTable.setOnClickListener {
-            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(reviewListViewModel.urlSubjectTable.value))
-            startActivity(intent)
+            val majorInfo = reviewListViewModel.majorInfo.value
+            if (majorInfo != null) {
+                var intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(majorInfo.subjectTable)
+                )
+                startActivity(intent)
+            }
         }
 
 
@@ -298,9 +305,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 tagFilter = listOf(1, 2, 3, 4, 5)
         }
 
-        // review list 갱신
-        val request = RequestReviewListData(mainViewModel.selectedMajor.value!!.majorId, writerFilter, tagFilter)
-
         // 정렬
         var sort = "recent"
         if (reviewListViewModel.dropDownSelected.value != null) {
@@ -309,7 +313,13 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             else
                 "like"
         }
-        reviewListViewModel.getReviewList(sort, request)
+
+        // review list 갱신
+        val selectedMajorData = mainViewModel.selectedMajor.value
+        if (selectedMajorData != null) {
+            val request = ReviewFilterItem(selectedMajorData.majorId, writerFilter, tagFilter)
+            reviewListViewModel.getReviewList(request, sort)
+        }
 
     }
 
@@ -327,7 +337,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
             if (selectedData != null) {
-                val majorData = MajorData(selectedData.id, selectedData.name)
+                val majorData = MajorKeyData(selectedData.id, selectedData.name)
                 mainViewModel.setSelectedMajor(majorData)
             }
 

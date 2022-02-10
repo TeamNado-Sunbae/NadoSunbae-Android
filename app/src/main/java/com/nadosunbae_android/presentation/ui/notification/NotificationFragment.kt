@@ -8,8 +8,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
+import com.nadosunbae_android.model.response.notification.ResponseNotificationListData
 import com.nadosunbae_android.databinding.FragmentNotificationBinding
+import com.nadosunbae_android.model.notification.NotificationListData
 import com.nadosunbae_android.presentation.base.BaseFragment
 import com.nadosunbae_android.presentation.ui.classroom.InformationDetailActivity
 import com.nadosunbae_android.presentation.ui.classroom.QuestionDetailActivity
@@ -17,24 +18,16 @@ import com.nadosunbae_android.presentation.ui.main.MainActivity
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.presentation.ui.notification.adapter.NotificationAdapter
 import com.nadosunbae_android.presentation.ui.notification.viewmodel.NotificationViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class NotificationFragment :
     BaseFragment<FragmentNotificationBinding>(com.nadosunbae_android.R.layout.fragment_notification) {
-    private val notificationViewModel: NotificationViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return NotificationViewModel() as T
-            }
-        }
-    }
-    private val mainViewModel: MainViewModel by activityViewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MainViewModel() as T
-            }
-        }
-    }
+    private val notificationViewModel: NotificationViewModel by viewModel()
+
+    private val mainViewModel: MainViewModel by sharedViewModel()
+
     var link = DataToFragment()
     var mainActivity = MainActivity()
     private lateinit var notificationAdapter: NotificationAdapter
@@ -64,7 +57,7 @@ class NotificationFragment :
 
         notificationViewModel.notificationList.observe(viewLifecycleOwner) {
 
-            notificationAdapter.setNotification(it.data.notificationList as MutableList<ResponseNotificationListData.Data.Notification>)
+            notificationAdapter.setNotification(it as MutableList<NotificationListData>)
         }
     }
 
@@ -73,7 +66,7 @@ class NotificationFragment :
             //알림삭제
             notificationViewModel.deleteNotification(id)
             notificationViewModel.deleteNotification.observe(viewLifecycleOwner) {
-                if (it.data.isDeleted) {
+                if (it.isDeleted) {
                     notificationViewModel.getNotification(3)
                 }
             }

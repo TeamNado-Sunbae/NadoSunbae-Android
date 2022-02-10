@@ -8,10 +8,9 @@ import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.response.sign.SelectableData
+import com.nadosunbae_android.model.response.sign.SelectableData
 
 
 /*

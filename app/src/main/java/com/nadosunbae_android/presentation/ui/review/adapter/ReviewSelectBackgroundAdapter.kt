@@ -1,18 +1,15 @@
 package com.nadosunbae_android.presentation.ui.review.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.ui.SelectBackgroundBoxData
+import com.nadosunbae_android.model.ui.SelectBackgroundBoxData
 import com.nadosunbae_android.databinding.ItemListBackgroundBinding
 import com.nadosunbae_android.util.getBackgroundImage
-import org.koin.core.instance.getArguments
 
 class ReviewSelectBackgroundAdapter : RecyclerView.Adapter<ReviewSelectBackgroundAdapter.ReviewSelectBackgroundHolder>() {
     var dataList = mutableListOf<SelectBackgroundBoxData>()

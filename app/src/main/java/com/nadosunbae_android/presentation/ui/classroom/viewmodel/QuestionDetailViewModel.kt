@@ -4,53 +4,58 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
-import com.nadosunbae_android.data.model.response.classroom.ResponseQuestionCommentWrite
-import com.nadosunbae_android.data.repository.classroom.ClassRoomRepository
-import com.nadosunbae_android.data.repository.classroom.ClassRoomRepositoryImpl
+import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.model.classroom.QuestionCommentWriteData
+import com.nadosunbae_android.model.classroom.QuestionCommentWriteItem
+import com.nadosunbae_android.model.classroom.QuestionDetailData
+import com.nadosunbae_android.usecase.classroom.GetQuestionDetailDataUseCase
+import com.nadosunbae_android.usecase.classroom.PostQuestionCommentWriteUseCase
+import kotlinx.coroutines.launch
 
-class QuestionDetailViewModel : ViewModel() {
-    val classRoomRepository: ClassRoomRepository = ClassRoomRepositoryImpl()
+class QuestionDetailViewModel(
+    val getQuestionDetailDataUseCase : GetQuestionDetailDataUseCase,
+    val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase
+) : ViewModel() {
+
 
     //전체 질문 상세보기 데이터
-    private var _questionDetailData = MutableLiveData<ResponseClassRoomQuestionDetail>()
-    val questionDetailData : LiveData<ResponseClassRoomQuestionDetail>
+    private var _questionDetailData = MutableLiveData<QuestionDetailData>()
+    val questionDetailData : LiveData<QuestionDetailData>
         get() = _questionDetailData
 
 
     //댓글 등록
-    var registerComment = MutableLiveData<ResponseQuestionCommentWrite>()
+    var registerComment = MutableLiveData<QuestionCommentWriteData>()
 
 
 
     //전체 질문 상세보기 서버 통신
     fun getClassRoomQuestionDetail(postId : Int){
-        classRoomRepository.getClassRoomQuestionDetail(postId,
-            onResponse = {
-                if(it.isSuccessful){
-                    _questionDetailData.value = it.body()
+        viewModelScope.launch {
+            runCatching { getQuestionDetailDataUseCase(postId) }
+                .onSuccess {
+                    _questionDetailData.value = it
                     Log.d("classRoomDetail", "메인 서버 통신 성공")
-                }},
-            onFailure = {
-                it.printStackTrace()
-                Log.d("classRoomMain", "메인 서버 통신 실패")
-            }
-        )
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("classRoomMain", "메인 서버 통신 실패")
+                }
+        }
     }
 
     //댓글 등록 서버 통신
-    fun postQuestionCommentWrite(requestQuestionCommentWriteData: RequestQuestionCommentWriteData){
-        classRoomRepository.postQuestionCommentWrite(requestQuestionCommentWriteData,
-            onResponse = {
-                if(it.isSuccessful){
-                    registerComment.value = it.body()
+    fun postQuestionCommentWrite(questionCommentWriteItem: QuestionCommentWriteItem){
+        viewModelScope.launch {
+            runCatching {postQuestionCommentWriteUseCase(questionCommentWriteItem)  }
+                .onSuccess {
+                    registerComment.value = it
                     Log.d("questionComment", "댓글 통신 성공")
-                }},
-            onFailure = {
-                it.printStackTrace()
-                Log.d("questionComment", "댓글 통신 실패 ")
-            }
-        )
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("questionComment", "댓글 통신 실패 ")
+                }
+        }
     }
 }

@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.response.classroom.ResponseInfoDetailData
+import com.nadosunbae_android.model.response.classroom.ResponseInfoDetailData
 import com.nadosunbae_android.databinding.ItemInformationDetailBinding
+import com.nadosunbae_android.model.classroom.InfoDetailData
 
 class ClassRoomInfoDetailAdapter : RecyclerView.Adapter<ClassRoomInfoDetailAdapter.ClassRoomInfoDetailViewHolder>() {
-    var infoDetailData = mutableListOf<ResponseInfoDetailData.Data.Comment>()
+    var infoDetailData = mutableListOf<InfoDetailData.Comment>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,7 +28,7 @@ class ClassRoomInfoDetailAdapter : RecyclerView.Adapter<ClassRoomInfoDetailAdapt
         position: Int
     ) {
         holder.onBind(infoDetailData[position])
-        if(infoDetailData[position].writer.secondMajorName == "미진입"){
+        if(infoDetailData[position].secondMajorName == "미진입"){
             holder.binding.textInformationDetailContentSecondMajorStart.visibility = View.GONE
         }
     }
@@ -37,7 +38,7 @@ class ClassRoomInfoDetailAdapter : RecyclerView.Adapter<ClassRoomInfoDetailAdapt
     inner class ClassRoomInfoDetailViewHolder(
         val binding : ItemInformationDetailBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(infoDetailData : ResponseInfoDetailData.Data.Comment){
+        fun onBind(infoDetailData : InfoDetailData.Comment){
             binding.apply {
                 infoDetailListData = infoDetailData
                 executePendingBindings()
@@ -45,7 +46,7 @@ class ClassRoomInfoDetailAdapter : RecyclerView.Adapter<ClassRoomInfoDetailAdapt
         }
     }
 
-    fun setInfoDetail(infoDetailData: MutableList<ResponseInfoDetailData.Data.Comment>){
+    fun setInfoDetail(infoDetailData: MutableList<InfoDetailData.Comment>){
         this.infoDetailData = infoDetailData
         notifyDataSetChanged()
     }

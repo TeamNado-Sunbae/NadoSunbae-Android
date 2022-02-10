@@ -1,45 +1,31 @@
 package com.nadosunbae_android.presentation.ui.review
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.ui.classroom.ClassRoomData
+import com.nadosunbae_android.model.classroom.ClassRoomData
 import com.nadosunbae_android.databinding.ActivitySeniorPersonalBinding
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.util.Mapper
+import com.nadosunbae_android.mapper.classroom.ClassRoomMapper
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.layout.activity_senior_personal) {
 
     private lateinit var classRoomQuestionMainAdapter: ClassRoomQuestionMainAdapter
     private lateinit var callback: OnBackPressedCallback
-    private val mainViewModel: MainViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MainViewModel() as T
-            }
-        }
-    }
+    private val mainViewModel: MainViewModel by viewModel()
 
-    private val seniorPersonalViewModel: SeniorPersonalViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SeniorPersonalViewModel() as T
-            }
-        }
-    }
+    private val seniorPersonalViewModel: SeniorPersonalViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +35,6 @@ class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.lay
         initSeniorQuestion()
         goSeniorFragment()
         goQuestionWrite()
-        getSeniorIdFromIntent()
     }
 
 
@@ -60,7 +45,7 @@ class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.lay
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
         seniorPersonalViewModel.seniorQuestion.observe(this) {
             Log.d("seniorQuestionAdapter", "좀 되라")
-            classRoomQuestionMainAdapter.setQuestionMain(Mapper.mapperToSeniorQuestion(it) as MutableList<ClassRoomData>)
+            classRoomQuestionMainAdapter.setQuestionMain(ClassRoomMapper.mapperToSeniorQuestion(it) as MutableList<ClassRoomData>)
         }
 
 
@@ -82,9 +67,9 @@ class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.lay
         }
 
         seniorPersonalViewModel.seniorPersonal.observe(this) {
-            seniorPersonalViewModel.userId.value = it.data.userId
+            seniorPersonalViewModel.userId.value = it.userId
             binding.seniorPersonal = it
-            if (it.data.secondMajorName == "미진입")
+            if (it.secondMajorName == "미진입")
                 binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
         }
     }

@@ -7,7 +7,7 @@
 
         <variable
             name="notification"
-            type="com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData.Data.Notification" />
+            type="com.nadosunbae_android.model.notification.NotificationListData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +32,7 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="18dp"
-                profileImgSmall="@{notification.sender.profileImageId}"
+                profileImgSmall="@{notification.profileImageId}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,7 +49,7 @@
             <TextView
                 android:id="@+id/text_notification_title"
                 int="@{notification.notificationType}"
-                nickname="@{notification.sender.nickname}"
+                nickname="@{notification.nickname}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"

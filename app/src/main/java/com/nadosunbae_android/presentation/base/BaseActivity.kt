@@ -6,7 +6,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.nadosunbae_android.data.model.response.sign.SelectableData
+import com.nadosunbae_android.model.response.sign.SelectableData
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.util.CustomBottomSheetDialog
 

@@ -8,7 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.nadosunbae_android.data.model.response.sign.SelectableData
+import com.nadosunbae_android.model.response.sign.SelectableData
 import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.util.CustomBottomSheetDialog
 

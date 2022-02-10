@@ -6,23 +6,19 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
-import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
-import com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail
+import com.nadosunbae_android.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.model.response.classroom.ResponseClassRoomQuestionDetail
 import com.nadosunbae_android.databinding.ActivityQuestionDetailBinding
+import com.nadosunbae_android.model.classroom.QuestionCommentWriteItem
+import com.nadosunbae_android.model.classroom.QuestionDetailData
 import com.nadosunbae_android.presentation.base.BaseActivity
 import com.nadosunbae_android.presentation.ui.classroom.adapter.ClassRoomQuestionDetailAdapter
 import com.nadosunbae_android.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
-import com.nadosunbae_android.presentation.ui.main.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class QuestionDetailActivity :
     BaseActivity<ActivityQuestionDetailBinding>(R.layout.activity_question_detail) {
-    private val questionDetailViewModel: QuestionDetailViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return QuestionDetailViewModel() as T
-            }
-        }
-    }
+    private val questionDetailViewModel: QuestionDetailViewModel by viewModel()
 
 
 
@@ -50,12 +46,12 @@ class QuestionDetailActivity :
         binding.rcQuestionDetail.adapter = classRoomQuestionDetailAdapter
 
         questionDetailViewModel.questionDetailData.observe(this){
-            classRoomQuestionDetailAdapter.setLike(it.data.like.likeCount, it.data.like.isLiked)
-            classRoomQuestionDetailAdapter.setQuestionDetail(it.data.messageList as MutableList<ResponseClassRoomQuestionDetail.Data.Message>)
+            classRoomQuestionDetailAdapter.setLike(it.likeCount, it.isLiked)
+            classRoomQuestionDetailAdapter.setQuestionDetail(it.messageList as MutableList<QuestionDetailData.Message>)
             registerComment(postId)
 
             //1:1질문 타인 글 쓰는거 막기
-           if(myPageNum != 1 && all != 1 && userId != it.data.questionerId && userId != it.data.answererId){
+           if(myPageNum != 1 && all != 1 && userId != it.questionerId && userId != it.answererId){
                 binding.etQuestionComment.isEnabled = false
                 binding.etQuestionComment.hint = getString(R.string.text_comment_impossible)
             }
@@ -73,9 +69,11 @@ class QuestionDetailActivity :
     // 전체 질문 상세 댓글 등록
     private fun registerComment(postId : Int){
         binding.imgQuestionCommentComplete.setOnClickListener {
-            questionDetailViewModel.postQuestionCommentWrite(RequestQuestionCommentWriteData(
+            questionDetailViewModel.postQuestionCommentWrite(
+                QuestionCommentWriteItem(
                 postId, binding.etQuestionComment.text.toString()
-            ))
+            )
+            )
             binding.etQuestionComment.setText("")
         }
 

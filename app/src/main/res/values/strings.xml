@@ -288,7 +288,7 @@
     <string name="alert_cancel_write_complete">계속 작성</string>
     <string name="alert_cancel_write_cancel">나갈래요</string>
 
-    <!-- 후기 수정 알럿 -->네
+    <!-- 후기 수정 알럿 -->
     <string name="alert_modify_review_title">수정하시겠습니까?</string>
     <string name="alert_modify_review_complete">네</string>
     <string name="alert_modify_review_cancel">아니요</string>
