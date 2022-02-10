@@ -1,7 +1,3 @@
-
-import Apps.versionCode
-import Apps.versionName
-
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -19,8 +15,6 @@ android {
     defaultConfig {
         minSdk = Apps.minSdk
         targetSdk = Apps.targetSdk
-        versionCode = Apps.versionCode
-        versionName = Apps.versionName
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

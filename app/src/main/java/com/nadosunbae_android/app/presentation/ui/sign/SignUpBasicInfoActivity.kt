@@ -17,12 +17,13 @@ import com.nadosunbae_android.domain.model.sign.SignUpData
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.SignInCustomDialog
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.regex.Pattern
 
 
 class SignUpBasicInfoActivity :
     BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -15,7 +15,7 @@ val apiModule = module {
     single<Retrofit> {
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .baseUrl("https://asia-northeast3-nadosunbae-server.cloudfunctions.net/api")
+            .baseUrl("https://asia-northeast3-nadosunbae-server.cloudfunctions.net/api/")
             .client(get<OkHttpClient>())
             .build()
     }

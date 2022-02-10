@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Widget.BottomNavigationView"
-        parent="Widget.Design.BottomNavigationView">
-        <item name="fontFamily">@drawable/selector_text_regular_to_medium</item>
-    </style>
+
 
     <style name="Widget.App.PopupMenu" parent="Widget.MaterialComponents.PopupMenu">
         <item name="android:popupBackground">@drawable/rectangle_fill_white_8dp</item>

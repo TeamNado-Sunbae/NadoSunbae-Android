@@ -10,6 +10,7 @@ import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.domain.model.main.MajorKeyData
 import com.nadosunbae_android.domain.model.main.MajorSelectData
+import com.nadosunbae_android.domain.model.sign.SignInItem
 import com.nadosunbae_android.domain.usecase.classroom.GetClassRoomMainDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetMajorListDataUseCase
@@ -22,8 +23,8 @@ class MainViewModel(
 ) : ViewModel() {
 
     // 로그인 response 데이터
-    private val _signData = MutableLiveData<ResponseSignIn.Data.User>()
-    val signData: LiveData<ResponseSignIn.Data.User>
+    private val _signData = MutableLiveData<SignInItem.User>()
+    val signData: LiveData<SignInItem.User>
         get() = _signData
 
     //과방탭
@@ -40,6 +41,7 @@ class MainViewModel(
 
     //과방탭 1:1 선배 Id
     var seniorId  = MutableLiveData<Int>()
+
 
     //유저 아이디
     var userId = MutableLiveData<Int>()
@@ -156,7 +158,7 @@ class MainViewModel(
         _secondMajor.value = majorData
     }
 
-    fun setSignData(signData: ResponseSignIn.Data.User) {
+    fun setSignData(signData: SignInItem.User) {
         _signData.value = signData
         userId.value = signData.userId
     }

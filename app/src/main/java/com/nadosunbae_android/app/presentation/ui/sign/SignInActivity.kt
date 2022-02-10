@@ -15,11 +15,12 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private lateinit var mainActivity: MainActivity
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
