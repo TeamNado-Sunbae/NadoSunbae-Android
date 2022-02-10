@@ -74,13 +74,13 @@ class MainViewModel(
         get() = _seniorData
 
     // 본전공
-    private val _firstMajor = MutableLiveData<MajorKeyData>()
-    val firstMajor: LiveData<MajorKeyData>
+    private val _firstMajor = MutableLiveData<MajorSelectData>()
+    val firstMajor: LiveData<MajorSelectData>
         get() = _firstMajor
 
     // 제2전공
-    private val _secondMajor = MutableLiveData<MajorKeyData>()
-    val secondMajor: LiveData<MajorKeyData>
+    private val _secondMajor = MutableLiveData<MajorSelectData>()
+    val secondMajor: LiveData<MajorSelectData>
         get() = _secondMajor
 
 
@@ -148,11 +148,11 @@ class MainViewModel(
         _selectedMajor.value = majorData
     }
 
-    fun setFirstMajor(majorData: MajorKeyData) {
+    fun setFirstMajor(majorData: MajorSelectData) {
         _firstMajor.value = majorData
     }
 
-    fun setSecondMajor(majorData: MajorKeyData) {
+    fun setSecondMajor(majorData: MajorSelectData) {
         _secondMajor.value = majorData
     }
 
