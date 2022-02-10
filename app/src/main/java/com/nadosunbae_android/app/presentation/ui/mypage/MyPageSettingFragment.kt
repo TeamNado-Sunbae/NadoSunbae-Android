@@ -3,8 +3,8 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.FragmentMyPageSettingBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.FragmentMyPageSettingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 
 

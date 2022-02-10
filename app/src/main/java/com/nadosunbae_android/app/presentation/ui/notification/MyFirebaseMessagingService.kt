@@ -12,7 +12,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.nadosunbae_android.R
+import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {

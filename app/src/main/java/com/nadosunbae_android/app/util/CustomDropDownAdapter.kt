@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.domain.model.response.sign.SelectableData
+import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.databinding.ItemDropDownBinding
 
 class CustomDropDownAdapter(val viewModel: DropDownSelectableViewModel, val selectedItemId: Int) : RecyclerView.Adapter<CustomDropDownAdapter.DropDownViewHolder>() {

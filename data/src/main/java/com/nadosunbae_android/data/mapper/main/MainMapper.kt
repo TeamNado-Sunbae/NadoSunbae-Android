@@ -1,7 +1,7 @@
 package com.nadosunbae_android.data.mapper.main
 
 import com.nadosunbae_android.domain.model.main.MajorData
-import com.nadosunbae_android.domain.model.response.major.ResponseMajorListData
+import com.nadosunbae_android.data.model.response.major.ResponseMajorListData
 
 object MainMapper {
 

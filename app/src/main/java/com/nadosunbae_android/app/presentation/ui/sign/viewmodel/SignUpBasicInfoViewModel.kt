@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.domain.model.request.sign.RequestSignUp
+import com.nadosunbae_android.data.model.request.sign.RequestSignUp
 import com.nadosunbae_android.domain.model.sign.*
 import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.sign.GetSecondDepartmentUseCase

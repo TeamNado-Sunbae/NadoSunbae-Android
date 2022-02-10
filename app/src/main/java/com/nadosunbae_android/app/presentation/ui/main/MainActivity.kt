@@ -14,8 +14,8 @@ import com.nadosunbae_android.app.presentation.ui.review.ReviewFragment
 import com.nadosunbae_android.app.util.changeFragment
 import com.nadosunbae_android.app.util.changeFragmentNoBackStack
 import com.nadosunbae_android.app.util.popFragmentBackStack
-import com.nadosunbae_android.domain.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.domain.model.ui.MajorKeyData
+import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
+import com.nadosunbae_android.data.model.ui.MajorKeyData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {

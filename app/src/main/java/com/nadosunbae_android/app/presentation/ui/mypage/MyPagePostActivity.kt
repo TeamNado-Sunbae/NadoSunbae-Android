@@ -4,8 +4,8 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.ActivityMyPagePostBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ActivityMyPagePostBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 

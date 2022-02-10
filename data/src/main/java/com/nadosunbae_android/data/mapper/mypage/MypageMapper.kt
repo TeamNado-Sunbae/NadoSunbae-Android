@@ -2,8 +2,8 @@ package com.nadosunbae_android.data.mapper.mypage
 
 import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
-import com.nadosunbae_android.domain.model.response.mypage.ResponseMypageMyInfo
-import com.nadosunbae_android.domain.model.response.mypage.ResponseMypageQuestionData
+import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
+import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
 
 object MypageMapper {
     fun mapperToQuestion(responseMypageQuestionData: ResponseMypageQuestionData): MyPageQuestionData {

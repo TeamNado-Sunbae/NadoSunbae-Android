@@ -1,8 +1,8 @@
 package com.nadosunbae_android.data.api.classroom
 
-import com.nadosunbae_android.domain.model.request.classroom.RequestClassRoomPostData
-import com.nadosunbae_android.domain.model.request.classroom.RequestQuestionCommentWriteData
-import com.nadosunbae_android.domain.model.response.classroom.*
+import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
+import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.data.model.response.classroom.*
 import retrofit2.http.*
 
 interface ClassRoomService {

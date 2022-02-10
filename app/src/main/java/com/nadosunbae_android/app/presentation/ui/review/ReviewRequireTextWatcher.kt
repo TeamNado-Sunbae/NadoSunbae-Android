@@ -5,7 +5,7 @@ import android.text.TextWatcher
 import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.nadosunbae_android.databinding.ActivityReviewWriteBinding
+import com.nadosunbae_android.app.databinding.ActivityReviewWriteBinding
 
 class ReviewRequireTextWatcher(private var binding: ActivityReviewWriteBinding) : TextWatcher {
 

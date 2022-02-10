@@ -12,7 +12,6 @@ import com.nadosunbae_android.R
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailQuestionerBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding
 import com.nadosunbae_android.databinding.ItemQuestionDetailCommentBinding
-import com.nadosunbae_android.databinding.ItemQuestionDetailQuestionerBinding
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 
 

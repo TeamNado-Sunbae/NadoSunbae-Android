@@ -5,22 +5,22 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import com.nadosunbae_android.R
-import com.nadosunbae_android.domain.model.response.sign.SelectableData
-import com.nadosunbae_android.domain.model.ui.MajorKeyData
-import com.nadosunbae_android.domain.model.ui.SelectBackgroundBoxData
-import com.nadosunbae_android.databinding.ActivityReviewWriteBinding
-import com.nadosunbae_android.domain.model.main.MajorData
-import com.nadosunbae_android.domain.model.review.BackgroundImageData
-import com.nadosunbae_android.domain.model.review.ReviewDetailData
-import com.nadosunbae_android.domain.model.review.ReviewEditItem
-import com.nadosunbae_android.domain.model.review.ReviewWriteItem
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ActivityReviewWriteBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewSelectBackgroundAdapter
 import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewWriteViewModel
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.showCustomDropDown
+import com.nadosunbae_android.domain.model.main.MajorData
+import com.nadosunbae_android.data.model.response.sign.SelectableData
+import com.nadosunbae_android.domain.model.review.BackgroundImageData
+import com.nadosunbae_android.domain.model.review.ReviewDetailData
+import com.nadosunbae_android.domain.model.review.ReviewEditItem
+import com.nadosunbae_android.domain.model.review.ReviewWriteItem
+import com.nadosunbae_android.data.model.ui.MajorKeyData
+import com.nadosunbae_android.data.model.ui.SelectBackgroundBoxData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
@@ -183,7 +183,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
             // 본전공 추가
             val firstMajor = ReviewGlobals.firstMajor
-            if (firstMajor != null && isValidMajor(firstMajor.majorId))
+            if (firstMajor != null && isValidMajor(firstMajor.data.majorList)
                 selectableList.add(SelectableData(firstMajor.majorId, firstMajor.majorName, false))
 
             // 제2전공 추가

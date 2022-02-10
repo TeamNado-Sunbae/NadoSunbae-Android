@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.AdapterView
 import androidx.activity.viewModels
 import com.nadosunbae_android.R
-import com.nadosunbae_android.domain.model.response.sign.SelectableData
+import com.nadosunbae_android.data.model.response.sign.SelectableData
 import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.sign.adapter.SpinnerAdapter

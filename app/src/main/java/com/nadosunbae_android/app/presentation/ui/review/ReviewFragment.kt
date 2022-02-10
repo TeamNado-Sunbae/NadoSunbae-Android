@@ -5,10 +5,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.nadosunbae_android.R
-import com.nadosunbae_android.domain.model.response.sign.SelectableData
-import com.nadosunbae_android.domain.model.ui.MajorKeyData
-import com.nadosunbae_android.databinding.FragmentReviewBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.data.model.response.sign.SelectableData
+import com.nadosunbae_android.data.model.ui.MajorKeyData
+import com.nadosunbae_android.app.databinding.FragmentReviewBinding
 import com.nadosunbae_android.domain.model.review.ReviewFilterItem
 import com.nadosunbae_android.domain.model.review.ReviewPreviewData
 import com.nadosunbae_android.app.presentation.base.BaseFragment

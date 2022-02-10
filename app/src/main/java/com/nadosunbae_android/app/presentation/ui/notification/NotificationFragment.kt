@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.nadosunbae_android.databinding.FragmentNotificationBinding
+import com.nadosunbae_android.app.databinding.FragmentNotificationBinding
 import com.nadosunbae_android.domain.model.notification.NotificationListData
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
@@ -18,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class NotificationFragment :
-    BaseFragment<FragmentNotificationBinding>(com.nadosunbae_android.R.layout.fragment_notification) {
+    BaseFragment<FragmentNotificationBinding>(com.nadosunbae_android.app.R.layout.fragment_notification) {
     private val notificationViewModel: NotificationViewModel by viewModel()
 
     private val mainViewModel: MainViewModel by sharedViewModel()

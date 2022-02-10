@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import com.nadosunbae_android.R
-import com.nadosunbae_android.domain.model.classroom.ClassRoomData
-import com.nadosunbae_android.databinding.FragmentMyPageBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.FragmentMyPageBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.data.mapper.classroom.ClassRoomMapper
+import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {

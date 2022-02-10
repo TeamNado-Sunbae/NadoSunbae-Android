@@ -1,6 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.review
 
-import com.nadosunbae_android.domain.model.ui.MajorData
+import com.nadosunbae_android.domain.model.sign.MajorData
 
 object ReviewGlobals {
 

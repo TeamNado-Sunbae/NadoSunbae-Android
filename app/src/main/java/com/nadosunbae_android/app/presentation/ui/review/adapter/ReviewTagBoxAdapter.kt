@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.ItemReviewTagBoxBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ItemReviewTagBoxBinding
 import com.nadosunbae_android.domain.model.review.ReviewDetailData
 
 class ReviewTagBoxAdapter(private val context: Context) : RecyclerView.Adapter<ReviewTagBoxAdapter.ReviewTagBoxHolder>() {

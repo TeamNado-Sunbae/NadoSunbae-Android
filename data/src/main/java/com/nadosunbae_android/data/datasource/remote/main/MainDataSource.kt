@@ -1,6 +1,6 @@
 package com.nadosunbae_android.data.datasource.remote.main
 
-import com.nadosunbae_android.domain.model.response.major.ResponseMajorListData
+import com.nadosunbae_android.data.model.response.major.ResponseMajorListData
 
 interface MainDataSource {
 

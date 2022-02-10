@@ -1,6 +1,6 @@
 package com.nadosunbae_android.data.api.main
 
-import com.nadosunbae_android.domain.model.response.major.ResponseMajorListData
+import com.nadosunbae_android.data.model.response.major.ResponseMajorListData
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

@@ -3,9 +3,8 @@ package com.nadosunbae_android.app.presentation.ui.review
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.ActivityReviewDetailBinding
-import com.nadosunbae_android.domain.model.response.sign.SelectableData
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Companion.MODE_MODIFY
 import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewTagBoxAdapter
@@ -14,6 +13,7 @@ import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.getBackgroundImage
 import com.nadosunbae_android.app.util.showCustomDropDown
+import com.nadosunbae_android.data.model.response.sign.SelectableData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

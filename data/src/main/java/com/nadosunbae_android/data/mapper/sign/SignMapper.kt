@@ -1,10 +1,10 @@
 package com.nadosunbae_android.data.mapper.classroom
 
-import com.nadosunbae_android.domain.model.request.sign.RequestSignEmail
-import com.nadosunbae_android.domain.model.request.sign.RequestSignIn
-import com.nadosunbae_android.domain.model.request.sign.RequestSignNickname
-import com.nadosunbae_android.domain.model.request.sign.RequestSignUp
-import com.nadosunbae_android.domain.model.response.sign.*
+import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
+import com.nadosunbae_android.data.model.request.sign.RequestSignIn
+import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
+import com.nadosunbae_android.data.model.request.sign.RequestSignUp
+import com.nadosunbae_android.data.model.response.sign.*
 import com.nadosunbae_android.domain.model.sign.*
 
 object SignMapper {

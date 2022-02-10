@@ -2,7 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.nadosunbae_android.R
+import com.nadosunbae_android.app.R
 
 class MyPageLikeListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
