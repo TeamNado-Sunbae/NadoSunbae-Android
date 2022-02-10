@@ -13,14 +13,13 @@ import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewSelectBac
 import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewWriteViewModel
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.showCustomDropDown
-import com.nadosunbae_android.domain.model.main.MajorData
-import com.nadosunbae_android.data.model.response.sign.SelectableData
+import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.review.BackgroundImageData
 import com.nadosunbae_android.domain.model.review.ReviewDetailData
 import com.nadosunbae_android.domain.model.review.ReviewEditItem
 import com.nadosunbae_android.domain.model.review.ReviewWriteItem
-import com.nadosunbae_android.data.model.ui.MajorKeyData
-import com.nadosunbae_android.data.model.ui.SelectBackgroundBoxData
+import com.nadosunbae_android.domain.model.review.SelectBackgroundBoxData
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
@@ -183,7 +182,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
             // 본전공 추가
             val firstMajor = ReviewGlobals.firstMajor
-            if (firstMajor != null && isValidMajor(firstMajor.data.majorList)
+            if (firstMajor != null && isValidMajor(firstMajor.majorId))
                 selectableList.add(SelectableData(firstMajor.majorId, firstMajor.majorName, false))
 
             // 제2전공 추가
@@ -335,7 +334,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     private fun observeMajorList() {
         mainViewModel.majorList.observe(this) {
-            val majorList: List<MajorData>? = mainViewModel.majorList.value
+            val majorList: List<com.nadosunbae_android.domain.model.main.MajorKeyData>? = mainViewModel.majorList.value
 
             // null check
             if (majorList != null) {
@@ -352,7 +351,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
             // null check
             if (selected != null) {
-                mainViewModel.setSelectedMajor(MajorKeyData(selected.id, selected.name))
+                mainViewModel.setSelectedMajor(MajorSelectData(selected.id, selected.name))
             }
 
         }

@@ -15,7 +15,7 @@ import com.nadosunbae_android.app.util.changeFragment
 import com.nadosunbae_android.app.util.changeFragmentNoBackStack
 import com.nadosunbae_android.app.util.popFragmentBackStack
 import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.data.model.ui.MajorKeyData
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -123,9 +123,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             mainViewModel.setSignData(signData)
 
             // 본전공이 default 선택
-            mainViewModel.setSelectedMajor(MajorKeyData(signData.firstMajorId, signData.secondMajorName))
-            mainViewModel.setFirstMajor(MajorKeyData(signData.firstMajorId, signData.firstMajorName))
-            mainViewModel.setSecondMajor(MajorKeyData(signData.secondMajorId, signData.secondMajorName))
+            mainViewModel.setSelectedMajor(MajorSelectData(signData.firstMajorId, signData.secondMajorName))
+            mainViewModel.setFirstMajor(MajorSelectData(signData.firstMajorId, signData.firstMajorName))
+            mainViewModel.setSecondMajor(MajorSelectData(signData.secondMajorId, signData.secondMajorName))
         }
     }
 
@@ -142,7 +142,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             // null check
             if (signData != null)
-                mainViewModel.setSelectedMajor(MajorKeyData(signData.firstMajorId, signData.firstMajorName))
+                mainViewModel.setSelectedMajor(MajorSelectData(signData.firstMajorId, signData.firstMajorName))
 
         }
     }

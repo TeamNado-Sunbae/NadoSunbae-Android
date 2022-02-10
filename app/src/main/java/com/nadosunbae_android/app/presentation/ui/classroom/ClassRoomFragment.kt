@@ -9,7 +9,7 @@ import com.nadosunbae_android.app.databinding.FragmentClassRoomBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
-import com.nadosunbae_android.data.model.ui.MajorKeyData
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
@@ -72,7 +72,7 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
             if (selectedData != null) {
-                val majorData = MajorKeyData(selectedData.id, selectedData.name)
+                val majorData = MajorSelectData(selectedData.id, selectedData.name)
                 mainViewModel.setSelectedMajor(majorData)
             }
 

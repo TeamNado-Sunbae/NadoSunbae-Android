@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
-import com.nadosunbae_android.domain.model.main.MajorData
 import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.data.model.ui.MajorKeyData
+import com.nadosunbae_android.domain.model.main.MajorKeyData
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.usecase.classroom.GetClassRoomMainDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetMajorListDataUseCase
@@ -51,8 +51,8 @@ class MainViewModel(
 
 
     // 학과 목록
-    private val _majorList = MutableLiveData<List<MajorData>>()
-    val majorList: LiveData<List<MajorData>>
+    private val _majorList = MutableLiveData<List<com.nadosunbae_android.domain.model.main.MajorKeyData>>()
+    val majorList: LiveData<List<com.nadosunbae_android.domain.model.main.MajorKeyData>>
         get() = _majorList
 
 
@@ -61,8 +61,8 @@ class MainViewModel(
 
 
     // 선택 학과
-    private var _selectedMajor = MutableLiveData<MajorKeyData>()
-    val selectedMajor: LiveData<MajorKeyData>
+    private var _selectedMajor = MutableLiveData<MajorSelectData>()
+    val selectedMajor: LiveData<MajorSelectData>
         get() = _selectedMajor
 
     // 필터
@@ -144,7 +144,7 @@ class MainViewModel(
     }
 
 
-    fun setSelectedMajor(majorData: MajorKeyData) {
+    fun setSelectedMajor(majorData: MajorSelectData) {
         _selectedMajor.value = majorData
     }
 

@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.data.model.response.sign.SelectableData
-import com.nadosunbae_android.data.model.ui.MajorKeyData
+import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.app.databinding.FragmentReviewBinding
 import com.nadosunbae_android.domain.model.review.ReviewFilterItem
 import com.nadosunbae_android.domain.model.review.ReviewPreviewData
@@ -48,7 +48,9 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         setClickListener()
         initSortSelected()
         observeSelectedMajor()
-        observePreviewList()
+
+        // observePreviewList()
+
         observeFilter()
         observeSort()
         initBottomSheet()
@@ -232,12 +234,14 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             }
         }
     }
-
+/*
     private fun observePreviewList() {
         reviewListViewModel.previewList.observe(viewLifecycleOwner) {
             // recyclerView adaper에 적용
         }
     }
+
+ */
 
     private fun observeSelectedMajor() {
         // 선택 학과 observe
@@ -337,7 +341,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
             if (selectedData != null) {
-                val majorData = MajorKeyData(selectedData.id, selectedData.name)
+                val majorData = MajorSelectData(selectedData.id, selectedData.name)
                 mainViewModel.setSelectedMajor(majorData)
             }
 
