@@ -147,11 +147,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/cl_my_page_main_title">
 
 
-            <TextView
+                <TextView
                     android:id="@+id/text_signup_basicinfo_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/pretendard_medium"
                     android:text="@string/classroom_question_nickname"
@@ -159,6 +159,19 @@
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_signup_basicinfo_nickname_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/signup_basicinfo_nickname"
+                    android:textColor="@drawable/selector_text_gray_to_red"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_signup_basicinfo_nickname"
+                    app:layout_constraintStart_toEndOf="@+id/text_signup_basicinfo_nickname"
+                    app:layout_constraintTop_toTopOf="@+id/text_signup_basicinfo_nickname" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_signup_basicinfo_nickname"
@@ -357,7 +370,7 @@
                     android:layout_marginTop="17dp"
                     android:fontFamily="@font/pretendard_medium"
                     android:text="@string/sign_in_pw"
-                    android:textColor="@drawable/selector_text_gray_to_red"
+                    android:textColor="@color/gray_3"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_signup_basicinfo_email_duplication_ok" />

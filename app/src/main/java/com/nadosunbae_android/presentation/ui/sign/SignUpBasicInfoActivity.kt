@@ -98,22 +98,25 @@ class SignUpBasicInfoActivity :
             }
 
             override fun afterTextChanged(p0: Editable?) {
+                //닉네임 textfield 빈칸인지 체크
                 if (binding.etSignupBasicinfoNickname.text.toString() == "") {
                     binding.imgSignupBasicinfoNicknameCancel.isSelected = false
-                    binding.textSignupBasicinfoNicknameDuplication.isSelected = false
-                    binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
                     binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
-
+                    binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
                 } else {
+                    isNickNamePattern()
                     binding.imgSignupBasicinfoNicknameCancel.isSelected = true
-                    binding.textSignupBasicinfoNicknameDuplication.isSelected = true
-
                     binding.textSignupBasicinfoNicknameDuplication.setOnClickListener {
                         signUpBasicInfoViewModel.nickName.value = p0.toString()
                         nicknameDuplication()
                     }
                 }
-
+                //닉네임 textfield 한글자라도 바뀐다면
+                val checkNickname = binding.etSignupBasicinfoNickname.text.toString()
+                if(checkNickname != binding.etSignupBasicinfoNickname.text.toString()) {
+                    binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
+                    binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
+                }
             }
 
         })
@@ -275,13 +278,26 @@ class SignUpBasicInfoActivity :
         }
     }
 
+    //닉네임 정규식
+    private fun isNickNamePattern(){
+        val nickname = binding.etSignupBasicinfoNickname
+
+        if(!Pattern.matches("^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())){
+            binding.textSignupBasicinfoNicknameTitle.setTextColor(Color.parseColor("#FF4C40"))
+            binding.textSignupBasicinfoNicknameDuplication.isSelected = false
+        } else {
+            binding.textSignupBasicinfoNicknameTitle.setTextColor(Color.parseColor("#94959E"))
+            binding.textSignupBasicinfoNicknameDuplication.isSelected = true
+        }
+
+    }
+
     //이메일 정규식
     private fun isEmailPattern() {
         val pattern = Patterns.EMAIL_ADDRESS
         binding.textSignupBasicinfoEmailDuplication.isSelected =
             pattern.matcher(binding.etSignupBasicinfoEmail.text).matches()
     }
-
 
     //상단 x누르면 로그인으로 이동
     fun closePage() {
@@ -299,6 +315,7 @@ class SignUpBasicInfoActivity :
 
         }
     }
+
 
     private fun nextPage() {
         signUpBasicInfoViewModel.requestSignUp.email = binding.etSignupBasicinfoEmail.text.toString()
@@ -335,26 +352,5 @@ class SignUpBasicInfoActivity :
             startActivity(Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java))
             finish()
         }
-        //맞는 로직인지는 잘 모르겠는데 서버 들어오고 수정해야할 듯
-//        if(binding.textSignupBasicinfoNicknameDuplicationNo.visibility == View.VISIBLE ||
-//                    binding.textSignupBasicinfoEmailDuplicationNo.visibility == View.VISIBLE) {
-//            binding.clSignupBasicinfoMoveNext.isSelected = false
-//        }
-//
-//        else if(binding.textSignupBasicinfoNicknameDuplicationNo.visibility == View.VISIBLE ||
-//            binding.textSignupBasicinfoPwDuplicationNo.visibility == View.VISIBLE) {
-//            binding.clSignupBasicinfoMoveNext.isSelected = false
-//        }
-//
-//        else if(binding.textSignupBasicinfoEmailDuplicationNo.visibility == View.VISIBLE ||
-//            binding.textSignupBasicinfoPwDuplicationNo.visibility == View.VISIBLE){
-//            binding.clSignupBasicinfoMoveNext.isSelected = false
-//        }
-//
-//        else {
-//            binding.clSignupBasicinfoMoveNext.isSelected = true
-//        }
     }
-
-
 }
