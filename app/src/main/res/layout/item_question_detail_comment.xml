@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="questionDetailWriterComment"
-            type="com.nadosunbae_android.data.model.response.classroom.ResponseClassRoomQuestionDetail.Data.Message" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

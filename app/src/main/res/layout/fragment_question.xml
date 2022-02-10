@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:background="@color/background"
             android:paddingBottom="24dp"
-            tools:context=".presentation.ui.classroom.QuestionFragment">
+            tools:context=".app.presentation.ui.classroom.QuestionFragment">
 
             <ImageView
                 android:id="@+id/img_personal_question"

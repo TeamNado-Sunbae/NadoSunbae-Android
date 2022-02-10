@@ -11,7 +11,7 @@
 
         <variable
             name="fragment"
-            type="com.nadosunbae_android.util.CustomBottomSheetDialog"/>
+            type="com.nadosunbae_android.app.util.CustomBottomSheetDialog"/>
 
     </data>
 
@@ -85,7 +85,7 @@
             android:textAlignment="center"
             android:textColor="@drawable/selector_gray_3_to_main_default_enabled"
             android:textSize="16sp"
-            android:onClick="@{fragment.completeBtnListener}"
+            android:onClick="@{fragment::completeBtnListener}"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
 

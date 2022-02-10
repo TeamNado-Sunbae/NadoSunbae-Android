@@ -1,11 +1,3 @@
-import Apps.compileSdk
-import Apps.minSdk
-import Apps.targetSdk
-import Apps.versionCode
-import Apps.versionName
-import org.gradle.internal.impldep.com.amazonaws.PredefinedClientConfigurations.defaultConfig
-import java.net.InetAddress.getByName
-
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -23,8 +15,6 @@ android {
     defaultConfig {
         minSdk = Apps.minSdk
         targetSdk = Apps.targetSdk
-        versionCode = Apps.versionCode
-        versionName = Apps.versionName
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

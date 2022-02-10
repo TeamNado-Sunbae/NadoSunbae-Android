@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".presentation.ui.main.MainActivity">
+        tools:context=".app.presentation.ui.main.MainActivity">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_main"
@@ -29,7 +29,6 @@
             app:itemTextColor="@color/selector_nav_menu_text"
             app:itemIconTint="@color/selector_nav_menu_icon"
             android:textSize="12sp"
-            android:theme="@style/Widget.BottomNavigationView"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -6,14 +6,14 @@
     <data>
         <variable
             name="seniorPersonal"
-            type="com.nadosunbae_android.data.model.response.classroom.ResponseSeniorPersonalData" />
+            type="com.nadosunbae_android.domain.model.classroom.SeniorPersonalData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".presentation.ui.classroom.SeniorPersnoalFragment">
+        tools:context=".app.presentation.ui.classroom.SeniorPersnoalFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_senior_personal_title"
@@ -39,8 +39,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/btn_senior_personal_title"
+            <ImageView
+                android:id="@+id/img_senior_personal_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="44dp"
@@ -69,7 +69,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/img_profile"
+                profileImgBig="@{seniorPersonal.profileImageId}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -82,7 +82,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:includeFontPadding="false"
-                android:text="@{seniorPersonal.data.nickname}"
+                android:text="@{seniorPersonal.nickname}"
                 android:textColor="@color/origin_black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/img_senior_personal_profile"
@@ -133,7 +133,7 @@
                 android:layout_marginStart="6dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@{seniorPersonal.data.firstMajorName}"
+                android:text="@{seniorPersonal.firstMajorName}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/line_senior_personal_major"
@@ -146,7 +146,7 @@
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@{seniorPersonal.data.firstMajorStart}"
+                android:text="@{seniorPersonal.firstMajorStart}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_personal_major_name"
@@ -183,7 +183,7 @@
                 android:layout_marginStart="7dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@{seniorPersonal.data.secondMajorName}"
+                android:text="@{seniorPersonal.secondMajorName}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/line_senior_personal_second_major"
@@ -196,7 +196,7 @@
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@{seniorPersonal.data.secondMajorStart}"
+                android:text="@{seniorPersonal.secondMajorStart}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_personal_second_major_name"

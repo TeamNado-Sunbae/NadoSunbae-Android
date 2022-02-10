@@ -6,7 +6,7 @@
     <data>
         <variable
             name="myPageInfo"
-            type="com.nadosunbae_android.model.mypage.MyPageMyInfo" />
+            type="com.nadosunbae_android.domain.model.mypage.MyPageMyInfo" />
     </data>
 
 
