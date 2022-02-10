@@ -101,21 +101,23 @@ class SignUpMajorInfoActivity :
 //            binding.clSignupMajorInfoMoveNext.isSelected = false
 //        }
         //binding.clSignupMajorInfoMoveNext.isSelected = true
-        binding.clSignupMajorInfoMoveNext.setOnClickListener {
+        if(binding.clSignupMajorInfoMoveNext.isSelected == true) {
+            binding.clSignupMajorInfoMoveNext.setOnClickListener {
 
-            // 버튼 활성화 CHECK
+                // 버튼 활성화 CHECK
 //            if (binding.clSignupMajorInfoMoveNext.isSelected) {
-            //signUpBasicInfoViewModel.requestSignUp.firstMajorId = binding.textSignupMajorInfoMajor.id
-            signUpBasicInfoViewModel.requestSignUp.firstMajorStart =
-                binding.textSignupMajorInfoMajorTime.text.toString()
-            signUpBasicInfoViewModel.requestSignUp.secondMajorId =
-                binding.textSignupMajorInfoMajor.id
-            signUpBasicInfoViewModel.requestSignUp.secondMajorStart =
-                binding.textSignupMajorInfoDoubleMajorTime.text.toString()
+                //signUpBasicInfoViewModel.requestSignUp.firstMajorId = binding.textSignupMajorInfoMajor.id
+                signUpBasicInfoViewModel.requestSignUp.firstMajorStart =
+                    binding.textSignupMajorInfoMajorTime.text.toString()
+                signUpBasicInfoViewModel.requestSignUp.secondMajorId =
+                    binding.textSignupMajorInfoMajor.id
+                signUpBasicInfoViewModel.requestSignUp.secondMajorStart =
+                    binding.textSignupMajorInfoDoubleMajorTime.text.toString()
 
-            startActivity(Intent(this, SignUpBasicInfoActivity::class.java))
-            //}
+                startActivity(Intent(this, SignUpBasicInfoActivity::class.java))
+                //}
 
+            }
 
         }
     }
@@ -227,7 +229,7 @@ class SignUpMajorInfoActivity :
             if (signViewModel.secondMajor.value.toString() == "미진입") {
                 binding.clSignupMajorInfoDoubleMajorTime.isClickable = false
                 binding.textSignupMajorinfoDoubleMajorTime.text = "선택하기"
-                binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#94959E"))
+                binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
                 binding.textSignupMajorinfoDoubleMajorMintTime.setText("선택")
             } else {
                 binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
@@ -302,6 +304,27 @@ class SignUpMajorInfoActivity :
             }
 
         }
+        initNextBtnClick()
+    }
+
+    //다음으로 가는 버튼 활성화
+    private fun initNextBtnClick() {
+        binding.apply {
+            if(textSignupMajorInfoDoubleMajor.text.toString() == "미진입") {
+                if (textSignupMajorInfoMajor.text.toString() == "선택하기" || textSignupMajorInfoMajorTime.text.toString() == "선택하기") {
+                    clSignupMajorInfoMoveNext.isSelected = false
+                }
+            }
+            else {
+                if (textSignupMajorInfoMajor.text.toString() == "선택하기" || textSignupMajorInfoMajorTime.text.toString() == "선택하기"
+                    || textSignupMajorInfoDoubleMajor.text.toString() == "선택하기" || textSignupMajorInfoDoubleMajorTime.text.toString() == "선택하기") {
+                    clSignupMajorInfoMoveNext.isSelected = false
+                } else {
+                    clSignupMajorInfoMoveNext.isSelected = false
+                }
+            }
+
+        }
     }
 
     private fun setupSpinner() {
@@ -330,18 +353,7 @@ class SignUpMajorInfoActivity :
 
     }
 
-    private fun initNextBtnClick() {
-        binding.apply {
-//            if(signViewModel.secondMajor.value.toString() != "미진입") {
-//                if(textSignupMajorInfoMajor.text.toString() != "선택하기" && textSignupMajorInfoMajorTime.text.toString() !="선택하기"
-//                    && textSignupMajorInfoDoubleMajor.text.toString() != "선택하기" && textSignupMajorInfoDoubleMajorTime.text.toString() !="선택하기") {
-//                    clSignupMajorInfoMoveNext.isSelected = true
-//                } else {
-//                    clSignupMajorInfoMoveNext.isSelected = false
-//                }
-            }
 
-        }
-
-    }
 }
+
+
