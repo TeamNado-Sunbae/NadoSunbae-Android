@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.nadosunbae_android.R
+import com.nadosunbae_android.app.R
 import java.text.SimpleDateFormat
 import java.util.*
 

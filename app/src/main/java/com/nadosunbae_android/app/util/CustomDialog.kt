@@ -7,8 +7,8 @@ import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.DialogGenericBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.DialogGenericBinding
 import kotlinx.android.synthetic.main.dialog_question_write_cancel.*
 import kotlinx.android.synthetic.main.dialog_question_write_complete.*
 

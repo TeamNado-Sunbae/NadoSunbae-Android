@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.nadosunbae_android.R
+import com.nadosunbae_android.app.R
 import androidx.databinding.DataBindingUtil
-import com.nadosunbae_android.databinding.FragmentFilterBottomSheetBinding
+import com.nadosunbae_android.app.databinding.FragmentFilterBottomSheetBinding
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_FIRST_MAJOR

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.widget.EditText
 import android.widget.RelativeLayout
-import com.nadosunbae_android.databinding.ViewCustomEditTextBinding
+import com.nadosunbae_android.app.databinding.ViewCustomEditTextBinding
 
 class CustomEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

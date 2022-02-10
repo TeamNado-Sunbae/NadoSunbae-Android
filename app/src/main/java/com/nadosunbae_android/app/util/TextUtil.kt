@@ -2,7 +2,7 @@ package com.nadosunbae_android.app.util
 
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
-import com.nadosunbae_android.R
+import com.nadosunbae_android.app.R
 
 object TextUtil {
 }

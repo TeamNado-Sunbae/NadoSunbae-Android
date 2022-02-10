@@ -5,7 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.WindowManager
-import com.nadosunbae_android.R
+import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.presentation.ui.sign.SignUpBasicInfoActivity
 import kotlinx.android.synthetic.main.activity_sign_in_custom_dialog.*
 

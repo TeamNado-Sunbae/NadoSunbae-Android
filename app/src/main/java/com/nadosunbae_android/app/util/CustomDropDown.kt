@@ -9,7 +9,7 @@ import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.R
+import com.nadosunbae_android.app.R
 import com.nadosunbae_android.domain.model.main.SelectableData
 
 

@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.ItemSignupSpinnerBinding
-import com.nadosunbae_android.databinding.SpinnerItemBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ItemSignupSpinnerBinding
+import com.nadosunbae_android.app.databinding.SpinnerItemBinding
 
 class SpinnerAdapter(
     context: Context,

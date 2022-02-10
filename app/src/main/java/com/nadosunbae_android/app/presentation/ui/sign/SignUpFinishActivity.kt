@@ -2,8 +2,8 @@ package com.nadosunbae_android.app.presentation.ui.sign
 
 import android.content.Intent
 import android.os.Bundle
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.ActivitySignUpFinishBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ActivitySignUpFinishBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 

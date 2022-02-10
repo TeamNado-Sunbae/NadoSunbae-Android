@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import com.nadosunbae_android.R
+import com.nadosunbae_android.app.R
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
-import com.nadosunbae_android.databinding.ActivitySeniorPersonalBinding
+import com.nadosunbae_android.app.databinding.ActivitySeniorPersonalBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter

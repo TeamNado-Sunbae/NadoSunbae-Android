@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import androidx.activity.viewModels
-import com.nadosunbae_android.R
+import com.nadosunbae_android.app.R
 import com.nadosunbae_android.domain.model.main.SelectableData
-import com.nadosunbae_android.databinding.ActivitySignUpMajorInfoBinding
+import com.nadosunbae_android.app.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.sign.adapter.SpinnerAdapter
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
