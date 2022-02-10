@@ -9,6 +9,7 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nadosunbae_android.R
@@ -24,8 +25,8 @@ import java.util.regex.Pattern
 
 class SignUpBasicInfoActivity :
     BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels{
-        object : ViewModelProvider.Factory{
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels {
+        object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return SignUpBasicInfoViewModel() as T
             }
@@ -40,17 +41,17 @@ class SignUpBasicInfoActivity :
         pwCheckTextWatcher()
         beforeBtnClick()
         closePage()
-        nextPage()
+
     }
 
     private fun nicknameDuplication() {
         //닉네임 중복 체크 서버 통신
-        signUpBasicInfoViewModel.nickName.observe(this){
+        signUpBasicInfoViewModel.nickName.observe(this) {
             signUpBasicInfoViewModel.nickNameDuplication(RequestSignNickname(it))
         }
 
-        signUpBasicInfoViewModel.nickNameDuplication.observe(this){
-            if(it){
+        signUpBasicInfoViewModel.nickNameDuplication.observe(this) {
+            if (it) {
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
             } else {
@@ -67,12 +68,12 @@ class SignUpBasicInfoActivity :
 
     private fun emailDuplication() {
         //이메일 중복 체크 서버 통신
-        signUpBasicInfoViewModel.email.observe(this){
+        signUpBasicInfoViewModel.email.observe(this) {
             signUpBasicInfoViewModel.emailDuplication(RequestSignEmail(it))
         }
 
-        signUpBasicInfoViewModel.emailDuplication.observe(this){
-            if(it){
+        signUpBasicInfoViewModel.emailDuplication.observe(this) {
+            if (it) {
                 binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
                 binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
             } else {
@@ -109,16 +110,18 @@ class SignUpBasicInfoActivity :
                     binding.textSignupBasicinfoNicknameDuplication.setOnClickListener {
                         signUpBasicInfoViewModel.nickName.value = p0.toString()
                         nicknameDuplication()
+                        activationNextBtn()
+                    }
+
+                    val nickname = signUpBasicInfoViewModel.nickName.value
+
+                    //닉네임 textfield 한글자라도 바뀐다면 하단 텍스트 사라지게
+                    if (nickname != binding.etSignupBasicinfoNickname.text.toString()) {
+                        binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
+                        binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
                     }
                 }
-                //닉네임 textfield 한글자라도 바뀐다면
-                val checkNickname = binding.etSignupBasicinfoNickname.text.toString()
-                if(checkNickname != binding.etSignupBasicinfoNickname.text.toString()) {
-                    binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
-                    binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
-                }
             }
-
         })
 
         binding.imgSignupBasicinfoNicknameCancel.setOnClickListener {
@@ -153,6 +156,16 @@ class SignUpBasicInfoActivity :
                     binding.textSignupBasicinfoEmailDuplication.setOnClickListener {
                         signUpBasicInfoViewModel.email.value = p0.toString()
                         emailDuplication()
+                        activationNextBtn()
+                    }
+
+
+                    val email = signUpBasicInfoViewModel.email.value
+
+                    //이메일 textfield 한글자라도 바뀐다면 하단 텍스트 사라지게
+                    if (email != binding.etSignupBasicinfoEmail.text.toString()) {
+                        binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
+                        binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
                     }
                 }
 
@@ -170,7 +183,7 @@ class SignUpBasicInfoActivity :
 
 
     private fun initSetting() {
-        if(binding.etSignupBasicinfoPw.text.toString() == "" || binding.etSignupBasicinfoPwCheck.text.toString()=="") {
+        if (binding.etSignupBasicinfoPw.text.toString() == "" || binding.etSignupBasicinfoPwCheck.text.toString() == "") {
             binding.textSignupBasicinfoPwDuplicationOk.visibility = View.INVISIBLE
             binding.textSignupBasicinfoPwDuplicationNo.visibility = View.INVISIBLE
         }
@@ -201,6 +214,7 @@ class SignUpBasicInfoActivity :
                     if (binding.etSignupBasicinfoPw.text.toString() == binding.etSignupBasicinfoPwCheck.text.toString()) {
                         binding.textSignupBasicinfoPwDuplicationOk.visibility = View.VISIBLE
                         binding.textSignupBasicinfoPwDuplicationNo.visibility = View.INVISIBLE
+                        activationNextBtn()
                     } else {
                         binding.textSignupBasicinfoPwDuplicationOk.visibility = View.INVISIBLE
                         binding.textSignupBasicinfoPwDuplicationNo.visibility = View.VISIBLE
@@ -279,10 +293,10 @@ class SignUpBasicInfoActivity :
     }
 
     //닉네임 정규식
-    private fun isNickNamePattern(){
+    private fun isNickNamePattern() {
         val nickname = binding.etSignupBasicinfoNickname
 
-        if(!Pattern.matches("^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())){
+        if (!Pattern.matches("^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())) {
             binding.textSignupBasicinfoNicknameTitle.setTextColor(Color.parseColor("#FF4C40"))
             binding.textSignupBasicinfoNicknameDuplication.isSelected = false
         } else {
@@ -318,9 +332,12 @@ class SignUpBasicInfoActivity :
 
 
     private fun nextPage() {
-        signUpBasicInfoViewModel.requestSignUp.email = binding.etSignupBasicinfoEmail.text.toString()
-        signUpBasicInfoViewModel.requestSignUp.nickname = binding.etSignupBasicinfoNickname.text.toString()
-        signUpBasicInfoViewModel.requestSignUp.password = binding.etSignupBasicinfoPw.text.toString()
+        signUpBasicInfoViewModel.requestSignUp.email =
+            binding.etSignupBasicinfoEmail.text.toString()
+        signUpBasicInfoViewModel.requestSignUp.nickname =
+            binding.etSignupBasicinfoNickname.text.toString()
+        signUpBasicInfoViewModel.requestSignUp.password =
+            binding.etSignupBasicinfoPw.text.toString()
         val signData = signUpBasicInfoViewModel.signUp.value
         if (signData != null) {
 //            val request = RequestSignUp(
@@ -338,19 +355,37 @@ class SignUpBasicInfoActivity :
 
         binding.clSignupBasicinfoMoveNext.setOnClickListener {
             Log.d("signUp", "post0")
-            signUpBasicInfoViewModel.signUp(RequestSignUp(
-                signUpBasicInfoViewModel.requestSignUp.email,
-                signUpBasicInfoViewModel.requestSignUp.nickname,
-                signUpBasicInfoViewModel.requestSignUp.password,
-                1,
-                signUpBasicInfoViewModel.requestSignUp.firstMajorId,
-                signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
-                signUpBasicInfoViewModel.requestSignUp.secondMajorId,
-                signUpBasicInfoViewModel.requestSignUp.secondMajorStart
-            ))
+            signUpBasicInfoViewModel.signUp(
+                RequestSignUp(
+                    signUpBasicInfoViewModel.requestSignUp.email,
+                    signUpBasicInfoViewModel.requestSignUp.nickname,
+                    signUpBasicInfoViewModel.requestSignUp.password,
+                    1,
+                    signUpBasicInfoViewModel.requestSignUp.firstMajorId,
+                    signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
+                    signUpBasicInfoViewModel.requestSignUp.secondMajorId,
+                    signUpBasicInfoViewModel.requestSignUp.secondMajorStart
+                )
+            )
             Log.d("signUp", "post1")
             startActivity(Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java))
             finish()
+        }
+    }
+
+    private fun activationNextBtn() {
+        if (binding.textSignupBasicinfoNicknameDuplicationOk.isVisible && binding.textSignupBasicinfoEmailDuplicationOk.isVisible && binding.textSignupBasicinfoPwDuplicationOk.isVisible) {
+            binding.clSignupBasicinfoMoveNext.isSelected = true
+            binding.textSignupBasicinfoNext.isSelected = true
+
+            nextPage()
+
+        } else {
+            binding.clSignupBasicinfoMoveNext.isSelected = false
+            binding.textSignupBasicinfoNext.isSelected = false
+            Log.d("hyebin log1", "${binding.textSignupBasicinfoNicknameDuplicationOk.isVisible}")
+            Log.d("hyebin log2", "${binding.textSignupBasicinfoEmailDuplicationOk.isVisible}")
+            Log.d("hyebin log3", "${binding.textSignupBasicinfoNicknameDuplicationOk.isVisible}")
         }
     }
 }
