@@ -13,13 +13,13 @@ import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivit
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.data.mapper.classroom.ClassRoomMapper
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.layout.activity_senior_personal) {
 
     private lateinit var classRoomQuestionMainAdapter: ClassRoomQuestionMainAdapter
     private lateinit var callback: OnBackPressedCallback
+
     private val mainViewModel: MainViewModel by viewModel()
 
     private val seniorPersonalViewModel: SeniorPersonalViewModel by viewModel()
@@ -34,15 +34,14 @@ class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.lay
         goQuestionWrite()
     }
 
-
     //선배에게 온 1:1 질문 목록
     private fun initSeniorQuestion() {
 
-        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(2, 0,0)
+        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(2, mainViewModel.userId.value ?: 0,0)
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
         seniorPersonalViewModel.seniorQuestion.observe(this) {
             Log.d("seniorQuestionAdapter", "좀 되라")
-            classRoomQuestionMainAdapter.setQuestionMain(ClassRoomMapper.mapperToSeniorQuestion(it) as MutableList<ClassRoomData>)
+            classRoomQuestionMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
         }
 
 
@@ -66,16 +65,17 @@ class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.lay
         seniorPersonalViewModel.seniorPersonal.observe(this) {
             seniorPersonalViewModel.userId.value = it.userId
             binding.seniorPersonal = it
-            if (it.secondMajorName == "미진입")
+            if(it.secondMajorName == "미진입")
                 binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
         }
     }
 
     //뒤로가기
     private fun goSeniorFragment(){
-        binding.btnSeniorPersonalTitle.setOnClickListener {
-            finish()
+        binding.imgSeniorPersonalTitle.setOnClickListener {
+            mainViewModel.classRoomBackFragmentNum.value = 1
         }
+
     }
 
     //작성창으로 이동
@@ -92,15 +92,6 @@ class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.lay
             startActivity(intent)
         }
     }
-
-    // intent로 넘겨받은 seniorId 적용
-    private fun getSeniorIdFromIntent() {
-
-        val seniorId = intent.getIntExtra("userId", -1)
-        if (seniorId != -1)
-            mainViewModel.seniorId.value = seniorId
-    }
-
 
     override fun onResume() {
         super.onResume()
