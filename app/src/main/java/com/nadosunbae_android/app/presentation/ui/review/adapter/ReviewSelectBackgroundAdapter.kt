@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.ui.SelectBackgroundBoxData
+import com.nadosunbae_android.domain.model.review.SelectBackgroundBoxData
 import com.nadosunbae_android.app.databinding.ItemListBackgroundBinding
 import com.nadosunbae_android.app.util.getBackgroundImage
 

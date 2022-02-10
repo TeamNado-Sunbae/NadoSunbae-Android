@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.data.model.response.sign.SelectableData
-import com.nadosunbae_android.databinding.ItemBottomsheetListBinding
+import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.app.databinding.ItemBottomsheetListBinding
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
+import com.nadosunbae_android.app.util.setTextSemiBold
 
 class MajorSelectAdapter(
     var link : CustomBottomSheetDialog.DataToFragment

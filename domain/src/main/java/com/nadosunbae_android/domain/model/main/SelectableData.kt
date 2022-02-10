@@ -1,4 +1,4 @@
-package com.nadosunbae_android.data.model.response.sign
+package com.nadosunbae_android.domain.model.main
 
 data class SelectableData(
     val id: Int,

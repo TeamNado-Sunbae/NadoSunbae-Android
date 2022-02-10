@@ -1,6 +1,6 @@
 package com.nadosunbae_android.app.util
 
-import com.nadosunbae_android.R
+import com.nadosunbae_android.app.R
 
 object ResourceUtil {
 }

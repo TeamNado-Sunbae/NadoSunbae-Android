@@ -1,4 +1,4 @@
-package com.nadosunbae_android.data.model.ui
+package com.nadosunbae_android.domain.model.review
 
 data class SelectBackgroundBoxData(
     val imageId: Int,

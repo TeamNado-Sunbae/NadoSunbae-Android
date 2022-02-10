@@ -9,8 +9,8 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import androidx.activity.viewModels
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.ActivitySignUpBasicInfoBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ActivitySignUpBasicInfoBinding
 import com.nadosunbae_android.domain.model.sign.EmailDuplicationData
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
 import com.nadosunbae_android.domain.model.sign.SignUpData

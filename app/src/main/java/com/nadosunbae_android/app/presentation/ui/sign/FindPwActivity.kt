@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
-import com.nadosunbae_android.R
-import com.nadosunbae_android.databinding.ActivityFindPwBinding
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ActivityFindPwBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 
 
