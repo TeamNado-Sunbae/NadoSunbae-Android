@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.mypage.MyPageClassroomReviewActivity">
+    tools:context=".app.presentation.ui.mypage.MyPageClassroomReviewActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

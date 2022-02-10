@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.nadosunbae_android">
+    package="com.nadosunbae_android.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -88,9 +88,6 @@
             android:exported="false" />
         <activity
             android:name=".presentation.ui.mypage.ModifyMyInfoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.mypage.MyPageSettingActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.mypage.MyPageClassroomReviewActivity"

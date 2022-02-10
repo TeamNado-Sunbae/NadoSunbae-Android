@@ -5,7 +5,7 @@
     <data>
         <variable
             name="questionDetailQuestioner"
-            type="com.nadosunbae_android.model.classroom.QuestionDetailData.Message" />
+            type="com.nadosunbae_android.domain.model.classroom.QuestionDetailData.Message" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

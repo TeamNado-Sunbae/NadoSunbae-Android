@@ -7,7 +7,7 @@
 
         <variable
             name="notification"
-            type="com.nadosunbae_android.model.notification.NotificationListData" />
+            type="com.nadosunbae_android.domain.model.notification.NotificationListData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
