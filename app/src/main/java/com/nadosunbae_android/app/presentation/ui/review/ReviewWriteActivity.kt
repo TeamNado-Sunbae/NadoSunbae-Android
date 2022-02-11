@@ -72,7 +72,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
         // 수정하기 일 때 기존 데이터 불러오기
         if (mode == MODE_MODIFY) {
-            modifyData = intent.getSerializableExtra("modifyData") as ReviewDetailData
+            modifyData = intent.getParcelableExtra<ReviewDetailData>("modifyData") as ReviewDetailData
 
             // 불러온 데이터로 텍스트 상자 채워넣기
             with (binding) {
