@@ -6,9 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.app.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.sign.adapter.SpinnerAdapter
@@ -17,13 +15,15 @@ import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.PixelRatio
 import com.nadosunbae_android.app.util.SignInCustomDialog
+import com.nadosunbae_android.domain.model.main.SelectableData
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SignUpMajorInfoActivity :
     BaseActivity<ActivitySignUpMajorInfoBinding>(R.layout.activity_sign_up_major_info) {
-    private val signViewModel: SignViewModel by viewModels()
+    private val signViewModel: SignViewModel by viewModel()
 
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
 
     val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
     val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
@@ -45,10 +45,10 @@ class SignUpMajorInfoActivity :
         firstMajorPeriod()
         setupSpinner()
         setupSpinnerHandler()
+        secondMajorPeriod()
 
         firstMajor()
         secondMajor()
-        secondMajorPeriod()
     }
 
     //X버튼 클릭 리스너
@@ -77,21 +77,17 @@ class SignUpMajorInfoActivity :
 
 
     private fun nextBtnActivate() {
-        if(binding.clSignupMajorInfoMoveNext.isSelected) {
-            binding.clSignupMajorInfoMoveNext.setOnClickListener {
-                signUpBasicInfoViewModel.requestSignUp.firstMajorStart = binding.textSignupMajorInfoMajorTime.text.toString()
-                signUpBasicInfoViewModel.requestSignUp.secondMajorId = binding.textSignupMajorInfoMajor.id
-                signUpBasicInfoViewModel.requestSignUp.secondMajorStart = binding.textSignupMajorInfoDoubleMajorTime.text.toString()
-                startActivity(Intent(this, SignUpBasicInfoActivity::class.java))
-            }
+        binding.clSignupMajorInfoMoveNext.setOnClickListener {
+            signUpBasicInfoViewModel.requestSignUp.firstMajorStart = binding.textSignupMajorInfoMajorTime.text.toString()
+            signUpBasicInfoViewModel.requestSignUp.secondMajorId = binding.textSignupMajorInfoMajor.id
+            signUpBasicInfoViewModel.requestSignUp.secondMajorStart = binding.textSignupMajorInfoDoubleMajorTime.text.toString()
+            startActivity(Intent(this, SignUpBasicInfoActivity::class.java))
         }
     }
 
     private fun onClickbottomSheetUniv() {
         binding.clSignupMajorInfoUniv.setOnClickListener {
-
             bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
-
         }
     }
 
@@ -123,11 +119,7 @@ class SignUpMajorInfoActivity :
 
                 binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
                 binding.textSignupMajorinfoMajorMint.text = "변경"
-
-                //val firstDepartment = signUpBasicInfoViewModel.firstDepartment.value
             }
-//        signUpBasicInfoViewModel.signUp.observe(this) {
-//        }
     }
 
     //제 1전공 진입시기 선택 바텀시트
@@ -200,6 +192,7 @@ class SignUpMajorInfoActivity :
                 binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
             }
         }
+
         signViewModel.secondMajor
             .observe(this) {
                 binding.textSignupMajorinfoDoubleMajor.setText(it)
@@ -214,11 +207,12 @@ class SignUpMajorInfoActivity :
     //제 2전공 진입시기 바텀시트
     private fun secondMajorPeriod() {
         binding.clSignupMajorInfoDoubleMajorTime.setOnClickListener {
-
             secondDepartmentPeriodBottomSheetDialog.show(
                 supportFragmentManager,
                 secondDepartmentPeriodBottomSheetDialog.tag
             )
+
+
             // test data
             var secondMajorSelectionPeriodData = mutableListOf(
                 SelectableData(1, "22-1", false),
@@ -236,29 +230,20 @@ class SignUpMajorInfoActivity :
                 SelectableData(13, "16-1", false),
                 SelectableData(14, "15-2", false),
                 SelectableData(15, "15-1", false),
-                SelectableData(16, "15년 이전", false)
-
-            )
+                SelectableData(16, "15년 이전", false))
 
             var secondMajorSelectionPeriodDatNot = mutableListOf(
-                SelectableData(1, "미진입", false)
+                SelectableData(1,"미진입", false)
             )
 
-            secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
-
             if (binding.textSignupMajorinfoDoubleMajor.text == "미진입") {
-                secondDepartmentPeriodBottomSheetDialog.setDataList(
-                    secondMajorSelectionPeriodDatNot
-                )
+                secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodDatNot)
             } else {
-                secondDepartmentPeriodBottomSheetDialog.setDataList(
-                    secondMajorSelectionPeriodData
-                )
+                secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
             }
 
             secondDepartmentPeriodBottomSheetDialog.setCompleteListener {
-                val secondMajorPeriod =
-                    secondDepartmentPeriodBottomSheetDialog.getSelectedData()
+                val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
                 signViewModel.secondMajorPeriod.value = secondMajorPeriod?.name
             }
 
@@ -267,7 +252,6 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
                 binding.textSignupMajorinfoDoubleMajorMintTime.setText("변경")
             }
-
         }
         initNextBtnClick()
     }
@@ -288,9 +272,9 @@ class SignUpMajorInfoActivity :
                     clSignupMajorInfoMoveNext.isSelected = false
                 }
             }
-
         }
     }
+
 
     private fun setupSpinner() {
         val list = listOf("고려대학교", "타 대학은 현재 준비중입니다")
@@ -308,17 +292,9 @@ class SignUpMajorInfoActivity :
                     view: View?,
                     position: Int,
                     id: Long
-                ) {
-                }
-
+                ) {}
                 override fun onNothingSelected(p0: AdapterView<*>?) {
-
                 }
             }
-
     }
-
-
 }
-
-
