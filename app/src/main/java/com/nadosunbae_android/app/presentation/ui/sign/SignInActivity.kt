@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.nadosunbae_android.app.R
@@ -15,11 +17,12 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private lateinit var mainActivity: MainActivity
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,7 +135,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         Log.d("SignUp", "서버 통신 성공!")
 
         binding.clLogin.setOnClickListener {
-
             signUpBasicInfoViewModel.signIn(
                 SignInData(
                     signUpBasicInfoViewModel.email.value.toString(),
@@ -142,8 +144,12 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             )
 
             signUpBasicInfoViewModel.signIn.observe(this) {
+                if(!it.success) {
+                    Log.d("로그인", "실패")
+                }
                 if (it.success) {
                     Log.d("accessToken", it.accesstoken.toString())
+                    Log.d("로그인", "성공")
                     NadoSunBaeSharedPreference.setAccessToken(this, it.accesstoken)
                     val intent = Intent(this, MainActivity::class.java)
                     val data = it.user

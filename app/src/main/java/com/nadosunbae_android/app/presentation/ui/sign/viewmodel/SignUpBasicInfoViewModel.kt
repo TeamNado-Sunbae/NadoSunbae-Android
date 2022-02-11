@@ -92,7 +92,9 @@ class SignUpBasicInfoViewModel(
 
                 }
                 .onFailure {
+
                     it.printStackTrace()
+                    emailDuplication.value = false
                     Log.d("emailDuplication", "서버 통신 실패")
                 }
         }
@@ -107,8 +109,6 @@ class SignUpBasicInfoViewModel(
                 is ResultWrapper.GenericError -> checkStatus(postSignIn.code)
             }
             Log.d("signInStatus", status.value.toString())
-
-
         }
     }
 

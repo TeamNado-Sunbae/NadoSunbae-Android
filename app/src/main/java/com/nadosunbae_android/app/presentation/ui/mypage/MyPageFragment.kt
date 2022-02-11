@@ -13,12 +13,14 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.data.mapper.classroom.ClassRoomMapper
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
 
-    private val myPageViewModel: MyPageViewModel by viewModels()
-    private val mainViewModel: MainViewModel by activityViewModels()
+    private val myPageViewModel: MyPageViewModel by viewModel()
+    private val mainViewModel: MainViewModel by sharedViewModel()
 
     private lateinit var myPageQuestionAdapter: ClassRoomQuestionMainAdapter
 

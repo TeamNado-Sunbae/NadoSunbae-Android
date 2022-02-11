@@ -29,7 +29,6 @@
             app:itemTextColor="@color/selector_nav_menu_text"
             app:itemIconTint="@color/selector_nav_menu_icon"
             android:textSize="12sp"
-            android:theme="@style/Widget.BottomNavigationView"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

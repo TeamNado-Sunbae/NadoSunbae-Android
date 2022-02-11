@@ -16,6 +16,7 @@ import com.nadosunbae_android.app.util.changeFragmentNoBackStack
 import com.nadosunbae_android.app.util.popFragmentBackStack
 import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.domain.model.main.MajorSelectData
+import com.nadosunbae_android.domain.model.sign.SignInItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -116,17 +117,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     // 로그인 response 전달  받기
     private fun getSignDataFromIntent() {
         // real code
-        val signData = intent.getSerializableExtra("signData") as ResponseSignIn.Data.User?
+        val signData = intent.getSerializableExtra("signData") as SignInItem.User
 
         // null check
-        if (signData != null) {
-            mainViewModel.setSignData(signData)
+        mainViewModel.setSignData(signData)
 
-            // 본전공이 default 선택
-            mainViewModel.setSelectedMajor(MajorSelectData(signData.firstMajorId, signData.secondMajorName))
-            mainViewModel.setFirstMajor(MajorSelectData(signData.firstMajorId, signData.firstMajorName))
-            mainViewModel.setSecondMajor(MajorSelectData(signData.secondMajorId, signData.secondMajorName))
-        }
+        // 본전공이 default 선택
+        mainViewModel.setSelectedMajor(MajorSelectData(signData.firstMajorId, signData.secondMajorName))
+        mainViewModel.setFirstMajor(MajorSelectData(signData.firstMajorId, signData.firstMajorName))
+        mainViewModel.setSecondMajor(MajorSelectData(signData.secondMajorId, signData.secondMajorName))
     }
 
 
