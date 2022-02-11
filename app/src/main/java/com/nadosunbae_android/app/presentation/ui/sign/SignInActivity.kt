@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.nadosunbae_android.app.R
@@ -133,7 +135,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         Log.d("SignUp", "서버 통신 성공!")
 
         binding.clLogin.setOnClickListener {
-
             signUpBasicInfoViewModel.signIn(
                 SignInData(
                     signUpBasicInfoViewModel.email.value.toString(),
@@ -143,7 +144,11 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             )
 
             signUpBasicInfoViewModel.signIn.observe(this) {
+                if(!it.success) {
+                    Log.d("로그인", "실패")
+                }
                 if (it.success) {
+                    Log.d("로그인", "성공")
                     NadoSunBaeSharedPreference.setAccessToken(this, it.accesstoken)
                     val intent = Intent(this, MainActivity::class.java)
                     val data = it.user

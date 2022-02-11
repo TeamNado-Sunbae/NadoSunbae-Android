@@ -79,7 +79,9 @@ class SignUpBasicInfoViewModel(
 
                 }
                 .onFailure {
+
                     it.printStackTrace()
+                    emailDuplication.value = false
                     Log.d("emailDuplication", "서버 통신 실패")
                 }
         }
@@ -94,6 +96,7 @@ class SignUpBasicInfoViewModel(
                     Log.d("SignIn", "서버 통신 성공")
                 }
                 .onFailure {
+
                     it.printStackTrace()
                     Log.d("SignIn", "서버 통신 실패")
                 }
