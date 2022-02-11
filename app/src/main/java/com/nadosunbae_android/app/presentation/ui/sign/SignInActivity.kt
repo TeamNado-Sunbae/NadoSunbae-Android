@@ -143,6 +143,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
             signUpBasicInfoViewModel.signIn.observe(this) {
                 if (it.success) {
+                    Log.d("accessToken", it.accesstoken.toString())
                     NadoSunBaeSharedPreference.setAccessToken(this, it.accesstoken)
                     val intent = Intent(this, MainActivity::class.java)
                     val data = it.user

@@ -6,7 +6,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface LikeService {
-
     @POST("like")
     suspend fun postLike(
         @Body requestBody: RequestPostLike

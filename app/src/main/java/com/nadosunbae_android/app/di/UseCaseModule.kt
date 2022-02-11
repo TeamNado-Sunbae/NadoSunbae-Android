@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.di
 
 import com.nadosunbae_android.domain.usecase.classroom.*
+import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetMajorListDataUseCase
 import com.nadosunbae_android.domain.usecase.notification.DeleteNotificationUseCase
 import com.nadosunbae_android.domain.usecase.notification.GetNotificationListDataUseCase
@@ -43,5 +44,6 @@ val useCaseModule = module{
     single {DeleteReviewDataUseCase(get())}
     single {GetBackgroundImageListDataUseCase(get())}
     single {GetMajorInfoDataUseCase(get())}
+    single { PostLikeDataUseCase(get()) }
 
 }
