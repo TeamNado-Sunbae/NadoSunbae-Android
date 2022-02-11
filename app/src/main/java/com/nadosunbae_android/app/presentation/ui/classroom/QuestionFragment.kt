@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentQuestionBinding
@@ -38,6 +39,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     private fun initQuestionMain(){
         mainViewModel.selectedMajor.observe(viewLifecycleOwner){
             mainViewModel.majorId.value = it.majorId
+            Log.d("QuestionMainMajorId", it.majorId.toString())
             mainViewModel.getClassRoomMain(3,it.majorId)
         }
 

@@ -148,6 +148,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                     Log.d("로그인", "실패")
                 }
                 if (it.success) {
+                    Log.d("accessToken", it.accesstoken.toString())
                     Log.d("로그인", "성공")
                     NadoSunBaeSharedPreference.setAccessToken(this, it.accesstoken)
                     val intent = Intent(this, MainActivity::class.java)

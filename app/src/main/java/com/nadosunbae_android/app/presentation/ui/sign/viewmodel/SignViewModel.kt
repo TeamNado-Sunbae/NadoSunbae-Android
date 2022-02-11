@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.sign.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 
 class SignViewModel : ViewModel() {
 
@@ -12,4 +13,6 @@ class SignViewModel : ViewModel() {
  var secondMajor =  MutableLiveData<String>()
  var secondMajorPeriod =  MutableLiveData<String>()
  var deviceToken = MutableLiveData<String>()
+
+
 }
