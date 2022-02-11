@@ -3,6 +3,7 @@ package com.nadosunbae_android.domain.model.sign
 import java.io.Serializable
 
 data class SignInItem(
+    val status : Int,
     val success: Boolean,
     val accesstoken: String,
     val user: User

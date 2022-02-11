@@ -26,6 +26,7 @@ object SignMapper {
     //로그인
     fun mapperToSignInData(responseSignIn: ResponseSignIn): SignInItem {
         return SignInItem(
+            status = responseSignIn.status,
             success = responseSignIn.success,
             accesstoken = responseSignIn.data.accesstoken,
             user = SignInItem.User(
