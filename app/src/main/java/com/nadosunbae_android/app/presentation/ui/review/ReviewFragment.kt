@@ -119,6 +119,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                         val intent = Intent(context, ReviewDetailActivity::class.java)
                         val postId = reviewListData[position].postId
                         intent.putExtra("postId", postId)
+                        intent.putExtra("userId", mainViewModel.userId.value)
                         startActivity(intent)
                     }
 

@@ -80,33 +80,7 @@ class ReviewDetailViewModel(
                 }
         }
     }
-
-
-    /*
-    TODO: MyPage CA 적용 끝난 후에 적용할 예정, 후기 수정 권한 확인 시 필요!!
-
-    // 로그인 유저 정보 불러오기
-    fun getSignUserId() {
-        myPageRepository.getMyPageMyInfo(
-            onResponse = {
-                if (it.isSuccessful) {
-
-                    // null check
-                    if (it.body() != null)
-                        _signUserId.value = it.body()!!.data.userId
-
-                    Log.d(TAG, "서버통신 성공")
-                }
-            },
-            onFailure = {
-                it.printStackTrace()
-                Log.d(TAG, "서버통신 실패")
-            }
-        )
-
-    }
-
-     */
+    
 
     fun setBackgroundRes(res: Drawable?) {
         if (res != null)

@@ -60,19 +60,13 @@ class ReviewDetailActivity :
 
     private fun loadServerData() {
         postId = intent.getIntExtra("postId", NOT_POST_ID)
+        userId = intent.getIntExtra("userId", 0)
 
         // intent extra check
         if (postId != NOT_POST_ID) {
             // load review data from server
             reviewDetailViewModel.getReviewDetail(postId)
         }
-
-        // 로그인 유저 id 불러오기
-        /*
-        TODO: 후기 수정 권한 확인시 필요!!! MyPage CA 리팩토링 완료되면 적용할 것!!!
-        reviewDetailViewModel.getSignUserId()
-
-         */
 
     }
 
@@ -207,15 +201,6 @@ class ReviewDetailActivity :
             }
         }
 
-        // 로그인된 사용자 id
-        reviewDetailViewModel.signUserId.observe(this) {
-            val response = reviewDetailViewModel.signUserId.value
-
-            if (response != null) {
-                userId = response
-            }
-
-        }
     }
 
 
