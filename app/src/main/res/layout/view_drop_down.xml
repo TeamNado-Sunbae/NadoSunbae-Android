@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
-        android:padding="12dp"
+        android:paddingHorizontal="12dp"
         tools:listitem="@layout/item_drop_down"
         />
 

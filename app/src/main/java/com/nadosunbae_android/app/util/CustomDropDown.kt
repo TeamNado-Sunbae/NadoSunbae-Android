@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.domain.model.main.SelectableData
+import kotlinx.coroutines.selects.select
 
 
 /*
@@ -22,23 +23,47 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 
     선택한 결과를 viewModel의 dropDownSelected.value에 저장합니다 -> observe해서 적용할 것
  */
+
 fun Activity.showCustomDropDown(
                                 viewModel: DropDownSelectableViewModel,
                                 view: View, width: Int, selectedItem: Int,
-                                dataList: MutableList<SelectableData>) = showCustomDropDownByContext(viewModel, this, layoutInflater, view, width, selectedItem, dataList)
-
+                                dataList: MutableList<SelectableData>) {
+    showCustomDropDown(viewModel, view, width, null, null, null, false, selectedItem, dataList)
+}
 
 fun Fragment.showCustomDropDown(
                                 viewModel: DropDownSelectableViewModel,
                                 view: View, width: Int, selectedItem: Int,
-                                dataList: MutableList<SelectableData>) = showCustomDropDownByContext(viewModel, requireContext(), layoutInflater, view, width, selectedItem, dataList)
+                                dataList: MutableList<SelectableData>) {
+    showCustomDropDown(viewModel, view, width, null, null, null, false, selectedItem, dataList)
+}
 
 
+fun Activity.showCustomDropDown(
+                                viewModel: DropDownSelectableViewModel,
+                                view: View, width: Int?, height: Int?,
+                                xOff: Int?, yOff: Int?,
+                                overlapAnchor: Boolean,
+                                selectedItem: Int,
+                                dataList: MutableList<SelectableData>) = showCustomDropDownByContext(viewModel, this, layoutInflater, view, width, height, xOff, yOff, overlapAnchor, selectedItem, dataList)
+
+fun Fragment.showCustomDropDown(
+                                viewModel: DropDownSelectableViewModel,
+                                view: View, width: Int?, height: Int?,
+                                xOff: Int?, yOff: Int?,
+                                overlapAnchor: Boolean,
+                                selectedItem: Int,
+                                dataList: MutableList<SelectableData>) = showCustomDropDownByContext(viewModel, requireContext(), layoutInflater, view, width, height, xOff, yOff, overlapAnchor, selectedItem, dataList)
+
+
+// width, height는 null일 경우 wrap_content로 적용
 private fun showCustomDropDownByContext(viewModel: DropDownSelectableViewModel, context: Context, layoutInflater: LayoutInflater,
-                                        view: View, width: Int, selectedItemId: Int, dataList: MutableList<SelectableData>) {
+                                        view: View, width: Int?, height: Int?, xOff: Int?, yOff: Int?, overlapAnchor: Boolean, selectedItemId: Int, dataList: MutableList<SelectableData>) {
+
 
     val inflater = layoutInflater.inflate(R.layout.view_drop_down, null, false)
-    val popup = PopupWindow(inflater, width, RelativeLayout.LayoutParams.WRAP_CONTENT, true)
+
+    val popup = PopupWindow(inflater, width ?: RelativeLayout.LayoutParams.WRAP_CONTENT, height ?: RelativeLayout.LayoutParams.WRAP_CONTENT, true)
 
     val recyclerView: RecyclerView = inflater.findViewById(R.id.rv_drop_down)
     recyclerView.addItemDecoration(
@@ -60,7 +85,9 @@ private fun showCustomDropDownByContext(viewModel: DropDownSelectableViewModel, 
     adapter.setMenuList(dataList)
     adapter.notifyDataSetChanged()
 
-    popup.showAsDropDown(view, 0, 0)
+    popup.overlapAnchor = overlapAnchor
+    popup.showAsDropDown(view, xOff ?: 0, yOff ?: 0)
+
 }
 
 interface DropDownSelectableViewModel {
