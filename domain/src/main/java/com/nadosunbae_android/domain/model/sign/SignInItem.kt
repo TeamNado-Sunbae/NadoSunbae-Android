@@ -1,5 +1,7 @@
 package com.nadosunbae_android.domain.model.sign
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 data class SignInItem(
@@ -8,6 +10,7 @@ data class SignInItem(
     val accesstoken: String,
     val user: User
 ) {
+    @Parcelize
     data class User(
         val email: String,
         val firstMajorId: Int,
@@ -17,5 +20,5 @@ data class SignInItem(
         val secondMajorName: String,
         val universityId: Int,
         val userId: Int
-    ) : Serializable
+    ) : Parcelable
 }
