@@ -88,6 +88,7 @@ class SignUpMajorInfoActivity :
     private fun onClickbottomSheetUniv() {
         binding.clSignupMajorInfoUniv.setOnClickListener {
             bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
+            bottomSheetDialog.binding.tvBottomsheeetTitle.text = "본 전공 진입시기"
         }
     }
 
@@ -124,32 +125,32 @@ class SignUpMajorInfoActivity :
 
     //제 1전공 진입시기 선택 바텀시트
     private fun firstMajorPeriod() {
-        bottomSheetDialog.binding.tvBottomsheeetTitle.text = "본 전공 진입시기"
+        // local data
+        var firstMajorSelectionPeriodData = mutableListOf(
+            SelectableData(1, "22-1", false),
+            SelectableData(2, "21-2", false),
+            SelectableData(3, "21-1", false),
+            SelectableData(4, "20-2", false),
+            SelectableData(5, "20-1", false),
+            SelectableData(6, "19-2", false),
+            SelectableData(7, "19-1", false),
+            SelectableData(8, "18-2", false),
+            SelectableData(9, "18-1", false),
+            SelectableData(10, "17-2", false),
+            SelectableData(11, "17-1", false),
+            SelectableData(12, "16-2", false),
+            SelectableData(13, "16-1", false),
+            SelectableData(14, "15-2", false),
+            SelectableData(15, "15-1", false),
+            SelectableData(16, "15년 이전", false)
+        )
+        firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
+
         binding.clSignupMajorInfoMajorTime.setOnClickListener {
             firstDepartmentPeriodBottomSheetDialog.show(
                 supportFragmentManager,
                 firstDepartmentPeriodBottomSheetDialog.tag
             )
-            // local data
-            var firstMajorSelectionPeriodData = mutableListOf(
-                SelectableData(1, "22-1", false),
-                SelectableData(2, "21-2", false),
-                SelectableData(3, "21-1", false),
-                SelectableData(4, "20-2", false),
-                SelectableData(5, "20-1", false),
-                SelectableData(6, "19-2", false),
-                SelectableData(7, "19-1", false),
-                SelectableData(8, "18-2", false),
-                SelectableData(9, "18-1", false),
-                SelectableData(10, "17-2", false),
-                SelectableData(11, "17-1", false),
-                SelectableData(12, "16-2", false),
-                SelectableData(13, "16-1", false),
-                SelectableData(14, "15-2", false),
-                SelectableData(15, "15-1", false),
-                SelectableData(16, "15년 이전", false)
-            )
-            firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
 
             firstDepartmentPeriodBottomSheetDialog.setCompleteListener {
                 val firstMajorPeriod = firstDepartmentPeriodBottomSheetDialog.getSelectedData()
@@ -206,41 +207,30 @@ class SignUpMajorInfoActivity :
 
     //제 2전공 진입시기 바텀시트
     private fun secondMajorPeriod() {
+        // test data
+        var secondMajorSelectionPeriodData = mutableListOf(
+            SelectableData(1, "22-1", false),
+            SelectableData(2, "21-2", false),
+            SelectableData(3, "21-1", false),
+            SelectableData(4, "20-2", false),
+            SelectableData(5, "20-1", false),
+            SelectableData(6, "19-2", false),
+            SelectableData(7, "19-1", false),
+            SelectableData(8, "18-2", false),
+            SelectableData(9, "18-1", false),
+            SelectableData(10, "17-2", false),
+            SelectableData(11, "17-1", false),
+            SelectableData(12, "16-2", false),
+            SelectableData(13, "16-1", false),
+            SelectableData(14, "15-2", false),
+            SelectableData(15, "15-1", false),
+            SelectableData(16, "15년 이전", false))
+
         binding.clSignupMajorInfoDoubleMajorTime.setOnClickListener {
             secondDepartmentPeriodBottomSheetDialog.show(
                 supportFragmentManager,
                 secondDepartmentPeriodBottomSheetDialog.tag
             )
-
-
-            // test data
-            var secondMajorSelectionPeriodData = mutableListOf(
-                SelectableData(1, "22-1", false),
-                SelectableData(2, "21-2", false),
-                SelectableData(3, "21-1", false),
-                SelectableData(4, "20-2", false),
-                SelectableData(5, "20-1", false),
-                SelectableData(6, "19-2", false),
-                SelectableData(7, "19-1", false),
-                SelectableData(8, "18-2", false),
-                SelectableData(9, "18-1", false),
-                SelectableData(10, "17-2", false),
-                SelectableData(11, "17-1", false),
-                SelectableData(12, "16-2", false),
-                SelectableData(13, "16-1", false),
-                SelectableData(14, "15-2", false),
-                SelectableData(15, "15-1", false),
-                SelectableData(16, "15년 이전", false))
-
-            var secondMajorSelectionPeriodDatNot = mutableListOf(
-                SelectableData(1,"미진입", false)
-            )
-
-            if (binding.textSignupMajorinfoDoubleMajor.text == "미진입") {
-                secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodDatNot)
-            } else {
-                secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
-            }
 
             secondDepartmentPeriodBottomSheetDialog.setCompleteListener {
                 val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
@@ -253,6 +243,16 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoDoubleMajorMintTime.setText("변경")
             }
         }
+        var secondMajorSelectionPeriodDatNot = mutableListOf(
+            SelectableData(1,"미진입", false)
+        )
+
+        if (binding.textSignupMajorinfoDoubleMajor.text == "미진입") {
+            secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodDatNot)
+        } else {
+            secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
+        }
+
         initNextBtnClick()
     }
 

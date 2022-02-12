@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid">
         <activity
-            android:name=".presentation.ui.mypage.OpenSourceActivity"
+            android:name=".presentation.ui.mypage.AppInfoActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.ui.mypage.QuitActivity"
@@ -79,7 +79,7 @@
             android:exported="false" />
         <activity
             android:name=".presentation.ui.mypage.NotificationSettingActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".presentation.ui.mypage.ChangePasswordActivity"
             android:exported="false" />
@@ -88,7 +88,7 @@
             android:exported="false" />
         <activity
             android:name=".presentation.ui.mypage.ModifyMyInfoActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".presentation.ui.mypage.MyPageClassroomReviewActivity"
             android:exported="false" />

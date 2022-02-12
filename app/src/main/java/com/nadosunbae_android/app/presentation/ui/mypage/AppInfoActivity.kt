@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.nadosunbae_android.app.R
 
-class OpenSourceActivity : AppCompatActivity() {
+class AppInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_open_source)
+        setContentView(R.layout.activity_app_info)
     }
 }
