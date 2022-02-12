@@ -13,7 +13,7 @@
         android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_mypage_setting"
+            android:id="@+id/cl_mypage_app_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/img_mypage_setting_move_page"
+                android:id="@+id/img_mypage_app_info_move_page"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
@@ -32,42 +32,42 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/text_mypage_setting"
+                android:id="@+id/text_mypage_app_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_medium"
-                android:text="@string/mypage_setting_my_setting"
+                android:text="@string/mypage_setting_app_info"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/img_mypage_setting_move_page"
-                app:layout_constraintStart_toEndOf="@+id/img_mypage_setting_move_page"
-                app:layout_constraintTop_toTopOf="@+id/img_mypage_setting_move_page" />
+                app:layout_constraintBottom_toBottomOf="@+id/img_mypage_app_info_move_page"
+                app:layout_constraintStart_toEndOf="@+id/img_mypage_app_info_move_page"
+                app:layout_constraintTop_toTopOf="@+id/img_mypage_app_info_move_page" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/text_mypage_setting_modify_information"
+            android:id="@+id/text_mypage_app_info_rules_of_use"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="21dp"
             android:fontFamily="@font/pretendard_regular"
-            android:text="@string/mypage_setting_modify_my_info"
+            android:text="@string/mypage_appinfo_rules_of_use"
             android:textColor="@color/main_text"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_mypage_setting" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_mypage_app_info" />
 
         <ImageView
-            android:id="@+id/text_mypage_setting_modify_information_arrow"
+            android:id="@+id/text_mypage_app_info_rules_of_use_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:background="@drawable/btn_right_arrow"
-            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_modify_information"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_app_info_rules_of_use"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_modify_information" />
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_app_info_rules_of_use" />
 
         <View
             android:id="@+id/view_mypage_bar1"
@@ -79,65 +79,65 @@
             android:background="@color/gray_0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_modify_information" />
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_app_info_rules_of_use" />
 
         <TextView
-            android:id="@+id/text_mypage_setting_chagne_pw"
+            android:id="@+id/text_mypage_app_info_terms_of_use"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="21dp"
             android:fontFamily="@font/pretendard_regular"
-            android:text="@string/mypage_setting_change_pw"
+            android:text="@string/mypage_appinfo_terms_of_use"
             android:textColor="@color/main_text"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_modify_information"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_app_info_rules_of_use"
             app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar1" />
 
         <ImageView
-            android:id="@+id/img_mypage_setting_chagne_pw_arrow"
+            android:id="@+id/img_mypage_app_info_terms_of_use"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_right_arrow"
-            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_chagne_pw"
-            app:layout_constraintEnd_toEndOf="@+id/text_mypage_setting_modify_information_arrow"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_modify_information_arrow"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_chagne_pw" />
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_app_info_terms_of_use"
+            app:layout_constraintEnd_toEndOf="@+id/text_mypage_app_info_rules_of_use_arrow"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_app_info_rules_of_use_arrow"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_app_info_terms_of_use" />
 
         <View
             android:id="@+id/view_mypage_bar2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="21dp"
             android:layout_marginEnd="16dp"
             android:background="@color/gray_0"
-            app:layout_constraintEnd_toEndOf="@+id/text_mypage_setting_chagne_pw"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_chagne_pw"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_chagne_pw" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_app_info_terms_of_use" />
 
         <TextView
-            android:id="@+id/text_mypage_setting_notification"
+            android:id="@+id/text_mypage_app_info_opensource"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="21dp"
             android:fontFamily="@font/pretendard_regular"
-            android:text="@string/mypage_setting_notification"
+            android:text="@string/mypage_setting_opensource"
             android:textColor="@color/main_text"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_chagne_pw"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_app_info_terms_of_use"
             app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar2" />
 
         <ImageView
-            android:id="@+id/img_mypage_setting_notification"
+            android:id="@+id/img_mypage_app_info_opensource"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_right_arrow"
-            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_notification"
-            app:layout_constraintEnd_toEndOf="@+id/img_mypage_setting_chagne_pw_arrow"
-            app:layout_constraintStart_toStartOf="@+id/img_mypage_setting_chagne_pw_arrow"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_notification" />
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_app_info_opensource"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_app_info_terms_of_use"
+            app:layout_constraintStart_toStartOf="@+id/img_mypage_app_info_terms_of_use"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_app_info_opensource" />
 
 
         <View
@@ -148,86 +148,77 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:background="@color/gray_0"
-            app:layout_constraintEnd_toEndOf="@+id/text_mypage_setting_notification"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_notification"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_notification" />
+            app:layout_constraintEnd_toEndOf="@+id/text_mypage_app_info_opensource"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_app_info_opensource"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_app_info_opensource" />
 
         <TextView
-            android:id="@+id/text_mypage_setting_service_inquery"
+            android:id="@+id/text_mypage_app_info_version_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="21dp"
             android:fontFamily="@font/pretendard_regular"
-            android:text="@string/mypage_setting_app_info"
+            android:text="@string/mypage_appinfo_version_info"
             android:textColor="@color/main_text"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_chagne_pw"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_app_info_opensource"
             app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar3" />
 
-        <ImageView
-            android:id="@+id/img_mypage_setting_service_inquery"
+        <TextView
+            android:id="@+id/text_mypage_app_info_recent_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_right_arrow"
-            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_service_inquery"
-            app:layout_constraintStart_toStartOf="@+id/img_mypage_setting_notification"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_service_inquery" />
-
-        <View
-            android:id="@+id/view_mypage_bar4"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/gray_0"
-            app:layout_constraintEnd_toEndOf="@+id/text_mypage_setting_service_inquery"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_service_inquery"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_service_inquery" />
-
-        <TextView
-            android:id="@+id/text_mypage_setting_logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="21dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="3dp"
             android:fontFamily="@font/pretendard_regular"
-            android:text="@string/mypage_setting_logout"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_chagne_pw"
-            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar4" />
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_app_info_version_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar3"
+            tools:text="1.0.0" />
+
+        <TextView
+            android:id="@+id/text_mypage_app_info_recent_version_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/mypage_appinfo_version_info_new"
+            android:textColor="@color/gray_4"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_app_info_recent_version"
+            app:layout_constraintEnd_toStartOf="@+id/text_mypage_app_info_recent_version"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_app_info_recent_version" />
 
 
         <TextView
-            android:id="@+id/text_mypage_setting_quit"
-            android:layout_width="match_parent"
+            android:id="@+id/text_mypage_app_info_now_version"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="2dp"
             android:fontFamily="@font/pretendard_regular"
-            android:text="@string/mypage_setting_quit"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_logout"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_logout" />
-
+            app:layout_constraintEnd_toStartOf="@+id/text_mypage_app_info_recent_version_title"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar3"
+            tools:text="1.0.0" />
 
         <TextView
-            android:id="@+id/text_mypage_setting_opensource"
-            android:layout_width="match_parent"
+            android:id="@+id/text_mypage_app_info_now_version_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginEnd="2dp"
             android:fontFamily="@font/pretendard_regular"
-            android:layout_marginTop="16dp"
-            android:text="@string/mypage_setting_service_inquery"
+            android:text="@string/mypage_appinfo_version_info_now"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_quit"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_quit" />
-
-
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_app_info_recent_version"
+            app:layout_constraintEnd_toStartOf="@+id/text_mypage_app_info_now_version"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_app_info_recent_version" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
