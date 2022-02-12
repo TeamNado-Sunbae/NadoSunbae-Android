@@ -148,12 +148,12 @@ class SignUpBasicInfoViewModel(
         viewModelScope.launch {
             kotlin.runCatching { getSecondDepartmentUseCase(universityId, filter) }
                 .onSuccess {
-                    firstDepartment.value = it
-                    Log.d("FirstMajorBottomSheet", "서버 통신 성공")
+                    secondDepartment.value = it
+                    Log.d("SecondMajorBottomSheet", "서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("FirstMajorBottomSheet", "서버 통신 실패")
+                    Log.d("SecondMajorBottomSheet", "서버 통신 실패")
                 }
         }
     }
