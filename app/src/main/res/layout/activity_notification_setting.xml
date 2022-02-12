@@ -1,17 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".app.presentation.ui.mypage.NotificationSettingActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="마이페이지 알림"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_mypage_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_mypage_alarm_move_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/btn_left_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_mypage_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/mypage_alarm_setting"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_mypage_alarm_move_page"
+                app:layout_constraintStart_toEndOf="@+id/img_mypage_alarm_move_page"
+                app:layout_constraintTop_toTopOf="@+id/img_mypage_alarm_move_page" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_mypage_alarm_personal_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="true"
+            android:text="나에게 온 1:1 질문글 알림"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_mypage_alarm" />
+
+        <ImageView
+            android:id="@+id/img_mypage_alarm_personal_question_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/selector_ic_switch"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_alarm_personal_question_comment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_alarm_personal_question" />
+
+
+        <TextView
+            android:id="@+id/text_mypage_alarm_personal_question_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="true"
+            android:text="마이페이지에 질문글이올라오면 알려드려요!"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_alarm_personal_question"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_alarm_personal_question" />
+
+
+        <View
+            android:id="@+id/view_mypage_bar1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_alarm_personal_question_comment" />
+
+
+        <TextView
+            android:id="@+id/text_mypage_answer_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="true"
+            android:text="답글 알림"
+            android:textColor="@color/main_default"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_alarm_personal_question_comment"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar1" />
+
+
+        <TextView
+            android:id="@+id/text_mypage_answer_alarm_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="true"
+            android:text="내가 쓴 글에 답글이 달린 경우 알려드려요!"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_alarm" />
+
+        <TextView
+            android:id="@+id/text_mypage_answer_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="19dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="true"
+            android:text="질문글"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_alarm_comment"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_alarm_comment" />
+
+        <ImageView
+            android:id="@+id/img_mypage_answer_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_ic_switch"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_answer_question"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_alarm_personal_question_switch"
+            app:layout_constraintStart_toStartOf="@+id/img_mypage_alarm_personal_question_switch"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_answer_question" />
+
+        <TextView
+            android:id="@+id/text_mypage_answer_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="38dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="true"
+            android:text="정보글"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_question"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_question" />
+
+        <ImageView
+            android:id="@+id/img_mypage_answer_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_ic_switch"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_answer_info"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_answer_question"
+            app:layout_constraintStart_toStartOf="@+id/img_mypage_answer_question"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_answer_info" />
+
+        <View
+            android:id="@+id/view_mypage_bar2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_info" />
+
+
+        <TextView
+            android:id="@+id/text_mypage_answer_new_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="true"
+            android:text="새 답글 알림"
+            android:textColor="@color/main_default"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_info"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar2" />
+
+
+        <TextView
+            android:id="@+id/text_mypage_answer_new_alarm_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="true"
+            android:text="내가 답글을 쓴 타인 글에 새 답글이 달린 경우 알려드려요!"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_new_alarm" />
+
+        <TextView
+            android:id="@+id/text_mypage_new_answer_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="19dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="true"
+            android:text="질문글"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_new_alarm_comment"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_new_alarm_comment" />
+
+        <ImageView
+            android:id="@+id/img_mypage_new_answer_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_ic_switch"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_new_answer_question"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_answer_info"
+            app:layout_constraintStart_toStartOf="@+id/img_mypage_answer_info"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_new_answer_question" />
+
+        <TextView
+            android:id="@+id/text_mypage_new_answer_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="38dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="true"
+            android:text="정보글"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_new_answer_question"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_new_answer_question" />
+
+        <ImageView
+            android:id="@+id/img_mypage_new_answer_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_ic_switch"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_new_answer_info"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_new_answer_question"
+            app:layout_constraintStart_toStartOf="@+id/img_mypage_new_answer_question"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_new_answer_info" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
