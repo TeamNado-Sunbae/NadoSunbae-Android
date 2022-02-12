@@ -22,7 +22,13 @@ import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 
 class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFragment() {
 
-    private val signViewModel: SignViewModel by activityViewModels()
+    private val signViewModel: SignViewModel by activityViewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return SignViewModel() as T
+            }
+        }
+    }
 
     // 바텀시트 타이틀
     private var _titleData = MutableLiveData<String>()
@@ -51,10 +57,12 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
             false
         )
 
+        initBottomSheetSetting()
         initTitle()
         initAdapter()
         setClickListener()
         observeSelectedData()
+        DataToFragment()
 
         return binding.root
     }
@@ -63,7 +71,6 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         super.onViewCreated(view, savedInstanceState)
         binding.clCustomBottomSheet.layoutParams.height =
             resources.displayMetrics.heightPixels * 72 / 100
-
         binding.tvBottomsheeetTitle.text = title
         binding.executePendingBindings()
     }
@@ -71,6 +78,10 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         majorSelectAdapter.clearSelect()
+    }
+
+    private fun initBottomSheetSetting() {
+        binding.btnBottomsheetComplete.isEnabled = false
     }
 
     private fun setClickListener() {
