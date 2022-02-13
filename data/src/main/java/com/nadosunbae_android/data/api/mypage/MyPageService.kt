@@ -13,6 +13,8 @@ interface MyPageService {
         @Query("sort") sort: String
     ) : ResponseMypageQuestionData
 
-    @GET("user/mypage")
-    suspend fun getMyPageMyInfo() : ResponseMypageMyInfo
+    @GET("user/mypage/{userId}")
+    suspend fun getMyPageMyInfo(
+        @Path("userId") userId: Int
+    ) : ResponseMypageMyInfo
 }

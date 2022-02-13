@@ -78,7 +78,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     //내 정보 서버통신
     private fun initPersonalInfo() {
-        myPageViewModel.getPersonalInfo()
+        mainViewModel.signData.observe(viewLifecycleOwner) {
+            myPageViewModel.getPersonalInfo(it.userId)
+        }
+
+        myPageViewModel.getPersonalInfo(mainViewModel.userId.value ?: 0)
         myPageViewModel.personalInfo.observe(viewLifecycleOwner){
             binding.myPageInfo = it
             if(it.data.secondMajorName == "미진입")

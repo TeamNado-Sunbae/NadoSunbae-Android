@@ -1,7 +1,9 @@
-package com.nadosunbae_android.domain.model.mypage
+package com.nadosunbae_android.data.model.response.mypage
 
-data class MyPageMyInfo(
+data class ResponseMypageMyInfo(
     val data: Data,
+    val message: String,
+    val status: Int,
     val success: Boolean
 ) {
     data class Data(
@@ -16,5 +18,3 @@ data class MyPageMyInfo(
         val userId: Int
     )
 }
-
-
