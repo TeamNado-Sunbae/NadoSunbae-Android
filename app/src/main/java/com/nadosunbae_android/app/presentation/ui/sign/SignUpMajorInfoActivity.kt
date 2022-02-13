@@ -4,8 +4,11 @@ package com.nadosunbae_android.app.presentation.ui.sign
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -33,6 +36,11 @@ class SignUpMajorInfoActivity :
 
     private val bottomSheetDialog = CustomBottomSheetDialog("본전공")
 
+//    //바텀시트 선택됐는지
+//    private var _selectedOption = MutableLiveData<Boolean>()
+//    val selectedOptions: LiveData<Boolean>
+//    get() = _selectedOption
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +57,8 @@ class SignUpMajorInfoActivity :
 
         firstMajor()
         secondMajor()
+
+
     }
 
     //X버튼 클릭 리스너
@@ -67,7 +77,6 @@ class SignUpMajorInfoActivity :
 
         }
     }
-
     private fun moveBeforePage() {
         binding.clSignupMajorInfoMoveBefore.setOnClickListener {
             startActivity(Intent(this, SignUpAgreementActivity::class.java))
@@ -121,6 +130,7 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
                 binding.textSignupMajorinfoMajorMint.text = "변경"
             }
+
     }
 
     //제 1전공 진입시기 선택 바텀시트
@@ -159,7 +169,7 @@ class SignUpMajorInfoActivity :
             signViewModel.firstMajorPeriod.observe(this) {
                 binding.textSignupMajorinfoMajorTime.setText(it)
                 binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
-                binding.textSignupMajorinfoMajorTimeMint.text= "변경"
+                binding.textSignupMajorinfoMajorTimeMint.text = "변경"
             }
         }
     }
@@ -201,7 +211,6 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
                 binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
             }
-
     }
 
 
@@ -224,7 +233,8 @@ class SignUpMajorInfoActivity :
             SelectableData(13, "16-1", false),
             SelectableData(14, "15-2", false),
             SelectableData(15, "15-1", false),
-            SelectableData(16, "15년 이전", false))
+            SelectableData(16, "15년 이전", false)
+        )
 
         binding.clSignupMajorInfoDoubleMajorTime.setOnClickListener {
             secondDepartmentPeriodBottomSheetDialog.show(
@@ -242,9 +252,10 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
                 binding.textSignupMajorinfoDoubleMajorMintTime.setText("변경")
             }
+
         }
         var secondMajorSelectionPeriodDatNot = mutableListOf(
-            SelectableData(1,"미진입", false)
+            SelectableData(1, "미진입", false)
         )
 
         if (binding.textSignupMajorinfoDoubleMajor.text == "미진입") {
@@ -252,28 +263,26 @@ class SignUpMajorInfoActivity :
         } else {
             secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
         }
-
-        initNextBtnClick()
     }
 
-    //다음으로 가는 버튼 활성화
-    private fun initNextBtnClick() {
-        binding.apply {
-            if(textSignupMajorInfoDoubleMajor.text.toString() == "미진입") {
-                if (textSignupMajorInfoMajor.text.toString() == "선택하기" || textSignupMajorInfoMajorTime.text.toString() == "선택하기") {
-                    clSignupMajorInfoMoveNext.isSelected = false
-                }
-            }
-            else {
-                if (textSignupMajorInfoMajor.text.toString() == "선택하기" || textSignupMajorInfoMajorTime.text.toString() == "선택하기"
-                    || textSignupMajorInfoDoubleMajor.text.toString() == "선택하기" || textSignupMajorInfoDoubleMajorTime.text.toString() == "선택하기") {
-                    clSignupMajorInfoMoveNext.isSelected = false
-                } else {
-                    clSignupMajorInfoMoveNext.isSelected = false
-                }
-            }
-        }
-    }
+//    //다음으로 가는 버튼 활성화
+//    private fun initNextBtnEnable() {
+//        binding.apply {
+//            if(textSignupMajorInfoDoubleMajor.text.toString() == "미진입") {
+//                if (textSignupMajorInfoMajor.text.toString() == "선택하기" || textSignupMajorInfoMajorTime.text.toString() == "선택하기") {
+//                    clSignupMajorInfoMoveNext.isSelected = false
+//                }
+//            }
+//            else {
+//                if (textSignupMajorInfoMajor.text.toString() == "선택하기" || textSignupMajorInfoMajorTime.text.toString() == "선택하기"
+//                    || textSignupMajorInfoDoubleMajor.text.toString() == "선택하기" || textSignupMajorInfoDoubleMajorTime.text.toString() == "선택하기") {
+//                    clSignupMajorInfoMoveNext.isSelected = false
+//                } else {
+//                    clSignupMajorInfoMoveNext.isSelected = false
+//                }
+//            }
+//        }
+//    }
 
 
     private fun setupSpinner() {
@@ -292,7 +301,9 @@ class SignUpMajorInfoActivity :
                     view: View?,
                     position: Int,
                     id: Long
-                ) {}
+                ) {
+                }
+
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
             }

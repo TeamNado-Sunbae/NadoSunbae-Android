@@ -202,8 +202,7 @@
             android:textColor="@color/red"
             android:textSize="12sp"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/cl_sign_in_pw"
             app:layout_constraintTop_toBottomOf="@+id/cl_sign_in_pw" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
