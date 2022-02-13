@@ -44,7 +44,7 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
     private fun initAskEveryone(){
         //majorId 넣음
         mainViewModel.majorId.observe(viewLifecycleOwner){
-            mainViewModel.getClassRoomMain(3,it)
+            mainViewModel.getClassRoomMain(3,it,"recent")
         }
         classRoomAskEveryoneAdapter = ClassRoomAskEveryoneAdapter()
         binding.rcAskEveryone.adapter = classRoomAskEveryoneAdapter
@@ -56,7 +56,7 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
     override fun onResume() {
         super.onResume()
         mainViewModel.majorId.observe(viewLifecycleOwner){
-            mainViewModel.getClassRoomMain(3,it)
+            mainViewModel.getClassRoomMain(3,it,"recent")
         }
     }
 

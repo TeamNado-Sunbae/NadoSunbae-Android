@@ -16,7 +16,7 @@ data class  ResponseClassRoomQuestionDetail(
     ) {
         data class Like(
             val isLiked: Boolean,
-            val likeCount: String
+            val likeCount: Int
         )
 
         data class Message(

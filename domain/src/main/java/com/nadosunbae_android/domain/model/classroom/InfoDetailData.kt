@@ -6,7 +6,7 @@ data class InfoDetailData(
     val commentCount: String,
     val commentList: List<Comment>,
     val isLiked: Boolean,
-    val likeCount: String,
+    val likeCount: Int,
     val content: String,
     val createdAt: Date?,
     val postId: Int,

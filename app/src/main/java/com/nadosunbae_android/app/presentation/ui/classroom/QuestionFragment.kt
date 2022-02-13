@@ -31,7 +31,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     override fun onResume() {
         super.onResume()
         mainViewModel.selectedMajor.observe(viewLifecycleOwner){
-            mainViewModel.getClassRoomMain(3,it.majorId)
+            mainViewModel.getClassRoomMain(3,it.majorId,"recent")
         }
     }
 
@@ -40,7 +40,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
         mainViewModel.selectedMajor.observe(viewLifecycleOwner){
             mainViewModel.majorId.value = it.majorId
             Log.d("QuestionMainMajorId", it.majorId.toString())
-            mainViewModel.getClassRoomMain(3,it.majorId)
+            mainViewModel.getClassRoomMain(3,it.majorId, "recent")
         }
 
         classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(1, mainViewModel.userId.value ?: 0,0)

@@ -25,7 +25,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
    private fun initInfoMain(){
        mainViewModel.selectedMajor.observe(viewLifecycleOwner){
            mainViewModel.majorId.value = it.majorId
-           mainViewModel.getClassRoomMain(2,it.majorId)
+           mainViewModel.getClassRoomMain(2,it.majorId, "recent")
        }
         classRoomInfoMainAdapter = ClassRoomInfoMainAdapter()
         binding.rcClassroomInfo.adapter = classRoomInfoMainAdapter
