@@ -7,5 +7,5 @@ interface MyPageDataSource {
 
     suspend fun getMyPageQuestion(userId: Int, sort: String) : ResponseMypageQuestionData
 
-    suspend fun getMyPageMyInfo() : ResponseMypageMyInfo
+    suspend fun getMyPageMyInfo(userId: Int) : ResponseMypageMyInfo
 }

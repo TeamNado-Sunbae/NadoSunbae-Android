@@ -46,6 +46,7 @@
     <string name="sign_in_question">문의하기</string>
     <string name="sign_in_warn">아이디 또는 비밀번호가 잘못되었어요.</string>
     <string name="sign_in_login">로그인</string>
+    <string name="sign_in_inform">나도선배 계정이 없으면 회원가입을 해주세요</string>
 
 
     <!-- review_main -->
@@ -300,12 +301,35 @@
 
     <!-- 마이페이지 내 설정 -->
     <string name="mypage_setting_my_setting">내 설정</string>
-    <string name="mypage_setting_modify_my_info">내 정보 수정</string>
+    <string name="mypage_setting_modify_my_info">프로필 수정</string>
     <string name="mypage_setting_change_pw">비밀번호 변경</string>
     <string name="mypage_setting_notification">알림 설정</string>
     <string name="mypage_setting_service_inquery">서비스 문의</string>
     <string name="mypage_setting_logout">로그아웃</string>
     <string name="mypage_setting_quit">탈퇴</string>
     <string name="mypage_setting_opensource">오픈소스 라이선스</string>
+    <string name="mypage_setting_app_info">앱정보</string>
 
+    <!--마이페이지 앱 정보 -->
+    <string name="mypage_appinfo_rules_of_use">서비스 이용약관</string>
+    <string name="mypage_appinfo_terms_of_use">서비스 이용약관</string>
+    <string name="mypage_appinfo_version_info">버전정보</string>
+    <string name="mypage_appinfo_version_info_new">/ 최신</string>
+    <string name="mypage_appinfo_version_info_now">현재</string>
+
+    <!--마이페이지 내 정보 수정 -->
+    <string name="mypage_modify_change_img">프로필 사진 변경</string>
+    <string name="mypage_modify_junior_question">후배들의 1:1 질문</string>
+    <string name="mypage_modify_comment">전공 결정을 앞둔 후배들에게 큰 도움이 돼요!</string>
+
+    <!-- 마이페이지 알림 설정 -->
+    <string name="mypage_alarm_setting">알림 설정</string>
+    <string name="mypage_alarm_personal_question">나에게 온 1:1 질문글 알림</string>
+    <string name="mypage_alarm_personal_question_comment">마이페이지에 질문글이올라오면 알려드려요!</string>
+    <string name="mypage_alarm_answer">답글 알림</string>
+    <string name="mypage_alarm_answer_comment">내가 쓴 글에 답글이 달린 경우 알려드려요!</string>
+    <string name="mypage_alarm_question">질문글</string>
+    <string name="mypage_alarm_information">정보글</string>
+    <string name="mypage_alarm_new">새 답글 알림</string>
+    <string name="mypage_alarm_new_comment">내가 답글을 쓴 타인 글에 새 답글이 달린 경우 알려드려요!</string>
 </resources>

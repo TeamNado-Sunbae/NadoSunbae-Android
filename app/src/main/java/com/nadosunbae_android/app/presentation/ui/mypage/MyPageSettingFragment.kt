@@ -57,7 +57,7 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
 
         //오픈소스 라이선스 activity
         binding.textMypageSettingOpensource.setOnClickListener {
-            val intentOpenSource = Intent(getActivity(), OpenSourceActivity::class.java)
+            val intentOpenSource = Intent(getActivity(), AppInfoActivity::class.java)
             startActivity(intentOpenSource)
         }
     }

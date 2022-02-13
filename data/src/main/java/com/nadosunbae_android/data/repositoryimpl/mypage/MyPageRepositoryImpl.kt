@@ -12,7 +12,7 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
         return MypageMapper.mapperToQuestion(dataSource.getMyPageQuestion(userId, sort))
     }
 
-    override suspend fun getMyPageMyInfo() : MyPageMyInfo {
-        return MypageMapper.mapperToMyInfo(dataSource.getMyPageMyInfo())
+    override suspend fun getMyPageMyInfo(userId: Int) : MyPageMyInfo {
+        return MypageMapper.mapperToMyInfo(dataSource.getMyPageMyInfo(userId))
     }
 }

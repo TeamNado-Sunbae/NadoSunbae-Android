@@ -6,5 +6,5 @@ import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 interface MyPageRepository {
     suspend fun getMyPageQuestion(userId : Int, sort : String) : MyPageQuestionData
 
-    suspend fun getMyPageMyInfo(): MyPageMyInfo
+    suspend fun getMyPageMyInfo(userId: Int): MyPageMyInfo
 }

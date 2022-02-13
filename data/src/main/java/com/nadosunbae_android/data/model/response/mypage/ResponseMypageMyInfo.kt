@@ -7,10 +7,10 @@ data class ResponseMypageMyInfo(
     val success: Boolean
 ) {
     data class Data(
+        val count: Int,
         val firstMajorName: String,
         val firstMajorStart: String,
         val isOnQuestion: Boolean,
-        val likeCount: String,
         val nickname: String,
         val profileImageId: Int,
         val secondMajorName: String,

@@ -3,6 +3,8 @@ package com.nadosunbae_android.app.di
 import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetMajorListDataUseCase
+import com.nadosunbae_android.domain.usecase.mypage.GetMyPageMyInfoUseCase
+import com.nadosunbae_android.domain.usecase.mypage.GetMyPageQuestionUseCase
 import com.nadosunbae_android.domain.usecase.notification.DeleteNotificationUseCase
 import com.nadosunbae_android.domain.usecase.notification.GetNotificationListDataUseCase
 import com.nadosunbae_android.domain.usecase.notification.ReadNotificationUseCase
@@ -46,5 +48,9 @@ val useCaseModule = module{
     single {GetBackgroundImageListDataUseCase(get())}
     single {GetMajorInfoDataUseCase(get())}
     single { PostLikeDataUseCase(get()) }
+
+    //mypage
+    single {GetMyPageMyInfoUseCase(get())}
+    single {GetMyPageQuestionUseCase(get())}
 
 }

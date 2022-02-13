@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.app.databinding.ItemBottomsheetListBinding
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
@@ -79,6 +80,7 @@ class MajorSelectAdapter(
             if (bottomSheetData.isSelected) {
                 binding.ivBottomsheetCheck.visibility = View.VISIBLE
                 binding.tvBottomsheeetContent.setTextSemiBold(true)
+
             }
             else {
                 binding.ivBottomsheetCheck.visibility = View.INVISIBLE
@@ -91,6 +93,8 @@ class MajorSelectAdapter(
 
 
     }
+
+
 
     fun getSelectedData(): SelectableData {
         if (mSelectedPos != NOT_SELECTED)

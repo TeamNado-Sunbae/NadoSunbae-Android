@@ -11,7 +11,7 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
         return service.getMyPageQuestion(userId, sort)
     }
 
-    override suspend fun getMyPageMyInfo(): ResponseMypageMyInfo {
-        return service.getMyPageMyInfo()
+    override suspend fun getMyPageMyInfo(userId: Int): ResponseMypageMyInfo {
+        return service.getMyPageMyInfo(userId)
     }
 }

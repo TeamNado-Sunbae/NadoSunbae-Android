@@ -1,6 +1,8 @@
 package com.nadosunbae_android.app.presentation.ui.sign
 
 import android.content.Intent
+import android.net.Uri
+import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,6 +19,7 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
+import com.nadosunbae_android.app.util.ResultWrapper
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -31,7 +34,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         moveFindPw()
         moveSignUp()
         onViewPw()
-
+        moveQeustionPage()
     }
 
     //id editText textwatcher
@@ -108,6 +111,13 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         }
     }
 
+    private fun moveQeustionPage() {
+        binding.textSignInQuestion.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://pf.kakao.com/_pxcFib"))
+            startActivity(intent)
+        }
+    }
+
     //비밀번호 찾기 페이지로 이동
     private fun moveFindPw() {
         binding.textSignInFindpw.setOnClickListener {
@@ -145,6 +155,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
             signUpBasicInfoViewModel.signIn.observe(this) {
                 if(!it.success) {
+                    binding.textSignInWarn.visibility = View.VISIBLE
                     Log.d("로그인", "실패")
                 }
                 if (it.success) {

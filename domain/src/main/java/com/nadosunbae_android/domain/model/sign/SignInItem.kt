@@ -12,13 +12,13 @@ data class SignInItem(
 ) {
     @Parcelize
     data class User(
-        val email: String,
-        val firstMajorId: Int,
-        val firstMajorName: String,
-        val isReviewed: Boolean,
-        val secondMajorId: Int,
-        val secondMajorName: String,
-        val universityId: Int,
-        val userId: Int
+        val email: String = "",
+        val firstMajorId: Int = 0,
+        val firstMajorName: String = "",
+        val isReviewed: Boolean = false,
+        val secondMajorId: Int = 0,
+        val secondMajorName: String = "",
+        val universityId: Int = 0,
+        val userId: Int = 0
     ) : Parcelable
 }

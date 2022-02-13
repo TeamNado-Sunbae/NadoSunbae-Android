@@ -57,10 +57,12 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
             false
         )
 
+        initBottomSheetSetting()
         initTitle()
         initAdapter()
         setClickListener()
         observeSelectedData()
+        DataToFragment()
 
         return binding.root
     }
@@ -76,6 +78,10 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         majorSelectAdapter.clearSelect()
+    }
+
+    private fun initBottomSheetSetting() {
+        binding.btnBottomsheetComplete.isEnabled = false
     }
 
     private fun setClickListener() {
@@ -137,12 +143,6 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
     inner class DataToFragment() {
         fun getBtnSelector(bool: Boolean) {
             binding.btnBottomsheetComplete.isSelected = bool
-
         }
-
-
-
-
     }
 }
-
