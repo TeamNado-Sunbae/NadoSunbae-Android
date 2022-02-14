@@ -56,6 +56,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         super.onResume()
 
         observeUserMajor()
+        observeIsReviewed()
         loadReviewList()
     }
 
@@ -91,8 +92,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 override fun onClick(view: View, position: Int) {
 
                     // 후기 작성 여부 확인
-                    val signData = mainViewModel.signData.value
-                    if (!signData!!.isReviewed) {
+                    if (!ReviewGlobals.isReviewed) {
                         // 후기 미작성시 알럿 띄우기
                         CustomDialog(requireContext())
                             .genericDialog(CustomDialog.DialogData(
@@ -217,6 +217,12 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             freeListener = { _ ->
                 Log.d("LOGGER_TAG", "freeListener")
             }
+        }
+    }
+
+    private fun observeIsReviewed() {
+        mainViewModel.signData.observe(viewLifecycleOwner) {
+            ReviewGlobals.isReviewed = it.isReviewed
         }
     }
 
