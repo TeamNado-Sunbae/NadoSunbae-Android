@@ -21,7 +21,7 @@ val viewModelModule = module {
     viewModel { QuestionWriteViewModel(get()) }
     viewModel { SeniorPersonalViewModel(get(),get()) }
     viewModel { AskEveryOneViewModel()}
-
+    viewModel {InformationViewModel()}
     //main
     viewModel { MainViewModel(get(),get(),get()) }
 
