@@ -36,12 +36,6 @@ class SignUpMajorInfoActivity :
 
     private val bottomSheetDialog = CustomBottomSheetDialog("본전공")
 
-//    //바텀시트 선택됐는지
-//    private var _selectedOption = MutableLiveData<Boolean>()
-//    val selectedOptions: LiveData<Boolean>
-//    get() = _selectedOption
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -264,26 +258,6 @@ class SignUpMajorInfoActivity :
             secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
         }
     }
-
-//    //다음으로 가는 버튼 활성화
-//    private fun initNextBtnEnable() {
-//        binding.apply {
-//            if(textSignupMajorInfoDoubleMajor.text.toString() == "미진입") {
-//                if (textSignupMajorInfoMajor.text.toString() == "선택하기" || textSignupMajorInfoMajorTime.text.toString() == "선택하기") {
-//                    clSignupMajorInfoMoveNext.isSelected = false
-//                }
-//            }
-//            else {
-//                if (textSignupMajorInfoMajor.text.toString() == "선택하기" || textSignupMajorInfoMajorTime.text.toString() == "선택하기"
-//                    || textSignupMajorInfoDoubleMajor.text.toString() == "선택하기" || textSignupMajorInfoDoubleMajorTime.text.toString() == "선택하기") {
-//                    clSignupMajorInfoMoveNext.isSelected = false
-//                } else {
-//                    clSignupMajorInfoMoveNext.isSelected = false
-//                }
-//            }
-//        }
-//    }
-
 
     private fun setupSpinner() {
         val list = listOf("고려대학교", "타 대학은 현재 준비중입니다")
