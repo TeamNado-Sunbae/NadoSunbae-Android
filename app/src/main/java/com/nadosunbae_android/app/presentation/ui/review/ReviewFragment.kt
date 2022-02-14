@@ -55,6 +55,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     override fun onResume() {
         super.onResume()
 
+        observeUserMajor()
         loadReviewList()
     }
 
@@ -201,19 +202,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     private fun openReviewWrite() {
         val intent = Intent(context, ReviewWriteActivity::class.java)
-
         intent.putExtra("mode", MODE_NEW)
-
-        val selectedMajor = mainViewModel.selectedMajor.value
-        val firstMajor = mainViewModel.firstMajor.value
-        val secondMajor = mainViewModel.secondMajor.value
-        // null check
-        if (selectedMajor != null)
-            ReviewGlobals.selectedMajor = selectedMajor
-        if (firstMajor != null)
-            ReviewGlobals.firstMajor = firstMajor
-        if (secondMajor != null)
-            ReviewGlobals.secondMajor = secondMajor
 
         startActivity(intent)
     }
@@ -240,8 +229,22 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 loadReviewList()
                 // 선택된 학과 정보 불러오기
                 reviewListViewModel.getMajorInfo(mainViewModel.selectedMajor.value!!.majorId)
+                ReviewGlobals.selectedMajor = it
             }
         }
+    }
+
+    private fun observeUserMajor() {
+
+        mainViewModel.firstMajor.observe(viewLifecycleOwner) {
+            ReviewGlobals.firstMajor = it
+        }
+
+        mainViewModel.secondMajor.observe(viewLifecycleOwner) {
+            ReviewGlobals.secondMajor = it
+        }
+
+
     }
 
     private fun observeFilter() {
