@@ -16,7 +16,7 @@ class SignUpFinishActivity : BaseActivity<ActivitySignUpFinishBinding>(R.layout.
 
     private fun nextPage() {
         binding.clSignupFinish.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, SignInActivity::class.java))
             finish()
         }
     }
