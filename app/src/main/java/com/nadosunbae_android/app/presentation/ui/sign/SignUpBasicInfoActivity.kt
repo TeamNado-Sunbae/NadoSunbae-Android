@@ -44,12 +44,12 @@ class SignUpBasicInfoActivity :
         }
 
         signUpBasicInfoViewModel.nickNameDuplication.observe(this) {
-            if (it.success) {
-                binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
-                binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
-            } else {
+            if (!it.success) {
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.VISIBLE
+            } else {
+                binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
+                binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
             }
         }
         if (binding.etSignupBasicinfoNickname.text.toString() == "") {
