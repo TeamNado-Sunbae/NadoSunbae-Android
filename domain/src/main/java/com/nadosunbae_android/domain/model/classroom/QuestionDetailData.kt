@@ -5,7 +5,7 @@ import java.util.*
 data class QuestionDetailData(
     val answererId: Int,
     val isLiked : Boolean,
-    val likeCount : String,
+    val likeCount : Int,
     val messageList: List<Message>,
     val questionerId: Int,
 ) {

@@ -117,7 +117,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     // 로그인 response 전달  받기
     private fun getSignDataFromIntent() {
         // real code
-        val signData = intent.getSerializableExtra("signData") as SignInItem.User
+        val signData = intent.getParcelableExtra<SignInItem.User>("signData") as SignInItem.User
 
         // null check
         mainViewModel.setSignData(signData)

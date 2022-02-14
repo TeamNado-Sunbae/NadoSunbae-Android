@@ -10,7 +10,7 @@ data class ResponseReviewListData(
 ) {
     data class Data(
         val createdAt: Date,
-        val likeCount: String,
+        val likeCount: Int,
         val oneLineReview: String,
         val postId: Int,
         val tagList: List<Tag>,

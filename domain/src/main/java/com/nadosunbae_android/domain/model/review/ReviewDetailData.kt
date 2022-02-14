@@ -1,8 +1,11 @@
 package com.nadosunbae_android.domain.model.review
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 import java.util.*
 
+@Parcelize
 data class ReviewDetailData(
     val backgroundImageId: Int,
     val backgroundImageUrl: String,
@@ -21,10 +24,11 @@ data class ReviewDetailData(
     val secondMajorName: String,
     val secondMajorStart: String,
     val writerId: Int
-) : Serializable {
+) : Parcelable {
 
+    @Parcelize
     data class Content(
         val title: String,
         val content: String
-    ) : Serializable
+    ) : Parcelable
 }

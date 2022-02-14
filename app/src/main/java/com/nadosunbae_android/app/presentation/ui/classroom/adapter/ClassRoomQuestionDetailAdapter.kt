@@ -18,7 +18,7 @@ import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 class ClassRoomQuestionDetailAdapter(context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var context = context
-    private var like = ""
+    private var like = 0
     private var likeSelect = false
 
     //View Type
@@ -29,7 +29,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
     var questionDetailData = mutableListOf<QuestionDetailData.Message>()
 
 
-    fun setLike(num: String, isLiked: Boolean) {
+    fun setLike(num: Int, isLiked: Boolean) {
         like = num
         likeSelect = isLiked
     }
@@ -83,7 +83,7 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
                 //좋아요 처리
                 with(holder.binding) {
                     imgQuestionDetailLike.isSelected = likeSelect
-                    textQuestionDetailLikeCount.text = like
+                    textQuestionDetailLikeCount.text = like.toString()
                 }
                     if (questionDetailData[position].secondMajorName == "미진입") {
                         holder.binding.textQuestionDetailSecondStartMajor.visibility = View.GONE

@@ -17,10 +17,7 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel.C
 import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Companion.MODE_NEW
 import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewListViewModel
-import com.nadosunbae_android.app.util.CustomBottomSheetDialog
-import com.nadosunbae_android.app.util.CustomDialog
-import com.nadosunbae_android.app.util.dpToPx
-import com.nadosunbae_android.app.util.showCustomDropDown
+import com.nadosunbae_android.app.util.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -122,6 +119,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                         val intent = Intent(context, ReviewDetailActivity::class.java)
                         val postId = reviewListData[position].postId
                         intent.putExtra("postId", postId)
+                        intent.putExtra("userId", mainViewModel.userId.value)
                         startActivity(intent)
                     }
 
@@ -166,7 +164,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             )
 
 
-            showCustomDropDown(reviewListViewModel, binding.btnSort, 160f.dpToPx, reviewListViewModel.dropDownSelected.value!!.id, dropDownList)
+            showCustomDropDown(reviewListViewModel, binding.btnSort, 160f.dpToPx, null, -1 * 16f.dpToPx, null, true, reviewListViewModel.dropDownSelected.value!!.id, dropDownList)
         }
 
         val showMajorBottomSheetDialog = {
