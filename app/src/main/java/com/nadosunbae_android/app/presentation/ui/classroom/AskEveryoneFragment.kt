@@ -25,8 +25,16 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         changeClassRoom()
+        initQuestionSort()
+        observeArray()
+        questionSort()
+
         initAskEveryone()
         goQuestionWrite()
+
+
+
+
     }
 
 
@@ -43,9 +51,6 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
     //리사이클러뷰
     private fun initAskEveryone(){
         //majorId 넣음
-        mainViewModel.majorId.observe(viewLifecycleOwner){
-            mainViewModel.getClassRoomMain(3,it,"recent")
-        }
         classRoomAskEveryoneAdapter = ClassRoomAskEveryoneAdapter()
         binding.rcAskEveryone.adapter = classRoomAskEveryoneAdapter
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){
@@ -53,11 +58,18 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
         }
     }
 
+    //질문 전체보기 서버통신
+    private fun questionEveryone(sort : String){
+        mainViewModel.majorId.observe(viewLifecycleOwner){
+            mainViewModel.getClassRoomMain(3,it,sort)
+        }
+
+    }
+
+
     override fun onResume() {
         super.onResume()
-        mainViewModel.majorId.observe(viewLifecycleOwner){
-            mainViewModel.getClassRoomMain(3,it,"recent")
-        }
+        questionEveryone("recent")
     }
 
     //전체 질문 작성으로 이동
@@ -75,13 +87,45 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
 
     //최신순, 도움순 정렬
     private fun questionSort(){
-        binding.textAskEveryoneArray.setOnClickListener {
+        binding.btnAskEveryoneArray.setOnClickListener {
             val questionDropDownList = mutableListOf<SelectableData>(
             SelectableData(1, getString(R.string.review_latest_order), true),
             SelectableData(2, getString(R.string.review_likes_order), false)
         )
-            showCustomDropDown(askEveryOneViewModel, binding.textAskEveryoneArray, 160f.dpToPx, askEveryOneViewModel.dropDownSelected.value!!.id, questionDropDownList)
+
+
+            showCustomDropDown(askEveryOneViewModel, binding.btnAskEveryoneArray, 160f.dpToPx, null, -1 * 16f.dpToPx, null, true,askEveryOneViewModel.dropDownSelected.value!!.id, questionDropDownList)
+
+        }
+    }
+
+    //첫 화면 최신순
+    private fun initQuestionSort(){
+        askEveryOneViewModel.dropDownSelected.value = SelectableData(1,"최신순",true)
+    }
+
+    //최신순, 도움순 변경
+    private fun observeArray(){
+        askEveryOneViewModel.dropDownSelected.observe(viewLifecycleOwner) {
+            val sortData = askEveryOneViewModel.dropDownSelected.value
+            if (sortData != null) {
+                if (sortData.id == 1)
+                    binding.btnAskEveryoneArray.text = getString(R.string.review_latest_order)
+                else
+                    binding.btnAskEveryoneArray.text = getString(R.string.review_likes_order)
+            }
+            var sort = "recent"
+            if (askEveryOneViewModel.dropDownSelected.value != null) {
+                sort = if (askEveryOneViewModel.dropDownSelected.value!!.id == 1)
+                    "recent"
+                else
+                    "like"
+            }
+
+            questionEveryone(sort)
         }
 
     }
+
+
 }

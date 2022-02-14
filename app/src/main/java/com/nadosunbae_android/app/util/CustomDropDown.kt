@@ -24,20 +24,21 @@ import kotlinx.coroutines.selects.select
 
     선택한 결과를 viewModel의 dropDownSelected.value에 저장합니다 -> observe해서 적용할 것
  */
-
 fun Activity.showCustomDropDown(
-                                viewModel: DropDownSelectableViewModel,
-                                view: View, width: Int, selectedItem: Int,
-                                dataList: MutableList<SelectableData>) {
+    viewModel: DropDownSelectableViewModel,
+    view: View, width: Int, selectedItem: Int,
+    dataList: MutableList<SelectableData>) {
     showCustomDropDown(viewModel, view, width, null, null, null, false, selectedItem, dataList)
 }
 
 fun Fragment.showCustomDropDown(
-                                viewModel: DropDownSelectableViewModel,
-                                view: View, width: Int, selectedItem: Int,
-                                dataList: MutableList<SelectableData>) {
+    viewModel: DropDownSelectableViewModel,
+    view: View, width: Int, selectedItem: Int,
+    dataList: MutableList<SelectableData>) {
     showCustomDropDown(viewModel, view, width, null, null, null, false, selectedItem, dataList)
 }
+
+
 
 
 fun Activity.showCustomDropDown(
