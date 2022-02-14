@@ -41,7 +41,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         setBinding()
         setStickyHeader()
         initReviewListAdapter()
-        setReviewListData()
+        observeReviewListData()
         setClickListener()
         initSortSelected()
         observeSelectedMajor()
@@ -59,6 +59,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         loadReviewList()
     }
 
+
     private fun setBinding() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.mainViewModel = mainViewModel
@@ -66,7 +67,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
 
 
-    private fun setReviewListData() {
+    private fun observeReviewListData() {
         // reviewListViewModel observe (목록에 표시되도록)
         reviewListViewModel.reviewListData.observe(viewLifecycleOwner) {
             reviewListAdapter.setReviewListData(it as MutableList<ReviewPreviewData>)
