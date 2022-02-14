@@ -198,8 +198,8 @@ fun android.widget.Button.intToString(num: Int) {
     this.text = num.toString()
 }
 
-// ImageView의 isSelected를 설정
+// View의 isSelected를 설정
 @BindingAdapter("setSelected")
-fun ImageView.setSelected(selected: Boolean) {
+fun View.setSelected(selected: Boolean) {
     this.isSelected = selected
 }

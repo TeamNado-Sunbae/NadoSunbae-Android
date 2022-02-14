@@ -37,10 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="16dp"
-
+            setSelected="@{previewData.liked}"
             android:fontFamily="@font/pretendard_light"
             intToText ="@{previewData.likeCount}"
-            android:textColor="@color/gray_3"
+            android:textColor="@drawable/selector_gray_3_to_main_default"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -71,7 +71,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_likes"
             app:layout_constraintEnd_toStartOf="@+id/tv_likes"
             app:layout_constraintTop_toTopOf="@+id/tv_likes"
-            app:srcCompat="@drawable/ic_diamond_empty_gray" />
+            app:srcCompat="@drawable/selector_icon_like" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/cl_tags"

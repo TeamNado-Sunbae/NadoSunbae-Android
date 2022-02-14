@@ -298,7 +298,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/main_default"
                 android:background="@drawable/selector_ic_btn_like"
-                android:drawableStart="@drawable/selector_drawable_diamond"
+                android:drawableStart="@drawable/selector_icon_like"
                 tools:text="1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
