@@ -53,6 +53,33 @@ class SignUpBasicInfoViewModel(
     //제 2전공
     val secondDepartment = MutableLiveData<SignBottomSheetItem>()
 
+    var firstDepartmentClick = MutableLiveData<Boolean>(false)
+    var firstDepartmentGo = MutableLiveData<Boolean>(false)
+    var secondDepartmentClick = MutableLiveData<Boolean>(false)
+    var secondDepartmentGo = MutableLiveData<Boolean>(false)
+
+    //미진입 없을 때
+    var selectedAll = MediatorLiveData<Boolean>().apply {
+          this.addSource(firstDepartmentClick){
+              this.value = isCompleteBtn()
+          }
+        this.addSource(firstDepartmentGo){
+            this.value = isCompleteBtn()
+        }
+        this.addSource(secondDepartmentClick){
+            this.value = isCompleteBtn()
+        }
+        this.addSource(secondDepartmentGo){
+            this.value = isCompleteBtn()
+        }
+    }
+
+    //회원가입 분기 처리
+    private fun isCompleteBtn() : Boolean{
+        return (firstDepartmentClick.value == true) && (firstDepartmentGo.value == true)
+                &&(secondDepartmentClick.value == true) && (secondDepartmentGo.value == true)
+    }
+
 
     //로그인 상태 체크
     fun checkStatus(status: Int?) {
