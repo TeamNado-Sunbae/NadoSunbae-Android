@@ -8,6 +8,10 @@
             name="questionDetail"
             type="com.nadosunbae_android.domain.model.classroom.QuestionDetailData.Message" />
 
+        <variable
+            name="questionDetailLike"
+            type="com.nadosunbae_android.domain.model.classroom.QuestionDetailData" />
+
 
     </data>
 
@@ -144,6 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
+                likeCheck = "@{questionDetailLike.liked}"
                 android:background="@drawable/selector_heart_gray_mint"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

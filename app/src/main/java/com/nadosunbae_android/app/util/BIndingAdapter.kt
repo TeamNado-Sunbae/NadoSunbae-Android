@@ -39,8 +39,14 @@ object BindingAdapter {
     fun plusStart(textView: TextView, text: String): String {
         return (text + "진입").also { textView.text = it }
     }
-
+    //좋아요 selector
     @JvmStatic
+    @BindingAdapter("likeCheck")
+    fun getLikeCheck(imageView : ImageView, like : Boolean){
+        imageView.isSelected = like
+
+    }
+            @JvmStatic
     @BindingAdapter("int", "nickname", requireAll = false)
     fun notification(textView: TextView, int: Int, nickname: String): SpannableStringBuilder {
         val param = listOf("","1:1질문", "작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글" )
@@ -143,11 +149,12 @@ fun TextView.dateToTextFormat(date: Date?) {
 
 @BindingAdapter("loadImageFromUrl")
 fun ImageView.loadImageFromUrl(url: String?) {
-
     Glide.with(context)
         .load(url)
         .into(this)
 }
+
+
 
 @BindingAdapter("loadImageFromId")
 fun ImageView.loadImageFromId(resId: Int?) {
