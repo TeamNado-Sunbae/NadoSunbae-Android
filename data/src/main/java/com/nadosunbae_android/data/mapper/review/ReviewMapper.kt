@@ -24,7 +24,8 @@ object ReviewMapper {
         return responseReviewListData.data.map {
             ReviewPreviewData(
                 createdAt = it.createdAt,
-                likeCount = it.likeCount,
+                likeCount = it.like.likeCount,
+                isLiked = it.like.isLiked,
                 oneLineReview = it.oneLineReview,
                 postId = it.postId,
                 tagList = it.tagList.map {

@@ -286,7 +286,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/borderlessButtonStyle"
-                android:text="@{reviewDetailViewModel.reviewDetailData.likeCount}"
+                intToString="@{reviewDetailViewModel.reviewDetailData.likeCount}"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
                 android:layout_marginEnd="20dp"

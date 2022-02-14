@@ -45,9 +45,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         setClickListener()
         initSortSelected()
         observeSelectedMajor()
-
-        // observePreviewList()
-
         observeFilter()
         observeSort()
         initBottomSheet()
@@ -232,14 +229,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             }
         }
     }
-/*
-    private fun observePreviewList() {
-        reviewListViewModel.previewList.observe(viewLifecycleOwner) {
-            // recyclerView adaper에 적용
-        }
-    }
-
- */
 
     private fun observeSelectedMajor() {
         // 선택 학과 observe

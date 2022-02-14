@@ -5,6 +5,7 @@ import java.util.*
 data class ReviewPreviewData(
     val createdAt: Date,
     val likeCount: Int,
+    val isLiked: Boolean,
     val oneLineReview: String,
     val postId: Int,
     val tagList: List<String>,
