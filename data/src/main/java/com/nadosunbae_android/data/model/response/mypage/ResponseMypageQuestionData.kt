@@ -12,10 +12,10 @@ data class ResponseMypageQuestionData(
         val classroomPostList: List<ClassroomPost>
     ) {
         data class ClassroomPost(
-            val commentCount: String,
+            val commentCount: Int,
             val content: String,
             val createdAt: Date?,
-            val likeCount: String,
+            val likeCount: Int,
             val postId: Int,
             val title: String,
             val writer: Writer

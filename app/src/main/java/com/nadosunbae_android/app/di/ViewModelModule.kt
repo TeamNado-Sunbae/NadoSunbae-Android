@@ -20,7 +20,7 @@ val viewModelModule = module {
     viewModel { QuestionDetailViewModel(get(),get()) }
     viewModel { QuestionWriteViewModel(get()) }
     viewModel { SeniorPersonalViewModel(get(),get()) }
-
+    viewModel { AskEveryOneViewModel()}
 
     //main
     viewModel { MainViewModel(get(),get(),get()) }

@@ -39,7 +39,7 @@
             android:layout_marginEnd="16dp"
 
             android:fontFamily="@font/pretendard_light"
-            android:text="@{previewData.likeCount}"
+            intToText ="@{previewData.likeCount}"
             android:textColor="@color/gray_3"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"

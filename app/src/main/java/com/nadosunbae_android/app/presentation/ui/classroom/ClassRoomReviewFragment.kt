@@ -25,7 +25,7 @@ class ClassRoomReviewFragment : BaseFragment<FragmentClassRoomReviewBinding>(R.l
         val transFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val sampleData = ReviewPreviewData(
                transFormat.parse(from),
-            "2", "한줄평", 12, listOf(
+            2, "한줄평", 12, listOf(
                 "월 배우나요?",
                 "향후 진로"
             ), "컴퓨터공학", "18-1", "홍길동", 13, "물리학", "19-1", 22)

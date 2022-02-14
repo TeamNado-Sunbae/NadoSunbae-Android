@@ -8,8 +8,8 @@ data class ClassRoomData(
     val content: String,
     val createdAt: Date?,
     val writer: Writer,
-    val likeCount: String,
-    val commentCount: String
+    val likeCount: Int,
+    val commentCount: Int
 ) {
     data class Writer(
         val nickname: String,
