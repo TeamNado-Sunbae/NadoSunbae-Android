@@ -157,7 +157,7 @@
     <string name="signup_basicinfo_check_duplication_nickname_ok">사용 가능한 닉네임입니다.</string>
     <string name="signup_basicinfo_check_duplication_nickname_no">이미 사용중인 닉네임입니다.</string>
     <string name="signup_basicinfo_email">학교 이메일</string>
-    <string name="signup_basicinfo_check_duplication_email_ok">사용 가능한 닉네임입니다.</string>
+    <string name="signup_basicinfo_check_duplication_email_ok">사용 가능한 이메일입니다.</string>
     <string name="signup_basicinfo_check_duplication_email_no">이미 가입된 이메일입니다.</string>
     <string name="signup_basicinfo_password">: 영문, 숫자를 합하여 6-20자</string>
     <string name="signup_basicinfo_password_check">비밀번호 확인</string>

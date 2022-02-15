@@ -84,11 +84,6 @@ class SignUpMajorInfoActivity :
 
     private fun nextBtnActivate() {
         binding.clSignupMajorInfoMoveNext.setOnClickListener {
-//            signUpBasicInfoViewModel.requestSignUp.firstMajorId = firstDepartmentBottomSheetDialog.getSelectedData()?.id!!
-//            signUpBasicInfoViewModel.requestSignUp.firstMajorStart = binding.textSignupMajorinfoMajorTime.text.toString()
-//            signUpBasicInfoViewModel.requestSignUp.secondMajorId = secondDepartmentBottomSheetDialog.getSelectedData()?.id!!
-//            signUpBasicInfoViewModel.requestSignUp.secondMajorStart = binding.textSignupMajorInfoDoubleMajorTime.text.toString()
-
             val intent = Intent(this, SignUpBasicInfoActivity::class.java)
             intent.putExtra("firstMajorId", firstDepartmentBottomSheetDialog.getSelectedData()?.id!!)
             intent.putExtra("firstMajorStart", binding.textSignupMajorinfoMajorTime.text.toString())

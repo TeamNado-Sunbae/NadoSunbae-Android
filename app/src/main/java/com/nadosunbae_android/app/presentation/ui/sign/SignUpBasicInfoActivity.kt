@@ -256,7 +256,7 @@ class SignUpBasicInfoActivity :
     private fun isNickNamePattern() = with(binding) {
         val nickname = etSignupBasicinfoNickname
 
-        if (!Pattern.matches("^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())) {
+        if (!Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())) {
             textSignupBasicinfoNicknameTitle.setTextColor(Color.parseColor("#FF4C40"))
             textSignupBasicinfoNicknameDuplication.isSelected = false
         } else {
