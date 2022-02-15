@@ -21,11 +21,10 @@ class SignUpBasicInfoViewModel(
 
 ) : ViewModel() {
     //닉네임 중복 체크 변수
-    var nickNameDuplication = MutableLiveData<NicknameDuplicationCheck>()
+    var nicknameDuplicationCheck: MutableLiveData<NicknameDuplicationCheck> = MutableLiveData()
 
-    var nicknameDuplicationCheck : MutableLiveData<NicknameDuplicationCheck> = MutableLiveData()
     //이메일 중복 체크 변수
-    var emailDuplication = MutableLiveData<Boolean>()
+    var emailDuplicationCheck: MutableLiveData<EmailDuplicationCheck> = MutableLiveData()
 
     //회원가입 request
     val requestSignUp = RequestSignUp("", "", "", 0, 0, "", 0, "")
@@ -61,24 +60,24 @@ class SignUpBasicInfoViewModel(
 
     //미진입 없을 때
     var selectedAll = MediatorLiveData<Boolean>().apply {
-          this.addSource(firstDepartmentClick){
-              this.value = isCompleteBtn()
-          }
-        this.addSource(firstDepartmentGo){
+        this.addSource(firstDepartmentClick) {
             this.value = isCompleteBtn()
         }
-        this.addSource(secondDepartmentClick){
+        this.addSource(firstDepartmentGo) {
             this.value = isCompleteBtn()
         }
-        this.addSource(secondDepartmentGo){
+        this.addSource(secondDepartmentClick) {
+            this.value = isCompleteBtn()
+        }
+        this.addSource(secondDepartmentGo) {
             this.value = isCompleteBtn()
         }
     }
 
     //회원가입 분기 처리
-    private fun isCompleteBtn() : Boolean{
+    private fun isCompleteBtn(): Boolean {
         return (firstDepartmentClick.value == true) && (firstDepartmentGo.value == true)
-                &&(secondDepartmentClick.value == true) && (secondDepartmentGo.value == true)
+                && (secondDepartmentClick.value == true) && (secondDepartmentGo.value == true)
     }
 
 
@@ -90,15 +89,18 @@ class SignUpBasicInfoViewModel(
     //닉네임 중복 체크
     fun nickNameDuplication(nicknameDuplicationData: NicknameDuplicationData) {
         viewModelScope.launch {
-            when (val nicknameDuplication = safeApiCall(Dispatchers.IO) { postSignNicknameUseCase(nicknameDuplicationData) }) {
-                is ResultWrapper.Success -> nicknameDuplicationCheck.value
+            when (val nicknameDuplication =
+                safeApiCall(Dispatchers.IO) { postSignNicknameUseCase(nicknameDuplicationData) }) {
+                is ResultWrapper.Success -> nicknameDuplicationCheck.value =
+                    NicknameDuplicationCheck(200, true)
                 is ResultWrapper.NetworkError -> {
                     Log.d("NickNameDuplication", "네트워크 실패")
                     nicknameDuplicationCheck.value = NicknameDuplicationCheck(500, false)
                 }
                 is ResultWrapper.GenericError -> {
                     checkStatus(nicknameDuplication.code)
-                    nicknameDuplicationCheck.value = NicknameDuplicationCheck(nicknameDuplication.code!!, false)
+                    nicknameDuplicationCheck.value =
+                        NicknameDuplicationCheck(nicknameDuplication.code!!, false)
                 }
             }
             Log.d("nicknameDuplication", status.value.toString())
@@ -109,18 +111,21 @@ class SignUpBasicInfoViewModel(
     //이메일 중복 체크
     fun emailDuplication(emailDuplicationData: EmailDuplicationData) {
         viewModelScope.launch {
-            kotlin.runCatching { postSignEmailUseCase(emailDuplicationData) }
-                .onSuccess {
-                    emailDuplication.value = it.success
-                    Log.d("emailDuplication", "서버 통신 성공")
-
+            when (val emailDuplication =
+                safeApiCall(Dispatchers.IO) { postSignEmailUseCase(emailDuplicationData) }) {
+                is ResultWrapper.Success -> emailDuplicationCheck.value =
+                    EmailDuplicationCheck(200, true)
+                is ResultWrapper.NetworkError -> {
+                    Log.d("EmailDuplication", "네트워크 실패")
+                    emailDuplicationCheck.value = EmailDuplicationCheck(500, false)
                 }
-                .onFailure {
-
-                    it.printStackTrace()
-                    emailDuplication.value = false
-                    Log.d("emailDuplication", "서버 통신 실패")
+                is ResultWrapper.GenericError -> {
+                    checkStatus(emailDuplication.code)
+                    emailDuplicationCheck.value =
+                        EmailDuplicationCheck(emailDuplication.code!!, false)
                 }
+            }
+            Log.d("emailDuplication", status.value.toString())
         }
     }
 

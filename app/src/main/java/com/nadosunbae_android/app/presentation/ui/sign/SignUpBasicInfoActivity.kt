@@ -34,20 +34,20 @@ class SignUpBasicInfoActivity :
         pwCheckTextWatcher()
         beforeBtnClick()
         closePage()
-
+        nicknameDuplication()
     }
 
     //닉네임 중복 체크 서버 통신
     private fun nicknameDuplication() {
-        signUpBasicInfoViewModel.nickName.observe(this) {
-            signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(it))
-        }
-
-        signUpBasicInfoViewModel.nickNameDuplication.observe(this) {
+        Log.d("NicknameDuplication", "서버 통신 성공")
+        signUpBasicInfoViewModel.nicknameDuplicationCheck.observe(this) {
             if (!it.success) {
+                Log.d("닉네임 중복확인", "실패")
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.VISIBLE
-            } else {
+            }
+            if(it.success) {
+                Log.d("닉네임 중복확인", "성공")
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
             }
@@ -62,17 +62,15 @@ class SignUpBasicInfoActivity :
 
     //이메일 중복 체크 서버 통신
     private fun emailDuplication() {
-        signUpBasicInfoViewModel.email.observe(this) {
-            signUpBasicInfoViewModel.emailDuplication(EmailDuplicationData(it))
-        }
-
-        signUpBasicInfoViewModel.emailDuplication.observe(this) {
-            if (it) {
-                binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
-                binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
-            } else {
+        signUpBasicInfoViewModel.emailDuplicationCheck.observe(this) {
+            if (!it.success) {
+                Log.d("이메일 중복확인", "실패")
                 binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.VISIBLE
                 binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
+            } else {
+                Log.d("이메일 중복확인", "성공")
+                binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
+                binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
             }
         }
         if (binding.etSignupBasicinfoNickname.text.toString() == "") {
@@ -101,7 +99,7 @@ class SignUpBasicInfoActivity :
                     imgSignupBasicinfoNicknameCancel.isSelected = true
                     textSignupBasicinfoNicknameDuplication.setOnClickListener {
                         signUpBasicInfoViewModel.nickName.value = p0.toString()
-                        nicknameDuplication()
+                        signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etSignupBasicinfoNickname.text.toString()))
                         activationNextBtn()
                     }
 
@@ -146,6 +144,7 @@ class SignUpBasicInfoActivity :
                     imgSignupBasicinfoEmailCancel.isSelected = true
                     textSignupBasicinfoEmailDuplication.setOnClickListener {
                         signUpBasicInfoViewModel.email.value = p0.toString()
+                        signUpBasicInfoViewModel.emailDuplication(EmailDuplicationData(binding.etSignupBasicinfoEmail.text.toString()))
                         emailDuplication()
                         activationNextBtn()
                     }

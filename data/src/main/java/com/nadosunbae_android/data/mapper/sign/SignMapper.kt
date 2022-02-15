@@ -19,6 +19,7 @@ object SignMapper {
     //이메일 중복확인
     fun mapperToEmailDuplication(responseSignEmail: ResponseSignEmail): EmailDuplicationCheck {
         return EmailDuplicationCheck(
+            status = responseSignEmail.status,
             success = responseSignEmail.success
         )
     }
