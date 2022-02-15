@@ -20,7 +20,8 @@ object ClassRoomMapper {
                     profileImageId = it.writer.profileImageId,
                     writerId = it.writer.writerId
                 ),
-                likeCount = it.likeCount,
+                isLiked = it.like.isLiked,
+                likeCount = it.like.likeCount,
                 commentCount = it.commentCount
             )
         }
@@ -67,32 +68,14 @@ object ClassRoomMapper {
                     profileImageId = it.writer.profileImageId,
                     writerId = it.writer.writerId
                 ),
-                likeCount = it.likeCount,
+                isLiked = it.like.isLiked,
+                likeCount = it.like.likeCount,
                 commentCount = it.commentCount
             )
         }
     }
 
-    //마이페이지
-    fun mapperToMyPageQuestion(responseMypageQuestionData: MyPageQuestionData): List<ClassRoomData> {
-        return responseMypageQuestionData.data.classroomPostList.map {
-            ClassRoomData(
-                postId = it.postId,
-                title = it.title,
-                content = it.content,
-                createdAt = it.createdAt,
-                writer = ClassRoomData.Writer(
-                    nickname = it.writer.nickname,
-                    profileImageId = it.writer.profileImageId,
-                    writerId = it.writer.writerId
-                ),
-                likeCount = it.likeCount,
-                commentCount = it.commentCount
-            )
 
-        }
-
-    }
 
     // 질문 상세 데이터
     fun mapperToQuestionDetailData(responseClassRoomQuestionDetail: ResponseClassRoomQuestionDetail): QuestionDetailData {
