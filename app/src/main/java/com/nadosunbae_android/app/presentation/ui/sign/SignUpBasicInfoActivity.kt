@@ -333,12 +333,22 @@ class SignUpBasicInfoActivity :
                         signUpBasicInfoViewModel.requestSignUp.nickname,
                         signUpBasicInfoViewModel.requestSignUp.password,
                         1,
-                        signUpBasicInfoViewModel.requestSignUp.firstMajorId,
-                        signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
-                        signUpBasicInfoViewModel.requestSignUp.secondMajorId,
-                        signUpBasicInfoViewModel.requestSignUp.secondMajorStart
+                        1,
+                        intent.getStringExtra("firstMajorStart").toString(),
+                        3,
+                        intent.getStringExtra("secondMajorStart").toString()
                     )
                 )
+
+                Log.d("signUpInfo", signUpBasicInfoViewModel.requestSignUp.email)
+                Log.d("signUpInfo", signUpBasicInfoViewModel.requestSignUp.nickname)
+                Log.d("signUpInfo", signUpBasicInfoViewModel.requestSignUp.password)
+                //Log.d("signUpInfo", intent.getStringExtra("firstMajorId")!!.toInt().toString())
+                Log.d("signUpInfo", intent.getStringExtra("firstMajorStart").toString())
+                //Log.d("signUpInfo", intent.getStringExtra("secondMajorId")!!.toInt().toString())
+                Log.d("signUpInfo", intent.getStringExtra("secondMajorStart").toString())
+
+
                 Log.d("signUp", "post1")
                 startActivity(
                     Intent(

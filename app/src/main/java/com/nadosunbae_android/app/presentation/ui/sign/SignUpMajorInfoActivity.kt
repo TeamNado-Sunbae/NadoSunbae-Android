@@ -19,7 +19,11 @@ import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.PixelRatio
 import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.sign.SignBottomSheetItem
+import com.nadosunbae_android.domain.model.sign.SignUpData
+import com.nadosunbae_android.domain.model.sign.SignUpItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.getScopeId
 
 
 class SignUpMajorInfoActivity :
@@ -80,12 +84,28 @@ class SignUpMajorInfoActivity :
 
     private fun nextBtnActivate() {
         binding.clSignupMajorInfoMoveNext.setOnClickListener {
-            signUpBasicInfoViewModel.requestSignUp.firstMajorStart = binding.textSignupMajorInfoMajorTime.text.toString()
-            signUpBasicInfoViewModel.requestSignUp.secondMajorId = binding.textSignupMajorInfoMajor.id
+            //intent로 데이터 넘겨줘야함!
+            signUpBasicInfoViewModel.requestSignUp.firstMajorId = binding.textSignupMajorInfoMajor.id
+            signUpBasicInfoViewModel.requestSignUp.firstMajorStart = binding.textSignupMajorinfoMajorTime.text.toString()
+            signUpBasicInfoViewModel.requestSignUp.secondMajorId = binding.textSignupMajorInfoDoubleMajor.id
             signUpBasicInfoViewModel.requestSignUp.secondMajorStart = binding.textSignupMajorInfoDoubleMajorTime.text.toString()
-            startActivity(Intent(this, SignUpBasicInfoActivity::class.java))
+
+//            Log.d("signupInfo?", signUpBasicInfoViewModel.requestSignUp.firstMajorStart)
+//
+//            Log.d("signupInfo", signUpBasicInfoViewModel.requestSignUp.secondMajorId.toString())
+//            Log.d("signupInfo", signUpBasicInfoViewModel.requestSignUp.firstMajorStart)
+//            Log.d("signupInfo", signUpBasicInfoViewModel.requestSignUp.secondMajorId.toString())
+//            Log.d("signupInfo", signUpBasicInfoViewModel.requestSignUp.secondMajorStart)
+
+            val intent : Intent = Intent(this, SignUpBasicInfoActivity::class.java)
+            intent.putExtra("firstMajorId", signUpBasicInfoViewModel.requestSignUp.firstMajorId)
+            intent.putExtra("firstMajorStart", binding.textSignupMajorinfoMajorTime.text.toString())
+            intent.putExtra("secondMajorId", binding.textSignupMajorInfoDoubleMajor.id)
+            intent.putExtra("secondMajorStart", binding.textSignupMajorinfoDoubleMajorTime.text.toString())
+            startActivity(intent)
         }
     }
+
 
     private fun onClickbottomSheetUniv() {
         binding.clSignupMajorInfoUniv.setOnClickListener {
