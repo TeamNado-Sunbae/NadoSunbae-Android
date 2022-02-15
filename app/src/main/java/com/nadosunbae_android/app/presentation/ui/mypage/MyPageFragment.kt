@@ -12,6 +12,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQue
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.data.mapper.classroom.ClassRoomMapper
+import com.nadosunbae_android.data.mapper.mypage.MypageMapper
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -72,7 +73,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
         myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
 
-            myPageQuestionAdapter.setQuestionMain(ClassRoomMapper.mapperToMyPageQuestion(it) as MutableList<ClassRoomData>)
+            myPageQuestionAdapter.setQuestionMain(MypageMapper.mapperToMyPageQuestion(it) as MutableList<ClassRoomData>)
         }
     }
 
