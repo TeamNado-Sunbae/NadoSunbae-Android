@@ -333,20 +333,20 @@ class SignUpBasicInfoActivity :
                         signUpBasicInfoViewModel.requestSignUp.nickname,
                         signUpBasicInfoViewModel.requestSignUp.password,
                         1,
-                        1,
+                        intent.getIntExtra("firstMajorId",0),
                         intent.getStringExtra("firstMajorStart").toString(),
-                        3,
+                        intent.getIntExtra("secondMajorId",0),
                         intent.getStringExtra("secondMajorStart").toString()
                     )
                 )
 
-                Log.d("signUpInfo", signUpBasicInfoViewModel.requestSignUp.email)
-                Log.d("signUpInfo", signUpBasicInfoViewModel.requestSignUp.nickname)
-                Log.d("signUpInfo", signUpBasicInfoViewModel.requestSignUp.password)
-                //Log.d("signUpInfo", intent.getStringExtra("firstMajorId")!!.toInt().toString())
-                Log.d("signUpInfo", intent.getStringExtra("firstMajorStart").toString())
-                //Log.d("signUpInfo", intent.getStringExtra("secondMajorId")!!.toInt().toString())
-                Log.d("signUpInfo", intent.getStringExtra("secondMajorStart").toString())
+                Log.d("signUpBasicInfo", signUpBasicInfoViewModel.requestSignUp.email)
+                Log.d("signUpBasicInfo", signUpBasicInfoViewModel.requestSignUp.nickname)
+                Log.d("signUpBasicInfo", signUpBasicInfoViewModel.requestSignUp.password)
+                Log.d("signUpBasicInfo", "value : " + intent.getIntExtra("firstMajorId",0))
+                Log.d("signUpBasicInfo", intent.getStringExtra("firstMajorStart").toString())
+                Log.d("signUpBasicInfo", "value : " + intent.getIntExtra("secondMajorId",0))
+                Log.d("signUpBasicInfo", intent.getStringExtra("secondMajorStart").toString())
 
 
                 Log.d("signUp", "post1")

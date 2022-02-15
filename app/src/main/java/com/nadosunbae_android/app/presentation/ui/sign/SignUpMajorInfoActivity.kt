@@ -84,25 +84,22 @@ class SignUpMajorInfoActivity :
 
     private fun nextBtnActivate() {
         binding.clSignupMajorInfoMoveNext.setOnClickListener {
-            //intent로 데이터 넘겨줘야함!
-            signUpBasicInfoViewModel.requestSignUp.firstMajorId = binding.textSignupMajorInfoMajor.id
-            signUpBasicInfoViewModel.requestSignUp.firstMajorStart = binding.textSignupMajorinfoMajorTime.text.toString()
-            signUpBasicInfoViewModel.requestSignUp.secondMajorId = binding.textSignupMajorInfoDoubleMajor.id
-            signUpBasicInfoViewModel.requestSignUp.secondMajorStart = binding.textSignupMajorInfoDoubleMajorTime.text.toString()
+//            signUpBasicInfoViewModel.requestSignUp.firstMajorId = firstDepartmentBottomSheetDialog.getSelectedData()?.id!!
+//            signUpBasicInfoViewModel.requestSignUp.firstMajorStart = binding.textSignupMajorinfoMajorTime.text.toString()
+//            signUpBasicInfoViewModel.requestSignUp.secondMajorId = secondDepartmentBottomSheetDialog.getSelectedData()?.id!!
+//            signUpBasicInfoViewModel.requestSignUp.secondMajorStart = binding.textSignupMajorInfoDoubleMajorTime.text.toString()
 
-//            Log.d("signupInfo?", signUpBasicInfoViewModel.requestSignUp.firstMajorStart)
-//
-//            Log.d("signupInfo", signUpBasicInfoViewModel.requestSignUp.secondMajorId.toString())
-//            Log.d("signupInfo", signUpBasicInfoViewModel.requestSignUp.firstMajorStart)
-//            Log.d("signupInfo", signUpBasicInfoViewModel.requestSignUp.secondMajorId.toString())
-//            Log.d("signupInfo", signUpBasicInfoViewModel.requestSignUp.secondMajorStart)
-
-            val intent : Intent = Intent(this, SignUpBasicInfoActivity::class.java)
-            intent.putExtra("firstMajorId", signUpBasicInfoViewModel.requestSignUp.firstMajorId)
+            val intent = Intent(this, SignUpBasicInfoActivity::class.java)
+            intent.putExtra("firstMajorId", firstDepartmentBottomSheetDialog.getSelectedData()?.id!!)
             intent.putExtra("firstMajorStart", binding.textSignupMajorinfoMajorTime.text.toString())
-            intent.putExtra("secondMajorId", binding.textSignupMajorInfoDoubleMajor.id)
+            intent.putExtra("secondMajorId", secondDepartmentBottomSheetDialog.getSelectedData()?.id!!)
             intent.putExtra("secondMajorStart", binding.textSignupMajorinfoDoubleMajorTime.text.toString())
             startActivity(intent)
+
+            Log.d("SignUpMajorInfoValue", "value : " + firstDepartmentBottomSheetDialog.getSelectedData()?.id!!)
+            Log.d("SignUpMajorInfoValue", binding.textSignupMajorinfoMajorTime.text.toString())
+            Log.d("SignUpMajorInfoValue", "value : " + secondDepartmentBottomSheetDialog.getSelectedData()?.id!!)
+            Log.d("SignUpMajorInfoValue", binding.textSignupMajorinfoDoubleMajorTime.text.toString())
         }
     }
 
