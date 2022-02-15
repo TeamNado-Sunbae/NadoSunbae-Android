@@ -48,8 +48,12 @@ object SignMapper {
     fun mapperToSignUpData(responseSignup: ResponseSignUp): SignUpItem {
         return SignUpItem(
             success = responseSignup.success,
-            userId = responseSignup.data.user.userId,
-            accesstoken = responseSignup.data.accesstoken
+            data = SignUpItem.Data(
+                user = SignUpItem.Data.User(
+                    userId = responseSignup.data.user.userId,
+                    createdAt = responseSignup.data.user.createdAt
+                )
+            )
         )
     }
 
