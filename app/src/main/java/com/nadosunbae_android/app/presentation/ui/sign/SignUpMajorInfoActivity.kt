@@ -36,18 +36,11 @@ class SignUpMajorInfoActivity :
 
     private val bottomSheetDialog = CustomBottomSheetDialog("본전공")
 
-//    //바텀시트 선택됐는지
-//    private var _selectedOption = MutableLiveData<Boolean>()
-//    val selectedOptions: LiveData<Boolean>
-//    get() = _selectedOption
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         closePage()
         moveBeforePage()
-        nextBtnActivate()
         onClickbottomSheetUniv()
 
         firstMajorPeriod()
@@ -197,14 +190,18 @@ class SignUpMajorInfoActivity :
             val secondMajor = secondDepartmentBottomSheetDialog.getSelectedData()
             signViewModel.secondMajor.value = secondMajor?.name
             signUpBasicInfoViewModel.secondDepartmentClick.value = true
+
             if (signViewModel.secondMajor.value.toString() == "미진입") {
+
                 signUpBasicInfoViewModel.secondDepartmentClick.value = true
                 signUpBasicInfoViewModel.secondDepartmentGo.value = true
+
                 binding.clSignupMajorInfoDoubleMajorTime.isClickable = false
                 binding.textSignupMajorinfoDoubleMajorTime.text = "선택하기"
                 binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
                 binding.textSignupMajorinfoDoubleMajorMintTime.setText("선택")
             } else {
+                signUpBasicInfoViewModel.secondDepartmentGo.value = false
                 binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
             }
         }
@@ -250,6 +247,7 @@ class SignUpMajorInfoActivity :
             secondDepartmentPeriodBottomSheetDialog.setCompleteListener {
                 val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
                 signViewModel.secondMajorPeriod.value = secondMajorPeriod?.name
+
                 signUpBasicInfoViewModel.secondDepartmentGo.value = true
             }
 
@@ -271,31 +269,16 @@ class SignUpMajorInfoActivity :
         }
     }
 
-//    //다음으로 가는 버튼 활성화
-//    private fun initNextBtnEnable() {
-//        binding.apply {
-//            if(textSignupMajorInfoDoubleMajor.text.toString() == "미진입") {
-//                if (textSignupMajorInfoMajor.text.toString() == "선택하기" || textSignupMajorInfoMajorTime.text.toString() == "선택하기") {
-//                    clSignupMajorInfoMoveNext.isSelected = false
-//                }
-//            }
-//            else {
-//                if (textSignupMajorInfoMajor.text.toString() == "선택하기" || textSignupMajorInfoMajorTime.text.toString() == "선택하기"
-//                    || textSignupMajorInfoDoubleMajor.text.toString() == "선택하기" || textSignupMajorInfoDoubleMajorTime.text.toString() == "선택하기") {
-//                    clSignupMajorInfoMoveNext.isSelected = false
-//                } else {
-//                    clSignupMajorInfoMoveNext.isSelected = false
-//                }
-//            }
-//        }
-//    }
+
     //다음 버튼 변경
     private fun changeNext(){
         signUpBasicInfoViewModel.selectedAll.observe(this){
+            binding.clSignupMajorInfoMoveNext.isSelected = it
             binding.textSignupMajorInfoNext.isSelected = it
-
+            if(binding.clSignupMajorInfoMoveNext.isSelected && binding.textSignupMajorInfoNext.isSelected) {
+                nextBtnActivate()
+            }
         }
-
     }
 
     private fun setupSpinner() {

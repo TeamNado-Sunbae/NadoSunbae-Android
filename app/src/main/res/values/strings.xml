@@ -142,9 +142,11 @@
 
 
     <!-- 회원가입 끝  -->
-    <string name="signup_finish_title">나도 이제 선배!</string>
-    <string name="signup_finish_subtitle">후배들을 위한 학과 후기를 남기고\n다른 선배들에게 도움을 받으세요</string>
-    <string name="signup_finish_go">입장하기</string>
+    <string name="signup_finish_title">메일함을 확인해보세요!</string>
+    <string name="signup_finish_subtitle">학교 이메일 인증 링크가 전송되었어요.\n인증을 실시하면 회원가입이 완료됩니다.</string>
+    <string name="signup_finish_warning">메일이 도착하지 않았다면 스팸 메일함을 확인해보세요.</string>
+    <string name="signup_mail_resend">재전송</string>
+    <string name="signup_finish_go">로그인 페이지로 돌아가기</string>
 
 
     <!-- 회원가입 기본정보 -->
