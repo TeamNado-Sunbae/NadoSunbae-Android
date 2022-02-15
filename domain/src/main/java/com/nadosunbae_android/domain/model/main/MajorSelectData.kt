@@ -1,8 +1,10 @@
 package com.nadosunbae_android.domain.model.main
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class MajorSelectData(
     val majorId: Int,
     val majorName: String
-) : Serializable
+) : Parcelable

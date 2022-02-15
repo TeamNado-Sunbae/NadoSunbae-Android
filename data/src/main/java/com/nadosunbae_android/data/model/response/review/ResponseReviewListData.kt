@@ -10,7 +10,7 @@ data class ResponseReviewListData(
 ) {
     data class Data(
         val createdAt: Date,
-        val likeCount: Int,
+        val like: Like,
         val oneLineReview: String,
         val postId: Int,
         val tagList: List<Tag>,
@@ -28,6 +28,11 @@ data class ResponseReviewListData(
             val secondMajorName: String,
             val secondMajorStart: String,
             val writerId: Int
+        )
+
+        data class Like(
+            val isLiked: Boolean,
+            val likeCount: Int
         )
     }
 }

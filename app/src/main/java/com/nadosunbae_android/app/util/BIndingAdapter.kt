@@ -192,3 +192,14 @@ fun View.layoutMarginBottom(margin: Int) {
         this.layoutParams = layoutParams
     }
 }
+
+@BindingAdapter("intToString")
+fun android.widget.Button.intToString(num: Int) {
+    this.text = num.toString()
+}
+
+// View의 isSelected를 설정
+@BindingAdapter("setSelected")
+fun View.setSelected(selected: Boolean) {
+    this.isSelected = selected
+}
