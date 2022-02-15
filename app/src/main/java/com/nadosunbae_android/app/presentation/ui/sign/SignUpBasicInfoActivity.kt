@@ -256,7 +256,7 @@ class SignUpBasicInfoActivity :
     private fun isNickNamePattern() = with(binding) {
         val nickname = etSignupBasicinfoNickname
 
-        if (!Pattern.matches("^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())) {
+        if (!Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())) {
             textSignupBasicinfoNicknameTitle.setTextColor(Color.parseColor("#FF4C40"))
             textSignupBasicinfoNicknameDuplication.isSelected = false
         } else {
@@ -333,12 +333,22 @@ class SignUpBasicInfoActivity :
                         signUpBasicInfoViewModel.requestSignUp.nickname,
                         signUpBasicInfoViewModel.requestSignUp.password,
                         1,
-                        signUpBasicInfoViewModel.requestSignUp.firstMajorId,
-                        signUpBasicInfoViewModel.requestSignUp.firstMajorStart,
-                        signUpBasicInfoViewModel.requestSignUp.secondMajorId,
-                        signUpBasicInfoViewModel.requestSignUp.secondMajorStart
+                        intent.getIntExtra("firstMajorId",0),
+                        intent.getStringExtra("firstMajorStart").toString(),
+                        intent.getIntExtra("secondMajorId",0),
+                        intent.getStringExtra("secondMajorStart").toString()
                     )
                 )
+
+                Log.d("signUpBasicInfo", signUpBasicInfoViewModel.requestSignUp.email)
+                Log.d("signUpBasicInfo", signUpBasicInfoViewModel.requestSignUp.nickname)
+                Log.d("signUpBasicInfo", signUpBasicInfoViewModel.requestSignUp.password)
+                Log.d("signUpBasicInfo", "value : " + intent.getIntExtra("firstMajorId",0))
+                Log.d("signUpBasicInfo", intent.getStringExtra("firstMajorStart").toString())
+                Log.d("signUpBasicInfo", "value : " + intent.getIntExtra("secondMajorId",0))
+                Log.d("signUpBasicInfo", intent.getStringExtra("secondMajorStart").toString())
+
+
                 Log.d("signUp", "post1")
                 startActivity(
                     Intent(

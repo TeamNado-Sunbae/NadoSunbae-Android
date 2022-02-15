@@ -16,24 +16,24 @@
             android:id="@+id/img_sign_in_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="104dp"
+            android:layout_marginTop="80dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_login" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/text_sign_in_subtitle"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="18dp"-->
-<!--            android:fontFamily="@font/pretendard_regular"-->
-<!--            android:text="@string/sign_in_subtitle"-->
-<!--            android:textColor="@color/main_dark"-->
-<!--            android:textSize="14sp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/img_sign_in_logo" />-->
+        <TextView
+            android:id="@+id/text_sign_in_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/sign_in_subtitle"
+            android:textColor="@color/main_dark"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_sign_in_logo" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_sign_in_id"
@@ -41,13 +41,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="26dp"
             android:background="@drawable/rectangle_border_gray_8dp"
             android:maxLength="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_sign_in_logo">
+            app:layout_constraintTop_toBottomOf="@+id/text_sign_in_subtitle">
 
             <EditText
                 android:id="@+id/et_sign_in_id"
@@ -245,7 +245,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sign_in_inform"
             android:textColor="@color/inform_gray"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:layout_marginBottom="27dp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"

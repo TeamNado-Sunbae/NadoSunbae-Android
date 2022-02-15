@@ -8,6 +8,7 @@ import com.nadosunbae_android.data.model.request.sign.RequestSignUp
 import com.nadosunbae_android.domain.model.sign.*
 import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.sign.GetSecondDepartmentUseCase
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -149,7 +150,7 @@ class SignUpBasicInfoViewModel(
 
     //회원가입
     fun signUp(signUpData: SignUpData) {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.Main.immediate).launch {
             kotlin.runCatching { postSignUpUseCase(signUpData) }
                 .onSuccess {
                     signUp.value = it

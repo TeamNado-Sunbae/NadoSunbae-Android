@@ -19,7 +19,11 @@ import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.PixelRatio
 import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.sign.SignBottomSheetItem
+import com.nadosunbae_android.domain.model.sign.SignUpData
+import com.nadosunbae_android.domain.model.sign.SignUpItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.getScopeId
 
 
 class SignUpMajorInfoActivity :
@@ -80,12 +84,20 @@ class SignUpMajorInfoActivity :
 
     private fun nextBtnActivate() {
         binding.clSignupMajorInfoMoveNext.setOnClickListener {
-            signUpBasicInfoViewModel.requestSignUp.firstMajorStart = binding.textSignupMajorInfoMajorTime.text.toString()
-            signUpBasicInfoViewModel.requestSignUp.secondMajorId = binding.textSignupMajorInfoMajor.id
-            signUpBasicInfoViewModel.requestSignUp.secondMajorStart = binding.textSignupMajorInfoDoubleMajorTime.text.toString()
-            startActivity(Intent(this, SignUpBasicInfoActivity::class.java))
+            val intent = Intent(this, SignUpBasicInfoActivity::class.java)
+            intent.putExtra("firstMajorId", firstDepartmentBottomSheetDialog.getSelectedData()?.id!!)
+            intent.putExtra("firstMajorStart", binding.textSignupMajorinfoMajorTime.text.toString())
+            intent.putExtra("secondMajorId", secondDepartmentBottomSheetDialog.getSelectedData()?.id!!)
+            intent.putExtra("secondMajorStart", binding.textSignupMajorinfoDoubleMajorTime.text.toString())
+            startActivity(intent)
+
+            Log.d("SignUpMajorInfoValue", "value : " + firstDepartmentBottomSheetDialog.getSelectedData()?.id!!)
+            Log.d("SignUpMajorInfoValue", binding.textSignupMajorinfoMajorTime.text.toString())
+            Log.d("SignUpMajorInfoValue", "value : " + secondDepartmentBottomSheetDialog.getSelectedData()?.id!!)
+            Log.d("SignUpMajorInfoValue", binding.textSignupMajorinfoDoubleMajorTime.text.toString())
         }
     }
+
 
     private fun onClickbottomSheetUniv() {
         binding.clSignupMajorInfoUniv.setOnClickListener {
