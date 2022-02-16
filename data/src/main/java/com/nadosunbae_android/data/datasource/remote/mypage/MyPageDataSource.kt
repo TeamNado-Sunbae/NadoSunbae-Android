@@ -5,7 +5,7 @@ import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionD
 
 interface MyPageDataSource {
 
-    suspend fun getMyPageQuestion(userId: Int, sort: String) : ResponseMypageQuestionData
+    suspend fun getMyPageQuestion(userId: Int, sort: String = "recent") : ResponseMypageQuestionData
 
     suspend fun getMyPageMyInfo(userId: Int) : ResponseMypageMyInfo
 }

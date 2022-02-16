@@ -10,7 +10,7 @@ interface MyPageService {
     @GET("user/mypage/{userId}/classroom-post/list")
     suspend fun getMyPageQuestion(
         @Path("userId") userId: Int,
-        @Query("sort") sort: String
+        @Query("sort") sort: String = "recent"
     ) : ResponseMypageQuestionData
 
     @GET("user/mypage/{userId}")

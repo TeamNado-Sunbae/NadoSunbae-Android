@@ -20,6 +20,11 @@ data class ResponseMypageQuestionData(
             val title: String,
             val writer: Writer
         ) {
+            data class Like(
+                val isLiked: Boolean,
+                val likeCount: Int
+            )
+
             data class Writer(
                 val nickname: String,
                 val profileImageId: Int,

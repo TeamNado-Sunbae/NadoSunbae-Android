@@ -1,10 +1,10 @@
 package com.nadosunbae_android.data.mapper.mypage
 
-import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
-import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
+import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
-import com.nadosunbae_android.domain.model.classroom.ClassRoomData
+import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
+
 
 object MypageMapper {
 
@@ -38,6 +38,9 @@ object MypageMapper {
                         commentCount = it.commentCount,
                         content = it.content,
                         createdAt = it.createdAt,
+                        like = MyPageQuestionData.Data.ClassroomPost.Like(
+                            isLiked = it.like.isLiked,
+                            likeCount = it.like.likeCount
                         MyPageQuestionData.Data.ClassroomPost.Like(
                             isLiked = it.like.isLiked,
                             likeCount = it.like.likeCount,

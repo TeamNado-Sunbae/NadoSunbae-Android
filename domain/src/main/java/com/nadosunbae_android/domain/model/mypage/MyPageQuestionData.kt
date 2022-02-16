@@ -14,11 +14,16 @@ data class MyPageQuestionData(
             val commentCount: Int,
             val content: String,
             val createdAt: Date?,
-            val like : Like,
+            val like: Like,
             val postId: Int,
             val title: String,
             val writer: Writer
         ) {
+            data class Like(
+                val isLiked: Boolean,
+                val likeCount: Int
+            )
+
             data class Writer(
                 val nickname: String,
                 val profileImageId: Int,

@@ -76,7 +76,6 @@ object ClassRoomMapper {
     }
 
 
-
     // 질문 상세 데이터
     fun mapperToQuestionDetailData(responseClassRoomQuestionDetail: ResponseClassRoomQuestionDetail): QuestionDetailData {
         return QuestionDetailData(
