@@ -1,8 +1,10 @@
 package com.nadosunbae_android.data.mapper.mypage
 
+import com.nadosunbae_android.data.model.response.mypage.ResponseMyPageModify
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
+import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
 import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
 
 object MypageMapper {
@@ -49,6 +51,21 @@ object MypageMapper {
                 userId = responseMypageMyInfo.data.userId
             ),
             success = responseMypageMyInfo.success
+        )
+    }
+
+    fun mapperToMyModify(responseMyPageModify: ResponseMyPageModify) : MyPageModifyData {
+        return MyPageModifyData(
+            data = MyPageModifyData.Data(
+                firstMajorId = responseMyPageModify.data.firstMajorId,
+                firstMajorStart = responseMyPageModify.data.firstMajorStart,
+                isOnQuestion = responseMyPageModify.data.isOnQuestion,
+                nickname = responseMyPageModify.data.nickname,
+                secondMajorId = responseMyPageModify.data.secondMajorId,
+                secondMajorStart = responseMyPageModify.data.secondMajorStart,
+                updatedAt = responseMyPageModify.data.updatedAt
+            ),
+            success = responseMyPageModify.success
         )
     }
 }

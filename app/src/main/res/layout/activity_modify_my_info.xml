@@ -156,11 +156,37 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:text="@string/signup_change"
-                        android:textColor="@color/gray_2"
+                        android:textColor="@color/main_default"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/signup_basicinfo_check_duplication_nickname_ok"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/main_dark"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/cl_my_page_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_my_page_nickname" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/signup_basicinfo_check_duplication_nickname_no"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/cl_my_page_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_my_page_nickname" />
+
 
                 <TextView
                     android:id="@+id/text_my_page_modify_personal_question"
