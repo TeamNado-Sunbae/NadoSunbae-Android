@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.getBackgroundImage
 import com.nadosunbae_android.app.util.showCustomDropDown
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

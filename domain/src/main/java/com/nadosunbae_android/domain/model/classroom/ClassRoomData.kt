@@ -9,6 +9,7 @@ data class ClassRoomData(
     val createdAt: Date?,
     val writer: Writer,
     val likeCount: Int,
+    val isLiked : Boolean,
     val commentCount: Int
 ) {
     data class Writer(

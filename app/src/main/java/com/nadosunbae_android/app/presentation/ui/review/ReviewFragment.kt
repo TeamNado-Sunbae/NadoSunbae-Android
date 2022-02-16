@@ -41,13 +41,10 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         setBinding()
         setStickyHeader()
         initReviewListAdapter()
-        setReviewListData()
+        observeReviewListData()
         setClickListener()
         initSortSelected()
         observeSelectedMajor()
-
-        // observePreviewList()
-
         observeFilter()
         observeSort()
         initBottomSheet()
@@ -58,8 +55,11 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     override fun onResume() {
         super.onResume()
 
+        observeUserMajor()
+        observeIsReviewed()
         loadReviewList()
     }
+
 
     private fun setBinding() {
         binding.lifecycleOwner = viewLifecycleOwner
@@ -68,7 +68,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
 
 
-    private fun setReviewListData() {
+    private fun observeReviewListData() {
         // reviewListViewModel observe (목록에 표시되도록)
         reviewListViewModel.reviewListData.observe(viewLifecycleOwner) {
             reviewListAdapter.setReviewListData(it as MutableList<ReviewPreviewData>)
@@ -92,8 +92,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 override fun onClick(view: View, position: Int) {
 
                     // 후기 작성 여부 확인
-                    val signData = mainViewModel.signData.value
-                    if (!signData!!.isReviewed) {
+                    if (!ReviewGlobals.isReviewed) {
                         // 후기 미작성시 알럿 띄우기
                         CustomDialog(requireContext())
                             .genericDialog(CustomDialog.DialogData(
@@ -204,19 +203,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     private fun openReviewWrite() {
         val intent = Intent(context, ReviewWriteActivity::class.java)
-
         intent.putExtra("mode", MODE_NEW)
-
-        val selectedMajor = mainViewModel.selectedMajor.value
-        val firstMajor = mainViewModel.firstMajor.value
-        val secondMajor = mainViewModel.secondMajor.value
-        // null check
-        if (selectedMajor != null)
-            ReviewGlobals.selectedMajor = selectedMajor
-        if (firstMajor != null)
-            ReviewGlobals.firstMajor = firstMajor
-        if (secondMajor != null)
-            ReviewGlobals.secondMajor = secondMajor
 
         startActivity(intent)
     }
@@ -232,14 +219,12 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             }
         }
     }
-/*
-    private fun observePreviewList() {
-        reviewListViewModel.previewList.observe(viewLifecycleOwner) {
-            // recyclerView adaper에 적용
+
+    private fun observeIsReviewed() {
+        mainViewModel.signData.observe(viewLifecycleOwner) {
+            ReviewGlobals.isReviewed = it.isReviewed
         }
     }
-
- */
 
     private fun observeSelectedMajor() {
         // 선택 학과 observe
@@ -251,8 +236,22 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 loadReviewList()
                 // 선택된 학과 정보 불러오기
                 reviewListViewModel.getMajorInfo(mainViewModel.selectedMajor.value!!.majorId)
+                ReviewGlobals.selectedMajor = it
             }
         }
+    }
+
+    private fun observeUserMajor() {
+
+        mainViewModel.firstMajor.observe(viewLifecycleOwner) {
+            ReviewGlobals.firstMajor = it
+        }
+
+        mainViewModel.secondMajor.observe(viewLifecycleOwner) {
+            ReviewGlobals.secondMajor = it
+        }
+
+
     }
 
     private fun observeFilter() {
@@ -266,7 +265,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 filterBottomSheetDialog.setFilter(filter)
 
                 // 필터 활성화
-                binding.btnReviewFilter.isSelected = !(filter.writerFilter == FILTER_ALL && filter.tagFilter == listOf(1, 2, 3, 4, 5))
+                binding.btnReviewFilter.isSelected = !(filter.writerFilter == FILTER_ALL && (filter.tagFilter == listOf(1, 2, 3, 4, 5) || filter.tagFilter.isEmpty()))
                 binding.executePendingBindings()
 
                 // 후기 불러오기

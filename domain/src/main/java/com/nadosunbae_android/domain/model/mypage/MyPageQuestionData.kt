@@ -1,5 +1,6 @@
 package com.nadosunbae_android.domain.model.mypage
 
+import com.nadosunbae_android.domain.model.like.LikeData
 import java.util.*
 
 data class MyPageQuestionData(
@@ -27,6 +28,11 @@ data class MyPageQuestionData(
                 val nickname: String,
                 val profileImageId: Int,
                 val writerId: Int
+            )
+
+            data class Like(
+                val isLiked : Boolean,
+                val likeCount : Int
             )
         }
     }
