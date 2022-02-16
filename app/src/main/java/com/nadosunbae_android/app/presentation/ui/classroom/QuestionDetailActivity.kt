@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityQuestionDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -9,6 +10,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQue
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
+import com.nadosunbae_android.domain.model.like.LikeItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class QuestionDetailActivity :
@@ -22,7 +24,7 @@ class QuestionDetailActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initQuestionDetail()
-
+        questionAllDetailLike()
         backBtn()
     }
 
@@ -31,6 +33,7 @@ class QuestionDetailActivity :
     // 전체 질문 상세보기
     private fun initQuestionDetail() {
         val postId = intent.getIntExtra("postId", 0)
+        questionDetailViewModel.setLikePostId(postId)
         val userId = intent.getIntExtra("userId", 0)
         val all = intent.getIntExtra("all", 0)
         val myPageNum = intent.getIntExtra("myPageNum", 0)
@@ -58,9 +61,22 @@ class QuestionDetailActivity :
                 binding.textQuestionDetailTitle.text = "1:1질문"
             }
         }
+    }
+    //전체 질문 상세보기 좋아요
+    private fun questionAllDetailLike(){
+        classRoomQuestionDetailAdapter.setItemClickListener(
+            object : ClassRoomQuestionDetailAdapter.OnItemClickListener{
+                override fun onClick(v: View, position: Int) {
+                    val postId = questionDetailViewModel.likePostId.value ?: 0
 
+                    questionDetailViewModel.postClassRoomLike(LikeItem(postId, 3))
+                    questionDetailViewModel.getClassRoomQuestionDetail(postId)
+                }
+            }
+        )
 
     }
+
     // 전체 질문 상세 댓글 등록
     private fun registerComment(postId : Int){
         binding.imgQuestionCommentComplete.setOnClickListener {
@@ -80,6 +96,8 @@ class QuestionDetailActivity :
 
     }
 
+
+    //좋아요 클릭 및 서버 통신
 
 
 
