@@ -81,6 +81,9 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
             is ClassRoomQuestionDetailWriterViewHolder -> {
                 holder.onBind(questionDetailData[position], position)
                 //좋아요 처리
+                holder.binding.imgQuestionDetailLike.setOnClickListener {
+                    itemClickListener.onClick(it, 3)
+                }
                 with(holder.binding) {
                     imgQuestionDetailLike.isSelected = likeSelect
                     textQuestionDetailLikeCount.text = like.toString()
@@ -269,5 +272,14 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
 
     }
 
+    //클릭 이벤트
+    interface OnItemClickListener {
+        fun onClick(v: View, position : Int)
+    }
 
+    fun setItemClickListener(onItemClickListener : OnItemClickListener){
+        this.itemClickListener = onItemClickListener
+    }
+
+    private lateinit var itemClickListener: OnItemClickListener
 }
