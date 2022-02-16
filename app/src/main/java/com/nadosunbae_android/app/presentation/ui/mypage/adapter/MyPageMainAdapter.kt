@@ -11,7 +11,7 @@ import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 
 class MyPageMainAdapter (private val num: Int, private val userId: Int, private val myPageNum : Int) :
     RecyclerView.Adapter<MyPageMainAdapter.MyPageMainViewHolder>() {
-    var myPageMainData = mutableListOf<MyPageQuestionData>()
+    var myPageMainData = mutableListOf<MyPageQuestionData.Data.ClassroomPost>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -29,19 +29,15 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
         holder: MyPageMainViewHolder,
         position: Int
     ) {
-
-        holder.onBind(MyPageQuestionData.Data.ClassroomPost[position])
+        holder.onBind(myPageMainData[position])
         holder.binding.root.setOnClickListener {
             val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
-
             intent.apply {
                 putExtra("myPageNum",myPageNum)
                 putExtra("userId", userId)
                 putExtra("postId", myPageMainData[position].postId)
                 putExtra("all", num)
             }
-
-
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
     }
@@ -63,7 +59,7 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
         }
     }
 
-    fun setQuestionMain(questionMainData: MutableList<MyPageQuestionData>) {
+    fun setQuestionMain(questionMainData: MutableList<MyPageQuestionData.Data.ClassroomPost>) {
         this.myPageMainData = questionMainData
         notifyDataSetChanged()
 
