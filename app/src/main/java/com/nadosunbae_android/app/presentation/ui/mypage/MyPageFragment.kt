@@ -3,16 +3,12 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
-import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.data.mapper.classroom.ClassRoomMapper
-import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,7 +18,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     private val myPageViewModel: MyPageViewModel by viewModel()
     private val mainViewModel: MainViewModel by sharedViewModel()
 
-    private lateinit var myPageQuestionAdapter: ClassRoomQuestionMainAdapter
+    private lateinit var myPageQuestionAdapter: MyPageMainAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,12 +63,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         mainViewModel.signData.observe(viewLifecycleOwner){
             myPageViewModel.getMyPageQuestion(it.userId)
         }
-
-        myPageQuestionAdapter = ClassRoomQuestionMainAdapter(2, mainViewModel.userId.value ?: 0,1)
+        myPageQuestionAdapter = MyPageMainAdapter(2, mainViewModel.userId.value ?: 0,1)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
         myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
-
-            myPageQuestionAdapter.setQuestionMain(ClassRoomMapper.mapperToMyPageQuestion(it) as MutableList<ClassRoomData>)
+            //myPageQuestionAdapter.setQuestionMain(MypageMapper.mapperToQuestion(ResponseMypageQuestionData) as MutableList<MyPageQuestionData>)
+            //myPageQuestionAdapter.setQuestionMain(ClassRoomMapper.mapperToMyPageQuestion(it) as MutableList<ClassRoomData>)
         }
     }
 
