@@ -1,19 +1,23 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityModifyMyInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
+import com.nadosunbae_android.app.presentation.ui.sign.SignUpBasicInfoActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
@@ -267,7 +271,9 @@ class ModifyMyInfoActivity :
                     binding.etMyPageNickname.clearFocus()
                     binding.clMyPageScrollviewInner.requestFocus()
                 }
+                nicknameDuplication()
                 return false
+
             }
         })
 
@@ -276,8 +282,31 @@ class ModifyMyInfoActivity :
                 binding.etMyPageNickname.setFocusableInTouchMode(false)
                 binding.etMyPageNickname.setFocusable(false)
             }
+            nicknameDuplication()
             false
+
         })
+    }
+
+    //닉네임 중복 체크 서버 통신
+    private fun nicknameDuplication() {
+        Log.d("NicknameDuplication", "서버 통신 성공")
+        signUpBasicInfoViewModel.nicknameDuplicationCheck.observe(this) {
+            if (!it.success) {
+                Log.d("닉네임 중복확인", "실패")
+                binding.textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
+                binding.textMyPageModifyNicknameDuplicaitionNo.visibility = View.VISIBLE
+            }
+            if(it.success) {
+                Log.d("닉네임 중복확인", "성공")
+                binding.textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
+                binding.textMyPageModifyNicknameDuplicaitionOk.visibility = View.VISIBLE
+            }
+        }
+        if (binding.etMyPageNickname.text.toString() == "") {
+            binding.textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
+            binding.textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
+        }
     }
 
     // 저장 버튼 활성화
