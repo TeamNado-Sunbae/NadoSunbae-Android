@@ -1,10 +1,12 @@
 package com.nadosunbae_android.data.mapper.mypage
 
+import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
 import com.nadosunbae_android.data.model.response.mypage.ResponseMyPageModify
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
+import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
 
 object MypageMapper {
@@ -54,7 +56,7 @@ object MypageMapper {
         )
     }
 
-    fun mapperToMyModify(responseMyPageModify: ResponseMyPageModify) : MyPageModifyData {
+    fun mapperToModifyData(responseMyPageModify: ResponseMyPageModify) : MyPageModifyData {
         return MyPageModifyData(
             data = MyPageModifyData.Data(
                 firstMajorId = responseMyPageModify.data.firstMajorId,
@@ -67,5 +69,17 @@ object MypageMapper {
             ),
             success = responseMyPageModify.success
         )
+    }
+
+    fun mapperToModifyItem(myPageModifyItem: MyPageModifyItem) : RequestMyPageModify {
+        return RequestMyPageModify(
+            nickname = myPageModifyItem.nickname,
+            firstMajorId = myPageModifyItem.firstMajorId,
+            firstMajorStart = myPageModifyItem.firstMajorStart,
+            secondMajorId = myPageModifyItem.secondMajorId,
+            secondMajorStart = myPageModifyItem.secondMajorStart,
+            isOnQuestion = myPageModifyItem.isOnQuestion
+        )
+
     }
 }

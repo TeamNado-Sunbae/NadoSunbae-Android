@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="myPageModify"
+            type="com.nadosunbae_android.domain.model.mypage.MyPageMyInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -145,10 +148,10 @@
                         android:paddingBottom="13dp"
                         android:singleLine="true"
                         android:textSize="15sp"
+                        android:text="test"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="nadosun"/>
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                     <TextView
                         android:id="@+id/text_my_page_nickname_change"
@@ -272,6 +275,7 @@
                         android:paddingLeft="16dp"
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
+                        android:text="@{myPageModify.Data.firstMajorName}"
                         tools:text="@string/signup_majorInfo_select"
                         android:textColor="@color/gray_3"
                         android:textSize="15sp"
@@ -328,6 +332,7 @@
                         android:paddingLeft="16dp"
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
+                        android:text="@{myPageModify.Data.firstMajorStart}"
                         tools:text="@string/signup_majorInfo_select"
                         android:textColor="@color/gray_3"
                         android:textSize="15sp"
@@ -386,6 +391,7 @@
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
                         tools:text="@string/signup_majorInfo_select"
+                        android:text="@{myPageModify.Data.secondMajorName}"
                         android:textColor="@color/gray_3"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -443,6 +449,7 @@
                         android:paddingLeft="16dp"
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
+                        android:text="@{myPageModify.Data.secondMajorStart}"
                         tools:text="@string/signup_majorInfo_select"
                         android:textColor="@color/gray_3"
                         android:textSize="15sp"

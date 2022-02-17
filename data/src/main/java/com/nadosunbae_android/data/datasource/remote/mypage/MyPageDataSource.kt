@@ -4,7 +4,6 @@ import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
 import com.nadosunbae_android.data.model.response.mypage.ResponseMyPageModify
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
-import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 
 interface MyPageDataSource {
 
@@ -12,5 +11,5 @@ interface MyPageDataSource {
 
     suspend fun getMyPageMyInfo(userId: Int) : ResponseMypageMyInfo
 
-    suspend fun putMyPageModify(requestMyPageModify: MyPageModifyItem): ResponseMyPageModify
+    suspend fun putMyPageModify(requestMyPageModify: RequestMyPageModify): ResponseMyPageModify
 }

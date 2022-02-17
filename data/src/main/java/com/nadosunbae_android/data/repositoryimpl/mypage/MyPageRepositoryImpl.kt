@@ -18,7 +18,9 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
         return MypageMapper.mapperToMyInfo(dataSource.getMyPageMyInfo(userId))
     }
 
-    override suspend fun putMyPageModify(modifyItem: MyPageModifyItem): MyPageModifyData {
-        return MypageMapper.mapperToMyModify(dataSource.putMyPageModify(modifyItem))
+    override suspend fun putMyPageModify(myPageModifyItem: MyPageModifyItem): MyPageModifyData {
+        return MypageMapper.mapperToModifyData(dataSource.putMyPageModify(
+            MypageMapper.mapperToModifyItem(myPageModifyItem)
+        ))
     }
 }

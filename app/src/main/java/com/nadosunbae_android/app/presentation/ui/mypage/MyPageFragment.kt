@@ -58,6 +58,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         binding.imgMyPageSetting.setOnClickListener {
             mainViewModel.mypageFragmentNum.value = 1
         }
+
+        binding.clMyPageProfileModify.setOnClickListener {
+            val intentMyPageModify = Intent(getActivity(), ModifyMyInfoActivity::class.java)
+            startActivity(intentMyPageModify)
+        }
+
     }
 
 
