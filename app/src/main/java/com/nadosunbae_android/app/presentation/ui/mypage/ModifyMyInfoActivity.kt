@@ -3,6 +3,8 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View.OnFocusChangeListener
+import android.view.inputmethod.InputMethodManager
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityModifyMyInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -13,9 +15,8 @@ import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
-import org.koin.android.compat.SharedViewModelCompat.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class ModifyMyInfoActivity :
     BaseActivity<ActivityModifyMyInfoBinding>(R.layout.activity_modify_my_info) {
@@ -43,17 +44,18 @@ class ModifyMyInfoActivity :
         secondMajor()
         secondMajorPeriod()
         pressSwitchEvent()
+        nicknameChange()
 
     }
 
 
     //기존 데이터 불러오기
-    private fun initWriteMode() {
-        binding.etMyPageNickname.setText(intent.getStringExtra("nickname"))
-        binding.textMyPageMajorinfoMajor.setText(intent.getStringExtra("firstMajor"))
-        binding.textMyPageMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart"))
-        binding.textMyPageMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajor"))
-        binding.textMyPageMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart"))
+    private fun initWriteMode() = with(binding) {
+        etMyPageNickname.setText(intent.getStringExtra("nickname"))
+        textMyPageMajorinfoMajor.setText(intent.getStringExtra("firstMajor"))
+        textMyPageMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart"))
+        textMyPageMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajor"))
+        textMyPageMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart"))
     }
 
 
@@ -76,15 +78,12 @@ class ModifyMyInfoActivity :
         firstDepartmentBottomSheetDialog.setCompleteListener {
             val firstMajor = firstDepartmentBottomSheetDialog.getSelectedData()
             signViewModel.firstMajor.value = firstMajor?.name
-            signUpBasicInfoViewModel.firstDepartmentClick.value = true
         }
 
         signViewModel.firstMajor
             .observe(this) {
                 binding.textMyPageMajorinfoMajor.setText(it)
                 binding.textMyPageMajorinfoMajor.text = it
-
-                binding.textMyPageMajorinfoMajorMint.setTextColor(Color.parseColor("#001D19"))
                 binding.textMyPageMajorinfoMajorMint.text = "변경"
             }
 
@@ -122,11 +121,9 @@ class ModifyMyInfoActivity :
             firstDepartmentPeriodBottomSheetDialog.setCompleteListener {
                 val firstMajorPeriod = firstDepartmentPeriodBottomSheetDialog.getSelectedData()
                 signViewModel.firstMajorPeriod.value = firstMajorPeriod?.name
-                signUpBasicInfoViewModel.firstDepartmentGo.value = true
             }
             signViewModel.firstMajorPeriod.observe(this) {
                 binding.textMyPageMajorinfoMajorTime.setText(it)
-                binding.textMyPageMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
                 binding.textMyPageMajorinfoMajorTimeMint.text = "변경"
             }
         }
@@ -144,7 +141,6 @@ class ModifyMyInfoActivity :
         }
 
         signUpBasicInfoViewModel.secondDepartment.observe(this) {
-
             secondDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isSecondMajor }
                 .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
         }
@@ -152,20 +148,15 @@ class ModifyMyInfoActivity :
         secondDepartmentBottomSheetDialog.setCompleteListener {
             val secondMajor = secondDepartmentBottomSheetDialog.getSelectedData()
             signViewModel.secondMajor.value = secondMajor?.name
-            signUpBasicInfoViewModel.secondDepartmentClick.value = true
 
             if (signViewModel.secondMajor.value.toString() == "미진입") {
-
-                signUpBasicInfoViewModel.secondDepartmentClick.value = true
-                signUpBasicInfoViewModel.secondDepartmentGo.value = true
-
-                binding.textMyPageMajorInfoDoubleMajorTime.isClickable = false
-                binding.textMyPageMajorinfoDoubleMajorTime.text = "선택하기"
-                binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+                binding.textMyPageMajorinfoDoubleMajorMintTime.isClickable = false
+                binding.textMyPageMajorinfoDoubleMajorTime.text = "미진입"
+                binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#94959E"))
                 binding.textMyPageMajorinfoDoubleMajorMintTime.setText("선택")
+                binding.textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#C0C0CB"))
             } else {
-                signUpBasicInfoViewModel.secondDepartmentGo.value = false
-                binding.clMyPageMajorInfoDoubleMajorTime.isClickable = true
+                binding.textMyPageMajorinfoDoubleMajorMintTime.isClickable = true
             }
         }
 
@@ -201,7 +192,7 @@ class ModifyMyInfoActivity :
             SelectableData(16, "15년 이전", false)
         )
 
-        binding.clMyPageMajorInfoDoubleMajorTime.setOnClickListener {
+        binding.textMyPageMajorinfoDoubleMajorMintTime.setOnClickListener {
             secondDepartmentPeriodBottomSheetDialog.show(
                 supportFragmentManager,
                 secondDepartmentPeriodBottomSheetDialog.tag
@@ -210,8 +201,6 @@ class ModifyMyInfoActivity :
             secondDepartmentPeriodBottomSheetDialog.setCompleteListener {
                 val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
                 signViewModel.secondMajorPeriod.value = secondMajorPeriod?.name
-
-                signUpBasicInfoViewModel.secondDepartmentGo.value = true
             }
 
             signViewModel.secondMajorPeriod.observe(this) {
@@ -221,13 +210,8 @@ class ModifyMyInfoActivity :
             }
 
         }
-        var secondMajorSelectionPeriodDatNot = mutableListOf(
-            SelectableData(1, "미진입", false)
-        )
 
-        if (binding.textMyPageMajorinfoDoubleMajor.text == "미진입") {
-            secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodDatNot)
-        } else {
+        if (binding.textMyPageMajorinfoDoubleMajor.text != "미진입") {
             secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
         }
     }
@@ -237,6 +221,51 @@ class ModifyMyInfoActivity :
         binding.imgMyPageModifySwitch.setOnClickListener {
             binding.imgMyPageModifySwitch.isSelected = !binding.imgMyPageModifySwitch.isSelected
         }
+    }
+
+    // 닉네임 변경
+    // 변경 버튼 누르면 textfield 활성화
+    private fun nicknameChange() {
+        binding.textMyPageNicknameChange.setOnClickListener {
+            binding.etMyPageNickname.isEnabled = true
+            binding.etMyPageNickname.requestFocus()
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(binding.etMyPageNickname, InputMethodManager.SHOW_IMPLICIT)
+        }
+
+        binding.clMypageModifyMain.setOnClickListener {
+            Log.d("포커스", "제발")
+            binding.etMyPageNickname.setFocusableInTouchMode(false)
+            binding.etMyPageNickname.setFocusable(false)
+
+            binding.etMyPageNickname.clearFocus()
+            binding.clMypageModifyMain.requestFocus()
+            binding.imgMyPageModifySwitch.requestFocus()
+        }
+
+        binding.svMypageModify.setOnClickListener {
+            Log.d("포커스", "제발")
+            binding.etMyPageNickname.setFocusableInTouchMode(false)
+            binding.etMyPageNickname.setFocusable(false)
+
+            binding.etMyPageNickname.clearFocus()
+            binding.clMypageModifyMain.requestFocus()
+            binding.imgMyPageModifySwitch.requestFocus()
+        }
+
+        /*
+        binding.etMyPageNickname.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                //  .. 포커스시
+                Log.d("포커스1", "onFocus:${hasFocus}")
+            } else {
+                //  .. 포커스 뺏겼을 때
+                Log.d("포커스2", "onFocus:${hasFocus}")
+
+            }
+        }
+
+         */
     }
 
 }

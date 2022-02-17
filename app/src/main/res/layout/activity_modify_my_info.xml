@@ -10,8 +10,12 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_mypage_modify_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:focusable="true"
         android:fitsSystemWindows="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,6 +72,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
+            android:id="@+id/sv_mypage_modify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -142,6 +147,7 @@
                         android:background="@null"
                         android:fontFamily="@font/pretendard_regular"
                         android:lines="1"
+                        android:enabled="false"
                         android:textColor="@color/black"
                         android:paddingLeft="16dp"
                         android:paddingTop="13dp"
@@ -179,6 +185,7 @@
 
 
                 <TextView
+                    android:id="@+id/text_my_page_modify_nickname_duplicaition_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
