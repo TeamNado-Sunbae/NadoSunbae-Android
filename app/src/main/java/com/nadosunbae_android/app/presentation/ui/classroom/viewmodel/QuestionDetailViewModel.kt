@@ -37,8 +37,18 @@ class QuestionDetailViewModel(
     val likePostId : LiveData<Int>
         get() = _likePostId
 
+    // 좋아요 postId 설정
     fun setLikePostId(postId : Int){
         _likePostId.value = postId
+    }
+
+    //전체 질문 1:1 질문 구분
+    private var _divisionQuestion = MutableLiveData<Int>()
+    val divisionQuestion : LiveData<Int>
+        get() = _divisionQuestion
+
+    fun setDivisionQuestion(num : Int){
+        _divisionQuestion.value = num
     }
 
     // 좋아요 데이터
@@ -46,6 +56,8 @@ class QuestionDetailViewModel(
     val postLike : LiveData<LikeData>
         get() = _postLike
 
+
+    //좋아요 데이터 저장
     fun setPostLike(likeData : LikeData){
         _postLike.value = likeData
     }

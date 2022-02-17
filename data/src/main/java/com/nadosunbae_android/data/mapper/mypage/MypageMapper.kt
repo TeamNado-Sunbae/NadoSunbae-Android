@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.mapper.mypage
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
+import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
 
 
@@ -41,9 +42,6 @@ object MypageMapper {
                         like = MyPageQuestionData.Data.ClassroomPost.Like(
                             isLiked = it.like.isLiked,
                             likeCount = it.like.likeCount
-                        MyPageQuestionData.Data.ClassroomPost.Like(
-                            isLiked = it.like.isLiked,
-                            likeCount = it.like.likeCount,
                         ),
                         postId = it.postId,
                         title = it.title,

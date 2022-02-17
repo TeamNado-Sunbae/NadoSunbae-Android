@@ -31,10 +31,7 @@ data class ResponseMypageQuestionData(
                 val writerId: Int
             )
 
-            data class Like(
-                val isLiked : Boolean,
-                val likeCount : Int
-            )
+
         }
     }
 }
