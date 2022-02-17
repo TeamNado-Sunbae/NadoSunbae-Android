@@ -16,7 +16,7 @@ val viewModelModule = module {
 
     //classRoom
     viewModel { ClassRoomViewModel() }
-    viewModel { InfoDetailViewModel(get(),get()) }
+    viewModel { InfoDetailViewModel(get(),get(),get()) }
     viewModel { QuestionDetailViewModel(get(),get(),get()) }
     viewModel { QuestionWriteViewModel(get()) }
     viewModel { SeniorPersonalViewModel(get(),get()) }

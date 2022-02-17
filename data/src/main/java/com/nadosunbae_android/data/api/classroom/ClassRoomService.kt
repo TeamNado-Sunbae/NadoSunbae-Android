@@ -54,7 +54,7 @@ interface ClassRoomService {
     @GET("user/mypage/{userId}/classroom-post/list")
     suspend fun getSeniorQuestionList(
         @Path("userId") userId : Int,
-        @Query("sort") sort : String ?= "recent"
+        @Query("sort") sort : String
     ) : ResponseSeniorQuestionData
 
 

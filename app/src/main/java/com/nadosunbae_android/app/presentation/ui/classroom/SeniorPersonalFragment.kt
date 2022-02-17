@@ -11,7 +11,10 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.util.dpToPx
+import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
+import com.nadosunbae_android.domain.model.main.SelectableData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,15 +31,17 @@ class SeniorPersonalFragment :
         super.onViewCreated(view, savedInstanceState)
         // initSeniorQuestion()
         goClassRoomReview()
-        getSeniorPersonal()
         initSeniorQuestion()
         goSeniorFragment()
         goQuestionWrite()
+        questionSort()
+        initQuestionSort()
+        observeArray()
+
     }
 
     //선배에게 온 1:1 질문 목록
     private fun initSeniorQuestion() {
-
         classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(2, mainViewModel.userId.value ?: 0,0)
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
         seniorPersonalViewModel.seniorQuestion.observe(viewLifecycleOwner) {
@@ -55,11 +60,12 @@ class SeniorPersonalFragment :
     }
 
     //선배 개인페이지 서버 통신
-    private fun getSeniorPersonal() {
+    private fun getSeniorPersonal(sort : String) {
         mainViewModel.seniorId.observe(viewLifecycleOwner) {
             Log.d("seniorId", it.toString())
+
             seniorPersonalViewModel.getSeniorPersonal(it)
-            seniorPersonalViewModel.getSeniorQuestionList(it, "recent")
+            seniorPersonalViewModel.getSeniorQuestionList(it, sort)
         }
 
         seniorPersonalViewModel.seniorPersonal.observe(viewLifecycleOwner) {
@@ -93,8 +99,52 @@ class SeniorPersonalFragment :
         }
     }
 
+    //선배 개인페이지
+
     override fun onResume() {
         super.onResume()
-        getSeniorPersonal()
+        getSeniorPersonal("recent")
+    }
+
+    //최신순, 도움순 정렬
+    private fun questionSort(){
+        binding.btnSeniorPersonalArray.setOnClickListener {
+            val questionDropDownList = mutableListOf<SelectableData>(
+                SelectableData(1, getString(R.string.review_latest_order), true),
+                SelectableData(2, getString(R.string.review_likes_order), false)
+            )
+
+
+            showCustomDropDown(seniorPersonalViewModel, binding.btnSeniorPersonalArray, 160f.dpToPx, null, -1 * 16f.dpToPx, null, true,seniorPersonalViewModel.dropDownSelected.value!!.id, questionDropDownList)
+
+        }
+    }
+
+    //첫 화면 최신순
+    private fun initQuestionSort(){
+        seniorPersonalViewModel.dropDownSelected.value = SelectableData(1,"최신순",true)
+    }
+
+    //최신순, 도움순 변경
+    private fun observeArray(){
+        seniorPersonalViewModel.dropDownSelected.observe(viewLifecycleOwner) {
+            val sortData = seniorPersonalViewModel.dropDownSelected.value
+            if (sortData != null) {
+                if (sortData.id == 1)
+                    binding.btnSeniorPersonalArray.text = getString(R.string.review_latest_order)
+                else
+                    binding.btnSeniorPersonalArray.text = getString(R.string.review_likes_order)
+            }
+            var sort = "recent"
+            if (seniorPersonalViewModel.dropDownSelected.value != null) {
+                sort = if (seniorPersonalViewModel.dropDownSelected.value!!.id == 1)
+                    "recent"
+                else
+                    "like"
+            }
+            Log.d("seniorQuestion", sort)
+            seniorPersonalViewModel.getSeniorQuestionList(mainViewModel.seniorId.value ?: 0, sort)
+        }
+
     }
 }

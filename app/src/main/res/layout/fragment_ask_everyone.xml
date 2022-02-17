@@ -68,7 +68,6 @@
                     android:id="@+id/btn_ask_everyone_array"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/ic_array"
                     android:drawablePadding="6dp"
@@ -98,7 +97,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_ask_everyone_array" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_ask_everyone_array" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

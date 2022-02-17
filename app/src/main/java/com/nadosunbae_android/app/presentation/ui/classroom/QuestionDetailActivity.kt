@@ -36,6 +36,7 @@ class QuestionDetailActivity :
         questionDetailViewModel.setLikePostId(postId)
         val userId = intent.getIntExtra("userId", 0)
         val all = intent.getIntExtra("all", 0)
+        questionDetailViewModel.setDivisionQuestion(all)
         val myPageNum = intent.getIntExtra("myPageNum", 0)
         Log.d("postId", postId.toString())
         Log.d("userId", userId.toString())
@@ -64,13 +65,23 @@ class QuestionDetailActivity :
     }
     //전체 질문 상세보기 좋아요
     private fun questionAllDetailLike(){
+        val divisionNum = questionDetailViewModel.divisionQuestion.value
         classRoomQuestionDetailAdapter.setItemClickListener(
             object : ClassRoomQuestionDetailAdapter.OnItemClickListener{
                 override fun onClick(v: View, position: Int) {
                     val postId = questionDetailViewModel.likePostId.value ?: 0
+                    if(divisionNum == 1){
+                        Log.d("전체 질문 좋아요", "서버 통신 하는 중")
+                        questionDetailViewModel.postClassRoomLike(LikeItem(postId, 3))
+                        questionDetailViewModel.getClassRoomQuestionDetail(postId)
+                    }else{
+                        Log.d("1:1 질문 좋아요", "서버 통신 하는 중")
+                        questionDetailViewModel.postClassRoomLike(LikeItem(postId, 4))
+                        questionDetailViewModel.getClassRoomQuestionDetail(postId)
+                    }
 
-                    questionDetailViewModel.postClassRoomLike(LikeItem(postId, 3))
-                    questionDetailViewModel.getClassRoomQuestionDetail(postId)
+
+
                 }
             }
         )

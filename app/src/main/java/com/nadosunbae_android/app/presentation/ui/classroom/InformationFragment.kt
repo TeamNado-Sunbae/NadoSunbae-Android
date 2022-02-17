@@ -30,8 +30,12 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
         questionSort()
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.getClassRoomMain(2,mainViewModel.majorId.value ?: 0, "recent")
+    }
 
-   private fun initInfoMain(){
+    private fun initInfoMain(){
 
         classRoomInfoMainAdapter = ClassRoomInfoMainAdapter()
         binding.rcClassroomInfo.adapter = classRoomInfoMainAdapter
