@@ -2,9 +2,12 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import android.view.View.OnFocusChangeListener
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityModifyMyInfoBinding
@@ -249,43 +252,32 @@ class ModifyMyInfoActivity :
         binding.textMyPageNicknameChange.setOnClickListener {
             binding.etMyPageNickname.isEnabled = true
             binding.etMyPageNickname.requestFocus()
+            binding.etMyPageNickname.setFocusableInTouchMode(true)
+            binding.etMyPageNickname.setFocusable(true)
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.etMyPageNickname, InputMethodManager.SHOW_IMPLICIT)
         }
 
-        binding.clMypageModifyMain.setOnClickListener {
-            Log.d("포커스", "제발")
-            binding.etMyPageNickname.setFocusableInTouchMode(false)
-            binding.etMyPageNickname.setFocusable(false)
-
-            binding.etMyPageNickname.clearFocus()
-            binding.clMypageModifyMain.requestFocus()
-            binding.imgMyPageModifySwitch.requestFocus()
-        }
-
-        binding.svMypageModify.setOnClickListener {
-            Log.d("포커스", "제발")
-            binding.etMyPageNickname.setFocusableInTouchMode(false)
-            binding.etMyPageNickname.setFocusable(false)
-
-            binding.etMyPageNickname.clearFocus()
-            binding.clMypageModifyMain.requestFocus()
-            binding.imgMyPageModifySwitch.requestFocus()
-        }
-
-        /*
-        binding.etMyPageNickname.setOnFocusChangeListener { view, hasFocus ->
-            if (hasFocus) {
-                //  .. 포커스시
-                Log.d("포커스1", "onFocus:${hasFocus}")
-            } else {
-                //  .. 포커스 뺏겼을 때
-                Log.d("포커스2", "onFocus:${hasFocus}")
-
+        binding.clMyPageScrollviewInner.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View, event: MotionEvent): Boolean {
+                binding.svMypageModify.requestDisallowInterceptTouchEvent(false)
+                binding.clMyPageScrollviewInner.setOnClickListener {
+                    binding.etMyPageNickname.setFocusableInTouchMode(false)
+                    binding.etMyPageNickname.setFocusable(false)
+                    binding.etMyPageNickname.clearFocus()
+                    binding.clMyPageScrollviewInner.requestFocus()
+                }
+                return false
             }
-        }
+        })
 
-         */
+        binding.etMyPageNickname.setOnEditorActionListener(OnEditorActionListener { textView, i, keyEvent ->
+            if (i == EditorInfo.IME_ACTION_DONE) {
+                binding.etMyPageNickname.setFocusableInTouchMode(false)
+                binding.etMyPageNickname.setFocusable(false)
+            }
+            false
+        })
     }
 
     // 저장 버튼 활성화
@@ -312,10 +304,10 @@ class ModifyMyInfoActivity :
                 getString(R.string.mypage_alert_modify_no)
             ),
             complete = {
-                confirm.value = false
+                confirm.value = true
             },
             cancel = {
-                confirm.value = true
+                confirm.value = false
             }
         )
         return confirm
