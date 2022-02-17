@@ -20,6 +20,7 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
         super.onCreate(savedInstanceState)
         initInfoDetail()
         infoLike()
+        clickBackBtn()
     }
 
 
@@ -67,7 +68,12 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
             infoDetailViewModel.postClassRoomInfoLike(LikeItem(likePostId,2 ))
             infoDetailViewModel.getInfoDetail(likePostId)
         }
+    }
 
-
+    //정보 뒤로가기
+    private fun clickBackBtn(){
+        binding.imgInformationDetailTitleBack.setOnClickListener {
+            finish()
+        }
     }
 }
