@@ -49,22 +49,13 @@ class ModifyMyInfoActivity :
 
     //기존 데이터 불러오기
     private fun initWriteMode() {
-
-        mainViewModel.signData.observe(this) {
-            myPageViewModel.getPersonalInfo(it.userId)
-        }
-
-        //userID가 null로 들어옴
-        myPageViewModel.getPersonalInfo(mainViewModel.userId.value ?: 0)
-
-        myPageViewModel.personalInfo.observe(this) {
-            binding.myPageModify = it
-            Log.d("나올까?" , "3")
-            binding.etMyPageNickname.setText(it.data.nickname)
-            Log.d("나올까?" , it.data.nickname )
-        }
-
+        binding.etMyPageNickname.setText(intent.getStringExtra("nickname"))
+        binding.textMyPageMajorinfoMajor.setText(intent.getStringExtra("firstMajor"))
+        binding.textMyPageMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart"))
+        binding.textMyPageMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajor"))
+        binding.textMyPageMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart"))
     }
+
 
     //제 1전공 학과 선택 바텀시트
     private fun firstMajor() {
@@ -243,7 +234,9 @@ class ModifyMyInfoActivity :
 
     //질문 스위치 클릭
     private fun pressSwitchEvent() {
-        binding.imgMyPageModifySwitch.isSelected = !binding.imgMyPageModifySwitch.isSelected
+        binding.imgMyPageModifySwitch.setOnClickListener {
+            binding.imgMyPageModifySwitch.isSelected = !binding.imgMyPageModifySwitch.isSelected
+        }
     }
 
 }
