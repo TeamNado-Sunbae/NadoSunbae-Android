@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
+import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityModifyMyInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -13,6 +14,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewMod
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,16 +30,17 @@ class ModifyMyInfoActivity :
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
 
-    val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
-    val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
+    private val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
+    private val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
 
-    val secondDepartmentBottomSheetDialog = CustomBottomSheetDialog("제2전공")
-    val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("제2전공 진입시기")
+    private val secondDepartmentBottomSheetDialog = CustomBottomSheetDialog("제2전공")
+    private val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("제2전공 진입시기")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initNotEntered()
         initWriteMode()
         firstMajor()
         firstMajorPeriod()
@@ -56,6 +59,20 @@ class ModifyMyInfoActivity :
         textMyPageMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart"))
         textMyPageMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajor"))
         textMyPageMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart"))
+    }
+
+    //초기 데이터 제 2전공 미진입인지 체크
+    private fun initNotEntered() = with(binding) {
+        if(intent.getStringExtra("secondMajor") == "미진입") {
+            binding.textMyPageMajorinfoDoubleMajorMintTime.isEnabled = false
+            binding.textMyPageMajorinfoDoubleMajorTime.text = "선택하기"
+            binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+            binding.textMyPageMajorinfoDoubleMajorMintTime.setText("선택")
+            binding.textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#C0C0CB"))
+        } else {
+            binding.textMyPageMajorinfoDoubleMajorMintTime.isEnabled = true
+        }
+
     }
 
 
@@ -85,8 +102,8 @@ class ModifyMyInfoActivity :
                 binding.textMyPageMajorinfoMajor.setText(it)
                 binding.textMyPageMajorinfoMajor.text = it
                 binding.textMyPageMajorinfoMajorMint.text = "변경"
+                initActiveSaveBtn()
             }
-
     }
 
     //제 1전공 진입시기 선택 바텀시트
@@ -125,6 +142,7 @@ class ModifyMyInfoActivity :
             signViewModel.firstMajorPeriod.observe(this) {
                 binding.textMyPageMajorinfoMajorTime.setText(it)
                 binding.textMyPageMajorinfoMajorTimeMint.text = "변경"
+                initActiveSaveBtn()
             }
         }
     }
@@ -141,6 +159,7 @@ class ModifyMyInfoActivity :
         }
 
         signUpBasicInfoViewModel.secondDepartment.observe(this) {
+
             secondDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isSecondMajor }
                 .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
         }
@@ -148,11 +167,12 @@ class ModifyMyInfoActivity :
         secondDepartmentBottomSheetDialog.setCompleteListener {
             val secondMajor = secondDepartmentBottomSheetDialog.getSelectedData()
             signViewModel.secondMajor.value = secondMajor?.name
+            signUpBasicInfoViewModel.secondDepartmentClick.value = true
 
             if (signViewModel.secondMajor.value.toString() == "미진입") {
                 binding.textMyPageMajorinfoDoubleMajorMintTime.isClickable = false
-                binding.textMyPageMajorinfoDoubleMajorTime.text = "미진입"
-                binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#94959E"))
+                binding.textMyPageMajorinfoDoubleMajorTime.text = "선택하기"
+                binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
                 binding.textMyPageMajorinfoDoubleMajorMintTime.setText("선택")
                 binding.textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#C0C0CB"))
             } else {
@@ -166,13 +186,14 @@ class ModifyMyInfoActivity :
                 binding.textMyPageMajorinfoDoubleMajor.text = it
                 binding.textMyPageMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
                 binding.textMyPageMajorinfoDoubleMajorMint.text = "변경"
+                initActiveSaveBtn()
             }
     }
 
 
     //제 2전공 진입시기 바텀시트
     private fun secondMajorPeriod() {
-        // test data
+        // local data
         var secondMajorSelectionPeriodData = mutableListOf(
             SelectableData(1, "22-1", false),
             SelectableData(2, "21-2", false),
@@ -191,6 +212,7 @@ class ModifyMyInfoActivity :
             SelectableData(15, "15-1", false),
             SelectableData(16, "15년 이전", false)
         )
+        secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
 
         binding.textMyPageMajorinfoDoubleMajorMintTime.setOnClickListener {
             secondDepartmentPeriodBottomSheetDialog.show(
@@ -202,24 +224,22 @@ class ModifyMyInfoActivity :
                 val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
                 signViewModel.secondMajorPeriod.value = secondMajorPeriod?.name
             }
-
             signViewModel.secondMajorPeriod.observe(this) {
-                binding.textMyPageMajorinfoDoubleMajorTime.text = it
+                binding.textMyPageMajorinfoDoubleMajorTime.setText(it)
                 binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
-                binding.textMyPageMajorinfoDoubleMajorMintTime.setText("변경")
+                binding.textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#00C8B0"))
+                binding.textMyPageMajorinfoDoubleMajorMintTime.text = "변경"
+                initActiveSaveBtn()
             }
-
-        }
-
-        if (binding.textMyPageMajorinfoDoubleMajor.text != "미진입") {
-            secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
         }
     }
+
 
     //질문 스위치 클릭
     private fun pressSwitchEvent() {
         binding.imgMyPageModifySwitch.setOnClickListener {
             binding.imgMyPageModifySwitch.isSelected = !binding.imgMyPageModifySwitch.isSelected
+            initActiveSaveBtn()
         }
     }
 
@@ -267,5 +287,39 @@ class ModifyMyInfoActivity :
 
          */
     }
+
+    // 저장 버튼 활성화
+    private fun initActiveSaveBtn() {
+        binding.textMyPageSave.isSelected = true
+        if(binding.textMyPageSave.isSelected) {
+            binding.textMyPageSave.setOnClickListener {
+                confirmExit()
+            }
+        }
+    }
+
+    //서버통신
+
+
+    //저장버튼 알럿
+    private fun confirmExit(): MutableLiveData<Boolean> {
+
+        val confirm = MutableLiveData<Boolean>()
+        CustomDialog(this).genericDialog(
+            CustomDialog.DialogData(
+                getString(R.string.mypage_alert_modify_title),
+                getString(R.string.mypage_alert_modify_save),
+                getString(R.string.mypage_alert_modify_no)
+            ),
+            complete = {
+                confirm.value = false
+            },
+            cancel = {
+                confirm.value = true
+            }
+        )
+        return confirm
+    }
+
 
 }

@@ -334,4 +334,9 @@
     <string name="mypage_alarm_information">정보글</string>
     <string name="mypage_alarm_new">새 답글 알림</string>
     <string name="mypage_alarm_new_comment">내가 답글을 쓴 타인 글에 새 답글이 달린 경우 알려드려요!</string>
+
+    <!-- 마이페이지 저장버튼 알럿 -->
+    <string name="mypage_alert_modify_title">내 정보를 수정 하시겠습니까?</string>
+    <string name="mypage_alert_modify_no">아니요</string>
+    <string name="mypage_alert_modify_save">저장</string>
 </resources>
