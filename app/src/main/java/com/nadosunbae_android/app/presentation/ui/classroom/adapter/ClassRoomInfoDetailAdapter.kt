@@ -27,6 +27,8 @@ class ClassRoomInfoDetailAdapter : RecyclerView.Adapter<ClassRoomInfoDetailAdapt
         position: Int
     ) {
         holder.onBind(infoDetailData[position])
+
+
         if(infoDetailData[position].secondMajorName == "미진입"){
             holder.binding.textInformationDetailContentSecondMajorStart.visibility = View.GONE
         }
@@ -49,4 +51,6 @@ class ClassRoomInfoDetailAdapter : RecyclerView.Adapter<ClassRoomInfoDetailAdapt
         this.infoDetailData = infoDetailData
         notifyDataSetChanged()
     }
+
+
 }

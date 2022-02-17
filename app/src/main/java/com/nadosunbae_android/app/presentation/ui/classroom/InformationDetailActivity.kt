@@ -9,6 +9,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInf
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.InfoDetailViewModel
 import com.nadosunbae_android.domain.model.classroom.InfoDetailData
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
+import com.nadosunbae_android.domain.model.like.LikeItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>(R.layout.activity_information_detail) {
@@ -18,12 +19,15 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initInfoDetail()
+        infoLike()
     }
 
 
     //정보 상세보기 서버 통신
     private fun initInfoDetail(){
         val postId = intent.getIntExtra("postId", 0)
+        infoDetailViewModel.setPostId(postId)
+
         infoDetailViewModel.getInfoDetail(postId)
 
         classRoomInfoDetailAdapter = ClassRoomInfoDetailAdapter()
@@ -54,6 +58,16 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
                 infoDetailViewModel.getInfoDetail(postId)
             }
         }
+    }
+
+    //정보 좋아요 서버 통신
+    private fun infoLike(){
+        binding.imgInformationDetailQuestionLike.setOnClickListener {
+            val likePostId = infoDetailViewModel.infoPostId.value ?: 0
+            infoDetailViewModel.postClassRoomInfoLike(LikeItem(likePostId,2 ))
+            infoDetailViewModel.getInfoDetail(likePostId)
+        }
+
 
     }
 }

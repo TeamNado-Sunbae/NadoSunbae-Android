@@ -68,7 +68,6 @@
                     android:id="@+id/btn_ask_everyone_array"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/ic_array"
                     android:drawablePadding="6dp"

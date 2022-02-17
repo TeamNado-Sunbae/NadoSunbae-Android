@@ -215,30 +215,32 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="34dp"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/rectangle_fill_white_8dp"
+                        android:background="@drawable/rectangle_fill_gray_16"
                         android:fontFamily="@font/pretendard_light"
-                        android:paddingVertical="8dp"
-                        android:paddingStart="36dp"
-                        android:paddingEnd="10dp"
+                        android:paddingVertical="12dp"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="12dp"
                         android:shadowColor="@color/shadow"
                         android:shadowDx="5.0"
                         android:shadowDy="5.0"
                         android:shadowRadius="8.0"
-                        android:text="@string/classroom_question_count"
+                        intToText="@{informationDetail.likeCount}"
                         android:textColor="@color/gray_2"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_content" />
 
+
                     <ImageView
                         android:id="@+id/img_information_detail_question_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/btn_diamond_18"
+                        likeCheck="@{informationDetail.liked}"
+                        android:background="@drawable/selector_heart_gray_mint"
+                        android:layout_marginStart="6dp"
                         app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_like"
-                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_like" />
+                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_like"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_like"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -263,7 +265,8 @@
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
 
 
                     <androidx.recyclerview.widget.RecyclerView

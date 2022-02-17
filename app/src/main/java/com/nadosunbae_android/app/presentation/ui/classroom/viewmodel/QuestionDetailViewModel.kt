@@ -58,7 +58,7 @@ class QuestionDetailViewModel(
 
 
     //좋아요 데이터 저장
-    fun setPostLike(likeData : LikeData){
+    private fun setPostLike(likeData : LikeData){
         _postLike.value = likeData
     }
 
