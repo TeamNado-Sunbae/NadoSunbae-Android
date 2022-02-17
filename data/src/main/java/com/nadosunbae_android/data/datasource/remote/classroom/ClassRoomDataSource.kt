@@ -6,7 +6,7 @@ import com.nadosunbae_android.data.model.response.classroom.*
 
 interface ClassRoomDataSource {
     //메인 정보 조회
-    suspend fun getClassRoomMain(postTypeId: Int, majorId: Int, sort: String = "recent") : ResponseClassRoomMainData
+    suspend fun getClassRoomMain(postTypeId: Int, majorId: Int, sort: String) : ResponseClassRoomMainData
 
     // 상세보기
     suspend fun getClassRoomQuestionDetail(postId : Int) : ResponseClassRoomQuestionDetail
@@ -26,7 +26,7 @@ interface ClassRoomDataSource {
     suspend fun getSeniorPersonal(userId : Int) : ResponseSeniorPersonalData
 
     //선배 1:1 질문 조회
-    suspend fun getSeniorQuestionList(userId : Int, sort : String?) : ResponseSeniorQuestionData
+    suspend fun getSeniorQuestionList(userId : Int, sort : String) : ResponseSeniorQuestionData
 
     //정보 상세 조회
     suspend fun getInformationDetail(postId: Int) : ResponseInfoDetailData

@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.SeniorPersonalData
+import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.usecase.classroom.GetQuestionSeniorListDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorPersonalDataUseCase
 import kotlinx.coroutines.launch
@@ -14,7 +16,10 @@ import kotlinx.coroutines.launch
 class SeniorPersonalViewModel(
     val getSeniorPersonalDataUseCase: GetSeniorPersonalDataUseCase,
     val getQuestionSeniorListDataUseCase : GetQuestionSeniorListDataUseCase
-) : ViewModel() {
+) : ViewModel(), DropDownSelectableViewModel {
+
+    override var dropDownSelected = MutableLiveData<SelectableData>()
+
 
     //선배 개인페이지
     private val _seniorPersonal = MutableLiveData<SeniorPersonalData>()
