@@ -10,7 +10,7 @@ data class ReviewDetailData(
     val backgroundImageId: Int,
     val backgroundImageUrl: String,
     val isLiked: Boolean,
-    val likeCount: String,
+    val likeCount: Int,
     val contentList: List<Content>,
     val createdAt: Date,
     val oneLineReview: String,

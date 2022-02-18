@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.classroom.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -62,6 +63,7 @@ class ClassRoomQuestionMainAdapter(private val num: Int, private val userId: Int
     fun setQuestionMain(questionMainData: MutableList<ClassRoomData>) {
         this.questionMainData = questionMainData
         notifyDataSetChanged()
-
     }
+
+
 }

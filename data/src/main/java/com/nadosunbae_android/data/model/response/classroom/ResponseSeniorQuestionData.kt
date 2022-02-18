@@ -15,7 +15,7 @@ data class ResponseSeniorQuestionData(
             val commentCount: Int,
             val content: String,
             val createdAt: Date?,
-            val likeCount: Int,
+            val like : Like,
             val postId: Int,
             val title: String,
             val writer: Writer
@@ -24,6 +24,10 @@ data class ResponseSeniorQuestionData(
                 val nickname: String,
                 val profileImageId: Int,
                 val writerId: Int
+            )
+            data class Like(
+                val likeCount : Int,
+                val isLiked : Boolean
             )
         }
     }

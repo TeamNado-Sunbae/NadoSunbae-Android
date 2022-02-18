@@ -24,7 +24,8 @@ object ReviewMapper {
         return responseReviewListData.data.map {
             ReviewPreviewData(
                 createdAt = it.createdAt,
-                likeCount = it.likeCount,
+                likeCount = it.like.likeCount,
+                isLiked = it.like.isLiked,
                 oneLineReview = it.oneLineReview,
                 postId = it.postId,
                 tagList = it.tagList.map {
@@ -138,7 +139,7 @@ object ReviewMapper {
             backgroundImageId = responsePutReviewData.data.backgroundImage.imageId,
             backgroundImageUrl = responsePutReviewData.data.backgroundImage.imageUrl,
             isLiked = responsePutReviewData.data.like.isLiked,
-            likeCount = responsePutReviewData.data.like.likeCount.toInt(),
+            likeCount = responsePutReviewData.data.like.likeCount,
             writerId = responsePutReviewData.data.writer.writerId
         )
     }
@@ -147,6 +148,7 @@ object ReviewMapper {
     fun mapperToReviewDeleteData(responseDeleteReview: ResponseDeleteReview): ReviewDeleteData {
         return ReviewDeleteData(
             isDeleted = responseDeleteReview.data.isDeleted,
+            isReviewed = responseDeleteReview.data.isReviewed,
             postId = responseDeleteReview.data.postId
         )
     }
