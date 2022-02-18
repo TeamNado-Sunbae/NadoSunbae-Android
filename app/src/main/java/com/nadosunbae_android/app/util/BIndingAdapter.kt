@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -46,7 +47,7 @@ object BindingAdapter {
         imageView.isSelected = like
 
     }
-            @JvmStatic
+    @JvmStatic
     @BindingAdapter("int", "nickname", requireAll = false)
     fun notification(textView: TextView, int: Int, nickname: String): SpannableStringBuilder {
         val param = listOf("","1:1질문", "작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글" )
@@ -66,6 +67,7 @@ object BindingAdapter {
             ForegroundColorSpan(Color.parseColor("#00C8B0")), start, end,
             Spannable.SPAN_INCLUSIVE_INCLUSIVE
         )
+        Log.d("spannable", "spannable이 작동이 안되는 것인가")
         return spannable.also { textView.text = it }
     }
 

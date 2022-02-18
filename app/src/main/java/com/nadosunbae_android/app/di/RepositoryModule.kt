@@ -10,8 +10,10 @@ import com.nadosunbae_android.data.repositoryimpl.classroom.ClassRoomRepositoryI
 import com.nadosunbae_android.data.repositoryimpl.like.LikeRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.main.MainRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.mypage.MyPageRepositoryImpl
+import com.nadosunbae_android.data.repositoryimpl.notification.NotificationRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.review.ReviewRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.sign.SignRepositoryImpl
+import com.nadosunbae_android.domain.repository.notification.NotificationRepository
 import org.koin.dsl.module
 
 val repositoryModule = module{
@@ -21,5 +23,6 @@ val repositoryModule = module{
     single<MyPageRepository> { MyPageRepositoryImpl(get()) }
     single<SignRepository>{ SignRepositoryImpl(get()) }
     single<ReviewRepository>{ ReviewRepositoryImpl(get()) }
+    single<NotificationRepository>{NotificationRepositoryImpl(get())}
 
 }

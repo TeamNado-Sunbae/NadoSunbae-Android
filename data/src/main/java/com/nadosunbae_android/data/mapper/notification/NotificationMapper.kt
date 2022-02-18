@@ -20,7 +20,7 @@ object NotificationMapper {
                 isRead = it.isRead,
                 isQuestionToPerson = it.isQuestionToPerson,
                 notificationId = it.notificationId,
-                notificationType = it.notificationType,
+                notificationTypeId = it.notificationTypeId,
                 postId = it.postId,
                 nickname = it.sender.nickname,
                 profileImageId = it.sender.profileImageId,

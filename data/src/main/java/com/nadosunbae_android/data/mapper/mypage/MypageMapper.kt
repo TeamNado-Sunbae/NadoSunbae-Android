@@ -12,27 +12,7 @@ import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
 
 object MypageMapper {
 
-    //마이페이지
-    fun mapperToMyPageQuestion(responseMypageQuestionData: MyPageQuestionData): List<ClassRoomData> {
-        return responseMypageQuestionData.data.classroomPostList.map {
-            ClassRoomData(
-                postId = it.postId,
-                title = it.title,
-                content = it.content,
-                createdAt = it.createdAt,
-                writer = ClassRoomData.Writer(
-                    nickname = it.writer.nickname,
-                    profileImageId = it.writer.profileImageId,
-                    writerId = it.writer.writerId
-                ),
-                isLiked = it.like.isLiked,
-                likeCount = it.like.likeCount,
-                commentCount = it.commentCount
-            )
 
-        }
-
-    }
 
     fun mapperToQuestion(responseMypageQuestionData: ResponseMypageQuestionData): MyPageQuestionData {
         return MyPageQuestionData(
