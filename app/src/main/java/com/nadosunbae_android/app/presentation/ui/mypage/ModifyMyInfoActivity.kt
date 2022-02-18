@@ -36,12 +36,9 @@ import java.util.regex.Pattern
 class ModifyMyInfoActivity :
     BaseActivity<ActivityModifyMyInfoBinding>(R.layout.activity_modify_my_info) {
 
-    private lateinit var modifyData: MyPageModifyData
-
     private val myPageViewModel: MyPageViewModel by viewModel()
     private val signViewModel: SignViewModel by viewModel()
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
-    private val mainViewModel: MainViewModel by viewModel()
 
     private val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
     private val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
@@ -64,6 +61,8 @@ class ModifyMyInfoActivity :
         nicknameDuplication()
         isNickNamePattern()
         nicknameTextWatcher()
+        backBtnClick()
+
     }
 
 
@@ -273,7 +272,6 @@ class ModifyMyInfoActivity :
 
             binding.textMyPageNicknameChange.isVisible = false
             signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
-            Log.d("닉네임 중복 확인", "0")
         }
 
         // scrollView 안의 constraintlayout 클릭 시 editText의 포커스 뺏어오고 해당 레이아웃에 focus 요청
@@ -292,7 +290,6 @@ class ModifyMyInfoActivity :
 
                     binding.textMyPageNicknameChange.isVisible = true
                     signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
-                    Log.d("닉네임 중복 확인", "1")
                 }
                 return false
             }
@@ -305,7 +302,6 @@ class ModifyMyInfoActivity :
                 binding.etMyPageNickname.setFocusable(false)
                 binding.textMyPageNicknameChange.isVisible = true
                 signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
-                Log.d("닉네임 중복 확인", "2")
             }
             false
         })
@@ -381,6 +377,17 @@ class ModifyMyInfoActivity :
         }
     }
 
+    //뒤로가기 버튼 클릭 리스너
+    private fun backBtnClick() {
+        binding.imgMypageModifyTitle.setOnClickListener {
+            if(binding.textMyPageSave.isSelected) {
+                confirmBack()
+            } else {
+                finish()
+            }
+        }
+    }
+
     // 회원정보 수정 put 서버통신
     private fun completeModifyInfo() {
         with(binding) {
@@ -399,7 +406,6 @@ class ModifyMyInfoActivity :
 
     //저장버튼 알럿
     private fun confirmExit(): MutableLiveData<Boolean> {
-
         val confirm = MutableLiveData<Boolean>()
         CustomDialog(this).genericDialog(
             CustomDialog.DialogData(
@@ -418,5 +424,24 @@ class ModifyMyInfoActivity :
         return confirm
     }
 
+
+    //뒤로가기 버튼 알럿
+    private fun confirmBack(): MutableLiveData<Boolean> {
+        val confirm = MutableLiveData<Boolean>()
+        CustomDialog(this).genericDialog(
+            CustomDialog.DialogData(
+                getString(R.string.mypage_modify_alert_back_title),
+                getString(R.string.mypage_modify_alert_back_exit),
+                getString(R.string.mypage_modify_alert_back_continue)
+            ),
+            complete = {
+                finish()
+            },
+            cancel = {
+
+            }
+        )
+        return confirm
+    }
 
 }

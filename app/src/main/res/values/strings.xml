@@ -335,8 +335,13 @@
     <string name="mypage_alarm_new">새 답글 알림</string>
     <string name="mypage_alarm_new_comment">내가 답글을 쓴 타인 글에 새 답글이 달린 경우 알려드려요!</string>
 
-    <!-- 마이페이지 저장버튼 알럿 -->
+    <!-- 마이페이지 정보 수정 저장버튼 알럿 -->
     <string name="mypage_alert_modify_title">내 정보를 수정 하시겠습니까?</string>
     <string name="mypage_alert_modify_no">아니요</string>
     <string name="mypage_alert_modify_save">저장</string>
+
+    <!-- 마이페이지 정보 수정 뒤로가기 버튼 알럿 -->
+    <string name="mypage_modify_alert_back_title">페이지를 나가면 /n 수정한 내용이 저장되지 않아요.</string>
+    <string name="mypage_modify_alert_back_exit">나갈래요</string>
+    <string name="mypage_modify_alert_back_continue">계속 수정</string>
 </resources>
