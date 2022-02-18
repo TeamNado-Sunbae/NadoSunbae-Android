@@ -48,10 +48,10 @@
 
             <TextView
                 android:id="@+id/text_notification_title"
-                int="@{notification.notificationType}"
-                nickname="@{notification.nickname}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                int="@{notification.notificationTypeId}"
+                nickname="@{notification.nickname}"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="9dp"
                 android:fontFamily="@font/pretendard_regular"
@@ -61,7 +61,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/img_notification_delete"
                 app:layout_constraintStart_toEndOf="@+id/img_notification_profile"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="작성하신 정보글에 ku5이 답글을 남기셨습니다" />
+                 />
 
             <TextView
                 android:id="@+id/text_notification_content"
