@@ -129,6 +129,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_my_page_modify_img" />
 
+
+                <TextView
+                    android:id="@+id/text_my_page_nickname_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/signup_basicinfo_nickname"
+                    android:textColor="@drawable/selector_text_gray_to_red"
+                    android:layout_marginLeft="2dp"
+                    android:includeFontPadding="false"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_my_page_modify_nickname"
+                    app:layout_constraintStart_toEndOf="@+id/text_my_page_modify_nickname"
+                    app:layout_constraintTop_toTopOf="@+id/text_my_page_modify_nickname" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_my_page_nickname"
                     android:layout_width="0dp"
