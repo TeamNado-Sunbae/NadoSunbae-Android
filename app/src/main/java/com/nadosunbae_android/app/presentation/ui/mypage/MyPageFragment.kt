@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageBinding
@@ -11,6 +12,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapt
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.data.mapper.mypage.MypageMapper
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
+import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -58,6 +60,20 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         binding.imgMyPageSetting.setOnClickListener {
             mainViewModel.mypageFragmentNum.value = 1
         }
+
+
+        binding.clMyPageProfileModify.setOnClickListener {
+            val intentMyPageModify = Intent(activity, ModifyMyInfoActivity::class.java)
+
+            intentMyPageModify.putExtra("nickname", binding.myPageInfo?.data?.nickname)
+            intentMyPageModify.putExtra("firstMajor", binding.myPageInfo?.data?.firstMajorName)
+            intentMyPageModify.putExtra("firstMajorStart", binding.myPageInfo?.data?.firstMajorStart)
+            intentMyPageModify.putExtra("secondMajor", binding.myPageInfo?.data?.secondMajorName)
+            intentMyPageModify.putExtra("secondMajorStart", binding.myPageInfo?.data?.secondMajorStart)
+
+            startActivity(intentMyPageModify)
+        }
+
     }
 
 

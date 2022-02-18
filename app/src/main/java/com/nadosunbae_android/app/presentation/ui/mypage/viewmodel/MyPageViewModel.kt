@@ -5,19 +5,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
+import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
 import com.nadosunbae_android.domain.usecase.mypage.GetMyPageMyInfoUseCase
 import com.nadosunbae_android.domain.usecase.mypage.GetMyPageQuestionUseCase
+import com.nadosunbae_android.domain.usecase.mypage.PutMyPageModifyUseCase
 import kotlinx.coroutines.launch
 
 class MyPageViewModel(
     val getMyPageMyInfoUseCase: GetMyPageMyInfoUseCase,
-    val getMyPageQuestionUseCase: GetMyPageQuestionUseCase
+    val getMyPageQuestionUseCase: GetMyPageQuestionUseCase,
+    val putMyPageModifyUseCase: PutMyPageModifyUseCase
 
     ) : ViewModel() {
     val personalQuestion = MutableLiveData<MyPageQuestionData>()
     val personalInfo = MutableLiveData<MyPageMyInfo>()
+    val modifyInfo = MutableLiveData<MyPageModifyData>()
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>
@@ -50,6 +55,21 @@ class MyPageViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("myPageInfo", "서버 통신 실패")
+                }
+        }
+    }
+
+    //마이페이지 내 정보 수정 서버통신
+    fun putMyPageModify(myPageModifyItem: MyPageModifyItem) {
+        viewModelScope.launch {
+            kotlin.runCatching { putMyPageModifyUseCase(myPageModifyItem) }
+                .onSuccess {
+                    modifyInfo.value = it
+                    Log.d("MyPageModify", "서버 통신 완료")
+               }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("MyPageModify", "서버 통신 실패")
                 }
         }
     }
