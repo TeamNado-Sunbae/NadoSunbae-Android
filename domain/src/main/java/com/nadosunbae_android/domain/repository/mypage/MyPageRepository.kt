@@ -1,9 +1,6 @@
 package com.nadosunbae_android.domain.repository.mypage
 
-import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
-import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
-import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
-import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
+import com.nadosunbae_android.domain.model.mypage.*
 
 
 interface MyPageRepository {
@@ -12,4 +9,6 @@ interface MyPageRepository {
     suspend fun getMyPageMyInfo(userId: Int): MyPageMyInfo
 
     suspend fun putMyPageModify(myPageModifyItem: MyPageModifyItem) : MyPageModifyData
+
+    suspend fun getMyPagePost(sort: String = "question") : MyPagePostData
 }

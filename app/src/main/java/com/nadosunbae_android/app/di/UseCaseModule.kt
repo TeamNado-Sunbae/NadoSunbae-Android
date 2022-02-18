@@ -4,6 +4,7 @@ import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetMajorListDataUseCase
 import com.nadosunbae_android.domain.usecase.mypage.GetMyPageMyInfoUseCase
+import com.nadosunbae_android.domain.usecase.mypage.GetMyPagePostUseCase
 import com.nadosunbae_android.domain.usecase.mypage.GetMyPageQuestionUseCase
 import com.nadosunbae_android.domain.usecase.mypage.PutMyPageModifyUseCase
 import com.nadosunbae_android.domain.usecase.notification.DeleteNotificationUseCase
@@ -54,5 +55,6 @@ val useCaseModule = module{
     single {GetMyPageMyInfoUseCase(get())}
     single {GetMyPageQuestionUseCase(get())}
     single {PutMyPageModifyUseCase(get())}
+    single {GetMyPagePostUseCase(get())}
 
 }

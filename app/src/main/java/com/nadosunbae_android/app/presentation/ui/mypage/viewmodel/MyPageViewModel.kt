@@ -5,11 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
-import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
-import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
-import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
+import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.usecase.mypage.GetMyPageMyInfoUseCase
+import com.nadosunbae_android.domain.usecase.mypage.GetMyPagePostUseCase
 import com.nadosunbae_android.domain.usecase.mypage.GetMyPageQuestionUseCase
 import com.nadosunbae_android.domain.usecase.mypage.PutMyPageModifyUseCase
 import kotlinx.coroutines.launch
@@ -17,12 +15,14 @@ import kotlinx.coroutines.launch
 class MyPageViewModel(
     val getMyPageMyInfoUseCase: GetMyPageMyInfoUseCase,
     val getMyPageQuestionUseCase: GetMyPageQuestionUseCase,
-    val putMyPageModifyUseCase: PutMyPageModifyUseCase
+    val putMyPageModifyUseCase: PutMyPageModifyUseCase,
+    val getMyPagePostUseCase: GetMyPagePostUseCase
 
     ) : ViewModel() {
     val personalQuestion = MutableLiveData<MyPageQuestionData>()
     val personalInfo = MutableLiveData<MyPageMyInfo>()
     val modifyInfo = MutableLiveData<MyPageModifyData>()
+    val postByMe = MutableLiveData<MyPagePostData>()
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>
@@ -34,6 +34,22 @@ class MyPageViewModel(
             kotlin.runCatching { getMyPageQuestionUseCase(userId, sort) }
                 .onSuccess {
                     personalQuestion.value = it
+                    Log.d("mypageQuestion", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("mypageQuestion", "서버 통신 실패")
+                }
+
+        }
+    }
+
+    //마이페이지 내가 쓴 글
+    fun getMyPagePost(sort: String = "question") {
+        viewModelScope.launch {
+            kotlin.runCatching { getMyPagePostUseCase(sort) }
+                .onSuccess {
+                    postByMe.value = it
                     Log.d("mypageQuestion", "서버 통신 성공")
                 }
                 .onFailure {
