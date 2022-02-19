@@ -14,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:paddingBottom="12dp">
+        android:paddingBottom="12dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp">
 
         <TextView
             android:id="@+id/text_question_all_title"
@@ -102,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:background="@drawable/ic_diamond_empty_gray"
+            android:background="@drawable/selector_heart_gray_mint"
             app:layout_constraintStart_toEndOf="@+id/text_question_all_comment"
             app:layout_constraintTop_toTopOf="@+id/img_question_all_comment" />
 
