@@ -2,18 +2,15 @@ package com.nadosunbae_android.data.mapper.mypage
 
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
 import com.nadosunbae_android.data.model.response.mypage.ResponseMyPageModify
-import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
+import com.nadosunbae_android.data.model.response.mypage.ResponseMyPagePostData
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
-import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
-import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
-import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
+import com.nadosunbae_android.domain.model.mypage.*
 
 
 object MypageMapper {
 
-
-
+    //일대일 질문
     fun mapperToQuestion(responseMypageQuestionData: ResponseMypageQuestionData): MyPageQuestionData {
         return MyPageQuestionData(
             data = MyPageQuestionData.Data(
@@ -43,7 +40,8 @@ object MypageMapper {
 
     }
 
-    fun mapperToMyInfo(responseMypageMyInfo: ResponseMypageMyInfo) : MyPageMyInfo {
+    // 내 정보
+    fun mapperToMyInfo(responseMypageMyInfo: ResponseMypageMyInfo): MyPageMyInfo {
         return MyPageMyInfo(
             data = MyPageMyInfo.Data(
                 count = responseMypageMyInfo.data.count,
@@ -60,7 +58,8 @@ object MypageMapper {
         )
     }
 
-    fun mapperToModifyData(responseMyPageModify: ResponseMyPageModify) : MyPageModifyData {
+    // 내 정보 수정
+    fun mapperToModifyData(responseMyPageModify: ResponseMyPageModify): MyPageModifyData {
         return MyPageModifyData(
             data = MyPageModifyData.Data(
                 firstMajorId = responseMyPageModify.data.firstMajorId,
@@ -75,7 +74,7 @@ object MypageMapper {
         )
     }
 
-    fun mapperToModifyItem(myPageModifyItem: MyPageModifyItem) : RequestMyPageModify {
+    fun mapperToModifyItem(myPageModifyItem: MyPageModifyItem): RequestMyPageModify {
         return RequestMyPageModify(
             nickname = myPageModifyItem.nickname,
             firstMajorId = myPageModifyItem.firstMajorId,
@@ -84,6 +83,28 @@ object MypageMapper {
             secondMajorStart = myPageModifyItem.secondMajorStart,
             isOnQuestion = myPageModifyItem.isOnQuestion
         )
+    }
 
+    //내가 쓴 글
+    fun mapperToPost(responseMyPagePostData: ResponseMyPagePostData): MyPagePostData {
+        return MyPagePostData(
+            data = MyPagePostData.Data(
+                classroomPostList = responseMyPagePostData.data.classroomPostList.map {
+                    MyPagePostData.Data.ClassroomPost(
+                        commentCount = it.commentCount,
+                        content = it.content,
+                        createdAt = it.createdAt,
+                        like = MyPagePostData.Data.ClassroomPost.Like(
+                            isLiked = it.like.isLiked,
+                            likeCount = it.like.likeCount
+                        ),
+                        majorName = it.majorName,
+                        postId = it.postId,
+                        title = it.title
+                    )
+                }
+            ),
+            success = responseMyPagePostData.success
+        )
     }
 }

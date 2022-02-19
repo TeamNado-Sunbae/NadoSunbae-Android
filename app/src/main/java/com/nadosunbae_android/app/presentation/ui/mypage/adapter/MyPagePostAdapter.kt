@@ -6,36 +6,38 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemMypagePersonalQuestionBinding
+import com.nadosunbae_android.app.databinding.ItemMypagePostByMeBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
+import com.nadosunbae_android.domain.model.mypage.MyPagePostData
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 
-class MyPageMainAdapter (private val num: Int, private val userId: Int, private val myPageNum : Int) :
-    RecyclerView.Adapter<MyPageMainAdapter.MyPageMainViewHolder>() {
-    var myPageMainData = mutableListOf<MyPageQuestionData.Data.ClassroomPost>()
+class MyPagePostAdapter(private val num: Int, private val userId: Int, private val myPageNum : Int) :
+    RecyclerView.Adapter<MyPagePostAdapter.MyPagePostViewHolder>() {
+    var myPagePostData = mutableListOf<MyPagePostData.Data.ClassroomPost>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MyPageMainViewHolder {
-        val binding = ItemMypagePersonalQuestionBinding.inflate(
+    ): MyPagePostViewHolder {
+        val binding = ItemMypagePostByMeBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return MyPageMainViewHolder(binding)
+        return MyPagePostViewHolder(binding)
     }
 
     override fun onBindViewHolder(
-        holder: MyPageMainViewHolder,
+        holder: MyPagePostViewHolder,
         position: Int
     ) {
-        holder.onBind(myPageMainData[position])
+        holder.onBind(myPagePostData[position])
         holder.binding.root.setOnClickListener {
             val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
             intent.apply {
-                putExtra("myPageNum",myPageNum)
+                putExtra("myPageNum", myPageNum)
                 putExtra("userId", userId)
-                putExtra("postId", myPageMainData[position].postId)
+                putExtra("postId", myPagePostData[position].postId)
                 putExtra("all", num)
             }
             ContextCompat.startActivity(holder.itemView.context, intent, null)
@@ -43,23 +45,23 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
     }
 
     override fun getItemCount(): Int {
-        return if (myPageMainData.size < 6) myPageMainData.size else 5
+        return if (myPagePostData.size < 6) myPagePostData.size else 5
 
     }
 
-    inner class MyPageMainViewHolder(
-        val binding: ItemMypagePersonalQuestionBinding
+    inner class MyPagePostViewHolder(
+        val binding: ItemMypagePostByMeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(myPageMainData: MyPageQuestionData.Data.ClassroomPost) {
+        fun onBind(myPagePostData: MyPagePostData.Data.ClassroomPost) {
             binding.apply {
-                myPageMain = myPageMainData
+                myPagePost = myPagePostData
                 executePendingBindings()
             }
         }
     }
 
-    fun setQuestionMain(questionMainData: MutableList<MyPageQuestionData.Data.ClassroomPost>) {
-        this.myPageMainData = questionMainData
+    fun setQuestionPost(myPagePostData: MutableList<MyPagePostData.Data.ClassroomPost>) {
+        this.myPagePostData = myPagePostData
         notifyDataSetChanged()
 
     }

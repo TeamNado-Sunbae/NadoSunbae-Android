@@ -2,10 +2,7 @@ package com.nadosunbae_android.data.repositoryimpl.mypage
 
 import com.nadosunbae_android.data.datasource.remote.mypage.MyPageDataSource
 import com.nadosunbae_android.data.mapper.mypage.MypageMapper
-import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
-import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
-import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
-import com.nadosunbae_android.domain.model.mypage.MyPageMyInfo
+import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
 
 class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRepository {
@@ -22,5 +19,9 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
         return MypageMapper.mapperToModifyData(dataSource.putMyPageModify(
             MypageMapper.mapperToModifyItem(myPageModifyItem)
         ))
+    }
+
+    override suspend fun getMyPagePost(type: String): MyPagePostData {
+        return MypageMapper.mapperToPost(dataSource.getMyPagePost(type))
     }
 }
