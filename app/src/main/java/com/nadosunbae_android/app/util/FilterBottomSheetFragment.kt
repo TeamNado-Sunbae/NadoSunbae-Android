@@ -100,7 +100,10 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
 
     // 적용하기 버튼 활성화 로직
     private fun setApplyButton() {
-        var validApply = false
+        // 22.02. 항상 활성화로 변경됨
+
+        // 기존 코드
+        /* var validApply = false
 
         for (btn in filterButtonList) {
             if (btn.isSelected)
@@ -108,6 +111,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         }
 
         binding.btnFilterApply.isEnabled = validApply
+         */
     }
 
     private fun setClickListener() {

@@ -21,7 +21,7 @@ data class ResponseReviewDetailData(
 
         data class Like(
             var isLiked: Boolean,
-            val likeCount: String
+            val likeCount: Int
         )
 
         data class Post(

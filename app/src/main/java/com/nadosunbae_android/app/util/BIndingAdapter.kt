@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -39,7 +40,13 @@ object BindingAdapter {
     fun plusStart(textView: TextView, text: String): String {
         return (text + "진입").also { textView.text = it }
     }
+    //좋아요 selector
+    @JvmStatic
+    @BindingAdapter("likeCheck")
+    fun getLikeCheck(imageView : ImageView, like : Boolean){
+        imageView.isSelected = like
 
+    }
     @JvmStatic
     @BindingAdapter("int", "nickname", requireAll = false)
     fun notification(textView: TextView, int: Int, nickname: String): SpannableStringBuilder {
@@ -60,6 +67,7 @@ object BindingAdapter {
             ForegroundColorSpan(Color.parseColor("#00C8B0")), start, end,
             Spannable.SPAN_INCLUSIVE_INCLUSIVE
         )
+        Log.d("spannable", "spannable이 작동이 안되는 것인가")
         return spannable.also { textView.text = it }
     }
 
@@ -143,11 +151,12 @@ fun TextView.dateToTextFormat(date: Date?) {
 
 @BindingAdapter("loadImageFromUrl")
 fun ImageView.loadImageFromUrl(url: String?) {
-
     Glide.with(context)
         .load(url)
         .into(this)
 }
+
+
 
 @BindingAdapter("loadImageFromId")
 fun ImageView.loadImageFromId(resId: Int?) {
@@ -191,4 +200,15 @@ fun View.layoutMarginBottom(margin: Int) {
         layoutParams.bottomMargin = margin.dpToPx
         this.layoutParams = layoutParams
     }
+}
+
+@BindingAdapter("intToString")
+fun android.widget.Button.intToString(num: Int) {
+    this.text = num.toString()
+}
+
+// View의 isSelected를 설정
+@BindingAdapter("setSelected")
+fun View.setSelected(selected: Boolean) {
+    this.isSelected = selected
 }

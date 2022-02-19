@@ -28,7 +28,15 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBtn()
+        backBtn()
         selectOption()
+    }
+
+
+    private fun backBtn() {
+        binding.imgMypagePostTitle.setOnClickListener {
+            finish()
+        }
     }
 
 

@@ -27,12 +27,12 @@ interface ReviewService {
     ) : ResponseReviewDetailData
 
     @DELETE("review-post/{postId}")
-    fun deleteReview(
+    suspend fun deleteReview(
         @Path("postId") postId: Int
     ) : ResponseDeleteReview
 
     @PUT("review-post/{postId}")
-    fun putReview(
+    suspend fun putReview(
         @Path("postId") postId: Int,
         @Body requestBody: RequestPutReviewData
     ) : ResponsePutReviewData

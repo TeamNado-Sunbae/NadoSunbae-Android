@@ -51,7 +51,7 @@ class NotificationFragment :
         }
 
         notificationViewModel.notificationList.observe(viewLifecycleOwner) {
-
+            Log.d("알림 정보", it.toString())
             notificationAdapter.setNotification(it as MutableList<NotificationListData>)
         }
     }

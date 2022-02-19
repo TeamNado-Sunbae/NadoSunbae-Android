@@ -36,10 +36,11 @@ class ClassRoomDataSourceImpl(private val service : ClassRoomService) : ClassRoo
 
     override suspend fun getSeniorQuestionList(
         userId: Int,
-        sort: String?
+        sort: String
     ): ResponseSeniorQuestionData {
         return service.getSeniorQuestionList(userId, sort)
     }
+
 
     override suspend fun getInformationDetail(postId: Int): ResponseInfoDetailData {
         return service.getInformationDetail(postId)

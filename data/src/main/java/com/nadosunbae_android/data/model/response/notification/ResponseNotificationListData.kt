@@ -17,8 +17,8 @@ data class ResponseNotificationListData(
             val isDeleted: Boolean,
             val isRead: Boolean,
             val isQuestionToPerson : Boolean,
-            val notificationId: Int,
-            val notificationType: Int,
+            val notificationId : Int,
+            val notificationTypeId: Int,
             val postId: Int,
             val sender: Sender
         ) {
