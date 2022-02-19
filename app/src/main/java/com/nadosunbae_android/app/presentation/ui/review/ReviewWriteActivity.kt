@@ -415,11 +415,14 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     }
 
     private fun confirmExit(): MutableLiveData<Boolean> {
+        var title = getString(R.string.alert_cancel_write_title)
+        if (mode == MODE_MODIFY)
+            title = getString(R.string.alert_cancel_edit_title)
 
         val confirm = MutableLiveData<Boolean>()
         CustomDialog(this).genericDialog(
             CustomDialog.DialogData(
-                getString(R.string.alert_cancel_write_title),
+                title,
                 getString(R.string.alert_cancel_write_complete),
                 getString(R.string.alert_cancel_write_cancel)
             ),
@@ -452,7 +455,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         const val ONE_LINE_MAX_LENGTH = 40
 
         // 학과 - 미진입
-        const val NOT_ENTERED = 126
+        const val NOT_ENTERED = 1
         // 학과 - 정보없음
         const val NO_INFORMATION = 127
 
