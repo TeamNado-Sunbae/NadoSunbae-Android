@@ -14,13 +14,17 @@ data class ResponseClassRoomMainData(
         val content: String,
         val createdAt: Date?,
         val writer: Writer,
-        val likeCount: Int,
+        val like : Like,
         val commentCount: Int
     ) {
         data class Writer(
             val nickname: String,
             val profileImageId: Int,
             val writerId: Int
+        )
+        data class Like(
+            val isLiked : Boolean,
+            val likeCount : Int
         )
     }
 }

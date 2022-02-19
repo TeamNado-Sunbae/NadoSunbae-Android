@@ -7,7 +7,8 @@ data class ResponseDeleteReview(
     val success: Boolean
 ) {
     data class Data(
+        val postId: String,
         val isDeleted: Boolean,
-        val postId: String
+        val isReviewed: Boolean
     )
 }

@@ -12,28 +12,26 @@
         android:layout_height="match_parent"
         tools:context=".app.presentation.ui.classroom.InformationFragment">
 
-        <ImageView
-            android:id="@+id/img_classroom_info_array"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="55dp"
-            android:background="@drawable/ic_array"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_classroom_info_array"
+        <android.widget.Button
+            android:id="@+id/btn_classroom_info_array"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_array"
+            android:drawablePadding="6dp"
             android:fontFamily="@font/pretendard_light"
-            android:text="@string/ask_everyone_new"
             android:includeFontPadding="false"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingHorizontal="9dp"
+            android:paddingVertical="5dp"
+            android:text="@string/review_latest_order"
             android:textColor="@color/gray_3"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/img_classroom_info_array"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -47,7 +45,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_classroom_info_array"
+            app:layout_constraintTop_toBottomOf="@+id/btn_classroom_info_array"
             android:layout_marginTop="13dp"
             android:paddingStart="16dp"
             android:paddingEnd="13dp"

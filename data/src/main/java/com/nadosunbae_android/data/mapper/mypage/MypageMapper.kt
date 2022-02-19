@@ -7,6 +7,7 @@ import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
 import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
 import com.nadosunbae_android.domain.model.mypage.*
 
+
 object MypageMapper {
 
     //일대일 질문

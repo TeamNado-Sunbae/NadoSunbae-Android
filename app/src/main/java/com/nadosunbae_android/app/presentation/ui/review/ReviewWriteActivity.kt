@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.review
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
@@ -72,6 +73,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
         // 수정하기 일 때 기존 데이터 불러오기
         if (mode == MODE_MODIFY) {
+            // 기존 글 정보
             modifyData = intent.getParcelableExtra<ReviewDetailData>("modifyData") as ReviewDetailData
 
             // 불러온 데이터로 텍스트 상자 채워넣기
@@ -90,8 +92,14 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                     }
                 }
 
-                // 학과 선택 숨기기
-                clReviewWriteSelectMajorBox.visibility = View.GONE
+                // 학과 선택 불가
+                tvWriteChange.visibility = View.INVISIBLE
+                tvWriteSelectedMajor.setTextColor(getColor(R.color.gray_3))
+                // 고정적으로 선택된 학과 표시
+
+                if (ReviewGlobals.selectedMajor != null)
+                    tvWriteSelectedMajor.text = ReviewGlobals.selectedMajor!!.majorName
+
 
             }
 
@@ -178,22 +186,41 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         // 학과 선택
         binding.clReviewWriteSelectMajor.setOnClickListener {
 
-            val selectableList = mutableListOf<SelectableData>()
+            if (mode != MODE_MODIFY) {
 
-            // 본전공 추가
-            val firstMajor = ReviewGlobals.firstMajor
-            if (firstMajor != null && isValidMajor(firstMajor.majorId))
-                selectableList.add(SelectableData(firstMajor.majorId, firstMajor.majorName, false))
+                val selectableList = mutableListOf<SelectableData>()
 
-            // 제2전공 추가
-            val secondMajor = ReviewGlobals.secondMajor
-            if (secondMajor != null && isValidMajor(secondMajor.majorId))
-                selectableList.add(SelectableData(secondMajor.majorId, secondMajor.majorName, false))
+                // 본전공 추가
+                val firstMajor = ReviewGlobals.firstMajor
+                if (firstMajor != null && isValidMajor(firstMajor.majorId))
+                    selectableList.add(
+                        SelectableData(
+                            firstMajor.majorId,
+                            firstMajor.majorName,
+                            false
+                        )
+                    )
 
-            // 드롭다윤 메뉴 띄우기
-            showCustomDropDown(reviewWriteViewModel, binding.clReviewWriteSelectMajor,
-                binding.clReviewWriteSelectMajor.width, reviewWriteViewModel.dropDownSelected.value!!.id,
-                selectableList)
+                // 제2전공 추가
+                val secondMajor = ReviewGlobals.secondMajor
+                if (secondMajor != null && isValidMajor(secondMajor.majorId))
+                    selectableList.add(
+                        SelectableData(
+                            secondMajor.majorId,
+                            secondMajor.majorName,
+                            false
+                        )
+                    )
+
+                // 드롭다윤 메뉴 띄우기
+                showCustomDropDown(
+                    reviewWriteViewModel,
+                    binding.clReviewWriteSelectMajor,
+                    binding.clReviewWriteSelectMajor.width,
+                    reviewWriteViewModel.dropDownSelected.value!!.id,
+                    selectableList
+                )
+            }
         }
 
         // 작성 완료
