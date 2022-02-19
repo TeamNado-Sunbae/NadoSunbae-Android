@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
@@ -20,56 +21,58 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.activity_my_page_post) {
 
     private val myPageViewModel : MyPageViewModel by viewModel()
-    private val mainViewModel: MainViewModel by viewModel()
 
     private lateinit var myPagePostAdapter: MyPagePostAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        questionPosting()
+        initBtn()
+        selectOption()
     }
 
-    /*
-    private fun initBtn() {
-        /*
-        binding.rvMypageQuestion.visibility = View.VISIBLE
-        binding.rvMypageInformaiton.visibility = View.INVISIBLE
 
-         */
+    private fun initBtn() {
+        questionPosting()
         binding.textMypagePostQuestionTitle.isSelected = true
         binding.textMypagePostInfoTitle.isSelected = false
     }
 
-    private fun selectTitle() {
+    private fun selectOption() {
         binding.textMypagePostQuestionTitle.setOnClickListener {
-            /*
-            binding.rvMypageQuestion.visibility = View.VISIBLE
-            binding.rvMypageInformaiton.visibility = View.INVISIBLE
-
-             */
+            questionPosting()
             binding.textMypagePostQuestionTitle.isSelected = true
             binding.textMypagePostInfoTitle.isSelected = false
         }
         binding.textMypagePostInfoTitle.setOnClickListener {
-            /*
-            binding.rvMypageQuestion.visibility = View.INVISIBLE
-            binding.rvMypageInformaiton.visibility = View.VISIBLE
-
-             */
+            infoPosting()
             binding.textMypagePostQuestionTitle.isSelected = false
             binding.textMypagePostInfoTitle.isSelected = true
         }
     }
-    */
 
 
     private fun questionPosting() {
-        mainViewModel.signData.observe(this){
-            myPageViewModel.getMyPagePost("question")
-        }
-        myPagePostAdapter = MyPagePostAdapter(2, mainViewModel.userId.value ?: 0,1)
+        intent.getIntExtra("userId", 0)
+        Log.d("userId", "- id: " + intent.getIntExtra("userId", 0))
+
+        myPageViewModel.getMyPagePost("question")
+        myPagePostAdapter = MyPagePostAdapter(2,  intent.getIntExtra("userId", 0),1)
         binding.rvMypageQuestion.adapter = myPagePostAdapter
+
+        myPageViewModel.postByMe.observe(this) {
+            myPagePostAdapter.setQuestionPost((it.data.classroomPostList) as MutableList<MyPagePostData.Data.ClassroomPost>)
+        }
+    }
+
+    private fun infoPosting() {
+        intent.getIntExtra("userId", 0)
+        Log.d("userId", "- id: " + intent.getIntExtra("userId", 0))
+
+        myPageViewModel.getMyPagePost("information")
+        myPagePostAdapter = MyPagePostAdapter(2,  intent.getIntExtra("userId", 0),1)
+        binding.rvMypageQuestion.adapter = myPagePostAdapter
+
         myPageViewModel.postByMe.observe(this) {
             myPagePostAdapter.setQuestionPost((it.data.classroomPostList) as MutableList<MyPagePostData.Data.ClassroomPost>)
         }

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.domain.model.mypage.*
+import com.nadosunbae_android.domain.model.sign.SignInItem
 import com.nadosunbae_android.domain.usecase.mypage.GetMyPageMyInfoUseCase
 import com.nadosunbae_android.domain.usecase.mypage.GetMyPagePostUseCase
 import com.nadosunbae_android.domain.usecase.mypage.GetMyPageQuestionUseCase
@@ -19,6 +20,16 @@ class MyPageViewModel(
     val getMyPagePostUseCase: GetMyPagePostUseCase
 
     ) : ViewModel() {
+
+    // 로그인 response 데이터
+    private val _signData = MutableLiveData<SignInItem.User>()
+    val signData: LiveData<SignInItem.User>
+        get() = _signData
+
+    //유저 아이디
+    var userId = MutableLiveData<Int>()
+
+
     val personalQuestion = MutableLiveData<MyPageQuestionData>()
     val personalInfo = MutableLiveData<MyPageMyInfo>()
     val modifyInfo = MutableLiveData<MyPageModifyData>()
@@ -27,6 +38,13 @@ class MyPageViewModel(
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>
     get() = _myPagePersonal
+
+
+    fun setSignData(signData: SignInItem.User) {
+        _signData.value = signData
+        userId.value = signData.userId
+    }
+
 
     //마이페이지 1:1 질문
     fun getMyPageQuestion(userId: Int, sort: String = "recent") {
@@ -45,16 +63,16 @@ class MyPageViewModel(
     }
 
     //마이페이지 내가 쓴 글
-    fun getMyPagePost(sort: String = "question") {
+    fun getMyPagePost(type: String) {
         viewModelScope.launch {
-            kotlin.runCatching { getMyPagePostUseCase(sort) }
+            kotlin.runCatching { getMyPagePostUseCase(type) }
                 .onSuccess {
                     postByMe.value = it
-                    Log.d("mypageQuestion", "서버 통신 성공")
+                    Log.d("mypagePost", "서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("mypageQuestion", "서버 통신 실패")
+                    Log.d("mypagePost", "서버 통신 실패")
                 }
 
         }

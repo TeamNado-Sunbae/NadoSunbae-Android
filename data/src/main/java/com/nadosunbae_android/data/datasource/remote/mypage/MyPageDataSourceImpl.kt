@@ -22,7 +22,7 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
         return service.putMyPageModify(requestMyPageModify)
     }
 
-    override suspend fun getMyPagePost(sort: String): ResponseMyPagePostData {
-        return service.getPostByMe(sort)
+    override suspend fun getMyPagePost(type: String): ResponseMyPagePostData {
+        return service.getPostByMe(type)
     }
 }

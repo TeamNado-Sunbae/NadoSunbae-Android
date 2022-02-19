@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="MyPageMain"
+            name="MyPagePost"
             type="com.nadosunbae_android.domain.model.mypage.MyPagePostData.Data.ClassroomPost" />
     </data>
 
@@ -23,7 +23,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
             android:maxLines="1"
-            android:text="@{MyPageMain.title}"
+            android:text="@{MyPagePost.title}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_regular"
             android:maxLines="2"
-            android:text="@{MyPageMain.content}"
+            android:text="@{MyPagePost.content}"
             android:textColor="@color/gray_3"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/text_question_all_title"
@@ -52,7 +52,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pretendard_semibold"
             android:includeFontPadding="false"
-            android:text="@{MyPageMain.majorName}"
+            android:text="@{MyPagePost.majorName}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
 
         <TextView
             android:id="@+id/text_question_all_time"
-            dateToText="@{MyPageMain.createdAt}"
+            dateToText="@{MyPagePost.createdAt}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -86,7 +86,7 @@
 
         <TextView
             android:id="@+id/text_question_all_comment"
-            intToText="@{MyPageMain.commentCount}"
+            intToText="@{MyPagePost.commentCount}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"
-            intToText="@{MyPageMain.Like.likeCount}"
+            intToText="@{MyPagePost.Like.likeCount}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_question_all_like"

@@ -25,7 +25,7 @@ interface MyPageService {
         @Body requestMyPageModify: RequestMyPageModify
     ) : ResponseMyPageModify
 
-    @GET("/user/mypage/classroom-post/list")
+    @GET("user/mypage/classroom-post/list")
     suspend fun getPostByMe(
         @Query("type") type: String = "question"
     ) : ResponseMyPagePostData

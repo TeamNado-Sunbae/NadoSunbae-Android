@@ -21,7 +21,7 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
         ))
     }
 
-    override suspend fun getMyPagePost(sort: String): MyPagePostData {
-        return MypageMapper.mapperToPost(dataSource.getMyPagePost(sort))
+    override suspend fun getMyPagePost(type: String): MyPagePostData {
+        return MypageMapper.mapperToPost(dataSource.getMyPagePost(type))
     }
 }

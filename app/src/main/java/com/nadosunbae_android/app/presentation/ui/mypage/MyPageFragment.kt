@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageBinding
@@ -34,6 +35,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     private fun movePage() {
         binding.textMyPagePostByMe.setOnClickListener {
             val intentMyPagePost = Intent(getActivity(), MyPagePostActivity::class.java)
+            intentMyPagePost.putExtra("userId", mainViewModel.userId.value ?: 0)
+            Log.d("mypageFragment userId - ", "id: " + mainViewModel.userId.value)
             startActivity(intentMyPagePost)
         }
 

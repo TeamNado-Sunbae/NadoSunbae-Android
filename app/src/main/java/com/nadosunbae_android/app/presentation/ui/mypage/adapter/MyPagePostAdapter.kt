@@ -54,7 +54,7 @@ class MyPagePostAdapter(private val num: Int, private val userId: Int, private v
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(myPagePostData: MyPagePostData.Data.ClassroomPost) {
             binding.apply {
-                myPageMain = myPagePostData
+                myPagePost = myPagePostData
                 executePendingBindings()
             }
         }

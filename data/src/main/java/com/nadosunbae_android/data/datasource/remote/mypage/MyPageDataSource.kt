@@ -14,5 +14,5 @@ interface MyPageDataSource {
 
     suspend fun putMyPageModify(requestMyPageModify: RequestMyPageModify): ResponseMyPageModify
 
-    suspend fun getMyPagePost(sort: String = "question") : ResponseMyPagePostData
+    suspend fun getMyPagePost(type: String = "question") : ResponseMyPagePostData
 }
