@@ -1,6 +1,5 @@
 package com.nadosunbae_android.domain.usecase.mypage
 
-import com.nadosunbae_android.domain.model.mypage.MyPagePostData
 import com.nadosunbae_android.domain.model.mypage.MyPageReplyData
 import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
 
