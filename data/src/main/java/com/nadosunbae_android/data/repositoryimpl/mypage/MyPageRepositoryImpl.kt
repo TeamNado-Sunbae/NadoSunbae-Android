@@ -24,4 +24,8 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
     override suspend fun getMyPagePost(type: String): MyPagePostData {
         return MypageMapper.mapperToPost(dataSource.getMyPagePost(type))
     }
+
+    override suspend fun getMyPageReply(postTypeId: Int): MyPageReplyData {
+        return MypageMapper.mapperToReply(dataSource.getMyPageReply(postTypeId))
+    }
 }

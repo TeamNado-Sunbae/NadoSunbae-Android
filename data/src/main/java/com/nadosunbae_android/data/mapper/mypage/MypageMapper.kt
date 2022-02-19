@@ -1,10 +1,7 @@
 package com.nadosunbae_android.data.mapper.mypage
 
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
-import com.nadosunbae_android.data.model.response.mypage.ResponseMyPageModify
-import com.nadosunbae_android.data.model.response.mypage.ResponseMyPagePostData
-import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
-import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
+import com.nadosunbae_android.data.model.response.mypage.*
 import com.nadosunbae_android.domain.model.mypage.*
 
 
@@ -105,6 +102,33 @@ object MypageMapper {
                 }
             ),
             success = responseMyPagePostData.success
+        )
+    }
+
+    //내가 쓴 답글
+    fun mapperToReply(responseMyPageReplyData: ResponseMyPageReplyData) :MyPageReplyData {
+        return MyPageReplyData(
+            data = MyPageReplyData.Data(
+                classroomPostListByMyCommentList = responseMyPageReplyData.data.classroomPostListByMyCommentList.map {
+                    MyPageReplyData.Data.ClassroomPostListByMyComment(
+                        commentCount = it.commentCount,
+                        content = it.content,
+                        createdAt = it.createdAt,
+                        like = MyPageReplyData.Data.ClassroomPostListByMyComment.Like(
+                            isLiked = it.like.isLiked,
+                            likeCount = it.like.likeCount
+                        ),
+                        postId = it.postId,
+                        title = it.title,
+                        writer = MyPageReplyData.Data.ClassroomPostListByMyComment.Writer(
+                            nickname = it.writer.nickname,
+                            profileImageId = it.writer.profileImageId,
+                            writerId = it.writer.writerId
+                        )
+                    )
+                }
+            ),
+            success = responseMyPageReplyData.success
         )
     }
 }
