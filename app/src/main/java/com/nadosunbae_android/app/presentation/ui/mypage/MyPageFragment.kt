@@ -42,6 +42,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
         binding.textMyPageReplyByMe.setOnClickListener {
             val intentMyPageReply = Intent(getActivity(), MyPageReplyActivity::class.java)
+            intentMyPageReply.putExtra("userId", mainViewModel.userId.value ?: 0)
+            Log.d("mypageIntentReply userId - ", "id : " + mainViewModel.userId.value)
             startActivity(intentMyPageReply)
         }
 

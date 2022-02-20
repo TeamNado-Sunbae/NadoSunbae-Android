@@ -56,27 +56,27 @@ class MyPageReplyActivity :  BaseActivity<ActivityMyPageReplyBinding>(R.layout.a
 
     private fun questionPosting() {
         intent.getIntExtra("userId", 0)
-        Log.d("userId", "- id: " + intent.getIntExtra("userId", 0))
-
-        myPageViewModel.getMyPageReply(2)
-        myPageReplyAdapter = MyPageReplyAdapter(2,  intent.getIntExtra("userId", 0),1)
-        binding.rvMypageQuestion.adapter = myPageReplyAdapter
-
-        myPageViewModel.postByMe.observe(this) {
-            myPageReplyAdapter.setQuestionReply((it.data.classroomPostList) as MutableList<MyPageReplyData.Data.ClassroomPostListByMyComment>)
-        }
-    }
-
-    private fun infoPosting() {
-        intent.getIntExtra("userId", 0)
-        Log.d("userId", "- id: " + intent.getIntExtra("userId", 0))
+        Log.d("ReplyuserId", "- id: " + intent.getIntExtra("userId", 0))
 
         myPageViewModel.getMyPageReply(3)
         myPageReplyAdapter = MyPageReplyAdapter(2,  intent.getIntExtra("userId", 0),1)
         binding.rvMypageQuestion.adapter = myPageReplyAdapter
 
-        myPageViewModel.postByMe.observe(this) {
-            myPageReplyAdapter.setQuestionReply((it.data.classroomPostList) as MutableList<MyPageReplyData.Data.ClassroomPostListByMyComment>)
+        myPageViewModel.replyByMe.observe(this) {
+            myPageReplyAdapter.setQuestionReply((it.data.classroomPostListByMyCommentList) as MutableList<MyPageReplyData.Data.ClassroomPostListByMyComment>)
+        }
+    }
+
+    private fun infoPosting() {
+        intent.getIntExtra("userId", 0)
+        Log.d("ReplyuserId", "- id: " + intent.getIntExtra("userId", 0))
+
+        myPageViewModel.getMyPageReply(2)
+        myPageReplyAdapter = MyPageReplyAdapter(2,  intent.getIntExtra("userId", 0),1)
+        binding.rvMypageQuestion.adapter = myPageReplyAdapter
+
+        myPageViewModel.replyByMe.observe(this) {
+            myPageReplyAdapter.setQuestionReply((it.data.classroomPostListByMyCommentList) as MutableList<MyPageReplyData.Data.ClassroomPostListByMyComment>)
         }
     }
 }

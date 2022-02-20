@@ -62,7 +62,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
     private fun questionPosting() {
         intent.getIntExtra("userId", 0)
-        Log.d("userId", "- id: " + intent.getIntExtra("userId", 0))
+        Log.d("PostuserId", "- id: " + intent.getIntExtra("userId", 0))
 
         myPageViewModel.getMyPagePost("question")
         myPagePostAdapter = MyPagePostAdapter(2,  intent.getIntExtra("userId", 0),1)
@@ -75,7 +75,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
     private fun infoPosting() {
         intent.getIntExtra("userId", 0)
-        Log.d("userId", "- id: " + intent.getIntExtra("userId", 0))
+        Log.d("PostuserId", "- id: " + intent.getIntExtra("userId", 0))
 
         myPageViewModel.getMyPagePost("information")
         myPagePostAdapter = MyPagePostAdapter(2,  intent.getIntExtra("userId", 0),1)
