@@ -2,7 +2,6 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageSettingBinding
@@ -61,14 +60,7 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
 
     private fun initLogOut() {
         binding.textMypageSettingLogout.setOnClickListener {
-            myPageViewModel.logOut.observe(viewLifecycleOwner) {
-                if(!it.success) {
-                    myPageViewModel.postMyPageLogOut()
-                    Log.d("로그아웃", "실패")
-                } else {
-                    Log.d("로그아웃", "성공")
-                }
-            }
+            myPageViewModel.postMyPageLogOut()
         }
     }
 
