@@ -129,12 +129,11 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         )
 
         binding.btnMajorPage.setOnClickListener {
+
             val majorInfo = reviewListViewModel.majorInfo.value
             if (majorInfo != null) {
-                var intent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(majorInfo.homepage)
-                )
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", majorInfo.homepage)
                 startActivity(intent)
             }
         }
@@ -142,10 +141,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         binding.btnSubjectTable.setOnClickListener {
             val majorInfo = reviewListViewModel.majorInfo.value
             if (majorInfo != null) {
-                var intent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(majorInfo.subjectTable)
-                )
+                var intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", majorInfo.subjectTable)
                 startActivity(intent)
             }
         }
