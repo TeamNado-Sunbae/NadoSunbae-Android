@@ -131,4 +131,13 @@ object MypageMapper {
             success = responseMyPageReplyData.success
         )
     }
+
+    fun mapperToVersion(responseMyPageVersionData: ResponseMyPageVersionData) : MyPageVersionData {
+        return MyPageVersionData(
+            data = MyPageVersionData.Data(
+                AOS = responseMyPageVersionData.data.AOS
+            ),
+            success = responseMyPageVersionData.success
+        )
+    }
 }

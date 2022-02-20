@@ -13,9 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid">
-        <activity
-            android:name=".presentation.ui.mypage.AppInfoActivity"
-            android:exported="true" />
+
         <activity
             android:name=".presentation.ui.mypage.QuitActivity"
             android:exported="true" />
