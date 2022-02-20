@@ -15,4 +15,6 @@ interface MyPageRepository {
     suspend fun getMyPageReply(postTypeId: Int) : MyPageReplyData
 
     suspend fun getMyPageVersion() : MyPageVersionData
+
+    suspend fun postMyPageLogOut() : MyPageLogOutData
 }

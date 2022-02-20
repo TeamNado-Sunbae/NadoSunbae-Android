@@ -140,4 +140,10 @@ object MypageMapper {
             success = responseMyPageVersionData.success
         )
     }
+
+    fun mapperToLogOut(responseMyPageLogOut: ResponseMyPageLogOut) : MyPageLogOutData {
+        return MyPageLogOutData(
+            success = responseMyPageLogOut.success
+        )
+    }
 }

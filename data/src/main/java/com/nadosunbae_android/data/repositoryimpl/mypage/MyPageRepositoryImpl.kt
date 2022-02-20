@@ -32,4 +32,9 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
     override suspend fun getMyPageVersion(): MyPageVersionData {
         return MypageMapper.mapperToVersion(dataSource.getMyPageVersion())
     }
+
+    override suspend fun postMyPageLogOut(): MyPageLogOutData {
+        return MypageMapper.mapperToLogOut(dataSource.postMyPageLogOut())
+    }
+
 }
