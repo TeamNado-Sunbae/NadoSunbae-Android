@@ -18,6 +18,7 @@ class MyPageViewModel(
     val getMyPageReplyUseCase: GetMyPageReplyUseCase,
     val getMyPageVersionUseCase: GetMyPageVersionUseCase
 
+
     ) : ViewModel() {
 
     // 로그인 response 데이터
@@ -35,6 +36,7 @@ class MyPageViewModel(
     val postByMe = MutableLiveData<MyPagePostData>()
     val replyByMe = MutableLiveData<MyPageReplyData>()
     val versionInfo = MutableLiveData<MyPageVersionData>()
+
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>

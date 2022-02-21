@@ -56,4 +56,5 @@ val useCaseModule = module{
     single { GetMyPageReplyUseCase(get()) }
     single {GetMyPageVersionUseCase(get())}
 
+
 }

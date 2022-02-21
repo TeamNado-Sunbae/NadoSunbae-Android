@@ -16,4 +16,5 @@ interface MyPageDataSource {
     suspend fun getMyPageReply(postTypeId: Int) : ResponseMyPageReplyData
 
     suspend fun getMyPageVersion() : ResponseMyPageVersionData
+
 }

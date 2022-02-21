@@ -30,4 +30,5 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
     override suspend fun getMyPageVersion(): ResponseMyPageVersionData {
         return service.getMyPageVersion()
     }
+
 }
