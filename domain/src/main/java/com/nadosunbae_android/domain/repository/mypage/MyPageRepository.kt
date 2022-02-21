@@ -11,4 +11,6 @@ interface MyPageRepository {
     suspend fun putMyPageModify(myPageModifyItem: MyPageModifyItem) : MyPageModifyData
 
     suspend fun getMyPagePost(type: String = "question") : MyPagePostData
+
+    suspend fun getMyPageReply(postTypeId: Int) : MyPageReplyData
 }
