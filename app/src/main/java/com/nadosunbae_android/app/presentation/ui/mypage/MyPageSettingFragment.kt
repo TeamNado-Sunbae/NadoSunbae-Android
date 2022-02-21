@@ -2,12 +2,15 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageSettingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
+import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
+import com.nadosunbae_android.domain.model.mypage.MyPageLogOutData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -61,6 +64,18 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
     private fun initLogOut() {
         binding.textMypageSettingLogout.setOnClickListener {
             myPageViewModel.postMyPageLogOut()
+
+            val intent = Intent(getActivity(), SignInActivity::class.java)
+
+            myPageViewModel.logOut.observe(viewLifecycleOwner) {
+                if(it.success) {
+                    startActivity(intent)
+                    Log.d("로그아웃", "성공")
+
+                } else {
+                    Log.d("로그아웃", "실패")
+                }
+            }
         }
     }
 
