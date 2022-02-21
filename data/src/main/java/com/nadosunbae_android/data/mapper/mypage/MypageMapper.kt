@@ -132,6 +132,7 @@ object MypageMapper {
         )
     }
 
+
     fun mapperToVersion(responseMyPageVersionData: ResponseMyPageVersionData) : MyPageVersionData {
         return MyPageVersionData(
             data = MyPageVersionData.Data(

@@ -17,4 +17,5 @@ interface MyPageRepository {
     suspend fun getMyPageVersion() : MyPageVersionData
 
     suspend fun postMyPageLogOut() : MyPageLogOutData
+
 }
