@@ -36,4 +36,7 @@ interface MyPageService {
         @Path("postTypeId") postTypeId: Int
     ) : ResponseMyPageReplyData
 
+    @GET("user/mypage/app-version/recent")
+    suspend fun getMyPageVersion(): ResponseMyPageVersionData
+
 }

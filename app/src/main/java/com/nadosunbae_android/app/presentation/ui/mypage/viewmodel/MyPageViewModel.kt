@@ -15,7 +15,9 @@ class MyPageViewModel(
     val getMyPageQuestionUseCase: GetMyPageQuestionUseCase,
     val putMyPageModifyUseCase: PutMyPageModifyUseCase,
     val getMyPagePostUseCase: GetMyPagePostUseCase,
-    val getMyPageReplyUseCase: GetMyPageReplyUseCase
+    val getMyPageReplyUseCase: GetMyPageReplyUseCase,
+    val getMyPageVersionUseCase: GetMyPageVersionUseCase
+
 
     ) : ViewModel() {
 
@@ -33,6 +35,8 @@ class MyPageViewModel(
     val modifyInfo = MutableLiveData<MyPageModifyData>()
     val postByMe = MutableLiveData<MyPagePostData>()
     val replyByMe = MutableLiveData<MyPageReplyData>()
+    val versionInfo = MutableLiveData<MyPageVersionData>()
+
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>
@@ -42,6 +46,21 @@ class MyPageViewModel(
     fun setSignData(signData: SignInItem.User) {
         _signData.value = signData
         userId.value = signData.userId
+    }
+
+    //마이페이지 버전정보
+    fun getMyPageVersion() {
+        viewModelScope.launch {
+            kotlin.runCatching { getMyPageVersionUseCase() }
+                .onSuccess {
+                    versionInfo.value = it
+                    Log.d("mypageVersion", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("mypageVersion", "서버 통신 실패")
+                }
+        }
     }
 
 

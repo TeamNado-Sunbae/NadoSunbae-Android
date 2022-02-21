@@ -7,6 +7,7 @@ import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.*
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.mypage.AppInfoFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
@@ -151,6 +152,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         mainViewModel.mypageFragmentNum.observe(this, Observer {
             when(it) {
                 1 -> changeFragment(R.id.fragment_container_main, MyPageSettingFragment(), "myPageSetting")
+                2 -> changeFragment(R.id.fragment_container_main, AppInfoFragment(), "myPageAppInfo")
             }
         })
     }

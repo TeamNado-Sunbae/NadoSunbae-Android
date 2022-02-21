@@ -13,4 +13,7 @@ interface MyPageRepository {
     suspend fun getMyPagePost(type: String = "question") : MyPagePostData
 
     suspend fun getMyPageReply(postTypeId: Int) : MyPageReplyData
+
+    suspend fun getMyPageVersion() : MyPageVersionData
+
 }

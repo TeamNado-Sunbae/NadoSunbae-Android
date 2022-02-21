@@ -6,9 +6,13 @@ import android.view.View
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageSettingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layout.fragment_my_page_setting) {
+
+    private val mainViewModel: MainViewModel by sharedViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,10 +41,11 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
             startActivity(intentNotification)
         }
 
-        //서비스 문의 activity
+        //앱 정보 activity
         binding.textMypageSettingServiceInquery.setOnClickListener {
-            val intentServiceInquery = Intent(getActivity(), ServiceInqueryActivity::class.java)
-            startActivity(intentServiceInquery)
+//            val intentServiceInquery = Intent(getActivity(), AppInfoActivity::class.java)
+//            startActivity(intentServiceInquery)
+            mainViewModel.mypageFragmentNum.value = 2
         }
 
         //로그아웃 activity
@@ -55,10 +60,11 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
             startActivity(intentQuit)
         }
 
-        //오픈소스 라이선스 activity
-        binding.textMypageSettingOpensource.setOnClickListener {
-            val intentOpenSource = Intent(getActivity(), AppInfoActivity::class.java)
-            startActivity(intentOpenSource)
-        }
+//        //오픈소스 라이선스 activity
+//        binding.textMypageSettingOpensource.setOnClickListener {
+//            val intentOpenSource = Intent(getActivity(), AppInfoActivity::class.java)
+//            startActivity(intentOpenSource)
+//        }
     }
+
 }

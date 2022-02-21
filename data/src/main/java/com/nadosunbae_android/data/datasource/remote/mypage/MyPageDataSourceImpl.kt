@@ -26,4 +26,9 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
     override suspend fun getMyPageReply(postTypeId: Int): ResponseMyPageReplyData {
         return service.getMyPageReply(postTypeId)
     }
+
+    override suspend fun getMyPageVersion(): ResponseMyPageVersionData {
+        return service.getMyPageVersion()
+    }
+
 }
