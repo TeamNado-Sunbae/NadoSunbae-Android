@@ -36,7 +36,11 @@ interface MyPageService {
         @Path("postTypeId") postTypeId: Int
     ) : ResponseMyPageReplyData
 
+    //버전 정보
     @GET("user/mypage/app-version/recent")
     suspend fun getMyPageVersion(): ResponseMyPageVersionData
 
+    //로그아웃
+    @POST("auth/logout")
+    suspend fun postMyPageLogOut(): ResponseMyPageLogOut
 }

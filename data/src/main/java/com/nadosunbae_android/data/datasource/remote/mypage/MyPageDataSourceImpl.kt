@@ -31,4 +31,7 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
         return service.getMyPageVersion()
     }
 
+    override suspend fun postMyPageLogOut(): ResponseMyPageLogOut {
+        return service.postMyPageLogOut()
+    }
 }

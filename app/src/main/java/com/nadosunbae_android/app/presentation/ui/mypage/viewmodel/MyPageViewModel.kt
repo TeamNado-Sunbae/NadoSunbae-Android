@@ -16,7 +16,8 @@ class MyPageViewModel(
     val putMyPageModifyUseCase: PutMyPageModifyUseCase,
     val getMyPagePostUseCase: GetMyPagePostUseCase,
     val getMyPageReplyUseCase: GetMyPageReplyUseCase,
-    val getMyPageVersionUseCase: GetMyPageVersionUseCase
+    val getMyPageVersionUseCase: GetMyPageVersionUseCase,
+    val postMyPageLogOutUseCase : PostMyPageLogOutUseCase
 
 
     ) : ViewModel() {
@@ -36,6 +37,7 @@ class MyPageViewModel(
     val postByMe = MutableLiveData<MyPagePostData>()
     val replyByMe = MutableLiveData<MyPageReplyData>()
     val versionInfo = MutableLiveData<MyPageVersionData>()
+    val logOut: MutableLiveData<MyPageLogOutData> = MutableLiveData()
 
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
@@ -138,6 +140,21 @@ class MyPageViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("MyPageModify", "서버 통신 실패")
+                }
+        }
+    }
+
+    //마이페이지 로그아웃
+    fun postMyPageLogOut() {
+        viewModelScope.launch {
+            kotlin.runCatching { postMyPageLogOutUseCase() }
+                .onSuccess {
+                    logOut.value = it
+                    Log.d("MyPageLogOut", "서버 통신 완료")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("MyPageLogOut", "서버 통신 실패")
                 }
         }
     }

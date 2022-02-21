@@ -17,4 +17,6 @@ interface MyPageDataSource {
 
     suspend fun getMyPageVersion() : ResponseMyPageVersionData
 
+    suspend fun postMyPageLogOut() : ResponseMyPageLogOut
+
 }
