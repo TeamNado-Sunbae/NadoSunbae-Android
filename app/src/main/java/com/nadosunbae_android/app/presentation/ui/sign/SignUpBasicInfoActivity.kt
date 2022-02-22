@@ -259,18 +259,24 @@ class SignUpBasicInfoActivity :
         if (!Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())) {
             textSignupBasicinfoNicknameTitle.setTextColor(Color.parseColor("#FF4C40"))
             textSignupBasicinfoNicknameDuplication.isSelected = false
+            textSignupBasicinfoNicknameDuplication.isEnabled = false
         } else {
             textSignupBasicinfoNicknameTitle.setTextColor(Color.parseColor("#94959E"))
             textSignupBasicinfoNicknameDuplication.isSelected = true
+            textSignupBasicinfoNicknameDuplication.isEnabled = true
         }
     }
 
 
     //이메일 정규식
     private fun isEmailPattern() {
-        val pattern = Patterns.EMAIL_ADDRESS
-        binding.textSignupBasicinfoEmailDuplication.isSelected =
-            pattern.matcher(binding.etSignupBasicinfoEmail.text).matches()
+        if(binding.etSignupBasicinfoEmail.text.contains("@korea.ac.kr")) {
+            binding.textSignupBasicinfoEmailDuplication.isSelected = true
+            binding.textSignupBasicinfoEmailDuplication.isEnabled = true
+        } else {
+            binding.textSignupBasicinfoEmailDuplication.isSelected = false
+            binding.textSignupBasicinfoEmailDuplication.isEnabled = false
+        }
     }
 
 

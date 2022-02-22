@@ -4,6 +4,7 @@ package com.nadosunbae_android.app.presentation.ui.sign
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.PersistableBundle
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySignUpAgreementBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -93,6 +94,7 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
     private fun pressNextBtnEvent() {
         binding.clAgreementMoveNext.setOnClickListener {
             startActivity(Intent(this, SignUpMajorInfoActivity::class.java))
+            finish()
         }
     }
 
@@ -108,4 +110,5 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
             startActivity(intentService)
         }
     }
+
 }

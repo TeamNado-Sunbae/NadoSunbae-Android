@@ -4,6 +4,7 @@ package com.nadosunbae_android.app.presentation.ui.sign
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -67,7 +68,7 @@ class SignUpMajorInfoActivity :
             dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener {
                 override fun onClicked(num: () -> Unit) {
                     startActivity(Intent(this@SignUpMajorInfoActivity, SignInActivity::class.java))
-                    finish()
+
                 }
 
             })
@@ -77,6 +78,7 @@ class SignUpMajorInfoActivity :
     private fun moveBeforePage() {
         binding.clSignupMajorInfoMoveBefore.setOnClickListener {
             startActivity(Intent(this, SignUpAgreementActivity::class.java))
+
             finish()
         }
     }
@@ -90,6 +92,7 @@ class SignUpMajorInfoActivity :
             intent.putExtra("secondMajorId", secondDepartmentBottomSheetDialog.getSelectedData()?.id!!)
             intent.putExtra("secondMajorStart", binding.textSignupMajorinfoDoubleMajorTime.text.toString())
             startActivity(intent)
+            finish()
 
             Log.d("SignUpMajorInfoValue", "value : " + firstDepartmentBottomSheetDialog.getSelectedData()?.id!!)
             Log.d("SignUpMajorInfoValue", binding.textSignupMajorinfoMajorTime.text.toString())
