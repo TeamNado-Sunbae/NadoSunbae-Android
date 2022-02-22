@@ -104,7 +104,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
     private fun goInfoWrite(){
         binding.btnGoInformationWrite.setOnClickListener {
             if(ReviewGlobals.isReviewed){
-                val intent = Intent(requireActivity(), InformationDetailActivity::class.java)
+                val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
                 intent.apply {
                     putExtra("postTypeId", 2)
                     putExtra("majorId", mainViewModel.majorId.value)
