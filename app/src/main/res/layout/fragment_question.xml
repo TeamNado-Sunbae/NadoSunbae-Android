@@ -15,6 +15,18 @@
             android:paddingBottom="24dp"
             tools:context=".app.presentation.ui.classroom.QuestionFragment">
 
+            <TextView
+                android:id="@+id/text_classroom_senior_one_to_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/classroom_question_one_to_one"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="24dp"/>
+
             <ImageView
                 android:id="@+id/img_personal_question"
                 android:layout_width="0dp"
@@ -22,7 +34,7 @@
                 android:background="@drawable/classroom_property"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/text_classroom_senior_one_to_one" />
 
 
             <TextView
@@ -73,19 +85,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_question_all"
                 >
 
-                <TextView
-                    android:id="@+id/text_question_ask_all"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="13dp"
-                    android:fontFamily="@font/pretendard_regular"
-                    android:gravity="center"
-                    android:text="@string/classroom_question_all_ask"
-                    android:textColor="@color/main_default"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+
 
 
                 <TextView
@@ -98,17 +98,19 @@
                     android:text="@string/classroom_question_write"
                     android:textColor="@color/black"
                     android:textSize="14sp"
+                    android:layout_marginTop="13dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/text_question_ask_all" />
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageView
                     android:id="@+id/img_question_write_go"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/ic_right_arrow"
                     app:layout_constraintTop_toTopOf="@+id/text_question_write"
                     app:layout_constraintStart_toEndOf="@+id/text_question_write"
                     app:layout_constraintBottom_toBottomOf="@+id/text_question_write"
-                    android:layout_marginStart="9dp"
-                    />
+                    android:layout_marginStart="9dp" />
                 <View
                     android:id="@+id/line_question"
                     android:layout_width="0dp"
