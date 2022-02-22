@@ -102,18 +102,8 @@ class SeniorPersonalFragment :
                 }
                 startActivity(intent)
             }else{
-                CustomDialog(requireActivity()).genericDialog(
-                    CustomDialog.DialogData(
-                        resources.getString(R.string.alert_no_review_title),
-                        resources.getString(R.string.alert_no_review_complete),
-                        resources.getString(R.string.alert_no_review_cancel)
-                    ),
-                    complete = {
-                        val intent = Intent(requireActivity(), ReviewWriteActivity::class.java)
-                        startActivity(intent)
-                    },
-                    cancel = {}
-                )
+                CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
+
             }
         }
     }
@@ -164,6 +154,7 @@ class SeniorPersonalFragment :
             Log.d("seniorQuestion", sort)
             seniorPersonalViewModel.getSeniorQuestionList(mainViewModel.seniorId.value ?: 0, sort)
         }
-
     }
+
+
 }

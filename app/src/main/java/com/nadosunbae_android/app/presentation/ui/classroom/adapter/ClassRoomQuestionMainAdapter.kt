@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 
 class ClassRoomQuestionMainAdapter(private val num: Int, private val userId: Int, private val myPageNum : Int) :
@@ -33,14 +35,19 @@ class ClassRoomQuestionMainAdapter(private val num: Int, private val userId: Int
 
         holder.onBind(questionMainData[position])
         holder.binding.root.setOnClickListener {
-            val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
-            intent.apply {
-                putExtra("myPageNum",myPageNum)
-                putExtra("userId", userId)
-                putExtra("postId", questionMainData[position].postId)
-                putExtra("all", num)
+            if(ReviewGlobals.isReviewed){
+                val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+                intent.apply {
+                    putExtra("myPageNum",myPageNum)
+                    putExtra("userId", userId)
+                    putExtra("postId", questionMainData[position].postId)
+                    putExtra("all", num)
+                }
+                ContextCompat.startActivity(holder.itemView.context, intent, null)
+            }else{
+                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
             }
-            ContextCompat.startActivity(holder.itemView.context, intent, null)
+
         }
     }
 

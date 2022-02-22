@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.util
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.WindowManager
 import androidx.annotation.LayoutRes
@@ -9,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.DialogGenericBinding
+import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity
 import kotlinx.android.synthetic.main.dialog_question_write_cancel.*
 import kotlinx.android.synthetic.main.dialog_question_write_complete.*
 
@@ -76,6 +78,22 @@ class CustomDialog(val context : Context) {
         dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
         dialog.show()
 
+    }
+
+
+     fun reviewAlertDialog(context : Context){
+        CustomDialog(context).genericDialog(
+            DialogData(
+                context.resources.getString(R.string.alert_no_review_title),
+                context.resources.getString(R.string.alert_no_review_complete),
+                context.resources.getString(R.string.alert_no_review_cancel)
+            ),
+            complete = {
+                val intent = Intent(context, ReviewWriteActivity::class.java)
+                context.startActivity(intent)
+            },
+            cancel = {}
+        )
     }
 
 
