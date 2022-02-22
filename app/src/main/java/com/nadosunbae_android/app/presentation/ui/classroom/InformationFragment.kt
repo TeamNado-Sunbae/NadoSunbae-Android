@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +10,8 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInfoMainAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.InformationViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
@@ -28,6 +31,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
         initInfoMain()
         observeArray()
         questionSort()
+        goInfoWrite()
     }
 
     override fun onResume() {
@@ -93,6 +97,23 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
             }
 
             infoServer(sort)
+        }
+    }
+
+    //정보 작성창 이동
+    private fun goInfoWrite(){
+        binding.btnGoInformationWrite.setOnClickListener {
+            if(ReviewGlobals.isReviewed){
+                val intent = Intent(requireActivity(), InformationDetailActivity::class.java)
+                intent.apply {
+                    putExtra("postTypeId", 2)
+                    putExtra("majorId", mainViewModel.majorId.value)
+                    putExtra("title", "정보글 작성")
+                }
+                startActivity(intent)
+            }else{
+                CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
+            }
         }
 
     }
