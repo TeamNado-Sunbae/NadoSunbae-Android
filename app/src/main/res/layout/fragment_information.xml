@@ -41,7 +41,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:orientation="vertical"
-            android:background="@drawable/rectangle_border_1_gray0_fill_white_8"
+            android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -58,21 +58,18 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
             with(binding){
                 rcQuestionAll.visibility = View.GONE
                 textQuestionAllGo.visibility = View.GONE
-                imgQuestionAllGo.visibility = View.GONE
                 textQuestionAllNoComment.visibility = View.VISIBLE
             }
         }else if(classRoomQuestionMainAdapter.questionMainData.size in 1..5){
             with(binding){
                 rcQuestionAll.visibility = View.VISIBLE
                 textQuestionAllGo.visibility = View.GONE
-                imgQuestionAllGo.visibility = View.GONE
                 textQuestionAllNoComment.visibility = View.GONE
             }
         }else{
             with(binding){
                 rcQuestionAll.visibility = View.VISIBLE
                 textQuestionAllGo.visibility = View.VISIBLE
-                imgQuestionAllGo.visibility = View.VISIBLE
                 textQuestionAllNoComment.visibility = View.GONE
             }
         }
@@ -87,7 +84,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
 
     //질문 구성원 목록으로 이동
     private fun changeSeniorFragment(){
-        binding.imgPersonalQuestion.setOnClickListener {
+        binding.imgPersonalQuestionGo.setOnClickListener {
             mainViewModel.classRoomFragmentNum.value = 3
         }
     }
@@ -95,7 +92,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     //전체 질문 작성으로 이동
     // 질문 전체(3)
     private fun goQuestionWriteAll(){
-        binding.textQuestionWrite.setOnClickListener {
+        binding.imgQuestionWriteGo.setOnClickListener {
             val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
             intent.apply {
                 putExtra("postTypeId", 3)
