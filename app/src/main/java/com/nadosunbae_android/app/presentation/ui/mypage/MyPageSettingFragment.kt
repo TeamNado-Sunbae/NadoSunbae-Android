@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -25,12 +26,13 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
 
         changeActivity()
         initLogOut()
+        backBtn()
     }
 
     //각각의 activity로 이동
     private fun changeActivity() {
 
-        //내 정보 수정 activity
+        //프로필 수정 activity
         binding.textMypageSettingModifyInformation.setOnClickListener {
             val intentModifyInfo = Intent(getActivity(), ModifyMyInfoActivity::class.java)
             startActivity(intentModifyInfo)
@@ -49,7 +51,7 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
         }
 
         //앱 정보 activity
-        binding.textMypageSettingServiceInquery.setOnClickListener {
+        binding.textMypageAppinfo.setOnClickListener {
             mainViewModel.mypageFragmentNum.value = 2
         }
 
@@ -57,6 +59,12 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
         binding.textMypageSettingQuit.setOnClickListener {
             val intentQuit = Intent(getActivity(), QuitActivity::class.java)
             startActivity(intentQuit)
+        }
+
+        //서비스 문의
+        binding.textMypageSettingService.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://pf.kakao.com/_pxcFib"))
+            startActivity(intent)
         }
 
     }
@@ -78,5 +86,13 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
             }
         }
     }
+
+    //뒤로가기 버튼
+    private fun backBtn() {
+        binding.imgMypageSettingMovePage.setOnClickListener {
+            mainViewModel.classRoomFragmentNum.value = 6
+        }
+    }
+
 
 }

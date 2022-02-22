@@ -313,7 +313,7 @@
     <string name="mypage_setting_app_info">앱정보</string>
 
     <!--마이페이지 앱 정보 -->
-    <string name="mypage_appinfo_rules_of_use">서비스 이용약관</string>
+    <string name="mypage_appinfo_rules_of_use">개인정보처리방침</string>
     <string name="mypage_appinfo_terms_of_use">서비스 이용약관</string>
     <string name="mypage_appinfo_version_info">버전정보</string>
     <string name="mypage_appinfo_version_info_new">/ 최신</string>
