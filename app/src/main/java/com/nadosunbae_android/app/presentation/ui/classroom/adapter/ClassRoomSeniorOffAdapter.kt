@@ -4,9 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionSeniorOffQuestionBinding
+import com.nadosunbae_android.app.presentation.ui.classroom.SeniorFragment
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 
-class ClassRoomSeniorOffAdapter : RecyclerView.Adapter<ClassRoomSeniorOffAdapter.ClassRoomSeniorOffViewHolder>() {
+class ClassRoomSeniorOffAdapter(
+    var link : SeniorFragment.DataToFragment
+) : RecyclerView.Adapter<ClassRoomSeniorOffAdapter.ClassRoomSeniorOffViewHolder>() {
     var offQuestionUserList = mutableListOf<ClassRoomSeniorData.OffQuestionUser>()
 
     override fun onCreateViewHolder(
@@ -26,6 +29,9 @@ class ClassRoomSeniorOffAdapter : RecyclerView.Adapter<ClassRoomSeniorOffAdapter
         position: Int
     ) {
         holder.onBind(offQuestionUserList[position])
+        holder.itemView.setOnClickListener {
+            link.getSeniorId(4, offQuestionUserList[position].userId)
+        }
     }
 
     override fun getItemCount(): Int {

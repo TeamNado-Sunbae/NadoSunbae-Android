@@ -88,19 +88,6 @@
                 app:layout_constraintStart_toEndOf="@+id/img_senior_personal_profile"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/text_senior_personal_answer_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:fontFamily="@font/pretendard_medium"
-                android:includeFontPadding="false"
-                android:text="@string/senior_personal_answer_count"
-                android:textColor="@color/main_default"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_senior_personal_nickname"
-                app:layout_constraintStart_toEndOf="@+id/text_senior_personal_nickname"
-                app:layout_constraintTop_toTopOf="@+id/text_senior_personal_nickname" />
 
             <TextView
                 android:id="@+id/text_senior_personal_major"
