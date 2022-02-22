@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.content.Intent
 import android.content.pm.PackageInfo
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -47,6 +48,11 @@ class AppInfoFragment : BaseFragment<ActivityAppInfoBinding>(R.layout.activity_a
     private fun backBtn() {
         binding.imgMypageAppInfoMovePage.setOnClickListener {
             mainViewModel.mypageFragmentNum.value = 1
+        }
+
+        binding.imgMypageAppInfoOpensource.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.notion.so/nadosunbae/V-1-0-2442b1af796041d09bc6e8729c172438"))
+            startActivity(intent)
         }
     }
 

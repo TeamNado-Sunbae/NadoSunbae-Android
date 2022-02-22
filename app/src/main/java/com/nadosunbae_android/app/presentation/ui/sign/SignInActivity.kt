@@ -8,6 +8,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.webkit.WebChromeClient
+import android.webkit.WebViewClient
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import com.google.android.gms.tasks.OnCompleteListener
@@ -35,6 +37,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         moveSignUp()
         onViewPw()
         moveQeustionPage()
+
     }
 
     //id editText textwatcher
@@ -114,8 +117,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
     private fun moveQeustionPage() {
         binding.textSignInQuestion.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://pf.kakao.com/_pxcFib"))
-            startActivity(intent)
+            initWebView()
+            //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://pf.kakao.com/_pxcFib"))
+            //startActivity(intent)
         }
     }
 
@@ -155,7 +159,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             )
 
             signUpBasicInfoViewModel.signIn.observe(this) {
-                if(!it.success) {
+                if (!it.success) {
                     binding.textSignInWarn.visibility = View.VISIBLE
                     Log.d("로그인", "실패")
                 }
@@ -174,5 +178,25 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             }
 
         }
+    }
+
+
+    private fun initWebView() {
+        /*
+        val webView = binding.webView
+        webView.apply {
+            val webViewClient = WebViewClient()
+            settings.javaScriptEnabled = true
+        }
+        webView.loadUrl("https://pf.kakao.com/_pxcFib")
+    }
+    */
+
+        var intent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("https://pf.kakao.com/_pxcFib")
+        )
+        startActivity(intent)
+
     }
 }

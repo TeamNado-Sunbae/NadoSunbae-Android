@@ -12,6 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <WebView
+            android:id="@+id/web_view"
+            android:usesCleartextTraffic="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/img_sign_in_logo"
             android:layout_width="wrap_content"
@@ -244,6 +254,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_in_inform"
+            android:fontFamily="@font/pretendard_regular"
             android:textColor="@color/inform_gray"
             android:textSize="12sp"
             android:layout_marginBottom="27dp"
