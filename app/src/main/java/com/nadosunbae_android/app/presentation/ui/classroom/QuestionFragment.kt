@@ -9,6 +9,8 @@ import com.nadosunbae_android.app.databinding.FragmentQuestionBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -93,13 +95,17 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     // 질문 전체(3)
     private fun goQuestionWriteAll(){
         binding.imgQuestionWriteGo.setOnClickListener {
-            val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
-            intent.apply {
-                putExtra("postTypeId", 3)
-                putExtra("majorId", mainViewModel.majorId.value)
-                putExtra("title", "전체에게 질문 작성")
+            if(ReviewGlobals.isReviewed){
+                val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+                intent.apply {
+                    putExtra("postTypeId", 3)
+                    putExtra("majorId", mainViewModel.majorId.value)
+                    putExtra("title", "전체에게 질문 작성")
+                }
+                startActivity(intent)
+            }else{
+                CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
             }
-            startActivity(intent)
         }
     }
 

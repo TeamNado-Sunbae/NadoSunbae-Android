@@ -10,6 +10,8 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomAskEveryoneAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.AskEveryOneViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.main.SelectableData
@@ -73,15 +75,19 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
     }
 
     //전체 질문 작성으로 이동
-    private fun goQuestionWrite(){
+    private fun goQuestionWrite() {
         binding.btnGoQuestionWrite.setOnClickListener {
-            val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
-            intent.apply {
-                putExtra("title", "전체에게 질문 작성")
-                putExtra("postTypeId",3)
-                putExtra("majorId", mainViewModel.majorId.value)
+            if (ReviewGlobals.isReviewed) {
+                val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+                intent.apply {
+                    putExtra("title", "전체에게 질문 작성")
+                    putExtra("postTypeId", 3)
+                    putExtra("majorId", mainViewModel.majorId.value)
+                }
+                startActivity(intent)
+            } else {
+                CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
             }
-            startActivity(intent)
         }
     }
 
