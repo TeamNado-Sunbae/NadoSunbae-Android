@@ -11,6 +11,9 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
@@ -87,15 +90,31 @@ class SeniorPersonalFragment :
     //작성창으로 이동
     private fun goQuestionWrite(){
         binding.btnGoQuestionWrite.setOnClickListener {
-            val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
-            intent.apply {
-                putExtra("majorId", mainViewModel.majorId.value)
-                putExtra("userId", seniorPersonalViewModel.userId.value)
-                Log.d("answerId", seniorPersonalViewModel.userId.value.toString())
-                putExtra("postTypeId", 4)
-                putExtra("title", "1:1질문 작성")
+            Log.d("isReviewedSenior",ReviewGlobals.isReviewed.toString())
+            if(ReviewGlobals.isReviewed){
+                val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+                intent.apply {
+                    putExtra("majorId", mainViewModel.majorId.value)
+                    putExtra("userId", seniorPersonalViewModel.userId.value)
+                    Log.d("answerId", seniorPersonalViewModel.userId.value.toString())
+                    putExtra("postTypeId", 4)
+                    putExtra("title", "1:1질문 작성")
+                }
+                startActivity(intent)
+            }else{
+                CustomDialog(requireActivity()).genericDialog(
+                    CustomDialog.DialogData(
+                        resources.getString(R.string.alert_no_review_title),
+                        resources.getString(R.string.alert_no_review_complete),
+                        resources.getString(R.string.alert_no_review_cancel)
+                    ),
+                    complete = {
+                        val intent = Intent(requireActivity(), ReviewWriteActivity::class.java)
+                        startActivity(intent)
+                    },
+                    cancel = {}
+                )
             }
-            startActivity(intent)
         }
     }
 
