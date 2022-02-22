@@ -58,21 +58,18 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
             with(binding){
                 rcQuestionAll.visibility = View.GONE
                 textQuestionAllGo.visibility = View.GONE
-                imgQuestionAllGo.visibility = View.GONE
                 textQuestionAllNoComment.visibility = View.VISIBLE
             }
         }else if(classRoomQuestionMainAdapter.questionMainData.size in 1..5){
             with(binding){
                 rcQuestionAll.visibility = View.VISIBLE
                 textQuestionAllGo.visibility = View.GONE
-                imgQuestionAllGo.visibility = View.GONE
                 textQuestionAllNoComment.visibility = View.GONE
             }
         }else{
             with(binding){
                 rcQuestionAll.visibility = View.VISIBLE
                 textQuestionAllGo.visibility = View.VISIBLE
-                imgQuestionAllGo.visibility = View.VISIBLE
                 textQuestionAllNoComment.visibility = View.GONE
             }
         }

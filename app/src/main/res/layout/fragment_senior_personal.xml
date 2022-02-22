@@ -321,7 +321,7 @@
                     android:orientation="vertical"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="12dp"
-                    android:background="@drawable/rectangle_border_1_gray0_fill_white_8"
+                    android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="@+id/text_senior_personal_name"
                     app:layout_constraintEnd_toEndOf="parent"
