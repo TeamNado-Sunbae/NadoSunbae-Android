@@ -229,6 +229,7 @@
     <string name="question_detail_delete">삭제</string>
     <string name="question_detail_save">저장</string>
     <string name="question_detail_cancel">취소</string>
+    <string name="question_detail_report">신고</string>
 
     <!-- 선배 개인 페이지 -->
     <string name="senior_personal_title">선배닉네임</string>
