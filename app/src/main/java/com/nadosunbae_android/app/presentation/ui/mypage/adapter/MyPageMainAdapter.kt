@@ -28,17 +28,12 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
         return MyPageMainViewHolder(binding)
     }
 
-    fun setLike(num: Int, isLiked: Boolean) {
-        like = num
-        likeSelect = isLiked
-    }
 
     override fun onBindViewHolder(
         holder: MyPageMainViewHolder,
         position: Int
     ) {
         holder.onBind(myPageMainData[position])
-        holder.binding.imgQuestionAllLike.isSelected = likeSelect
         holder.binding.root.setOnClickListener {
             val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
             intent.apply {

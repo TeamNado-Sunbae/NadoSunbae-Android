@@ -104,6 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            likeCheck="@{MyPageMain.Like.liked}"
             android:background="@drawable/selector_heart_gray_mint"
             app:layout_constraintStart_toEndOf="@+id/text_question_all_comment"
             app:layout_constraintTop_toTopOf="@+id/img_question_all_comment" />
