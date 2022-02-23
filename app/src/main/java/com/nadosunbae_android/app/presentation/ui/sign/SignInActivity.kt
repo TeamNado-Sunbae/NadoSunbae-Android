@@ -162,6 +162,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             signUpBasicInfoViewModel.signIn.observe(this) {
                 if (!it.success) {
                     binding.textSignInWarn.visibility = View.VISIBLE
+                    NadoSunBaeSharedPreference.setUserId(this, it.user.userId)
                     Log.d("로그인", "실패")
                 }
                 if (it.success) {
