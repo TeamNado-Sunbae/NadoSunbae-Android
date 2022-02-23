@@ -17,7 +17,9 @@ class MyPageViewModel(
     val getMyPagePostUseCase: GetMyPagePostUseCase,
     val getMyPageReplyUseCase: GetMyPageReplyUseCase,
     val getMyPageVersionUseCase: GetMyPageVersionUseCase,
-    val postMyPageLogOutUseCase : PostMyPageLogOutUseCase
+    val postMyPageLogOutUseCase : PostMyPageLogOutUseCase,
+    val getMyPageLikeQuestionUseCase: GetMyPageLikeQuestionUseCase,
+    val getMyPageLikeReviewUseCase: GetMyPageLikeReviewUseCase
 
 
     ) : ViewModel() {
