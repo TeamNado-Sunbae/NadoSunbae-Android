@@ -1,7 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.review
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +11,7 @@ import com.nadosunbae_android.app.databinding.FragmentReviewBinding
 import com.nadosunbae_android.domain.model.review.ReviewFilterItem
 import com.nadosunbae_android.domain.model.review.ReviewPreviewData
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
 import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Companion.MODE_NEW
@@ -129,12 +129,11 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         )
 
         binding.btnMajorPage.setOnClickListener {
+
             val majorInfo = reviewListViewModel.majorInfo.value
             if (majorInfo != null) {
-                var intent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(majorInfo.homepage)
-                )
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", majorInfo.homepage)
                 startActivity(intent)
             }
         }
@@ -142,10 +141,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         binding.btnSubjectTable.setOnClickListener {
             val majorInfo = reviewListViewModel.majorInfo.value
             if (majorInfo != null) {
-                var intent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(majorInfo.subjectTable)
-                )
+                var intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", majorInfo.subjectTable)
                 startActivity(intent)
             }
         }
