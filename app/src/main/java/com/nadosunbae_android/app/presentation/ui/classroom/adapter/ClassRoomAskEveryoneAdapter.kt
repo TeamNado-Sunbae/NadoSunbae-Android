@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 
 
@@ -32,12 +34,17 @@ class ClassRoomAskEveryoneAdapter : RecyclerView.Adapter<ClassRoomAskEveryoneAda
     ) {
         holder.onBind(askEveryoneData[position])
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
-            intent.apply {
-                putExtra("postId", askEveryoneData[position].postId)
-                putExtra("all", 1)
+            if(ReviewGlobals.isReviewed){
+                val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+                intent.apply {
+                    putExtra("postId", askEveryoneData[position].postId)
+                    putExtra("all", 1)
+                }
+                ContextCompat.startActivity(holder.itemView.context, intent, null)
+            }else{
+                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
             }
-            ContextCompat.startActivity(holder.itemView.context, intent, null)
+
         }
     }
 

@@ -144,7 +144,7 @@
                     android:textColorHint="@color/gray_2"
                     android:scrollbarThumbVertical="@color/green_scroll_thumb"
                     android:scrollbarTrackVertical="@color/gray_0"
-                    android:background="@drawable/rectangle_border_1_gray0_fill_white_8"
+                    android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
                     android:gravity="top"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="16dp"

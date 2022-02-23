@@ -35,7 +35,7 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         }
 
         classRoomSeniorOnAdapter = ClassRoomSeniorOnAdapter(link)
-        classRoomSeniorOffAdapter = ClassRoomSeniorOffAdapter()
+        classRoomSeniorOffAdapter = ClassRoomSeniorOffAdapter(link)
         binding.rcSeniorQuestionOff.adapter = classRoomSeniorOffAdapter
         binding.rcSeniorQuestionOn.adapter = classRoomSeniorOnAdapter
         mainViewModel.seniorData.observe(viewLifecycleOwner){

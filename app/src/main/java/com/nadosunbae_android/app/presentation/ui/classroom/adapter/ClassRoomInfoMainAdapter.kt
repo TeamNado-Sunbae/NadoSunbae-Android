@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 
 class ClassRoomInfoMainAdapter: RecyclerView.Adapter<ClassRoomInfoMainAdapter.ClassRoomInfoMainViewHolder>() {
@@ -30,11 +32,16 @@ class ClassRoomInfoMainAdapter: RecyclerView.Adapter<ClassRoomInfoMainAdapter.Cl
     ) {
         holder.onBind(questionMainData[position])
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, InformationDetailActivity::class.java)
-            intent.apply {
-                putExtra("postId", questionMainData[position].postId)
+            if(ReviewGlobals.isReviewed){
+                val intent = Intent(holder.itemView.context, InformationDetailActivity::class.java)
+                intent.apply {
+                    putExtra("postId", questionMainData[position].postId)
+                }
+                ContextCompat.startActivity(holder.itemView.context, intent, null)
+            }else{
+                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
             }
-            ContextCompat.startActivity(holder.itemView.context, intent, null)
+
         }
     }
 
