@@ -34,4 +34,12 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
     override suspend fun postMyPageLogOut(): ResponseMyPageLogOut {
         return service.postMyPageLogOut()
     }
+
+    override suspend fun getMyPageLikeReview(type: String): ResponseMyPageLikeReview {
+        return service.getMyPageLikePost(type)
+    }
+
+    override suspend fun getMyPageLikeQuestion(type: String): ResponseMyPageLikeQuestion {
+        return service.getMyPageLikeQuestion(type)
+    }
 }

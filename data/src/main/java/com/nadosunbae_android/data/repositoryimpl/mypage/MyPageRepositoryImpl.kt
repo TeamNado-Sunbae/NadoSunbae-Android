@@ -37,4 +37,12 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
         return MypageMapper.mapperToLogOut(dataSource.postMyPageLogOut())
     }
 
+    override suspend fun getMyPageLikeReview(type: String): MyPageLikeReviewData {
+        return MypageMapper.mapperToLikeListReview(dataSource.getMyPageLikeReview(type))
+    }
+
+    override suspend fun getMyPageLikeQuestion(type: String): MyPageLikeQuestionData {
+        return MypageMapper.mapperToLikeListQuestion(dataSource.getMyPageLikeQuestion(type))
+    }
+
 }

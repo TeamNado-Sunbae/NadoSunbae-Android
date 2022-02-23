@@ -18,4 +18,8 @@ interface MyPageRepository {
 
     suspend fun postMyPageLogOut() : MyPageLogOutData
 
+    suspend fun getMyPageLikeReview(type: String = "review") : MyPageLikeReviewData
+
+    suspend fun getMyPageLikeQuestion(type: String = "question") : MyPageLikeQuestionData
+
 }
