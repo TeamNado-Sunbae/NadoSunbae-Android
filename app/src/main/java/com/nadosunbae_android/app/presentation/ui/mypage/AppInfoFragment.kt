@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.databinding.ActivityAppInfoBinding
 import com.nadosunbae_android.app.databinding.ActivityMyPagePostBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
@@ -31,6 +32,7 @@ class AppInfoFragment : BaseFragment<ActivityAppInfoBinding>(R.layout.activity_a
 
         versionInfo()
         backBtn()
+        initMovePage()
 
     }
 
@@ -49,9 +51,29 @@ class AppInfoFragment : BaseFragment<ActivityAppInfoBinding>(R.layout.activity_a
         binding.imgMypageAppInfoMovePage.setOnClickListener {
             mainViewModel.mypageFragmentNum.value = 1
         }
+    }
 
+    private fun initMovePage() {
+
+        //개인정보처리방침
+        binding.imgMypageAppInfoRulesOfUseArrow.setOnClickListener {
+            val intent = Intent(context, WebViewActivity::class.java)
+            intent.putExtra("url", "https://www.notion.so/nadosunbae/V-1-0-2022-3-1-e4637880bb1d4a6e8938f4f0c306b2d5")
+            startActivity(intent)
+        }
+
+        //서비스 이용약관
+        binding.imgMypageAppInfoTermsOfUse.setOnClickListener {
+            val intent = Intent(context, WebViewActivity::class.java)
+            intent.putExtra("url", "https://nadosunbae.notion.site/V-1-0-2022-3-1-d1d15e411b0b417198b2405468894dea")
+            startActivity(intent)
+        }
+
+
+        //오픈 라이선스
         binding.imgMypageAppInfoOpensource.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.notion.so/nadosunbae/V-1-0-2442b1af796041d09bc6e8729c172438"))
+            val intent = Intent(context, WebViewActivity::class.java)
+            intent.putExtra("url", "https://www.notion.so/nadosunbae/V-1-0-2442b1af796041d09bc6e8729c172438")
             startActivity(intent)
         }
     }

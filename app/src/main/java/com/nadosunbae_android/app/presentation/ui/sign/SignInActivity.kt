@@ -19,6 +19,7 @@ import com.nadosunbae_android.app.databinding.ActivitySignInBinding
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
+import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import com.nadosunbae_android.app.util.ResultWrapper
@@ -117,7 +118,8 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
     private fun moveQeustionPage() {
         binding.textSignInQuestion.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://pf.kakao.com/_pxcFib"))
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", "https://pf.kakao.com/_pxcFib")
             startActivity(intent)
         }
     }
