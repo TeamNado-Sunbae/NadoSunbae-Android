@@ -90,6 +90,8 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     if (questionDetailData[position].secondMajorName == "미진입") {
                         holder.binding.textQuestionDetailSecondStartMajor.visibility = View.GONE
                     }
+
+                //점 세개 문항 클릭
                     holder.binding.imgQuestionDetailWriterMenu.setOnClickListener {
                         itemClickListener.onClick(it, lookForThirdParty( position, userId), writer)
                     }
@@ -235,14 +237,16 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     // writer -> 1, questioner -> 2, thirdParty -> 3
     private fun lookForThirdParty(position : Int, userId : Int) : Int{
         Log.d("questionOneToUserId", userId.toString())
-        return if(!questionDetailData[position].isQuestioner && questionDetailData[position].writerId != userId) {
-            thirdParty
-        }else if(questionDetailUserData.answererId == userId) {
-            questioner
-        } else if(questionDetailUserData.questionerId == userId) {
-            writer
-        }else{
-            return -1
+        return when {
+            questionDetailUserData.answererId == userId -> {
+                questioner
+            }
+            questionDetailUserData.questionerId == userId -> {
+                writer
+            }
+            else -> {
+                return thirdParty
+            }
         }
     }
 
