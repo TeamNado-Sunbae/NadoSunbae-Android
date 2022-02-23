@@ -34,14 +34,14 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private fun movePage() {
         binding.textMyPagePostByMe.setOnClickListener {
-            val intentMyPagePost = Intent(activity, MyPagePostActivity::class.java)
+            val intentMyPagePost = Intent(requireActivity(), MyPagePostActivity::class.java)
             intentMyPagePost.putExtra("userId", mainViewModel.userId.value ?: 0)
             Log.d("mypageFragment userId - ", "id: " + mainViewModel.userId.value)
             startActivity(intentMyPagePost)
         }
 
         binding.textMyPageReplyByMe.setOnClickListener {
-            val intentMyPageReply = Intent(activity, MyPageReplyActivity::class.java)
+            val intentMyPageReply = Intent(requireActivity(), MyPageReplyActivity::class.java)
             intentMyPageReply.putExtra("userId", mainViewModel.userId.value ?: 0)
             Log.d("mypageIntentReply userId - ", "id : " + mainViewModel.userId.value)
             startActivity(intentMyPageReply)
@@ -49,12 +49,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
         binding.textMyPageReview.setOnClickListener {
             val intentMyPageReview =
-                Intent(activity, MyPageClassroomReviewActivity::class.java)
+                Intent(requireActivity(), MyPageClassroomReviewActivity::class.java)
             startActivity(intentMyPageReview)
         }
 
         binding.clMyPageHeartList.setOnClickListener {
-            val intentHeartList = Intent(activity, MyPageLikeListActivity::class.java)
+            val intentHeartList = Intent(requireActivity(), MyPageLikeListActivity::class.java)
             startActivity(intentHeartList)
         }
 
@@ -64,7 +64,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
 
         binding.clMyPageProfileModify.setOnClickListener {
-            val intentMyPageModify = Intent(activity, ModifyMyInfoActivity::class.java)
+            val intentMyPageModify = Intent(requireActivity(), ModifyMyInfoActivity::class.java)
 
             intentMyPageModify.putExtra("nickname", binding.myPageInfo?.data?.nickname)
             intentMyPageModify.putExtra("firstMajor", binding.myPageInfo?.data?.firstMajorName)

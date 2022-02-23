@@ -53,28 +53,28 @@ class AppInfoFragment : BaseFragment<ActivityAppInfoBinding>(R.layout.activity_a
         }
     }
 
+    private fun initIntent(url: String) {
+        val intent = Intent(context, WebViewActivity::class.java)
+        intent.putExtra("url", url)
+        startActivity(intent)
+    }
+
     private fun initMovePage() {
 
         //개인정보처리방침
         binding.imgMypageAppInfoRulesOfUseArrow.setOnClickListener {
-            val intent = Intent(context, WebViewActivity::class.java)
-            intent.putExtra("url", "https://www.notion.so/nadosunbae/V-1-0-2022-3-1-e4637880bb1d4a6e8938f4f0c306b2d5")
-            startActivity(intent)
+            initIntent("https://www.notion.so/nadosunbae/V-1-0-2022-3-1-e4637880bb1d4a6e8938f4f0c306b2d5")
         }
 
         //서비스 이용약관
         binding.imgMypageAppInfoTermsOfUse.setOnClickListener {
-            val intent = Intent(context, WebViewActivity::class.java)
-            intent.putExtra("url", "https://nadosunbae.notion.site/V-1-0-2022-3-1-d1d15e411b0b417198b2405468894dea")
-            startActivity(intent)
+            initIntent("https://nadosunbae.notion.site/V-1-0-2022-3-1-d1d15e411b0b417198b2405468894dea")
         }
 
 
         //오픈 라이선스
         binding.imgMypageAppInfoOpensource.setOnClickListener {
-            val intent = Intent(context, WebViewActivity::class.java)
-            intent.putExtra("url", "https://www.notion.so/nadosunbae/V-1-0-2442b1af796041d09bc6e8729c172438")
-            startActivity(intent)
+            initIntent("https://www.notion.so/nadosunbae/V-1-0-2442b1af796041d09bc6e8729c172438")
         }
     }
 
