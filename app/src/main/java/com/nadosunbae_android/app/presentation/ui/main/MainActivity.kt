@@ -33,7 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setDefaultMajor()
         getSignDataFromIntent()
         classRoomBack()
-       // clickBottomNav()
+        // clickBottomNav()
 
         myPageFragmentChange()
     }
@@ -42,16 +42,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 
     //바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
-   /* private fun clickBottomNav(){
-        mainViewModel.notificationClickNum.observe(this){
-            when(it){
-                2 -> binding.btNvMain.menu.findItem(R.id.navigation_room).setChecked(true)
-                3 -> binding.btNvMain.menu.findItem(R.id.navigation_mypage).setChecked(true)
-            }
-        }
+    /* private fun clickBottomNav(){
+         mainViewModel.notificationClickNum.observe(this){
+             when(it){
+                 2 -> binding.btNvMain.menu.findItem(R.id.navigation_room).setChecked(true)
+                 3 -> binding.btNvMain.menu.findItem(R.id.navigation_mypage).setChecked(true)
+             }
+         }
 
 
-    } */
+     } */
 
 
     //바텀네비
@@ -149,14 +149,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     //마이페이지 프래그먼트 전환
     private fun myPageFragmentChange() {
-        mainViewModel.mypageFragmentNum.observe(this, Observer {
+        mainViewModel.mypageFragmentNum.observe(this) {
             when(it) {
                 1 -> changeFragment(R.id.fragment_container_main, MyPageSettingFragment(), "myPageSetting")
                 2 -> changeFragment(R.id.fragment_container_main, AppInfoFragment(), "myPageAppInfo")
             }
-        })
+        }
     }
-
-
-
 }

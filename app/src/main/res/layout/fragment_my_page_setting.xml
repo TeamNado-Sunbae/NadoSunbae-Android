@@ -153,7 +153,7 @@
             app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_notification" />
 
         <TextView
-            android:id="@+id/text_mypage_setting_service_inquery"
+            android:id="@+id/text_mypage_appinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -170,9 +170,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_right_arrow"
-            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_setting_service_inquery"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_appinfo"
             app:layout_constraintStart_toStartOf="@+id/img_mypage_setting_notification"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_setting_service_inquery" />
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_appinfo" />
 
         <View
             android:id="@+id/view_mypage_bar4"
@@ -182,9 +182,9 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:background="@color/gray_0"
-            app:layout_constraintEnd_toEndOf="@+id/text_mypage_setting_service_inquery"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_service_inquery"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_service_inquery" />
+            app:layout_constraintEnd_toEndOf="@+id/text_mypage_appinfo"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_appinfo"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_appinfo" />
 
         <TextView
             android:id="@+id/text_mypage_setting_logout"
@@ -215,7 +215,7 @@
 
 
         <TextView
-            android:id="@+id/text_mypage_setting_opensource"
+            android:id="@+id/text_mypage_setting_service"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"

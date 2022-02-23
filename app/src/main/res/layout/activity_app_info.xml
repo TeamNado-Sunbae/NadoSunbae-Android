@@ -63,7 +63,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cl_mypage_app_info" />
 
         <ImageView
-            android:id="@+id/text_mypage_app_info_rules_of_use_arrow"
+            android:id="@+id/img_mypage_app_info_rules_of_use_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -103,8 +103,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_right_arrow"
             app:layout_constraintBottom_toBottomOf="@+id/text_mypage_app_info_terms_of_use"
-            app:layout_constraintEnd_toEndOf="@+id/text_mypage_app_info_rules_of_use_arrow"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_app_info_rules_of_use_arrow"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_app_info_rules_of_use_arrow"
+            app:layout_constraintStart_toStartOf="@+id/img_mypage_app_info_rules_of_use_arrow"
             app:layout_constraintTop_toBottomOf="@+id/text_mypage_app_info_terms_of_use" />
 
         <View

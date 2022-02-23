@@ -109,6 +109,7 @@
                     android:paddingRight="6dp"
                     android:paddingBottom="3dp"
                     android:text="@string/mypage_modify_change_img"
+                    android:visibility="gone"
                     android:textColor="@color/gray_4"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="@+id/img_my_page_modify_main"

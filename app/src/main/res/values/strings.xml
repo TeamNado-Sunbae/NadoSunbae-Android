@@ -157,7 +157,7 @@
     <string name="signup_basicinfo_nickname">: 영문, 한글, 숫자를 합하여 2-8자</string>
     <string name="signup_basicinfo_check_duplication_nickname_ok">사용 가능한 닉네임입니다.</string>
     <string name="signup_basicinfo_check_duplication_nickname_no">이미 사용중인 닉네임입니다.</string>
-    <string name="signup_basicinfo_email">학교 이메일</string>
+    <string name="signup_basicinfo_email">학교 이메일 : 로그인 시 아이디로 사용</string>
     <string name="signup_basicinfo_check_duplication_email_ok">사용 가능한 이메일입니다.</string>
     <string name="signup_basicinfo_check_duplication_email_no">이미 가입된 이메일입니다.</string>
     <string name="signup_basicinfo_password">: 영문, 숫자를 합하여 6-20자</string>
@@ -316,7 +316,7 @@
     <string name="mypage_setting_app_info">앱정보</string>
 
     <!--마이페이지 앱 정보 -->
-    <string name="mypage_appinfo_rules_of_use">서비스 이용약관</string>
+    <string name="mypage_appinfo_rules_of_use">개인정보처리방침</string>
     <string name="mypage_appinfo_terms_of_use">서비스 이용약관</string>
     <string name="mypage_appinfo_version_info">버전정보</string>
     <string name="mypage_appinfo_version_info_new">/ 최신</string>

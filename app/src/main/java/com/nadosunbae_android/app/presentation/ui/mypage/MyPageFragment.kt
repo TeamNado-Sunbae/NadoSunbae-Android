@@ -28,22 +28,20 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         initAskPersonal()
         movePage()
         initPersonalInfo()
-        //versionInfo()
-
     }
 
 
 
     private fun movePage() {
         binding.textMyPagePostByMe.setOnClickListener {
-            val intentMyPagePost = Intent(getActivity(), MyPagePostActivity::class.java)
+            val intentMyPagePost = Intent(activity, MyPagePostActivity::class.java)
             intentMyPagePost.putExtra("userId", mainViewModel.userId.value ?: 0)
             Log.d("mypageFragment userId - ", "id: " + mainViewModel.userId.value)
             startActivity(intentMyPagePost)
         }
 
         binding.textMyPageReplyByMe.setOnClickListener {
-            val intentMyPageReply = Intent(getActivity(), MyPageReplyActivity::class.java)
+            val intentMyPageReply = Intent(activity, MyPageReplyActivity::class.java)
             intentMyPageReply.putExtra("userId", mainViewModel.userId.value ?: 0)
             Log.d("mypageIntentReply userId - ", "id : " + mainViewModel.userId.value)
             startActivity(intentMyPageReply)
@@ -51,12 +49,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
         binding.textMyPageReview.setOnClickListener {
             val intentMyPageReview =
-                Intent(getActivity(), MyPageClassroomReviewActivity::class.java)
+                Intent(activity, MyPageClassroomReviewActivity::class.java)
             startActivity(intentMyPageReview)
         }
 
         binding.clMyPageHeartList.setOnClickListener {
-            val intentHeartList = Intent(getActivity(), MyPageLikeListActivity::class.java)
+            val intentHeartList = Intent(activity, MyPageLikeListActivity::class.java)
             startActivity(intentHeartList)
         }
 

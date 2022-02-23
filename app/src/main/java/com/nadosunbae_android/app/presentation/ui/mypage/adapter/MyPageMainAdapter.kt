@@ -13,6 +13,9 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
     RecyclerView.Adapter<MyPageMainAdapter.MyPageMainViewHolder>() {
     var myPageMainData = mutableListOf<MyPageQuestionData.Data.ClassroomPost>()
 
+    private var like = 0
+    private var likeSelect = false
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -24,6 +27,7 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
         )
         return MyPageMainViewHolder(binding)
     }
+
 
     override fun onBindViewHolder(
         holder: MyPageMainViewHolder,

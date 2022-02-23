@@ -4,9 +4,11 @@ package com.nadosunbae_android.app.presentation.ui.sign
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.PersistableBundle
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySignUpAgreementBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.util.SignInCustomDialog
 
 class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.layout.activity_sign_up_agreement) {
@@ -93,19 +95,22 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
     private fun pressNextBtnEvent() {
         binding.clAgreementMoveNext.setOnClickListener {
             startActivity(Intent(this, SignUpMajorInfoActivity::class.java))
+            finish()
         }
     }
 
     //외부 링크로 연결
     private fun goPage() {
         binding.imageAgreementMoveInformation.setOnClickListener {
-            var intentInformation = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.naver.com/"))
-            startActivity(intentInformation)
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", "https://www.notion.so/nadosunbae/V-1-0-2022-3-1-e4637880bb1d4a6e8938f4f0c306b2d5")
+            startActivity(intent)
         }
 
         binding.imageAgreementMoveService.setOnClickListener {
-            var intentService = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.notion.so/nadosunbae/TEAM-d1c88809162e4cf7b4f08ecaf4a85ab9"))
+            var intentService = Intent(Intent.ACTION_VIEW, Uri.parse("https://nadosunbae.notion.site/V-1-0-2022-3-1-d1d15e411b0b417198b2405468894dea"))
             startActivity(intentService)
         }
     }
+
 }

@@ -46,220 +46,247 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/text_mypage_alarm_personal_question"
-            android:layout_width="match_parent"
+            android:id="@+id/text_alarm"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="27dp"
             android:fontFamily="@font/pretendard_regular"
-            android:includeFontPadding="true"
-            android:text="@string/mypage_alarm_personal_question"
+            android:text="알림"
             android:textColor="@color/main_text"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_mypage_alarm" />
 
         <ImageView
-            android:id="@+id/img_mypage_alarm_personal_question_switch"
+            android:id="@+id/img_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
             android:background="@drawable/selector_ic_switch"
-            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_alarm_personal_question_comment"
+            app:layout_constraintBottom_toBottomOf="@+id/text_alarm"
+            android:layout_marginRight="24dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_alarm_personal_question" />
+            app:layout_constraintTop_toTopOf="@+id/text_alarm" />
 
 
-        <TextView
-            android:id="@+id/text_mypage_alarm_personal_question_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:includeFontPadding="true"
-            android:text="@string/mypage_alarm_personal_question_comment"
-            android:textColor="@color/gray_2"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_alarm_personal_question"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_alarm_personal_question" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/text_mypage_alarm_personal_question"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="24dp"-->
+        <!--            android:layout_marginTop="24dp"-->
+        <!--            android:fontFamily="@font/pretendard_regular"-->
+        <!--            android:includeFontPadding="true"-->
+        <!--            android:text="@string/mypage_alarm_personal_question"-->
+        <!--            android:textColor="@color/main_text"-->
+        <!--            android:textSize="16sp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/cl_mypage_alarm" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/img_mypage_alarm_personal_question_switch"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginEnd="24dp"-->
+        <!--            android:background="@drawable/selector_ic_switch"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_alarm_personal_question_comment"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/text_mypage_alarm_personal_question" />-->
 
 
-        <View
-            android:id="@+id/view_mypage_bar1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/gray_0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_alarm_personal_question_comment" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/text_mypage_alarm_personal_question_comment"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="4dp"-->
+        <!--            android:fontFamily="@font/pretendard_regular"-->
+        <!--            android:includeFontPadding="true"-->
+        <!--            android:text="@string/mypage_alarm_personal_question_comment"-->
+        <!--            android:textColor="@color/gray_2"-->
+        <!--            android:textSize="12sp"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/text_mypage_alarm_personal_question"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/text_mypage_alarm_personal_question" />-->
 
 
-        <TextView
-            android:id="@+id/text_mypage_answer_alarm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:includeFontPadding="true"
-            android:text="@string/mypage_alarm_answer"
-            android:textColor="@color/main_default"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_alarm_personal_question_comment"
-            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar1" />
+        <!--        <View-->
+        <!--            android:id="@+id/view_mypage_bar1"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="24dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:background="@color/gray_0"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/text_mypage_alarm_personal_question_comment" />-->
 
 
-        <TextView
-            android:id="@+id/text_mypage_answer_alarm_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:includeFontPadding="true"
-            android:text="@string/mypage_alarm_answer_comment"
-            android:textColor="@color/gray_2"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_alarm" />
-
-        <TextView
-            android:id="@+id/text_mypage_answer_question"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="19dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:includeFontPadding="true"
-            android:text="@string/mypage_alarm_question"
-            android:textColor="@color/main_text"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_alarm_comment"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_alarm_comment" />
-
-        <ImageView
-            android:id="@+id/img_mypage_answer_question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_ic_switch"
-            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_answer_question"
-            app:layout_constraintEnd_toEndOf="@+id/img_mypage_alarm_personal_question_switch"
-            app:layout_constraintStart_toStartOf="@+id/img_mypage_alarm_personal_question_switch"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_answer_question" />
-
-        <TextView
-            android:id="@+id/text_mypage_answer_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="38dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:includeFontPadding="true"
-            android:text="@string/mypage_alarm_information"
-            android:textColor="@color/main_text"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_question"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_question" />
-
-        <ImageView
-            android:id="@+id/img_mypage_answer_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_ic_switch"
-            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_answer_info"
-            app:layout_constraintEnd_toEndOf="@+id/img_mypage_answer_question"
-            app:layout_constraintStart_toStartOf="@+id/img_mypage_answer_question"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_answer_info" />
-
-        <View
-            android:id="@+id/view_mypage_bar2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="27dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/gray_0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_info" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/text_mypage_answer_alarm"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:fontFamily="@font/pretendard_regular"-->
+        <!--            android:includeFontPadding="true"-->
+        <!--            android:text="@string/mypage_alarm_answer"-->
+        <!--            android:textColor="@color/main_default"-->
+        <!--            android:textSize="12sp"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/text_mypage_alarm_personal_question_comment"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar1" />-->
 
 
-        <TextView
-            android:id="@+id/text_mypage_answer_new_alarm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:includeFontPadding="true"
-            android:text="@string/mypage_alarm_new"
-            android:textColor="@color/main_default"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_info"
-            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar2" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/text_mypage_answer_alarm_comment"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:fontFamily="@font/pretendard_regular"-->
+        <!--            android:includeFontPadding="true"-->
+        <!--            android:text="@string/mypage_alarm_answer_comment"-->
+        <!--            android:textColor="@color/gray_2"-->
+        <!--            android:textSize="12sp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_alarm" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/text_mypage_answer_question"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="20dp"-->
+        <!--            android:layout_marginTop="19dp"-->
+        <!--            android:fontFamily="@font/pretendard_regular"-->
+        <!--            android:includeFontPadding="true"-->
+        <!--            android:text="@string/mypage_alarm_question"-->
+        <!--            android:textColor="@color/main_text"-->
+        <!--            android:textSize="16sp"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_alarm_comment"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_alarm_comment" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/img_mypage_answer_question"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@drawable/selector_ic_switch"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_answer_question"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/img_mypage_alarm_personal_question_switch"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/img_mypage_alarm_personal_question_switch"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/text_mypage_answer_question" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/text_mypage_answer_info"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="20dp"-->
+        <!--            android:layout_marginTop="38dp"-->
+        <!--            android:fontFamily="@font/pretendard_regular"-->
+        <!--            android:includeFontPadding="true"-->
+        <!--            android:text="@string/mypage_alarm_information"-->
+        <!--            android:textColor="@color/main_text"-->
+        <!--            android:textSize="16sp"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_question"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_question" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/img_mypage_answer_info"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@drawable/selector_ic_switch"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_answer_info"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/img_mypage_answer_question"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/img_mypage_answer_question"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/text_mypage_answer_info" />-->
+
+        <!--        <View-->
+        <!--            android:id="@+id/view_mypage_bar2"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="27dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:background="@color/gray_0"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_info" />-->
 
 
-        <TextView
-            android:id="@+id/text_mypage_answer_new_alarm_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:includeFontPadding="true"
-            android:text="@string/mypage_alarm_new_comment"
-            android:textColor="@color/gray_2"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_new_alarm" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/text_mypage_answer_new_alarm"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginLeft="20dp"-->
+        <!--            android:layout_marginTop="24dp"-->
+        <!--            android:fontFamily="@font/pretendard_regular"-->
+        <!--            android:includeFontPadding="true"-->
+        <!--            android:text="@string/mypage_alarm_new"-->
+        <!--            android:textColor="@color/main_default"-->
+        <!--            android:textSize="12sp"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_info"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar2" />-->
 
-        <TextView
-            android:id="@+id/text_mypage_new_answer_question"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="19dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:includeFontPadding="true"
-            android:text="@string/mypage_alarm_question"
-            android:textColor="@color/main_text"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_new_alarm_comment"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_new_alarm_comment" />
 
-        <ImageView
-            android:id="@+id/img_mypage_new_answer_question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_ic_switch"
-            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_new_answer_question"
-            app:layout_constraintEnd_toEndOf="@+id/img_mypage_answer_info"
-            app:layout_constraintStart_toStartOf="@+id/img_mypage_answer_info"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_new_answer_question" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/text_mypage_answer_new_alarm_comment"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginLeft="20dp"-->
+        <!--            android:fontFamily="@font/pretendard_regular"-->
+        <!--            android:includeFontPadding="true"-->
+        <!--            android:text="@string/mypage_alarm_new_comment"-->
+        <!--            android:textColor="@color/gray_2"-->
+        <!--            android:textSize="12sp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_new_alarm" />-->
 
-        <TextView
-            android:id="@+id/text_mypage_new_answer_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="38dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:includeFontPadding="true"
-            android:text="@string/mypage_alarm_information"
-            android:textColor="@color/main_text"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/text_mypage_new_answer_question"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_new_answer_question" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/text_mypage_new_answer_question"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="20dp"-->
+        <!--            android:layout_marginTop="19dp"-->
+        <!--            android:fontFamily="@font/pretendard_regular"-->
+        <!--            android:includeFontPadding="true"-->
+        <!--            android:text="@string/mypage_alarm_question"-->
+        <!--            android:textColor="@color/main_text"-->
+        <!--            android:textSize="16sp"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/text_mypage_answer_new_alarm_comment"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/text_mypage_answer_new_alarm_comment" />-->
 
-        <ImageView
-            android:id="@+id/img_mypage_new_answer_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_ic_switch"
-            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_new_answer_info"
-            app:layout_constraintEnd_toEndOf="@+id/img_mypage_new_answer_question"
-            app:layout_constraintStart_toStartOf="@+id/img_mypage_new_answer_question"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_new_answer_info" />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/img_mypage_new_answer_question"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@drawable/selector_ic_switch"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_new_answer_question"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/img_mypage_answer_info"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/img_mypage_answer_info"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/text_mypage_new_answer_question" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/text_mypage_new_answer_info"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginLeft="20dp"-->
+        <!--            android:layout_marginTop="38dp"-->
+        <!--            android:fontFamily="@font/pretendard_regular"-->
+        <!--            android:includeFontPadding="true"-->
+        <!--            android:text="@string/mypage_alarm_information"-->
+        <!--            android:textColor="@color/main_text"-->
+        <!--            android:textSize="16sp"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/text_mypage_new_answer_question"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/text_mypage_new_answer_question" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/img_mypage_new_answer_info"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@drawable/selector_ic_switch"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_new_answer_info"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/img_mypage_new_answer_question"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/img_mypage_new_answer_question"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/text_mypage_new_answer_info" />-->
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

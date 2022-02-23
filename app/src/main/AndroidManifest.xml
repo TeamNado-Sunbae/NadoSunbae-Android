@@ -24,9 +24,6 @@
             android:name=".presentation.ui.mypage.QuitActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.ui.mypage.LogOutActivity"
-            android:exported="true" />
-        <activity
             android:name=".presentation.ui.review.SeniorPersonalActivity"
             android:exported="false"
             android:label="@string/title_activity_senior_personal"
@@ -71,6 +68,7 @@
             android:exported="true" />
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
