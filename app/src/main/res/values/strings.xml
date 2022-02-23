@@ -348,4 +348,7 @@
     <string name="mypage_modify_alert_back_title">페이지를 나가면 /n 수정한 내용이 저장되지 않아요.</string>
     <string name="mypage_modify_alert_back_exit">나갈래요</string>
     <string name="mypage_modify_alert_back_continue">계속 수정</string>
+
+    <!-- 마이페이지 추가적인 text -->
+
 </resources>
