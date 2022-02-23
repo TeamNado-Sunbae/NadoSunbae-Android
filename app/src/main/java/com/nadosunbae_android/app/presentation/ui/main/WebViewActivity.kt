@@ -1,11 +1,15 @@
-package com.nadosunbae_android.app.presentation.ui.review
+package com.nadosunbae_android.app.presentation.ui.main
 
+import android.content.pm.PackageInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.view.MenuItem
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityWebViewBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -19,6 +23,7 @@ class WebViewActivity : BaseActivity<ActivityWebViewBinding>(R.layout.activity_w
 
         loadUrlFromIntent()
         initWebView()
+        initToolbar()
 
     }
 
@@ -32,11 +37,30 @@ class WebViewActivity : BaseActivity<ActivityWebViewBinding>(R.layout.activity_w
         return super.onKeyDown(keyCode, event)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        // 툴바 홈키로 액티비티 종료
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun loadUrlFromIntent() {
         this.url = intent.getStringExtra("url")
     }
 
     private fun initWebView() {
+
+        // 커스텀 webChromeClient 사용 -> html의 title 로드될 때 웹뷰 상단 툴바의 타이틀에 적용
+        val customWebChromeClient = BaseWebChromeClient()
+        customWebChromeClient.titleData.observe(this) {
+            supportActionBar?.title = customWebChromeClient.titleData.value
+        }
+
 
         with (binding.wvContent) {
 
@@ -57,9 +81,8 @@ class WebViewActivity : BaseActivity<ActivityWebViewBinding>(R.layout.activity_w
                 domStorageEnabled = true        // 로컬 스토리지 사용여부
             }
 
-
-            webChromeClient = WebChromeClient()
             webViewClient = BaseWebViewClient()
+            webChromeClient = customWebChromeClient
 
         }
 
@@ -67,11 +90,31 @@ class WebViewActivity : BaseActivity<ActivityWebViewBinding>(R.layout.activity_w
             binding.wvContent.loadUrl(url!!)
     }
 
+
+    private fun initToolbar() {
+        setSupportActionBar(binding.toolbar)
+
+        // 뒤로가기 (홈) 버튼 활성화
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
     class BaseWebViewClient : WebViewClient() {
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             if (view != null && url != null)
                 view.loadUrl(url)
             return true
+        }
+    }
+
+    class BaseWebChromeClient : WebChromeClient() {
+        private val _titleData = MutableLiveData<String>()
+        val titleData: LiveData<String>
+            get() = _titleData
+
+        override fun onReceivedTitle(view: WebView?, title: String?) {
+            super.onReceivedTitle(view, title)
+            if (title != null && title.isNotEmpty())
+                _titleData.value = title!!
         }
     }
 

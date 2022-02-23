@@ -15,7 +15,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.NadoSunbaeAndroid">
         <activity
-            android:name=".presentation.ui.review.WebViewActivity"
+            android:name=".presentation.ui.main.WebViewActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.mypage.AppInfoActivity"
