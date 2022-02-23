@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="MyPageVersion"
+            type="com.nadosunbae_android.domain.model.mypage.MyPageVersionData.Data" />
 
     </data>
 
@@ -175,6 +178,7 @@
             android:fontFamily="@font/pretendard_regular"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
+            android:text="version"
             app:layout_constraintBottom_toBottomOf="@+id/text_mypage_app_info_version_info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar3"

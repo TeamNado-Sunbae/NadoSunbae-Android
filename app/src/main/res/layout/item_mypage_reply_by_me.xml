@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="MyPagePost"
-            type="com.nadosunbae_android.domain.model.mypage.MyPagePostData.Data.ClassroomPost" />
+            name="MyPageReply"
+            type="com.nadosunbae_android.domain.model.mypage.MyPageReplyData.Data.ClassroomPostListByMyComment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
             android:maxLines="1"
-            android:text="@{MyPagePost.title}"
+            android:text="@{MyPageReply.title}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_regular"
             android:maxLines="2"
-            android:text="@{MyPagePost.content}"
+            android:text="@{MyPageReply.content}"
             android:textColor="@color/gray_3"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/text_question_all_title"
@@ -54,16 +54,16 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pretendard_semibold"
             android:includeFontPadding="false"
-            android:text="@{MyPagePost.majorName}"
+            android:text="@{MyPageReply.writer.nickname}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_question_all_content"
-            tools:text="학과명"/>
+            tools:text="닉네임"/>
 
         <TextView
             android:id="@+id/text_question_all_time"
-            dateToText="@{MyPagePost.createdAt}"
+            dateToText="@{MyPageReply.createdAt}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -88,7 +88,7 @@
 
         <TextView
             android:id="@+id/text_question_all_comment"
-            intToText="@{MyPagePost.commentCount}"
+            intToText="@{MyPageReply.commentCount}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"
@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"
-            intToText="@{MyPagePost.Like.likeCount}"
+            intToText="@{MyPageReply.Like.likeCount}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_question_all_like"

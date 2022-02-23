@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.Fragment
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -27,6 +28,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         initAskPersonal()
         movePage()
         initPersonalInfo()
+        //versionInfo()
 
     }
 
@@ -42,6 +44,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
         binding.textMyPageReplyByMe.setOnClickListener {
             val intentMyPageReply = Intent(getActivity(), MyPageReplyActivity::class.java)
+            intentMyPageReply.putExtra("userId", mainViewModel.userId.value ?: 0)
+            Log.d("mypageIntentReply userId - ", "id : " + mainViewModel.userId.value)
             startActivity(intentMyPageReply)
         }
 

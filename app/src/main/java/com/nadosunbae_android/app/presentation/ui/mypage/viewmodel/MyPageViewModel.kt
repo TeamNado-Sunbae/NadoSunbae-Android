@@ -7,17 +7,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInItem
-import com.nadosunbae_android.domain.usecase.mypage.GetMyPageMyInfoUseCase
-import com.nadosunbae_android.domain.usecase.mypage.GetMyPagePostUseCase
-import com.nadosunbae_android.domain.usecase.mypage.GetMyPageQuestionUseCase
-import com.nadosunbae_android.domain.usecase.mypage.PutMyPageModifyUseCase
+import com.nadosunbae_android.domain.usecase.mypage.*
 import kotlinx.coroutines.launch
 
 class MyPageViewModel(
     val getMyPageMyInfoUseCase: GetMyPageMyInfoUseCase,
     val getMyPageQuestionUseCase: GetMyPageQuestionUseCase,
     val putMyPageModifyUseCase: PutMyPageModifyUseCase,
-    val getMyPagePostUseCase: GetMyPagePostUseCase
+    val getMyPagePostUseCase: GetMyPagePostUseCase,
+    val getMyPageReplyUseCase: GetMyPageReplyUseCase,
+    val getMyPageVersionUseCase: GetMyPageVersionUseCase,
+    val postMyPageLogOutUseCase : PostMyPageLogOutUseCase
+
 
     ) : ViewModel() {
 
@@ -34,6 +35,10 @@ class MyPageViewModel(
     val personalInfo = MutableLiveData<MyPageMyInfo>()
     val modifyInfo = MutableLiveData<MyPageModifyData>()
     val postByMe = MutableLiveData<MyPagePostData>()
+    val replyByMe = MutableLiveData<MyPageReplyData>()
+    val versionInfo = MutableLiveData<MyPageVersionData>()
+    val logOut: MutableLiveData<MyPageLogOutData> = MutableLiveData()
+
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>
@@ -43,6 +48,21 @@ class MyPageViewModel(
     fun setSignData(signData: SignInItem.User) {
         _signData.value = signData
         userId.value = signData.userId
+    }
+
+    //마이페이지 버전정보
+    fun getMyPageVersion() {
+        viewModelScope.launch {
+            kotlin.runCatching { getMyPageVersionUseCase() }
+                .onSuccess {
+                    versionInfo.value = it
+                    Log.d("mypageVersion", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("mypageVersion", "서버 통신 실패")
+                }
+        }
     }
 
 
@@ -78,6 +98,22 @@ class MyPageViewModel(
         }
     }
 
+    //마이페이지 내가 쓴 답글
+    fun getMyPageReply(postTypeId: Int) {
+        viewModelScope.launch {
+            kotlin.runCatching { getMyPageReplyUseCase(postTypeId) }
+                .onSuccess {
+                    replyByMe.value = it
+                    Log.d("mypageReply", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("mypageReply", "서버 통신 실패")
+                }
+
+        }
+    }
+
     //마이페이지 개인 정보 서버통신
     fun getPersonalInfo(userId: Int){
         viewModelScope.launch {
@@ -104,6 +140,21 @@ class MyPageViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("MyPageModify", "서버 통신 실패")
+                }
+        }
+    }
+
+    //마이페이지 로그아웃
+    fun postMyPageLogOut() {
+        viewModelScope.launch {
+            kotlin.runCatching { postMyPageLogOutUseCase() }
+                .onSuccess {
+                    logOut.value = it
+                    Log.d("MyPageLogOut", "서버 통신 완료")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("MyPageLogOut", "서버 통신 실패")
                 }
         }
     }

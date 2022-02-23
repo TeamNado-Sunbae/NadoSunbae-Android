@@ -2,10 +2,7 @@ package com.nadosunbae_android.data.datasource.remote.mypage
 
 import com.nadosunbae_android.data.api.mypage.MyPageService
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
-import com.nadosunbae_android.data.model.response.mypage.ResponseMyPageModify
-import com.nadosunbae_android.data.model.response.mypage.ResponseMyPagePostData
-import com.nadosunbae_android.data.model.response.mypage.ResponseMypageMyInfo
-import com.nadosunbae_android.data.model.response.mypage.ResponseMypageQuestionData
+import com.nadosunbae_android.data.model.response.mypage.*
 
 class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSource {
 
@@ -24,5 +21,17 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
 
     override suspend fun getMyPagePost(type: String): ResponseMyPagePostData {
         return service.getPostByMe(type)
+    }
+
+    override suspend fun getMyPageReply(postTypeId: Int): ResponseMyPageReplyData {
+        return service.getMyPageReply(postTypeId)
+    }
+
+    override suspend fun getMyPageVersion(): ResponseMyPageVersionData {
+        return service.getMyPageVersion()
+    }
+
+    override suspend fun postMyPageLogOut(): ResponseMyPageLogOut {
+        return service.postMyPageLogOut()
     }
 }
