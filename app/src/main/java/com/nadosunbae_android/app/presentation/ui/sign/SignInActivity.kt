@@ -117,9 +117,8 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
     private fun moveQeustionPage() {
         binding.textSignInQuestion.setOnClickListener {
-            initWebView()
-            //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://pf.kakao.com/_pxcFib"))
-            //startActivity(intent)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://pf.kakao.com/_pxcFib"))
+            startActivity(intent)
         }
     }
 
@@ -178,25 +177,5 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             }
 
         }
-    }
-
-
-    private fun initWebView() {
-        /*
-        val webView = binding.webView
-        webView.apply {
-            val webViewClient = WebViewClient()
-            settings.javaScriptEnabled = true
-        }
-        webView.loadUrl("https://pf.kakao.com/_pxcFib")
-    }
-    */
-
-        var intent = Intent(
-            Intent.ACTION_VIEW,
-            Uri.parse("https://pf.kakao.com/_pxcFib")
-        )
-        startActivity(intent)
-
     }
 }
