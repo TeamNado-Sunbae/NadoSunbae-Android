@@ -2,32 +2,30 @@ package com.nadosunbae_android.app.presentation.ui.classroom.adapter
 
 import android.content.Context
 import android.util.Log
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.ItemQuestionDetailCommentBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailQuestionerBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding
-import com.nadosunbae_android.app.databinding.ItemQuestionDetailCommentBinding
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 
 
-class ClassRoomQuestionDetailAdapter(context: Context) :
+class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var context = context
     private var like = 0
     private var likeSelect = false
 
-    //View Type
+    //View Type (WRITER -> 질문자, QUESTIONER -> 답변자, WRITER_COMMENT -> 질문자의 재 답변)
     private val WRITER_VIEW_TYPE = 0
     private val QUESTIONER_VIEW_TYPE = 1
     private val WRITER_COMMENT_VIEW_TYPE = 2
 
-    var questionDetailData = mutableListOf<QuestionDetailData.Message>()
 
+    var questionDetailData = mutableListOf<QuestionDetailData.Message>()
+    lateinit var questionDetailUserData : QuestionDetailData
 
     fun setLike(num: Int, isLiked: Boolean) {
         like = num
@@ -78,11 +76,12 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
         position: Int
     ) {
         when (holder) {
+            // 질문자
             is ClassRoomQuestionDetailWriterViewHolder -> {
                 holder.onBind(questionDetailData[position], position)
                 //좋아요 처리
                 holder.binding.imgQuestionDetailLike.setOnClickListener {
-                    itemClickListener.onClick(it, 3)
+                    itemLikeClickListener.onLikeClick(it)
                 }
                 with(holder.binding) {
                     imgQuestionDetailLike.isSelected = likeSelect
@@ -92,94 +91,30 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
                         holder.binding.textQuestionDetailSecondStartMajor.visibility = View.GONE
                     }
                     holder.binding.imgQuestionDetailWriterMenu.setOnClickListener {
-                        Log.d("imgQuestionMenu", "작동은 되는 겁니까?")
-                        val wrapperStyle = ContextThemeWrapper(context, R.style.Widget_App_PopupMenu)
-                        val popup = PopupMenu(wrapperStyle, holder.binding.imgQuestionDetailWriterMenu)
-                        popup.menuInflater.inflate(R.menu.menu_question_detail_update, popup.menu)
-
-                        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
-                            when (it.itemId) {
-                                R.id.question_detail_update -> true
-                                else -> false
-                            }
-                        })
-                        popup.show()
+                        itemClickListener.onClick(it, lookForThirdParty( position, userId), writer)
                     }
                 }
 
-            //질문자 문답
+            //답변자 문답
             is ClassRoomQuestionDetailQuestionerViewHolder -> {
                 holder.onBind(questionDetailData[position])
                 if (questionDetailData[position].secondMajorName == "미진입") {
                     holder.binding.includeQuestionDetailQuestionerText.textQuestionDetailQuestionerSecondStartMajor.visibility = View.GONE
                 }
+
                 holder.binding.includeQuestionDetailQuestionerText.imgQuestionDetailQuestionerMenu.setOnClickListener {
-                    val wrapperStyle = ContextThemeWrapper(context, R.style.Widget_App_PopupMenu)
-                    val popup = PopupMenu(
-                        wrapperStyle,
-                        holder.binding.includeQuestionDetailQuestionerText.imgQuestionDetailQuestionerMenu
-                    )
-                    popup.menuInflater.inflate(R.menu.menu_question_detail_update, popup.menu)
-
-                    popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
-                        when (it.itemId) {
-                            //수정버튼 눌렀을 때
-                            R.id.question_detail_update -> {
-                                with(holder) {
-                                    holder.visibleQuestionDetailComment(1)
-                                    //취소
-                                    binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterQuestionerContentCancel.setOnClickListener {
-                                        visibleQuestionDetailComment(0)
-                                    }
-                                    //저장
-                                    binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
-                                        visibleQuestionDetailComment(0)
-                                    }
-                                }
-
-                                true
-                            }
-                            else -> false
-                        }
-                    })
-                    popup.show()
+                        itemClickListener.onClick(it, lookForThirdParty( position, userId), questioner)
                 }
             }
+
+            // 질문자 문답
             is ClassRoomQuestionDetailWriterCommentViewHolder -> {
                 holder.onBind(questionDetailData[position])
                 if (questionDetailData[position].secondMajorName == "미진입") {
                     holder.binding.includeQuestionDetailCommentText.textQuestionDetailWriterCommentSecondStartMajor.visibility = View.GONE
                 }
                 holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu.setOnClickListener {
-                    Log.d("imgQuestionMenu", "작동은 되는 겁니까?")
-                    val wrapperStyle = ContextThemeWrapper(context, R.style.Widget_App_PopupMenu)
-                    val popup = PopupMenu(
-                        wrapperStyle,
-                        holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu
-                    )
-                    popup.menuInflater.inflate(R.menu.menu_question_detail_update, popup.menu)
-                    popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
-                        when (it.itemId) {
-                            //수정버튼 눌렀을 때
-                            R.id.question_detail_update -> {
-                                with(holder) {
-                                    holder.visibleQuestionDetailComment(1)
-                                    //취소
-                                    binding.includeQuestionDetailCommentUpdate.textQuestionDetailWriterCommentContentCancel.setOnClickListener {
-                                        visibleQuestionDetailComment(0)
-                                    }
-                                    //저장
-                                    binding.includeQuestionDetailCommentUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
-                                        visibleQuestionDetailComment(0)
-                                    }
-                                }
-
-                                true
-                            }
-                            else -> false
-                        }
-                    })
-                    popup.show()
+                    itemClickListener.onClick(it, lookForThirdParty( position, userId), writer)
                 }
             }
         }
@@ -269,12 +204,25 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
     fun setQuestionDetail(questionDetailData: MutableList<QuestionDetailData.Message>) {
         this.questionDetailData = questionDetailData
         notifyDataSetChanged()
-
     }
 
+    fun setQuestionDetailUser(questionDetailUserData: QuestionDetailData){
+        this.questionDetailUserData = questionDetailUserData
+        notifyDataSetChanged()
+    }
+
+
     //클릭 이벤트
+    interface OnItemLikeClickListener {
+        fun onLikeClick(v: View)
+    }
+    fun setItemLikeClickListener(onItemLikeClickListener: OnItemLikeClickListener){
+        this.itemLikeClickListener = onItemLikeClickListener
+    }
+    private lateinit var itemLikeClickListener : OnItemLikeClickListener
+
     interface OnItemClickListener {
-        fun onClick(v: View, position : Int)
+        fun onClick(v: View, position : Int, viewNum : Int)
     }
 
     fun setItemClickListener(onItemClickListener : OnItemClickListener){
@@ -282,4 +230,26 @@ class ClassRoomQuestionDetailAdapter(context: Context) :
     }
 
     private lateinit var itemClickListener: OnItemClickListener
+
+
+    // writer -> 1, questioner -> 2, thirdParty -> 3
+    private fun lookForThirdParty(position : Int, userId : Int) : Int{
+        Log.d("questionOneToUserId", userId.toString())
+        return if(!questionDetailData[position].isQuestioner && questionDetailData[position].writerId != userId) {
+            thirdParty
+        }else if(questionDetailUserData.answererId == userId) {
+            questioner
+        } else if(questionDetailUserData.questionerId == userId) {
+            writer
+        }else{
+            return -1
+        }
+    }
+
+
+    companion object{
+        const val writer = 1
+        const val questioner = 2
+        const val thirdParty = 3
+    }
 }

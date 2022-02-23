@@ -5,11 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteData
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeItem
+import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.usecase.classroom.GetQuestionDetailDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.PostQuestionCommentWriteUseCase
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
@@ -19,8 +21,9 @@ class QuestionDetailViewModel(
     val getQuestionDetailDataUseCase : GetQuestionDetailDataUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
     val postLikeDataUseCase : PostLikeDataUseCase
-) : ViewModel() {
+) : ViewModel(), DropDownSelectableViewModel {
 
+    override var dropDownSelected = MutableLiveData<SelectableData>()
 
     //전체 질문 상세보기 데이터
     private var _questionDetailData = MutableLiveData<QuestionDetailData>()
