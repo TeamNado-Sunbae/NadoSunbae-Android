@@ -31,8 +31,8 @@ class QuestionDetailViewModel(
         get() = _questionDetailData
 
     //답글, 질문, 질문에대한 답글 뷰 넘버 ( 1 -> 질문자, 2 -> 답변자 )
-     var viewNum = MutableLiveData<Int>()
-
+    var viewNum = MutableLiveData<Int>()
+    var position = MutableLiveData<Int>()
     //댓글 등록
     var registerComment = MutableLiveData<QuestionCommentWriteData>()
 

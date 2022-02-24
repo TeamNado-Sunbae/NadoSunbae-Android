@@ -125,23 +125,24 @@ class QuestionDetailActivity :
     private fun questionOneToOneMenu() {
         classRoomQuestionDetailAdapter.setItemClickListener(
             object : ClassRoomQuestionDetailAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int, viewNum : Int) {
+                override fun onClick(v: View, position: Int, user : Int, viewNum : Int) {
                     Log.d("oneToOneVIew", v.toString())
                     Log.d("oneToOneNum", "$position+$viewNum")
+                    questionDetailViewModel.position.value = position
                     questionDetailViewModel.viewNum.value = viewNum
-                    if((position == 1 && viewNum == 1) or (position == 2 && viewNum == 2)){
+                    if((user == 1 && viewNum == 1) or (user == 2 && viewNum == 2)){
                         val dropDown = mutableListOf<SelectableData>(
                             SelectableData(1, resources.getString(R.string.question_detail_update), true),
                             SelectableData(2, resources.getString(R.string.question_detail_delete), false)
                         )
 
                         showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, true, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
-                    }else if((position == 1 && viewNum == 2) or (position == 3)){
+                    }else if((user == 1 && viewNum == 2) or (user == 3)){
                         val dropDown = mutableListOf<SelectableData>(
                             SelectableData(1, resources.getString(R.string.question_detail_report), true),
                         )
                         showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, true, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
-                    }else if(position == 2 && viewNum == 1){
+                    }else if(user == 2 && viewNum == 1){
                         val dropDown = mutableListOf<SelectableData>(
                             SelectableData(1, resources.getString(R.string.question_detail_report), true),
                             SelectableData(2, resources.getString(R.string.question_detail_delete), false)
@@ -156,13 +157,14 @@ class QuestionDetailActivity :
     private fun checkMenuName(){
         questionDetailViewModel.dropDownSelected.observe(this){
             val viewNum = questionDetailViewModel.viewNum.value ?: 0
+            val position = questionDetailViewModel.position.value ?: 0
             when(it.name){
                 resources.getString(R.string.question_detail_update) ->
-                    classRoomQuestionDetailAdapter.setCheckMenu(update, viewNum)
+                    classRoomQuestionDetailAdapter.setCheckMenu(update, viewNum, position)
                 resources.getString(R.string.question_detail_report) ->
-                    classRoomQuestionDetailAdapter.setCheckMenu(report, viewNum)
+                    classRoomQuestionDetailAdapter.setCheckMenu(report, viewNum, position)
                 resources.getString(R.string.question_detail_delete) ->
-                    classRoomQuestionDetailAdapter.setCheckMenu(delete, viewNum)
+                    classRoomQuestionDetailAdapter.setCheckMenu(delete, viewNum, position)
             }
         }
     }
