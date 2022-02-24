@@ -45,12 +45,14 @@ class MyPageLikeListActivity : BaseActivity<ActivityMyPageLikeListBinding>(R.lay
         }
 
         binding.textMypageLikeQuestion.setOnClickListener {
+            questionPosting()
             binding.textMypageLikeReview.isSelected = false
             binding.textMypageLikeQuestion.isSelected = true
             binding.textMypageLikeInfo.isSelected = false
         }
 
         binding.textMypageLikeInfo.setOnClickListener {
+            infoPosting()
             binding.textMypageLikeReview.isSelected = false
             binding.textMypageLikeQuestion.isSelected = false
             binding.textMypageLikeInfo.isSelected = true
@@ -62,6 +64,19 @@ class MyPageLikeListActivity : BaseActivity<ActivityMyPageLikeListBinding>(R.lay
         Log.d("PostuserId", "- id: " + intent.getIntExtra("userId", 0))
 
         myPageViewModel.getMyPageLikeQuestion("question")
+        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2,  intent.getIntExtra("userId", 0),1)
+        binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
+
+        myPageViewModel.likeQuestion.observe(this) {
+            myPageLikeQuestionAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
+        }
+    }
+
+    private fun infoPosting() {
+        intent.getIntExtra("userId", 0)
+        Log.d("PostuserId", "- id: " + intent.getIntExtra("userId", 0))
+
+        myPageViewModel.getMyPageLikeQuestion("information")
         myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2,  intent.getIntExtra("userId", 0),1)
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 

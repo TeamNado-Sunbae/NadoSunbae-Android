@@ -107,7 +107,7 @@ object MypageMapper {
     }
 
     //내가 쓴 답글
-    fun mapperToReply(responseMyPageReplyData: ResponseMyPageReplyData) :MyPageReplyData {
+    fun mapperToReply(responseMyPageReplyData: ResponseMyPageReplyData): MyPageReplyData {
         return MyPageReplyData(
             data = MyPageReplyData.Data(
                 classroomPostListByMyCommentList = responseMyPageReplyData.data.classroomPostListByMyCommentList.map {
@@ -135,7 +135,7 @@ object MypageMapper {
 
 
     //버전 정보
-    fun mapperToVersion(responseMyPageVersionData: ResponseMyPageVersionData) : MyPageVersionData {
+    fun mapperToVersion(responseMyPageVersionData: ResponseMyPageVersionData): MyPageVersionData {
         return MyPageVersionData(
             data = MyPageVersionData.Data(
                 AOS = responseMyPageVersionData.data.AOS
@@ -145,14 +145,14 @@ object MypageMapper {
     }
 
     //로그아웃
-    fun mapperToLogOut(responseMyPageLogOut: ResponseMyPageLogOut) : MyPageLogOutData {
+    fun mapperToLogOut(responseMyPageLogOut: ResponseMyPageLogOut): MyPageLogOutData {
         return MyPageLogOutData(
             success = responseMyPageLogOut.success
         )
     }
 
     //좋아요 목록 조회(리뷰)
-    fun mapperToLikeListReview(responseMyPageLikeReview: ResponseMyPageLikeReview) : MyPageLikeReviewData {
+    fun mapperToLikeListReview(responseMyPageLikeReview: ResponseMyPageLikeReview): MyPageLikeReviewData {
         return MyPageLikeReviewData(
             data = MyPageLikeReviewData.Data(
                 likePostList = responseMyPageLikeReview.data.likePostList.map {
@@ -163,9 +163,10 @@ object MypageMapper {
                             likeCount = it.like.likeCount
                         ),
                         postId = it.postId,
-                        tagList = MyPageLikeReviewData.Data.LikePost.Tag(
-                            tagName = it.tagList.tagName
-                        ),
+                        tagList =
+                            it.tagList.map {
+                                it.tagName
+                            },
                         title = it.title,
                         writer = MyPageLikeReviewData.Data.LikePost.Writer(
                             nickname = it.writer.nickname,
@@ -179,10 +180,10 @@ object MypageMapper {
     }
 
     //좋아요 목록 조회(질문)
-    fun mapperToLikeListQuestion(responseMyPageLikeQuestion: ResponseMyPageLikeQuestion) : MyPageLikeQuestionData{
+    fun mapperToLikeListQuestion(responseMyPageLikeQuestion: ResponseMyPageLikeQuestion): MyPageLikeQuestionData {
         return MyPageLikeQuestionData(
             data = MyPageLikeQuestionData.Data(
-                likePostList = responseMyPageLikeQuestion.data.likePostList.map{
+                likePostList = responseMyPageLikeQuestion.data.likePostList.map {
                     MyPageLikeQuestionData.Data.LikePost(
                         commentCount = it.commentCount,
                         content = it.content,
