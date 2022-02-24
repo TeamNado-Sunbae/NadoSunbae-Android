@@ -27,4 +27,6 @@ interface ClassRoomRepository {
     //정보 상세 조회
     suspend fun getInformationDetail(postId: Int) : InfoDetailData
 
+    //1:1 질문, 전체 질문, 정보글에 있는 특정 댓글 수정
+    suspend fun putCommentUpdate(commentId : Int, commentUpdateItem: CommentUpdateItem) : CommentUpdateData
 }

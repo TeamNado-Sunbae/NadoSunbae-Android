@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailCommentBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailQuestionerBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding
-import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 
 
@@ -117,6 +116,13 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 //수정일 경우 띄우기
                 if(viewNum == 2){
                     holder.visibleQuestionDetailComment(menuNum)
+                }
+
+                holder.binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
+                    val content = holder.binding.includeQuestionDetailQuestionerUpdate.etQuestionDetailQuestionerContent.text.toString()
+                        updateListener.onUpdate(content, questionDetailData[position].messageId)
+
+                    holder.visibleQuestionDetailComment(0)
                 }
 
             }
@@ -258,6 +264,14 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     }
     private lateinit var itemClickListener: OnItemClickListener
 
+    // 댓글 수정
+    interface UpdateListener{
+        fun onUpdate(content : String, commentId : Int)
+    }
+    fun setUpdateListener(updateListener : UpdateListener){
+        this.updateListener = updateListener
+    }
+    private lateinit var updateListener : UpdateListener
 
     // writer -> 1, questioner -> 2, thirdParty -> 3
     private fun lookForThirdParty( userId : Int) : Int{
