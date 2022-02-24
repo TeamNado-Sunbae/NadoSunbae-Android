@@ -1,5 +1,6 @@
 package com.nadosunbae_android.data.mapper.mypage
 
+import androidx.lifecycle.Transformations.map
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
 import com.nadosunbae_android.data.model.response.mypage.*
 import com.nadosunbae_android.domain.model.mypage.*
@@ -106,7 +107,7 @@ object MypageMapper {
     }
 
     //내가 쓴 답글
-    fun mapperToReply(responseMyPageReplyData: ResponseMyPageReplyData) :MyPageReplyData {
+    fun mapperToReply(responseMyPageReplyData: ResponseMyPageReplyData): MyPageReplyData {
         return MyPageReplyData(
             data = MyPageReplyData.Data(
                 classroomPostListByMyCommentList = responseMyPageReplyData.data.classroomPostListByMyCommentList.map {
@@ -133,7 +134,8 @@ object MypageMapper {
     }
 
 
-    fun mapperToVersion(responseMyPageVersionData: ResponseMyPageVersionData) : MyPageVersionData {
+    //버전 정보
+    fun mapperToVersion(responseMyPageVersionData: ResponseMyPageVersionData): MyPageVersionData {
         return MyPageVersionData(
             data = MyPageVersionData.Data(
                 AOS = responseMyPageVersionData.data.AOS
@@ -142,9 +144,62 @@ object MypageMapper {
         )
     }
 
-    fun mapperToLogOut(responseMyPageLogOut: ResponseMyPageLogOut) : MyPageLogOutData {
+    //로그아웃
+    fun mapperToLogOut(responseMyPageLogOut: ResponseMyPageLogOut): MyPageLogOutData {
         return MyPageLogOutData(
             success = responseMyPageLogOut.success
+        )
+    }
+
+    //좋아요 목록 조회(리뷰)
+    fun mapperToLikeListReview(responseMyPageLikeReview: ResponseMyPageLikeReview): MyPageLikeReviewData {
+        return MyPageLikeReviewData(
+            data = MyPageLikeReviewData.Data(
+                likePostList = responseMyPageLikeReview.data.likePostList.map {
+                    MyPageLikeReviewData.Data.LikePost(
+                        createdAt = it.createdAt,
+                        like = MyPageLikeReviewData.Data.LikePost.Like(
+                            isLiked = it.like.isLiked,
+                            likeCount = it.like.likeCount
+                        ),
+                        postId = it.postId,
+                        tagList = it.tagList.map { MyPageLikeReviewData.Data.LikePost.Tag(it.tagName) },
+                        title = it.title,
+                        writer = MyPageLikeReviewData.Data.LikePost.Writer(
+                            nickname = it.writer.nickname,
+                            writerId = it.writer.writerId
+                        )
+                    )
+                }
+            ),
+            success = responseMyPageLikeReview.success
+        )
+    }
+
+    //좋아요 목록 조회(질문)
+    fun mapperToLikeListQuestion(responseMyPageLikeQuestion: ResponseMyPageLikeQuestion): MyPageLikeQuestionData {
+        return MyPageLikeQuestionData(
+            data = MyPageLikeQuestionData.Data(
+                likePostList = responseMyPageLikeQuestion.data.likePostList.map {
+                    MyPageLikeQuestionData.Data.LikePost(
+                        commentCount = it.commentCount,
+                        content = it.content,
+                        createdAt = it.createdAt,
+                        like = MyPageLikeQuestionData.Data.LikePost.Like(
+                            isLiked = it.like.isLiked,
+                            likeCount = it.like.likeCount
+                        ),
+                        postId = it.postId,
+                        title = it.title,
+                        writer = MyPageLikeQuestionData.Data.LikePost.Writer(
+                            nickname = it.writer.nickname,
+                            writerId = it.writer.writerId
+                        )
+
+                    )
+                }
+            ),
+            success = responseMyPageLikeQuestion.success
         )
     }
 }

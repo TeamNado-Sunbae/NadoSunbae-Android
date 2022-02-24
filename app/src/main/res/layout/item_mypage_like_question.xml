@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="questionMain"
-            type="com.nadosunbae_android.domain.model.classroom.ClassRoomData" />
+            name="MyPageLikeQuestion"
+            type="com.nadosunbae_android.domain.model.mypage.MyPageLikeQuestionData.Data.LikePost" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:paddingBottom="12dp">
+        android:paddingBottom="12dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp">
 
         <TextView
             android:id="@+id/text_question_all_title"
@@ -22,11 +25,12 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
             android:maxLines="1"
-            android:text="@{questionMain.title}"
+            android:text="@{MyPageLikeQuestion.title}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="title"/>
 
         <TextView
             android:id="@+id/text_question_all_content"
@@ -36,11 +40,12 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_regular"
             android:maxLines="2"
-            android:text="@{questionMain.content}"
+            android:text="@{MyPageLikeQuestion.content}"
             android:textColor="@color/gray_3"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/text_question_all_title"
-            app:layout_constraintTop_toBottomOf="@+id/text_question_all_title" />
+            app:layout_constraintTop_toBottomOf="@+id/text_question_all_title"
+            tools:text="contents"/>
 
         <TextView
             android:id="@+id/text_question_all_nickname"
@@ -49,15 +54,16 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pretendard_semibold"
             android:includeFontPadding="false"
-            android:text="@{questionMain.writer.nickname}"
+            android:text="@{MyPageLikeQuestion.writer.nickname}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_question_all_content" />
+            app:layout_constraintTop_toBottomOf="@+id/text_question_all_content"
+            tools:text="닉네임"/>
 
         <TextView
             android:id="@+id/text_question_all_time"
-            dateToText="@{questionMain.createdAt}"
+            dateToText="@{MyPageLikeQuestion.createdAt}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -68,7 +74,8 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_question_all_nickname"
             app:layout_constraintStart_toEndOf="@+id/text_question_all_nickname"
-            app:layout_constraintTop_toBottomOf="@+id/text_question_all_content" />
+            app:layout_constraintTop_toBottomOf="@+id/text_question_all_content"
+            tools:text="createdAt" />
 
         <ImageView
             android:id="@+id/img_question_all_comment"
@@ -81,7 +88,7 @@
 
         <TextView
             android:id="@+id/text_question_all_comment"
-            intToText="@{questionMain.commentCount}"
+            intToText="@{MyPageLikeQuestion.commentCount}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"
@@ -89,14 +96,15 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_question_all_comment"
             app:layout_constraintStart_toEndOf="@+id/img_question_all_comment"
-            app:layout_constraintTop_toTopOf="@+id/img_question_all_comment" />
+            app:layout_constraintTop_toTopOf="@+id/img_question_all_comment"
+            tools:text="1"/>
 
         <ImageView
             android:id="@+id/img_question_all_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            likeCheck="@{questionMain.liked}"
+            likeCheck="@{MyPageLikeQuestion.Like.liked}"
             android:background="@drawable/selector_heart_gray_mint"
             app:layout_constraintStart_toEndOf="@+id/text_question_all_comment"
             app:layout_constraintTop_toTopOf="@+id/img_question_all_comment" />
@@ -106,12 +114,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"
-            intToText="@{questionMain.likeCount}"
+            intToText="@{MyPageLikeQuestion.Like.likeCount}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_question_all_like"
             app:layout_constraintStart_toEndOf="@+id/img_question_all_like"
-            app:layout_constraintTop_toTopOf="@+id/img_question_all_like" />
+            app:layout_constraintTop_toTopOf="@+id/img_question_all_like"
+            tools:text="1"/>
 
         <View
             android:id="@+id/line_question_all"

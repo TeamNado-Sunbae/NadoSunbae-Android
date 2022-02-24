@@ -17,7 +17,9 @@ class MyPageViewModel(
     val getMyPagePostUseCase: GetMyPagePostUseCase,
     val getMyPageReplyUseCase: GetMyPageReplyUseCase,
     val getMyPageVersionUseCase: GetMyPageVersionUseCase,
-    val postMyPageLogOutUseCase : PostMyPageLogOutUseCase
+    val postMyPageLogOutUseCase : PostMyPageLogOutUseCase,
+    val getMyPageLikeQuestionUseCase: GetMyPageLikeQuestionUseCase,
+    val getMyPageLikeReviewUseCase: GetMyPageLikeReviewUseCase
 
 
     ) : ViewModel() {
@@ -38,6 +40,8 @@ class MyPageViewModel(
     val replyByMe = MutableLiveData<MyPageReplyData>()
     val versionInfo = MutableLiveData<MyPageVersionData>()
     val logOut: MutableLiveData<MyPageLogOutData> = MutableLiveData()
+    val likeQuestion = MutableLiveData<MyPageLikeQuestionData>()
+    val likeReview = MutableLiveData<MyPageLikeReviewData>()
 
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
@@ -79,6 +83,36 @@ class MyPageViewModel(
                     Log.d("mypageQuestion", "서버 통신 실패")
                 }
 
+        }
+    }
+
+    //마이페이지 좋아요 리스트 (Review)
+    fun getMyPageLikeReview(type: String = "review") {
+        viewModelScope.launch {
+            kotlin.runCatching { getMyPageLikeReviewUseCase(type) }
+                .onSuccess {
+                    likeReview.value = it
+                    Log.d("mypageLikeReview", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("mypageLikeReview", "서버 통신 실패")
+                }
+        }
+    }
+
+    //마이페이지 좋아요 리스트 (Question)
+    fun getMyPageLikeQuestion(type: String = "question") {
+        viewModelScope.launch {
+            kotlin.runCatching { getMyPageLikeQuestionUseCase(type) }
+                .onSuccess {
+                    likeQuestion.value = it
+                    Log.d("mypageLikeQuestion", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("mypageLikeQuestion", "서버 통신 실패")
+                }
         }
     }
 
