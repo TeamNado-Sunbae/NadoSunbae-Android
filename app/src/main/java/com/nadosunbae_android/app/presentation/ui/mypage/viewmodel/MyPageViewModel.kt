@@ -19,7 +19,8 @@ class MyPageViewModel(
     val getMyPageVersionUseCase: GetMyPageVersionUseCase,
     val postMyPageLogOutUseCase : PostMyPageLogOutUseCase,
     val getMyPageLikeQuestionUseCase: GetMyPageLikeQuestionUseCase,
-    val getMyPageLikeReviewUseCase: GetMyPageLikeReviewUseCase
+    val getMyPageLikeReviewUseCase: GetMyPageLikeReviewUseCase,
+    val getMyPageReviewUseCase: GetMyPageReviewUseCase
 
 
     ) : ViewModel() {
@@ -42,6 +43,7 @@ class MyPageViewModel(
     val logOut: MutableLiveData<MyPageLogOutData> = MutableLiveData()
     val likeQuestion = MutableLiveData<MyPageLikeQuestionData>()
     val likeReview = MutableLiveData<MyPageLikeReviewData>()
+    val reviewList = MutableLiveData<MyPageReviewData>()
 
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
@@ -83,6 +85,21 @@ class MyPageViewModel(
                     Log.d("mypageQuestion", "서버 통신 실패")
                 }
 
+        }
+    }
+
+    //마이페이지 내가 쓴 학과 후기글
+    fun getMyPageReview(userId: Int) {
+        viewModelScope.launch {
+            kotlin.runCatching { getMyPageReviewUseCase(userId) }
+                .onSuccess {
+                    reviewList.value = it
+                    Log.d("mypageReview", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("mypageReview", "서버 통신 실패")
+                }
         }
     }
 

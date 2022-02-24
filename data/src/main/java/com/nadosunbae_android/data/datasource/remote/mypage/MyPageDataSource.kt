@@ -22,4 +22,6 @@ interface MyPageDataSource {
     suspend fun getMyPageLikeReview(type: String = "review") : ResponseMyPageLikeReview
 
     suspend fun getMyPageLikeQuestion(type: String = "question") : ResponseMyPageLikeQuestion
+
+    suspend fun getMyPageReview(userId: Int) : ResponseMyPageReview
 }

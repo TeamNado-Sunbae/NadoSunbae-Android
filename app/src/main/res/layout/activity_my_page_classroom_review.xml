@@ -5,7 +5,9 @@
     android:background="@color/background">
 
     <data>
-
+        <variable
+            name="reviewData"
+            type="com.nadosunbae_android.domain.model.mypage.MyPageReviewData.Data" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,6 +60,7 @@
             android:layout_marginTop="16dp"
             android:textColor="@color/main_default"
             android:textSize="16sp"
+            android:text="@{reviewData.writer.nickname}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_mypage_review_title"
             tools:text="내 닉네임"/>
