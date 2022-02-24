@@ -96,21 +96,6 @@ class MyPageLikeListActivity :
     }
 
 
-    /*
-    private fun reviewLiked() {
-        intent.getIntExtra("userId", 0)
-        myPageViewModel.getMyPageLikeReview("review")
-        myPageLikeReviewAdapter = MyPageLikeReviewAdapter()
-        binding.rvMypageLike.adapter = myPageLikeReviewAdapter
-
-        myPageViewModel.likeReview.observe(this) {
-            myPageLikeReviewAdapter.setReviewListData((it) as MutableList<MyPageLikeReviewData>)
-        }
-    }
-
-     */
-
-
     private fun initReviewListAdapter() {
         intent.getIntExtra("userId", 0)
         myPageViewModel.getMyPageLikeReview("review")
