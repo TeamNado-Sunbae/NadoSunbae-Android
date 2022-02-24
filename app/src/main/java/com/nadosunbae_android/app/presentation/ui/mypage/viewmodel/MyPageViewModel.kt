@@ -87,7 +87,19 @@ class MyPageViewModel(
     }
 
     //마이페이지 좋아요 리스트 (Review)
-
+    fun getMyPageLikeReview(type: String = "review") {
+        viewModelScope.launch {
+            kotlin.runCatching { getMyPageLikeReviewUseCase(type) }
+                .onSuccess {
+                    likeReview.value = it
+                    Log.d("mypageLikeReview", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("mypageLikeReview", "서버 통신 실패")
+                }
+        }
+    }
 
     //마이페이지 좋아요 리스트 (Question)
     fun getMyPageLikeQuestion(type: String = "question") {

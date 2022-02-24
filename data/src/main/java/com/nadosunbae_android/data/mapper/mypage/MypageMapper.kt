@@ -163,10 +163,7 @@ object MypageMapper {
                             likeCount = it.like.likeCount
                         ),
                         postId = it.postId,
-                        tagList =
-                            it.tagList.map {
-                                it.tagName
-                            },
+                        tagList = it.tagList.map { MyPageLikeReviewData.Data.LikePost.Tag(it.tagName) },
                         title = it.title,
                         writer = MyPageLikeReviewData.Data.LikePost.Writer(
                             nickname = it.writer.nickname,
