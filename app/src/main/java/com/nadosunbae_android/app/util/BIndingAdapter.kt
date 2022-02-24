@@ -103,7 +103,7 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("profileImgBig")
     fun setProfileImgBig(imageView : ImageView, imageId : Int){
-        when(imageId){
+        when (imageId) {
             1 -> imageSelect(imageView, R.drawable.mask_group_1)
             2 -> imageSelect(imageView, R.drawable.mask_group_2)
             3 -> imageSelect(imageView, R.drawable.mask_group_3)

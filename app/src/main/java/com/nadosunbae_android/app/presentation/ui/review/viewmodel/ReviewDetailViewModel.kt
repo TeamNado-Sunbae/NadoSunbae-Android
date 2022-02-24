@@ -59,6 +59,8 @@ class ReviewDetailViewModel(
             runCatching { postLikeDataUseCase(likeItem) }
                 .onSuccess {
                     Log.d(TAG, "서버통신 성공")
+
+                    getReviewDetail(postId)
                 }
                 .onFailure {
                     it.printStackTrace()
