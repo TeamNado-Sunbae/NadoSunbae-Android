@@ -34,6 +34,7 @@ class QuestionDetailActivity :
         questionAllDetailLike()
         backBtn()
         questionOneToOneMenu()
+        checkMenuName()
     }
 
 
@@ -127,11 +128,13 @@ class QuestionDetailActivity :
                 override fun onClick(v: View, position: Int, viewNum : Int) {
                     Log.d("oneToOneVIew", v.toString())
                     Log.d("oneToOneNum", "$position+$viewNum")
+                    questionDetailViewModel.viewNum.value = viewNum
                     if((position == 1 && viewNum == 1) or (position == 2 && viewNum == 2)){
                         val dropDown = mutableListOf<SelectableData>(
                             SelectableData(1, resources.getString(R.string.question_detail_update), true),
                             SelectableData(2, resources.getString(R.string.question_detail_delete), false)
                         )
+
                         showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, true, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
                     }else if((position == 1 && viewNum == 2) or (position == 3)){
                         val dropDown = mutableListOf<SelectableData>(
@@ -149,6 +152,21 @@ class QuestionDetailActivity :
                 }
             })
     }
+    //어떤 메뉴 선택했는지 확인
+    private fun checkMenuName(){
+        questionDetailViewModel.dropDownSelected.observe(this){
+            val viewNum = questionDetailViewModel.viewNum.value ?: 0
+            when(it.name){
+                resources.getString(R.string.question_detail_update) ->
+                    classRoomQuestionDetailAdapter.setCheckMenu(update, viewNum)
+                resources.getString(R.string.question_detail_report) ->
+                    classRoomQuestionDetailAdapter.setCheckMenu(report, viewNum)
+                resources.getString(R.string.question_detail_delete) ->
+                    classRoomQuestionDetailAdapter.setCheckMenu(delete, viewNum)
+            }
+        }
+    }
+
 
 
     //뒤로가기
@@ -156,5 +174,14 @@ class QuestionDetailActivity :
         binding.imgQuestionDetailTitle.setOnClickListener {
             finish()
         }
+    }
+
+
+
+    companion object{
+        const val update = 1
+        const val report = 2
+        const val delete = 3
+
     }
 }

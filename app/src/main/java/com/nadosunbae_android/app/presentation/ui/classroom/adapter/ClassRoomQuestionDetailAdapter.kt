@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailCommentBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailQuestionerBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding
+import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 
 
@@ -25,6 +26,8 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
 
     var questionDetailData = mutableListOf<QuestionDetailData.Message>()
+    var menuNum : Int = 0
+    var viewNum : Int = 0
     lateinit var questionDetailUserData : QuestionDetailData
 
     fun setLike(num: Int, isLiked: Boolean) {
@@ -93,8 +96,11 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
                 //점 세개 문항 클릭
                     holder.binding.imgQuestionDetailWriterMenu.setOnClickListener {
-                        itemClickListener.onClick(it, lookForThirdParty( position, userId), writer)
+                        itemClickListener.onClick(it, lookForThirdParty(position, userId), writer)
                     }
+
+                //수정일 경우 띄우기
+
                 }
 
             //답변자 문답
@@ -107,6 +113,11 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 holder.binding.includeQuestionDetailQuestionerText.imgQuestionDetailQuestionerMenu.setOnClickListener {
                         itemClickListener.onClick(it, lookForThirdParty( position, userId), questioner)
                 }
+                //수정일 경우 띄우기
+                if(viewNum == 2){
+                    holder.visibleQuestionDetailComment(menuNum)
+                }
+
             }
 
             // 질문자 문답
@@ -118,6 +129,10 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu.setOnClickListener {
                     itemClickListener.onClick(it, lookForThirdParty( position, userId), writer)
                 }
+                if(viewNum == 1){
+                    holder.visibleQuestionDetailComment(menuNum)
+                }
+
             }
         }
     }
@@ -202,19 +217,27 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
         }
     }
 
-
+    // List 받아오는 부분
     fun setQuestionDetail(questionDetailData: MutableList<QuestionDetailData.Message>) {
         this.questionDetailData = questionDetailData
         notifyDataSetChanged()
     }
 
+    // user Questioner, answerer 받아오기
     fun setQuestionDetailUser(questionDetailUserData: QuestionDetailData){
         this.questionDetailUserData = questionDetailUserData
         notifyDataSetChanged()
     }
 
+    // 수정, 삭제, 신고 받아오는 부분
+    fun setCheckMenu(menuNum : Int, viewNum : Int){
+        this.menuNum = menuNum
+        this.viewNum = viewNum
+        notifyDataSetChanged()
+    }
 
-    //클릭 이벤트
+
+    //좋아요 클릭 이벤트
     interface OnItemLikeClickListener {
         fun onLikeClick(v: View)
     }
@@ -223,14 +246,14 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     }
     private lateinit var itemLikeClickListener : OnItemLikeClickListener
 
+
+    //점세개 메뉴 클릭 이벤트
     interface OnItemClickListener {
         fun onClick(v: View, position : Int, viewNum : Int)
     }
-
     fun setItemClickListener(onItemClickListener : OnItemClickListener){
         this.itemClickListener = onItemClickListener
     }
-
     private lateinit var itemClickListener: OnItemClickListener
 
 
