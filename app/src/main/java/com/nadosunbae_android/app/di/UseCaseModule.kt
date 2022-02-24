@@ -58,6 +58,7 @@ val useCaseModule = module{
     single {PostMyPageLogOutUseCase(get())}
     single {GetMyPageLikeReviewUseCase(get())}
     single {GetMyPageLikeQuestionUseCase(get())}
+    single {GetMyPageReviewUseCase(get())}
 
 
 }

@@ -22,4 +22,5 @@ interface MyPageRepository {
 
     suspend fun getMyPageLikeQuestion(type: String = "question") : MyPageLikeQuestionData
 
+    suspend fun getMyPageReview(userId: Int) : MyPageReviewData
 }

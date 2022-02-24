@@ -202,4 +202,30 @@ object MypageMapper {
             success = responseMyPageLikeQuestion.success
         )
     }
+
+    //마이페이지 내가 쓴 학과 후기글 조회
+    fun mapperToReview(responseMyPageReviewData: ResponseMyPageReviewData): MyPageReviewData {
+        return MyPageReviewData(
+            data = MyPageReviewData.Data(
+                reviewPostList = responseMyPageReviewData.data.reviewPostList.map {
+                    MyPageReviewData.Data.ReviewPost(
+                        createdAt = it.createdAt,
+                        like = MyPageReviewData.Data.ReviewPost.Like(
+                            isLiked = it.like.isLiked,
+                            likeCount = it.like.likeCount
+                        ),
+                        majorName = it.majorName,
+                        oneLineReview = it.oneLineReview,
+                        postId = it.postId,
+                        tagList = it.tagList.map { MyPageReviewData.Data.ReviewPost.Tag(it.tagName) }
+                    )
+                },
+                writer = MyPageReviewData.Data.Writer(
+                    nickname = responseMyPageReviewData.data.writer.nickname,
+                    writerId = responseMyPageReviewData.data.writer.writerId
+                )
+            ),
+            success = responseMyPageReviewData.success
+        )
+    }
 }
