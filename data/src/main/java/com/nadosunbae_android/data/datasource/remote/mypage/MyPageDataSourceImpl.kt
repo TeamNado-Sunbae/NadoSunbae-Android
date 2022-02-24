@@ -43,7 +43,7 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
         return service.getMyPageLikeQuestion(type)
     }
 
-    override suspend fun getMyPageReview(userId: Int): ResponseMyPageReview {
+    override suspend fun getMyPageReview(userId: Int): ResponseMyPageReviewData {
         return service.getMyPageReview(userId)
     }
 }

@@ -22,7 +22,6 @@ class MyPageViewModel(
     val getMyPageLikeReviewUseCase: GetMyPageLikeReviewUseCase,
     val getMyPageReviewUseCase: GetMyPageReviewUseCase
 
-
     ) : ViewModel() {
 
     // 로그인 response 데이터

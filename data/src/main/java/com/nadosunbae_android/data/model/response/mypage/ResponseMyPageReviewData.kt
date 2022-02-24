@@ -2,7 +2,7 @@ package com.nadosunbae_android.data.model.response.mypage
 
 import java.util.*
 
-data class ResponseMyPageReview(
+data class ResponseMyPageReviewData(
     val data: Data,
     val message: String,
     val status: Int,

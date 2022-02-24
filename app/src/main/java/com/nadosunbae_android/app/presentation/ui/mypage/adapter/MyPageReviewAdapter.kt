@@ -51,7 +51,7 @@ class MyPageReviewAdapter():
     }
 
     override fun onBindViewHolder(
-        holder: MyPageReviewViewHolder,
+        holder: MyPageReviewAdapter.MyPageReviewViewHolder,
         position: Int
     ) {
         holder.onBind(myPageReviewData[position])

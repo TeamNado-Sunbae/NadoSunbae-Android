@@ -5,9 +5,7 @@
     android:background="@color/background">
 
     <data>
-        <variable
-            name="reviewData"
-            type="com.nadosunbae_android.domain.model.mypage.MyPageReviewData.Data" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,7 +58,7 @@
             android:layout_marginTop="16dp"
             android:textColor="@color/main_default"
             android:textSize="16sp"
-            android:text="@{reviewData.writer.nickname}"
+            android:text="닉네임"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_mypage_review_title"
             tools:text="내 닉네임"/>
@@ -69,10 +67,12 @@
             android:id="@+id/text_mypage_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_semibold"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/pretendard_medium"
             android:text="@string/classroom_review_name_title"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_review_nickname"
             app:layout_constraintStart_toEndOf="@+id/text_mypage_review_nickname"
             app:layout_constraintTop_toTopOf="@+id/text_mypage_review_nickname" />
 
@@ -80,9 +80,7 @@
             android:id="@+id/rv_mypage_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"

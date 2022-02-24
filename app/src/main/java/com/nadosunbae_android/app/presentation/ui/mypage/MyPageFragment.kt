@@ -48,8 +48,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         }
 
         binding.textMyPageReview.setOnClickListener {
-            val intentMyPageReview =
-                Intent(requireActivity(), MyPageClassroomReviewActivity::class.java)
+            val intentMyPageReview = Intent(requireActivity(), MyPageClassroomReviewActivity::class.java)
+            intentMyPageReview.putExtra("userId", mainViewModel.userId.value ?: 0)
+            intentMyPageReview.putExtra("userNickName", binding.myPageInfo?.data?.nickname)
+            Log.d("mypageIntentReview userId - ", "id : " + mainViewModel.userId.value)
             startActivity(intentMyPageReview)
         }
 

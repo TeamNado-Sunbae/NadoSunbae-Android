@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageClassroomReviewBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
@@ -28,7 +29,12 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
         initReviewListAdapter()
         backBtn()
         setClickListener()
+        initNickName()
 
+    }
+
+    private fun initNickName(){
+        binding.textMypageReviewNickname.setText(intent.getStringExtra("userNickName"))
     }
 
     private fun backBtn() {

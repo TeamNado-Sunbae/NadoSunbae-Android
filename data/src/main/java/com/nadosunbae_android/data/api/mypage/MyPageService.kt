@@ -60,6 +60,6 @@ interface MyPageService {
     @GET("user/mypage/{userId}/review-post/list")
     suspend fun getMyPageReview(
         @Path("userId") userId: Int
-    ) : ResponseMyPageReview
+    ) : ResponseMyPageReviewData
 
 }
