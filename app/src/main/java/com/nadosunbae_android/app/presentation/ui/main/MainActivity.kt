@@ -12,6 +12,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
 import com.nadosunbae_android.app.presentation.ui.review.ReviewFragment
+import com.nadosunbae_android.app.util.DateUtil
 import com.nadosunbae_android.app.util.changeFragment
 import com.nadosunbae_android.app.util.changeFragmentNoBackStack
 import com.nadosunbae_android.app.util.popFragmentBackStack
@@ -26,6 +27,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        DateUtil.initTimeZone()
+
         initBottomNav()
         classRoomFragmentChange()
 

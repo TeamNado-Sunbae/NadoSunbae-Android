@@ -139,8 +139,12 @@ fun TextView.isOnQuestion(isOnQuestion: Boolean) {
 
 @BindingAdapter("majorName", "majorStart")
 fun TextView.majorText(majorName: String?, majorStart: String?) {
-    if (majorName != null && majorStart != null)
+
+    if (majorName == "정보없음")
+        text = majorName
+    else if (majorName != null && majorStart != null)
         text = "$majorName ($majorStart)"
+
 }
 
 @BindingAdapter("dateFormat_yyMMdd")
