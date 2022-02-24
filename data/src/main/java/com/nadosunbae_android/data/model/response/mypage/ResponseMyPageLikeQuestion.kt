@@ -1,5 +1,7 @@
 package com.nadosunbae_android.data.model.response.mypage
 
+import java.util.*
+
 data class ResponseMyPageLikeQuestion(
     val data: Data,
     val message: String,
@@ -12,7 +14,7 @@ data class ResponseMyPageLikeQuestion(
         data class LikePost(
             val commentCount: Int,
             val content: String,
-            val createdAt: String,
+            val createdAt: Date?,
             val like: Like,
             val postId: Int,
             val title: String,

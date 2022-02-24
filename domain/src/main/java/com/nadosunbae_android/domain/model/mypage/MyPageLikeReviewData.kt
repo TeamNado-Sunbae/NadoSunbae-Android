@@ -1,5 +1,7 @@
 package com.nadosunbae_android.domain.model.mypage
 
+import java.util.*
+
 data class MyPageLikeReviewData(
     val data: Data,
     val success: Boolean
@@ -8,7 +10,7 @@ data class MyPageLikeReviewData(
         val likePostList: List<LikePost>
     ) {
         data class LikePost(
-            val createdAt: String,
+            val createdAt: Date?,
             val like: Like,
             val postId: Int,
             val tagList: List<Tag>,
