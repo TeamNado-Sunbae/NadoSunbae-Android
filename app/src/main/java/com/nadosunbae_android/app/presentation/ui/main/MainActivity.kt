@@ -8,6 +8,7 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.*
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.AppInfoFragment
+import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
@@ -157,6 +158,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             when(it) {
                 1 -> changeFragment(R.id.fragment_container_main, MyPageSettingFragment(), "myPageSetting")
                 2 -> changeFragment(R.id.fragment_container_main, AppInfoFragment(), "myPageAppInfo")
+                3 -> changeFragment(R.id.fragment_container_main, MyPageBlockFragment(), "myPageBlock")
             }
         }
     }

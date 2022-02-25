@@ -50,7 +50,7 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
             startActivity(intentNotification)
         }
 
-        //앱 정보 activity
+        //앱 정보 fragment
         binding.textMypageAppinfo.setOnClickListener {
             mainViewModel.mypageFragmentNum.value = 2
         }
@@ -65,6 +65,11 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
         binding.textMypageSettingService.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://pf.kakao.com/_pxcFib"))
             startActivity(intent)
+        }
+
+        //차단 정보 fragment
+        binding.textMypageBlock.setOnClickListener {
+            mainViewModel.mypageFragmentNum.value = 3
         }
 
     }

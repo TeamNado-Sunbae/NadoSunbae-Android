@@ -49,4 +49,8 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
         return MypageMapper.mapperToReview(dataSource.getMyPageReview(userId))
     }
 
+    override suspend fun getMyPageBlock(): MyPageBlockData {
+        return MypageMapper.mapperToBlock(dataSource.getMyPageBlock())
+    }
+
 }

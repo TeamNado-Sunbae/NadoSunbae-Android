@@ -20,7 +20,8 @@ class MyPageViewModel(
     val postMyPageLogOutUseCase : PostMyPageLogOutUseCase,
     val getMyPageLikeQuestionUseCase: GetMyPageLikeQuestionUseCase,
     val getMyPageLikeReviewUseCase: GetMyPageLikeReviewUseCase,
-    val getMyPageReviewUseCase: GetMyPageReviewUseCase
+    val getMyPageReviewUseCase: GetMyPageReviewUseCase,
+    val getMyPageBlockUseCase: GetMyPageBlockUseCase
 
     ) : ViewModel() {
 
@@ -43,6 +44,7 @@ class MyPageViewModel(
     val likeQuestion = MutableLiveData<MyPageLikeQuestionData>()
     val likeReview = MutableLiveData<MyPageLikeReviewData>()
     val reviewList = MutableLiveData<MyPageReviewData>()
+    val blockList = MutableLiveData<MyPageBlockData>()
 
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
@@ -205,6 +207,21 @@ class MyPageViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("MyPageLogOut", "서버 통신 실패")
+                }
+        }
+    }
+
+    //마이페이지 차단된 사용자 목록 조회
+    fun getMyPageBlock() {
+        viewModelScope.launch {
+            kotlin.runCatching { getMyPageBlockUseCase() }
+                .onSuccess {
+                    blockList.value = it
+                    Log.d("MyPageBlock", "서버 통신 완료")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("MyPageBlock", "서버 통신 실패")
                 }
         }
     }

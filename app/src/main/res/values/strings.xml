@@ -349,6 +349,8 @@
     <string name="mypage_modify_alert_back_exit">나갈래요</string>
     <string name="mypage_modify_alert_back_continue">계속 수정</string>
 
-    <!-- 마이페이지 추가적인 text -->
+    <!-- 마이페이지 차단 목록 -->
+    <string name="mypage_block_list">차단 사용자 목록</string>
+    <string name="mypage_block_clear">차단 해제</string>
 
 </resources>

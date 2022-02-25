@@ -191,13 +191,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/pretendard_regular"
             android:text="@string/mypage_setting_logout"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/text_mypage_setting_chagne_pw"
-            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar4" />
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar5" />
 
 
         <TextView
@@ -228,6 +228,40 @@
             app:layout_constraintTop_toBottomOf="@+id/text_mypage_setting_quit" />
 
 
+        <TextView
+            android:id="@+id/text_mypage_block"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="21dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/mypage_block_list"
+            android:textColor="@color/main_text"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_setting_service_inquery"
+            app:layout_constraintStart_toStartOf="@+id/text_mypage_appinfo"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_bar4" />
+
+        <ImageView
+            android:id="@+id/img_mypage_block"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/text_mypage_block"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_setting_service_inquery"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_block" />
+
+        <View
+            android:id="@+id/view_mypage_bar5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/gray_0"
+            app:layout_constraintEnd_toEndOf="@+id/view_mypage_bar4"
+            app:layout_constraintStart_toStartOf="@+id/view_mypage_bar4"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_block" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
