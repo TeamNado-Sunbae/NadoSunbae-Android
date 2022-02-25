@@ -15,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class QuestionWriteActivity :
     BaseActivity<ActivityQuestionWriteBinding>(R.layout.activity_question_write) {
-    private lateinit var dialog : CustomDialog
+    private lateinit var dialog: CustomDialog
     private val questionWriteViewModel: QuestionWriteViewModel by viewModel()
     var title = false
     var content = false
@@ -27,6 +27,7 @@ class QuestionWriteActivity :
         completeBtnCheck()
         cancelWrite()
         titleChange()
+        initUpdateDetail()
     }
 
 
@@ -81,8 +82,9 @@ class QuestionWriteActivity :
             }
         }
     }
+
     //제목 변경
-    private fun titleChange(){
+    private fun titleChange() {
         val title = intent.getStringExtra("title")
         binding.textQuestionWriteAllTitle.text = title.toString()
 
@@ -90,43 +92,44 @@ class QuestionWriteActivity :
 
 
     //종료 버튼 클릭
-    private fun cancelWrite(){
+    private fun cancelWrite() {
         binding.imgQuestionWriteAllCancle.setOnClickListener {
             initCancelDialog()
         }
     }
 
     //작성취소 다이얼로그 띄우기
-    private fun initCancelDialog(){
+    private fun initCancelDialog() {
         dialog = CustomDialog(this)
         dialog.writeCancelDialog(R.layout.dialog_question_write_cancel)
-        dialog.setOnClickedListener(object : CustomDialog.ButtonClickListener{
+        dialog.setOnClickedListener(object : CustomDialog.ButtonClickListener {
             override fun onClicked(num: Int) {
-                if(num == 1) finish()
+                if (num == 1) finish()
             }
         })
     }
 
     //작성 완료 다이얼로그 띄우기
-    private fun initCompleteDialog(){
+    private fun initCompleteDialog() {
         dialog = CustomDialog(this)
         dialog.writeCompleteDialog(R.layout.dialog_question_write_complete)
-        dialog.setOnClickedListener(object : CustomDialog.ButtonClickListener{
+        dialog.setOnClickedListener(object : CustomDialog.ButtonClickListener {
             override fun onClicked(num: Int) {
-                if(num == 2) selectQuestionWrite()
+                if (num == 2) selectQuestionWrite()
             }
         })
     }
+
     //작성 서버통신 분기처리( 2-> 정보, 3-> 질문(전체), 4 -> 질문(1:1)
-    private fun selectQuestionWrite(){
+    private fun selectQuestionWrite() {
         val postTypeId = intent.getIntExtra("postTypeId", 1)
         val answerId = intent.getIntExtra("userId", 1)
-        val majorId = intent.getIntExtra("majorId",5)
+        val majorId = intent.getIntExtra("majorId", 5)
 
 
-        when(postTypeId){
+        when (postTypeId) {
             2 -> questionWrite(majorId, null, 2)
-            3 -> questionWrite(majorId,null, 3)
+            3 -> questionWrite(majorId, null, 3)
             4 -> questionWrite(majorId, answerId, 4)
         }
 
@@ -134,7 +137,7 @@ class QuestionWriteActivity :
 
 
     //작성 서버통신
-    private fun questionWrite(majorId : Int,answerId : Int?, postTypeId : Int){
+    private fun questionWrite(majorId: Int, answerId: Int?, postTypeId: Int) {
         Log.d("나 서버통신", "나 강림")
         questionWriteViewModel.postClassRoomWrite(
             ClassRoomPostWriteItem(
@@ -143,12 +146,22 @@ class QuestionWriteActivity :
                 questionWriteViewModel.contentData.value.toString()
             )
         )
-        questionWriteViewModel.postDataWrite.observe(this){its ->
+        questionWriteViewModel.postDataWrite.observe(this) { its ->
             Log.d("its", its.success.toString())
-            if(its.success){
+            if (its.success) {
                 finish()
             }
         }
+    }
+
+    //수정시에 서버통신 작성 창
+    private fun initUpdateDetail(){
+        val title = intent.getStringExtra("writerUpdateContent")
+        val content = intent.getStringExtra("writerUpdateTitle")
+        binding.etQuestionWriteAllTitle.setText(title)
+        binding.etQuestionWriteAllContent.setText(content)
+
 
     }
+
 }
