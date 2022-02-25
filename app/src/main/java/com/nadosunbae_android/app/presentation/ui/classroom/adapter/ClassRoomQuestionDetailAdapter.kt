@@ -96,7 +96,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
                 //점 세개 문항 클릭
                     holder.binding.imgQuestionDetailWriterMenu.setOnClickListener {
-                        itemClickListener.onClick(it, position, lookForThirdParty(userId), writer)
+                        itemClickListener.onClick(it, position, lookForThirdParty(userId, position), writer)
                     }
 
                 //수정일 경우 띄우기
@@ -111,7 +111,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 }
 
                 holder.binding.includeQuestionDetailQuestionerText.imgQuestionDetailQuestionerMenu.setOnClickListener {
-                        itemClickListener.onClick(it,position, lookForThirdParty( userId), questioner)
+                        itemClickListener.onClick(it,position, lookForThirdParty( userId,position), questioner)
                 }
                 //수정일 경우 띄우기
                 if(viewNum == 2){
@@ -135,7 +135,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     holder.binding.includeQuestionDetailCommentText.textQuestionDetailWriterCommentSecondStartMajor.visibility = View.GONE
                 }
                 holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu.setOnClickListener {
-                    itemClickListener.onClick(it,position, lookForThirdParty( userId), writer)
+                    itemClickListener.onClick(it,position, lookForThirdParty( userId,position), writer)
                 }
                 if(viewNum == 1){
                     holder.visibleQuestionDetailComment(menuNum)
@@ -281,14 +281,15 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     }
     private lateinit var updateListener : UpdateListener
 
-    // writer -> 1, questioner -> 2, thirdParty -> 3
-    private fun lookForThirdParty( userId : Int) : Int{
+    // writer(질문자) -> 1, questioner -> 2, thirdParty -> 3
+    private fun lookForThirdParty( userId : Int, position: Int) : Int{
         Log.d("questionOneToUserId", userId.toString())
         return when {
-            questionDetailUserData.answererId == userId -> {
+            (questionDetailUserData.answererId == userId || questionDetailData[position].writerId ==  userId
+                    && questionDetailUserData.questionerId != userId) -> {
                 questioner
             }
-            questionDetailUserData.questionerId == userId -> {
+            questionDetailUserData.questionerId == userId  -> {
                 writer
             }
             else -> {

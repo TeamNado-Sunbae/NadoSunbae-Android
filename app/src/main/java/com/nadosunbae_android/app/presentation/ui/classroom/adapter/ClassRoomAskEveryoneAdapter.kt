@@ -13,7 +13,7 @@ import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 
 
 // 전체 게시물 보기
-class ClassRoomAskEveryoneAdapter : RecyclerView.Adapter<ClassRoomAskEveryoneAdapter.ClassRoomAskEveryoneViewHolder>() {
+class ClassRoomAskEveryoneAdapter(private var userId : Int) : RecyclerView.Adapter<ClassRoomAskEveryoneAdapter.ClassRoomAskEveryoneViewHolder>() {
     var askEveryoneData = mutableListOf<ClassRoomData>()
 
     override fun onCreateViewHolder(
@@ -39,6 +39,7 @@ class ClassRoomAskEveryoneAdapter : RecyclerView.Adapter<ClassRoomAskEveryoneAda
                 intent.apply {
                     putExtra("postId", askEveryoneData[position].postId)
                     putExtra("all", 1)
+                    putExtra("userId", userId)
                 }
                 ContextCompat.startActivity(holder.itemView.context, intent, null)
             }else{
