@@ -25,6 +25,9 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
 
     var questionDetailData = mutableListOf<QuestionDetailData.Message>()
+    var menuNum : Int = 0
+    var viewNum : Int = 0
+    var position : Int = 0
     lateinit var questionDetailUserData : QuestionDetailData
 
     fun setLike(num: Int, isLiked: Boolean) {
@@ -93,8 +96,11 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
                 //점 세개 문항 클릭
                     holder.binding.imgQuestionDetailWriterMenu.setOnClickListener {
-                        itemClickListener.onClick(it, lookForThirdParty( position, userId), writer)
+                        itemClickListener.onClick(it, position, lookForThirdParty(userId), writer)
                     }
+
+                //수정일 경우 띄우기
+
                 }
 
             //답변자 문답
@@ -105,8 +111,21 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 }
 
                 holder.binding.includeQuestionDetailQuestionerText.imgQuestionDetailQuestionerMenu.setOnClickListener {
-                        itemClickListener.onClick(it, lookForThirdParty( position, userId), questioner)
+                        itemClickListener.onClick(it,position, lookForThirdParty( userId), questioner)
                 }
+                //수정일 경우 띄우기
+                if(viewNum == 2){
+                    holder.visibleQuestionDetailComment(menuNum)
+                }
+
+                holder.binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
+                    val content = holder.binding.includeQuestionDetailQuestionerUpdate.etQuestionDetailQuestionerContent.text.toString()
+                        updateListener.onUpdate(content, questionDetailData[position].messageId)
+
+                    holder.visibleQuestionDetailComment(0)
+                    holder.binding.includeQuestionDetailQuestionerText.textQuestionDetailQuestionerContent.text = content
+                }
+
             }
 
             // 질문자 문답
@@ -116,8 +135,12 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     holder.binding.includeQuestionDetailCommentText.textQuestionDetailWriterCommentSecondStartMajor.visibility = View.GONE
                 }
                 holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu.setOnClickListener {
-                    itemClickListener.onClick(it, lookForThirdParty( position, userId), writer)
+                    itemClickListener.onClick(it,position, lookForThirdParty( userId), writer)
                 }
+                if(viewNum == 1){
+                    holder.visibleQuestionDetailComment(menuNum)
+                }
+
             }
         }
     }
@@ -202,19 +225,28 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
         }
     }
 
-
+    // List 받아오는 부분
     fun setQuestionDetail(questionDetailData: MutableList<QuestionDetailData.Message>) {
         this.questionDetailData = questionDetailData
         notifyDataSetChanged()
     }
 
+    // user Questioner, answerer 받아오기
     fun setQuestionDetailUser(questionDetailUserData: QuestionDetailData){
         this.questionDetailUserData = questionDetailUserData
         notifyDataSetChanged()
     }
 
+    // 수정, 삭제, 신고 받아오는 부분
+    fun setCheckMenu(menuNum : Int, viewNum : Int, position : Int){
+        this.menuNum = menuNum
+        this.viewNum = viewNum
+        this.position = position
+        notifyItemChanged(position)
+    }
 
-    //클릭 이벤트
+
+    //좋아요 클릭 이벤트
     interface OnItemLikeClickListener {
         fun onLikeClick(v: View)
     }
@@ -223,19 +255,27 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     }
     private lateinit var itemLikeClickListener : OnItemLikeClickListener
 
-    interface OnItemClickListener {
-        fun onClick(v: View, position : Int, viewNum : Int)
-    }
 
+    //점세개 메뉴 클릭 이벤트
+    interface OnItemClickListener {
+        fun onClick(v: View,position : Int, user : Int, viewNum : Int)
+    }
     fun setItemClickListener(onItemClickListener : OnItemClickListener){
         this.itemClickListener = onItemClickListener
     }
-
     private lateinit var itemClickListener: OnItemClickListener
 
+    // 댓글 수정
+    interface UpdateListener{
+        fun onUpdate(content : String, commentId : Int)
+    }
+    fun setUpdateListener(updateListener : UpdateListener){
+        this.updateListener = updateListener
+    }
+    private lateinit var updateListener : UpdateListener
 
     // writer -> 1, questioner -> 2, thirdParty -> 3
-    private fun lookForThirdParty(position : Int, userId : Int) : Int{
+    private fun lookForThirdParty( userId : Int) : Int{
         Log.d("questionOneToUserId", userId.toString())
         return when {
             questionDetailUserData.answererId == userId -> {

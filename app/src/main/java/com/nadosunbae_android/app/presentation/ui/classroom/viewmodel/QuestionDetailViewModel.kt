@@ -6,21 +6,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
-import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteData
-import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
-import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
+import com.nadosunbae_android.domain.model.classroom.*
 import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.usecase.classroom.GetQuestionDetailDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.PostQuestionCommentWriteUseCase
+import com.nadosunbae_android.domain.usecase.classroom.PutCommentUpdateUseCase
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import kotlinx.coroutines.launch
 
 class QuestionDetailViewModel(
     val getQuestionDetailDataUseCase : GetQuestionDetailDataUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
-    val postLikeDataUseCase : PostLikeDataUseCase
+    val postLikeDataUseCase : PostLikeDataUseCase,
+    val putCommentUpdateUseCase: PutCommentUpdateUseCase
 ) : ViewModel(), DropDownSelectableViewModel {
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
@@ -30,7 +30,9 @@ class QuestionDetailViewModel(
     val questionDetailData : LiveData<QuestionDetailData>
         get() = _questionDetailData
 
-
+    //답글, 질문, 질문에대한 답글 뷰 넘버 ( 1 -> 질문자, 2 -> 답변자 )
+    var viewNum = MutableLiveData<Int>()
+    var position = MutableLiveData<Int>()
     //댓글 등록
     var registerComment = MutableLiveData<QuestionCommentWriteData>()
 
@@ -44,6 +46,11 @@ class QuestionDetailViewModel(
     fun setLikePostId(postId : Int){
         _likePostId.value = postId
     }
+
+    // 댓글 수정 데이터
+    private var _commentUpdate = MutableLiveData<CommentUpdateData>()
+    val commentUpdate : LiveData<CommentUpdateData>
+        get() = _commentUpdate
 
     //전체 질문 1:1 질문 구분
     private var _divisionQuestion = MutableLiveData<Int>()
@@ -64,6 +71,7 @@ class QuestionDetailViewModel(
     private fun setPostLike(likeData : LikeData){
         _postLike.value = likeData
     }
+
 
     //전체 질문 상세보기 서버 통신
     fun getClassRoomQuestionDetail(postId : Int){
@@ -109,6 +117,22 @@ class QuestionDetailViewModel(
                     it.printStackTrace()
                     Log.d("questionComment", "댓글 통신 실패 ")
                 }
+        }
+    }
+
+    //댓글 수정 서버통신
+    fun putCommentUpdate(commentId : Int, commentUpdateItem : CommentUpdateItem){
+        viewModelScope.launch {
+            runCatching { putCommentUpdateUseCase(commentId, commentUpdateItem) }
+                .onSuccess {
+                    _commentUpdate.value = it
+                    Log.d("commentUpdate", "댓글 수정 성공 ")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("commentUpdate", "댓글 수정 실패 ")
+                }
+
         }
     }
 }

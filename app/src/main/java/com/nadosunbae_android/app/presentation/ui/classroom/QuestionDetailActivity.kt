@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQue
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
+import com.nadosunbae_android.domain.model.classroom.CommentUpdateItem
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 import com.nadosunbae_android.domain.model.like.LikeItem
@@ -34,6 +35,8 @@ class QuestionDetailActivity :
         questionAllDetailLike()
         backBtn()
         questionOneToOneMenu()
+        checkMenuName()
+        updateComment()
     }
 
 
@@ -124,31 +127,63 @@ class QuestionDetailActivity :
     private fun questionOneToOneMenu() {
         classRoomQuestionDetailAdapter.setItemClickListener(
             object : ClassRoomQuestionDetailAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int, viewNum : Int) {
+                override fun onClick(v: View, position: Int, user : Int, viewNum : Int) {
                     Log.d("oneToOneVIew", v.toString())
                     Log.d("oneToOneNum", "$position+$viewNum")
-                    if((position == 1 && viewNum == 1) or (position == 2 && viewNum == 2)){
+                    questionDetailViewModel.position.value = position
+                    questionDetailViewModel.viewNum.value = viewNum
+                    if((user == 1 && viewNum == 1) or (user == 2 && viewNum == 2)){
                         val dropDown = mutableListOf<SelectableData>(
                             SelectableData(1, resources.getString(R.string.question_detail_update), true),
                             SelectableData(2, resources.getString(R.string.question_detail_delete), false)
                         )
-                        showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, true, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
-                    }else if((position == 1 && viewNum == 2) or (position == 3)){
+
+                        showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, false, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
+                    }else if((user == 1 && viewNum == 2) or (user == 3)){
                         val dropDown = mutableListOf<SelectableData>(
                             SelectableData(1, resources.getString(R.string.question_detail_report), true),
                         )
-                        showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, true, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
-                    }else if(position == 2 && viewNum == 1){
+                        showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, false, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
+                    }else if(user == 2 && viewNum == 1){
                         val dropDown = mutableListOf<SelectableData>(
                             SelectableData(1, resources.getString(R.string.question_detail_report), true),
                             SelectableData(2, resources.getString(R.string.question_detail_delete), false)
                         )
-                        showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, true, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
+                        showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, false, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
                     }
 
                 }
             })
     }
+    // 메세지 수정 서버  통신
+    private fun updateComment(){
+        classRoomQuestionDetailAdapter.setUpdateListener(
+            object : ClassRoomQuestionDetailAdapter.UpdateListener{
+                override fun onUpdate(content: String, commentId: Int) {
+                    questionDetailViewModel.putCommentUpdate(commentId, CommentUpdateItem(content))
+                }
+            }
+        )
+
+    }
+
+
+    //어떤 메뉴 선택했는지 확인
+    private fun checkMenuName(){
+        questionDetailViewModel.dropDownSelected.observe(this){
+            val viewNum = questionDetailViewModel.viewNum.value ?: 0
+            val position = questionDetailViewModel.position.value ?: 0
+            when(it.name){
+                resources.getString(R.string.question_detail_update) ->
+                    classRoomQuestionDetailAdapter.setCheckMenu(update, viewNum, position)
+                resources.getString(R.string.question_detail_report) ->
+                    classRoomQuestionDetailAdapter.setCheckMenu(report, viewNum, position)
+                resources.getString(R.string.question_detail_delete) ->
+                    classRoomQuestionDetailAdapter.setCheckMenu(delete, viewNum, position)
+            }
+        }
+    }
+
 
 
     //뒤로가기
@@ -156,5 +191,14 @@ class QuestionDetailActivity :
         binding.imgQuestionDetailTitle.setOnClickListener {
             finish()
         }
+    }
+
+
+
+    companion object{
+        const val update = 1
+        const val report = 2
+        const val delete = 3
+
     }
 }

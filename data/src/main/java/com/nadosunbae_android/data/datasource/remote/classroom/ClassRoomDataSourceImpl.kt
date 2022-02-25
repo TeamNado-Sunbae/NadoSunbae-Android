@@ -2,6 +2,7 @@ package com.nadosunbae_android.data.datasource.remote.classroom
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
 import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
+import com.nadosunbae_android.data.model.request.classroom.RequestCommentUpdateData
 import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
 import com.nadosunbae_android.data.model.response.classroom.*
 
@@ -44,5 +45,12 @@ class ClassRoomDataSourceImpl(private val service : ClassRoomService) : ClassRoo
 
     override suspend fun getInformationDetail(postId: Int): ResponseInfoDetailData {
         return service.getInformationDetail(postId)
+    }
+
+    override suspend fun putCommentUpdate(
+        commentId: Int,
+        requestCommentUpdateData: RequestCommentUpdateData
+    ): ResponseCommentUpdateData {
+        return service.putCommentUpdate(commentId, requestCommentUpdateData)
     }
 }
