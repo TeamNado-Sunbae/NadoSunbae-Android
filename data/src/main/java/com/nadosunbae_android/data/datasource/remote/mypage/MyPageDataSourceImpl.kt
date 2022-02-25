@@ -46,4 +46,8 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
     override suspend fun getMyPageReview(userId: Int): ResponseMyPageReviewData {
         return service.getMyPageReview(userId)
     }
+
+    override suspend fun getMyPageBlock(): ResponseMyPageBlock {
+        return service.getMyPageBlock()
+    }
 }

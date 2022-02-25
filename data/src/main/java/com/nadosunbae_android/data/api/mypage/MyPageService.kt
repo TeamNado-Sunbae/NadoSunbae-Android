@@ -62,4 +62,8 @@ interface MyPageService {
         @Path("userId") userId: Int
     ) : ResponseMyPageReviewData
 
+    //마이페이지 차단목록 조회
+    @GET("block/list")
+    suspend fun getMyPageBlock() :ResponseMyPageBlock
+
 }

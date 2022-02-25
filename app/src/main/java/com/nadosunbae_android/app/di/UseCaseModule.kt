@@ -59,6 +59,7 @@ val useCaseModule = module{
     single {GetMyPageLikeReviewUseCase(get())}
     single {GetMyPageLikeQuestionUseCase(get())}
     single {GetMyPageReviewUseCase(get())}
+    single {GetMyPageBlockUseCase(get())}
 
 
 }

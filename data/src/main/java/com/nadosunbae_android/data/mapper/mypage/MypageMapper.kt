@@ -228,4 +228,18 @@ object MypageMapper {
             success = responseMyPageReviewData.success
         )
     }
+
+    //마이페이지 차단된 목록 조회
+    fun mapperToBlock(responseMyPageBlock: ResponseMyPageBlock): MyPageBlockData {
+        return MyPageBlockData(
+            data = responseMyPageBlock.data.map {
+                MyPageBlockData.Data(
+                    nickname = it.nickname,
+                    profileImageId = it.profileImageId,
+                    userId = it.userId
+                )
+            },
+            success = responseMyPageBlock.success
+        )
+    }
 }
