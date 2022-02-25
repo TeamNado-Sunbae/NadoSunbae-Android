@@ -2,13 +2,16 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageBlockBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageBlockAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockData
+import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,6 +25,8 @@ class MyPageBlockFragment : BaseFragment<FragmentMyPageBlockBinding>(R.layout.fr
         super.onViewCreated(view, savedInstanceState)
         backBtn()
         initBlockList()
+        initBlockUpdate()
+        setClickListener()
     }
 
     //뒤로가기 버튼 리스너
@@ -36,12 +41,52 @@ class MyPageBlockFragment : BaseFragment<FragmentMyPageBlockBinding>(R.layout.fr
         mainViewModel.signData.observe(viewLifecycleOwner) {
             myPageViewModel.getMyPageBlock()
         }
-        myPageBlockAdapter = MyPageBlockAdapter()
+        myPageBlockAdapter = MyPageBlockAdapter(mainViewModel.userId.value ?: 0)
         binding.rcMyPageQuestion.adapter = myPageBlockAdapter
         myPageViewModel.blockList.observe(viewLifecycleOwner) {
             myPageBlockAdapter.setBlockMain((it.data) as MutableList<MyPageBlockData.Data>)
         }
 
+    }
+
+    private fun initBlockUpdate() {
+        mainViewModel.signData.observe(viewLifecycleOwner) {
+            myPageViewModel.postMyPageBlockUpdate(MyPageBlockUpdateItem(
+                myPageViewModel.requestBlockUpdate.blockedUserId
+            ))
+        }
+    }
+
+    private fun setClickListener() {
+        myPageBlockAdapter.setItemClickListener(
+            object : MyPageBlockAdapter.ItemClickListener {
+                override fun onClick(view: View, position: Int) {
+                    val userId = myPageViewModel.blockUpdate.value
+                    confirmExit()
+                }
+
+            }
+        )
+    }
+
+    //저장버튼 알럿
+    private fun confirmExit(): MutableLiveData<Boolean> {
+        val confirm = MutableLiveData<Boolean>()
+        CustomDialog(requireContext()).genericDialog(
+            CustomDialog.DialogData(
+                getString(R.string.mypage_block_alret),
+                getString(R.string.mypage_block_ok),
+                getString(R.string.mypage_block_cancel)
+            ),
+            complete = {
+
+
+            },
+            cancel = {
+
+            }
+        )
+        return confirm
     }
 
 }

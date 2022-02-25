@@ -353,4 +353,9 @@
     <string name="mypage_block_list">차단 사용자 목록</string>
     <string name="mypage_block_clear">차단 해제</string>
 
+    <!-- 마이페이지 차단 알럿 -->
+    <string name = "mypage_block_alret">님을 \n 차단 해제하시겠습니까?</string>
+    <string name ="mypage_block_cancel">취소</string>
+    <string name = "mypage_block_ok">차단 해제</string>
+
 </resources>

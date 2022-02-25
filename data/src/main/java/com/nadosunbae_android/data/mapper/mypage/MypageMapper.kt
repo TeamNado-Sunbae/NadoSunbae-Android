@@ -1,6 +1,7 @@
 package com.nadosunbae_android.data.mapper.mypage
 
 import androidx.lifecycle.Transformations.map
+import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
 import com.nadosunbae_android.data.model.response.mypage.*
 import com.nadosunbae_android.domain.model.mypage.*
@@ -240,6 +241,27 @@ object MypageMapper {
                 )
             },
             success = responseMyPageBlock.success
+        )
+    }
+
+    //마이페이지 차단 & 차단해제
+    fun mapperToBlockUpdateData(responseMyPageBlockUpdate: ResponseMyPageBlockUpdate) : MyPageBlockUpdateData {
+        return MyPageBlockUpdateData(
+            data = MyPageBlockUpdateData.Data(
+                blockUserId = responseMyPageBlockUpdate.data.blockUserId,
+                blockedUserId = responseMyPageBlockUpdate.data.blockedUserId,
+                createdAt = responseMyPageBlockUpdate.data.createdAt,
+                id = responseMyPageBlockUpdate.data.id,
+                isDeleted = responseMyPageBlockUpdate.data.isDeleted,
+                updatedAt = responseMyPageBlockUpdate.data.updatedAt
+            ),
+            success = responseMyPageBlockUpdate.success
+        )
+    }
+
+    fun mapperToBlockUpdateItem(myPageBlockUpdateItem: MyPageBlockUpdateItem) : RequestMyPageBlockUpdate {
+        return RequestMyPageBlockUpdate(
+            blockedUserId = myPageBlockUpdateItem.blockedUserId
         )
     }
 }

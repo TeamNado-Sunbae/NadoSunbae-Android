@@ -53,4 +53,11 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
         return MypageMapper.mapperToBlock(dataSource.getMyPageBlock())
     }
 
+    override suspend fun postMyPageBlockUpdate(myPageBlockUpdateItem: MyPageBlockUpdateItem): MyPageBlockUpdateData {
+        return MypageMapper.mapperToBlockUpdateData(dataSource.postMyPageBlockUpdate(
+            MypageMapper.mapperToBlockUpdateItem(myPageBlockUpdateItem)
+        ))
+    }
+
+
 }
