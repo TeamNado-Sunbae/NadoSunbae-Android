@@ -32,7 +32,8 @@ class MyPageBlockAdapter(private val userId: Int) :
         holder.onBind(myPageBlockData[position])
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
-            Log.d("user", ":" + userId)
+            Log.d("user", ":" + myPageBlockData[position].nickname)
+            Log.d("userId", ":" + myPageBlockData[position].userId)
         }
     }
 
@@ -60,6 +61,7 @@ class MyPageBlockAdapter(private val userId: Int) :
 
     fun setItemClickListener(itemClickListener: ItemClickListener) {
         this.itemClickListener = itemClickListener
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
@@ -15,7 +16,8 @@ import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MyPageBlockFragment : BaseFragment<FragmentMyPageBlockBinding>(R.layout.fragment_my_page_block) {
+class MyPageBlockFragment :
+    BaseFragment<FragmentMyPageBlockBinding>(R.layout.fragment_my_page_block) {
 
     private val mainViewModel: MainViewModel by sharedViewModel()
     private val myPageViewModel: MyPageViewModel by viewModel()
@@ -25,7 +27,6 @@ class MyPageBlockFragment : BaseFragment<FragmentMyPageBlockBinding>(R.layout.fr
         super.onViewCreated(view, savedInstanceState)
         backBtn()
         initBlockList()
-        initBlockUpdate()
         setClickListener()
     }
 
@@ -46,14 +47,13 @@ class MyPageBlockFragment : BaseFragment<FragmentMyPageBlockBinding>(R.layout.fr
         myPageViewModel.blockList.observe(viewLifecycleOwner) {
             myPageBlockAdapter.setBlockMain((it.data) as MutableList<MyPageBlockData.Data>)
         }
-
     }
 
-    private fun initBlockUpdate() {
+    private fun initBlockUpdate(userId: Int) {
         mainViewModel.signData.observe(viewLifecycleOwner) {
-            myPageViewModel.postMyPageBlockUpdate(MyPageBlockUpdateItem(
-                myPageViewModel.requestBlockUpdate.blockedUserId
-            ))
+            myPageViewModel.postMyPageBlockUpdate(
+                MyPageBlockUpdateItem(userId)
+            )
         }
     }
 
@@ -61,7 +61,12 @@ class MyPageBlockFragment : BaseFragment<FragmentMyPageBlockBinding>(R.layout.fr
         myPageBlockAdapter.setItemClickListener(
             object : MyPageBlockAdapter.ItemClickListener {
                 override fun onClick(view: View, position: Int) {
-                    val userId = myPageViewModel.blockUpdate.value
+
+
+                    val userId = myPageBlockAdapter.myPageBlockData[position].userId
+                    val userNickName = myPageBlockAdapter.myPageBlockData[position].nickname
+                    initBlockUpdate(userId)
+
                     confirmExit()
                 }
 
