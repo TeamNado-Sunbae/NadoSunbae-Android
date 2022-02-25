@@ -26,6 +26,8 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     private val QUESTIONER_VIEW_TYPE = 1
     private val WRITER_COMMENT_VIEW_TYPE = 2
 
+    // 전체질문 수정인지 1:1 질문 수정인지 구분
+    var viewTitle : String = ""
 
     var questionDetailData = mutableListOf<QuestionDetailData.Message>()
     var menuNum : Int = 0
@@ -109,7 +111,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                             intent.apply {
                                 putExtra("writerUpdateContent", questionDetailData[position].content)
                                 putExtra("writerUpdateTitle", questionDetailData[position].title)
-
+                                putExtra("title", viewTitle)
                             }
                         ContextCompat.startActivity(holder.itemView.context, intent, null)
                     }
@@ -260,12 +262,24 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
         this.updateListener = updateListener
     }
 
+    //수정,삭제, 신고 중 어떤 것을 선택했는지 질문자, 답변자 뷰인지, 어떤 position 인지 받아옴
     fun setCheckMenu(menuNum : Int, viewNum : Int, position : Int){
         this.menuNum = menuNum
         this.viewNum = viewNum
         this.position = position
         notifyItemChanged(position)
     }
+
+    // 수정시 1:1인지 전체 인지 구분
+    fun setViewTitle(all : Int){
+        if(all == 1){
+            this.viewTitle = "전체에게 질문 작성"
+        }else{
+            this.viewTitle = "1:1질문 작성"
+        }
+
+    }
+
 
 
     //좋아요 클릭 이벤트
