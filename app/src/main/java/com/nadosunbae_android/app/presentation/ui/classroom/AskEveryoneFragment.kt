@@ -53,7 +53,7 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
     //리사이클러뷰
     private fun initAskEveryone(){
         //majorId 넣음
-        classRoomAskEveryoneAdapter = ClassRoomAskEveryoneAdapter()
+        classRoomAskEveryoneAdapter = ClassRoomAskEveryoneAdapter(mainViewModel.userId.value ?: 0)
         binding.rcAskEveryone.adapter = classRoomAskEveryoneAdapter
         mainViewModel.classRoomMain.observe(viewLifecycleOwner){
             classRoomAskEveryoneAdapter.setAskEveryone(it as MutableList<ClassRoomData>)

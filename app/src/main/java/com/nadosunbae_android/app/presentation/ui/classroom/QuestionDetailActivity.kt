@@ -56,6 +56,8 @@ class QuestionDetailActivity :
 
         questionDetailViewModel.questionDetailData.observe(this) {
             with(classRoomQuestionDetailAdapter) {
+                Log.d("questionDetailUser", it.answererId.toString() + ":" + it.questionerId.toString())
+                Log.d("questionDetailUserWriter", it.messageList.toString())
                 setQuestionDetailUser(it)
                 setLike(it.likeCount, it.isLiked)
                 setQuestionDetail(it.messageList as MutableList<QuestionDetailData.Message>)
@@ -122,14 +124,14 @@ class QuestionDetailActivity :
     }
 
 
-    // 1:1 질문 점 세개 메뉴 분기처리 (position : 1 -> 질문자, 2 -> 답변자, 3 -> 질문자 재답변) 나머지는 제 3자
+    // 1:1 질문 점 세개 메뉴 분기처리 (user : 1 -> 질문자, 2 -> 답변자, 3 -> 질문자 재답변) 나머지는 제 3자
     // 1 -> 질문자 뷰, 2 -> 답변자 뷰
     private fun questionOneToOneMenu() {
         classRoomQuestionDetailAdapter.setItemClickListener(
             object : ClassRoomQuestionDetailAdapter.OnItemClickListener {
                 override fun onClick(v: View, position: Int, user : Int, viewNum : Int) {
                     Log.d("oneToOneVIew", v.toString())
-                    Log.d("oneToOneNum", "$position+$viewNum")
+                    Log.d("oneToOneNum", "$user+$viewNum")
                     questionDetailViewModel.position.value = position
                     questionDetailViewModel.viewNum.value = viewNum
                     if((user == 1 && viewNum == 1) or (user == 2 && viewNum == 2)){
