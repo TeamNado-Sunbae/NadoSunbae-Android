@@ -39,7 +39,7 @@ class QuestionDetailActivity :
         updateComment()
     }
 
-
+    // all -> 1:1 질문 인지 전체 질문인지 구분
     // 전체 질문 상세보기
     private fun initQuestionDetail() {
         val postId = intent.getIntExtra("postId", 0)
@@ -58,6 +58,7 @@ class QuestionDetailActivity :
             with(classRoomQuestionDetailAdapter) {
                 Log.d("questionDetailUser", it.answererId.toString() + ":" + it.questionerId.toString())
                 Log.d("questionDetailUserWriter", it.messageList.toString())
+                setViewTitle(all)
                 setQuestionDetailUser(it)
                 setLike(it.likeCount, it.isLiked)
                 setQuestionDetail(it.messageList as MutableList<QuestionDetailData.Message>)
@@ -125,7 +126,7 @@ class QuestionDetailActivity :
 
 
     // 1:1 질문 점 세개 메뉴 분기처리 (user : 1 -> 질문자, 2 -> 답변자, 3 -> 질문자 재답변) 나머지는 제 3자
-    // viewNum 1 -> 질문자 뷰, 2 -> 답변자 뷰, 3 -> 질문자 뷰
+    // viewNum : 1 -> 질문자 뷰, 2 -> 답변자 뷰
     private fun questionOneToOneMenu() {
         classRoomQuestionDetailAdapter.setItemClickListener(
             object : ClassRoomQuestionDetailAdapter.OnItemClickListener {

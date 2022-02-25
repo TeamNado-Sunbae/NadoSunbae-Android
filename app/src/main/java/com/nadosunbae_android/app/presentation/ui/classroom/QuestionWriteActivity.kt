@@ -156,8 +156,8 @@ class QuestionWriteActivity :
 
     //수정시에 서버통신 작성 창
     private fun initUpdateDetail(){
-        val title = intent.getStringExtra("writerUpdateContent")
-        val content = intent.getStringExtra("writerUpdateTitle")
+        val title = intent.getStringExtra("writerUpdateTitle")
+        val content = intent.getStringExtra("writerUpdateContent")
         binding.etQuestionWriteAllTitle.setText(title)
         binding.etQuestionWriteAllContent.setText(content)
 
