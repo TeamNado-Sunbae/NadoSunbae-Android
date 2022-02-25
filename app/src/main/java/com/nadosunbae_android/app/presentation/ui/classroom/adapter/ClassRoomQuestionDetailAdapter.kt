@@ -140,7 +140,13 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 if(viewNum == 1){
                     holder.visibleQuestionDetailComment(menuNum)
                 }
+                holder.binding.includeQuestionDetailCommentUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
+                    val content = holder.binding.includeQuestionDetailCommentUpdate.etQuestionDetailWriterCommentContent.text.toString()
+                    updateListener.onUpdate(content, questionDetailData[position].messageId)
 
+                    holder.visibleQuestionDetailComment(0)
+                    holder.binding.includeQuestionDetailCommentText.textQuestionDetailWriterCommentContent.text = content
+                }
             }
         }
     }
@@ -238,6 +244,10 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     }
 
     // 수정, 삭제, 신고 받아오는 부분
+    fun setUpdateListener(updateListener : UpdateListener){
+        this.updateListener = updateListener
+    }
+
     fun setCheckMenu(menuNum : Int, viewNum : Int, position : Int){
         this.menuNum = menuNum
         this.viewNum = viewNum
@@ -268,9 +278,6 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     // 댓글 수정
     interface UpdateListener{
         fun onUpdate(content : String, commentId : Int)
-    }
-    fun setUpdateListener(updateListener : UpdateListener){
-        this.updateListener = updateListener
     }
     private lateinit var updateListener : UpdateListener
 
