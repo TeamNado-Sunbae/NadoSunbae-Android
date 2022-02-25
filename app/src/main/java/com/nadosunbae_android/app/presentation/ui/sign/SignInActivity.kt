@@ -25,7 +25,6 @@ import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import com.nadosunbae_android.app.util.ResultWrapper
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private lateinit var mainActivity: MainActivity
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
