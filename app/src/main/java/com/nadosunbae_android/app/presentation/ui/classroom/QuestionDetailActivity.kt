@@ -125,7 +125,7 @@ class QuestionDetailActivity :
 
 
     // 1:1 질문 점 세개 메뉴 분기처리 (user : 1 -> 질문자, 2 -> 답변자, 3 -> 질문자 재답변) 나머지는 제 3자
-    // 1 -> 질문자 뷰, 2 -> 답변자 뷰
+    // viewNum 1 -> 질문자 뷰, 2 -> 답변자 뷰, 3 -> 질문자 뷰
     private fun questionOneToOneMenu() {
         classRoomQuestionDetailAdapter.setItemClickListener(
             object : ClassRoomQuestionDetailAdapter.OnItemClickListener {
@@ -139,7 +139,6 @@ class QuestionDetailActivity :
                             SelectableData(1, resources.getString(R.string.question_detail_update), true),
                             SelectableData(2, resources.getString(R.string.question_detail_delete), false)
                         )
-
                         showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, false, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
                     }else if((user == 1 && viewNum == 2) or (user == 3)){
                         val dropDown = mutableListOf<SelectableData>(

@@ -1,14 +1,17 @@
 package com.nadosunbae_android.app.presentation.ui.classroom.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailCommentBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailQuestionerBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding
+import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 
 
@@ -86,6 +89,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 holder.binding.imgQuestionDetailLike.setOnClickListener {
                     itemLikeClickListener.onLikeClick(it)
                 }
+
                 with(holder.binding) {
                     imgQuestionDetailLike.isSelected = likeSelect
                     textQuestionDetailLikeCount.text = like.toString()
@@ -100,7 +104,15 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     }
 
                 //수정일 경우 띄우기
+                    if(viewNum == 1 || viewNum == 2){
+                        val intent = Intent(holder.itemView.context, QuestionWriteActivity::class.java)
+                            intent.apply {
+                                putExtra("writerUpdateContent", questionDetailData[position].content)
+                                putExtra("writerUpdateTitle", questionDetailData[position].title)
 
+                            }
+                        ContextCompat.startActivity(holder.itemView.context, intent, null)
+                    }
                 }
 
             //답변자 문답
