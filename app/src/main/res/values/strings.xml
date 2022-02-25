@@ -214,7 +214,8 @@
     <string name="question_write_content">내용</string>
     <string name="question_write_content_hint">질문을 남겨보세요.\n선배들이 답변해 줄 거예요!</string>
 
-
+    <!-- 1:1 질문 작성 -->
+    <string name="question_write_one_to_one">1:1질문 작성</string>
     <!-- 질문 상세 보기 -->
     <string name="question_detail_title">1:1 질문</string>
     <string name="question_detail_comment">답글 쓰기</string>

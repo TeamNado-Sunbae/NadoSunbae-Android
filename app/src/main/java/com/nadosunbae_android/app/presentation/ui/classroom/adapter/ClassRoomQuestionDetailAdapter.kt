@@ -1,14 +1,17 @@
 package com.nadosunbae_android.app.presentation.ui.classroom.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailCommentBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailQuestionerBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding
+import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 
 
@@ -23,6 +26,9 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     private val QUESTIONER_VIEW_TYPE = 1
     private val WRITER_COMMENT_VIEW_TYPE = 2
 
+    // 전체질문 수정인지 1:1 질문 수정인지 구분 + postId
+    var viewTitle : String = ""
+    var postId : Int = 0
 
     var questionDetailData = mutableListOf<QuestionDetailData.Message>()
     var menuNum : Int = 0
@@ -86,6 +92,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 holder.binding.imgQuestionDetailLike.setOnClickListener {
                     itemLikeClickListener.onLikeClick(it)
                 }
+
                 with(holder.binding) {
                     imgQuestionDetailLike.isSelected = likeSelect
                     textQuestionDetailLikeCount.text = like.toString()
@@ -100,7 +107,17 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     }
 
                 //수정일 경우 띄우기
-
+                    if(viewNum == 1 || viewNum == 2){
+                        viewNum = 0
+                        val intent = Intent(holder.itemView.context, QuestionWriteActivity::class.java)
+                            intent.apply {
+                                putExtra("writerUpdateContent", questionDetailData[position].content)
+                                putExtra("writerUpdateTitle", questionDetailData[position].title)
+                                putExtra("title", viewTitle)
+                                putExtra("postId", postId)
+                            }
+                        ContextCompat.startActivity(holder.itemView.context, intent, null)
+                    }
                 }
 
             //답변자 문답
@@ -116,6 +133,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 //수정일 경우 띄우기
                 if(viewNum == 2){
                     holder.visibleQuestionDetailComment(menuNum)
+                    viewNum = 0
                 }
 
                 holder.binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
@@ -139,6 +157,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 }
                 if(viewNum == 1){
                     holder.visibleQuestionDetailComment(menuNum)
+                    viewNum = 0
                 }
                 holder.binding.includeQuestionDetailCommentUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
                     val content = holder.binding.includeQuestionDetailCommentUpdate.etQuestionDetailWriterCommentContent.text.toString()
@@ -248,12 +267,24 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
         this.updateListener = updateListener
     }
 
+    //수정,삭제, 신고 중 어떤 것을 선택했는지 질문자, 답변자 뷰인지, 어떤 position 인지 받아옴
     fun setCheckMenu(menuNum : Int, viewNum : Int, position : Int){
         this.menuNum = menuNum
         this.viewNum = viewNum
         this.position = position
         notifyItemChanged(position)
     }
+
+    // 수정시 1:1인지 전체 인지 구분 + postId
+    fun setViewTitle(all : Int, postId : Int){
+        if(all == 1){
+            this.viewTitle = "전체에게 질문 작성"
+        }else{
+            this.viewTitle = "1:1질문 작성"
+        }
+        this.postId = postId
+    }
+
 
 
     //좋아요 클릭 이벤트

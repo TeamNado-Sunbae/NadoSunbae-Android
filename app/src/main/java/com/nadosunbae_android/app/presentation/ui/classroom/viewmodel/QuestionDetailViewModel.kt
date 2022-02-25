@@ -36,6 +36,8 @@ class QuestionDetailViewModel(
     //댓글 등록
     var registerComment = MutableLiveData<QuestionCommentWriteData>()
 
+    //postId
+    var postId = MutableLiveData<Int>()
 
     // 좋아요를 위한 postId 설정
     private var _likePostId = MutableLiveData<Int>()

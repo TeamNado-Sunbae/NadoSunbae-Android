@@ -5,6 +5,7 @@ import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.data.model.request.classroom.RequestCommentUpdateData
 import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.data.model.request.classroom.RequestWriteUpdateData
 import com.nadosunbae_android.data.model.response.classroom.*
 
 object ClassRoomMapper {
@@ -198,42 +199,72 @@ object ClassRoomMapper {
     }
 
     // 선배 개인페이지 정보
-    fun mapperToSeniorPersonalData(responseSeniorPersonalData: ResponseSeniorPersonalData) : SeniorPersonalData{
+    fun mapperToSeniorPersonalData(responseSeniorPersonalData: ResponseSeniorPersonalData): SeniorPersonalData {
         return SeniorPersonalData(
             firstMajorName = responseSeniorPersonalData.data.firstMajorName,
-        firstMajorStart = responseSeniorPersonalData.data.firstMajorStart,
-        isOnQuestion = responseSeniorPersonalData.data.isOnQuestion,
-        nickname = responseSeniorPersonalData.data.nickname,
-        profileImageId = responseSeniorPersonalData.data.profileImageId,
-        secondMajorName = responseSeniorPersonalData.data.secondMajorName,
-        secondMajorStart = responseSeniorPersonalData.data.secondMajorStart,
-        userId = responseSeniorPersonalData.data.userId
+            firstMajorStart = responseSeniorPersonalData.data.firstMajorStart,
+            isOnQuestion = responseSeniorPersonalData.data.isOnQuestion,
+            nickname = responseSeniorPersonalData.data.nickname,
+            profileImageId = responseSeniorPersonalData.data.profileImageId,
+            secondMajorName = responseSeniorPersonalData.data.secondMajorName,
+            secondMajorStart = responseSeniorPersonalData.data.secondMajorStart,
+            userId = responseSeniorPersonalData.data.userId
         )
     }
 
     //1:1 질문, 전체 질문, 정보글에 있는 특정 댓글 수정 Request
-    fun mapperToCommentUpdateItem(commentUpdateItem: CommentUpdateItem) : RequestCommentUpdateData{
+    fun mapperToCommentUpdateItem(commentUpdateItem: CommentUpdateItem): RequestCommentUpdateData {
         return RequestCommentUpdateData(
             content = commentUpdateItem.content
         )
     }
 
     //1:1 질문, 전체 질문, 정보글에 있는 특정 댓글 수정 Response
-    fun mapperToCommentUpdateData(responseCommentUpdateData: ResponseCommentUpdateData) : CommentUpdateData{
+    fun mapperToCommentUpdateData(responseCommentUpdateData: ResponseCommentUpdateData): CommentUpdateData {
         return CommentUpdateData(
             commentId = responseCommentUpdateData.data.commentId,
-        content = responseCommentUpdateData.data.content,
-        createdAt = responseCommentUpdateData.data.createdAt,
-        isDeleted = responseCommentUpdateData.data.isDeleted,
-        postId = responseCommentUpdateData.data.postId,
-        updatedAt = responseCommentUpdateData.data.updatedAt,
-        firstMajorName = responseCommentUpdateData.data.writer.firstMajorName,
-        firstMajorStart = responseCommentUpdateData.data.writer.firstMajorStart,
-        nickname = responseCommentUpdateData.data.writer.nickname,
-        profileImageId = responseCommentUpdateData.data.writer.profileImageId,
-        secondMajorName = responseCommentUpdateData.data.writer.secondMajorName,
-        secondMajorStart = responseCommentUpdateData.data.writer.secondMajorStart,
-        writerId = responseCommentUpdateData.data.writer.writerId
+            content = responseCommentUpdateData.data.content,
+            createdAt = responseCommentUpdateData.data.createdAt,
+            isDeleted = responseCommentUpdateData.data.isDeleted,
+            postId = responseCommentUpdateData.data.postId,
+            updatedAt = responseCommentUpdateData.data.updatedAt,
+            firstMajorName = responseCommentUpdateData.data.writer.firstMajorName,
+            firstMajorStart = responseCommentUpdateData.data.writer.firstMajorStart,
+            nickname = responseCommentUpdateData.data.writer.nickname,
+            profileImageId = responseCommentUpdateData.data.writer.profileImageId,
+            secondMajorName = responseCommentUpdateData.data.writer.secondMajorName,
+            secondMajorStart = responseCommentUpdateData.data.writer.secondMajorStart,
+            writerId = responseCommentUpdateData.data.writer.writerId
         )
+    }
+
+    //1:1 질문, 전체 질문, 정보글에 있는 원글 Request
+    fun mapperToWriteUpdateItem(writeUpdateItem: WriteUpdateItem): RequestWriteUpdateData {
+        return RequestWriteUpdateData(
+            title = writeUpdateItem.title,
+            content = writeUpdateItem.content
+        )
+    }
+
+    fun mapperToWriteUpdateData(responseWriteUpdateData: ResponseWriteUpdateData): WriteUpdateData {
+        return WriteUpdateData(
+            success = responseWriteUpdateData.success,
+            isLiked = responseWriteUpdateData.data.like.isLiked,
+            likeCount = responseWriteUpdateData.data.like.likeCount,
+            content = responseWriteUpdateData.data.post.content,
+            createdAt = responseWriteUpdateData.data.post.createdAt,
+            postId = responseWriteUpdateData.data.post.postId,
+            title = responseWriteUpdateData.data.post.title,
+            updatedAt = responseWriteUpdateData.data.post.updatedAt,
+            firstMajorName = responseWriteUpdateData.data.writer.firstMajorName,
+            firstMajorStart = responseWriteUpdateData.data.writer.firstMajorStart,
+            nickname = responseWriteUpdateData.data.writer.nickname,
+            profileImageId = responseWriteUpdateData.data.writer.profileImageId,
+            secondMajorName = responseWriteUpdateData.data.writer.secondMajorName,
+            secondMajorStart = responseWriteUpdateData.data.writer.secondMajorStart,
+            writerId = responseWriteUpdateData.data.writer.writerId
+        )
+
+
     }
 }

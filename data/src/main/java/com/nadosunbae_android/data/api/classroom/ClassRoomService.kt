@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.api.classroom
 import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.data.model.request.classroom.RequestCommentUpdateData
 import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.data.model.request.classroom.RequestWriteUpdateData
 import com.nadosunbae_android.data.model.response.classroom.*
 import retrofit2.http.*
 
@@ -71,4 +72,11 @@ interface ClassRoomService {
         @Path("commentId") commentId : Int,
         @Body requestCommentUpdateData : RequestCommentUpdateData
     ) : ResponseCommentUpdateData
+
+    //1:1 질문, 전체 질문, 정보글 원글 수정
+    @PUT("classroom-post/{postId}")
+    suspend fun putWriteUpdate(
+        @Path("postId") postId : Int,
+        @Body requestWriteUpdateData : RequestWriteUpdateData
+    ) : ResponseWriteUpdateData
 }
