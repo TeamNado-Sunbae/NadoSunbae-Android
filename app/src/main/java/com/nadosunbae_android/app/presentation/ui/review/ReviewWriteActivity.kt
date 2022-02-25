@@ -3,7 +3,6 @@ package com.nadosunbae_android.app.presentation.ui.review
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
@@ -50,6 +49,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         observeMajorSelected()
         observeMajorList()
         observeDropDownSelect()
+        observeLoadingEnd()
         loadBackgroundImage()
         loadMajorList()
         setDropDownDefault()
@@ -281,6 +281,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                 binding.etTip.editText.text.toString()
             )
 
+            showLoading()
             reviewWriteViewModel.postReview(requestBody)
 
 
@@ -312,6 +313,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                     etTip.editText.text.toString()
                 )
 
+                showLoading()
                 reviewWriteViewModel.putReview(modifyData.postId, requestBody)
             }
 
@@ -396,6 +398,12 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     }
 
+    private fun observeLoadingEnd() {
+        reviewWriteViewModel.onLoadingEnd.observe(this) {
+            dismissLoading()
+        }
+    }
+
     private fun applyInputValid() {
         val validTextInput = reviewRequireTextWatcher.validTextInput.value
         val validBackground = reviewSelectBackgroundAdapter.getSelectedBackgroundId()
@@ -447,7 +455,10 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     private fun isValidMajor(majorId: Int) =
             majorId != NOT_ENTERED && majorId != NO_INFORMATION
 
-    private fun loadBackgroundImage() = reviewWriteViewModel.getBackgroundImageList()
+    private fun loadBackgroundImage() {
+        showLoading()
+        reviewWriteViewModel.getBackgroundImageList()
+    }
 
     private fun loadMajorList() = mainViewModel.getMajorList(1)
 

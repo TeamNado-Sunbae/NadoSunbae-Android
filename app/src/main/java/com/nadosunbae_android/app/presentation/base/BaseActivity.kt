@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.base
 
+import android.app.Dialog
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.annotation.LayoutRes
@@ -9,12 +10,15 @@ import androidx.databinding.ViewDataBinding
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
+import com.nadosunbae_android.app.util.CustomDialog
 
 abstract class BaseActivity<T : ViewDataBinding>(
     @LayoutRes private val layoutResId: Int
 ) : AppCompatActivity() {
     private var _binding: T? = null
     val binding get() = _binding!!
+
+    protected var loadingDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +46,16 @@ abstract class BaseActivity<T : ViewDataBinding>(
 
             majorBottomSheetDialog.setDataList(dialogInput)
         }
+    }
+
+    protected fun showLoading() {
+        dismissLoading()
+        loadingDialog = CustomDialog(this).progressDialog()
+    }
+
+    protected fun dismissLoading() {
+        if (loadingDialog != null)
+            loadingDialog!!.dismiss()
     }
 
 }

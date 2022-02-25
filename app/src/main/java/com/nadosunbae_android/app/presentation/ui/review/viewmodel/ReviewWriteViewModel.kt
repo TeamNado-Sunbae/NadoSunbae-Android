@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.review.BackgroundImageData
 import com.nadosunbae_android.domain.model.review.ReviewEditItem
@@ -19,9 +20,11 @@ class ReviewWriteViewModel(
     val getBackgroundImageListDataUseCase: GetBackgroundImageListDataUseCase,
     val postReviewDataUseCase: PostReviewDataUseCase,
     val putReviewDataUseCase: PutReviewDataUseCase
-) : ViewModel(), DropDownSelectableViewModel {
+) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
+
+    override val onLoadingEnd = MutableLiveData<Boolean>(false)
 
     private val _backgroundImageList = MutableLiveData<List<BackgroundImageData>>()
     val backgroundImageList: LiveData<List<BackgroundImageData>>
@@ -39,6 +42,9 @@ class ReviewWriteViewModel(
                     it.printStackTrace()
                     Log.d(TAG, "서버통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 
@@ -53,6 +59,9 @@ class ReviewWriteViewModel(
                     it.printStackTrace()
                     Log.d(TAG, "서버통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 
@@ -66,6 +75,9 @@ class ReviewWriteViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d(TAG, "서버통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
                 }
         }
     }

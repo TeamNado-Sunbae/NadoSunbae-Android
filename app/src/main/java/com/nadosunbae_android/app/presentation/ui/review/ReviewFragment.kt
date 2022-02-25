@@ -23,7 +23,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
-
     // main vm
     private val mainViewModel: MainViewModel by sharedViewModel()
 
@@ -47,8 +46,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         observeSelectedMajor()
         observeFilter()
         observeSort()
+        observeLoadingEnd()
         initBottomSheet()
-
 
     }
 
@@ -234,6 +233,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             if (mainViewModel.selectedMajor != null) {
 
                 loadReviewList()
+
+                showLoading() // 로딩시작
                 // 선택된 학과 정보 불러오기
                 reviewListViewModel.getMajorInfo(mainViewModel.selectedMajor.value!!.majorId)
                 ReviewGlobals.selectedMajor = it
@@ -290,6 +291,13 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         }
     }
 
+    private fun observeLoadingEnd() {
+        reviewListViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+            dismissLoading()
+        }
+    }
+
+
     private fun loadReviewList() {
 
         val filterData = mainViewModel.filterData.value
@@ -319,6 +327,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         val selectedMajorData = mainViewModel.selectedMajor.value
         if (selectedMajorData != null) {
             val request = ReviewFilterItem(selectedMajorData.majorId, writerFilter, tagFilter)
+
+            showLoading() // 로딩 시작
             reviewListViewModel.getReviewList(request, sort)
         }
 

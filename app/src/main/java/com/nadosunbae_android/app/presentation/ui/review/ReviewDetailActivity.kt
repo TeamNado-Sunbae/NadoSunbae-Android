@@ -40,6 +40,7 @@ class ReviewDetailActivity :
         initBinding()
         setClickListener()
         observeContent()
+        observeLoadingEnd()
 
     }
 
@@ -66,6 +67,8 @@ class ReviewDetailActivity :
 
         // intent extra check
         if (postId != NOT_POST_ID) {
+
+            showLoading()
             // load review data from server
             reviewDetailViewModel.getReviewDetail(postId)
         }
@@ -117,6 +120,7 @@ class ReviewDetailActivity :
 
         // 좋아요 버튼
         binding.btnReviewLike.setOnClickListener {
+            showLoading()
             reviewDetailViewModel.postLikeReview(postId)
         }
 
@@ -161,6 +165,7 @@ class ReviewDetailActivity :
                         getString(R.string.alert_delete_review_cancel)
                     ),
                     complete = {
+                        showLoading()
                         reviewDetailViewModel.deleteReview(postId)
                         finish()
                     },
@@ -190,8 +195,6 @@ class ReviewDetailActivity :
             // null check
             if (reviewDetail != null) {
 
-                Log.d("AAWW", "${reviewDetail.isLiked} ${reviewDetail.likeCount}")
-
                 // RecyclerView 적용
                 val contentList = reviewDetail.contentList
                 reviewTagBoxAdapter.setReviewTagBoxData(contentList)
@@ -207,6 +210,12 @@ class ReviewDetailActivity :
             }
         }
 
+    }
+
+    private fun observeLoadingEnd() {
+        reviewDetailViewModel.onLoadingEnd.observe(this) {
+            dismissLoading()
+        }
     }
 
 
