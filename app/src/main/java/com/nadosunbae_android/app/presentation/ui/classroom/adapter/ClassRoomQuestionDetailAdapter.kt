@@ -123,6 +123,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         updateListener.onUpdate(content, questionDetailData[position].messageId)
 
                     holder.visibleQuestionDetailComment(0)
+                    holder.binding.includeQuestionDetailQuestionerText.textQuestionDetailQuestionerContent.text = content
                 }
 
             }
