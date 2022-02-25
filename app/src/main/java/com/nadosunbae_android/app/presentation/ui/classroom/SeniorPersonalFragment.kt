@@ -12,7 +12,6 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQue
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
-import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
