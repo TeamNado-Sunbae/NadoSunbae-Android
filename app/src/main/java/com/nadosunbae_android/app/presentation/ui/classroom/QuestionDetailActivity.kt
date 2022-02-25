@@ -39,15 +39,23 @@ class QuestionDetailActivity :
         updateComment()
     }
 
+    override fun onResume() {
+        super.onResume()
+        questionDetailViewModel.getClassRoomQuestionDetail(questionDetailViewModel.postId.value ?: 0)
+    }
+
     // all -> 1:1 질문 인지 전체 질문인지 구분
     // 전체 질문 상세보기
     private fun initQuestionDetail() {
         val postId = intent.getIntExtra("postId", 0)
+        questionDetailViewModel.postId.value = postId
+
         questionDetailViewModel.setLikePostId(postId)
         val userId = intent.getIntExtra("userId", 0)
         val all = intent.getIntExtra("all", 0)
         questionDetailViewModel.setDivisionQuestion(all)
         val myPageNum = intent.getIntExtra("myPageNum", 0)
+
         Log.d("postId", postId.toString())
         Log.d("userId", userId.toString())
         questionDetailViewModel.getClassRoomQuestionDetail(postId)
@@ -58,7 +66,7 @@ class QuestionDetailActivity :
             with(classRoomQuestionDetailAdapter) {
                 Log.d("questionDetailUser", it.answererId.toString() + ":" + it.questionerId.toString())
                 Log.d("questionDetailUserWriter", it.messageList.toString())
-                setViewTitle(all)
+                setViewTitle(all,postId)
                 setQuestionDetailUser(it)
                 setLike(it.likeCount, it.isLiked)
                 setQuestionDetail(it.messageList as MutableList<QuestionDetailData.Message>)

@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,7 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionWriteViewModel
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteItem
+import com.nadosunbae_android.domain.model.classroom.WriteUpdateItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class QuestionWriteActivity :
@@ -19,6 +21,9 @@ class QuestionWriteActivity :
     private val questionWriteViewModel: QuestionWriteViewModel by viewModel()
     var title = false
     var content = false
+
+    //작성 수정 구분( 0 -> 작성, 1 -> 수정)
+    private var division : Int = write
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,7 +120,13 @@ class QuestionWriteActivity :
         dialog.writeCompleteDialog(R.layout.dialog_question_write_complete)
         dialog.setOnClickedListener(object : CustomDialog.ButtonClickListener {
             override fun onClicked(num: Int) {
-                if (num == 2) selectQuestionWrite()
+                if (num == 2) {
+                    if(division == write){
+                        selectQuestionWrite()
+                    }else{
+                        updateWrite()
+                    }
+                }
             }
         })
     }
@@ -154,14 +165,38 @@ class QuestionWriteActivity :
         }
     }
 
+    //수정 서버통신
+    private fun updateWrite(){
+        val postId = intent.getIntExtra("postId", 0)
+        Log.d("updateWritePostId", postId.toString())
+        Log.d("updateWrite",questionWriteViewModel.title.value.toString() + questionWriteViewModel.content.value.toString())
+        questionWriteViewModel.putWriteUpdate(postId,
+        WriteUpdateItem(
+            questionWriteViewModel.titleData.value.toString(),
+            questionWriteViewModel.contentData.value.toString()
+        ))
+        questionWriteViewModel.writeUpdateData.observe(this){
+            if(it.success){
+                finish()
+            }
+        }
+
+    }
+
     //수정시에 서버통신 작성 창
     private fun initUpdateDetail(){
         val title = intent.getStringExtra("writerUpdateTitle")
         val content = intent.getStringExtra("writerUpdateContent")
+
         binding.etQuestionWriteAllTitle.setText(title)
         binding.etQuestionWriteAllContent.setText(content)
 
+        division = update
 
     }
 
+    companion object{
+        const val write = 0
+        const val update = 1
+    }
 }

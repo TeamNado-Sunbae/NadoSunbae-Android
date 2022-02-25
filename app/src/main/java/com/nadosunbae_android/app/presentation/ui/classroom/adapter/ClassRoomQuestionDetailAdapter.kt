@@ -26,8 +26,9 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     private val QUESTIONER_VIEW_TYPE = 1
     private val WRITER_COMMENT_VIEW_TYPE = 2
 
-    // 전체질문 수정인지 1:1 질문 수정인지 구분
+    // 전체질문 수정인지 1:1 질문 수정인지 구분 + postId
     var viewTitle : String = ""
+    var postId : Int = 0
 
     var questionDetailData = mutableListOf<QuestionDetailData.Message>()
     var menuNum : Int = 0
@@ -107,11 +108,13 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
                 //수정일 경우 띄우기
                     if(viewNum == 1 || viewNum == 2){
+                        viewNum = 0
                         val intent = Intent(holder.itemView.context, QuestionWriteActivity::class.java)
                             intent.apply {
                                 putExtra("writerUpdateContent", questionDetailData[position].content)
                                 putExtra("writerUpdateTitle", questionDetailData[position].title)
                                 putExtra("title", viewTitle)
+                                putExtra("postId", postId)
                             }
                         ContextCompat.startActivity(holder.itemView.context, intent, null)
                     }
@@ -130,6 +133,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 //수정일 경우 띄우기
                 if(viewNum == 2){
                     holder.visibleQuestionDetailComment(menuNum)
+                    viewNum = 0
                 }
 
                 holder.binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
@@ -153,6 +157,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 }
                 if(viewNum == 1){
                     holder.visibleQuestionDetailComment(menuNum)
+                    viewNum = 0
                 }
                 holder.binding.includeQuestionDetailCommentUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
                     val content = holder.binding.includeQuestionDetailCommentUpdate.etQuestionDetailWriterCommentContent.text.toString()
@@ -270,14 +275,14 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
         notifyItemChanged(position)
     }
 
-    // 수정시 1:1인지 전체 인지 구분
-    fun setViewTitle(all : Int){
+    // 수정시 1:1인지 전체 인지 구분 + postId
+    fun setViewTitle(all : Int, postId : Int){
         if(all == 1){
             this.viewTitle = "전체에게 질문 작성"
         }else{
             this.viewTitle = "1:1질문 작성"
         }
-
+        this.postId = postId
     }
 
 

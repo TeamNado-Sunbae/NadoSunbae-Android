@@ -60,4 +60,14 @@ class ClassRoomRepositoryImpl(private val dataSource : ClassRoomDataSource) : Cl
             ClassRoomMapper.mapperToCommentUpdateItem(commentUpdateItem)
         ))
     }
+
+    override suspend fun putWriteUpdate(
+        postId: Int,
+        writeUpdateItem: WriteUpdateItem
+    ): WriteUpdateData {
+        return ClassRoomMapper.mapperToWriteUpdateData(dataSource.putWriteUpdate(
+            postId,
+            ClassRoomMapper.mapperToWriteUpdateItem(writeUpdateItem)
+        ))
+    }
 }
