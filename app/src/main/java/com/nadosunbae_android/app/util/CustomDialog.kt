@@ -103,15 +103,16 @@ class CustomDialog(val context : Context) {
         }
     }
 
-    fun progressDialog() {
+    fun progressDialog() : Dialog {
         val binding = DataBindingUtil.inflate<DialogProgressBinding>(LayoutInflater.from(context), R.layout.dialog_progress, null, false)
 
         dialog.setContentView(binding.root)
         dialog.setCancelable(false)     // 로딩창 꺼지지 않도록
         dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))     // 투명한 배경 적용
         dialog.show()
-    }
 
+        return dialog
+    }
 
      fun reviewAlertDialog(context : Context){
         CustomDialog(context).genericDialog(
