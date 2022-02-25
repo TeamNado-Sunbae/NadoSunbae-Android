@@ -120,7 +120,6 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         binding.btnFilterReset.setOnClickListener {
             resetFilters()
             setApplyButton()
-            finish()
         }
 
         // 필터 버튼들 선택 리스너
@@ -138,7 +137,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
     }
 
     private fun applyFilterSelected() {
-        clearFilterSelect()
+        clearSelected()
 
         when (filterData.writerFilter) {
             FILTER_FIRST_MAJOR -> binding.btnFilterFirstMajor.isSelected = true
@@ -162,7 +161,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         this.filterData = filterData
     }
 
-    private fun clearFilterSelect() {
+    fun clearSelected() {
         for (b in filterButtonList) {
             b.isSelected = false
         }

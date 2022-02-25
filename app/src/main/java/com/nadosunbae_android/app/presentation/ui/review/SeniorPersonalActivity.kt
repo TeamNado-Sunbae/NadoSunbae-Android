@@ -1,100 +1,65 @@
 package com.nadosunbae_android.app.presentation.ui.review
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import androidx.activity.OnBackPressedCallback
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.app.databinding.ActivitySeniorPersonalBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
-import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
-import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
+import com.nadosunbae_android.app.presentation.ui.classroom.*
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
+import com.nadosunbae_android.app.util.addFragment
+import com.nadosunbae_android.app.util.changeFragment
+import com.nadosunbae_android.app.util.changeFragmentNoBackStack
+import com.nadosunbae_android.app.util.popFragmentBackStack
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.layout.activity_senior_personal) {
 
-    private lateinit var classRoomQuestionMainAdapter: ClassRoomQuestionMainAdapter
-    private lateinit var callback: OnBackPressedCallback
-
+    private val fragment = SeniorPersonalFragment()
     private val mainViewModel: MainViewModel by viewModel()
 
-    private val seniorPersonalViewModel: SeniorPersonalViewModel by viewModel()
+    private var seniorId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        goClassRoomReview()
-        getSeniorPersonal()
-        initSeniorQuestion()
-        goSeniorFragment()
-        goQuestionWrite()
+        initFragment()
+        initSeniorId()
+        observeFragmentChange()
     }
 
-    //선배에게 온 1:1 질문 목록
-    private fun initSeniorQuestion() {
-
-        classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(2, mainViewModel.userId.value ?: 0,0)
-        binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
-        seniorPersonalViewModel.seniorQuestion.observe(this) {
-            Log.d("seniorQuestionAdapter", "좀 되라")
-            classRoomQuestionMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
-        }
-
-
+    private fun initFragment() {
+        addFragment(R.id.fl_senior, fragment)
     }
 
-    //리뷰 보러가기기
-    private fun goClassRoomReview() {
-        binding.imgSeniorPersonalClassReviewArrow.setOnClickListener {
-            mainViewModel.classRoomFragmentNum.value = 5
-        }
+    private fun initSeniorId() {
+        seniorId = intent.getIntExtra("userId", 0)
+        mainViewModel.seniorId.value = seniorId
     }
 
-    //선배 개인페이지 서버 통신
-    private fun getSeniorPersonal() {
-        mainViewModel.seniorId.observe(this) {
-            Log.d("seniorId", it.toString())
-            seniorPersonalViewModel.getSeniorPersonal(it)
-            seniorPersonalViewModel.getSeniorQuestionList(it, "recent")
-        }
+    private fun observeFragmentChange() {
+        mainViewModel.classRoomFragmentNum.observe(this) {
+            when (it) {
+                2 -> changeFragment(R.id.fl_senior, AskEveryoneFragment(), "askEveryOne")
 
-        seniorPersonalViewModel.seniorPersonal.observe(this) {
-            seniorPersonalViewModel.userId.value = it.userId
-            binding.seniorPersonal = it
-            if(it.secondMajorName == "미진입")
-                binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
-        }
-    }
+                1 -> changeFragmentNoBackStack(R.id.fl_senior, ClassRoomFragment())
 
-    //뒤로가기
-    private fun goSeniorFragment(){
-        binding.imgSeniorPersonalTitle.setOnClickListener {
-            mainViewModel.classRoomBackFragmentNum.value = 1
-        }
+                3 -> changeFragment(R.id.fl_senior, SeniorFragment(),"senior")
 
-    }
+                4 -> changeFragment(R.id.fl_senior, SeniorPersonalFragment(),"seniorPersonal")
 
-    //작성창으로 이동
-    private fun goQuestionWrite(){
-        binding.btnGoQuestionWrite.setOnClickListener {
-            val intent = Intent(this, QuestionWriteActivity::class.java)
-            intent.apply {
-                putExtra("majorId", mainViewModel.majorId.value)
-                putExtra("userId", seniorPersonalViewModel.userId.value)
-                Log.d("answerId", seniorPersonalViewModel.userId.value.toString())
-                putExtra("postTypeId", 4)
-                putExtra("title", "1:1질문 작성")
+                5 -> changeFragment(R.id.fl_senior, ClassRoomReviewFragment(),"classRoomReview")
+
+                6 -> changeFragment(R.id.fl_senior, MyPageFragment(), "myPage")
             }
-            startActivity(intent)
+        }
+
+        mainViewModel.classRoomBackFragmentNum.observe(this) {
+            when (it) {
+                1 -> finish()
+                2 -> popFragmentBackStack("senior")
+            }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        getSeniorPersonal()
-    }
 }

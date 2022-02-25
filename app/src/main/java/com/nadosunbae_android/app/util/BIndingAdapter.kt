@@ -103,7 +103,7 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("profileImgBig")
     fun setProfileImgBig(imageView : ImageView, imageId : Int){
-        when(imageId){
+        when (imageId) {
             1 -> imageSelect(imageView, R.drawable.mask_group_1)
             2 -> imageSelect(imageView, R.drawable.mask_group_2)
             3 -> imageSelect(imageView, R.drawable.mask_group_3)
@@ -139,8 +139,12 @@ fun TextView.isOnQuestion(isOnQuestion: Boolean) {
 
 @BindingAdapter("majorName", "majorStart")
 fun TextView.majorText(majorName: String?, majorStart: String?) {
-    if (majorName != null && majorStart != null)
+
+    if (majorName == "정보없음")
+        text = majorName
+    else if (majorName != null && majorStart != null)
         text = "$majorName ($majorStart)"
+
 }
 
 @BindingAdapter("dateFormat_yyMMdd")

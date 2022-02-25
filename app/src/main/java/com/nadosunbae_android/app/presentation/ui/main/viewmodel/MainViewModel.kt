@@ -163,6 +163,10 @@ class MainViewModel(
         userId.value = signData.userId
     }
 
+    fun clearFilter() {
+        filterData.value = FilterData(1, listOf(1, 2, 3, 4, 5))
+    }
+
     companion object {
         const val FILTER_ALL = 1
         const val FILTER_FIRST_MAJOR = 2

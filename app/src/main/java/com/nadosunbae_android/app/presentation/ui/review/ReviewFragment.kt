@@ -227,6 +227,9 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         // 선택 학과 observe
         mainViewModel.selectedMajor.observe(viewLifecycleOwner) {
 
+            // 필터 초기화
+            mainViewModel.clearFilter()
+
             // null check
             if (mainViewModel.selectedMajor != null) {
 
