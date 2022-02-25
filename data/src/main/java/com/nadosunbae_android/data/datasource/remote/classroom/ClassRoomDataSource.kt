@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.datasource.remote.classroom
 import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
 import com.nadosunbae_android.data.model.request.classroom.RequestCommentUpdateData
 import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.data.model.request.classroom.RequestWriteUpdateData
 import com.nadosunbae_android.data.model.response.classroom.*
 
 interface ClassRoomDataSource {
@@ -34,4 +35,7 @@ interface ClassRoomDataSource {
 
     //1:1 질문, 전체 질문, 정보글에 있는 특정 댓글 수정
     suspend fun putCommentUpdate(commentId : Int, requestCommentUpdateData : RequestCommentUpdateData) : ResponseCommentUpdateData
+
+    //1:1 질문, 전체 질문, 정보글 원글 수정
+    suspend fun putWriteUpdate(postId: Int, requestWriteUpData : RequestWriteUpdateData) : ResponseWriteUpdateData
 }
