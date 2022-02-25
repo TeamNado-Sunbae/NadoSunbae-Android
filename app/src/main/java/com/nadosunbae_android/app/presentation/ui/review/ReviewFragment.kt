@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.review
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -48,7 +49,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         observeFilter()
         observeSort()
         initBottomSheet()
-
 
     }
 
