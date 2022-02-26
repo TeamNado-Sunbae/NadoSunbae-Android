@@ -267,6 +267,8 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
         this.updateListener = updateListener
     }
 
+    // update = 1, report = 2, delete = 3 (menuNum)
+    // viewNum -> 질문자, 질문자 답변, 답변자 뷰 어떤 것 인지
     //수정,삭제, 신고 중 어떤 것을 선택했는지 질문자, 답변자 뷰인지, 어떤 position 인지 받아옴
     fun setCheckMenu(menuNum : Int, viewNum : Int, position : Int){
         this.menuNum = menuNum

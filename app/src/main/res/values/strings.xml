@@ -136,7 +136,7 @@
     <string name="classroom_question_senior_all_see">구성원 전체보기</string>
     <string name="classroom_question_one_to_one">선배에게 1:1 질문</string>
     <string name="classroom_question_senior_search">선배 찾기</string>
-
+    <string name="classroom_question_delete_comment">(삭제된 답변입니다)</string>
     <!-- 전체에게 질문 -->
     <string name="ask_everyone_title">전체에게 질문</string>
     <string name="ask_everyone_new">최신순</string>
