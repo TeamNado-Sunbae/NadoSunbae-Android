@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/cl_question_detail_questioner_delete"
+    android:id="@+id/cl_question_detail_comment_delete"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:padding="30dp"
-        android:background="@drawable/update_background">
+        android:background="@drawable/rectangle_fill_white_8dp">
 
 
         <TextView

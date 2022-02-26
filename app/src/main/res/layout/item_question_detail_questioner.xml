@@ -20,5 +20,11 @@
             android:id="@+id/include_question_detail_questioner_update"
             layout="@layout/include_question_detail_questioner_update"
             android:visibility="gone"/>
+
+        <include
+            android:id="@+id/include_question_detail_questioner_delete"
+            layout="@layout/include_question_detail_questioner_delete"
+            android:visibility="gone"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

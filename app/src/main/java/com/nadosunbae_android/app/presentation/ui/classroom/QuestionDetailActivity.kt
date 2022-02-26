@@ -11,6 +11,7 @@ import com.nadosunbae_android.app.databinding.ActivityQuestionDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.CommentUpdateItem
@@ -189,9 +190,30 @@ class QuestionDetailActivity :
                 resources.getString(R.string.question_detail_report) ->
                     classRoomQuestionDetailAdapter.setCheckMenu(report, viewNum, position)
                 resources.getString(R.string.question_detail_delete) ->
-                    classRoomQuestionDetailAdapter.setCheckMenu(delete, viewNum, position)
+                    deleteDialog(
+                        setCheckMenu = { classRoomQuestionDetailAdapter.setCheckMenu(delete, viewNum, position) }
+                    )
+
             }
         }
+    }
+
+    //삭제 부분 다이얼로그 띄우기
+    private fun deleteDialog(setCheckMenu : () -> Unit ){
+        CustomDialog(this).genericDialog(
+            CustomDialog.DialogData(
+                resources.getString(R.string.alert_delete_review_title),
+                resources.getString(R.string.alert_delete_review_complete),
+                resources.getString(R.string.alert_delete_review_cancel)
+            ),
+            complete = {
+                setCheckMenu()
+            },
+            cancel = {
+
+            }
+        )
+
     }
 
 
