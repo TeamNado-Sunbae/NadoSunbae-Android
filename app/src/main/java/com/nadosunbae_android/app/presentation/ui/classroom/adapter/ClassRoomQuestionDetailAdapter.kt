@@ -107,7 +107,8 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         it,
                         position,
                         lookForThirdParty(userId, position),
-                        writer
+                        writer,
+                        questionDetailData[position].messageId
                     )
                 }
 
@@ -138,7 +139,8 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         it,
                         position,
                         lookForThirdParty(userId, position),
-                        questioner
+                        questioner,
+                        questionDetailData[position].messageId
                     )
                 }
                 //수정일 경우 띄우기
@@ -175,7 +177,8 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         it,
                         position,
                         lookForThirdParty(userId, position),
-                        writer
+                        writer,
+                        questionDetailData[position].messageId
                     )
                 }
                 if (viewNum == 1) {
@@ -366,7 +369,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
     //점세개 메뉴 클릭 이벤트
     interface OnItemClickListener {
-        fun onClick(v: View, position: Int, user: Int, viewNum: Int)
+        fun onClick(v: View, position: Int, user: Int, viewNum: Int, commentId : Int)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {

@@ -70,4 +70,9 @@ class ClassRoomRepositoryImpl(private val dataSource : ClassRoomDataSource) : Cl
             ClassRoomMapper.mapperToWriteUpdateItem(writeUpdateItem)
         ))
     }
+
+    // 1:1질문, 전체 질문 댓글 삭제
+    override suspend fun deleteComment(commentId: Int): DeleteCommentData {
+        return ClassRoomMapper.mapperToDeleteCommentData(dataSource.deleteComment(commentId))
+    }
 }

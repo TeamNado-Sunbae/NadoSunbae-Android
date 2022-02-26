@@ -139,9 +139,10 @@ class QuestionDetailActivity :
     private fun questionOneToOneMenu() {
         classRoomQuestionDetailAdapter.setItemClickListener(
             object : ClassRoomQuestionDetailAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int, user : Int, viewNum : Int) {
+                override fun onClick(v: View, position: Int, user : Int, viewNum : Int, commentId : Int) {
                     Log.d("oneToOneVIew", v.toString())
-                    Log.d("oneToOneNum", "$user+$viewNum")
+                    Log.d("oneToOneNum", "$user+$viewNum+$commentId")
+                    questionDetailViewModel.commentId.value = commentId
                     questionDetailViewModel.position.value = position
                     questionDetailViewModel.viewNum.value = viewNum
                     if((user == 1 && viewNum == 1) or (user == 2 && viewNum == 2)){
@@ -191,7 +192,10 @@ class QuestionDetailActivity :
                     classRoomQuestionDetailAdapter.setCheckMenu(report, viewNum, position)
                 resources.getString(R.string.question_detail_delete) ->
                     deleteDialog(
-                        setCheckMenu = { classRoomQuestionDetailAdapter.setCheckMenu(delete, viewNum, position) }
+                        setCheckMenu = { classRoomQuestionDetailAdapter.setCheckMenu(delete, viewNum, position) },
+                        deleteComment = {questionDetailViewModel.deleteComment(
+                            questionDetailViewModel.commentId.value ?: 0
+                        )}
                     )
 
             }
@@ -199,7 +203,7 @@ class QuestionDetailActivity :
     }
 
     //삭제 부분 다이얼로그 띄우기
-    private fun deleteDialog(setCheckMenu : () -> Unit ){
+    private fun deleteDialog(setCheckMenu : () -> Unit, deleteComment : () -> Unit ){
         CustomDialog(this).genericDialog(
             CustomDialog.DialogData(
                 resources.getString(R.string.alert_delete_review_title),
@@ -208,6 +212,7 @@ class QuestionDetailActivity :
             ),
             complete = {
                 setCheckMenu()
+                deleteComment()
             },
             cancel = {
 

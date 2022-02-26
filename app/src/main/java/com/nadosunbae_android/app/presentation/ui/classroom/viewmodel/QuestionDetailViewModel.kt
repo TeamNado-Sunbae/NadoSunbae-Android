@@ -10,6 +10,7 @@ import com.nadosunbae_android.domain.model.classroom.*
 import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.usecase.classroom.DeleteCommentDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetQuestionDetailDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.PostQuestionCommentWriteUseCase
 import com.nadosunbae_android.domain.usecase.classroom.PutCommentUpdateUseCase
@@ -20,7 +21,8 @@ class QuestionDetailViewModel(
     val getQuestionDetailDataUseCase : GetQuestionDetailDataUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
     val postLikeDataUseCase : PostLikeDataUseCase,
-    val putCommentUpdateUseCase: PutCommentUpdateUseCase
+    val putCommentUpdateUseCase: PutCommentUpdateUseCase,
+    val deleteCommentDataUseCase : DeleteCommentDataUseCase
 ) : ViewModel(), DropDownSelectableViewModel {
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
@@ -32,12 +34,22 @@ class QuestionDetailViewModel(
 
     //답글, 질문, 질문에대한 답글 뷰 넘버 ( 1 -> 질문자, 2 -> 답변자 )
     var viewNum = MutableLiveData<Int>()
+
+    //아이템 위치 정보
     var position = MutableLiveData<Int>()
+
+    // 댓글 id
+    var commentId = MutableLiveData<Int>()
     //댓글 등록
     var registerComment = MutableLiveData<QuestionCommentWriteData>()
 
     //postId
     var postId = MutableLiveData<Int>()
+
+    //댓글 삭제 데이터
+    private var _deleteData = MutableLiveData<DeleteCommentData>()
+    val deleteData : LiveData<DeleteCommentData>
+        get() = _deleteData
 
     // 좋아요를 위한 postId 설정
     private var _likePostId = MutableLiveData<Int>()
@@ -136,5 +148,21 @@ class QuestionDetailViewModel(
                 }
 
         }
+    }
+
+    //댓글 삭제 서버통신
+    fun deleteComment(commentId : Int){
+        viewModelScope.launch {
+            runCatching { deleteCommentDataUseCase(commentId) }
+                .onSuccess {
+                    _deleteData.value = it
+                    Log.d("deleteComment", "댓글 삭제 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("deleteComment", "댓글 삭제 실패")
+                }
+        }
+
     }
 }
