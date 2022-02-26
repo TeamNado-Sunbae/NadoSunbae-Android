@@ -79,4 +79,10 @@ interface ClassRoomService {
         @Path("postId") postId : Int,
         @Body requestWriteUpdateData : RequestWriteUpdateData
     ) : ResponseWriteUpdateData
+
+    //1:1 질문, 전체 질문, 정보글에 있는 특정 댓글 삭제
+    @DELETE("comment/{commentId}")
+    suspend fun deleteComment(
+        @Path("commentId") commentId : Int
+    ) : ResponseDeleteComment
 }

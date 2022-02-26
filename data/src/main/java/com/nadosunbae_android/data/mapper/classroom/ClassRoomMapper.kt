@@ -264,7 +264,14 @@ object ClassRoomMapper {
             secondMajorStart = responseWriteUpdateData.data.writer.secondMajorStart,
             writerId = responseWriteUpdateData.data.writer.writerId
         )
+    }
 
+    // 1:1질문, 전체 질문 댓글 삭제
+    fun mapperToDeleteCommentData(responseDeleteComment: ResponseDeleteComment) : DeleteCommentData{
+        return DeleteCommentData(
+            commentId = responseDeleteComment.data.commentId,
+            isDeleted = responseDeleteComment.data.isDeleted
+        )
 
     }
 }

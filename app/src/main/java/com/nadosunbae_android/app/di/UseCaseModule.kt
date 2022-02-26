@@ -24,6 +24,7 @@ val useCaseModule = module{
     single {GetSeniorDataUseCase(get())}
     single {PutCommentUpdateUseCase(get())}
     single {PutWriteUpdateUseCase(get())}
+    single { DeleteCommentDataUseCase(get())}
 
     //Notification
     single {DeleteNotificationUseCase(get())}

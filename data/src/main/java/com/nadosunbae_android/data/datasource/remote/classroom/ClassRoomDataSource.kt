@@ -38,4 +38,7 @@ interface ClassRoomDataSource {
 
     //1:1 질문, 전체 질문, 정보글 원글 수정
     suspend fun putWriteUpdate(postId: Int, requestWriteUpData : RequestWriteUpdateData) : ResponseWriteUpdateData
+
+    //1:1 질문, 전체 질문, 정보글에 있는 특정 댓글 삭제
+    suspend fun deleteComment(commentId : Int) : ResponseDeleteComment
 }
