@@ -157,6 +157,10 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         content
                 }
 
+                holder.binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterQuestionerContentCancel.setOnClickListener {
+                    holder.visibleQuestionDetailComment(0)
+                }
+
             }
 
             // 질문자 문답
@@ -186,6 +190,9 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     holder.visibleQuestionDetailComment(0)
                     holder.binding.includeQuestionDetailCommentText.textQuestionDetailWriterCommentContent.text =
                         content
+                }
+                holder.binding.includeQuestionDetailCommentUpdate.textQuestionDetailWriterCommentContentCancel.setOnClickListener {
+                    holder.visibleQuestionDetailComment(0)
                 }
             }
         }
