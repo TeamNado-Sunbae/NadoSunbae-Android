@@ -67,19 +67,18 @@ class MyPageBlockFragment :
                     val userNickName = myPageBlockAdapter.myPageBlockData[position].nickname
                     initBlockUpdate(userId)
 
-                    confirmExit()
+                    confirmExit(userNickName)
                 }
-
             }
         )
     }
 
     //저장버튼 알럿
-    private fun confirmExit(): MutableLiveData<Boolean> {
+    private fun confirmExit(text: String): MutableLiveData<Boolean> {
         val confirm = MutableLiveData<Boolean>()
         CustomDialog(requireContext()).genericDialog(
             CustomDialog.DialogData(
-                getString(R.string.mypage_block_alret),
+                text + getString(R.string.mypage_block_alret),
                 getString(R.string.mypage_block_ok),
                 getString(R.string.mypage_block_cancel)
             ),
