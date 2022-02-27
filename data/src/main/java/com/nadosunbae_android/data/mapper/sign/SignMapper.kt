@@ -25,12 +25,13 @@ object SignMapper {
     }
 
     //로그인
-    fun mapperToSignInData(responseSignIn: ResponseSignIn): SignInItem {
-        return SignInItem(
+    fun mapperToSignInData(responseSignIn: ResponseSignIn): SignInData {
+        return SignInData(
             status = responseSignIn.status,
             success = responseSignIn.success,
-            accesstoken = responseSignIn.data.accesstoken,
-            user = SignInItem.User(
+            accessToken = responseSignIn.data.accesstoken,
+            refreshToken = responseSignIn.data.refreshtoken,
+            user = SignInData.User(
                 email = responseSignIn.data.user.email,
                 firstMajorId = responseSignIn.data.user.firstMajorId,
                 firstMajorName = responseSignIn.data.user.firstMajorName,
@@ -83,11 +84,11 @@ object SignMapper {
     }
 
     //SignIn
-    fun mapperToSignIn(signInData: SignInData): RequestSignIn {
+    fun mapperToSignIn(signInItem: SignInItem): RequestSignIn {
         return RequestSignIn(
-            email = signInData.email,
-            password = signInData.password,
-            deviceToken = signInData.deviceToken
+            email = signInItem.email,
+            password = signInItem.password,
+            deviceToken = signInItem.deviceToken
         )
     }
 

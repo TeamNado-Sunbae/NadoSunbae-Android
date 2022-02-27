@@ -108,7 +108,8 @@ class CustomDialog(val context : Context) {
 
         dialog.setContentView(binding.root)
         dialog.setCancelable(false)     // 로딩창 꺼지지 않도록
-        dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))     // 투명한 배경 적용
+        dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))     // 다이얼로그 투명한 배경 적용
+        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)                       // 다이얼로그 외부 영역 투명
         dialog.show()
 
         return dialog

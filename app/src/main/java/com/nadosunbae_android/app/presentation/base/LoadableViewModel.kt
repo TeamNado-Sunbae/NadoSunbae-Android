@@ -1,7 +1,6 @@
 package com.nadosunbae_android.app.presentation.base
 
-import android.app.Dialog
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 
 interface LoadableViewModel {
     val onLoadingEnd: MutableLiveData<Boolean>

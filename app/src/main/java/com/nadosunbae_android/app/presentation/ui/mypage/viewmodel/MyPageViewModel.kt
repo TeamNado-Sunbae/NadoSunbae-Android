@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.domain.model.mypage.*
-import com.nadosunbae_android.domain.model.sign.SignInItem
+import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.usecase.mypage.*
 import kotlinx.coroutines.launch
 
@@ -26,8 +26,8 @@ class MyPageViewModel(
     ) : ViewModel() {
 
     // 로그인 response 데이터
-    private val _signData = MutableLiveData<SignInItem.User>()
-    val signData: LiveData<SignInItem.User>
+    private val _signData = MutableLiveData<SignInData.User>()
+    val signData: LiveData<SignInData.User>
         get() = _signData
 
     //유저 아이디
@@ -52,7 +52,7 @@ class MyPageViewModel(
     get() = _myPagePersonal
 
 
-    fun setSignData(signData: SignInItem.User) {
+    fun setSignData(signData: SignInData.User) {
         _signData.value = signData
         userId.value = signData.userId
     }

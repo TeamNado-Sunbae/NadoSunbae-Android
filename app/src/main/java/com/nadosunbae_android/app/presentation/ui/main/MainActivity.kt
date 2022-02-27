@@ -17,9 +17,8 @@ import com.nadosunbae_android.app.util.DateUtil
 import com.nadosunbae_android.app.util.changeFragment
 import com.nadosunbae_android.app.util.changeFragmentNoBackStack
 import com.nadosunbae_android.app.util.popFragmentBackStack
-import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.domain.model.main.MajorSelectData
-import com.nadosunbae_android.domain.model.sign.SignInItem
+import com.nadosunbae_android.domain.model.sign.SignInData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -123,7 +122,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     // 로그인 response 전달  받기
     private fun getSignDataFromIntent() {
         // real code
-        val signData = intent.getParcelableExtra<SignInItem.User>("signData") as SignInItem.User
+        val signData = intent.getParcelableExtra<SignInData.User>("signData") as SignInData.User
 
         // null check
         mainViewModel.setSignData(signData)

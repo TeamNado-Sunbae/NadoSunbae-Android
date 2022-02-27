@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.di
 
 import android.util.Log
 import com.google.gson.GsonBuilder
+import com.nadosunbae_android.app.util.AuthInterceptor
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -25,15 +26,7 @@ val apiModule = module {
             .run {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
                 addInterceptor(get<Interceptor>())
-                addInterceptor { chain ->
-                    val request = chain.request()
-                    Log.d("okhttp", "request : $request")
-                    Log.d("okhttp", "request header : ${request.headers}")
-                    val response = chain.proceed(request)
-                    Log.d("okhttp", "response : $response")
-                    Log.d("okhttp", "response header: ${response.headers}")
-                    response
-                }
+                addInterceptor(AuthInterceptor())
                 build()
             }
     }
