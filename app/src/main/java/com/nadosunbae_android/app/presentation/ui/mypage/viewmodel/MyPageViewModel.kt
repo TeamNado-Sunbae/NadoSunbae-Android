@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInItem
@@ -25,18 +26,18 @@ class MyPageViewModel(
     val getMyPageBlockUseCase: GetMyPageBlockUseCase,
     val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase
 
-    ) : ViewModel() {
+    ) : ViewModel(), LoadableViewModel {
 
     // 로그인 response 데이터
     private val _signData = MutableLiveData<SignInItem.User>()
     val signData: LiveData<SignInItem.User>
         get() = _signData
 
+    override val onLoadingEnd = MutableLiveData<Boolean>(false)
+
+
     //유저 아이디
     var userId = MutableLiveData<Int>()
-
-    //차단 & 차단해제 request
-    var requestBlockUpdate = RequestMyPageBlockUpdate(0)
 
     val personalQuestion = MutableLiveData<MyPageQuestionData>()
     val personalInfo = MutableLiveData<MyPageMyInfo>()
@@ -51,8 +52,6 @@ class MyPageViewModel(
     val blockList = MutableLiveData<MyPageBlockData>()
     val blockUpdate = MutableLiveData<MyPageBlockUpdateData>()
 
-    //차단 유저 해지
-    val blockUser = RequestMyPageBlockUpdate(0)
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>
@@ -76,6 +75,9 @@ class MyPageViewModel(
                     it.printStackTrace()
                     Log.d("mypageVersion", "서버 통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 
@@ -91,6 +93,9 @@ class MyPageViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("mypageQuestion", "서버 통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
                 }
 
         }
@@ -108,6 +113,9 @@ class MyPageViewModel(
                     it.printStackTrace()
                     Log.d("mypageReview", "서버 통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 
@@ -122,6 +130,9 @@ class MyPageViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("mypageLikeReview", "서버 통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -138,6 +149,9 @@ class MyPageViewModel(
                     it.printStackTrace()
                     Log.d("mypageLikeQuestion", "서버 통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 
@@ -152,6 +166,9 @@ class MyPageViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("mypagePost", "서버 통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
                 }
 
         }
@@ -169,6 +186,9 @@ class MyPageViewModel(
                     it.printStackTrace()
                     Log.d("mypageReply", "서버 통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
 
         }
     }
@@ -185,6 +205,9 @@ class MyPageViewModel(
                     it.printStackTrace()
                     Log.d("myPageInfo", "서버 통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 
@@ -199,6 +222,9 @@ class MyPageViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("MyPageModify", "서버 통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -215,6 +241,9 @@ class MyPageViewModel(
                     it.printStackTrace()
                     Log.d("MyPageBlockUpdate", "서버 통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 
@@ -230,6 +259,9 @@ class MyPageViewModel(
                     it.printStackTrace()
                     Log.d("MyPageLogOut", "서버 통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 
@@ -244,6 +276,9 @@ class MyPageViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("MyPageBlock", "서버 통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
                 }
         }
     }

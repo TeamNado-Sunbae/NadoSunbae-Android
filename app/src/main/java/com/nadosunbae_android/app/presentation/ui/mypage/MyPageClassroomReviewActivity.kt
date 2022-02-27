@@ -26,12 +26,20 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        observeLoadingEnd()
         initReviewListAdapter()
         backBtn()
         setClickListener()
         initNickName()
 
     }
+
+    private fun observeLoadingEnd() {
+        myPageViewModel.onLoadingEnd.observe(this) {
+            dismissLoading()
+        }
+    }
+
 
     private fun initNickName(){
         binding.textMypageReviewNickname.setText(intent.getStringExtra("userNickName"))
@@ -44,11 +52,10 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
     }
 
     private fun initReviewListAdapter() {
-        Log.d("userId", "int: " + intent.getIntExtra("userId", 0) )
+
         myPageViewModel.getMyPageReview(intent.getIntExtra("userId", 0))
         myPageReviewAdapter = MyPageReviewAdapter()
         binding.rvMypageReview.adapter = myPageReviewAdapter
-
         myPageViewModel.reviewList.observe(this) {
             myPageReviewAdapter.setReviewListData((it.data.reviewPostList) as MutableList<MyPageReviewData.Data.ReviewPost>)
         }

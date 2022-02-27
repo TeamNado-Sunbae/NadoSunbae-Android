@@ -25,25 +25,30 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        observeLoadingEnd()
         initAskPersonal()
         movePage()
         initPersonalInfo()
     }
 
+    private fun observeLoadingEnd() {
+        myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+            dismissLoading()
+        }
+    }
 
 
     private fun movePage() {
         binding.textMyPagePostByMe.setOnClickListener {
             val intentMyPagePost = Intent(requireActivity(), MyPagePostActivity::class.java)
             intentMyPagePost.putExtra("userId", mainViewModel.userId.value ?: 0)
-            Log.d("mypageFragment userId - ", "id: " + mainViewModel.userId.value)
             startActivity(intentMyPagePost)
         }
 
         binding.textMyPageReplyByMe.setOnClickListener {
             val intentMyPageReply = Intent(requireActivity(), MyPageReplyActivity::class.java)
             intentMyPageReply.putExtra("userId", mainViewModel.userId.value ?: 0)
-            Log.d("mypageIntentReply userId - ", "id : " + mainViewModel.userId.value)
             startActivity(intentMyPageReply)
         }
 
@@ -51,7 +56,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             val intentMyPageReview = Intent(requireActivity(), MyPageClassroomReviewActivity::class.java)
             intentMyPageReview.putExtra("userId", mainViewModel.userId.value ?: 0)
             intentMyPageReview.putExtra("userNickName", binding.myPageInfo?.data?.nickname)
-            Log.d("mypageIntentReview userId - ", "id : " + mainViewModel.userId.value)
             startActivity(intentMyPageReview)
         }
 
@@ -85,9 +89,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         mainViewModel.signData.observe(viewLifecycleOwner){
             myPageViewModel.getMyPageQuestion(it.userId)
         }
+
         myPageQuestionAdapter = MyPageMainAdapter(2, mainViewModel.userId.value ?: 0,1)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
         myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
+            showLoading()
             myPageQuestionAdapter.setQuestionMain((it.data.classroomPostList) as MutableList<MyPageQuestionData.Data.ClassroomPost>)
 
         }
@@ -100,6 +106,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         }
 
         myPageViewModel.getPersonalInfo(mainViewModel.userId.value ?: 0)
+        showLoading()
         myPageViewModel.personalInfo.observe(viewLifecycleOwner){
             binding.myPageInfo = it
             if(it.data.secondMajorName == "미진입")
