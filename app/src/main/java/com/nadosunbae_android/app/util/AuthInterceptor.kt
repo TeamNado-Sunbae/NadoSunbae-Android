@@ -25,7 +25,12 @@ class AuthInterceptor : Interceptor {
         when (response.code) {
             // 토큰 만료
             401 -> {
-                getNewToken(NadoSunBaeSharedPreference.getRefreshToken(NadoSunBaeApplication.context()))
+                val newToken = getNewToken(NadoSunBaeSharedPreference.getRefreshToken(NadoSunBaeApplication.context()))
+                val newRequest = chain.request().newBuilder()
+                    .addHeader("accesstoken", newToken)
+                    .addHeader("Content-Type", "application/json")
+                    .build()
+                return chain.proceed(newRequest)
             }
         }
 
@@ -35,9 +40,13 @@ class AuthInterceptor : Interceptor {
     private fun getNewToken(refreshToken: String): String {
         runBlocking {
             launch {
-                runCatching {
+                runCatching {  }
+                    .onSuccess {
 
-                }
+                    }
+                    .onFailure {
+
+                    }
             }
         }
     }

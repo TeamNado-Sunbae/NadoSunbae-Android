@@ -27,4 +27,8 @@ class SignDataSourceImpl(private val service : SignService) : SignDataSource {
     override suspend fun postSignIn(requestSignIn: RequestSignIn) : ResponseSignIn {
         return service.postSignIn(requestSignIn)
     }
+
+    override suspend fun postRenewalToken(refreshToken: String): ResponseRenewalToken {
+        return service.postRenewalToken(refreshToken)
+    }
 }
