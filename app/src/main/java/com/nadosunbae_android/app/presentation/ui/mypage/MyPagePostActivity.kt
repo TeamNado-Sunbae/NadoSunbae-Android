@@ -1,10 +1,12 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.content.res.ResourcesCompat
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPagePostBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -20,7 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.activity_my_page_post) {
 
-    private val myPageViewModel : MyPageViewModel by viewModel()
+    private val myPageViewModel: MyPageViewModel by viewModel()
 
     private lateinit var myPagePostAdapter: MyPagePostAdapter
 
@@ -41,22 +43,47 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
 
     private fun initBtn() {
-        questionPosting()
-        binding.textMypagePostQuestionTitle.isSelected = true
-        binding.textMypagePostInfoTitle.isSelected = false
+        binding.apply {
+            questionPosting()
+            textMypagePostQuestionTitle.isSelected = true
+            textMypagePostInfoTitle.isSelected = false
+
+            //폰트 설정
+            textMypagePostQuestionTitle.typeface =
+                ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+            textMypagePostInfoTitle.typeface =
+                ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+        }
+
     }
 
     private fun selectOption() {
-        binding.textMypagePostQuestionTitle.setOnClickListener {
-            questionPosting()
-            binding.textMypagePostQuestionTitle.isSelected = true
-            binding.textMypagePostInfoTitle.isSelected = false
+        binding.apply {
+            textMypagePostQuestionTitle.setOnClickListener {
+                questionPosting()
+                textMypagePostQuestionTitle.isSelected = true
+                textMypagePostInfoTitle.isSelected = false
+
+                //폰트 설정
+                textMypagePostQuestionTitle.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                textMypagePostInfoTitle.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+            }
+
+            textMypagePostInfoTitle.setOnClickListener {
+                infoPosting()
+                textMypagePostQuestionTitle.isSelected = false
+                textMypagePostInfoTitle.isSelected = true
+
+                //폰트 설정
+                textMypagePostQuestionTitle.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                textMypagePostInfoTitle.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+            }
         }
-        binding.textMypagePostInfoTitle.setOnClickListener {
-            infoPosting()
-            binding.textMypagePostQuestionTitle.isSelected = false
-            binding.textMypagePostInfoTitle.isSelected = true
-        }
+
     }
 
 
@@ -65,7 +92,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
         Log.d("PostuserId", "- id: " + intent.getIntExtra("userId", 0))
 
         myPageViewModel.getMyPagePost("question")
-        myPagePostAdapter = MyPagePostAdapter(2,  intent.getIntExtra("userId", 0),1)
+        myPagePostAdapter = MyPagePostAdapter(2, intent.getIntExtra("userId", 0), 1)
         binding.rvMypageQuestion.adapter = myPagePostAdapter
 
         myPageViewModel.postByMe.observe(this) {
@@ -78,7 +105,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
         Log.d("PostuserId", "- id: " + intent.getIntExtra("userId", 0))
 
         myPageViewModel.getMyPagePost("information")
-        myPagePostAdapter = MyPagePostAdapter(2,  intent.getIntExtra("userId", 0),1)
+        myPagePostAdapter = MyPagePostAdapter(2, intent.getIntExtra("userId", 0), 1)
         binding.rvMypageQuestion.adapter = myPagePostAdapter
 
         myPageViewModel.postByMe.observe(this) {

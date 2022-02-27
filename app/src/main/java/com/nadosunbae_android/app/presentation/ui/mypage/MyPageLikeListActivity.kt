@@ -1,10 +1,12 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageLikeListBinding
@@ -47,28 +49,59 @@ class MyPageLikeListActivity :
         binding.textMypageLikeReview.isSelected = true
         binding.textMypageLikeQuestion.isSelected = false
         binding.textMypageLikeInfo.isSelected = false
+
+        //폰트 설정
+        binding.textMypageLikeReview.typeface = ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+        binding.textMypageLikeQuestion.typeface = ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+        binding.textMypageLikeInfo.typeface = ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
     }
 
     private fun selectOption() {
-        binding.textMypageLikeReview.setOnClickListener {
-            initReviewListAdapter()
-            binding.textMypageLikeReview.isSelected = true
-            binding.textMypageLikeQuestion.isSelected = false
-            binding.textMypageLikeInfo.isSelected = false
-        }
+        binding.apply {
+            textMypageLikeReview.setOnClickListener {
+                initReviewListAdapter()
+                textMypageLikeReview.isSelected = true
+                textMypageLikeQuestion.isSelected = false
+                textMypageLikeInfo.isSelected = false
 
-        binding.textMypageLikeQuestion.setOnClickListener {
-            questionPosting()
-            binding.textMypageLikeReview.isSelected = false
-            binding.textMypageLikeQuestion.isSelected = true
-            binding.textMypageLikeInfo.isSelected = false
-        }
+                //폰트 설정
+                textMypageLikeReview.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                textMypageLikeQuestion.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                textMypageLikeInfo.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+            }
 
-        binding.textMypageLikeInfo.setOnClickListener {
-            infoPosting()
-            binding.textMypageLikeReview.isSelected = false
-            binding.textMypageLikeQuestion.isSelected = false
-            binding.textMypageLikeInfo.isSelected = true
+            textMypageLikeQuestion.setOnClickListener {
+                questionPosting()
+                textMypageLikeReview.isSelected = false
+                textMypageLikeQuestion.isSelected = true
+                textMypageLikeInfo.isSelected = false
+
+                //폰트 설정
+                textMypageLikeReview.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                textMypageLikeQuestion.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                textMypageLikeInfo.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+            }
+
+            textMypageLikeInfo.setOnClickListener {
+                infoPosting()
+                textMypageLikeReview.isSelected = false
+                textMypageLikeQuestion.isSelected = false
+                textMypageLikeInfo.isSelected = true
+
+                //폰트 설정
+                textMypageLikeReview.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                textMypageLikeQuestion.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                textMypageLikeInfo.typeface =
+                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+            }
         }
     }
 
