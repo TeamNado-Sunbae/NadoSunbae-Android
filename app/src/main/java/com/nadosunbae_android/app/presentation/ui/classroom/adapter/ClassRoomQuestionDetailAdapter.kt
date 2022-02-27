@@ -113,10 +113,11 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 }
 
                 //수정일 경우 띄우기
-                if (viewNum == 1 || viewNum == 2) {
+                if (viewNum == 1) {
                     viewNum = 0
                     val intent = Intent(holder.itemView.context, QuestionWriteActivity::class.java)
                     intent.apply {
+                        putExtra("division", 1)
                         putExtra("writerUpdateContent", questionDetailData[position].content)
                         putExtra("writerUpdateTitle", questionDetailData[position].title)
                         putExtra("title", viewTitle)
