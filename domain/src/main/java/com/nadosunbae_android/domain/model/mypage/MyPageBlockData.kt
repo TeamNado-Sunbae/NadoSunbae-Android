@@ -7,6 +7,6 @@ data class MyPageBlockData(
     data class Data(
         val nickname: String,
         val profileImageId: Int,
-        val userId: Int
+        val id: Int
     )
 }

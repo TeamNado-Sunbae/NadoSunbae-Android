@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInItem
 import com.nadosunbae_android.domain.usecase.mypage.*
@@ -21,7 +22,8 @@ class MyPageViewModel(
     val getMyPageLikeQuestionUseCase: GetMyPageLikeQuestionUseCase,
     val getMyPageLikeReviewUseCase: GetMyPageLikeReviewUseCase,
     val getMyPageReviewUseCase: GetMyPageReviewUseCase,
-    val getMyPageBlockUseCase: GetMyPageBlockUseCase
+    val getMyPageBlockUseCase: GetMyPageBlockUseCase,
+    val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase
 
     ) : ViewModel() {
 
@@ -33,6 +35,8 @@ class MyPageViewModel(
     //유저 아이디
     var userId = MutableLiveData<Int>()
 
+    //차단 & 차단해제 request
+    var requestBlockUpdate = RequestMyPageBlockUpdate(0)
 
     val personalQuestion = MutableLiveData<MyPageQuestionData>()
     val personalInfo = MutableLiveData<MyPageMyInfo>()
@@ -45,7 +49,10 @@ class MyPageViewModel(
     val likeReview = MutableLiveData<MyPageLikeReviewData>()
     val reviewList = MutableLiveData<MyPageReviewData>()
     val blockList = MutableLiveData<MyPageBlockData>()
+    val blockUpdate = MutableLiveData<MyPageBlockUpdateData>()
 
+    //차단 유저 해지
+    val blockUser = RequestMyPageBlockUpdate(0)
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>
@@ -192,6 +199,21 @@ class MyPageViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("MyPageModify", "서버 통신 실패")
+                }
+        }
+    }
+
+    //마이페이지 차단 & 차단 해제
+    fun postMyPageBlockUpdate(myPageBlockUpdateItem: MyPageBlockUpdateItem) {
+        viewModelScope.launch {
+            kotlin.runCatching { postMyPageBlockUpdateUseCase(myPageBlockUpdateItem) }
+                .onSuccess {
+                    blockUpdate.value = it
+                    Log.d("MyPageBlockUpdate", "서버 통신 완료")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("MyPageBlockUpdate", "서버 통신 실패")
                 }
         }
     }
