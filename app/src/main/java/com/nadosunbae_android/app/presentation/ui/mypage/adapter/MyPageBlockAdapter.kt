@@ -33,7 +33,8 @@ class MyPageBlockAdapter(private val userId: Int) :
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
             Log.d("user", ":" + myPageBlockData[position].nickname)
-            Log.d("userId", ":" + myPageBlockData[position])
+            Log.d("userId", ":" + myPageBlockData[position].id)
+            Log.d("userImg", ":" + myPageBlockData[position].profileImageId)
         }
     }
 

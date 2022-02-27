@@ -49,12 +49,11 @@ class MyPageBlockFragment :
         }
     }
 
+    //차단 해제
     private fun initBlockUpdate(userId: Int) {
-        mainViewModel.signData.observe(viewLifecycleOwner) {
-            myPageViewModel.postMyPageBlockUpdate(
-                MyPageBlockUpdateItem(userId)
-            )
-        }
+        myPageViewModel.postMyPageBlockUpdate(
+            MyPageBlockUpdateItem(userId)
+        )
     }
 
     private fun setClickListener() {
@@ -62,35 +61,30 @@ class MyPageBlockFragment :
             object : MyPageBlockAdapter.ItemClickListener {
                 override fun onClick(view: View, position: Int) {
 
-
-                    val userId = myPageBlockAdapter.myPageBlockData[position].userId
                     val userNickName = myPageBlockAdapter.myPageBlockData[position].nickname
-                    initBlockUpdate(userId)
+                    val userId = myPageBlockAdapter.myPageBlockData[position].id
 
-                    confirmExit(userNickName)
+
+                    CustomDialog(requireContext()).genericDialog(
+                        CustomDialog.DialogData(
+                            userNickName + getString(R.string.mypage_block_alret),
+                            getString(R.string.mypage_block_ok),
+                            getString(R.string.mypage_block_cancel)
+                        ),
+                        complete = {
+                            initBlockUpdate(userId)
+                        },
+                        cancel = {
+
+                        }
+                    )
+
+
                 }
             }
         )
     }
 
-    //저장버튼 알럿
-    private fun confirmExit(text: String): MutableLiveData<Boolean> {
-        val confirm = MutableLiveData<Boolean>()
-        CustomDialog(requireContext()).genericDialog(
-            CustomDialog.DialogData(
-                text + getString(R.string.mypage_block_alret),
-                getString(R.string.mypage_block_ok),
-                getString(R.string.mypage_block_cancel)
-            ),
-            complete = {
 
-
-            },
-            cancel = {
-
-            }
-        )
-        return confirm
-    }
 
 }

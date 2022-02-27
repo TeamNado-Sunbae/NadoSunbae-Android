@@ -36,7 +36,7 @@ class MyPageViewModel(
     var userId = MutableLiveData<Int>()
 
     //차단 & 차단해제 request
-    val requestBlockUpdate = RequestMyPageBlockUpdate(9)
+    var requestBlockUpdate = RequestMyPageBlockUpdate(0)
 
     val personalQuestion = MutableLiveData<MyPageQuestionData>()
     val personalInfo = MutableLiveData<MyPageMyInfo>()
@@ -51,6 +51,8 @@ class MyPageViewModel(
     val blockList = MutableLiveData<MyPageBlockData>()
     val blockUpdate = MutableLiveData<MyPageBlockUpdateData>()
 
+    //차단 유저 해지
+    val blockUser = RequestMyPageBlockUpdate(0)
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>
