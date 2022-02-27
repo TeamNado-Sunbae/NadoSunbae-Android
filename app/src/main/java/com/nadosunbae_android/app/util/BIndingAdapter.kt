@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.nadosunbae_android.app.R
@@ -103,7 +104,7 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("profileImgBig")
     fun setProfileImgBig(imageView : ImageView, imageId : Int){
-        when(imageId){
+        when (imageId) {
             1 -> imageSelect(imageView, R.drawable.mask_group_1)
             2 -> imageSelect(imageView, R.drawable.mask_group_2)
             3 -> imageSelect(imageView, R.drawable.mask_group_3)
@@ -128,6 +129,30 @@ object BindingAdapter {
             .override(72.dpToPx, 72.dpToPx)
             .into(imageView)
     }
+
+    // 1:1질문, 전체 질문 댓글 isDelete 여부(update랑, text) -> 일반 댓글 표시
+    @JvmStatic
+    @BindingAdapter("isDeleteTextUpdate")
+    fun isDeleteTextUpdate(layout : ConstraintLayout, isDelete : Boolean){
+        if(!isDelete){
+            layout.visibility = View.VISIBLE
+        }else{
+            layout.visibility = View.GONE
+        }
+
+    }
+
+
+    // 1:1질문, 전체 질문 댓글 isDelete 여부(delete) -> 삭제된 댓글 표시
+    @JvmStatic
+    @BindingAdapter("isDeleteComment")
+    fun isDelete(layout : ConstraintLayout, isDelete : Boolean){
+        if(isDelete){
+            layout.visibility = View.VISIBLE
+        }else{
+            layout.visibility = View.GONE
+        }
+    }
 }
 
 
@@ -139,8 +164,12 @@ fun TextView.isOnQuestion(isOnQuestion: Boolean) {
 
 @BindingAdapter("majorName", "majorStart")
 fun TextView.majorText(majorName: String?, majorStart: String?) {
-    if (majorName != null && majorStart != null)
+
+    if (majorName == "정보없음")
+        text = majorName
+    else if (majorName != null && majorStart != null)
         text = "$majorName ($majorStart)"
+
 }
 
 @BindingAdapter("dateFormat_yyMMdd")

@@ -51,4 +51,28 @@ class ClassRoomRepositoryImpl(private val dataSource : ClassRoomDataSource) : Cl
         return ClassRoomMapper.mapperToInfoDetailData(dataSource.getInformationDetail(postId))
     }
 
+    override suspend fun putCommentUpdate(
+        commentId: Int,
+        commentUpdateItem: CommentUpdateItem
+    ): CommentUpdateData {
+        return ClassRoomMapper.mapperToCommentUpdateData(dataSource.putCommentUpdate(
+            commentId,
+            ClassRoomMapper.mapperToCommentUpdateItem(commentUpdateItem)
+        ))
+    }
+
+    override suspend fun putWriteUpdate(
+        postId: Int,
+        writeUpdateItem: WriteUpdateItem
+    ): WriteUpdateData {
+        return ClassRoomMapper.mapperToWriteUpdateData(dataSource.putWriteUpdate(
+            postId,
+            ClassRoomMapper.mapperToWriteUpdateItem(writeUpdateItem)
+        ))
+    }
+
+    // 1:1질문, 전체 질문 댓글 삭제
+    override suspend fun deleteComment(commentId: Int): DeleteCommentData {
+        return ClassRoomMapper.mapperToDeleteCommentData(dataSource.deleteComment(commentId))
+    }
 }

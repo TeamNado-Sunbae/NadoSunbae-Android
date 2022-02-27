@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.review
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -39,6 +40,7 @@ class ReviewDetailActivity :
         initBinding()
         setClickListener()
         observeContent()
+        observeLoadingEnd()
 
     }
 
@@ -65,6 +67,8 @@ class ReviewDetailActivity :
 
         // intent extra check
         if (postId != NOT_POST_ID) {
+
+            showLoading()
             // load review data from server
             reviewDetailViewModel.getReviewDetail(postId)
         }
@@ -100,50 +104,7 @@ class ReviewDetailActivity :
 
                 if (selected != null) {
 
-                    when (selected.id) {
-                        // 수정 버튼
-                        REVIEW_EDIT -> {
-                            val intent = Intent(this, ReviewWriteActivity::class.java)
-                            val responseData = reviewDetailViewModel.reviewDetailData.value
-
-                            // null check
-                            if (responseData != null) {
-
-                                intent.putExtra("mode", MODE_MODIFY)
-                                // 후기 수정을 위해 기존 데이터를 넘겨줌
-                                intent.putExtra("modifyData", responseData)
-                                startActivity(intent)
-                            }
-                        }
-
-                        // 삭제 버튼
-                        REVIEW_DELETE -> {
-
-                            // 삭제 확인 다이얼로그
-                            CustomDialog(this).genericDialog(
-                                CustomDialog.DialogData(
-                                    getString(R.string.alert_delete_review_title),
-                                    getString(R.string.alert_delete_review_complete),
-                                    getString(R.string.alert_delete_review_cancel)
-                                ),
-                                complete = {
-                                    reviewDetailViewModel.deleteReview(postId)
-                                    finish()
-                                },
-                                cancel = {
-                                }
-                            )
-
-                        }
-                        // 신고 버튼
-                        REVIEW_REPORT -> {
-
-                            // 플로우 확정되면 구현 예정
-
-                        }
-
-                    }
-
+                    runMenuAction(selected.id)
                     // 선택된 드롭다운 다시 취소
                     reviewDetailViewModel.dropDownSelected.value = null
                 }
@@ -159,8 +120,8 @@ class ReviewDetailActivity :
 
         // 좋아요 버튼
         binding.btnReviewLike.setOnClickListener {
+            showLoading()
             reviewDetailViewModel.postLikeReview(postId)
-            reviewDetailViewModel.getReviewDetail(postId)
         }
 
         // 선배 프로필
@@ -175,6 +136,54 @@ class ReviewDetailActivity :
         }
     }
 
+    private fun runMenuAction(menuId: Int) {
+
+        when (menuId) {
+            // 수정 버튼
+            REVIEW_EDIT -> {
+                val intent = Intent(this, ReviewWriteActivity::class.java)
+                val responseData = reviewDetailViewModel.reviewDetailData.value
+
+                // null check
+                if (responseData != null) {
+
+                    intent.putExtra("mode", MODE_MODIFY)
+                    // 후기 수정을 위해 기존 데이터를 넘겨줌
+                    intent.putExtra("modifyData", responseData)
+                    startActivity(intent)
+                }
+            }
+
+            // 삭제 버튼
+            REVIEW_DELETE -> {
+
+                // 삭제 확인 다이얼로그
+                CustomDialog(this).genericDialog(
+                    CustomDialog.DialogData(
+                        getString(R.string.alert_delete_review_title),
+                        getString(R.string.alert_delete_review_complete),
+                        getString(R.string.alert_delete_review_cancel)
+                    ),
+                    complete = {
+                        showLoading()
+                        reviewDetailViewModel.deleteReview(postId)
+                        finish()
+                    },
+                    cancel = {
+                    }
+                )
+
+            }
+            // 신고 버튼
+            REVIEW_REPORT -> {
+
+                // 플로우 확정되면 구현 예정
+
+            }
+
+        }
+    }
+
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun observeContent() {
@@ -185,6 +194,7 @@ class ReviewDetailActivity :
 
             // null check
             if (reviewDetail != null) {
+
                 // RecyclerView 적용
                 val contentList = reviewDetail.contentList
                 reviewTagBoxAdapter.setReviewTagBoxData(contentList)
@@ -196,12 +206,16 @@ class ReviewDetailActivity :
                 // writer
                 writerId = reviewDetail.writerId
 
-                // like
-                binding.btnReviewLike.isSelected = reviewDetail.isLiked
                 binding.executePendingBindings()
             }
         }
 
+    }
+
+    private fun observeLoadingEnd() {
+        reviewDetailViewModel.onLoadingEnd.observe(this) {
+            dismissLoading()
+        }
     }
 
 

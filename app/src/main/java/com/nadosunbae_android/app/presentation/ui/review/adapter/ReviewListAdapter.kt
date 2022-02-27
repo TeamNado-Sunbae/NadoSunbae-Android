@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.review.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemListReviewBinding
 import com.nadosunbae_android.domain.model.review.ReviewPreviewData
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ReviewListAdapter(): RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>() {
     // list data
@@ -34,10 +37,15 @@ class ReviewListAdapter(): RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>(
                     t.second.visibility = View.GONE
             }
 
+
             // second major visibility
             if (data.secondMajorName == NOT_ENTERED) {
                 binding.viewLineVertical.visibility = View.INVISIBLE
                 binding.tvSecondMajor.visibility = View.INVISIBLE
+            }
+            else {
+                binding.viewLineVertical.visibility = View.VISIBLE
+                binding.tvSecondMajor.visibility = View.VISIBLE
             }
 
             binding.executePendingBindings()

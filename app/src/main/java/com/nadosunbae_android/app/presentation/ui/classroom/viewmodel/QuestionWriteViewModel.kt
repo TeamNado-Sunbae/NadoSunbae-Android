@@ -1,17 +1,18 @@
 package com.nadosunbae_android.app.presentation.ui.classroom.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteData
 import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteItem
+import com.nadosunbae_android.domain.model.classroom.WriteUpdateData
+import com.nadosunbae_android.domain.model.classroom.WriteUpdateItem
 import com.nadosunbae_android.domain.usecase.classroom.PostClassRoomWriteUseCase
+import com.nadosunbae_android.domain.usecase.classroom.PutWriteUpdateUseCase
 import kotlinx.coroutines.launch
 
 class QuestionWriteViewModel(
-    val postClassRoomWriteUseCase: PostClassRoomWriteUseCase
+    val postClassRoomWriteUseCase: PostClassRoomWriteUseCase,
+    val putWriteUpdateUseCase: PutWriteUpdateUseCase
 ) : ViewModel() {
 
     //전체 질문글 작성 제목 및 내용 있는지 체크
@@ -30,6 +31,11 @@ class QuestionWriteViewModel(
 
     //1:1, 전체 질문글, 정보글 작성
     var postDataWrite : MutableLiveData<ClassRoomPostWriteData> = MutableLiveData()
+
+    //1:1, 전체 질문글, 정보글 수정
+    private var _writeUpdate = MutableLiveData<WriteUpdateData>()
+    val writeUpdateData : LiveData<WriteUpdateData>
+        get() = _writeUpdate
 
     var completeBtn = MediatorLiveData<Boolean>().apply {
         this.addSource(title){
@@ -58,6 +64,22 @@ class QuestionWriteViewModel(
                     Log.d("classRoomWrite", "글 작성 등록 실패")
                 }
         }
+    }
+
+    //1:1, 질문, 정보글 수정
+    fun putWriteUpdate(postId : Int, writeUpdateItem: WriteUpdateItem){
+        viewModelScope.launch {
+            runCatching { putWriteUpdateUseCase(postId, writeUpdateItem) }
+                .onSuccess {
+                    _writeUpdate.value = it
+                    Log.d("writeUpdate", "글 수정 완료")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("writeUpdate", "글 수정 실패")
+                }
+        }
+
     }
 
 

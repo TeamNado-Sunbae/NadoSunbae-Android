@@ -1,7 +1,9 @@
 package com.nadosunbae_android.data.api.classroom
 
 import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
+import com.nadosunbae_android.data.model.request.classroom.RequestCommentUpdateData
 import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
+import com.nadosunbae_android.data.model.request.classroom.RequestWriteUpdateData
 import com.nadosunbae_android.data.model.response.classroom.*
 import retrofit2.http.*
 
@@ -63,4 +65,24 @@ interface ClassRoomService {
     suspend fun getInformationDetail(
         @Path("postId") postId : Int
     ) : ResponseInfoDetailData
+
+    //1:1 질문, 전체 질문, 정보글에 있는 특정 댓글 수정
+    @PUT("comment/{commentId}")
+    suspend fun putCommentUpdate(
+        @Path("commentId") commentId : Int,
+        @Body requestCommentUpdateData : RequestCommentUpdateData
+    ) : ResponseCommentUpdateData
+
+    //1:1 질문, 전체 질문, 정보글 원글 수정
+    @PUT("classroom-post/{postId}")
+    suspend fun putWriteUpdate(
+        @Path("postId") postId : Int,
+        @Body requestWriteUpdateData : RequestWriteUpdateData
+    ) : ResponseWriteUpdateData
+
+    //1:1 질문, 전체 질문, 정보글에 있는 특정 댓글 삭제
+    @DELETE("comment/{commentId}")
+    suspend fun deleteComment(
+        @Path("commentId") commentId : Int
+    ) : ResponseDeleteComment
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
@@ -20,7 +21,7 @@ class ReviewDetailViewModel(
     private val getReviewDetailDataUseCase: GetReviewDetailDataUseCase,
     private val deleteReviewDataUseCase: DeleteReviewDataUseCase,
     private val postLikeDataUseCase: PostLikeDataUseCase
-) : ViewModel(), DropDownSelectableViewModel {
+) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
 
     private val _reviewDetailData = MutableLiveData<ReviewDetailData>()
     val reviewDetailData: LiveData<ReviewDetailData>
@@ -35,6 +36,7 @@ class ReviewDetailViewModel(
         get() = _signUserId
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
+    override val onLoadingEnd = MutableLiveData<Boolean>(false)
 
     // 후기 상세정보 불러오기
     fun getReviewDetail(postId: Int) {
@@ -48,6 +50,9 @@ class ReviewDetailViewModel(
                     it.printStackTrace()
                     Log.d(TAG, "서버통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 
@@ -59,10 +64,15 @@ class ReviewDetailViewModel(
             runCatching { postLikeDataUseCase(likeItem) }
                 .onSuccess {
                     Log.d(TAG, "서버통신 성공")
+
+                    getReviewDetail(postId)
                 }
                 .onFailure {
                     it.printStackTrace()
                     Log.d(TAG, "서버통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -79,6 +89,9 @@ class ReviewDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d(TAG, "서버통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
                 }
         }
     }

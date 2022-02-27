@@ -1,10 +1,13 @@
 package com.nadosunbae_android.app.presentation.ui.review.viewmodel
 
+import android.app.Dialog
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.review.MajorInfoData
 import com.nadosunbae_android.domain.model.review.ReviewFilterItem
@@ -17,13 +20,14 @@ import kotlinx.coroutines.launch
 class ReviewListViewModel(
     val getReviewListDataUseCase: GetReviewListDataUseCase,
     val getMajorInfoDataUseCase: GetMajorInfoDataUseCase
-) : ViewModel(), DropDownSelectableViewModel {
+) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
 
     private val _reviewListData = MutableLiveData<List<ReviewPreviewData>>()
     val reviewListData: LiveData<List<ReviewPreviewData>>
         get() = _reviewListData
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
+    override val onLoadingEnd = MutableLiveData<Boolean>(false)
 
     private val _majorInfo = MutableLiveData<MajorInfoData>()
     val majorInfo: LiveData<MajorInfoData>
@@ -46,6 +50,9 @@ class ReviewListViewModel(
                     it.printStackTrace()
                     Log.d(TAG, "서버통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 
@@ -61,10 +68,14 @@ class ReviewListViewModel(
                     it.printStackTrace()
                     Log.d(TAG, "서버통신 실패")
                 }
+                .also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 
     companion object {
         const val TAG = "reviewListViewModel"
     }
+
 }
