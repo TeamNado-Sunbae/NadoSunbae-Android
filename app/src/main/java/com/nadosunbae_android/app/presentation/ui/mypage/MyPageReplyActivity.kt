@@ -8,6 +8,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPagePostBinding
 import com.nadosunbae_android.app.databinding.ActivityMyPageReplyBinding
+import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyAdapter
@@ -46,9 +47,9 @@ class MyPageReplyActivity :
 
             //폰트 설정
             textMypageReplyQuestionTitle.typeface =
-                ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
             textMypageReplyInfoTitle.typeface =
-                ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                ResourcesCompat.getFont(context(), R.font.pretendard_regular)
         }
 
     }
@@ -62,9 +63,9 @@ class MyPageReplyActivity :
 
                 //폰트 설정
                 textMypageReplyQuestionTitle.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
                 textMypageReplyInfoTitle.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
             }
 
             textMypageReplyInfoTitle.setOnClickListener {
@@ -74,9 +75,9 @@ class MyPageReplyActivity :
 
                 //폰트 설정
                 textMypageReplyQuestionTitle.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
                 textMypageReplyInfoTitle.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
             }
 
         }

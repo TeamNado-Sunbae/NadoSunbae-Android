@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPagePostBinding
+import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapter
@@ -50,9 +51,9 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
             //폰트 설정
             textMypagePostQuestionTitle.typeface =
-                ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
             textMypagePostInfoTitle.typeface =
-                ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                ResourcesCompat.getFont(context(), R.font.pretendard_regular)
         }
 
     }
@@ -66,9 +67,9 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
                 //폰트 설정
                 textMypagePostQuestionTitle.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
                 textMypagePostInfoTitle.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
             }
 
             textMypagePostInfoTitle.setOnClickListener {
@@ -78,9 +79,9 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
                 //폰트 설정
                 textMypagePostQuestionTitle.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
                 textMypagePostInfoTitle.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
             }
         }
 

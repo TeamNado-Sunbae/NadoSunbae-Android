@@ -10,6 +10,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageLikeListBinding
+import com.nadosunbae_android.app.di.NadoSunBaeApplication
+import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeReviewAdapter
@@ -51,9 +53,9 @@ class MyPageLikeListActivity :
         binding.textMypageLikeInfo.isSelected = false
 
         //폰트 설정
-        binding.textMypageLikeReview.typeface = ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
-        binding.textMypageLikeQuestion.typeface = ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
-        binding.textMypageLikeInfo.typeface = ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+        binding.textMypageLikeReview.typeface = ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
+        binding.textMypageLikeQuestion.typeface = ResourcesCompat.getFont(context(), R.font.pretendard_regular)
+        binding.textMypageLikeInfo.typeface = ResourcesCompat.getFont(context(), R.font.pretendard_regular)
     }
 
     private fun selectOption() {
@@ -66,11 +68,11 @@ class MyPageLikeListActivity :
 
                 //폰트 설정
                 textMypageLikeReview.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
                 textMypageLikeQuestion.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
                 textMypageLikeInfo.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
             }
 
             textMypageLikeQuestion.setOnClickListener {
@@ -81,11 +83,11 @@ class MyPageLikeListActivity :
 
                 //폰트 설정
                 textMypageLikeReview.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
                 textMypageLikeQuestion.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
                 textMypageLikeInfo.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
             }
 
             textMypageLikeInfo.setOnClickListener {
@@ -96,11 +98,11 @@ class MyPageLikeListActivity :
 
                 //폰트 설정
                 textMypageLikeReview.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
                 textMypageLikeQuestion.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_regular)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
                 textMypageLikeInfo.typeface =
-                    ResourcesCompat.getFont(Activity(), R.font.pretendard_semibold)
+                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
             }
         }
     }
