@@ -67,4 +67,8 @@ class ClassRoomDataSourceImpl(private val service : ClassRoomService) : ClassRoo
     override suspend fun deleteComment(commentId: Int): ResponseDeleteComment {
         return service.deleteComment(commentId)
     }
+
+    override suspend fun deletePost(postId: Int): ResponseDeleteComment {
+        return service.deletePost(postId)
+    }
 }

@@ -41,4 +41,7 @@ interface ClassRoomDataSource {
 
     //1:1 질문, 전체 질문, 정보글에 있는 특정 댓글 삭제
     suspend fun deleteComment(commentId : Int) : ResponseDeleteComment
+
+    //1:1 질문, 전체 질문, 정보글에 있는 원글 삭제
+    suspend fun deletePost(postId : Int) : ResponseDeleteComment
 }

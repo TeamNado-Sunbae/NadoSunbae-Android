@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailCommentBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailQuestionerBinding
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding
+import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 
@@ -20,7 +21,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     var context = context
     private var like = 0
     private var likeSelect = false
-
+    private val activity : QuestionDetailActivity = context as QuestionDetailActivity
     //View Type (WRITER -> 질문자, QUESTIONER -> 답변자, WRITER_COMMENT -> 질문자의 재 답변)
     private val WRITER_VIEW_TYPE = 0
     private val QUESTIONER_VIEW_TYPE = 1
@@ -108,23 +109,29 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         position,
                         lookForThirdParty(userId, position),
                         writer,
-                        questionDetailData[position].messageId
+                        questionDetailData[position].messageId,
+                        write
                     )
                 }
 
                 //수정일 경우 띄우기
-                if (viewNum == 1) {
-                    viewNum = 0
-                    val intent = Intent(holder.itemView.context, QuestionWriteActivity::class.java)
-                    intent.apply {
-                        putExtra("division", 1)
-                        putExtra("writerUpdateContent", questionDetailData[position].content)
-                        putExtra("writerUpdateTitle", questionDetailData[position].title)
-                        putExtra("title", viewTitle)
-                        putExtra("postId", postId)
+                if(menuNum == 1){
+                    if (viewNum == 1 || viewNum == 2) {
+                        viewNum = 0
+                        val intent = Intent(holder.itemView.context, QuestionWriteActivity::class.java)
+                        intent.apply {
+                            putExtra("division", 1)
+                            putExtra("writerUpdateContent", questionDetailData[position].content)
+                            putExtra("writerUpdateTitle", questionDetailData[position].title)
+                            putExtra("title", viewTitle)
+                            putExtra("postId", postId)
+                        }
+                        ContextCompat.startActivity(holder.itemView.context, intent, null)
                     }
-                    ContextCompat.startActivity(holder.itemView.context, intent, null)
+                }else if(menuNum == 3){
+                    activity.finish()
                 }
+
             }
 
             //답변자 문답
@@ -141,15 +148,16 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         position,
                         lookForThirdParty(userId, position),
                         questioner,
-                        questionDetailData[position].messageId
+                        questionDetailData[position].messageId,
+                        comment
                     )
                 }
-                //수정일 경우 띄우기
+                //수정 또는 삭제일 경우 띄우기
                 if (viewNum == 2) {
                     holder.visibleQuestionDetailComment(menuNum)
                     viewNum = 0
                 }
-
+                //저장 버튼 누르기
                 holder.binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
                     val content =
                         holder.binding.includeQuestionDetailQuestionerUpdate.etQuestionDetailQuestionerContent.text.toString()
@@ -159,7 +167,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     holder.binding.includeQuestionDetailQuestionerText.textQuestionDetailQuestionerContent.text =
                         content
                 }
-
+                //취소 버튼 누르기
                 holder.binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterQuestionerContentCancel.setOnClickListener {
                     holder.visibleQuestionDetailComment(0)
                 }
@@ -179,13 +187,16 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         position,
                         lookForThirdParty(userId, position),
                         writer,
-                        questionDetailData[position].messageId
+                        questionDetailData[position].messageId,
+                        comment
                     )
                 }
+                //수정 또는 삭제일 경우 띄우기
                 if (viewNum == 1) {
                     holder.visibleQuestionDetailComment(menuNum)
                     viewNum = 0
                 }
+                //저장 버튼 누르기
                 holder.binding.includeQuestionDetailCommentUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
                     val content =
                         holder.binding.includeQuestionDetailCommentUpdate.etQuestionDetailWriterCommentContent.text.toString()
@@ -195,6 +206,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     holder.binding.includeQuestionDetailCommentText.textQuestionDetailWriterCommentContent.text =
                         content
                 }
+                //취소 버튼 누르기
                 holder.binding.includeQuestionDetailCommentUpdate.textQuestionDetailWriterCommentContentCancel.setOnClickListener {
                     holder.visibleQuestionDetailComment(0)
                 }
@@ -370,7 +382,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
     //점세개 메뉴 클릭 이벤트
     interface OnItemClickListener {
-        fun onClick(v: View, position: Int, user: Int, viewNum: Int, commentId : Int)
+        fun onClick(v: View, position: Int, user: Int, viewNum: Int, commentId : Int, deleteNum : Int)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -405,8 +417,16 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
 
     companion object {
+        //user
         const val writer = 1
         const val questioner = 2
         const val thirdParty = 3
+
+        //Delete
+        const val comment = 1
+        const val write = 2
     }
+
+
+
 }
