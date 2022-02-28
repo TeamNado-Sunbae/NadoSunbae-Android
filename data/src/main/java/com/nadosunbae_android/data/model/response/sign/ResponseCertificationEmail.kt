@@ -1,7 +1,5 @@
 package com.nadosunbae_android.data.model.response.sign
 
-import java.util.*
-
 data class ResponseCertificationEmail(
     val data: Data,
     val message: String,
