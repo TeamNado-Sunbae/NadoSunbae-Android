@@ -32,6 +32,16 @@ class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(R.lay
         val input = binding.etChangePwEmail.getText().toString()
         binding.textChangePwOk.setOnClickListener {
             myPageViewModel.postMyPageRestPassword(MyPageResetPasswordItem(input))
+            myPageViewModel.resetPassword.observe(this) {
+                if(!it.success) {
+                    Log.d("이메일 존재 여부 체크", "실패")
+                    binding.textChangePwWarn.visibility = View.VISIBLE
+                }
+                if(it.success) {
+                    Log.d("이메일 존재 여부 체크", "성공")
+                    binding.textChangePwWarn.visibility = View.INVISIBLE
+                }
+            }
         }
     }
 

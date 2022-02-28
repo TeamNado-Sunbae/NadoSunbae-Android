@@ -270,6 +270,7 @@ object MypageMapper {
     fun mapperToResetPasswordData(responseResetPassword: ResponseResetPassword): MyPageResetPasswordData {
         return MyPageResetPasswordData(
             data = responseResetPassword.data,
+            status = responseResetPassword.status,
             success = responseResetPassword.success
         )
     }
