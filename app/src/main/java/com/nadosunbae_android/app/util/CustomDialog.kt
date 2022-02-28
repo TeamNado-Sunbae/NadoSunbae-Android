@@ -87,8 +87,8 @@ class CustomDialog(val context : Context) {
         dialog.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
 
-        // 버튼 길이를 긴 쪽에 맞춤
-        adjustViewWidth(binding.btnDialogCancel, binding.btnDialogComplete)
+        adjustViewWidth(binding.btnDialogCancel, binding.btnDialogComplete)     // 버튼 길이를 긴 쪽에 맞춤
+
         dialog.show()
 
     }

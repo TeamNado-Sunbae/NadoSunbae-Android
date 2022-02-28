@@ -1,6 +1,5 @@
 package com.nadosunbae_android.app.di
 
-import android.util.Log
 import com.google.gson.GsonBuilder
 import com.nadosunbae_android.app.util.AuthInterceptor
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
@@ -11,12 +10,14 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+private const val BASE_URL ="https://asia-northeast3-nadosunbae-server.cloudfunctions.net/api/"
+
 val apiModule = module {
 
     single<Retrofit> {
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .baseUrl("https://asia-northeast3-nadosunbae-server.cloudfunctions.net/api/")
+            .baseUrl(BASE_URL)
             .client(get<OkHttpClient>())
             .build()
     }
@@ -26,9 +27,10 @@ val apiModule = module {
             .run {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
                 addInterceptor(get<Interceptor>())
-                addInterceptor(AuthInterceptor())
+                addInterceptor(AuthInterceptor(BASE_URL))
                 build()
             }
+
     }
 
     single<Interceptor> {
