@@ -6,13 +6,10 @@ import com.nadosunbae_android.app.databinding.ActivitySignInBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 
 
-class CheckMailActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_check_mail) {
+class CheckPwMailActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_check_pw_mail) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
-    private fun initResendBtn() {
-        binding.
-    }
 }
