@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.datasource.remote.mypage
 import com.nadosunbae_android.data.api.mypage.MyPageService
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
+import com.nadosunbae_android.data.model.request.mypage.RequestResetPassword
 import com.nadosunbae_android.data.model.response.mypage.*
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
 
@@ -56,5 +57,9 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
 
     override suspend fun postMyPageBlockUpdate(requestMyPageBlockUpdate: RequestMyPageBlockUpdate): ResponseMyPageBlockUpdate {
         return service.postBlockUpdate(requestMyPageBlockUpdate)
+    }
+
+    override suspend fun postResetPassword(requestResetPassword: RequestResetPassword): ResponseResetPassword {
+        return service.postResetPassword(requestResetPassword)
     }
 }

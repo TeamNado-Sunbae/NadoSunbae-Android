@@ -18,5 +18,6 @@ interface SignRepository {
     //로그인
     suspend fun postSignIn(signInData: SignInData): SignInItem
 
+    //이메일 재전송
     suspend fun postCertificationEmail(certificationEmailData: CertificationEmailData) : CertificationEmailItem
 }

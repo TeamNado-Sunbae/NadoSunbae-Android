@@ -24,7 +24,8 @@ class MyPageViewModel(
     val getMyPageLikeReviewUseCase: GetMyPageLikeReviewUseCase,
     val getMyPageReviewUseCase: GetMyPageReviewUseCase,
     val getMyPageBlockUseCase: GetMyPageBlockUseCase,
-    val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase
+    val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase,
+    val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase
 
     ) : ViewModel(), LoadableViewModel {
 
@@ -51,6 +52,7 @@ class MyPageViewModel(
     val reviewList = MutableLiveData<MyPageReviewData>()
     val blockList = MutableLiveData<MyPageBlockData>()
     val blockUpdate = MutableLiveData<MyPageBlockUpdateData>()
+    val resetPassword = MutableLiveData<MyPageResetPasswordData>()
 
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
@@ -258,6 +260,24 @@ class MyPageViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("MyPageLogOut", "서버 통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
+                }
+        }
+    }
+
+    //마이페이지 비밀번호 재설정
+    fun postMyPageRestPassword(myPageResetPasswordItem: MyPageResetPasswordItem) {
+        viewModelScope.launch {
+            kotlin.runCatching { postMyPageResetPasswordUseCase(myPageResetPasswordItem) }
+                .onSuccess {
+                    resetPassword.value = it
+                    Log.d("MyPageResetPw", "서버 통신 완료")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("MyPageResetPw", "서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
