@@ -27,9 +27,16 @@ class MyPageReplyActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        observeLoadingEnd()
         initBtn()
         backBtn()
         selectOption()
+    }
+
+    private fun observeLoadingEnd() {
+        myPageViewModel.onLoadingEnd.observe(this) {
+            dismissLoading()
+        }
     }
 
     private fun backBtn() {
@@ -41,6 +48,7 @@ class MyPageReplyActivity :
 
     private fun initBtn() {
         binding.apply {
+            showLoading()
             questionPosting()
             textMypageReplyQuestionTitle.isSelected = true
             textMypageReplyInfoTitle.isSelected = false
@@ -57,6 +65,7 @@ class MyPageReplyActivity :
     private fun selectOption() {
         binding.apply {
             textMypageReplyQuestionTitle.setOnClickListener {
+                showLoading()
                 questionPosting()
                 textMypageReplyQuestionTitle.isSelected = true
                 textMypageReplyInfoTitle.isSelected = false
@@ -69,6 +78,7 @@ class MyPageReplyActivity :
             }
 
             textMypageReplyInfoTitle.setOnClickListener {
+                showLoading()
                 infoPosting()
                 textMypageReplyQuestionTitle.isSelected = false
                 textMypageReplyInfoTitle.isSelected = true
@@ -84,6 +94,7 @@ class MyPageReplyActivity :
     }
 
     private fun questionPosting() {
+        showLoading()
         intent.getIntExtra("userId", 0)
         Log.d("ReplyuserId", "- id: " + intent.getIntExtra("userId", 0))
 
@@ -97,6 +108,7 @@ class MyPageReplyActivity :
     }
 
     private fun infoPosting() {
+        showLoading()
         intent.getIntExtra("userId", 0)
         Log.d("ReplyuserId", "- id: " + intent.getIntExtra("userId", 0))
 

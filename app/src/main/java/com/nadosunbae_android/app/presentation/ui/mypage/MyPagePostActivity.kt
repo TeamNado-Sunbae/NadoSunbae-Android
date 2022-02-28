@@ -30,14 +30,23 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        observeLoadingEnd()
         initBtn()
         backBtn()
         selectOption()
     }
 
+    private fun observeLoadingEnd() {
+        myPageViewModel.onLoadingEnd.observe(this) {
+            dismissLoading()
+        }
+    }
+
+
 
     private fun backBtn() {
         binding.imgMypagePostTitle.setOnClickListener {
+
             finish()
         }
     }
@@ -45,6 +54,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
     private fun initBtn() {
         binding.apply {
+            showLoading()
             questionPosting()
             textMypagePostQuestionTitle.isSelected = true
             textMypagePostInfoTitle.isSelected = false
@@ -61,6 +71,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
     private fun selectOption() {
         binding.apply {
             textMypagePostQuestionTitle.setOnClickListener {
+                showLoading()
                 questionPosting()
                 textMypagePostQuestionTitle.isSelected = true
                 textMypagePostInfoTitle.isSelected = false
@@ -73,6 +84,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
             }
 
             textMypagePostInfoTitle.setOnClickListener {
+                showLoading()
                 infoPosting()
                 textMypagePostQuestionTitle.isSelected = false
                 textMypagePostInfoTitle.isSelected = true
@@ -89,6 +101,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
 
     private fun questionPosting() {
+        showLoading()
         intent.getIntExtra("userId", 0)
         Log.d("PostuserId", "- id: " + intent.getIntExtra("userId", 0))
 
@@ -102,6 +115,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
     }
 
     private fun infoPosting() {
+        showLoading()
         intent.getIntExtra("userId", 0)
         Log.d("PostuserId", "- id: " + intent.getIntExtra("userId", 0))
 

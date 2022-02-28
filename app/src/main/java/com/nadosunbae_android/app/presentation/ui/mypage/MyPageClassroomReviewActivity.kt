@@ -52,7 +52,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
     }
 
     private fun initReviewListAdapter() {
-
+        showLoading()
         myPageViewModel.getMyPageReview(intent.getIntExtra("userId", 0))
         myPageReviewAdapter = MyPageReviewAdapter()
         binding.rvMypageReview.adapter = myPageReviewAdapter
@@ -62,7 +62,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
     }
 
     private fun setClickListener() {
-
+        showLoading()
         // RecyclerView ItemClickListener
         myPageReviewAdapter.setItemClickListener(
             object : MyPageReviewAdapter.ItemClickListener {

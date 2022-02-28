@@ -46,6 +46,7 @@ class ModifyMyInfoActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        observeLoadingEnd()
         initNotEntered()
         initWriteMode()
         firstMajor()
@@ -59,6 +60,12 @@ class ModifyMyInfoActivity :
         nicknameTextWatcher()
         backBtnClick()
 
+    }
+
+    private fun observeLoadingEnd() {
+        myPageViewModel.onLoadingEnd.observe(this) {
+            dismissLoading()
+        }
     }
 
     //닉네임 초기 데이터와 같다면 워닝 메시지 띄우지 않기 (닉네임은 바꾸지 않는 경우)
@@ -407,6 +414,7 @@ class ModifyMyInfoActivity :
             binding.textMyPageSave.isSelected = true
             if (binding.textMyPageSave.isSelected) {
                 binding.textMyPageSave.setOnClickListener {
+                    showLoading()
                     confirmExit()
                 }
             }
@@ -417,6 +425,7 @@ class ModifyMyInfoActivity :
     private fun backBtnClick() {
         binding.imgMypageModifyTitle.setOnClickListener {
             if (binding.textMyPageSave.isSelected) {
+                showLoading()
                 confirmBack()
             } else {
                 finish()
@@ -451,6 +460,7 @@ class ModifyMyInfoActivity :
                 getString(R.string.mypage_alert_modify_no)
             ),
             complete = {
+                showLoading()
                 completeModifyInfo()
                 finish()
             },
@@ -472,6 +482,7 @@ class ModifyMyInfoActivity :
                 getString(R.string.mypage_modify_alert_back_continue)
             ),
             complete = {
+                showLoading()
                 finish()
             },
             cancel = {

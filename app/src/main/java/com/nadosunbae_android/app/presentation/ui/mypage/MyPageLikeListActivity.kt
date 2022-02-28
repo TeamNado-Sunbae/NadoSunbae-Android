@@ -84,6 +84,7 @@ class MyPageLikeListActivity :
             }
 
             textMypageLikeQuestion.setOnClickListener {
+                showLoading()
                 questionPosting()
                 textMypageLikeReview.isSelected = false
                 textMypageLikeQuestion.isSelected = true
@@ -99,6 +100,7 @@ class MyPageLikeListActivity :
             }
 
             textMypageLikeInfo.setOnClickListener {
+                showLoading()
                 infoPosting()
                 textMypageLikeReview.isSelected = false
                 textMypageLikeQuestion.isSelected = false
@@ -116,6 +118,7 @@ class MyPageLikeListActivity :
     }
 
     private fun questionPosting() {
+        showLoading()
         intent.getIntExtra("userId", 0)
         myPageViewModel.getMyPageLikeQuestion("question")
         myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1)
@@ -127,6 +130,7 @@ class MyPageLikeListActivity :
     }
 
     private fun infoPosting() {
+        showLoading()
         intent.getIntExtra("userId", 0)
 
         myPageViewModel.getMyPageLikeQuestion("information")
@@ -140,6 +144,7 @@ class MyPageLikeListActivity :
 
 
     private fun initReviewListAdapter() {
+        showLoading()
         intent.getIntExtra("userId", 0)
         myPageViewModel.getMyPageLikeReview("review")
         myPageLikeReviewAdapter = MyPageLikeReviewAdapter()
@@ -152,7 +157,7 @@ class MyPageLikeListActivity :
 
 
     private fun setClickListener() {
-
+        showLoading()
         // RecyclerView ItemClickListener
         myPageLikeReviewAdapter.setItemClickListener(
             object : MyPageLikeReviewAdapter.ItemClickListener {
