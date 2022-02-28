@@ -9,11 +9,6 @@ data class ResponseCertificationEmail(
     val success: Boolean
 ) {
     data class Data(
-        val user: User
-    ) {
-        data class User(
-            val createdAt: Date?,
-            val userId: Int
-        )
-    }
+        val email: String
+    )
 }

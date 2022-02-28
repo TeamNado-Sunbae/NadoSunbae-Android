@@ -114,10 +114,7 @@ object SignMapper {
     fun mapperToCertificationEmailData(responseCertificationEmail: ResponseCertificationEmail) : CertificationEmailItem {
         return CertificationEmailItem(
             data = CertificationEmailItem.Data(
-                user = CertificationEmailItem.Data.User(
-                    createdAt = responseCertificationEmail.data.user.createdAt,
-                    userId = responseCertificationEmail.data.user.userId
-                )
+                email = responseCertificationEmail.data.email
             ),
             success = responseCertificationEmail.success
         )
