@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.databinding.ItemQuestionDetailQuestionerBindin
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 
 
@@ -36,6 +37,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     var viewNum: Int = 0
     var position: Int = 0
     lateinit var questionDetailUserData: QuestionDetailData
+
 
     fun setLike(num: Int, isLiked: Boolean) {
         like = num

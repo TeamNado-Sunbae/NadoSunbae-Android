@@ -19,6 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.DialogGenericBinding
 import com.nadosunbae_android.app.databinding.DialogProgressBinding
+import com.nadosunbae_android.app.databinding.DialogReportBinding
 import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity
 import kotlinx.android.synthetic.main.dialog_question_write_cancel.*
 import kotlinx.android.synthetic.main.dialog_question_write_complete.*
@@ -135,7 +136,38 @@ class CustomDialog(val context : Context) {
         val cancel: String
     )
 
+    fun reportDialog(context : Context) : String{
+        val binding = DialogReportBinding.inflate(LayoutInflater.from(context))
+        var text : String = ""
+
+
+        dialog.setContentView(binding.root)
+        dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.inset_8)
+
+        dialog.show()
+
+        text = viewText(binding.textReportOne,dialog)
+        text = viewText(binding.textReportTwo, dialog)
+        text = viewText(binding.textReportThree, dialog)
+        text = viewText(binding.textReportFour, dialog)
+        text = viewText(binding.textReportFive, dialog)
+        text = viewText(binding.textReportSix, dialog)
+        return text
+    }
+
+    fun viewText(view : TextView, dialog : Dialog) : String{
+        var text : String = ""
+        view.setOnClickListener {
+            text = view.text.toString()
+            dialog.dismiss()
+        }
+
+        return text
+    }
+
 }
+
 
 fun BottomSheetDialogFragment.finish() {
     activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()

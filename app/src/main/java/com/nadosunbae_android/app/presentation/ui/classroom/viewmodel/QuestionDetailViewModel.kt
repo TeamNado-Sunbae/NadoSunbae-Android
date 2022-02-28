@@ -47,6 +47,9 @@ class QuestionDetailViewModel(
     //댓글 삭제 분류 1 -> comment, 2-> write
     var deleteNum = MutableLiveData<Int>()
 
+    //신고 사유 데이터
+    var reportReason = MutableLiveData<String>()
+
     //댓글 삭제 데이터
     private var _deleteData = MutableLiveData<DeleteCommentData>()
     val deleteData : LiveData<DeleteCommentData>

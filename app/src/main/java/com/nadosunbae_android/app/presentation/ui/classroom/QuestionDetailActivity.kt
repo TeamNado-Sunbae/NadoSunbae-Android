@@ -191,7 +191,9 @@ class QuestionDetailActivity :
                 resources.getString(R.string.question_detail_update) ->
                     classRoomQuestionDetailAdapter.setCheckMenu(update, viewNum, position)
                 resources.getString(R.string.question_detail_report) ->
-                    classRoomQuestionDetailAdapter.setCheckMenu(report, viewNum, position)
+                    reportReasonDialog(
+                        reportPost = {classRoomQuestionDetailAdapter.setCheckMenu(report, viewNum, position)}
+                    )
                 resources.getString(R.string.question_detail_delete) ->
                     deleteDialog(deleteNum,
                         setCheckMenu = { classRoomQuestionDetailAdapter.setCheckMenu(delete, viewNum, position) },
@@ -229,6 +231,26 @@ class QuestionDetailActivity :
 
             }
         )
+    }
+
+    // 신고 사유 다이얼로그 띄우기
+    private fun reportReasonDialog(reportPost : () -> Unit, setReport : () -> Unit){
+        questionDetailViewModel.reportReason.value = CustomDialog(this).reportDialog(this)
+        if(questionDetailViewModel.reportReason.value != ""){
+            CustomDialog(this).genericDialog(
+                CustomDialog.DialogData(
+                    resources.getString(R.string.request_report),
+                    resources.getString(R.string.agree_report),
+                    resources.getString(R.string.disagree_report)
+                ),
+                complete = {
+
+                },
+                cancel = {
+
+                }
+            )
+        }
 
     }
 
