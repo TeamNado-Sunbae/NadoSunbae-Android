@@ -11,4 +11,8 @@ class CheckMailActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_
         super.onCreate(savedInstanceState)
 
     }
+
+    private fun initResendBtn() {
+        binding.
+    }
 }

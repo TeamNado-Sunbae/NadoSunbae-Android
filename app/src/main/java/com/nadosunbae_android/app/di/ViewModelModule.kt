@@ -38,6 +38,6 @@ val viewModelModule = module {
     viewModel { ReviewWriteViewModel(get(),get(),get()) }
 
     //sign
-    viewModel { SignUpBasicInfoViewModel(get(),get(),get(),get(),get(),get())}
+    viewModel { SignUpBasicInfoViewModel(get(),get(),get(),get(),get(),get(), get())}
     viewModel { SignViewModel()}
 }

@@ -8,6 +8,7 @@ import com.nadosunbae_android.data.model.request.sign.RequestSignUp
 import com.nadosunbae_android.domain.model.sign.*
 import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.sign.GetSecondDepartmentUseCase
+import com.nadosunbae_android.domain.usecase.sign.PostCertificationEmailUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +19,8 @@ class SignUpBasicInfoViewModel(
     val postSignEmailUseCase: PostSignEmailUseCase,
     val postSignInUseCase: PostSignInUseCase,
     val postSignNicknameUseCase: PostSignNicknameUseCase,
-    val postSignUpUseCase: PostSignUpUseCase
+    val postSignUpUseCase: PostSignUpUseCase,
+    val postCertificationEmailUseCase: PostCertificationEmailUseCase
 
 ) : ViewModel() {
     //닉네임 중복 체크 변수
@@ -58,6 +60,8 @@ class SignUpBasicInfoViewModel(
     var firstDepartmentGo = MutableLiveData<Boolean>(false)
     var secondDepartmentClick = MutableLiveData<Boolean>(false)
     var secondDepartmentGo = MutableLiveData<Boolean>(false)
+
+    val certificationEmail = MutableLiveData<CertificationEmailItem>()
 
     //미진입 없을 때
     var selectedAll = MediatorLiveData<Boolean>().apply {
@@ -163,6 +167,20 @@ class SignUpBasicInfoViewModel(
         }
     }
 
+    //이메일 재전송
+    fun postCertificationEmail(certificationEmailData: CertificationEmailData) {
+        viewModelScope.launch {
+            kotlin.runCatching { postCertificationEmailUseCase(certificationEmailData) }
+                .onSuccess {
+                    certificationEmail.value = it
+                    Log.d("EmailCertification", "서버 통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("EmailCertification", "서버 통신 실패")
+                }
+        }
+    }
 
     //본 전공 선택
     fun getFirstDepartment(universityId: Int, filter: String) {

@@ -1,9 +1,6 @@
 package com.nadosunbae_android.data.api.sign
 
-import com.nadosunbae_android.data.model.request.sign.RequestSignEmail
-import com.nadosunbae_android.data.model.request.sign.RequestSignIn
-import com.nadosunbae_android.data.model.request.sign.RequestSignNickname
-import com.nadosunbae_android.data.model.request.sign.RequestSignUp
+import com.nadosunbae_android.data.model.request.sign.*
 import com.nadosunbae_android.data.model.response.sign.*
 import retrofit2.http.*
 
@@ -34,4 +31,9 @@ interface SignService {
     suspend fun postSignIn(
         @Body requestSignIn: RequestSignIn
     ) : ResponseSignIn
+
+    @POST("auth/certification/email")
+    suspend fun postCertificationEmail(
+        @Body requestCertificationEmail: RequestCertificationEmail
+    ) : ResponseCertificationEmail
 }
