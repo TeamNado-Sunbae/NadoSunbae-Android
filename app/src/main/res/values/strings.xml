@@ -23,9 +23,10 @@
     <!-- 비밀번호 찾는 view -->
     <string name="findpw_title">비밀번호 찾기</string>
     <string name="findpw_contents">본인 인증을 위해 \n가입 당시 입력한 정보를 입력해주세요</string>
-    <string name="findpw_email">학교 이메일</string>
+    <string name="findpw_email">학교 이메일 계정</string>
     <string name="findpw_warn">해당 메일로 가입된 사용자가 없습니다.</string>
     <string name="findpw_check">확인</string>
+    <string name="pw_change">비밀번호 재설정</string>
 
 
     <!-- 회원가입 약관 동의 view -->
