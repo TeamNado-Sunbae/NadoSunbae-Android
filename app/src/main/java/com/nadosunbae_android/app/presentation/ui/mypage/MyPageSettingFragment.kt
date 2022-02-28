@@ -24,9 +24,16 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeLoadingEnd()
         changeActivity()
         initLogOut()
         backBtn()
+    }
+
+    private fun observeLoadingEnd() {
+        myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+            dismissLoading()
+        }
     }
 
     //각각의 activity로 이동
@@ -82,6 +89,7 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
 
             myPageViewModel.logOut.observe(viewLifecycleOwner) {
                 if(it.success) {
+                    showLoading()
                     startActivity(intent)
                     Log.d("로그아웃", "성공")
 
@@ -90,6 +98,11 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initLogOut()
     }
 
     //뒤로가기 버튼

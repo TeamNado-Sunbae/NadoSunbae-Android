@@ -66,6 +66,7 @@
             app:layout_constraintTop_toBottomOf="@+id/img_signup_finish" />
 
         <TextView
+            android:id="@+id/text_signup_resend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_fill_mint_8dp"
@@ -76,7 +77,7 @@
             android:paddingBottom="4dp"
             android:textColor="@color/main_default"
             android:textSize="14dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:text="@string/signup_mail_resend"
             app:layout_constraintEnd_toEndOf="@+id/text_signup_finish_warning"
             app:layout_constraintStart_toStartOf="@+id/text_signup_finish_warning"
