@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.databinding.ItemQuestionDetailQuestionerBindin
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 
 
@@ -21,7 +22,8 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     var context = context
     private var like = 0
     private var likeSelect = false
-    private val activity : QuestionDetailActivity = context as QuestionDetailActivity
+    private val activity: QuestionDetailActivity = context as QuestionDetailActivity
+
     //View Type (WRITER -> 질문자, QUESTIONER -> 답변자, WRITER_COMMENT -> 질문자의 재 답변)
     private val WRITER_VIEW_TYPE = 0
     private val QUESTIONER_VIEW_TYPE = 1
@@ -37,6 +39,8 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     var position: Int = 0
     lateinit var questionDetailUserData: QuestionDetailData
 
+    //신고 사유
+    var reportText = ""
     fun setLike(num: Int, isLiked: Boolean) {
         like = num
         likeSelect = isLiked
@@ -115,7 +119,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 }
 
                 //수정일 경우 띄우기
-                if(menuNum == 1) {
+                if (menuNum == 1) {
                     if (viewNum == 1 || viewNum == 2) {
                         viewNum = 0
                         val intent =
@@ -129,11 +133,22 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         }
                         ContextCompat.startActivity(holder.itemView.context, intent, null)
                     }
-                }else if (menuNum == 3) {
-                        Log.d("postDelete", "너는 왜?")
-                        activity.finish()
-                    }
+                } else if (menuNum == 3) {
+                    Log.d("postDelete", "너는 왜?")
+                    activity.finish()
+                } else if (menuNum == 2) {
+                    val dialog = CustomDialog(holder.itemView.context)
+                    dialog.reportDialog(holder.itemView.context)
+                    dialog.setReportClickListener(
+                        object : CustomDialog.ReportClickListener{
+                            override fun reportClick(text: String) {
+                                reportListener.onReport(text, classRoom)
+                            }
+                        }
+                    )
+                }
             }
+
 
             //답변자 문답
             is ClassRoomQuestionDetailQuestionerViewHolder -> {
@@ -158,6 +173,23 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     holder.visibleQuestionDetailComment(menuNum)
                     viewNum = 0
                 }
+
+                //댓글 신고
+                if (menuNum == 2) {
+                    val dialog = CustomDialog(holder.itemView.context)
+                    dialog.reportDialog(holder.itemView.context)
+                    dialog.setReportClickListener(
+                        object : CustomDialog.ReportClickListener{
+                            override fun reportClick(text: String) {
+                                reportListener.onReport(text, classRoomComment)
+                            }
+                        }
+                    )
+                }
+
+
+
+
                 //저장 버튼 누르기
                 holder.binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
                     val content =
@@ -197,6 +229,20 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     holder.visibleQuestionDetailComment(menuNum)
                     viewNum = 0
                 }
+
+                //댓글 신고
+                if (menuNum == 2) {
+                    val dialog = CustomDialog(holder.itemView.context)
+                    dialog.reportDialog(holder.itemView.context)
+                    dialog.setReportClickListener(
+                        object : CustomDialog.ReportClickListener{
+                            override fun reportClick(text: String) {
+                                reportListener.onReport(text, classRoomComment)
+                            }
+                        }
+                    )
+                }
+
                 //저장 버튼 누르기
                 holder.binding.includeQuestionDetailCommentUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
                     val content =
@@ -383,7 +429,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
     //점세개 메뉴 클릭 이벤트
     interface OnItemClickListener {
-        fun onClick(v: View, position: Int, user: Int, viewNum: Int, commentId : Int, deleteNum : Int)
+        fun onClick(v: View, position: Int, user: Int, viewNum: Int, commentId: Int, deleteNum: Int)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -399,6 +445,16 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
     private lateinit var updateListener: UpdateListener
 
+    //글 신고 (divisionNum -> 후기글, 과방글, 댓글 구분)
+    interface ReportListener{
+        fun onReport(text : String, divisionNum : Int)
+    }
+
+    private lateinit var reportListener : ReportListener
+
+    fun setReportListener(reportListener : ReportListener){
+        this.reportListener = reportListener
+    }
     // writer(질문자) -> 1, questioner -> 2, thirdParty -> 3
     private fun lookForThirdParty(userId: Int, position: Int): Int {
         Log.d("questionOneToUserId", userId.toString())
@@ -426,8 +482,11 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
         //Delete
         const val comment = 1
         const val write = 2
-    }
 
+        //report
+        const val classRoom = 2
+        const val classRoomComment = 3
+    }
 
 
 }

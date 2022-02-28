@@ -48,7 +48,6 @@ object ReviewMapper {
     fun mapperToReviewDetailData(responseReviewDetailData: ResponseReviewDetailData): ReviewDetailData {
         return ReviewDetailData(
             backgroundImageId = responseReviewDetailData.data.backgroundImage.imageId,
-            backgroundImageUrl = responseReviewDetailData.data.backgroundImage.imageUrl,
             isLiked = responseReviewDetailData.data.like.isLiked,
             likeCount = responseReviewDetailData.data.like.likeCount,
             contentList = responseReviewDetailData.data.post.contentList.map {
@@ -63,7 +62,7 @@ object ReviewMapper {
             firstMajorStart = responseReviewDetailData.data.writer.firstMajorStart,
             firstMajorName = responseReviewDetailData.data.writer.firstMajorName,
             isOnQuestion = responseReviewDetailData.data.writer.isOnQuestion,
-            isReviewed = responseReviewDetailData.data.writer.isReviewd,
+            isReviewed = responseReviewDetailData.data.writer.isReviewed,
             nickname = responseReviewDetailData.data.writer.nickname,
             profileImageId = responseReviewDetailData.data.writer.profileImageId,
             secondMajorStart = responseReviewDetailData.data.writer.secondMajorStart,

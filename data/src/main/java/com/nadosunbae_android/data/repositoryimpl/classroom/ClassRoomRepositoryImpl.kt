@@ -80,4 +80,11 @@ class ClassRoomRepositoryImpl(private val dataSource : ClassRoomDataSource) : Cl
     override suspend fun deletePost(postId: Int): DeleteCommentData {
         return ClassRoomMapper.mapperToDeleteCommentData(dataSource.deletePost(postId))
     }
+
+
+    override suspend fun postReport(reportItem: ReportItem): ReportData {
+        return ClassRoomMapper.mapperToReportData(
+            dataSource.postReport(ClassRoomMapper.mapperToRequestReportData(reportItem))
+        )
+    }
 }
