@@ -237,7 +237,7 @@ object MypageMapper {
                 MyPageBlockData.Data(
                     nickname = it.nickname,
                     profileImageId = it.profileImageId,
-                    id = it.id
+                    userId = it.userId
                 )
             },
             success = responseMyPageBlock.success
