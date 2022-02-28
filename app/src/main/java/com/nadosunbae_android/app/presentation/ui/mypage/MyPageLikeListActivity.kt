@@ -34,10 +34,17 @@ class MyPageLikeListActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        observeLoadingEnd()
         backBtn()
         initBtn()
         selectOption()
         setClickListener()
+    }
+
+    private fun observeLoadingEnd() {
+        myPageViewModel.onLoadingEnd.observe(this) {
+            dismissLoading()
+        }
     }
 
     private fun backBtn() {
@@ -61,6 +68,7 @@ class MyPageLikeListActivity :
     private fun selectOption() {
         binding.apply {
             textMypageLikeReview.setOnClickListener {
+                showLoading()
                 initReviewListAdapter()
                 textMypageLikeReview.isSelected = true
                 textMypageLikeQuestion.isSelected = false
