@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.dialog_question_write_complete.*
 class CustomDialog(val context : Context) {
     private val dialog = Dialog(context)
     private lateinit var onClickedListener : ButtonClickListener
+    private lateinit var reportClickListener : ReportClickListener
 
     interface ButtonClickListener{
         fun onClicked(num : Int)
@@ -34,6 +35,15 @@ class CustomDialog(val context : Context) {
     fun setOnClickedListener(listener : ButtonClickListener){
         onClickedListener = listener
     }
+
+    interface ReportClickListener{
+        fun reportClick(text : String)
+    }
+
+    fun setReportClickListener(listener : ReportClickListener){
+        this.reportClickListener = listener
+    }
+
     //작성 취소
     fun writeCancelDialog(@LayoutRes layout : Int){
         dialog.setContentView(layout)
@@ -138,33 +148,37 @@ class CustomDialog(val context : Context) {
 
     fun reportDialog(context : Context) : String{
         val binding = DialogReportBinding.inflate(LayoutInflater.from(context))
-        var text : String = ""
-
+        var text = ""
 
         dialog.setContentView(binding.root)
         dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.window?.setBackgroundDrawableResource(R.drawable.inset_8)
-
         dialog.show()
 
-        text = viewText(binding.textReportOne,dialog)
-        text = viewText(binding.textReportTwo, dialog)
-        text = viewText(binding.textReportThree, dialog)
-        text = viewText(binding.textReportFour, dialog)
-        text = viewText(binding.textReportFive, dialog)
-        text = viewText(binding.textReportSix, dialog)
-        return text
-    }
-
-    fun viewText(view : TextView, dialog : Dialog) : String{
-        var text : String = ""
-        view.setOnClickListener {
-            text = view.text.toString()
-            dialog.dismiss()
+        binding.textReportOne.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportOne.text.toString())
+        }
+        binding.textReportTwo.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportTwo.text.toString())
+        }
+        binding.textReportThree.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportThree.text.toString())
+        }
+        binding.textReportFour.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportFour.text.toString())
+        }
+        binding.textReportFive.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportFive.text.toString())
+        }
+        binding.textReportSix.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportSix.text.toString())
         }
 
         return text
+
     }
+
+
 
 }
 

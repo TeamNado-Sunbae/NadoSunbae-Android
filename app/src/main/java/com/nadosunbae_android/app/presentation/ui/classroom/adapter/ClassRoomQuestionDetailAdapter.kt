@@ -38,7 +38,8 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     var position: Int = 0
     lateinit var questionDetailUserData: QuestionDetailData
 
-
+    //신고 사유
+    var reportText = ""
     fun setLike(num: Int, isLiked: Boolean) {
         like = num
         likeSelect = isLiked
@@ -134,7 +135,10 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 }else if (menuNum == 3) {
                         Log.d("postDelete", "너는 왜?")
                         activity.finish()
-                    }
+                }else if (menuNum == 2){
+                    reportText = CustomDialog(holder.itemView.context).reportDialog(holder.itemView.context)
+                    Log.d("reportText", reportText)
+                }
             }
 
             //답변자 문답
