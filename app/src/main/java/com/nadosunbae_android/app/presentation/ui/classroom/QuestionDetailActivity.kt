@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityQuestionDetailBinding
@@ -17,6 +18,7 @@ import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.CommentUpdateItem
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
+import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import kotlinx.android.synthetic.main.activity_sign_up_agreement.*
@@ -40,6 +42,7 @@ class QuestionDetailActivity :
         checkMenuName()
         updateComment()
         getReportReason()
+        reportToast()
     }
 
     override fun onResume() {
@@ -239,16 +242,16 @@ class QuestionDetailActivity :
    private fun getReportReason(){
         classRoomQuestionDetailAdapter.setReportListener(
             object : ClassRoomQuestionDetailAdapter.ReportListener{
-                override fun onReport(text: String) {
+                override fun onReport(text: String, divisionNum : Int) {
                     questionDetailViewModel.reportReason.value = text
-                    reportDialog()
+                    reportDialog(divisionNum)
                 }
             }
         )
 
     }
     //신고 다이얼로그 띄우기
-    private fun reportDialog(){
+    private fun reportDialog(divisionNum : Int){
         CustomDialog(this).genericDialog(
             CustomDialog.DialogData(
                 resources.getString(R.string.request_report),
@@ -256,7 +259,22 @@ class QuestionDetailActivity :
                 resources.getString(R.string.disagree_report)
             ),
             complete = {
-
+                when(divisionNum){
+                    2 -> questionDetailViewModel.postReport(
+                        ReportItem(
+                            questionDetailViewModel.postId.value ?: 0,
+                            divisionNum,
+                            questionDetailViewModel.reportReason.value ?: ""
+                        )
+                    )
+                    3 -> questionDetailViewModel.postReport(
+                        ReportItem(
+                            questionDetailViewModel.commentId.value ?: 0,
+                            divisionNum,
+                            questionDetailViewModel.reportReason.value ?: ""
+                        )
+                    )
+                }
             },
             cancel = {
 
@@ -264,6 +282,20 @@ class QuestionDetailActivity :
         )
 
     }
+    //신고하기 토스트 띄우기
+    private fun reportToast(){
+        questionDetailViewModel.reportStatus.observe(this){
+            if(it == 200){
+                Toast.makeText(this, "신고가 접수되었습니다", Toast.LENGTH_SHORT).show()
+            }else if(it == 400){
+                Toast.makeText(this, "이미 신고한 댓글입니다.", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+    }
+
+
 
 
     //뒤로가기

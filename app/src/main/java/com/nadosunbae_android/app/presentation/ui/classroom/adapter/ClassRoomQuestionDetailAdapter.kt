@@ -142,7 +142,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     dialog.setReportClickListener(
                         object : CustomDialog.ReportClickListener{
                             override fun reportClick(text: String) {
-                                reportListener.onReport(text)
+                                reportListener.onReport(text, classRoom)
                             }
                         }
                     )
@@ -173,6 +173,23 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     holder.visibleQuestionDetailComment(menuNum)
                     viewNum = 0
                 }
+
+                //댓글 신고
+                if (menuNum == 2) {
+                    val dialog = CustomDialog(holder.itemView.context)
+                    dialog.reportDialog(holder.itemView.context)
+                    dialog.setReportClickListener(
+                        object : CustomDialog.ReportClickListener{
+                            override fun reportClick(text: String) {
+                                reportListener.onReport(text, classRoomComment)
+                            }
+                        }
+                    )
+                }
+
+
+
+
                 //저장 버튼 누르기
                 holder.binding.includeQuestionDetailQuestionerUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
                     val content =
@@ -212,6 +229,20 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     holder.visibleQuestionDetailComment(menuNum)
                     viewNum = 0
                 }
+
+                //댓글 신고
+                if (menuNum == 2) {
+                    val dialog = CustomDialog(holder.itemView.context)
+                    dialog.reportDialog(holder.itemView.context)
+                    dialog.setReportClickListener(
+                        object : CustomDialog.ReportClickListener{
+                            override fun reportClick(text: String) {
+                                reportListener.onReport(text, classRoomComment)
+                            }
+                        }
+                    )
+                }
+
                 //저장 버튼 누르기
                 holder.binding.includeQuestionDetailCommentUpdate.textQuestionDetailWriterCommentContentSave.setOnClickListener {
                     val content =
@@ -414,9 +445,9 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
     private lateinit var updateListener: UpdateListener
 
-    //글 신고
+    //글 신고 (divisionNum -> 후기글, 과방글, 댓글 구분)
     interface ReportListener{
-        fun onReport(text : String)
+        fun onReport(text : String, divisionNum : Int)
     }
 
     private lateinit var reportListener : ReportListener
@@ -451,6 +482,10 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
         //Delete
         const val comment = 1
         const val write = 2
+
+        //report
+        const val classRoom = 2
+        const val classRoomComment = 3
     }
 
 
