@@ -9,4 +9,5 @@ data class ResponseCertificationEmail(
     data class Data(
         val email: String
     )
+
 }

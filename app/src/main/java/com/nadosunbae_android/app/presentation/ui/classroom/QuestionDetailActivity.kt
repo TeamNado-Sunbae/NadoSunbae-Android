@@ -19,13 +19,14 @@ import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
+import kotlinx.android.synthetic.main.activity_sign_up_agreement.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding as ItemQuestionDetailWriterBinding
 
 class QuestionDetailActivity :
     BaseActivity<ActivityQuestionDetailBinding>(R.layout.activity_question_detail) {
     private val questionDetailViewModel: QuestionDetailViewModel by viewModel()
-
+    private lateinit var dialog: CustomDialog
 
     private lateinit var classRoomQuestionDetailAdapter: ClassRoomQuestionDetailAdapter
 
@@ -38,7 +39,7 @@ class QuestionDetailActivity :
         questionOneToOneMenu()
         checkMenuName()
         updateComment()
-        reportDialog()
+        getReportReason()
     }
 
     override fun onResume() {
@@ -232,31 +233,35 @@ class QuestionDetailActivity :
         )
     }
 
-    // 신고 사유 다이얼로그 띄우기
-    private fun reportReasonDialog(reportPost : () -> Unit, setReport : () -> Unit){
-        questionDetailViewModel.reportReason.value = CustomDialog(this).reportDialog(this)
-    }
 
-    //신고 사유 클릭시 다이얼로그 띄우기기
-   private fun reportDialog(){
-        questionDetailViewModel.reportReason.observe(this){
-            Log.d("reportReason", it)
-            if(it != ""){
-                CustomDialog(this).genericDialog(
-                    CustomDialog.DialogData(
-                        resources.getString(R.string.request_report),
-                        resources.getString(R.string.agree_report),
-                        resources.getString(R.string.disagree_report)
-                    ),
-                    complete = {
 
-                    },
-                    cancel = {
-
-                    }
-                )
+    //신고 사유 받아오기
+   private fun getReportReason(){
+        classRoomQuestionDetailAdapter.setReportListener(
+            object : ClassRoomQuestionDetailAdapter.ReportListener{
+                override fun onReport(text: String) {
+                    questionDetailViewModel.reportReason.value = text
+                    reportDialog()
+                }
             }
-        }
+        )
+
+    }
+    //신고 다이얼로그 띄우기
+    private fun reportDialog(){
+        CustomDialog(this).genericDialog(
+            CustomDialog.DialogData(
+                resources.getString(R.string.request_report),
+                resources.getString(R.string.agree_report),
+                resources.getString(R.string.disagree_report)
+            ),
+            complete = {
+
+            },
+            cancel = {
+
+            }
+        )
 
     }
 

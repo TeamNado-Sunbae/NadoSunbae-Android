@@ -22,7 +22,8 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     var context = context
     private var like = 0
     private var likeSelect = false
-    private val activity : QuestionDetailActivity = context as QuestionDetailActivity
+    private val activity: QuestionDetailActivity = context as QuestionDetailActivity
+
     //View Type (WRITER -> 질문자, QUESTIONER -> 답변자, WRITER_COMMENT -> 질문자의 재 답변)
     private val WRITER_VIEW_TYPE = 0
     private val QUESTIONER_VIEW_TYPE = 1
@@ -118,7 +119,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 }
 
                 //수정일 경우 띄우기
-                if(menuNum == 1) {
+                if (menuNum == 1) {
                     if (viewNum == 1 || viewNum == 2) {
                         viewNum = 0
                         val intent =
@@ -132,14 +133,22 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         }
                         ContextCompat.startActivity(holder.itemView.context, intent, null)
                     }
-                }else if (menuNum == 3) {
-                        Log.d("postDelete", "너는 왜?")
-                        activity.finish()
-                }else if (menuNum == 2){
-                    reportText = CustomDialog(holder.itemView.context).reportDialog(holder.itemView.context)
-                    Log.d("reportText", reportText)
+                } else if (menuNum == 3) {
+                    Log.d("postDelete", "너는 왜?")
+                    activity.finish()
+                } else if (menuNum == 2) {
+                    val dialog = CustomDialog(holder.itemView.context)
+                    dialog.reportDialog(holder.itemView.context)
+                    dialog.setReportClickListener(
+                        object : CustomDialog.ReportClickListener{
+                            override fun reportClick(text: String) {
+                                reportListener.onReport(text)
+                            }
+                        }
+                    )
                 }
             }
+
 
             //답변자 문답
             is ClassRoomQuestionDetailQuestionerViewHolder -> {
@@ -389,7 +398,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
     //점세개 메뉴 클릭 이벤트
     interface OnItemClickListener {
-        fun onClick(v: View, position: Int, user: Int, viewNum: Int, commentId : Int, deleteNum : Int)
+        fun onClick(v: View, position: Int, user: Int, viewNum: Int, commentId: Int, deleteNum: Int)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -405,6 +414,16 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
     private lateinit var updateListener: UpdateListener
 
+    //글 신고
+    interface ReportListener{
+        fun onReport(text : String)
+    }
+
+    private lateinit var reportListener : ReportListener
+
+    fun setReportListener(reportListener : ReportListener){
+        this.reportListener = reportListener
+    }
     // writer(질문자) -> 1, questioner -> 2, thirdParty -> 3
     private fun lookForThirdParty(userId: Int, position: Int): Int {
         Log.d("questionOneToUserId", userId.toString())
@@ -433,7 +452,6 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
         const val comment = 1
         const val write = 2
     }
-
 
 
 }

@@ -41,7 +41,7 @@ class CustomDialog(val context : Context) {
     }
 
     fun setReportClickListener(listener : ReportClickListener){
-        this.reportClickListener = listener
+        reportClickListener = listener
     }
 
     //작성 취소
@@ -146,9 +146,9 @@ class CustomDialog(val context : Context) {
         val cancel: String
     )
 
-    fun reportDialog(context : Context) : String{
+    fun reportDialog(context : Context) {
         val binding = DialogReportBinding.inflate(LayoutInflater.from(context))
-        var text = ""
+
 
         dialog.setContentView(binding.root)
         dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
@@ -157,24 +157,29 @@ class CustomDialog(val context : Context) {
 
         binding.textReportOne.setOnClickListener {
             reportClickListener.reportClick(binding.textReportOne.text.toString())
+            dialog.dismiss()
         }
         binding.textReportTwo.setOnClickListener {
             reportClickListener.reportClick(binding.textReportTwo.text.toString())
+            dialog.dismiss()
         }
         binding.textReportThree.setOnClickListener {
             reportClickListener.reportClick(binding.textReportThree.text.toString())
+            dialog.dismiss()
         }
         binding.textReportFour.setOnClickListener {
             reportClickListener.reportClick(binding.textReportFour.text.toString())
+            dialog.dismiss()
         }
         binding.textReportFive.setOnClickListener {
             reportClickListener.reportClick(binding.textReportFive.text.toString())
+            dialog.dismiss()
         }
         binding.textReportSix.setOnClickListener {
             reportClickListener.reportClick(binding.textReportSix.text.toString())
+            dialog.dismiss()
         }
 
-        return text
 
     }
 

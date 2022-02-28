@@ -71,7 +71,6 @@ object SignMapper {
     }
 
 
-
     //SignEmail
     fun mapperToSignEmail(emailDuplicationData: EmailDuplicationData): RequestSignEmail {
         return RequestSignEmail(
@@ -111,16 +110,16 @@ object SignMapper {
     }
 
     //이메일 재전송
-    fun mapperToCertificationEmailData(responseCertificationEmail: ResponseCertificationEmail) : CertificationEmailItem {
+    fun mapperToCertificationEmailData(responseCertificationEmail: ResponseCertificationEmail): CertificationEmailItem {
         return CertificationEmailItem(
             data = CertificationEmailItem.Data(
-                email = responseCertificationEmail.data.email
+                userId = responseCertificationEmail.data.user.userId
             ),
             success = responseCertificationEmail.success
         )
     }
 
-    fun mapperToCertificationEmailItem(certificationEmailData: CertificationEmailData) : RequestCertificationEmail {
+    fun mapperToCertificationEmailItem(certificationEmailData: CertificationEmailData): RequestCertificationEmail {
         return RequestCertificationEmail(
             email = certificationEmailData.email,
             password = certificationEmailData.password
