@@ -29,10 +29,12 @@ class QuestionWriteActivity :
         super.onCreate(savedInstanceState)
         writeTitle()
         writeContent()
+        divisionWrite()
         completeBtnCheck()
         cancelWrite()
         titleChange()
         initUpdateDetail()
+
     }
 
 
@@ -190,8 +192,11 @@ class QuestionWriteActivity :
 
         binding.etQuestionWriteAllTitle.setText(title)
         binding.etQuestionWriteAllContent.setText(content)
+    }
 
-        division = update
+    //수정 작성 구분
+    private fun divisionWrite(){
+        division = intent.getIntExtra("division", -1)
 
     }
 
