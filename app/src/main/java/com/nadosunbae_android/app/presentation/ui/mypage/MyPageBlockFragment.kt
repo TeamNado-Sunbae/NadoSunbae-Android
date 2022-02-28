@@ -62,7 +62,7 @@ class MyPageBlockFragment :
                 override fun onClick(view: View, position: Int) {
 
                     val userNickName = myPageBlockAdapter.myPageBlockData[position].nickname
-                    val userId = myPageBlockAdapter.myPageBlockData[position].id
+                    val userId = myPageBlockAdapter.myPageBlockData[position].userId
 
 
                     CustomDialog(requireContext()).genericDialog(

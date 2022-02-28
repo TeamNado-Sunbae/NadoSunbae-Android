@@ -33,15 +33,12 @@ class MyPageBlockAdapter(private val userId: Int) :
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
             Log.d("user", ":" + myPageBlockData[position].nickname)
-            Log.d("userId", ":" + myPageBlockData[position].id)
+            Log.d("userId", ":" + myPageBlockData[position].userId)
             Log.d("userImg", ":" + myPageBlockData[position].profileImageId)
         }
     }
 
-    override fun getItemCount(): Int {
-        return if (myPageBlockData.size < 6) myPageBlockData.size else 5
-
-    }
+    override fun getItemCount(): Int = myPageBlockData.size
 
     inner class MyPageBlockViewHodler(
         val binding: ItemMypageBlockBinding
