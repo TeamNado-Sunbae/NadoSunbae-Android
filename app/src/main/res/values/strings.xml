@@ -27,6 +27,7 @@
     <string name="findpw_warn">해당 메일로 가입된 사용자가 없습니다.</string>
     <string name="findpw_check">확인</string>
     <string name="pw_change">비밀번호 재설정</string>
+    <string name="pw_text_change">비밀번호를 재설정할 수 있는 링크가 전송되었습니다.</string>
 
 
     <!-- 회원가입 약관 동의 view -->
@@ -356,8 +357,8 @@
     <string name="mypage_block_clear">차단 해제</string>
 
     <!-- 마이페이지 차단 알럿 -->
-    <string name = "mypage_block_alret">님을 \n 차단 해제하시겠습니까?</string>
-    <string name ="mypage_block_cancel">취소</string>
-    <string name = "mypage_block_ok">차단 해제</string>
+    <string name="mypage_block_alret">님을 \n 차단 해제하시겠습니까?</string>
+    <string name="mypage_block_cancel">취소</string>
+    <string name="mypage_block_ok">차단 해제</string>
 
 </resources>
