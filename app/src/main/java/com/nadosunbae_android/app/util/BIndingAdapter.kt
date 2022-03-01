@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.nadosunbae_android.app.R
@@ -127,6 +128,30 @@ object BindingAdapter {
             .load(image)
             .override(72.dpToPx, 72.dpToPx)
             .into(imageView)
+    }
+
+    // 1:1질문, 전체 질문 댓글 isDelete 여부(update랑, text) -> 일반 댓글 표시
+    @JvmStatic
+    @BindingAdapter("isDeleteTextUpdate")
+    fun isDeleteTextUpdate(layout : ConstraintLayout, isDelete : Boolean){
+        if(!isDelete){
+            layout.visibility = View.VISIBLE
+        }else{
+            layout.visibility = View.GONE
+        }
+
+    }
+
+
+    // 1:1질문, 전체 질문 댓글 isDelete 여부(delete) -> 삭제된 댓글 표시
+    @JvmStatic
+    @BindingAdapter("isDeleteComment")
+    fun isDelete(layout : ConstraintLayout, isDelete : Boolean){
+        if(isDelete){
+            layout.visibility = View.VISIBLE
+        }else{
+            layout.visibility = View.GONE
+        }
     }
 }
 

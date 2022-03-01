@@ -1,5 +1,6 @@
 package com.nadosunbae_android.data.api.mypage
 
+import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
 import com.nadosunbae_android.data.model.response.mypage.*
 import retrofit2.http.*
@@ -65,5 +66,11 @@ interface MyPageService {
     //마이페이지 차단목록 조회
     @GET("block/list")
     suspend fun getMyPageBlock() :ResponseMyPageBlock
+
+    //마이페이지 유저 차단 & 차단 해제
+    @POST("block")
+    suspend fun postBlockUpdate(
+        @Body requestMyPageBlockUpdate: RequestMyPageBlockUpdate
+    ): ResponseMyPageBlockUpdate
 
 }

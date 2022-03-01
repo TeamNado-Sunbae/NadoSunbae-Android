@@ -19,6 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.DialogGenericBinding
 import com.nadosunbae_android.app.databinding.DialogProgressBinding
+import com.nadosunbae_android.app.databinding.DialogReportBinding
 import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity
 import kotlinx.android.synthetic.main.dialog_question_write_cancel.*
 import kotlinx.android.synthetic.main.dialog_question_write_complete.*
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.dialog_question_write_complete.*
 class CustomDialog(val context : Context) {
     private val dialog = Dialog(context)
     private lateinit var onClickedListener : ButtonClickListener
+    private lateinit var reportClickListener : ReportClickListener
 
     interface ButtonClickListener{
         fun onClicked(num : Int)
@@ -33,6 +35,15 @@ class CustomDialog(val context : Context) {
     fun setOnClickedListener(listener : ButtonClickListener){
         onClickedListener = listener
     }
+
+    interface ReportClickListener{
+        fun reportClick(text : String)
+    }
+
+    fun setReportClickListener(listener : ReportClickListener){
+        reportClickListener = listener
+    }
+
     //작성 취소
     fun writeCancelDialog(@LayoutRes layout : Int){
         dialog.setContentView(layout)
@@ -136,7 +147,47 @@ class CustomDialog(val context : Context) {
         val cancel: String
     )
 
+    fun reportDialog(context : Context) {
+        val binding = DialogReportBinding.inflate(LayoutInflater.from(context))
+
+
+        dialog.setContentView(binding.root)
+        dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.inset_8)
+        dialog.show()
+
+        binding.textReportOne.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportOne.text.toString())
+            dialog.dismiss()
+        }
+        binding.textReportTwo.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportTwo.text.toString())
+            dialog.dismiss()
+        }
+        binding.textReportThree.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportThree.text.toString())
+            dialog.dismiss()
+        }
+        binding.textReportFour.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportFour.text.toString())
+            dialog.dismiss()
+        }
+        binding.textReportFive.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportFive.text.toString())
+            dialog.dismiss()
+        }
+        binding.textReportSix.setOnClickListener {
+            reportClickListener.reportClick(binding.textReportSix.text.toString())
+            dialog.dismiss()
+        }
+
+
+    }
+
+
+
 }
+
 
 fun BottomSheetDialogFragment.finish() {
     activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()

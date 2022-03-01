@@ -59,8 +59,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
-    //leakCanary
-    //debugImplementation("com.squareup.leakcanary:leakcanary-android:2.6")
+    // debugImplementation("com.squareup.leakcanary:leakcanary-android:2.6")
 
 // ViewModel
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")

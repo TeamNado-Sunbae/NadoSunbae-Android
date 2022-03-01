@@ -22,5 +22,10 @@
             layout="@layout/include_question_detail_comment_update"
             android:visibility="gone"/>
 
+        <include
+            android:id="@+id/inclue_question_detail_comment_delete"
+            layout="@layout/include_question_detail_comment_delete"
+            android:visibility="gone"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

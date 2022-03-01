@@ -44,4 +44,9 @@ class SignRepositoryImpl(private val signDataSource : SignDataSource) : SignRepo
         ))
     }
 
+    override suspend fun postCertificationEmail(certificationEmailItem: CertificationEmailData): CertificationEmailItem {
+        return SignMapper.mapperToCertificationEmailData(signDataSource.postCertificationEmail(
+            SignMapper.mapperToCertificationEmailItem(certificationEmailItem)
+        ))
+    }
 }

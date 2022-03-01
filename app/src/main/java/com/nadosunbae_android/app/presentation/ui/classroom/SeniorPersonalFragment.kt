@@ -93,11 +93,12 @@ class SeniorPersonalFragment :
             if(ReviewGlobals.isReviewed){
                 val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
                 intent.apply {
+                    putExtra("division", 0)
                     putExtra("majorId", mainViewModel.majorId.value)
                     putExtra("userId", seniorPersonalViewModel.userId.value)
                     Log.d("answerId", seniorPersonalViewModel.userId.value.toString())
                     putExtra("postTypeId", 4)
-                    putExtra("title", "1:1질문 작성")
+                    putExtra("title", resources.getString(R.string.question_write_one_to_one))
                 }
                 startActivity(intent)
             }else{

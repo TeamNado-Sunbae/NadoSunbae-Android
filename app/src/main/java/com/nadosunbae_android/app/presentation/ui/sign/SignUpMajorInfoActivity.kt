@@ -93,11 +93,6 @@ class SignUpMajorInfoActivity :
             intent.putExtra("secondMajorStart", binding.textSignupMajorinfoDoubleMajorTime.text.toString())
             startActivity(intent)
             finish()
-
-            Log.d("SignUpMajorInfoValue", "value : " + firstDepartmentBottomSheetDialog.getSelectedData()?.id!!)
-            Log.d("SignUpMajorInfoValue", binding.textSignupMajorinfoMajorTime.text.toString())
-            Log.d("SignUpMajorInfoValue", "value : " + secondDepartmentBottomSheetDialog.getSelectedData()?.id!!)
-            Log.d("SignUpMajorInfoValue", binding.textSignupMajorinfoDoubleMajorTime.text.toString())
         }
     }
 
