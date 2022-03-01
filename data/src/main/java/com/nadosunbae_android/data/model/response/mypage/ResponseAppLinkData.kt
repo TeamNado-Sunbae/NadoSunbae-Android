@@ -1,7 +1,9 @@
-package com.nadosunbae_android.domain.model.mypage
+package com.nadosunbae_android.data.model.response.mypage
 
-data class MyPageAppLinkData(
+data class ResponseAppLinkData(
     val data: Data,
+    val message: String,
+    val status: Int,
     val success: Boolean
 ) {
     data class Data(

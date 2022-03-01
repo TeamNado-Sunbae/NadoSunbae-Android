@@ -28,8 +28,7 @@ class MyPageViewModel(
     val getMyPageReviewUseCase: GetMyPageReviewUseCase,
     val getMyPageBlockUseCase: GetMyPageBlockUseCase,
     val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase,
-    val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase,
-    val getMyPageAppLinkUseCase: GetMyPageAppLinkUseCase
+    val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase
 
     ) : ViewModel(), LoadableViewModel {
 

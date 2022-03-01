@@ -7,19 +7,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
-import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.domain.model.main.MajorKeyData
+import com.nadosunbae_android.domain.model.main.AppLinkData
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInItem
 import com.nadosunbae_android.domain.usecase.classroom.GetClassRoomMainDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetMajorListDataUseCase
+import com.nadosunbae_android.domain.usecase.main.GetAppLinkUseCase
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     val getClassRoomMainDataUseCase : GetClassRoomMainDataUseCase,
     val getSeniorDataUseCase : GetSeniorDataUseCase,
-    val getMajorListDataUseCase: GetMajorListDataUseCase
+    val getMajorListDataUseCase: GetMajorListDataUseCase,
+    val getAppLinkUseCase: GetAppLinkUseCase
 ) : ViewModel() {
 
     // 로그인 response 데이터
@@ -85,6 +86,9 @@ class MainViewModel(
     val secondMajor: LiveData<MajorSelectData>
         get() = _secondMajor
 
+    //앱링크 조회
+    val appLink = MutableLiveData<AppLinkData>()
+
 
     //마이페이지
     //마이페이지 탭에서 질문탭 및 정보탭 select 구분
@@ -145,6 +149,20 @@ class MainViewModel(
         }
     }
 
+    //링크 조회
+    fun getAppLink(){
+        viewModelScope.launch {
+            kotlin.runCatching { getAppLinkUseCase() }
+                .onSuccess {
+                    appLink.value = it
+                    Log.d("AppLink", "서버 통신 완료")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("AppLink", "서버 통신 실패")
+                }
+        }
+    }
 
     fun setSelectedMajor(majorData: MajorSelectData) {
         _selectedMajor.value = majorData

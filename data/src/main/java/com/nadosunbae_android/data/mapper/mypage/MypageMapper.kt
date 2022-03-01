@@ -1,10 +1,10 @@
 package com.nadosunbae_android.data.mapper.mypage
 
-import androidx.lifecycle.Transformations.map
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
 import com.nadosunbae_android.data.model.request.mypage.RequestResetPassword
 import com.nadosunbae_android.data.model.response.mypage.*
+import com.nadosunbae_android.domain.model.main.AppLinkData
 import com.nadosunbae_android.domain.model.mypage.*
 
 
@@ -278,19 +278,6 @@ object MypageMapper {
     fun mapperToResetPasswordItem(myPageResetPasswordItem: MyPageResetPasswordItem): RequestResetPassword {
         return RequestResetPassword(
             email = myPageResetPasswordItem.email
-        )
-    }
-
-    //각종 링크 조회
-    fun mapperToLookUpLinkData(responseMyPageAppLinkData: ResponseMyPageAppLink) : MyPageAppLinkData {
-        return MyPageAppLinkData(
-            data = MyPageAppLinkData.Data(
-                kakaoTalkChannel = responseMyPageAppLinkData.data.kakaoTalkChannel,
-                openSourceLicense = responseMyPageAppLinkData.data.openSourceLicense,
-                personalInformationPolicy = responseMyPageAppLinkData.data.personalInformationPolicy,
-                termsOfService = responseMyPageAppLinkData.data.termsOfService
-            ),
-            success = responseMyPageAppLinkData.success
         )
     }
 

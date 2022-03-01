@@ -2,6 +2,7 @@ package com.nadosunbae_android.data.repositoryimpl.mypage
 
 import com.nadosunbae_android.data.datasource.remote.mypage.MyPageDataSource
 import com.nadosunbae_android.data.mapper.mypage.MypageMapper
+import com.nadosunbae_android.domain.model.main.AppLinkData
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
 
@@ -64,10 +65,5 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
             MypageMapper.mapperToResetPasswordItem(myPageResetPasswordItem)
         ))
     }
-
-    override suspend fun getMyPageAppLink(): MyPageAppLinkData {
-        return MypageMapper.mapperToLookUpLinkData(dataSource.getAppLink())
-    }
-
 
 }
