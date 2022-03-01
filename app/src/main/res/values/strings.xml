@@ -136,7 +136,7 @@
     <string name="classroom_question_senior_all_see">구성원 전체보기</string>
     <string name="classroom_question_one_to_one">선배에게 1:1 질문</string>
     <string name="classroom_question_senior_search">선배 찾기</string>
-
+    <string name="classroom_question_delete_comment">(삭제된 답변입니다)</string>
     <!-- 전체에게 질문 -->
     <string name="ask_everyone_title">전체에게 질문</string>
     <string name="ask_everyone_new">최신순</string>
@@ -214,7 +214,8 @@
     <string name="question_write_content">내용</string>
     <string name="question_write_content_hint">질문을 남겨보세요.\n선배들이 답변해 줄 거예요!</string>
 
-
+    <!-- 1:1 질문 작성 -->
+    <string name="question_write_one_to_one">1:1질문 작성</string>
     <!-- 질문 상세 보기 -->
     <string name="question_detail_title">1:1 질문</string>
     <string name="question_detail_comment">답글 쓰기</string>
@@ -352,5 +353,25 @@
     <!-- 마이페이지 차단 목록 -->
     <string name="mypage_block_list">차단 사용자 목록</string>
     <string name="mypage_block_clear">차단 해제</string>
+
+    <!-- 마이페이지 차단 알럿 -->
+    <string name = "mypage_block_alret">님을 \n 차단 해제하시겠습니까?</string>
+    <string name ="mypage_block_cancel">취소</string>
+    <string name = "mypage_block_ok">차단 해제</string>
+
+
+    <!-- 신고 사유 -->
+    <string name = "report_reason">신고 사유 선택</string>
+    <string name = "report_one">음란/욕설/분쟁</string>
+    <string name = "report_two">유출/사칭/사기</string>
+    <string name = "report_three">상업성 내용</string>
+    <string name = "report_four">우리 학교/학과가 아닌 학생</string>
+    <string name = "report_five">서비스 취지에 맞지 않는 글</string>
+    <string name = "report_six">기타</string>
+
+    <!-- 신고 -->
+    <string name = "request_report">신고하시겠어요?</string>
+    <string name = "agree_report">신고하기</string>
+    <string name = "disagree_report">취소하기</string>
 
 </resources>

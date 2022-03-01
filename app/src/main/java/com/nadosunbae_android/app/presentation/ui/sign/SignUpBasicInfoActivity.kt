@@ -46,7 +46,7 @@ class SignUpBasicInfoActivity :
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.VISIBLE
             }
-            if(it.success) {
+            if (it.success) {
                 Log.d("닉네임 중복확인", "성공")
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
@@ -270,13 +270,17 @@ class SignUpBasicInfoActivity :
 
     //이메일 정규식
     private fun isEmailPattern() {
-        if(binding.etSignupBasicinfoEmail.text.contains("@korea.ac.kr")) {
-            binding.textSignupBasicinfoEmailDuplication.isSelected = true
-            binding.textSignupBasicinfoEmailDuplication.isEnabled = true
-        } else {
-            binding.textSignupBasicinfoEmailDuplication.isSelected = false
-            binding.textSignupBasicinfoEmailDuplication.isEnabled = false
-        }
+
+        binding.textSignupBasicinfoEmailDuplication.isSelected = true
+        binding.textSignupBasicinfoEmailDuplication.isEnabled = true
+
+//        if (binding.etSignupBasicinfoEmail.text.contains("@korea.ac.kr")) {
+//            binding.textSignupBasicinfoEmailDuplication.isSelected = true
+//            binding.textSignupBasicinfoEmailDuplication.isEnabled = true
+//        } else {
+//            binding.textSignupBasicinfoEmailDuplication.isSelected = false
+//            binding.textSignupBasicinfoEmailDuplication.isEnabled = false
+//        }
     }
 
 
@@ -324,10 +328,11 @@ class SignUpBasicInfoActivity :
 
 
     //다음 페이지로 이동
-    private fun nextPage() = with(binding){
+    private fun nextPage() = with(binding) {
         if (clSignupBasicinfoMoveNext.isSelected && textSignupBasicinfoNext.isSelected) {
             signUpBasicInfoViewModel.requestSignUp.email = etSignupBasicinfoEmail.text.toString()
-            signUpBasicInfoViewModel.requestSignUp.nickname = etSignupBasicinfoNickname.text.toString()
+            signUpBasicInfoViewModel.requestSignUp.nickname =
+                etSignupBasicinfoNickname.text.toString()
             signUpBasicInfoViewModel.requestSignUp.password = etSignupBasicinfoPw.text.toString()
 
             //다음 버튼 클릭 리스터
@@ -339,29 +344,22 @@ class SignUpBasicInfoActivity :
                         signUpBasicInfoViewModel.requestSignUp.nickname,
                         signUpBasicInfoViewModel.requestSignUp.password,
                         1,
-                        intent.getIntExtra("firstMajorId",0),
+                        intent.getIntExtra("firstMajorId", 0),
                         intent.getStringExtra("firstMajorStart").toString(),
-                        intent.getIntExtra("secondMajorId",0),
+                        intent.getIntExtra("secondMajorId", 0),
                         intent.getStringExtra("secondMajorStart").toString()
                     )
                 )
 
-                Log.d("signUpBasicInfo", signUpBasicInfoViewModel.requestSignUp.email)
-                Log.d("signUpBasicInfo", signUpBasicInfoViewModel.requestSignUp.nickname)
-                Log.d("signUpBasicInfo", signUpBasicInfoViewModel.requestSignUp.password)
-                Log.d("signUpBasicInfo", "value : " + intent.getIntExtra("firstMajorId",0))
-                Log.d("signUpBasicInfo", intent.getStringExtra("firstMajorStart").toString())
-                Log.d("signUpBasicInfo", "value : " + intent.getIntExtra("secondMajorId",0))
-                Log.d("signUpBasicInfo", intent.getStringExtra("secondMajorStart").toString())
 
+                val intent = Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java)
+                intent.putExtra("email", etSignupBasicinfoEmail.text.toString())
+                intent.putExtra("password", etSignupBasicinfoPw.text.toString())
 
-                Log.d("signUp", "post1")
-                startActivity(
-                    Intent(
-                        this@SignUpBasicInfoActivity,
-                        SignUpFinishActivity::class.java
-                    )
-                )
+                Log.d("finishEmail", etSignupBasicinfoEmail.text.toString())
+                Log.d("finishPassword", etSignupBasicinfoPw.text.toString())
+
+                startActivity(intent)
                 finish()
             }
         }

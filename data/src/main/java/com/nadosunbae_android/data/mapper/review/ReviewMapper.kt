@@ -62,7 +62,7 @@ object ReviewMapper {
             firstMajorStart = responseReviewDetailData.data.writer.firstMajorStart,
             firstMajorName = responseReviewDetailData.data.writer.firstMajorName,
             isOnQuestion = responseReviewDetailData.data.writer.isOnQuestion,
-            isReviewed = responseReviewDetailData.data.writer.isReviewd,
+            isReviewed = responseReviewDetailData.data.writer.isReviewed,
             nickname = responseReviewDetailData.data.writer.nickname,
             profileImageId = responseReviewDetailData.data.writer.profileImageId,
             secondMajorStart = responseReviewDetailData.data.writer.secondMajorStart,

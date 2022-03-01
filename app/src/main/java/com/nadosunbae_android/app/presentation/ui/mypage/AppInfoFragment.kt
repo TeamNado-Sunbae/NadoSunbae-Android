@@ -27,13 +27,22 @@ class AppInfoFragment : BaseFragment<ActivityAppInfoBinding>(R.layout.activity_a
     private val mainViewModel: MainViewModel by sharedViewModel()
     private val myPageViewModel: MyPageViewModel by viewModel()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         versionInfo()
         backBtn()
         initMovePage()
+        observeLoadingEnd()
 
+
+    }
+
+    private fun observeLoadingEnd() {
+        myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+            dismissLoading()
+        }
     }
 
     private fun versionInfo() {
@@ -41,8 +50,9 @@ class AppInfoFragment : BaseFragment<ActivityAppInfoBinding>(R.layout.activity_a
         myPageViewModel.versionInfo.observe(viewLifecycleOwner) {
             Log.d("버전 정보", it.data.AOS)
 
+            showLoading()
             val info: PackageInfo = context?.packageManager!!.getPackageInfo(requireContext().packageName, 0)
-            binding.textMypageAppInfoNowVersion.setText("v"+info.versionName)
+            binding.textMypageAppInfoNowVersion.setText(info.versionName)
             binding.textMypageAppInfoRecentVersion.setText(it.data.AOS)
         }
     }

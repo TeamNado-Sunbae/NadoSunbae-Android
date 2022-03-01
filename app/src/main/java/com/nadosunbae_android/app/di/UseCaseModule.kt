@@ -9,6 +9,7 @@ import com.nadosunbae_android.domain.usecase.notification.GetNotificationListDat
 import com.nadosunbae_android.domain.usecase.notification.ReadNotificationUseCase
 import com.nadosunbae_android.domain.usecase.review.*
 import com.nadosunbae_android.domain.usecase.sign.GetSecondDepartmentUseCase
+import com.nadosunbae_android.domain.usecase.sign.PostCertificationEmailUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module{
@@ -23,6 +24,10 @@ val useCaseModule = module{
     single {PostQuestionCommentWriteUseCase(get())}
     single {GetSeniorDataUseCase(get())}
     single {PutCommentUpdateUseCase(get())}
+    single {PutWriteUpdateUseCase(get())}
+    single { DeleteCommentDataUseCase(get())}
+    single {DeletePostDataUseCase(get())}
+    single {PostReportUseCase(get())}
 
     //Notification
     single {DeleteNotificationUseCase(get())}
@@ -36,6 +41,8 @@ val useCaseModule = module{
     single {PostSignNicknameUseCase(get())}
     single {PostSignUpUseCase(get())}
     single { GetSecondDepartmentUseCase(get()) }
+    single {PostCertificationEmailUseCase(get())}
+
     // main
     single {GetMajorListDataUseCase(get())}
 
@@ -61,6 +68,7 @@ val useCaseModule = module{
     single {GetMyPageLikeQuestionUseCase(get())}
     single {GetMyPageReviewUseCase(get())}
     single {GetMyPageBlockUseCase(get())}
+    single {PostMyPageBlockUpdateUseCase(get())}
 
 
 }

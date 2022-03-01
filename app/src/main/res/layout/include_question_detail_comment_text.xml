@@ -10,6 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_question_detail_comment_text"
+        isDeleteTextUpdate="@{questionDetailWriterComment.deleted}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

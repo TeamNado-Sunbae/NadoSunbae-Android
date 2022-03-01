@@ -39,7 +39,7 @@ data class ResponseReviewDetailData(
             val firstMajorName: String,
             val firstMajorStart: String,
             val isOnQuestion: Boolean,
-            val isReviewd: Boolean,
+            val isReviewed: Boolean,
             val nickname: String,
             val profileImageId: Int,
             val secondMajorName: String,

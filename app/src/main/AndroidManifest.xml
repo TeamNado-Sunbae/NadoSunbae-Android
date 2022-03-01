@@ -58,7 +58,7 @@
             android:name=".presentation.ui.sign.SignUpAgreementActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.ui.sign.CheckMailActivity"
+            android:name=".presentation.ui.sign.CheckPwMailActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.ui.sign.FindPwActivity"

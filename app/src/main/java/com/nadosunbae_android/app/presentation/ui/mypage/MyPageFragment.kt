@@ -25,37 +25,46 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        observeLoadingEnd()
         initAskPersonal()
         movePage()
         initPersonalInfo()
     }
 
+    private fun observeLoadingEnd() {
+        myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+            dismissLoading()
+        }
+    }
 
 
     private fun movePage() {
         binding.textMyPagePostByMe.setOnClickListener {
+            showLoading()
             val intentMyPagePost = Intent(requireActivity(), MyPagePostActivity::class.java)
             intentMyPagePost.putExtra("userId", mainViewModel.userId.value ?: 0)
-            Log.d("mypageFragment userId - ", "id: " + mainViewModel.userId.value)
             startActivity(intentMyPagePost)
         }
 
         binding.textMyPageReplyByMe.setOnClickListener {
+            showLoading()
             val intentMyPageReply = Intent(requireActivity(), MyPageReplyActivity::class.java)
             intentMyPageReply.putExtra("userId", mainViewModel.userId.value ?: 0)
-            Log.d("mypageIntentReply userId - ", "id : " + mainViewModel.userId.value)
             startActivity(intentMyPageReply)
         }
 
         binding.textMyPageReview.setOnClickListener {
+            showLoading()
             val intentMyPageReview = Intent(requireActivity(), MyPageClassroomReviewActivity::class.java)
             intentMyPageReview.putExtra("userId", mainViewModel.userId.value ?: 0)
             intentMyPageReview.putExtra("userNickName", binding.myPageInfo?.data?.nickname)
-            Log.d("mypageIntentReview userId - ", "id : " + mainViewModel.userId.value)
+
             startActivity(intentMyPageReview)
         }
 
         binding.clMyPageHeartList.setOnClickListener {
+            showLoading()
             val intentHeartList = Intent(requireActivity(), MyPageLikeListActivity::class.java)
             startActivity(intentHeartList)
         }
@@ -66,6 +75,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
 
         binding.clMyPageProfileModify.setOnClickListener {
+            showLoading()
             val intentMyPageModify = Intent(requireActivity(), ModifyMyInfoActivity::class.java)
 
             intentMyPageModify.putExtra("nickname", binding.myPageInfo?.data?.nickname)
@@ -79,12 +89,19 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        initAskPersonal()
+        initPersonalInfo()
+    }
 
     private fun initAskPersonal() {
         //마이페이지 선배 1:1
+        showLoading()
         mainViewModel.signData.observe(viewLifecycleOwner){
             myPageViewModel.getMyPageQuestion(it.userId)
         }
+
         myPageQuestionAdapter = MyPageMainAdapter(2, mainViewModel.userId.value ?: 0,1)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
         myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
@@ -95,6 +112,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     //내 정보 서버통신
     private fun initPersonalInfo() {
+        showLoading()
         mainViewModel.signData.observe(viewLifecycleOwner) {
             myPageViewModel.getPersonalInfo(it.userId)
         }
