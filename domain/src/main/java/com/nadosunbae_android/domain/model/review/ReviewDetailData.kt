@@ -8,7 +8,6 @@ import java.util.*
 @Parcelize
 data class ReviewDetailData(
     val backgroundImageId: Int,
-    val backgroundImageUrl: String,
     val isLiked: Boolean,
     val likeCount: Int,
     val contentList: List<Content>,

@@ -30,7 +30,7 @@ class ReviewWriteViewModel(
     val backgroundImageList: LiveData<List<BackgroundImageData>>
         get() = _backgroundImageList
 
-    // 후기 배경 목록 불러오기
+    // 후기 배경 목록 불러오기 -> 사용x 변경됨
     fun getBackgroundImageList() {
         viewModelScope.launch {
             runCatching { getBackgroundImageListDataUseCase() }
@@ -80,6 +80,10 @@ class ReviewWriteViewModel(
                     onLoadingEnd.value = true
                 }
         }
+    }
+
+    fun setBackgroundImageList(list: List<BackgroundImageData>) {
+        _backgroundImageList.value = list
     }
 
 

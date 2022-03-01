@@ -15,8 +15,7 @@ data class ResponseReviewDetailData(
         val writer: Writer
     ) {
         data class BackgroundImage(
-            val imageId: Int,
-            val imageUrl: String
+            val imageId: Int
         )
 
         data class Like(

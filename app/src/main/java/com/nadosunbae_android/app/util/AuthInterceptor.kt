@@ -9,6 +9,7 @@ import com.nadosunbae_android.domain.model.sign.RenewalTokenData
 import okhttp3.*
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
+import java.lang.Exception
 
 class AuthInterceptor(
     private val baseUrl: String
@@ -57,18 +58,19 @@ class AuthInterceptor(
 
         return response
     }
-    private fun Response.extractRenewalData(): RenewalTokenData? {
-        val result = Gson().fromJson(body?.string(), ResponseRenewalToken::class.java)
-        this.close()
+    private fun Response.extractRenewalData(): RenewalTokenData {
+        try {
+            val result = Gson().fromJson(body?.string(), ResponseRenewalToken::class.java)
+            this.close()
 
-        return if (isSuccessful)
-            RenewalTokenData(
-                status = result.status,
-                success = result.success,
-                accesstoken = result.data.accesstoken
-            )
-        else
-            null
+            return RenewalTokenData(
+                    status = result.status,
+                    success = result.success,
+                    accesstoken = result.data.accesstoken
+                )
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
     private fun postRenewalData(context: Context, chain: Interceptor.Chain): RenewalTokenData? {
@@ -80,7 +82,11 @@ class AuthInterceptor(
             .addHeader("refreshtoken", NadoSunBaeSharedPreference.getRefreshToken(context))
             .build()
 
-        return chain.proceed(newRequest).extractRenewalData()
+        return try {
+            chain.proceed(newRequest).extractRenewalData()
+        } catch (e: Exception) {
+            null
+        }
     }
 
 

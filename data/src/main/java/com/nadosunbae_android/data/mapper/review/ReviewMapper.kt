@@ -48,7 +48,6 @@ object ReviewMapper {
     fun mapperToReviewDetailData(responseReviewDetailData: ResponseReviewDetailData): ReviewDetailData {
         return ReviewDetailData(
             backgroundImageId = responseReviewDetailData.data.backgroundImage.imageId,
-            backgroundImageUrl = responseReviewDetailData.data.backgroundImage.imageUrl,
             isLiked = responseReviewDetailData.data.like.isLiked,
             likeCount = responseReviewDetailData.data.like.likeCount,
             contentList = responseReviewDetailData.data.post.contentList.map {
