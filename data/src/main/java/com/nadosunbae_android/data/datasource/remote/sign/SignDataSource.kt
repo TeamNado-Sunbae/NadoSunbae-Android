@@ -21,7 +21,4 @@ interface SignDataSource {
 
     //로그인
     suspend fun postSignIn(requestSignIn: RequestSignIn) : ResponseSignIn
-
-    // 토큰 재발급
-    suspend fun postRenewalToken(refreshToken: String) : ResponseRenewalToken
 }

@@ -4,14 +4,14 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
 import com.nadosunbae_android.app.di.NadoSunBaeApplication
+import com.nadosunbae_android.data.model.response.sign.ResponseRenewalToken
 import com.nadosunbae_android.domain.model.sign.RenewalTokenData
-import com.nadosunbae_android.domain.usecase.sign.PostRenewalTokenUseCase
-import okhttp3.Interceptor
-import okhttp3.Response
-import org.json.JSONObject
+import okhttp3.*
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.IOException
 
 class AuthInterceptor(
-    val baseUrl: String
+    private val baseUrl: String
 ) : Interceptor {
 
     companion object {
@@ -28,42 +28,28 @@ class AuthInterceptor(
         Log.d(TAG, "response header: ${response.headers}")
 
         when (response.code) {
+
             // 토큰 만료
             401 -> {
 
-                val appContext = NadoSunBaeApplication.context()
-                val data = postRenewalData(appContext, chain)
+                response.close()
 
-                if (data.success) {      // access token 재발급 성공
+                val appContext = NadoSunBaeApplication.context()
+                val data = postRenewalData(appContext, chain)       // access token 재발급
+
+                if (data != null && data.success) {      // access token 재발급 성공
                     val newToken = data.accesstoken
+                    NadoSunBaeSharedPreference.setAccessToken(appContext, data.accesstoken)     // 재발급 access token 저장
                     Log.d(TAG, "refresh token renewal : ${newToken}")
                     val newRequest = request.newBuilder()
-                        .addHeader("accesstoken", newToken)
+                        .header("accesstoken", newToken)
                         .build()
                     return chain.proceed(newRequest)
                 }
                 else {
-                   ManageUtil.restartApp(appContext)        // 재발급 실패 -> 앱 재실행 후 로그인
+                    Log.d(TAG, "refresh renewal failed")
+                    ManageUtil.restartApp(appContext)        // 재발급 실패 -> 앱 재실행 후 로그인
                 }
-
-
-                /*
-                val newToken = getNewToken(NadoSunBaeSharedPreference.getRefreshToken(NadoSunBaeApplication.context()))
-
-                if (newToken != null) {
-                    val newRequest = chain.request().newBuilder()
-                        .addHeader("accesstoken", newToken)
-                        .addHeader("Content-Type", "application/json")
-                        .build()
-                    return chain.proceed(newRequest)
-                }
-                else {
-                    // 앱 재실행 -> 로그인 화면 이동
-                    ManageUtil.restartApp(NadoSunBaeApplication.context())
-                }
-
-
-                 */
 
             }
 
@@ -71,54 +57,31 @@ class AuthInterceptor(
 
         return response
     }
+    private fun Response.extractRenewalData(): RenewalTokenData? {
+        val result = Gson().fromJson(body?.string(), ResponseRenewalToken::class.java)
+        this.close()
 
-    private fun Response.extractRenewalData(): RenewalTokenData {
-        return Gson().fromJson(body?.string(), RenewalTokenData::class.java)
+        return if (isSuccessful)
+            RenewalTokenData(
+                status = result.status,
+                success = result.success,
+                accesstoken = result.data.accesstoken
+            )
+        else
+            null
     }
 
-    private fun postRenewalData(context: Context, chain: Interceptor.Chain): RenewalTokenData {
-
-        val request = chain.request()
-
-        val renewalUrl = request.url.newBuilder()
-            .host(baseUrl+"auth/renewal/token")
-            .build()
-        val renewalRequest = request.newBuilder()
-            .url(renewalUrl)
+    private fun postRenewalData(context: Context, chain: Interceptor.Chain): RenewalTokenData? {
+        val newRequest = Request.Builder()
+            .url("${baseUrl}auth/renewal/token")
+            .method("POST", "".toRequestBody())
             .addHeader("Content-Type", "application/json")
             .addHeader("accesstoken", NadoSunBaeSharedPreference.getAccessToken(context))
             .addHeader("refreshtoken", NadoSunBaeSharedPreference.getRefreshToken(context))
             .build()
 
-        val renewalResponse = chain.proceed(renewalRequest)
-        return renewalResponse.extractRenewalData()
+        return chain.proceed(newRequest).extractRenewalData()
     }
-
-
-    /*
-
-    private fun getNewToken(refreshToken: String): String? {
-        var newToken: String? = null
-
-        runBlocking {
-            launch {
-                runCatching { postRenewalTokenUseCase(refreshToken) }
-
-                    .onSuccess {
-                        newToken = it.accesstoken
-                        Log.d(TAG, "토큰 재발급 성공")
-                    }
-                    .onFailure {
-                        it.printStackTrace()
-                        Log.d(TAG, "토큰 재발급 실패")
-                    }
-            }
-        }
-        return newToken
-    }
-
-
-     */
 
 
 }

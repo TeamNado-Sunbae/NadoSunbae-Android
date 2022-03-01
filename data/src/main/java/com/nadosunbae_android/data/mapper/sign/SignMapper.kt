@@ -114,12 +114,4 @@ object SignMapper {
         )
     }
 
-    // renewal token
-    fun mapperToRenewalToken(responseRenewalToken: ResponseRenewalToken): RenewalTokenData {
-        return RenewalTokenData(
-            status = responseRenewalToken.status,
-            success = responseRenewalToken.success,
-            accesstoken = responseRenewalToken.data.accesstoken
-        )
-    }
 }

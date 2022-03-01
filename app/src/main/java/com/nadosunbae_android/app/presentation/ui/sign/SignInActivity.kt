@@ -29,6 +29,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        autoLogin()
         deviceToken()
         onViewId()
         moveFindPw()
@@ -142,6 +143,16 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
         })
     }
+
+    private fun autoLogin() {
+        val accessToken = NadoSunBaeSharedPreference.getAccessToken(this)
+
+        if (accessToken != null) {
+
+        }
+    }
+
+
 
     //로그인 버튼 클릭 이벤트
     private fun moveMainPage() {

@@ -18,6 +18,4 @@ interface SignRepository {
     //로그인
     suspend fun postSignIn(signInItem: SignInItem): SignInData
 
-    //토큰 재발급
-    suspend fun postRenewalToken(refreshToken: String): RenewalTokenData
 }

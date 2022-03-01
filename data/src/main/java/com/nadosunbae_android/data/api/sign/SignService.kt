@@ -35,9 +35,4 @@ interface SignService {
         @Body requestSignIn: RequestSignIn
     ) : ResponseSignIn
 
-    // 토큰 재발급
-    @POST("auth/renewal/token")
-    suspend fun postRenewalToken(
-        @Query("refreshToken") refreshToken: String
-    ) : ResponseRenewalToken
 }
