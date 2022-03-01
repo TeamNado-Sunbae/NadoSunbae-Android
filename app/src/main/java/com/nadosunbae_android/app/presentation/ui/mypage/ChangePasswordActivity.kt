@@ -101,7 +101,9 @@ class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(R.lay
     }
 
     private fun initNextBtn() {
-        startActivity(Intent(this, ChangePwFinishActivity::class.java))
+        val intent = Intent(this, ChangePwFinishActivity::class.java)
+        intent.putExtra("email", binding.etChangePwEmail.text.toString())
+        startActivity(intent)
         finish()
     }
 }
