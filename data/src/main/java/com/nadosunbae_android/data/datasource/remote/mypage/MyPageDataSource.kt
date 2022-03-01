@@ -33,4 +33,7 @@ interface MyPageDataSource {
     suspend fun postMyPageBlockUpdate(requestMyPageBlockUpdate: RequestMyPageBlockUpdate) : ResponseMyPageBlockUpdate
 
     suspend fun postResetPassword(requestResetPassword: RequestResetPassword) : ResponseResetPassword
+
+    suspend fun getAppLink() : ResponseMyPageAppLink
+
 }

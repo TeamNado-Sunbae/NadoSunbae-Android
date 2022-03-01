@@ -29,4 +29,6 @@ interface MyPageRepository {
     suspend fun postMyPageBlockUpdate(myPageBlockUpdateItem: MyPageBlockUpdateItem): MyPageBlockUpdateData
 
     suspend fun postMyPageResetPassword(myPageResetPasswordItem: MyPageResetPasswordItem) : MyPageResetPasswordData
+
+    suspend fun getMyPageAppLink() : MyPageAppLinkData
 }

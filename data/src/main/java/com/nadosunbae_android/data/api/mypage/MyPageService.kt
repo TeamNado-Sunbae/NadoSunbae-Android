@@ -79,4 +79,8 @@ interface MyPageService {
     suspend fun postResetPassword(
         @Body requestResetPassword: RequestResetPassword
     ) : ResponseResetPassword
+
+    //각종 링크 조회
+    @GET("app/link")
+    suspend fun getAppLink() : ResponseMyPageAppLink
 }

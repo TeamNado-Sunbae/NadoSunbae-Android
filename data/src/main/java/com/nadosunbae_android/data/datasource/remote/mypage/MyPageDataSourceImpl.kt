@@ -62,4 +62,8 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
     override suspend fun postResetPassword(requestResetPassword: RequestResetPassword): ResponseResetPassword {
         return service.postResetPassword(requestResetPassword)
     }
+
+    override suspend fun getAppLink(): ResponseMyPageAppLink {
+        return service.getAppLink()
+    }
 }

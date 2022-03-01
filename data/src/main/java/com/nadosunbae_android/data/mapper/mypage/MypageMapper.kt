@@ -281,4 +281,17 @@ object MypageMapper {
         )
     }
 
+    //각종 링크 조회
+    fun mapperToLookUpLinkData(responseMyPageAppLinkData: ResponseMyPageAppLink) : MyPageAppLinkData {
+        return MyPageAppLinkData(
+            data = MyPageAppLinkData.Data(
+                kakaoTalkChannel = responseMyPageAppLinkData.data.kakaoTalkChannel,
+                openSourceLicense = responseMyPageAppLinkData.data.openSourceLicense,
+                personalInformationPolicy = responseMyPageAppLinkData.data.personalInformationPolicy,
+                termsOfService = responseMyPageAppLinkData.data.termsOfService
+            ),
+            success = responseMyPageAppLinkData.success
+        )
+    }
+
 }

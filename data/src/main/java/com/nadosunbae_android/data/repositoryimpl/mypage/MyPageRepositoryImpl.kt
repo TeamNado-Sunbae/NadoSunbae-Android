@@ -65,5 +65,9 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
         ))
     }
 
+    override suspend fun getMyPageAppLink(): MyPageAppLinkData {
+        return MypageMapper.mapperToLookUpLinkData(dataSource.getAppLink())
+    }
+
 
 }
