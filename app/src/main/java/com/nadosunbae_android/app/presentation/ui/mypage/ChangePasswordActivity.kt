@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.domain.model.mypage.MyPageResetPasswordItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.sql.ResultSetMetaData
 
 class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(R.layout.activity_change_password) {
 
@@ -26,21 +27,17 @@ class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(R.lay
 
     }
 
-
-
-    private fun initSendEmail() {
-        val input = binding.etChangePwEmail.getText().toString()
-        binding.textChangePwOk.setOnClickListener {
-            myPageViewModel.postMyPageRestPassword(MyPageResetPasswordItem(input))
-            myPageViewModel.resetPassword.observe(this) {
-                if(!it.success) {
-                    Log.d("이메일 존재 여부 체크", "실패")
-                    binding.textChangePwWarn.visibility = View.VISIBLE
-                }
-                if(it.success) {
-                    Log.d("이메일 존재 여부 체크", "성공")
-                    binding.textChangePwWarn.visibility = View.INVISIBLE
-                }
+    //비밀번호 변경 서버 통신
+    private fun changePw() {
+        Log.d("ChangePw", "서버 통신 성공")
+        myPageViewModel.resetPassword.observe(this) {
+            if(!it.success) {
+                Log.d("비밀번호 서버통신 체크", "실패")
+                binding.textChangePwWarn.visibility = View.VISIBLE
+            }
+            if(it.success) {
+                Log.d("비밀번호 서버통신 체크", "성공")
+                binding.textChangePwWarn.visibility = View.INVISIBLE
             }
         }
     }
@@ -60,8 +57,11 @@ class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(R.lay
                 if(binding.etChangePwEmail.text.toString() != "") {
                     binding.textChangePwOk.isSelected = true
                     binding.imgChangePwCancel.isSelected = true
-                    initSendEmail()
                     initCancelBtn()
+                    binding.textChangePwOk.setOnClickListener {
+                        myPageViewModel.postMyPageRestPassword(MyPageResetPasswordItem(binding.etChangePwEmail.text.toString()))
+                        changePw()
+                    }
                 } else {
                     //isEmailPattern()
                     binding.textChangePwOk.isSelected = false

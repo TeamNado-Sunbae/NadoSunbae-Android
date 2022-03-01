@@ -274,7 +274,7 @@ class MyPageViewModel(
     //마이페이지 비밀번호 재설정
     fun postMyPageRestPassword(myPageResetPasswordItem: MyPageResetPasswordItem) {
         viewModelScope.launch {
-            /*
+
             when (safeApiCall(Dispatchers.IO) {postMyPageResetPasswordUseCase(myPageResetPasswordItem)}) {
                 is ResultWrapper.Success -> resetPassword.value =
                     MyPageResetPasswordData("",200, true)
@@ -288,19 +288,19 @@ class MyPageViewModel(
                 }
             }
 
-             */
-            kotlin.runCatching { postMyPageResetPasswordUseCase(myPageResetPasswordItem) }
-                .onSuccess {
-                    resetPassword.value = it
-                    Log.d("MyPageResetPw", "서버 통신 완료")
-                }
-                .onFailure {
-                    it.printStackTrace()
-                    Log.d("MyPageResetPw", "서버 통신 실패")
-                }
-                .also {
-                    onLoadingEnd.value = true
-                }
+
+//            kotlin.runCatching { postMyPageResetPasswordUseCase(myPageResetPasswordItem) }
+//                .onSuccess {
+//                    resetPassword.value = it
+//                    Log.d("MyPageResetPw", "서버 통신 완료")
+//                }
+//                .onFailure {
+//                    it.printStackTrace()
+//                    Log.d("MyPageResetPw", "서버 통신 실패")
+//                }
+//                .also {
+//                    onLoadingEnd.value = true
+//                }
         }
     }
 
