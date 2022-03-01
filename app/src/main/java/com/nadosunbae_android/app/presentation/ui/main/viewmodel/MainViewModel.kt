@@ -28,6 +28,11 @@ class MainViewModel(
     val signData: LiveData<SignInItem.User>
         get() = _signData
 
+    //링크 연결 response 데이터
+    private val _appLinkData = MutableLiveData<AppLinkData>()
+    val appLinkData: LiveData<AppLinkData>
+    get() = _appLinkData
+
     //과방탭
     //과방탭에서 질문탭 및 정보탭 select 구분 (과방)
     var classRoomNum = MutableLiveData<Int>()

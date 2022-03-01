@@ -20,15 +20,19 @@ import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
+import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import com.nadosunbae_android.app.util.ResultWrapper
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.getScopeId
+import org.koin.core.component.getScopeName
 
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private lateinit var mainActivity: MainActivity
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +57,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if (binding.etSignInId.text.toString() == "") {
-                    binding.imgSignInIdCancel.isSelected = false
-                } else {
-                    binding.imgSignInIdCancel.isSelected = true
-                }
+                binding.imgSignInIdCancel.isSelected = binding.etSignInId.text.toString() != ""
                 signUpBasicInfoViewModel.email.value = p0.toString()
                 isEmptyText()
             }
@@ -81,11 +81,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if (binding.etSignInPw.text.toString() == "") {
-                    binding.imgSignInPwCancel.isSelected = false
-                } else {
-                    binding.imgSignInPwCancel.isSelected = true
-                }
+                binding.imgSignInPwCancel.isSelected = binding.etSignInPw.text.toString() != ""
                 signUpBasicInfoViewModel.password.value = p0.toString()
                 isEmptyText()
 
@@ -117,8 +113,10 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     private fun moveQeustionPage() {
+        val linkData = mainViewModel.appLinkData.value
         binding.textSignInQuestion.setOnClickListener {
             val intent = Intent(this, WebViewActivity::class.java)
+            Log.d("잘 찍히니?", linkData!!.data.kakaoTalkChannel)
             intent.putExtra("url", "https://pf.kakao.com/_pxcFib")
             startActivity(intent)
         }
