@@ -59,5 +59,11 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
         ))
     }
 
+    override suspend fun postMyPageResetPassword(myPageResetPasswordItem: MyPageResetPasswordItem): MyPageResetPasswordData {
+        return MypageMapper.mapperToResetPasswordData(dataSource.postResetPassword(
+            MypageMapper.mapperToResetPasswordItem(myPageResetPasswordItem)
+        ))
+    }
+
 
 }
