@@ -456,8 +456,17 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             majorId != NOT_ENTERED && majorId != NO_INFORMATION
 
     private fun loadBackgroundImage() {
+        /*  api 배포 중단됨
         showLoading()
         reviewWriteViewModel.getBackgroundImageList()
+
+         */
+        val imageList = mutableListOf<BackgroundImageData>()
+        for (i in 6..12) {
+            imageList.add(BackgroundImageData(i, ""))
+        }
+
+        reviewWriteViewModel.setBackgroundImageList(imageList)
     }
 
     private fun loadMajorList() = mainViewModel.getMajorList(1)
