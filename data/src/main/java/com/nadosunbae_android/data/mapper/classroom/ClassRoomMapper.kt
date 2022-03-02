@@ -1,11 +1,8 @@
 package com.nadosunbae_android.data.mapper.classroom
 
+import com.nadosunbae_android.data.model.request.classroom.*
 import com.nadosunbae_android.domain.model.classroom.*
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
-import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
-import com.nadosunbae_android.data.model.request.classroom.RequestCommentUpdateData
-import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
-import com.nadosunbae_android.data.model.request.classroom.RequestWriteUpdateData
 import com.nadosunbae_android.data.model.response.classroom.*
 
 object ClassRoomMapper {
@@ -272,6 +269,22 @@ object ClassRoomMapper {
             commentId = responseDeleteComment.data.commentId,
             isDeleted = responseDeleteComment.data.isDeleted
         )
-
     }
-}
+
+    //신고 요청
+    fun mapperToRequestReportData(reportItem: ReportItem) : RequestReportData{
+        return RequestReportData(
+            reportedTargetId = reportItem.reportedTargetId,
+        reportedTargetTypeId = reportItem.reportedTargetTypeId,
+        reason = reportItem.reason
+        )
+    }
+
+    //신고 요청 응답
+    fun mapperToReportData(responseReportData: ResponseReportData) : ReportData{
+        return ReportData(
+            createdAt = responseReportData.data.createdAt,
+            reportId = responseReportData.data.reportId
+        )
+    }
+ }

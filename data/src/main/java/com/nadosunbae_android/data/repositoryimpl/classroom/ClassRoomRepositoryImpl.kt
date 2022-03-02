@@ -75,4 +75,16 @@ class ClassRoomRepositoryImpl(private val dataSource : ClassRoomDataSource) : Cl
     override suspend fun deleteComment(commentId: Int): DeleteCommentData {
         return ClassRoomMapper.mapperToDeleteCommentData(dataSource.deleteComment(commentId))
     }
+
+    //1:1 질문, 전체 질문, 정보글에 있는 원글 삭제
+    override suspend fun deletePost(postId: Int): DeleteCommentData {
+        return ClassRoomMapper.mapperToDeleteCommentData(dataSource.deletePost(postId))
+    }
+
+
+    override suspend fun postReport(reportItem: ReportItem): ReportData {
+        return ClassRoomMapper.mapperToReportData(
+            dataSource.postReport(ClassRoomMapper.mapperToRequestReportData(reportItem))
+        )
+    }
 }

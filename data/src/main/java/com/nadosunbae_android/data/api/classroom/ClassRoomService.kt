@@ -1,9 +1,6 @@
 package com.nadosunbae_android.data.api.classroom
 
-import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
-import com.nadosunbae_android.data.model.request.classroom.RequestCommentUpdateData
-import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
-import com.nadosunbae_android.data.model.request.classroom.RequestWriteUpdateData
+import com.nadosunbae_android.data.model.request.classroom.*
 import com.nadosunbae_android.data.model.response.classroom.*
 import retrofit2.http.*
 
@@ -85,4 +82,16 @@ interface ClassRoomService {
     suspend fun deleteComment(
         @Path("commentId") commentId : Int
     ) : ResponseDeleteComment
+
+    //1:1 질문, 전체 질문, 정보글에 있는 원글 삭제
+    @DELETE("classroom-post/{postId}")
+    suspend fun deletePost(
+        @Path("postId") postId : Int
+    ) : ResponseDeleteComment
+
+    //신고
+    @POST("report")
+    suspend fun postReport(
+        @Body requestReportData : RequestReportData
+    ) : ResponseReportData
 }

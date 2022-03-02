@@ -38,7 +38,7 @@ class SignUpBasicInfoViewModel(
     var deviceToken = MutableLiveData<String>()
 
     //로그인
-    var signIn: MutableLiveData<SignInItem> = MutableLiveData()
+    var signIn: MutableLiveData<SignInData> = MutableLiveData()
 
     //로그인 상태
     private var _status = MutableLiveData<Int?>()
@@ -135,17 +135,17 @@ class SignUpBasicInfoViewModel(
     }
 
     //로그인
-    fun signIn(signInData: SignInData) {
+    fun signIn(signInItem: SignInItem) {
         viewModelScope.launch {
-            when (val postSignIn = safeApiCall(Dispatchers.IO) { postSignInUseCase(signInData) }) {
+            when (val postSignIn = safeApiCall(Dispatchers.IO) { postSignInUseCase(signInItem) }) {
                 is ResultWrapper.Success -> signIn.value = postSignIn.data!!
                 is ResultWrapper.NetworkError -> {
                     Log.d("SignIn", "네트워크 실패")
-                    signIn.value = SignInItem(500, false, "", SignInItem.User())
+                    signIn.value = SignInData(500, false, "", "", SignInData.User())
                 }
                 is ResultWrapper.GenericError -> {
                     checkStatus(postSignIn.code)
-                    signIn.value = SignInItem(postSignIn.code!!, false, "", SignInItem.User())
+                    signIn.value = SignInData(postSignIn.code!!, false, "", "", SignInData.User())
                 }
             }
             Log.d("signInStatus", status.value.toString())

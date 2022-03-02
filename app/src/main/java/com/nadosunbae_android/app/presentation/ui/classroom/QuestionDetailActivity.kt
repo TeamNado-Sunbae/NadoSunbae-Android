@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityQuestionDetailBinding
@@ -17,15 +18,17 @@ import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.CommentUpdateItem
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
+import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
+import kotlinx.android.synthetic.main.activity_sign_up_agreement.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding as ItemQuestionDetailWriterBinding
 
 class QuestionDetailActivity :
     BaseActivity<ActivityQuestionDetailBinding>(R.layout.activity_question_detail) {
     private val questionDetailViewModel: QuestionDetailViewModel by viewModel()
-
+    private lateinit var dialog: CustomDialog
 
     private lateinit var classRoomQuestionDetailAdapter: ClassRoomQuestionDetailAdapter
 
@@ -38,6 +41,8 @@ class QuestionDetailActivity :
         questionOneToOneMenu()
         checkMenuName()
         updateComment()
+        getReportReason()
+        reportToast()
     }
 
     override fun onResume() {
@@ -139,12 +144,13 @@ class QuestionDetailActivity :
     private fun questionOneToOneMenu() {
         classRoomQuestionDetailAdapter.setItemClickListener(
             object : ClassRoomQuestionDetailAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int, user : Int, viewNum : Int, commentId : Int) {
+                override fun onClick(v: View, position: Int, user : Int, viewNum : Int, commentId : Int, deleteNum : Int) {
                     Log.d("oneToOneVIew", v.toString())
                     Log.d("oneToOneNum", "$user+$viewNum+$commentId")
                     questionDetailViewModel.commentId.value = commentId
                     questionDetailViewModel.position.value = position
                     questionDetailViewModel.viewNum.value = viewNum
+                    questionDetailViewModel.deleteNum.value = deleteNum
                     if((user == 1 && viewNum == 1) or (user == 2 && viewNum == 2)){
                         val dropDown = mutableListOf<SelectableData>(
                             SelectableData(1, resources.getString(R.string.question_detail_update), true),
@@ -185,16 +191,20 @@ class QuestionDetailActivity :
         questionDetailViewModel.dropDownSelected.observe(this){
             val viewNum = questionDetailViewModel.viewNum.value ?: 0
             val position = questionDetailViewModel.position.value ?: 0
+            val deleteNum = questionDetailViewModel.deleteNum.value ?: 0
             when(it.name){
                 resources.getString(R.string.question_detail_update) ->
                     classRoomQuestionDetailAdapter.setCheckMenu(update, viewNum, position)
                 resources.getString(R.string.question_detail_report) ->
                     classRoomQuestionDetailAdapter.setCheckMenu(report, viewNum, position)
                 resources.getString(R.string.question_detail_delete) ->
-                    deleteDialog(
+                    deleteDialog(deleteNum,
                         setCheckMenu = { classRoomQuestionDetailAdapter.setCheckMenu(delete, viewNum, position) },
                         deleteComment = {questionDetailViewModel.deleteComment(
                             questionDetailViewModel.commentId.value ?: 0
+                        )},
+                        deleteWrite = {questionDetailViewModel.deletePost(
+                            questionDetailViewModel.postId.value ?: 0
                         )}
                     )
 
@@ -203,7 +213,8 @@ class QuestionDetailActivity :
     }
 
     //삭제 부분 다이얼로그 띄우기
-    private fun deleteDialog(setCheckMenu : () -> Unit, deleteComment : () -> Unit ){
+    private fun deleteDialog(deleteNum : Int, setCheckMenu : () -> Unit, deleteComment : () -> Unit, deleteWrite : () -> Unit ){
+
         CustomDialog(this).genericDialog(
             CustomDialog.DialogData(
                 resources.getString(R.string.alert_delete_review_title),
@@ -212,7 +223,58 @@ class QuestionDetailActivity :
             ),
             complete = {
                 setCheckMenu()
-                deleteComment()
+                if(deleteNum == 1){
+                    deleteComment()
+                }else{
+                    deleteWrite()
+                }
+
+            },
+            cancel = {
+
+            }
+        )
+    }
+
+
+
+    //신고 사유 받아오기
+   private fun getReportReason(){
+        classRoomQuestionDetailAdapter.setReportListener(
+            object : ClassRoomQuestionDetailAdapter.ReportListener{
+                override fun onReport(text: String, divisionNum : Int) {
+                    questionDetailViewModel.reportReason.value = text
+                    reportDialog(divisionNum)
+                }
+            }
+        )
+
+    }
+    //신고 다이얼로그 띄우기
+    private fun reportDialog(divisionNum : Int){
+        CustomDialog(this).genericDialog(
+            CustomDialog.DialogData(
+                resources.getString(R.string.request_report),
+                resources.getString(R.string.agree_report),
+                resources.getString(R.string.disagree_report)
+            ),
+            complete = {
+                when(divisionNum){
+                    2 -> questionDetailViewModel.postReport(
+                        ReportItem(
+                            questionDetailViewModel.postId.value ?: 0,
+                            divisionNum,
+                            questionDetailViewModel.reportReason.value ?: ""
+                        )
+                    )
+                    3 -> questionDetailViewModel.postReport(
+                        ReportItem(
+                            questionDetailViewModel.commentId.value ?: 0,
+                            divisionNum,
+                            questionDetailViewModel.reportReason.value ?: ""
+                        )
+                    )
+                }
             },
             cancel = {
 
@@ -220,6 +282,19 @@ class QuestionDetailActivity :
         )
 
     }
+    //신고하기 토스트 띄우기
+    private fun reportToast(){
+        questionDetailViewModel.reportStatus.observe(this){
+            if(it == 200){
+                Toast.makeText(this, "신고가 접수되었습니다", Toast.LENGTH_SHORT).show()
+            }else if(it == 400){
+                Toast.makeText(this, "이미 신고한 댓글입니다.", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+    }
+
 
 
 

@@ -123,14 +123,14 @@
                 android:id="@+id/tv_tag_career"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:background="@drawable/rectangle_fill_purple_8dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:paddingHorizontal="7dp"
                 android:paddingVertical="5dp"
                 android:text="@string/review_career"
                 android:textColor="@color/purple_tag_text"
-                android:textSize="12sp"
-                android:layout_marginEnd="4dp"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_tag_tip"
