@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.di
 import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetMajorListDataUseCase
+import com.nadosunbae_android.domain.usecase.main.GetAppLinkUseCase
 import com.nadosunbae_android.domain.usecase.mypage.*
 import com.nadosunbae_android.domain.usecase.notification.DeleteNotificationUseCase
 import com.nadosunbae_android.domain.usecase.notification.GetNotificationListDataUseCase
@@ -45,6 +46,7 @@ val useCaseModule = module{
 
     // main
     single {GetMajorListDataUseCase(get())}
+    single { GetAppLinkUseCase(get()) }
 
     // review
     single {GetReviewListDataUseCase(get())}
@@ -70,6 +72,7 @@ val useCaseModule = module{
     single {GetMyPageBlockUseCase(get())}
     single {PostMyPageBlockUpdateUseCase(get())}
     single {PostMyPageResetPasswordUseCase(get())}
+
 
 
 }

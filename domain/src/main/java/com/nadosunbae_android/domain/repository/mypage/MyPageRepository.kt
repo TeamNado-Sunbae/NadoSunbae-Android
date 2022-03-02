@@ -1,5 +1,6 @@
 package com.nadosunbae_android.domain.repository.mypage
 
+import com.nadosunbae_android.domain.model.main.AppLinkData
 import com.nadosunbae_android.domain.model.mypage.*
 
 

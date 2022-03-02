@@ -287,20 +287,6 @@ class MyPageViewModel(
                     resetPassword.value = MyPageResetPasswordData("", 400, false)
                 }
             }
-
-
-//            kotlin.runCatching { postMyPageResetPasswordUseCase(myPageResetPasswordItem) }
-//                .onSuccess {
-//                    resetPassword.value = it
-//                    Log.d("MyPageResetPw", "서버 통신 완료")
-//                }
-//                .onFailure {
-//                    it.printStackTrace()
-//                    Log.d("MyPageResetPw", "서버 통신 실패")
-//                }
-//                .also {
-//                    onLoadingEnd.value = true
-//                }
         }
     }
 

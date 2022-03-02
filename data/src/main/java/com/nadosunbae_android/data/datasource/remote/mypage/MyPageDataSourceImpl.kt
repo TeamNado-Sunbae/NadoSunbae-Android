@@ -5,7 +5,6 @@ import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
 import com.nadosunbae_android.data.model.request.mypage.RequestResetPassword
 import com.nadosunbae_android.data.model.response.mypage.*
-import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
 
 class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSource {
 
@@ -62,4 +61,5 @@ class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSour
     override suspend fun postResetPassword(requestResetPassword: RequestResetPassword): ResponseResetPassword {
         return service.postResetPassword(requestResetPassword)
     }
+
 }

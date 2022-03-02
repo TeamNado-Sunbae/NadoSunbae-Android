@@ -25,7 +25,7 @@ val viewModelModule = module {
     viewModel { AskEveryOneViewModel()}
     viewModel {InformationViewModel()}
     //main
-    viewModel { MainViewModel(get(),get(),get()) }
+    viewModel { MainViewModel(get(),get(),get(),get()) }
 
     //myPage
     viewModel { MyPageViewModel(get(),get(),get(),get(),get(),get(),get(),get(),get(),get(),get(),get(),get()) }

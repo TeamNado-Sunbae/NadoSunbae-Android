@@ -79,4 +79,5 @@ interface MyPageService {
     suspend fun postResetPassword(
         @Body requestResetPassword: RequestResetPassword
     ) : ResponseResetPassword
+
 }
