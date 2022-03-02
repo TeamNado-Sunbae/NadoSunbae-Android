@@ -2,6 +2,7 @@ package com.nadosunbae_android.data.api.mypage
 
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
+import com.nadosunbae_android.data.model.request.mypage.RequestQuit
 import com.nadosunbae_android.data.model.request.mypage.RequestResetPassword
 import com.nadosunbae_android.data.model.response.mypage.*
 import retrofit2.http.*
@@ -80,4 +81,8 @@ interface MyPageService {
         @Body requestResetPassword: RequestResetPassword
     ) : ResponseResetPassword
 
+    @DELETE("auth/secession")
+    suspend fun deleteMyPageQuit(
+        @Body requestQuit: RequestQuit
+    ) : ResponseQuitData
 }

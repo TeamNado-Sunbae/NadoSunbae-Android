@@ -1,7 +1,9 @@
 package com.nadosunbae_android.data.mapper.mypage
 
+import androidx.lifecycle.Transformations.map
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
+import com.nadosunbae_android.data.model.request.mypage.RequestQuit
 import com.nadosunbae_android.data.model.request.mypage.RequestResetPassword
 import com.nadosunbae_android.data.model.response.mypage.*
 import com.nadosunbae_android.domain.model.main.AppLinkData
@@ -281,4 +283,74 @@ object MypageMapper {
         )
     }
 
+    //마이페이지 회원탈퇴
+    fun mapperToQuitData(responseQuitData: ResponseQuitData) : MyPageQuitData {
+        return MyPageQuitData(
+            data = MyPageQuitData.Data(
+                comment = responseQuitData.data.comment.map {
+                    MyPageQuitData.Data.Comment(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                block = responseQuitData.data.block.map {
+                    MyPageQuitData.Data.Block(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                classroomPost = responseQuitData.data.classroomPost.map{
+                    MyPageQuitData.Data.ClassroomPost(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                like = responseQuitData.data.like.map{
+                    MyPageQuitData.Data.Like(
+                        id = it.id,
+                        isLiked = it.isLiked,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                notification = responseQuitData.data.notification.map {
+                    MyPageQuitData.Data.Notification(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                report = responseQuitData.data.report.map{
+                    MyPageQuitData.Data.Report(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                reviewPost = responseQuitData.data.reviewPost.map {
+                    MyPageQuitData.Data.ReviewPost(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                user = MyPageQuitData.Data.User(
+                    email = responseQuitData.data.user.email,
+                    id = responseQuitData.data.user.id,
+                    isDeleted = responseQuitData.data.user.isDeleted,
+                    updatedAt = responseQuitData.data.user.updatedAt
+                )
+            ),
+            success = responseQuitData.success
+        )
+    }
+
+
+    fun mapperToQuitItem(myPageQuitItem: MyPageQuitItem) : RequestQuit {
+        return RequestQuit(
+            password = myPageQuitItem.password
+        )
+    }
 }
