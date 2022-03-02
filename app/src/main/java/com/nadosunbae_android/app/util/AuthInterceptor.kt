@@ -58,6 +58,7 @@ class AuthInterceptor(
 
         return response
     }
+    
     private fun Response.extractRenewalData(): RenewalTokenData {
         try {
             val result = Gson().fromJson(body?.string(), ResponseRenewalToken::class.java)

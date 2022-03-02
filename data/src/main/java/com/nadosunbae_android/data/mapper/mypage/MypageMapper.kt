@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.mapper.mypage
 import androidx.lifecycle.Transformations.map
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
+import com.nadosunbae_android.data.model.request.mypage.RequestResetPassword
 import com.nadosunbae_android.data.model.response.mypage.*
 import com.nadosunbae_android.domain.model.mypage.*
 
@@ -245,7 +246,7 @@ object MypageMapper {
     }
 
     //마이페이지 차단 & 차단해제
-    fun mapperToBlockUpdateData(responseMyPageBlockUpdate: ResponseMyPageBlockUpdate) : MyPageBlockUpdateData {
+    fun mapperToBlockUpdateData(responseMyPageBlockUpdate: ResponseMyPageBlockUpdate): MyPageBlockUpdateData {
         return MyPageBlockUpdateData(
             data = MyPageBlockUpdateData.Data(
                 blockUserId = responseMyPageBlockUpdate.data.blockUserId,
@@ -259,9 +260,25 @@ object MypageMapper {
         )
     }
 
-    fun mapperToBlockUpdateItem(myPageBlockUpdateItem: MyPageBlockUpdateItem) : RequestMyPageBlockUpdate {
+    fun mapperToBlockUpdateItem(myPageBlockUpdateItem: MyPageBlockUpdateItem): RequestMyPageBlockUpdate {
         return RequestMyPageBlockUpdate(
             blockedUserId = myPageBlockUpdateItem.blockedUserId
         )
     }
+
+    //마이페이지 비밀번호 재설정
+    fun mapperToResetPasswordData(responseResetPassword: ResponseResetPassword): MyPageResetPasswordData {
+        return MyPageResetPasswordData(
+            data = responseResetPassword.data,
+            status = responseResetPassword.status,
+            success = responseResetPassword.success
+        )
+    }
+
+    fun mapperToResetPasswordItem(myPageResetPasswordItem: MyPageResetPasswordItem): RequestResetPassword {
+        return RequestResetPassword(
+            email = myPageResetPasswordItem.email
+        )
+    }
+
 }

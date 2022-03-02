@@ -12,8 +12,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.NadoSunbaeAndroid">
+        android:theme="@style/Theme.NadoSunbaeAndroid"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".presentation.ui.mypage.ChangePwFinishActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.ui.main.WebViewActivity"
             android:exported="false" />
@@ -65,8 +68,8 @@
             android:exported="true" />
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

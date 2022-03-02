@@ -6,10 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
+import com.nadosunbae_android.app.util.ResultWrapper
+import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.usecase.mypage.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MyPageViewModel(
@@ -24,7 +27,8 @@ class MyPageViewModel(
     val getMyPageLikeReviewUseCase: GetMyPageLikeReviewUseCase,
     val getMyPageReviewUseCase: GetMyPageReviewUseCase,
     val getMyPageBlockUseCase: GetMyPageBlockUseCase,
-    val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase
+    val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase,
+    val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase
 
     ) : ViewModel(), LoadableViewModel {
 
@@ -51,6 +55,7 @@ class MyPageViewModel(
     val reviewList = MutableLiveData<MyPageReviewData>()
     val blockList = MutableLiveData<MyPageBlockData>()
     val blockUpdate = MutableLiveData<MyPageBlockUpdateData>()
+    val resetPassword : MutableLiveData<MyPageResetPasswordData> = MutableLiveData()
 
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
@@ -262,6 +267,40 @@ class MyPageViewModel(
                 .also {
                     onLoadingEnd.value = true
                 }
+        }
+    }
+
+
+    //마이페이지 비밀번호 재설정
+    fun postMyPageRestPassword(myPageResetPasswordItem: MyPageResetPasswordItem) {
+        viewModelScope.launch {
+
+            when (safeApiCall(Dispatchers.IO) {postMyPageResetPasswordUseCase(myPageResetPasswordItem)}) {
+                is ResultWrapper.Success -> resetPassword.value =
+                    MyPageResetPasswordData("",200, true)
+                is ResultWrapper.NetworkError -> {
+                    Log.d("MyPageResetPw", "네트워크 실패")
+                    resetPassword.value = MyPageResetPasswordData("", 500, false)
+                }
+                is ResultWrapper.GenericError -> {
+                    Log.d("MyPageResetPw", "존재하지 않는 이메일")
+                    resetPassword.value = MyPageResetPasswordData("", 400, false)
+                }
+            }
+
+
+//            kotlin.runCatching { postMyPageResetPasswordUseCase(myPageResetPasswordItem) }
+//                .onSuccess {
+//                    resetPassword.value = it
+//                    Log.d("MyPageResetPw", "서버 통신 완료")
+//                }
+//                .onFailure {
+//                    it.printStackTrace()
+//                    Log.d("MyPageResetPw", "서버 통신 실패")
+//                }
+//                .also {
+//                    onLoadingEnd.value = true
+//                }
         }
     }
 

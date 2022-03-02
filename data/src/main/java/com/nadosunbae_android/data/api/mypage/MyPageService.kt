@@ -2,6 +2,7 @@ package com.nadosunbae_android.data.api.mypage
 
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageBlockUpdate
 import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
+import com.nadosunbae_android.data.model.request.mypage.RequestResetPassword
 import com.nadosunbae_android.data.model.response.mypage.*
 import retrofit2.http.*
 
@@ -73,4 +74,9 @@ interface MyPageService {
         @Body requestMyPageBlockUpdate: RequestMyPageBlockUpdate
     ): ResponseMyPageBlockUpdate
 
+    //비밀번호 재설정
+    @POST("auth/reset/password")
+    suspend fun postResetPassword(
+        @Body requestResetPassword: RequestResetPassword
+    ) : ResponseResetPassword
 }
