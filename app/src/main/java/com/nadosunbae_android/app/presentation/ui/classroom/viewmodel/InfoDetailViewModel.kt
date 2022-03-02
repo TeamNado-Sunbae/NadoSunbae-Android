@@ -5,11 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.util.DropDownSelectableViewModel
+import com.nadosunbae_android.domain.model.classroom.DeleteCommentData
 import com.nadosunbae_android.domain.model.classroom.InfoDetailData
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteData
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeItem
+import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.usecase.classroom.DeleteCommentDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetInformationDetailUseCase
 import com.nadosunbae_android.domain.usecase.classroom.PostQuestionCommentWriteUseCase
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
@@ -18,8 +22,11 @@ import kotlinx.coroutines.launch
 class InfoDetailViewModel(
     val getInformationDetailUseCase: GetInformationDetailUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
-    val postLikeDataUseCase : PostLikeDataUseCase
-) : ViewModel() {
+    val postLikeDataUseCase : PostLikeDataUseCase,
+    val deleteCommentDataUseCase: DeleteCommentDataUseCase
+) : ViewModel(), DropDownSelectableViewModel {
+
+    override var dropDownSelected = MutableLiveData<SelectableData>()
 
 
     //정보 상세 조회
@@ -34,6 +41,20 @@ class InfoDetailViewModel(
     private var _infoPostId = MutableLiveData<Int>()
     val infoPostId : LiveData<Int>
         get() = _infoPostId
+
+    //정보 댓글 commentId
+    var commentId = MutableLiveData<Int>()
+
+    //정보 댓글 및 원글 분류
+    var divisionPost = MutableLiveData<Int>()
+
+    //댓글 position
+    var position = MutableLiveData<Int>()
+
+    //댓글 삭제 데이터
+    private var _deleteComment = MutableLiveData<DeleteCommentData>()
+    val deleteComment : LiveData<DeleteCommentData>
+        get() = _deleteComment
 
     fun setPostId(postId : Int){
         _infoPostId.value = postId
@@ -96,6 +117,22 @@ class InfoDetailViewModel(
                 }
         }
 
+    }
+
+    //정보 댓글 삭제
+    //댓글 삭제 서버통신
+    fun deleteComment(commentId : Int){
+        viewModelScope.launch {
+            runCatching { deleteCommentDataUseCase(commentId) }
+                .onSuccess {
+                    _deleteComment.value = it
+                    Log.d("deleteComment", "댓글 삭제 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("deleteComment", "댓글 삭제 실패")
+                }
+        }
     }
 }
 
