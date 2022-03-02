@@ -153,13 +153,13 @@ class QuestionDetailActivity :
                     questionDetailViewModel.deleteNum.value = deleteNum
                     if((user == 1 && viewNum == 1) or (user == 2 && viewNum == 2)){
                         val dropDown = mutableListOf<SelectableData>(
-                            SelectableData(1, resources.getString(R.string.question_detail_update), true),
+                            SelectableData(1, resources.getString(R.string.question_detail_update), false),
                             SelectableData(2, resources.getString(R.string.question_detail_delete), false)
                         )
                         showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, false, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
                     }else if((user == 1 && viewNum == 2) or (user == 3)){
                         val dropDown = mutableListOf<SelectableData>(
-                            SelectableData(1, resources.getString(R.string.question_detail_report), true),
+                            SelectableData(1, resources.getString(R.string.question_detail_report), false),
                         )
                         showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, false, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
                     }else if(user == 2 && viewNum == 1){

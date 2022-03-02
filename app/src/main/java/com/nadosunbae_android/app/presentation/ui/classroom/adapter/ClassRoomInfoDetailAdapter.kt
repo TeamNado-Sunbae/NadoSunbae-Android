@@ -1,5 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.classroom.adapter
 
+import android.icu.text.Transliterator
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemInformationDetailBinding
 import com.nadosunbae_android.domain.model.classroom.InfoDetailData
 
-class ClassRoomInfoDetailAdapter : RecyclerView.Adapter<ClassRoomInfoDetailAdapter.ClassRoomInfoDetailViewHolder>() {
+class ClassRoomInfoDetailAdapter(private var userId: Int) :
+    RecyclerView.Adapter<ClassRoomInfoDetailAdapter.ClassRoomInfoDetailViewHolder>() {
     var infoDetailData = mutableListOf<InfoDetailData.Comment>()
 
     override fun onCreateViewHolder(
@@ -28,18 +31,28 @@ class ClassRoomInfoDetailAdapter : RecyclerView.Adapter<ClassRoomInfoDetailAdapt
     ) {
         holder.onBind(infoDetailData[position])
 
-
-        if(infoDetailData[position].secondMajorName == "미진입"){
+        if (infoDetailData[position].secondMajorName == "미진입") {
             holder.binding.textInformationDetailContentSecondMajorStart.visibility = View.GONE
         }
+
+        holder.binding.imgInformationDetailQuestionMenu.setOnClickListener {
+            itemClickListener.onClick(
+                it,
+                position,
+                lookForWriter(infoDetailData[position].writerId),
+                infoDetailData[position].commentId
+            )
+        }
+
+
     }
 
     override fun getItemCount(): Int = infoDetailData.size
 
     inner class ClassRoomInfoDetailViewHolder(
-        val binding : ItemInformationDetailBinding
-    ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(infoDetailData : InfoDetailData.Comment){
+        val binding: ItemInformationDetailBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(infoDetailData: InfoDetailData.Comment) {
             binding.apply {
                 infoDetailListData = infoDetailData
                 executePendingBindings()
@@ -47,10 +60,52 @@ class ClassRoomInfoDetailAdapter : RecyclerView.Adapter<ClassRoomInfoDetailAdapt
         }
     }
 
-    fun setInfoDetail(infoDetailData: MutableList<InfoDetailData.Comment>){
+    fun setInfoDetail(infoDetailData: MutableList<InfoDetailData.Comment>) {
         this.infoDetailData = infoDetailData
         notifyDataSetChanged()
     }
 
+    //점세개 메뉴 클릭 이벤트
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int, user: Int, commentId: Int)
+    }
+
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
+
+    private lateinit var itemClickListener: OnItemClickListener
+
+    // 삭제, 신고를 위한 user 구분 (작성자 -> 1, 제3자 -> 2)
+    private fun lookForWriter(writerId: Int): Int {
+        return if (userId == writerId) {
+            writer
+        } else {
+            thirdParty
+        }
+
+    }
+
+    //삭제시에 어떤 아이템인지 받아오는 부분
+    // update = 1, report = 2, delete = 3 (menuNum)
+
+    fun setCheckMenu(menuNum: Int, position: Int) {
+        itemDelete(menuNum, position)
+
+    }
+
+    //댓글 삭제
+    private fun itemDelete(menuNum : Int, position : Int){
+        if(menuNum == 3){
+            infoDetailData.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
+
+
+    companion object {
+        const val writer = 1
+        const val thirdParty = 2
+    }
 
 }

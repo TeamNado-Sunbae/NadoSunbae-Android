@@ -1,7 +1,5 @@
 package com.nadosunbae_android.data.model.response.classroom
 
-import java.util.*
-
 data class ResponseInfoDetailData(
     val data: Data,
     val message: String,
@@ -9,23 +7,28 @@ data class ResponseInfoDetailData(
     val success: Boolean
 ) {
     data class Data(
-        val commentCount: String,
-        val commentList: List<Comment>,
+        val answererId: Any,
         val like: Like,
-        val post: Post,
-        val writer: Writer
+        val messageList: List<Message>,
+        val questionerId: Int
     ) {
-        data class Comment(
-            val commentId: Int,
+        data class Like(
+            val isLiked: Boolean,
+            val likeCount: Int
+        )
+
+        data class Message(
             val content: String,
-            val createdAt: Date?,
+            val createdAt: String,
             val isDeleted: Boolean,
+            val messageId: Int,
+            val title: String,
             val writer: Writer
         ) {
             data class Writer(
                 val firstMajorName: String,
                 val firstMajorStart: String,
-                val isPostWriter: Boolean,
+                val isQuestioner: Boolean,
                 val nickname: String,
                 val profileImageId: Int,
                 val secondMajorName: String,
@@ -33,27 +36,5 @@ data class ResponseInfoDetailData(
                 val writerId: Int
             )
         }
-
-        data class Like(
-            val isLiked: Boolean,
-            val likeCount: Int
-        )
-
-        data class Post(
-            val content: String,
-            val createdAt: Date?,
-            val postId: Int,
-            val title: String
-        )
-
-        data class Writer(
-            val firstMajorName: String,
-            val firstMajorStart: String,
-            val nickname: String,
-            val profileImageId: Int,
-            val secondMajorName: String,
-            val secondMajorStart: String,
-            val writerId: Int
-        )
     }
 }

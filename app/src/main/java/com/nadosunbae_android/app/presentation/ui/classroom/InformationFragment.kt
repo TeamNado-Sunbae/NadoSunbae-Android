@@ -40,8 +40,8 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
     }
 
     private fun initInfoMain(){
-
-        classRoomInfoMainAdapter = ClassRoomInfoMainAdapter()
+        val userId = mainViewModel.userId.value ?: 0
+        classRoomInfoMainAdapter = ClassRoomInfoMainAdapter(userId)
         binding.rcClassroomInfo.adapter = classRoomInfoMainAdapter
        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
            Log.d("classRoomInfo", it.toString())

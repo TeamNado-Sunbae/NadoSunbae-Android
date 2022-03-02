@@ -11,7 +11,7 @@ import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 
-class ClassRoomInfoMainAdapter: RecyclerView.Adapter<ClassRoomInfoMainAdapter.ClassRoomInfoMainViewHolder>() {
+class ClassRoomInfoMainAdapter(private var userId : Int): RecyclerView.Adapter<ClassRoomInfoMainAdapter.ClassRoomInfoMainViewHolder>() {
     var questionMainData = mutableListOf<ClassRoomData>()
 
     override fun onCreateViewHolder(
@@ -36,6 +36,7 @@ class ClassRoomInfoMainAdapter: RecyclerView.Adapter<ClassRoomInfoMainAdapter.Cl
                 val intent = Intent(holder.itemView.context, InformationDetailActivity::class.java)
                 intent.apply {
                     putExtra("postId", questionMainData[position].postId)
+                    putExtra("userId", userId)
                 }
                 ContextCompat.startActivity(holder.itemView.context, intent, null)
             }else{
