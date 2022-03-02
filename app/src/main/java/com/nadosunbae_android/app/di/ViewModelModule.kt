@@ -9,6 +9,7 @@ import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewListVie
 import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewWriteViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
+import kotlinx.coroutines.coroutineScope
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.scope.get
 import org.koin.dsl.module
@@ -40,4 +41,5 @@ val viewModelModule = module {
     //sign
     viewModel { SignUpBasicInfoViewModel(get(),get(),get(),get(),get(),get(), get())}
     viewModel { SignViewModel()}
+
 }

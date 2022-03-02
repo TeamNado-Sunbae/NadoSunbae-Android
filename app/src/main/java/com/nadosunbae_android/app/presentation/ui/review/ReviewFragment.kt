@@ -8,6 +8,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.app.databinding.FragmentReviewBinding
+import com.nadosunbae_android.app.di.NadoSunBaeApplication
 import com.nadosunbae_android.domain.model.review.ReviewFilterItem
 import com.nadosunbae_android.domain.model.review.ReviewPreviewData
 import com.nadosunbae_android.app.presentation.base.BaseFragment

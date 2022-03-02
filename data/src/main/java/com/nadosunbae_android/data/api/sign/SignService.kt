@@ -36,4 +36,5 @@ interface SignService {
     suspend fun postCertificationEmail(
         @Body requestCertificationEmail: RequestCertificationEmail
     ) : ResponseCertificationEmail
+
 }
