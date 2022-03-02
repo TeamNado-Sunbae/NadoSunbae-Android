@@ -57,6 +57,7 @@ class MyPageViewModel(
     val blockList = MutableLiveData<MyPageBlockData>()
     val blockUpdate = MutableLiveData<MyPageBlockUpdateData>()
     val resetPassword : MutableLiveData<MyPageResetPasswordData> = MutableLiveData()
+    val quitInfo = MutableLiveData<MyPageQuitData>()
 
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
@@ -307,6 +308,22 @@ class MyPageViewModel(
                     onLoadingEnd.value = true
                 }
         }
+    }
+
+    //마이페이지 탈퇴
+    fun deleteMyPageQuit(myPageQuitItem: MyPageQuitItem) {
+        viewModelScope.launch {
+            kotlin.runCatching { deleteMyPageQuitUseCase(myPageQuitItem) }
+                .onSuccess {
+                    quitInfo.value = it
+                    Log.d("MyPageQuit", "서버 통신 완료")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("MyPageQuit", "서버 통신 실패")
+                }
+        }
+
     }
 }
 

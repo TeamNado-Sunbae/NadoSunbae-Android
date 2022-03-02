@@ -81,7 +81,7 @@ interface MyPageService {
         @Body requestResetPassword: RequestResetPassword
     ) : ResponseResetPassword
 
-    @DELETE("auth/secession")
+    @POST("auth/secession")
     suspend fun deleteMyPageQuit(
         @Body requestQuit: RequestQuit
     ) : ResponseQuitData

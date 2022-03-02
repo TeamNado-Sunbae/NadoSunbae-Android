@@ -1,7 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,7 +12,9 @@ import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
+import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageLogOutData
+import com.nadosunbae_android.domain.model.mypage.MyPageQuitItem
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -64,10 +65,19 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
             mainViewModel.mypageFragmentNum.value = 2
         }
 
-        //탈퇴 activity
+        //탈퇴 dialog
         binding.textMypageSettingQuit.setOnClickListener {
-            val intentQuit = Intent(getActivity(), QuitActivity::class.java)
-            startActivity(intentQuit)
+            myPageViewModel.deleteMyPageQuit(MyPageQuitItem("123456"))
+
+//            val dialog = QuitAlertCustomDialogActivity(this)
+//            dialog.showDialog()
+//
+//            dialog.setOnClickListener(object : QuitAlertCustomDialogActivity.ButtonClickListener {
+//                override fun onClicked(num: () -> Unit) {
+//                    startActivity(Intent(this, SignInActivity::class.java))
+//                    finish()
+//                }
+//            })
         }
 
         //서비스 문의
