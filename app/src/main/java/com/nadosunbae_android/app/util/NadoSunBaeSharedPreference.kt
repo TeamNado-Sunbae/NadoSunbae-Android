@@ -17,6 +17,11 @@ object NadoSunBaeSharedPreference {
         preferences.edit().putString(ACCESS_TOKEN, value).apply()
     }
 
+    fun removeAccessToken(context: Context) {
+        val preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
+        preferences.edit().remove(ACCESS_TOKEN).apply()
+    }
+
     fun getRefreshToken(context: Context): String {
         val preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
         return preferences.getString(REFRESH_TOKEN, "") ?: ""
@@ -25,6 +30,11 @@ object NadoSunBaeSharedPreference {
     fun setRefreshToken(context: Context, value: String) {
         val preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
         return preferences.edit().putString(REFRESH_TOKEN, value).apply()
+    }
+
+    fun removeRefreshToken(context: Context) {
+        val preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
+        preferences.edit().remove(REFRESH_TOKEN).apply()
     }
 
     fun getUserId(context: Context): Int {
