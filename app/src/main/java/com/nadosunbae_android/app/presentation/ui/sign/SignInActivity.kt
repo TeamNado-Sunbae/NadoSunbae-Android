@@ -113,14 +113,17 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     private fun moveQeustionPage() {
-        val linkData = mainViewModel.appLinkData.value
-        binding.textSignInQuestion.setOnClickListener {
-            val intent = Intent(this, WebViewActivity::class.java)
-            Log.d("잘 찍히니?", linkData!!.data.kakaoTalkChannel)
-            intent.putExtra("url", "https://pf.kakao.com/_pxcFib")
-            startActivity(intent)
+        mainViewModel.getAppLink()
+            binding.textSignInQuestion.setOnClickListener {
+                mainViewModel.appLink.observe(this) {
+                    val intent = Intent(this, WebViewActivity::class.java)
+                    intent.putExtra("url", it.data.kakaoTalkChannel)
+                    startActivity(intent)
+                }
+            }
         }
-    }
+
+
 
     //비밀번호 찾기 페이지로 이동
     private fun moveFindPw() {

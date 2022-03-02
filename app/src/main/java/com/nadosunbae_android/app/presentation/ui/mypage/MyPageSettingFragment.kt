@@ -5,9 +5,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.LifecycleOwner
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageSettingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
@@ -70,8 +72,12 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
 
         //서비스 문의
         binding.textMypageSettingService.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://pf.kakao.com/_pxcFib"))
-            startActivity(intent)
+            mainViewModel.getAppLink()
+            mainViewModel.appLink.observe(viewLifecycleOwner) {
+                val intent = Intent(getActivity(), WebViewActivity::class.java)
+                intent.putExtra("url", it.data.kakaoTalkChannel)
+                startActivity(intent)
+            }
         }
 
         //차단 정보 fragment
