@@ -4,6 +4,9 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
 import com.nadosunbae_android.app.di.NadoSunBaeApplication
+import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
+import com.nadosunbae_android.app.util.ManageUtil.isServiceRunning
+import com.nadosunbae_android.app.util.ManageUtil.restartApp
 import com.nadosunbae_android.data.model.response.sign.ResponseRenewalToken
 import com.nadosunbae_android.domain.model.sign.RenewalTokenData
 import okhttp3.*
@@ -36,7 +39,11 @@ class AuthInterceptor(
                 response.close()
 
                 val appContext = NadoSunBaeApplication.context()
-                val data = postRenewalData(appContext, chain)       // access token 재발급
+
+                if (NadoSunBaeSharedPreference.getRefreshToken(appContext).isEmpty())     // refresh token 없으면 재발급 로직 실행 x -> 루프 방지
+                    return response
+
+                val data: RenewalTokenData? = postRenewalData(appContext, chain)       // access token 재발급
 
                 if (data != null && data.success) {      // access token 재발급 성공
                     val newToken = data.accesstoken
@@ -49,7 +56,13 @@ class AuthInterceptor(
                 }
                 else {
                     Log.d(TAG, "refresh renewal failed")
-                    ManageUtil.restartApp(appContext)        // 재발급 실패 -> 앱 재실행 후 로그인
+                    NadoSunBaeSharedPreference.removeAccessToken(appContext)        // 만료된 access token 제거
+                    NadoSunBaeSharedPreference.removeRefreshToken(appContext)      // 만료된 refresh token 제거
+
+                    appContext.run {
+                        if (!isServiceRunning(SignInActivity::class.java.name))     // SignIn 액티비티 실행 여부 확인
+                            restartApp()                                              // 재발급 실패 -> 앱 재실행 후 로그인
+                    }
                 }
 
             }
