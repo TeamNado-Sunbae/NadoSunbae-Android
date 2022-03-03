@@ -73,8 +73,8 @@ class InformationDetailActivity :
     //원글 점 세개 메뉴
     private fun initInfoPostMenu(userId: Int, writerId: Int) {
         val v = binding.imgInforamtionDetailMenu
+        infoDetailViewModel.divisionPost.value = post
         binding.imgInforamtionDetailMenu.setOnClickListener {
-            infoDetailViewModel.divisionPost.value = post
             if (userId == writerId) {
                 val dropDown = mutableListOf<SelectableData>(
                     SelectableData(1, resources.getString(R.string.question_detail_update), false),
@@ -182,10 +182,12 @@ class InformationDetailActivity :
                     deleteDialog(
                         divisionPost,
                         setCheckMenu = {
-                            classRoomInfoDetailAdapter.setCheckMenu(
-                                delete,
-                                position
-                            )
+                            if(divisionPost == 1){
+                                classRoomInfoDetailAdapter.setCheckMenu(
+                                    delete,
+                                    position
+                                )
+                            }
                         },
                         deleteComment = { infoDetailViewModel.deleteComment(commentId) },
                         deleteWrite = { infoDetailViewModel.deletePost(postId)},
@@ -228,6 +230,7 @@ class InformationDetailActivity :
                     deleteComment()
                 } else {
                     deleteWrite()
+                    finish()
                 }
                 setCheckMenu()
             },
