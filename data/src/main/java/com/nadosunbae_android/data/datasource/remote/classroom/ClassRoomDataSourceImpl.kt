@@ -1,10 +1,7 @@
 package com.nadosunbae_android.data.datasource.remote.classroom
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
-import com.nadosunbae_android.data.model.request.classroom.RequestClassRoomPostData
-import com.nadosunbae_android.data.model.request.classroom.RequestCommentUpdateData
-import com.nadosunbae_android.data.model.request.classroom.RequestQuestionCommentWriteData
-import com.nadosunbae_android.data.model.request.classroom.RequestWriteUpdateData
+import com.nadosunbae_android.data.model.request.classroom.*
 import com.nadosunbae_android.data.model.response.classroom.*
 
 class ClassRoomDataSourceImpl(private val service : ClassRoomService) : ClassRoomDataSource {
@@ -66,5 +63,13 @@ class ClassRoomDataSourceImpl(private val service : ClassRoomService) : ClassRoo
 
     override suspend fun deleteComment(commentId: Int): ResponseDeleteComment {
         return service.deleteComment(commentId)
+    }
+
+    override suspend fun deletePost(postId: Int): ResponseDeleteComment {
+        return service.deletePost(postId)
+    }
+
+    override suspend fun postReport(requestReportData: RequestReportData): ResponseReportData {
+        return service.postReport(requestReportData)
     }
 }

@@ -38,9 +38,9 @@ class SignRepositoryImpl(private val signDataSource : SignDataSource) : SignRepo
     }
 
     //로그인
-    override suspend fun postSignIn(signInData: SignInData): SignInItem {
+    override suspend fun postSignIn(signInItem: SignInItem): SignInData {
         return SignMapper.mapperToSignInData(signDataSource.postSignIn(
-            mapperToSignIn(signInData)
+            mapperToSignIn(signInItem)
         ))
     }
 

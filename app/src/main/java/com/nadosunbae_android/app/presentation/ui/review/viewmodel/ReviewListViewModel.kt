@@ -1,7 +1,5 @@
 package com.nadosunbae_android.app.presentation.ui.review.viewmodel
 
-import android.app.Dialog
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -40,6 +38,7 @@ class ReviewListViewModel(
 
     // 후기 목록 불러오기
     fun getReviewList(reviewFilterItem: ReviewFilterItem, sort: String = "recent") {
+
         viewModelScope.launch {
             runCatching { getReviewListDataUseCase(reviewFilterItem, sort) }
                 .onSuccess {
@@ -53,6 +52,7 @@ class ReviewListViewModel(
                 .also {
                     onLoadingEnd.value = true
                 }
+
         }
     }
 

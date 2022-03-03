@@ -35,4 +35,10 @@ interface ClassRoomRepository {
 
     // 1:1질문, 전체 질문 댓글 삭제
     suspend fun deleteComment(commentId : Int) : DeleteCommentData
+
+    //1:1 질문, 전체 질문, 정보글에 있는 원글 삭제
+    suspend fun deletePost(postId : Int) : DeleteCommentData
+
+    //신고
+    suspend fun postReport(reportItem: ReportItem) : ReportData
 }

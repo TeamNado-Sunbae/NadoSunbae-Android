@@ -24,9 +24,6 @@
             android:name=".presentation.ui.main.WebViewActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.mypage.AppInfoActivity"
-            android:exported="true" />
-        <activity
             android:name=".presentation.ui.mypage.QuitActivity"
             android:exported="true" />
         <activity
