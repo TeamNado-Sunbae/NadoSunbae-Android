@@ -9,8 +9,8 @@ data class ResponseInfoDetailData(
     val success: Boolean
 ) {
     data class Data(
-        val commentCount: String,
-        val commentList: List<Comment>,
+        val commentCount: Int,
+        val commentList: List<Comment> ,
         val like: Like,
         val post: Post,
         val writer: Writer

@@ -224,7 +224,7 @@ class QuestionDetailViewModel(
             }
 
         }
-        }
+}
 
 
 
