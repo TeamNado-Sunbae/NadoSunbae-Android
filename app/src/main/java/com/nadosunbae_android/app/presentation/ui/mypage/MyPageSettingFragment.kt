@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageSettingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -68,15 +67,17 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
         binding.textMypageSettingQuit.setOnClickListener {
             val dialog = getActivity()?.let { it1 -> QuitAlertCustomDialog(it1) }
             dialog?.showDialog()
-            //val dialog = getActivity()?.let { it1 -> QuitAlertCustomDialog(it1) }
-            dialog?.writeCancelDialog(R.layout.activity_quit_alert_custom_dialog)
+            dialog?.initBtnClickDialog(R.layout.activity_quit_alert_custom_dialog)
 
             dialog?.setOnClickListener(object : QuitAlertCustomDialog.ButtonClickListener{
-                override fun onClicked(num: Int) {
+                override fun onClicked(num: Int, toString: String) {
                     if(num == 2) {
-                        Log.d("quitClickEventCheck", " OK" )
-                        Log.d("check", editText.text.toString())
-                        myPageViewModel.deleteMyPageQuit(MyPageQuitItem(editText.text.toString()))
+                        if(toString != null) {
+                            Log.d("입력된 PW", " : $toString")
+                            myPageViewModel.deleteMyPageQuit(MyPageQuitItem(toString))
+                        } else {
+                            Log.d("check", "editText is null")
+                        }
 
                     } else {
 
@@ -86,40 +87,6 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
 
             })
         }
-
-
-
-            /*
-            val builder = AlertDialog.Builder(getActivity())
-            val builderItem = ActivityQuitAlertCustomDialogBinding.inflate(layoutInflater)
-            val editText = builderItem.editText
-            with(builder){
-                setView(builderItem.root)
-                setPositiveButton("OK"){ dialogInterface: DialogInterface, i: Int ->
-                    if(editText.text != null) {
-                        Log.d("입력된 이름", " : " + builderItem.editText.toString())
-                        //myPageViewModel.deleteMyPageQuit(MyPageQuitItem("123456"))
-                    }
-
-                }
-                show()
-            }
-
-             */
-
-
-
-
-//            val dialog = QuitAlertCustomDialogActivity(this)
-//            dialog.showDialog()
-//
-//            dialog.setOnClickListener(object : QuitAlertCustomDialogActivity.ButtonClickListener {
-//                override fun onClicked(num: () -> Unit) {
-//                    startActivity(Intent(this, SignInActivity::class.java))
-//                    finish()
-//                }
-//            })
-
 
         //서비스 문의
         binding.textMypageSettingService.setOnClickListener {

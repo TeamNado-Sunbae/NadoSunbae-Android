@@ -343,6 +343,7 @@ object MypageMapper {
                     updatedAt = responseQuitData.data.user.updatedAt
                 )
             ),
+            status = responseQuitData.status,
             success = responseQuitData.success
         )
     }

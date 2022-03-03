@@ -312,6 +312,7 @@ class MyPageViewModel(
 
     //마이페이지 탈퇴
     fun deleteMyPageQuit(myPageQuitItem: MyPageQuitItem) {
+        /*
         viewModelScope.launch {
             kotlin.runCatching { deleteMyPageQuitUseCase(myPageQuitItem) }
                 .onSuccess {
@@ -322,6 +323,25 @@ class MyPageViewModel(
                     it.printStackTrace()
                     Log.d("MyPageQuit", "서버 통신 실패")
                 }
+        }
+
+         */
+
+
+
+        viewModelScope.launch {
+            when(val quitInfoCheck = safeApiCall(Dispatchers.IO){ deleteMyPageQuitUseCase(myPageQuitItem) }) {
+                is ResultWrapper.Success -> quitInfo.value = quitInfoCheck.data!!
+                is ResultWrapper.NetworkError -> {
+                    Log.d("MyPageQuit", "네트워크 실패")
+                    quitInfo.value = MyPageQuitData(quitInfo.value!!.data, 500, false)
+                }
+                is ResultWrapper.GenericError -> {
+                    Log.d("MyPageResetPw", "존재하지 않는 비밀번호")
+                    quitInfo.value = MyPageQuitData(quitInfo.value!!.data, 401, false)
+
+                }
+            }
         }
 
     }
