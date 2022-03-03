@@ -12,10 +12,7 @@ import com.nadosunbae_android.domain.model.classroom.*
 import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
-import com.nadosunbae_android.domain.usecase.classroom.DeleteCommentDataUseCase
-import com.nadosunbae_android.domain.usecase.classroom.GetInformationDetailUseCase
-import com.nadosunbae_android.domain.usecase.classroom.PostQuestionCommentWriteUseCase
-import com.nadosunbae_android.domain.usecase.classroom.PostReportUseCase
+import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,7 +22,8 @@ class InfoDetailViewModel(
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
     val postLikeDataUseCase : PostLikeDataUseCase,
     val deleteCommentDataUseCase: DeleteCommentDataUseCase,
-    val postReportUseCase: PostReportUseCase
+    val postReportUseCase: PostReportUseCase,
+    val deletePostDataUseCase: DeletePostDataUseCase,
 ) : ViewModel(), DropDownSelectableViewModel {
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
@@ -81,6 +79,11 @@ class InfoDetailViewModel(
 
     //신고 토스트위한
     var reportStatusInfo = MutableLiveData<Int>()
+
+    //원글 삭제 데이터
+    private var _deletePostData = MutableLiveData<DeleteCommentData>()
+    val deletePostData : LiveData<DeleteCommentData>
+        get() = _deletePostData
 
     //정보 상세 조회 서버통신
     fun getInfoDetail(postId: Int) {
@@ -168,7 +171,22 @@ class InfoDetailViewModel(
                 }
             }
         }
+    }
 
+
+    // 원글 삭제 서버통신
+    fun deletePost(postId : Int){
+        viewModelScope.launch {
+            runCatching { deletePostDataUseCase(postId) }
+                .onSuccess {
+                    _deletePostData.value = it
+                    Log.d("deletePost", "원글 삭제 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("deletePost", "원글 삭제 실패")
+                }
+        }
     }
 }
 
