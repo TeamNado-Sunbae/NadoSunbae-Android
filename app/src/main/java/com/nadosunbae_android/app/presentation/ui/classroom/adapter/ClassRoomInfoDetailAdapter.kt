@@ -102,6 +102,7 @@ class ClassRoomInfoDetailAdapter(private var userId: Int, val context : Context)
 
 
 
+
     companion object {
         const val writer = 1
         const val thirdParty = 2

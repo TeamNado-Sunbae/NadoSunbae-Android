@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityInformationDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -13,6 +14,7 @@ import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.InfoDetailData
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
+import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,6 +31,7 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
         initInfoCommentMenu()
         infoCommentMenu()
         infoCommentMenuClick()
+        reportToast()
     }
 
 
@@ -101,6 +104,7 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
                         deleteComment = {infoDetailViewModel.deleteComment(commentId)},
                         deleteWrite = {},
                     )
+                resources.getString(R.string.question_detail_report) -> floatReportReasonDialog()
 
             }
 
@@ -109,8 +113,6 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
 
 
     }
-
-
 
 
     //정보 답글 삭제
@@ -129,10 +131,63 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
                 }
                 setCheckMenu()
             },
+            cancel = {}
+        )
+    }
+
+    //신고 사유 다이얼로그 띄우기
+    private fun floatReportReasonDialog(){
+        val divisionPost = infoDetailViewModel.divisionPost.value ?: 0
+        val dialog = CustomDialog(this)
+        dialog.reportDialog(this)
+        dialog.setReportClickListener(
+            object : CustomDialog.ReportClickListener{
+                override fun reportClick(text: String) {
+                    infoDetailViewModel.reportReasonInfo.value = text
+                    reportDialog(divisionPost)
+                }
+            }
+        )
+
+
+    }
+
+
+    //신고 다이얼로그 띄우기
+    private fun reportDialog(divisionPost: Int) {
+        CustomDialog(this).genericDialog(
+            CustomDialog.DialogData(
+                resources.getString(R.string.request_report),
+                resources.getString(R.string.agree_report),
+                resources.getString(R.string.disagree_report)
+            ),
+            complete = {
+                when (divisionPost) {
+                    comment -> infoDetailViewModel.postReport(
+                        ReportItem(
+                            infoDetailViewModel.commentId.value ?: 0,
+                        comment,
+                            infoDetailViewModel.reportReasonInfo.value ?: "")
+                    )
+                }
+            },
             cancel = {
 
             }
         )
+
+    }
+    //신고하기 토스트 띄우기
+    private fun reportToast() {
+        infoDetailViewModel.reportStatusInfo.observe(this) {
+            if (it == 200) {
+                Toast.makeText(this, "신고가 접수되었습니다", Toast.LENGTH_SHORT).show()
+            } else if (it == 400) {
+                Toast.makeText(this, "이미 신고한 댓글입니다.", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
     }
 
 
@@ -171,7 +226,9 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
         const val report = 2
         const val delete = 3
 
-        const val comment = 1
+
+        //원글 댓글 분류
         const val post = 2
+        const val comment = 3
     }
 }

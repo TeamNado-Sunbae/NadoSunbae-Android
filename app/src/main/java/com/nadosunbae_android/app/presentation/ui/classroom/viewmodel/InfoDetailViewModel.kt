@@ -6,24 +6,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
-import com.nadosunbae_android.domain.model.classroom.DeleteCommentData
-import com.nadosunbae_android.domain.model.classroom.InfoDetailData
-import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteData
-import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
+import com.nadosunbae_android.app.util.ResultWrapper
+import com.nadosunbae_android.app.util.safeApiCall
+import com.nadosunbae_android.domain.model.classroom.*
 import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.usecase.classroom.DeleteCommentDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetInformationDetailUseCase
 import com.nadosunbae_android.domain.usecase.classroom.PostQuestionCommentWriteUseCase
+import com.nadosunbae_android.domain.usecase.classroom.PostReportUseCase
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class InfoDetailViewModel(
     val getInformationDetailUseCase: GetInformationDetailUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
     val postLikeDataUseCase : PostLikeDataUseCase,
-    val deleteCommentDataUseCase: DeleteCommentDataUseCase
+    val deleteCommentDataUseCase: DeleteCommentDataUseCase,
+    val postReportUseCase: PostReportUseCase
 ) : ViewModel(), DropDownSelectableViewModel {
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
@@ -69,6 +71,16 @@ class InfoDetailViewModel(
     private fun setPostLike(likeData : LikeData){
         _postLike.value = likeData
     }
+    //신고 데이터
+    private var _reportData = MutableLiveData<ReportData?>()
+    val reportData : LiveData<ReportData?>
+        get() = _reportData
+
+    //신고 사유
+    var reportReasonInfo = MutableLiveData<String>()
+
+    //신고 토스트위한
+    var reportStatusInfo = MutableLiveData<Int>()
 
     //정보 상세 조회 서버통신
     fun getInfoDetail(postId: Int) {
@@ -133,6 +145,30 @@ class InfoDetailViewModel(
                     Log.d("deleteComment", "댓글 삭제 실패")
                 }
         }
+    }
+
+
+    //신고하기 서버통신
+    fun postReport(reportItem: ReportItem){
+        viewModelScope.launch {
+            when (val reportData =
+                safeApiCall(Dispatchers.IO) { postReportUseCase(reportItem) }) {
+                is ResultWrapper.Success ->  {
+                    _reportData.value = reportData.data
+                    reportStatusInfo.value = 200
+                    Log.d("postReport", "신고 성공!")
+                }
+                is ResultWrapper.NetworkError -> {
+                    Log.d("postReport", "네트워크 실패")
+
+                }
+                is ResultWrapper.GenericError -> {
+                    Log.d("postReport", "사용자 에러")
+                    reportStatusInfo.value = reportData.code ?: 0
+                }
+            }
+        }
+
     }
 }
 
