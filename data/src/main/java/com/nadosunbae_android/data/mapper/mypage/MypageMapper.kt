@@ -334,7 +334,7 @@ object MypageMapper {
     }
 
 
-    fun mapperToQuitItem(myPageQuitItem: MyPageQuitItem): RequestQuit {
+    fun mapperToQuitItem(myPageQuitItem: MyPageQuitItem) : RequestQuit {
         return RequestQuit(
             password = myPageQuitItem.password
         )

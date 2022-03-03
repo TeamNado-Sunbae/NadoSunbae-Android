@@ -40,8 +40,8 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
     }
 
     private fun initInfoMain(){
-
-        classRoomInfoMainAdapter = ClassRoomInfoMainAdapter()
+        val userId = mainViewModel.userId.value ?: 0
+        classRoomInfoMainAdapter = ClassRoomInfoMainAdapter(userId)
         binding.rcClassroomInfo.adapter = classRoomInfoMainAdapter
        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
            Log.d("classRoomInfo", it.toString())
@@ -109,12 +109,17 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
                     putExtra("postTypeId", 2)
                     putExtra("majorId", mainViewModel.majorId.value)
                     putExtra("title", "정보글 작성")
+                    putExtra("division", write)
                 }
                 startActivity(intent)
             }else{
                 CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
             }
         }
+    }
 
+    companion object{
+        const val write = 0
+        const val update = 1
     }
 }
