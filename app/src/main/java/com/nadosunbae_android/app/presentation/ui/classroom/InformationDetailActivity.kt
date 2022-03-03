@@ -41,7 +41,7 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
         infoDetailViewModel.setPostId(postId)
         infoDetailViewModel.getInfoDetail(postId)
 
-        classRoomInfoDetailAdapter = ClassRoomInfoDetailAdapter(userId)
+        classRoomInfoDetailAdapter = ClassRoomInfoDetailAdapter(userId,this)
         binding.rcInformationDetailQuestionComment.adapter = classRoomInfoDetailAdapter
         infoDetailViewModel.infoDetailData.observe(this){
             // 원글 데이터 연결
@@ -49,7 +49,7 @@ class InformationDetailActivity : BaseActivity<ActivityInformationDetailBinding>
             if(it.secondMajorName == "미진입"){
                 binding.textInformationDetailQuestionSecondMajorStart.visibility = View.GONE
             }
-            classRoomInfoDetailAdapter.setInfoDetail(it.commentList as MutableList<InfoDetailData.Comment>)
+            classRoomInfoDetailAdapter.setInfoDetail(it.commentList.filter {item -> !item.isDeleted } as MutableList<InfoDetailData.Comment>)
             binding.imgInformationCommentComplete.setOnClickListener {
                 registerComment(postId)
                 binding.etInformationComment.setText("")

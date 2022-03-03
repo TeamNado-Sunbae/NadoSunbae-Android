@@ -1,15 +1,17 @@
 package com.nadosunbae_android.app.presentation.ui.classroom.adapter
 
+import android.content.Context
 import android.icu.text.Transliterator
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemInformationDetailBinding
 import com.nadosunbae_android.domain.model.classroom.InfoDetailData
 
-class ClassRoomInfoDetailAdapter(private var userId: Int) :
+class ClassRoomInfoDetailAdapter(private var userId: Int, val context : Context) :
     RecyclerView.Adapter<ClassRoomInfoDetailAdapter.ClassRoomInfoDetailViewHolder>() {
     var infoDetailData = mutableListOf<InfoDetailData.Comment>()
 
@@ -90,17 +92,14 @@ class ClassRoomInfoDetailAdapter(private var userId: Int) :
     // update = 1, report = 2, delete = 3 (menuNum)
 
     fun setCheckMenu(menuNum: Int, position: Int) {
-        itemDelete(menuNum, position)
-
-    }
-
-    //댓글 삭제
-    private fun itemDelete(menuNum : Int, position : Int){
         if(menuNum == 3){
-            infoDetailData.removeAt(position)
-            notifyItemRemoved(position)
+            infoDetailData[position].content = context.getString(R.string.classroom_question_delete_comment)
+            notifyItemChanged(position)
         }
+
     }
+
+
 
 
     companion object {

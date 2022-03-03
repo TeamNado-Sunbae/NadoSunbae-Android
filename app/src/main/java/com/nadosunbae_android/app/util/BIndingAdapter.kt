@@ -85,7 +85,7 @@ object BindingAdapter {
     //댓글 개수 보이게
     @JvmStatic
     @BindingAdapter("commentCount")
-    fun commentCount(textView : TextView, text : String?){
+    fun commentCount(textView : TextView, text : Int){
         textView.text = "댓글 ${text}개"
     }
 
@@ -139,8 +139,8 @@ object BindingAdapter {
         }else{
             layout.visibility = View.GONE
         }
-
     }
+
 
 
     // 1:1질문, 전체 질문 댓글 isDelete 여부(delete) -> 삭제된 댓글 표시
@@ -153,6 +153,10 @@ object BindingAdapter {
             layout.visibility = View.GONE
         }
     }
+
+
+
+
 }
 
 

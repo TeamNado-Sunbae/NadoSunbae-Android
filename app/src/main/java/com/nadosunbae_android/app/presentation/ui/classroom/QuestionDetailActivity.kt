@@ -47,7 +47,9 @@ class QuestionDetailActivity :
 
     override fun onResume() {
         super.onResume()
-        questionDetailViewModel.getClassRoomQuestionDetail(questionDetailViewModel.postId.value ?: 0)
+        questionDetailViewModel.getClassRoomQuestionDetail(
+            questionDetailViewModel.postId.value ?: 0
+        )
     }
 
     // all -> 1:1 질문 인지 전체 질문인지 구분
@@ -55,7 +57,7 @@ class QuestionDetailActivity :
     private fun initQuestionDetail() {
         val postId = intent.getIntExtra("postId", 0)
         questionDetailViewModel.postId.value = postId
-
+        registerComment(postId)
         questionDetailViewModel.setLikePostId(postId)
         val userId = intent.getIntExtra("userId", 0)
         val all = intent.getIntExtra("all", 0)
@@ -70,27 +72,30 @@ class QuestionDetailActivity :
 
         questionDetailViewModel.questionDetailData.observe(this) {
             with(classRoomQuestionDetailAdapter) {
-                Log.d("questionDetailUser", it.answererId.toString() + ":" + it.questionerId.toString())
+                Log.d(
+                    "questionDetailUser",
+                    it.answererId.toString() + ":" + it.questionerId.toString()
+                )
                 Log.d("questionDetailUserWriter", it.messageList.toString())
-                setViewTitle(all,postId)
+                setViewTitle(all, postId)
                 setQuestionDetailUser(it)
                 setLike(it.likeCount, it.isLiked)
                 setQuestionDetail(it.messageList as MutableList<QuestionDetailData.Message>)
-            }
-            registerComment(postId)
 
-            //1:1질문 타인 글 쓰는거 막기
-            if (myPageNum != 1 && all != 1 && userId != it.questionerId && userId != it.answererId) {
-                binding.etQuestionComment.isEnabled = false
-                binding.etQuestionComment.hint = getString(R.string.text_comment_impossible)
+                //1:1질문 타인 글 쓰는거 막기
+                if (myPageNum != 1 && all != 1 && userId != it.questionerId && userId != it.answererId) {
+                    binding.etQuestionComment.isEnabled = false
+                    binding.etQuestionComment.hint = getString(R.string.text_comment_impossible)
+                }
             }
 
-            //전체질문 1:1질문 구분
-            if (all == 1) {
-                binding.textQuestionDetailTitle.text = "질문"
-            } else {
-                binding.textQuestionDetailTitle.text = "1:1질문"
-            }
+        }
+
+        //전체질문 1:1질문 구분
+        if (all == 1) {
+            binding.textQuestionDetailTitle.text = "질문"
+        } else {
+            binding.textQuestionDetailTitle.text = "1:1질문"
         }
     }
 
@@ -134,7 +139,8 @@ class QuestionDetailActivity :
         }
 
     }
-    private fun initQuestionOneToOneMenu(){
+
+    private fun initQuestionOneToOneMenu() {
         questionDetailViewModel.dropDownSelected.value = SelectableData(3, "테스트", false)
     }
 
@@ -144,39 +150,97 @@ class QuestionDetailActivity :
     private fun questionOneToOneMenu() {
         classRoomQuestionDetailAdapter.setItemClickListener(
             object : ClassRoomQuestionDetailAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int, user : Int, viewNum : Int, commentId : Int, deleteNum : Int) {
+                override fun onClick(
+                    v: View,
+                    position: Int,
+                    user: Int,
+                    viewNum: Int,
+                    commentId: Int,
+                    deleteNum: Int
+                ) {
                     Log.d("oneToOneVIew", v.toString())
                     Log.d("oneToOneNum", "$user+$viewNum+$commentId")
                     questionDetailViewModel.commentId.value = commentId
                     questionDetailViewModel.position.value = position
                     questionDetailViewModel.viewNum.value = viewNum
                     questionDetailViewModel.deleteNum.value = deleteNum
-                    if((user == 1 && viewNum == 1) or (user == 2 && viewNum == 2)){
+                    if ((user == 1 && viewNum == 1) or (user == 2 && viewNum == 2)) {
                         val dropDown = mutableListOf<SelectableData>(
-                            SelectableData(1, resources.getString(R.string.question_detail_update), false),
-                            SelectableData(2, resources.getString(R.string.question_detail_delete), false)
+                            SelectableData(
+                                1,
+                                resources.getString(R.string.question_detail_update),
+                                false
+                            ),
+                            SelectableData(
+                                2,
+                                resources.getString(R.string.question_detail_delete),
+                                false
+                            )
                         )
-                        showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, false, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
-                    }else if((user == 1 && viewNum == 2) or (user == 3)){
+                        showCustomDropDown(
+                            questionDetailViewModel,
+                            v,
+                            160f.dpToPx,
+                            null,
+                            -1 * 16f.dpToPx,
+                            null,
+                            false,
+                            questionDetailViewModel.dropDownSelected.value!!.id,
+                            dropDown
+                        )
+                    } else if ((user == 1 && viewNum == 2) or (user == 3)) {
                         val dropDown = mutableListOf<SelectableData>(
-                            SelectableData(1, resources.getString(R.string.question_detail_report), false),
+                            SelectableData(
+                                1,
+                                resources.getString(R.string.question_detail_report),
+                                false
+                            ),
                         )
-                        showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, false, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
-                    }else if(user == 2 && viewNum == 1){
+                        showCustomDropDown(
+                            questionDetailViewModel,
+                            v,
+                            160f.dpToPx,
+                            null,
+                            -1 * 16f.dpToPx,
+                            null,
+                            false,
+                            questionDetailViewModel.dropDownSelected.value!!.id,
+                            dropDown
+                        )
+                    } else if (user == 2 && viewNum == 1) {
                         val dropDown = mutableListOf<SelectableData>(
-                            SelectableData(1, resources.getString(R.string.question_detail_report), true),
-                            SelectableData(2, resources.getString(R.string.question_detail_delete), false)
+                            SelectableData(
+                                1,
+                                resources.getString(R.string.question_detail_report),
+                                true
+                            ),
+                            SelectableData(
+                                2,
+                                resources.getString(R.string.question_detail_delete),
+                                false
+                            )
                         )
-                        showCustomDropDown(questionDetailViewModel,v, 160f.dpToPx, null, -1 * 16f.dpToPx, null, false, questionDetailViewModel.dropDownSelected.value!!.id, dropDown)
+                        showCustomDropDown(
+                            questionDetailViewModel,
+                            v,
+                            160f.dpToPx,
+                            null,
+                            -1 * 16f.dpToPx,
+                            null,
+                            false,
+                            questionDetailViewModel.dropDownSelected.value!!.id,
+                            dropDown
+                        )
                     }
 
                 }
             })
     }
+
     // 메세지 수정 서버  통신
-    private fun updateComment(){
+    private fun updateComment() {
         classRoomQuestionDetailAdapter.setUpdateListener(
-            object : ClassRoomQuestionDetailAdapter.UpdateListener{
+            object : ClassRoomQuestionDetailAdapter.UpdateListener {
                 override fun onUpdate(content: String, commentId: Int) {
                     questionDetailViewModel.putCommentUpdate(commentId, CommentUpdateItem(content))
                 }
@@ -187,25 +251,35 @@ class QuestionDetailActivity :
 
 
     //어떤 메뉴 선택했는지 확인
-    private fun checkMenuName(){
-        questionDetailViewModel.dropDownSelected.observe(this){
+    private fun checkMenuName() {
+        questionDetailViewModel.dropDownSelected.observe(this) {
             val viewNum = questionDetailViewModel.viewNum.value ?: 0
             val position = questionDetailViewModel.position.value ?: 0
             val deleteNum = questionDetailViewModel.deleteNum.value ?: 0
-            when(it.name){
+            when (it.name) {
                 resources.getString(R.string.question_detail_update) ->
                     classRoomQuestionDetailAdapter.setCheckMenu(update, viewNum, position)
                 resources.getString(R.string.question_detail_report) ->
                     classRoomQuestionDetailAdapter.setCheckMenu(report, viewNum, position)
                 resources.getString(R.string.question_detail_delete) ->
                     deleteDialog(deleteNum,
-                        setCheckMenu = { classRoomQuestionDetailAdapter.setCheckMenu(delete, viewNum, position) },
-                        deleteComment = {questionDetailViewModel.deleteComment(
-                            questionDetailViewModel.commentId.value ?: 0
-                        )},
-                        deleteWrite = {questionDetailViewModel.deletePost(
-                            questionDetailViewModel.postId.value ?: 0
-                        )}
+                        setCheckMenu = {
+                            classRoomQuestionDetailAdapter.setCheckMenu(
+                                delete,
+                                viewNum,
+                                position
+                            )
+                        },
+                        deleteComment = {
+                            questionDetailViewModel.deleteComment(
+                                questionDetailViewModel.commentId.value ?: 0
+                            )
+                        },
+                        deleteWrite = {
+                            questionDetailViewModel.deletePost(
+                                questionDetailViewModel.postId.value ?: 0
+                            )
+                        }
                     )
 
             }
@@ -213,7 +287,12 @@ class QuestionDetailActivity :
     }
 
     //삭제 부분 다이얼로그 띄우기
-    private fun deleteDialog(deleteNum : Int, setCheckMenu : () -> Unit, deleteComment : () -> Unit, deleteWrite : () -> Unit ){
+    private fun deleteDialog(
+        deleteNum: Int,
+        setCheckMenu: () -> Unit,
+        deleteComment: () -> Unit,
+        deleteWrite: () -> Unit
+    ) {
 
         CustomDialog(this).genericDialog(
             CustomDialog.DialogData(
@@ -223,9 +302,9 @@ class QuestionDetailActivity :
             ),
             complete = {
                 setCheckMenu()
-                if(deleteNum == 1){
+                if (deleteNum == 1) {
                     deleteComment()
-                }else{
+                } else {
                     deleteWrite()
                 }
 
@@ -237,12 +316,11 @@ class QuestionDetailActivity :
     }
 
 
-
     //신고 사유 받아오기
-   private fun getReportReason(){
+    private fun getReportReason() {
         classRoomQuestionDetailAdapter.setReportListener(
-            object : ClassRoomQuestionDetailAdapter.ReportListener{
-                override fun onReport(text: String, divisionNum : Int) {
+            object : ClassRoomQuestionDetailAdapter.ReportListener {
+                override fun onReport(text: String, divisionNum: Int) {
                     questionDetailViewModel.reportReason.value = text
                     reportDialog(divisionNum)
                 }
@@ -250,8 +328,9 @@ class QuestionDetailActivity :
         )
 
     }
+
     //신고 다이얼로그 띄우기
-    private fun reportDialog(divisionNum : Int){
+    private fun reportDialog(divisionNum: Int) {
         CustomDialog(this).genericDialog(
             CustomDialog.DialogData(
                 resources.getString(R.string.request_report),
@@ -259,7 +338,7 @@ class QuestionDetailActivity :
                 resources.getString(R.string.disagree_report)
             ),
             complete = {
-                when(divisionNum){
+                when (divisionNum) {
                     2 -> questionDetailViewModel.postReport(
                         ReportItem(
                             questionDetailViewModel.postId.value ?: 0,
@@ -282,20 +361,19 @@ class QuestionDetailActivity :
         )
 
     }
+
     //신고하기 토스트 띄우기
-    private fun reportToast(){
-        questionDetailViewModel.reportStatus.observe(this){
-            if(it == 200){
+    private fun reportToast() {
+        questionDetailViewModel.reportStatus.observe(this) {
+            if (it == 200) {
                 Toast.makeText(this, "신고가 접수되었습니다", Toast.LENGTH_SHORT).show()
-            }else if(it == 400){
+            } else if (it == 400) {
                 Toast.makeText(this, "이미 신고한 댓글입니다.", Toast.LENGTH_SHORT).show()
             }
 
         }
 
     }
-
-
 
 
     //뒤로가기
@@ -306,8 +384,7 @@ class QuestionDetailActivity :
     }
 
 
-
-    companion object{
+    companion object {
         const val update = 1
         const val report = 2
         const val delete = 3
