@@ -271,41 +271,19 @@
                         app:layout_constraintTop_toTopOf="@+id/text_my_page_second_major_name" />
 
 
-                    <TextView
-                        android:id="@+id/text_my_page_response_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/pretendard_medium"
-                        android:text="@string/mypage_reply_rate"
-                        android:textColor="@color/main_default"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="@+id/text_my_page_second_major"
-                        app:layout_constraintTop_toBottomOf="@+id/text_my_page_second_major" />
 
-                    <TextView
-                        android:id="@+id/text_my_page_response_rate_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="3dp"
-                        android:fontFamily="@font/pretendard_medium"
-                        android:text="@string/mypage_reply_rate_num"
-                        android:textColor="@color/main_default"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_my_page_response_rate"
-                        app:layout_constraintStart_toEndOf="@+id/text_my_page_response_rate"
-                        app:layout_constraintTop_toTopOf="@+id/text_my_page_response_rate" />
 
                     <View
                         android:id="@+id/view_my_page_bar3"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginTop="25dp"
                         android:background="@color/gray_bar"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_my_page_response_rate" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_my_page_second_major_time" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_my_page_detail_view"
