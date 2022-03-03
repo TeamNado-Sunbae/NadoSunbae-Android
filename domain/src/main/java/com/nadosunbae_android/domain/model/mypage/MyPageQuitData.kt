@@ -6,13 +6,13 @@ data class MyPageQuitData(
     val success: Boolean = true
 ) {
     data class Data(
-        val comment: List<Comment>,
-        val block: List<Block>,
-        val classroomPost: List<ClassroomPost>,
-        val like: List<Like>,
-        val notification: List<Notification>,
-        val report: List<Report>,
-        val reviewPost: List<ReviewPost>,
+        val comment: Comment,
+        val block: Block,
+        val classroomPost: ClassroomPost,
+        val like: Like,
+        val notification: Notification,
+        val report: Report,
+        val reviewPost: ReviewPost,
         val user: User
     ) {
         data class Comment(
