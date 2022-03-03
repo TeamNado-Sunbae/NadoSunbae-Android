@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.LifecycleOwner
+import android.widget.Toast
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageSettingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -12,9 +12,8 @@ import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
-import com.nadosunbae_android.app.util.SignInCustomDialog
-import com.nadosunbae_android.domain.model.mypage.MyPageLogOutData
 import com.nadosunbae_android.domain.model.mypage.MyPageQuitItem
+import kotlinx.android.synthetic.main.activity_quit_alert_custom_dialog.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -67,7 +66,49 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
 
         //탈퇴 dialog
         binding.textMypageSettingQuit.setOnClickListener {
-            myPageViewModel.deleteMyPageQuit(MyPageQuitItem("123456"))
+            val dialog = getActivity()?.let { it1 -> QuitAlertCustomDialog(it1) }
+            dialog?.showDialog()
+            //val dialog = getActivity()?.let { it1 -> QuitAlertCustomDialog(it1) }
+            dialog?.writeCancelDialog(R.layout.activity_quit_alert_custom_dialog)
+
+            dialog?.setOnClickListener(object : QuitAlertCustomDialog.ButtonClickListener{
+                override fun onClicked(num: Int) {
+                    if(num == 2) {
+                        Log.d("quitClickEventCheck", " OK" )
+                        Log.d("check", editText.text.toString())
+                        myPageViewModel.deleteMyPageQuit(MyPageQuitItem(editText.text.toString()))
+
+                    } else {
+
+                    }
+
+                }
+
+            })
+        }
+
+
+
+            /*
+            val builder = AlertDialog.Builder(getActivity())
+            val builderItem = ActivityQuitAlertCustomDialogBinding.inflate(layoutInflater)
+            val editText = builderItem.editText
+            with(builder){
+                setView(builderItem.root)
+                setPositiveButton("OK"){ dialogInterface: DialogInterface, i: Int ->
+                    if(editText.text != null) {
+                        Log.d("입력된 이름", " : " + builderItem.editText.toString())
+                        //myPageViewModel.deleteMyPageQuit(MyPageQuitItem("123456"))
+                    }
+
+                }
+                show()
+            }
+
+             */
+
+
+
 
 //            val dialog = QuitAlertCustomDialogActivity(this)
 //            dialog.showDialog()
@@ -78,7 +119,7 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
 //                    finish()
 //                }
 //            })
-        }
+
 
         //서비스 문의
         binding.textMypageSettingService.setOnClickListener {
@@ -96,6 +137,7 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
         }
 
     }
+
 
     private fun initLogOut() {
         binding.textMypageSettingLogout.setOnClickListener {

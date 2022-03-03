@@ -15,7 +15,7 @@
         android:theme="@style/Theme.NadoSunbaeAndroid"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.ui.mypage.QuitAlertCustomDialogActivity"
+            android:name=".presentation.ui.mypage.QuitAlertCustomDialog"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.mypage.ChangePwFinishActivity"

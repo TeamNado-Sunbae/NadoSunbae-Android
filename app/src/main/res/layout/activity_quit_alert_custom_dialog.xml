@@ -21,8 +21,8 @@
             android:layout_marginTop="34dp"
             android:fontFamily="@font/pretendard_regular"
             android:text="정말로 탈퇴하시겠습니까? \n 탈퇴하시려면 비밀번호를 입력해주세요."
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginLeft="24dp"
             android:textAlignment="center"
             android:textColor="@color/main_text"
             android:textSize="14sp"
@@ -35,15 +35,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_border_gray_1_4"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:inputType="textPassword"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:paddingStart="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_dialog" />
 
         <TextView
-            android:id="@+id/text_signup_dialog_out"
+            android:id="@+id/text_mypage_dialog_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
@@ -64,7 +68,7 @@
 
 
         <TextView
-            android:id="@+id/text_signup_dialog_in"
+            android:id="@+id/text_mypage_dialog_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
@@ -79,8 +83,8 @@
             android:textColor="@color/main_default"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/text_signup_dialog_out"
-            app:layout_constraintTop_toTopOf="@+id/text_signup_dialog_out" />
+            app:layout_constraintStart_toEndOf="@+id/text_mypage_dialog_out"
+            app:layout_constraintTop_toTopOf="@+id/text_mypage_dialog_out" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
