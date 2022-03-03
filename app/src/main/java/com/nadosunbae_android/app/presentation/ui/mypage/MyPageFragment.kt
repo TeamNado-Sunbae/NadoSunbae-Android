@@ -120,6 +120,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         myPageViewModel.getPersonalInfo(mainViewModel.userId.value ?: 0)
         myPageViewModel.personalInfo.observe(viewLifecycleOwner){
             binding.myPageInfo = it
+
             if(it.data.secondMajorName == "미진입")
                 binding.textMyPageSecondMajorTime.visibility = View.GONE
         }

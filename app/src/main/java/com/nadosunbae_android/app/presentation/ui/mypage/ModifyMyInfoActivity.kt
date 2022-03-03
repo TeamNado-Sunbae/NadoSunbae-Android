@@ -25,6 +25,7 @@ import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
+import com.nadosunbae_android.domain.model.sign.SignInData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.regex.Pattern
 
@@ -46,6 +47,7 @@ class ModifyMyInfoActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initFirstMajor()
         observeLoadingEnd()
         initNotEntered()
         initWriteMode()
@@ -81,35 +83,12 @@ class ModifyMyInfoActivity :
 
     //기존 데이터 불러오기
     private fun initWriteMode() = with(binding) {
+
         etMyPageNickname.setText(intent.getStringExtra("nickname"))
         textMyPageMajorinfoMajor.setText(intent.getStringExtra("firstMajor"))
         textMyPageMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart"))
         textMyPageMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajor"))
         textMyPageMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart"))
-
-
-        /*
-        setNickname(applicationContext, requireNotNull(intent.getStringExtra("nickname")))
-        setFirstMajor(
-            applicationContext,
-            requireNotNull(mainViewModel.selectedMajor.value!!.majorId)
-        )
-
-        setFirstMajorStart(
-            applicationContext,
-            requireNotNull(intent.getStringExtra("firstMajorStart"))
-        )
-        setSecondMajor(
-            applicationContext,
-            requireNotNull(intent.getStringExtra("secondMajor")).toInt()
-        )
-        setSecondMajorStart(
-            applicationContext,
-            requireNotNull(intent.getStringExtra("secondMajorStart"))
-        )
-
-
-         */
 
     }
 
@@ -127,15 +106,42 @@ class ModifyMyInfoActivity :
         }
     }
 
+    // 1전공 초기화
+    private fun initFirstMajor() {
+        Log.d("test", "+" + signViewModel.firstMajor.value)
+        mainViewModel.signData.observe(this) {
+            myPageViewModel.getPersonalInfo(it.firstMajorId)
+            Log.d("test", "test" + it.firstMajorId)
+            signUpBasicInfoViewModel.firstDepartment.observe(this) {
+                firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
+                    .map {
+                        SelectableData(
+                            mainViewModel.signData.value!!.firstMajorId,
+                            mainViewModel.signData.value!!.firstMajorName,
+                            true
+                        )
+                    }.toMutableList())
+
+
+            }
+
+        }
+
+    }
+
+
     //제 1전공 학과 선택 바텀시트
     private fun firstMajor() {
+
+
         binding.textMyPageMajorinfoMajorMint.setOnClickListener {
             firstDepartmentBottomSheetDialog.show(
                 supportFragmentManager,
                 firstDepartmentBottomSheetDialog.tag
             )
+
         }
-        //firstDepartmentBottomSheetDialog.setSelectedData(mainViewModel.selectedMajor.value!!.majorId)
+
         signUpBasicInfoViewModel.getFirstDepartment(1, "firstMajor")
         signUpBasicInfoViewModel.firstDepartment.observe(this) {
 
@@ -439,7 +445,6 @@ class ModifyMyInfoActivity :
             val requestBody = MyPageModifyItem(
                 etMyPageNickname.text.toString(),
                 firstDepartmentBottomSheetDialog.getSelectedData()?.id!!,
-                //isFirstMajorChange(firstDepartmentBottomSheetDialog.getSelectedData()?.id),
                 textMyPageMajorinfoMajorTime.text.toString(),
                 secondDepartmentBottomSheetDialog.getSelectedData()?.id!!,
                 textMyPageMajorinfoDoubleMajorTime.text.toString(),
