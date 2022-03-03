@@ -28,7 +28,8 @@ class MyPageViewModel(
     val getMyPageReviewUseCase: GetMyPageReviewUseCase,
     val getMyPageBlockUseCase: GetMyPageBlockUseCase,
     val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase,
-    val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase
+    val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase,
+    val deleteMyPageQuitUseCase: DeleteMyPageQuitUseCase
 
     ) : ViewModel(), LoadableViewModel {
 
@@ -56,11 +57,15 @@ class MyPageViewModel(
     val blockList = MutableLiveData<MyPageBlockData>()
     val blockUpdate = MutableLiveData<MyPageBlockUpdateData>()
     val resetPassword : MutableLiveData<MyPageResetPasswordData> = MutableLiveData()
+    val quitInfo : MutableLiveData<MyPageQuitData> = MutableLiveData()
 
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>
     get() = _myPagePersonal
+
+    private var _status = MutableLiveData<Int?>()
+    val status: LiveData<Int?> = _status
 
 
     fun setSignData(signData: SignInData.User) {
@@ -306,6 +311,44 @@ class MyPageViewModel(
                     onLoadingEnd.value = true
                 }
         }
+    }
+
+    //마이페이지 탈퇴
+    fun deleteMyPageQuit(myPageQuitItem: MyPageQuitItem) {
+        viewModelScope.launch {
+            kotlin.runCatching { deleteMyPageQuitUseCase(myPageQuitItem) }
+                .onSuccess {
+                    quitInfo.value = it
+                    Log.d("MyPageQuit", "서버 통신 완료")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("MyPageQuit", "서버 통신 실패")
+                }
+        }
+
+
+
+
+        /*
+        viewModelScope.launch {
+            when(safeApiCall(Dispatchers.IO){ deleteMyPageQuitUseCase(myPageQuitItem) }) {
+                is ResultWrapper.Success ->
+                    quitInfo.value = MyPageQuitData(quitInfo.value!!.data, 200, true)
+                is ResultWrapper.NetworkError -> {
+                    Log.d("MyPageQuit", "네트워크 실패")
+                    quitInfo.value = MyPageQuitData(quitInfo.value!!.data, 500, false)
+                }
+                is ResultWrapper.GenericError -> {
+                    Log.d("MyPageResetPw", "존재하지 않는 비밀번호")
+                    quitInfo.value = MyPageQuitData(quitInfo.value!!.data, 401, false)
+                }
+            }
+
+        }
+
+         */
+
     }
 }
 

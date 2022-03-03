@@ -1,11 +1,10 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.LifecycleOwner
+import android.widget.Toast
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageSettingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -13,7 +12,8 @@ import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
-import com.nadosunbae_android.domain.model.mypage.MyPageLogOutData
+import com.nadosunbae_android.domain.model.mypage.MyPageQuitItem
+import kotlinx.android.synthetic.main.activity_quit_alert_custom_dialog.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -30,11 +30,13 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
         changeActivity()
         initLogOut()
         backBtn()
+        quitBranchProcessing()
     }
 
     private fun observeLoadingEnd() {
         myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
             dismissLoading()
+
         }
     }
 
@@ -64,10 +66,30 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
             mainViewModel.mypageFragmentNum.value = 2
         }
 
-        //탈퇴 activity
+        //탈퇴 dialog
         binding.textMypageSettingQuit.setOnClickListener {
-            val intentQuit = Intent(getActivity(), QuitActivity::class.java)
-            startActivity(intentQuit)
+            val dialog = getActivity()?.let { it1 -> QuitAlertCustomDialog(it1) }
+            dialog?.showDialog()
+            dialog?.initBtnClickDialog(R.layout.activity_quit_alert_custom_dialog)
+
+            dialog?.setOnClickListener(object : QuitAlertCustomDialog.ButtonClickListener{
+                override fun onClicked(num: Int, toString: String) {
+                    if(num == 2) {
+                        if(toString != null) {
+                            Log.d("입력된 PW", " : $toString")
+                            myPageViewModel.deleteMyPageQuit(MyPageQuitItem(toString))
+
+                        } else {
+                            Log.d("check", "editText is null")
+                        }
+
+                    } else {
+
+                    }
+
+                }
+
+            })
         }
 
         //서비스 문의
@@ -85,6 +107,22 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
             mainViewModel.mypageFragmentNum.value = 3
         }
 
+    }
+
+
+    private fun quitBranchProcessing() {
+        myPageViewModel.quitInfo.observe(viewLifecycleOwner) {
+            if (!it.success) {
+                Log.d("회원탈퇴 서버통신 체크", "실패")
+                Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+            }
+            if (it.success) {
+                Log.d("회원탈퇴 서버통신 체크", "성공")
+                Toast.makeText(context, "탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), SignInActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun initLogOut() {

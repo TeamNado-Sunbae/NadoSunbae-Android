@@ -66,4 +66,10 @@ class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRep
         ))
     }
 
+    override suspend fun deleteMyPageQuit(myPageQuitItem: MyPageQuitItem): MyPageQuitData {
+        return MypageMapper.mapperToQuitData(dataSource.deleteQuit(
+            MypageMapper.mapperToQuitItem(myPageQuitItem)
+        ))
+    }
+
 }

@@ -39,7 +39,7 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
         binding.apply {
             imageAgreementCheckInformation.setOnClickListener {
                 imageAgreementCheckInformation.isSelected = !imageAgreementCheckInformation.isSelected
-                if((imageAgreementCheckInformation.isSelected == false) or (imageAgreementCheckService.isSelected == false)) {
+                if((!imageAgreementCheckInformation.isSelected) or (imageAgreementCheckService.isSelected == false)) {
                     isNotAllSelected()
                 } else if ((imageAgreementCheckInformation.isSelected == true) and (imageAgreementCheckService.isSelected == true)){
                     isAllSelected()
@@ -48,9 +48,9 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
 
             imageAgreementCheckService.setOnClickListener {
                 imageAgreementCheckService.isSelected = !imageAgreementCheckService.isSelected
-                if((imageAgreementCheckInformation.isSelected == false) or (imageAgreementCheckService.isSelected == false)) {
+                if((!imageAgreementCheckInformation.isSelected) or (!imageAgreementCheckService.isSelected)) {
                     isNotAllSelected()
-                } else if ((imageAgreementCheckInformation.isSelected == true) and (imageAgreementCheckService.isSelected == true)){
+                } else if ((imageAgreementCheckInformation.isSelected) and (imageAgreementCheckService.isSelected)){
                     isAllSelected()
                 }
             }
@@ -102,9 +102,8 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
     //외부 링크로 연결
     private fun goPage() {
         binding.imageAgreementMoveInformation.setOnClickListener {
-            val intent = Intent(this, WebViewActivity::class.java)
-            intent.putExtra("url", "https://www.notion.so/nadosunbae/V-1-0-2022-3-1-e4637880bb1d4a6e8938f4f0c306b2d5")
-            startActivity(intent)
+            var intentService = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.notion.so/nadosunbae/V-1-0-2022-3-1-e4637880bb1d4a6e8938f4f0c306b2d5"))
+            startActivity(intentService)
         }
 
         binding.imageAgreementMoveService.setOnClickListener {
