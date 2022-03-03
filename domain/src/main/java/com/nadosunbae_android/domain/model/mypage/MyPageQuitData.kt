@@ -2,8 +2,8 @@ package com.nadosunbae_android.domain.model.mypage
 
 data class MyPageQuitData(
     val data: Data,
-    val status: Int,
-    val success: Boolean
+    val status: Int = 0,
+    val success: Boolean = true
 ) {
     data class Data(
         val comment: List<Comment>,

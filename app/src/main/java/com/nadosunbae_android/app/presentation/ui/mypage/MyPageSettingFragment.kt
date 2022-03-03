@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageSettingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -29,11 +30,13 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
         changeActivity()
         initLogOut()
         backBtn()
+        quitBranchProcessing()
     }
 
     private fun observeLoadingEnd() {
         myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
             dismissLoading()
+
         }
     }
 
@@ -75,6 +78,7 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
                         if(toString != null) {
                             Log.d("입력된 PW", " : $toString")
                             myPageViewModel.deleteMyPageQuit(MyPageQuitItem(toString))
+
                         } else {
                             Log.d("check", "editText is null")
                         }
@@ -105,6 +109,21 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
 
     }
 
+
+    private fun quitBranchProcessing() {
+        myPageViewModel.quitInfo.observe(viewLifecycleOwner) {
+            if (!it.success) {
+                Log.d("회원탈퇴 서버통신 체크", "실패")
+                Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+            }
+            if (it.success) {
+                Log.d("회원탈퇴 서버통신 체크", "성공")
+                Toast.makeText(context, "탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), SignInActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
 
     private fun initLogOut() {
         binding.textMypageSettingLogout.setOnClickListener {

@@ -2,9 +2,9 @@ package com.nadosunbae_android.data.model.response.mypage
 
 data class ResponseQuitData(
     val data: Data,
-    val message: String,
-    val status: Int,
-    val success: Boolean
+    val message: String = "",
+    val status: Int = 0,
+    val success: Boolean = true
 ) {
     data class Data(
         val comment: List<Comment>,
@@ -17,52 +17,52 @@ data class ResponseQuitData(
         val user: User
     ) {
         data class Comment(
-            val id: Int,
-            val isDeleted: Boolean,
-            val updatedAt: String
+            val id: Int = 0,
+            val isDeleted: Boolean = true,
+            val updatedAt: String = ""
         )
 
         data class Block(
-            val id: Int,
-            val isDeleted: Boolean,
-            val updatedAt: String
+            val id: Int = 0,
+            val isDeleted: Boolean = true,
+            val updatedAt: String = ""
         )
 
         data class ClassroomPost(
-            val id: Int,
-            val isDeleted: Boolean,
-            val updatedAt: String
+            val id: Int = 0,
+            val isDeleted: Boolean = true,
+            val updatedAt: String = ""
         )
 
         data class Like(
-            val id: Int,
-            val isLiked: Boolean,
-            val updatedAt: String
+            val id: Int = 0,
+            val isLiked: Boolean = true,
+            val updatedAt: String = ""
         )
 
         data class Notification(
-            val id: Int,
-            val isDeleted: Boolean,
-            val updatedAt: String
+            val id: Int = 0,
+            val isDeleted: Boolean = true,
+            val updatedAt: String = ""
         )
 
         data class Report(
-            val id: Int,
-            val isDeleted: Boolean,
-            val updatedAt: String
+            val id: Int = 0,
+            val isDeleted: Boolean = true,
+            val updatedAt: String = ""
         )
 
         data class ReviewPost(
-            val id: Int,
-            val isDeleted: Boolean,
-            val updatedAt: String
+            val id: Int = 0,
+            val isDeleted: Boolean = true,
+            val updatedAt: String = ""
         )
 
         data class User(
-            val email: String,
-            val id: Int,
-            val isDeleted: Boolean,
-            val updatedAt: String
+            val email: String = "",
+            val id: Int = 0,
+            val isDeleted: Boolean = true,
+            val updatedAt: String = ""
         )
     }
 }
