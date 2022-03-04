@@ -57,7 +57,6 @@ class ModifyMyInfoActivity :
         secondMajorPeriod()
         pressSwitchEvent()
         initFocus()
-        nicknameDuplication()
         isNickNamePattern()
         nicknameTextWatcher()
         backBtnClick()
@@ -72,21 +71,25 @@ class ModifyMyInfoActivity :
 
     //닉네임 초기 데이터와 같다면 워닝 메시지 띄우지 않기 (닉네임은 바꾸지 않는 경우)
 
-    //저장 버튼 활성화 분기처리 수정
 
-    //이미지부분 넣어주기
+    //저장 버튼 활성화 분기처리 수정
 
 
     //기존 데이터 불러오기
     private fun initWriteMode() = with(binding) {
+        mainViewModel.signData.observe(this) {
+            myPageViewModel.getPersonalInfo(it.userId)
 
-        signUpBasicInfoViewModel.nickName.value?.let { Log.d("test", it) }
+        }
 
-        etMyPageNickname.setText(intent.getStringExtra("nickname"))
-        textMyPageMajorinfoMajor.setText(intent.getStringExtra("firstMajor"))
-        textMyPageMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart"))
-        textMyPageMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajor"))
-        textMyPageMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart"))
+        myPageViewModel.getPersonalInfo(intent.getIntExtra("id",0))
+        myPageViewModel.personalInfo.observe(this) {
+            binding.myPageInfo = it
+            Log.d("서버통신", "성공")
+
+            if(it.data.secondMajorName == "미진입")
+                binding.textMyPageMajorinfoDoubleMajorTime.setText("미진입")
+        }
 
         initNotEntered()
 
@@ -211,19 +214,6 @@ class ModifyMyInfoActivity :
             val secondMajor = secondDepartmentBottomSheetDialog.getSelectedData()
             signViewModel.secondMajor.value = secondMajor?.name
             signUpBasicInfoViewModel.secondDepartmentClick.value = true
-
-            /*
-            if (signViewModel.secondMajor.value.toString() == "미진입") {
-                binding.textMyPageMajorinfoDoubleMajorMintTime.isClickable = false
-                binding.textMyPageMajorinfoDoubleMajorTime.text = "선택하기"
-                binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
-                binding.textMyPageMajorinfoDoubleMajorMintTime.setText("선택")
-                binding.textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#C0C0CB"))
-            } else {
-                binding.textMyPageMajorinfoDoubleMajorMintTime.isClickable = true
-            }
-
-             */
             initNotEntered()
         }
 
@@ -324,6 +314,7 @@ class ModifyMyInfoActivity :
 
                     binding.textMyPageNicknameChange.isVisible = true
                     signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
+                    nicknameDuplication()
                 }
                 return false
             }
