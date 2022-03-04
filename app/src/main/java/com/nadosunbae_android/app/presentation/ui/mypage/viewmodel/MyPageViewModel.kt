@@ -57,7 +57,7 @@ class MyPageViewModel(
     val blockList = MutableLiveData<MyPageBlockData>()
     val blockUpdate = MutableLiveData<MyPageBlockUpdateData>()
     val resetPassword : MutableLiveData<MyPageResetPasswordData> = MutableLiveData()
-    val quitInfo : MutableLiveData<MyPageQuitData> = MutableLiveData()
+   //val quitInfo : MutableLiveData<MyPageQuitData> = MutableLiveData()
 
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
@@ -67,11 +67,12 @@ class MyPageViewModel(
     private var _status = MutableLiveData<Int?>()
     val status: LiveData<Int?> = _status
 
+    private var _quitInfo = MutableLiveData<MyPageQuitData?>()
+    val quitInfo : LiveData<MyPageQuitData?>
+    get() = _quitInfo
 
-    fun setSignData(signData: SignInData.User) {
-        _signData.value = signData
-        userId.value = signData.userId
-    }
+    //토스트
+    var reportStatusInfo = MutableLiveData<Int>()
 
     //마이페이지 버전정보
     fun getMyPageVersion() {
@@ -315,6 +316,7 @@ class MyPageViewModel(
 
     //마이페이지 탈퇴
     fun deleteMyPageQuit(myPageQuitItem: MyPageQuitItem) {
+        /*
         viewModelScope.launch {
             kotlin.runCatching { deleteMyPageQuitUseCase(myPageQuitItem) }
                 .onSuccess {
@@ -327,28 +329,24 @@ class MyPageViewModel(
                 }
         }
 
+         */
 
-
-
-        /*
         viewModelScope.launch {
-            when(safeApiCall(Dispatchers.IO){ deleteMyPageQuitUseCase(myPageQuitItem) }) {
-                is ResultWrapper.Success ->
-                    quitInfo.value = MyPageQuitData(quitInfo.value!!.data, 200, true)
+            when(val quitData = safeApiCall(Dispatchers.IO){ deleteMyPageQuitUseCase(myPageQuitItem) }) {
+                is ResultWrapper.Success -> {
+                    _quitInfo.value = quitInfo.value?.let { MyPageQuitData(it.data, 200, true) }
+                    reportStatusInfo.value = 200
+                }
                 is ResultWrapper.NetworkError -> {
                     Log.d("MyPageQuit", "네트워크 실패")
-                    quitInfo.value = MyPageQuitData(quitInfo.value!!.data, 500, false)
                 }
                 is ResultWrapper.GenericError -> {
                     Log.d("MyPageResetPw", "존재하지 않는 비밀번호")
-                    quitInfo.value = MyPageQuitData(quitInfo.value!!.data, 401, false)
+                    reportStatusInfo.value = quitData.code ?: 0
                 }
             }
 
         }
-
-         */
-
     }
 }
 

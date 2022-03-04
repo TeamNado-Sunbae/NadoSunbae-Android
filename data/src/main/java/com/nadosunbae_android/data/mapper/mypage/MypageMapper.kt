@@ -285,42 +285,55 @@ object MypageMapper {
     fun mapperToQuitData(responseQuitData: ResponseQuitData): MyPageQuitData {
         return MyPageQuitData(
             data = MyPageQuitData.Data(
-                comment = MyPageQuitData.Data.Comment(
-                    id = responseQuitData.data.comment.id,
-                    isDeleted = responseQuitData.data.comment.isDeleted,
-                    updatedAt = responseQuitData.data.comment.updatedAt
-                ),
-                block = MyPageQuitData.Data.Block(
-                    id = responseQuitData.data.block.id,
-                    isDeleted = responseQuitData.data.block.isDeleted,
-                    updatedAt = responseQuitData.data.block.updatedAt
-                ),
-                classroomPost = MyPageQuitData.Data.ClassroomPost(
-                    id = responseQuitData.data.classroomPost.id,
-                    isDeleted = responseQuitData.data.classroomPost.isDeleted,
-                    updatedAt = responseQuitData.data.classroomPost.updatedAt
-                ),
-                like = MyPageQuitData.Data.Like(
-                    id = responseQuitData.data.like.id,
-                    isLiked = responseQuitData.data.like.isLiked,
-                    updatedAt = responseQuitData.data.like.updatedAt
-
-                ),
-                notification = MyPageQuitData.Data.Notification(
-                    id = responseQuitData.data.notification.id,
-                    isDeleted = responseQuitData.data.notification.isDeleted,
-                    updatedAt = responseQuitData.data.notification.updatedAt
-                ),
-                report = MyPageQuitData.Data.Report(
-                    id = responseQuitData.data.report.id,
-                    isDeleted = responseQuitData.data.report.isDeleted,
-                    updatedAt = responseQuitData.data.report.updatedAt
-                ),
-                reviewPost = MyPageQuitData.Data.ReviewPost(
-                    id = responseQuitData.data.reviewPost.id,
-                    isDeleted = responseQuitData.data.reviewPost.isDeleted,
-                    updatedAt = responseQuitData.data.reviewPost.updatedAt,
-                ),
+                comment = responseQuitData.data.comment.map {
+                    MyPageQuitData.Data.Comments(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                block = responseQuitData.data.block.map {
+                    MyPageQuitData.Data.Block(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                classroomPost = responseQuitData.data.classroomPost.map{
+                    MyPageQuitData.Data.ClassroomPost(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                like = responseQuitData.data.like.map{
+                    MyPageQuitData.Data.Like(
+                        id = it.id,
+                        isLiked = it.isLiked,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                notification = responseQuitData.data.notification.map {
+                    MyPageQuitData.Data.Notification(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                report = responseQuitData.data.report.map{
+                    MyPageQuitData.Data.Report(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
+                reviewPost = responseQuitData.data.reviewPost.map {
+                    MyPageQuitData.Data.ReviewPost(
+                        id = it.id,
+                        isDeleted = it.isDeleted,
+                        updatedAt = it.updatedAt
+                    )
+                },
                 user = MyPageQuitData.Data.User(
                     email = responseQuitData.data.user.email,
                     id = responseQuitData.data.user.id,
