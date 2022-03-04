@@ -348,7 +348,7 @@
     <string name="mypage_alert_modify_save">저장</string>
 
     <!-- 마이페이지 정보 수정 뒤로가기 버튼 알럿 -->
-    <string name="mypage_modify_alert_back_title">페이지를 나가면 /n 수정한 내용이 저장되지 않아요.</string>
+    <string name="mypage_modify_alert_back_title">페이지를 나가면 \n 수정한 내용이 저장되지 않아요.</string>
     <string name="mypage_modify_alert_back_exit">나갈래요</string>
     <string name="mypage_modify_alert_back_continue">계속 수정</string>
 

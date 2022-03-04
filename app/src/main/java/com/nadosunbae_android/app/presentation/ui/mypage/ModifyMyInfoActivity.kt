@@ -69,17 +69,11 @@ class ModifyMyInfoActivity :
         }
     }
 
-    //닉네임 초기 데이터와 같다면 워닝 메시지 띄우지 않기 (닉네임은 바꾸지 않는 경우)
-
-
-    //저장 버튼 활성화 분기처리 수정
-
 
     //기존 데이터 불러오기
-    private fun initWriteMode() = with(binding) {
+    private fun initWriteMode()  {
         mainViewModel.signData.observe(this) {
             myPageViewModel.getPersonalInfo(it.userId)
-
         }
 
         myPageViewModel.getPersonalInfo(intent.getIntExtra("id",0))
@@ -189,10 +183,6 @@ class ModifyMyInfoActivity :
 
     //제 2전공 학과 선택 바텀시트
     private fun secondMajor() {
-
-        //secondDepartmentBottomSheetDialog.setSelectedData(mainViewModel.signData.value!!.secondMajorId)
-
-
         binding.textMyPageMajorinfoDoubleMajorMint.setOnClickListener {
             secondDepartmentBottomSheetDialog.show(
                 supportFragmentManager,
@@ -203,11 +193,8 @@ class ModifyMyInfoActivity :
         }
 
         signUpBasicInfoViewModel.secondDepartment.observe(this) {
-
-
             secondDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isSecondMajor }
                 .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
-
         }
 
         secondDepartmentBottomSheetDialog.setCompleteListener {
@@ -295,7 +282,7 @@ class ModifyMyInfoActivity :
             imm.showSoftInput(binding.etMyPageNickname, InputMethodManager.SHOW_IMPLICIT)
 
             binding.textMyPageNicknameChange.isVisible = false
-            signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
+            //signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
         }
 
         // scrollView 안의 constraintlayout 클릭 시 editText의 포커스 뺏어오고 해당 레이아웃에 focus 요청
@@ -313,8 +300,13 @@ class ModifyMyInfoActivity :
                     imm.hideSoftInputFromWindow(binding.etMyPageNickname.windowToken, 0)
 
                     binding.textMyPageNicknameChange.isVisible = true
-                    signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
-                    nicknameDuplication()
+                    if(binding.etMyPageNickname.text.toString() != myPageViewModel.personalInfo.value?.data?.nickname)  {
+                        signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
+                    } else {
+                        binding.textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
+                        binding.textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
+                    }
+
                 }
                 return false
             }
@@ -348,6 +340,8 @@ class ModifyMyInfoActivity :
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(p0: Editable?) {
+                nicknameDuplication()
+
                 //닉네임 textfield 빈칸인지 체크
                 if (etMyPageNickname.text.toString() == "") {
 
