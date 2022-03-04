@@ -18,6 +18,7 @@ import com.nadosunbae_android.app.databinding.ActivityModifyMyInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
@@ -47,7 +48,6 @@ class ModifyMyInfoActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initFirstMajor()
         observeLoadingEnd()
         initNotEntered()
         initWriteMode()
@@ -72,10 +72,6 @@ class ModifyMyInfoActivity :
 
     //닉네임 초기 데이터와 같다면 워닝 메시지 띄우지 않기 (닉네임은 바꾸지 않는 경우)
 
-    //바텀시트 초기데이터 체크되어있게하기 + id값 넣어주기
-
-    //"미진입"선택 했다가 다른 학과 선택했을 때 진입시기 클릭되는 부분 분기처리 수정
-
     //저장 버튼 활성화 분기처리 수정
 
     //이미지부분 넣어주기
@@ -84,18 +80,22 @@ class ModifyMyInfoActivity :
     //기존 데이터 불러오기
     private fun initWriteMode() = with(binding) {
 
+        signUpBasicInfoViewModel.nickName.value?.let { Log.d("test", it) }
+
         etMyPageNickname.setText(intent.getStringExtra("nickname"))
         textMyPageMajorinfoMajor.setText(intent.getStringExtra("firstMajor"))
         textMyPageMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart"))
         textMyPageMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajor"))
         textMyPageMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart"))
 
+        initNotEntered()
+
     }
 
 
     //초기 데이터 제 2전공 미진입인지 체크
     private fun initNotEntered() = with(binding) {
-        if (intent.getStringExtra("secondMajor") == "미진입") {
+        if (textMyPageMajorinfoDoubleMajor.text.toString() == "미진입") {
             textMyPageMajorinfoDoubleMajorMintTime.isEnabled = false
             textMyPageMajorinfoDoubleMajorTime.text = "선택하기"
             textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
@@ -103,36 +103,14 @@ class ModifyMyInfoActivity :
             textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#C0C0CB"))
         } else {
             textMyPageMajorinfoDoubleMajorMintTime.isEnabled = true
+            textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
+            textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#00C8B0"))
         }
-    }
-
-    // 1전공 초기화
-    private fun initFirstMajor() {
-        Log.d("test", "+" + signViewModel.firstMajor.value)
-        mainViewModel.signData.observe(this) {
-            myPageViewModel.getPersonalInfo(it.firstMajorId)
-            Log.d("test", "test" + it.firstMajorId)
-            signUpBasicInfoViewModel.firstDepartment.observe(this) {
-                firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
-                    .map {
-                        SelectableData(
-                            mainViewModel.signData.value!!.firstMajorId,
-                            mainViewModel.signData.value!!.firstMajorName,
-                            true
-                        )
-                    }.toMutableList())
-
-
-            }
-
-        }
-
     }
 
 
     //제 1전공 학과 선택 바텀시트
     private fun firstMajor() {
-
 
         binding.textMyPageMajorinfoMajorMint.setOnClickListener {
             firstDepartmentBottomSheetDialog.show(
@@ -143,8 +121,8 @@ class ModifyMyInfoActivity :
         }
 
         signUpBasicInfoViewModel.getFirstDepartment(1, "firstMajor")
-        signUpBasicInfoViewModel.firstDepartment.observe(this) {
 
+        signUpBasicInfoViewModel.firstDepartment.observe(this) {
             firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
                 .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
         }
@@ -208,19 +186,25 @@ class ModifyMyInfoActivity :
 
     //제 2전공 학과 선택 바텀시트
     private fun secondMajor() {
+
+        //secondDepartmentBottomSheetDialog.setSelectedData(mainViewModel.signData.value!!.secondMajorId)
+
+
         binding.textMyPageMajorinfoDoubleMajorMint.setOnClickListener {
             secondDepartmentBottomSheetDialog.show(
                 supportFragmentManager,
                 secondDepartmentBottomSheetDialog.tag
             )
-            //secondDepartmentBottomSheetDialog.setSelectedData(mainViewModel.selectedMajor.value!!.majorId)
+
             signUpBasicInfoViewModel.getSecondDepartment(1, "secondMajor")
         }
 
         signUpBasicInfoViewModel.secondDepartment.observe(this) {
 
+
             secondDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isSecondMajor }
                 .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
+
         }
 
         secondDepartmentBottomSheetDialog.setCompleteListener {
@@ -228,6 +212,7 @@ class ModifyMyInfoActivity :
             signViewModel.secondMajor.value = secondMajor?.name
             signUpBasicInfoViewModel.secondDepartmentClick.value = true
 
+            /*
             if (signViewModel.secondMajor.value.toString() == "미진입") {
                 binding.textMyPageMajorinfoDoubleMajorMintTime.isClickable = false
                 binding.textMyPageMajorinfoDoubleMajorTime.text = "선택하기"
@@ -237,6 +222,9 @@ class ModifyMyInfoActivity :
             } else {
                 binding.textMyPageMajorinfoDoubleMajorMintTime.isClickable = true
             }
+
+             */
+            initNotEntered()
         }
 
         signViewModel.secondMajor
@@ -358,11 +346,8 @@ class ModifyMyInfoActivity :
     private fun isNickNamePattern() = with(binding) {
         val nickname = etMyPageNickname
 
-        if (!Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())) {
-            textMyPageNicknameTitle.isSelected = true
-        } else {
-            textMyPageNicknameTitle.isSelected = false
-        }
+        textMyPageNicknameTitle.isSelected =
+            !Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())
     }
 
     //닉네임 textwatcher
@@ -374,6 +359,7 @@ class ModifyMyInfoActivity :
             override fun afterTextChanged(p0: Editable?) {
                 //닉네임 textfield 빈칸인지 체크
                 if (etMyPageNickname.text.toString() == "") {
+
                     textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
                     textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
                 } else {
@@ -444,9 +430,22 @@ class ModifyMyInfoActivity :
         with(binding) {
             val requestBody = MyPageModifyItem(
                 etMyPageNickname.text.toString(),
-                firstDepartmentBottomSheetDialog.getSelectedData()?.id!!,
+                (
+                        if (firstDepartmentBottomSheetDialog.getSelectedData()?.id == null) {
+                            ReviewGlobals.firstMajor!!.majorId
+                        } else {
+                            firstDepartmentBottomSheetDialog.getSelectedData()?.id!!
+                        }),
+
                 textMyPageMajorinfoMajorTime.text.toString(),
-                secondDepartmentBottomSheetDialog.getSelectedData()?.id!!,
+                (
+                        if (secondDepartmentBottomSheetDialog.getSelectedData()?.id == null) {
+                            ReviewGlobals.secondMajor!!.majorId
+                        } else {
+                            secondDepartmentBottomSheetDialog.getSelectedData()?.id!!
+                        }
+                        ),
+
                 textMyPageMajorinfoDoubleMajorTime.text.toString(),
                 binding.imgMyPageModifySwitch.isSelected
             )
