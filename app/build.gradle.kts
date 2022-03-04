@@ -145,4 +145,7 @@ dependencies {
 
     implementation("androidx.work:work-runtime:2.8.0-alpha01")
 
+
+    //Timber
+    implementation("com.jakewharton.timber:timber:4.7.1")
 }
