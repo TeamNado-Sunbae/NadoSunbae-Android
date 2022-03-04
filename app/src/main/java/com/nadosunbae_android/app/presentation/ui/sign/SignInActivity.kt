@@ -20,6 +20,7 @@ import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.getScopeId
 import org.koin.core.component.getScopeName
+import timber.log.Timber
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private lateinit var mainActivity: MainActivity
@@ -40,9 +41,13 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         moveSignUp()
         onViewPw()
         moveQeustionPage()
+        setupTimber()
 
     }
-
+    //Timber 초기화
+    private fun setupTimber() {
+        Timber.plant(Timber.DebugTree())
+    }
     //id editText textwatcher
     private fun onViewId() {
 

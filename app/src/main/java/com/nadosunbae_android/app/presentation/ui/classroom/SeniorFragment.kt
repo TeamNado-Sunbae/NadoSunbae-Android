@@ -11,6 +11,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSen
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 
 class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_senior) {
@@ -44,6 +45,20 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         }
 
     }
+    //선배 Id = userId가 같을 경우 마이페이지로 이동
+    private fun goMyPage(seniorId : Int, seniorNum : Int){
+        val userId = mainViewModel.userId.value ?: 0
+        Timber.d("userId : $userId")
+        Timber.d("seniorId : $seniorId")
+        if(userId == seniorId){
+            mainViewModel.bottomNavItem.value = 4
+        }else{
+            mainViewModel.classRoomFragmentNum.value = seniorNum
+            mainViewModel.bottomNavItem.value = -1
+        }
+
+    }
+
 
 
     //뒤로가기
@@ -61,9 +76,9 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
     }
     inner class DataToFragment{
         fun getSeniorId(seniorNum : Int, seniorId : Int){
-            mainViewModel.classRoomFragmentNum.value = seniorNum
             mainViewModel.seniorId.value = seniorId
-            Log.d("seniorId", seniorId.toString())
+            goMyPage(seniorId, seniorNum)
+
         }
     }
 }

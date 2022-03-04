@@ -160,6 +160,7 @@ class InfoDetailViewModel(
                     _reportData.value = reportData.data
                     reportStatusInfo.value = 200
                     Log.d("postReport", "신고 성공!")
+
                 }
                 is ResultWrapper.NetworkError -> {
                     Log.d("postReport", "네트워크 실패")

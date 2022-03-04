@@ -36,7 +36,8 @@ class MainViewModel(
     //과방탭 프래그먼트 전환 (1 -> 과방 메인, 2 -> 전체에게 질문 3 -> 질문 구성원 목록 4 -> 선배 개인 페이지 5-> 학과 후기 6-> 마이페이지)
     var classRoomFragmentNum = MutableLiveData<Int>()
 
-    var myId = MutableLiveData<Int>()
+    //바텀 네비 아이템들 클릭된
+    var bottomNavItem = MutableLiveData<Int>()
 
     //과방탭 뒤로가기 전환( 1 : 선배개인페이지 -> 구성원, 2: 구성원 -> 과방 메인)
     var classRoomBackFragmentNum = MutableLiveData<Int>()
