@@ -46,6 +46,7 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
         //프로필 수정 activity
         binding.textMypageSettingModifyInformation.setOnClickListener {
             val intentModifyInfo = Intent(getActivity(), ModifyMyInfoActivity::class.java)
+            intentModifyInfo.putExtra("id", mainViewModel.userId.value)
             startActivity(intentModifyInfo)
         }
 
