@@ -37,3 +37,15 @@ jobs:
         file_name: 'Nadosunbae.apk'
         file_type: 'apk'
         initial_comment: '${{ github.ref }} 테스트 APK 배포 성공'
+
+    - name: On Failed
+      if: ${{ failure() }}
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_COLOR: '#ff0000'
+        SLACK_ICON: https://user-images.githubusercontent.com/37872134/156731525-c27edd80-3e15-42ec-8bc3-7b82a54bd7c1.jpg
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_TITLE: 'APK Build Failed'
+        MSG_MINIMAL: true
+        SLACK_USERNAME: APK_GEN
+        SLACK_MESSAGE: '오류를 확인해주세요...'
