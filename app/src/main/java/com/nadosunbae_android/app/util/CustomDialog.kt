@@ -3,17 +3,11 @@ package com.nadosunbae_android.app.util
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Canvas
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R

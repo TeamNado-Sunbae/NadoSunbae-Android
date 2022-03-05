@@ -1,9 +1,11 @@
 package com.nadosunbae_android.app.presentation.ui.main
 
 import android.os.Bundle
+import androidx.core.view.doOnAttach
 import androidx.lifecycle.Observer
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
+import androidx.viewpager2.widget.ViewPager2
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -22,6 +24,7 @@ import com.nadosunbae_android.app.util.popFragmentBackStack
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -40,7 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getSignDataFromIntent()
         classRoomBack()
         // clickBottomNav()
-
+        clickBottomNavItem()
         myPageFragmentChange()
     }
 
@@ -69,7 +72,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     //바텀네비
     private fun initBottomNav(){
-
         // 첫 프래그먼트
         changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
         binding.btNvMain.itemIconTintList = null
@@ -100,6 +102,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             true
         }
     }
+    //바텀 네비 아이템 클릭된 것 처럼 보이도록
+    private fun clickBottomNavItem(){
+        mainViewModel.bottomNavItem.observe(this){
+            Timber.d("bottomNavItem : $it")
+            if(it == 4){
+                binding.btNvMain.selectedItemId= R.id.navigation_mypage
+            }
+        }
+    }
+
 
     //과방 프레그먼트 전환
     private fun classRoomFragmentChange(){

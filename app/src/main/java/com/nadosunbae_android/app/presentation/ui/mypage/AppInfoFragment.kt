@@ -78,17 +78,17 @@ class AppInfoFragment : BaseFragment<ActivityAppInfoBinding>(R.layout.activity_a
             val openSource = it.data.openSourceLicense
 
             //개인정보처리방침
-            binding.imgMypageAppInfoRulesOfUseArrow.setOnClickListener {
+            binding.textMypageAppInfoRulesOfUse.setOnClickListener {
                 initIntent(privacyPolicy)
             }
 
             //서비스 이용약관
-            binding.imgMypageAppInfoTermsOfUse.setOnClickListener {
+            binding.textMypageAppInfoTermsOfUse.setOnClickListener {
                 initIntent(termsOfService)
             }
 
             //오픈 라이선스
-            binding.imgMypageAppInfoOpensource.setOnClickListener {
+            binding.textMypageAppInfoOpensource.setOnClickListener {
                 initIntent(openSource)
             }
         }

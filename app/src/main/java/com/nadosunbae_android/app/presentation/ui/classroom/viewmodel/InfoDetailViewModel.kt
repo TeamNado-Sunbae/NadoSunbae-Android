@@ -5,21 +5,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nadosunbae_android.domain.model.classroom.InfoDetailData
-import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteData
-import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
+import com.nadosunbae_android.app.util.DropDownSelectableViewModel
+import com.nadosunbae_android.app.util.ResultWrapper
+import com.nadosunbae_android.app.util.safeApiCall
+import com.nadosunbae_android.domain.model.classroom.*
 import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeItem
-import com.nadosunbae_android.domain.usecase.classroom.GetInformationDetailUseCase
-import com.nadosunbae_android.domain.usecase.classroom.PostQuestionCommentWriteUseCase
+import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class InfoDetailViewModel(
     val getInformationDetailUseCase: GetInformationDetailUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
-    val postLikeDataUseCase : PostLikeDataUseCase
-) : ViewModel() {
+    val postLikeDataUseCase : PostLikeDataUseCase,
+    val deleteCommentDataUseCase: DeleteCommentDataUseCase,
+    val postReportUseCase: PostReportUseCase,
+    val deletePostDataUseCase: DeletePostDataUseCase,
+) : ViewModel(), DropDownSelectableViewModel {
+
+    override var dropDownSelected = MutableLiveData<SelectableData>()
 
 
     //정보 상세 조회
@@ -35,6 +42,20 @@ class InfoDetailViewModel(
     val infoPostId : LiveData<Int>
         get() = _infoPostId
 
+    //정보 댓글 commentId
+    var commentId = MutableLiveData<Int>()
+
+    //정보 댓글 및 원글 분류
+    var divisionPost = MutableLiveData<Int>()
+
+    //댓글 position
+    var position = MutableLiveData<Int>()
+
+    //댓글 삭제 데이터
+    private var _deleteComment = MutableLiveData<DeleteCommentData>()
+    val deleteComment : LiveData<DeleteCommentData>
+        get() = _deleteComment
+
     fun setPostId(postId : Int){
         _infoPostId.value = postId
     }
@@ -48,6 +69,21 @@ class InfoDetailViewModel(
     private fun setPostLike(likeData : LikeData){
         _postLike.value = likeData
     }
+    //신고 데이터
+    private var _reportData = MutableLiveData<ReportData?>()
+    val reportData : LiveData<ReportData?>
+        get() = _reportData
+
+    //신고 사유
+    var reportReasonInfo = MutableLiveData<String>()
+
+    //신고 토스트위한
+    var reportStatusInfo = MutableLiveData<Int>()
+
+    //원글 삭제 데이터
+    private var _deletePostData = MutableLiveData<DeleteCommentData>()
+    val deletePostData : LiveData<DeleteCommentData>
+        get() = _deletePostData
 
     //정보 상세 조회 서버통신
     fun getInfoDetail(postId: Int) {
@@ -96,6 +132,62 @@ class InfoDetailViewModel(
                 }
         }
 
+    }
+
+    //정보 댓글 삭제
+    //댓글 삭제 서버통신
+    fun deleteComment(commentId : Int){
+        viewModelScope.launch {
+            runCatching { deleteCommentDataUseCase(commentId) }
+                .onSuccess {
+                    _deleteComment.value = it
+                    Log.d("deleteComment", "댓글 삭제 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("deleteComment", "댓글 삭제 실패")
+                }
+        }
+    }
+
+
+    //신고하기 서버통신
+    fun postReport(reportItem: ReportItem){
+        viewModelScope.launch {
+            when (val reportData =
+                safeApiCall(Dispatchers.IO) { postReportUseCase(reportItem) }) {
+                is ResultWrapper.Success ->  {
+                    _reportData.value = reportData.data
+                    reportStatusInfo.value = 200
+                    Log.d("postReport", "신고 성공!")
+
+                }
+                is ResultWrapper.NetworkError -> {
+                    Log.d("postReport", "네트워크 실패")
+
+                }
+                is ResultWrapper.GenericError -> {
+                    Log.d("postReport", "사용자 에러")
+                    reportStatusInfo.value = reportData.code ?: 0
+                }
+            }
+        }
+    }
+
+
+    // 원글 삭제 서버통신
+    fun deletePost(postId : Int){
+        viewModelScope.launch {
+            runCatching { deletePostDataUseCase(postId) }
+                .onSuccess {
+                    _deletePostData.value = it
+                    Log.d("deletePost", "원글 삭제 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("deletePost", "원글 삭제 실패")
+                }
+        }
     }
 }
 

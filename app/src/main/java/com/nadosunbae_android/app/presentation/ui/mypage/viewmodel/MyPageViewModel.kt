@@ -28,7 +28,8 @@ class MyPageViewModel(
     val getMyPageReviewUseCase: GetMyPageReviewUseCase,
     val getMyPageBlockUseCase: GetMyPageBlockUseCase,
     val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase,
-    val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase
+    val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase,
+    val deleteMyPageQuitUseCase: DeleteMyPageQuitUseCase
 
     ) : ViewModel(), LoadableViewModel {
 
@@ -56,17 +57,22 @@ class MyPageViewModel(
     val blockList = MutableLiveData<MyPageBlockData>()
     val blockUpdate = MutableLiveData<MyPageBlockUpdateData>()
     val resetPassword : MutableLiveData<MyPageResetPasswordData> = MutableLiveData()
+   //val quitInfo : MutableLiveData<MyPageQuitData> = MutableLiveData()
 
 
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>
     get() = _myPagePersonal
 
+    private var _status = MutableLiveData<Int?>()
+    val status: LiveData<Int?> = _status
 
-    fun setSignData(signData: SignInData.User) {
-        _signData.value = signData
-        userId.value = signData.userId
-    }
+    private var _quitInfo = MutableLiveData<MyPageQuitData?>()
+    val quitInfo : LiveData<MyPageQuitData?>
+    get() = _quitInfo
+
+    //토스트
+    var reportStatusInfo = MutableLiveData<Int>()
 
     //마이페이지 버전정보
     fun getMyPageVersion() {
@@ -305,6 +311,41 @@ class MyPageViewModel(
                 .also {
                     onLoadingEnd.value = true
                 }
+        }
+    }
+
+    //마이페이지 탈퇴
+    fun deleteMyPageQuit(myPageQuitItem: MyPageQuitItem) {
+        /*
+        viewModelScope.launch {
+            kotlin.runCatching { deleteMyPageQuitUseCase(myPageQuitItem) }
+                .onSuccess {
+                    quitInfo.value = it
+                    Log.d("MyPageQuit", "서버 통신 완료")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Log.d("MyPageQuit", "서버 통신 실패")
+                }
+        }
+
+         */
+
+        viewModelScope.launch {
+            when(val quitData = safeApiCall(Dispatchers.IO){ deleteMyPageQuitUseCase(myPageQuitItem) }) {
+                is ResultWrapper.Success -> {
+                    _quitInfo.value = quitInfo.value?.let { MyPageQuitData(it.data, 200, true) }
+                    reportStatusInfo.value = 200
+                }
+                is ResultWrapper.NetworkError -> {
+                    Log.d("MyPageQuit", "네트워크 실패")
+                }
+                is ResultWrapper.GenericError -> {
+                    Log.d("MyPageResetPw", "존재하지 않는 비밀번호")
+                    reportStatusInfo.value = quitData.code ?: 0
+                }
+            }
+
         }
     }
 }

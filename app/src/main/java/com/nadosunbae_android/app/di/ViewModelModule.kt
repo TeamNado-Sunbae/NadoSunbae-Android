@@ -18,7 +18,7 @@ val viewModelModule = module {
 
     //classRoom
     viewModel { ClassRoomViewModel() }
-    viewModel { InfoDetailViewModel(get(),get(),get()) }
+    viewModel { InfoDetailViewModel(get(),get(),get(),get(),get(),get()) }
     viewModel { QuestionDetailViewModel(get(),get(),get(),get(),get(),get(),get()) }
     viewModel { QuestionWriteViewModel(get(),get()) }
     viewModel { SeniorPersonalViewModel(get(),get()) }
@@ -28,7 +28,7 @@ val viewModelModule = module {
     viewModel { MainViewModel(get(),get(),get(),get()) }
 
     //myPage
-    viewModel { MyPageViewModel(get(),get(),get(),get(),get(),get(),get(),get(),get(),get(),get(),get(),get()) }
+    viewModel { MyPageViewModel(get(),get(),get(),get(),get(),get(),get(),get(),get(),get(),get(),get(),get(),get()) }
 
     //notification
     viewModel {NotificationViewModel(get(),get(),get())}
