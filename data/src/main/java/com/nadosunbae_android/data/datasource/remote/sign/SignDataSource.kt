@@ -21,4 +21,7 @@ interface SignDataSource {
 
     //이메일 재전송
     suspend fun postCertificationEmail(requestCertificationEmail: RequestCertificationEmail): ResponseCertificationEmail
+
+    //토큰 재발급 및 자동 로그인
+    suspend fun postRenewalToken(refreshToken: String): ResponseRenewalToken
 }

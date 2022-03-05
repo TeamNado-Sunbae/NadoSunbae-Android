@@ -7,11 +7,9 @@ import com.nadosunbae_android.app.di.NadoSunBaeApplication
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.app.util.ManageUtil.isServiceRunning
 import com.nadosunbae_android.app.util.ManageUtil.restartApp
-import com.nadosunbae_android.data.model.response.sign.ResponseRenewalToken
 import com.nadosunbae_android.domain.model.sign.RenewalTokenData
 import okhttp3.*
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.IOException
 import java.lang.Exception
 
 class AuthInterceptor(
@@ -46,8 +44,8 @@ class AuthInterceptor(
                 val data: RenewalTokenData? = postRenewalData(appContext, chain)       // access token 재발급
 
                 if (data != null && data.success) {      // access token 재발급 성공
-                    val newToken = data.accesstoken
-                    NadoSunBaeSharedPreference.setAccessToken(appContext, data.accesstoken)     // 재발급 access token 저장
+                    val newToken = data.accessToken
+                    NadoSunBaeSharedPreference.setAccessToken(appContext, data.accessToken)     // 재발급 access token 저장
                     Log.d(TAG, "refresh token renewal : ${newToken}")
                     val newRequest = request.newBuilder()
                         .header("accesstoken", newToken)
@@ -80,7 +78,7 @@ class AuthInterceptor(
             return RenewalTokenData(
                     status = result.status,
                     success = result.success,
-                    accesstoken = result.data.accesstoken
+                    accessToken = result.data.accesstoken
                 )
         } catch (e: Exception) {
             throw e

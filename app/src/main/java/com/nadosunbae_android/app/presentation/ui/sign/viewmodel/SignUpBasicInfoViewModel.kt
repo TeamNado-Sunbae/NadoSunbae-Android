@@ -20,7 +20,8 @@ class SignUpBasicInfoViewModel(
     val postSignInUseCase: PostSignInUseCase,
     val postSignNicknameUseCase: PostSignNicknameUseCase,
     val postSignUpUseCase: PostSignUpUseCase,
-    val postCertificationEmailUseCase: PostCertificationEmailUseCase
+    val postCertificationEmailUseCase: PostCertificationEmailUseCase,
+
 
 ) : ViewModel() {
     //닉네임 중복 체크 변수

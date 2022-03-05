@@ -28,4 +28,8 @@ class SignDataSourceImpl(private val service : SignService) : SignDataSource {
     override suspend fun postCertificationEmail(requestCertificationEmail: RequestCertificationEmail): ResponseCertificationEmail {
         return service.postCertificationEmail(requestCertificationEmail)
     }
+
+    override suspend fun postRenewalToken(refreshToken: String): ResponseRenewalToken {
+        return service.postRenewalToken(refreshToken)
+    }
 }
