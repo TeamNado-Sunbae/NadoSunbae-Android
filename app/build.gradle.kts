@@ -7,6 +7,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -142,7 +143,7 @@ dependencies {
     implementation("com.google.firebase:firebase-common-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
-
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
 
     implementation("androidx.work:work-runtime:2.8.0-alpha01")
 

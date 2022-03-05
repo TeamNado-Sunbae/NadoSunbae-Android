@@ -376,4 +376,11 @@
     <string name = "agree_report">신고하기</string>
     <string name = "disagree_report">취소하기</string>
 
+    <!-- firebase analytics -->
+    <string name="ga_activity_main">MainActivity</string>
+    <string name="ga_tab_review">Review Tab</string>
+    <string name="ga_tab_classroom">ClassRoom Tab</string>
+    <string name="ga_tab_notification">Notification Tab</string>
+    <string name="ga_tab_mypage">MyPage Tab</string>
+
 </resources>
