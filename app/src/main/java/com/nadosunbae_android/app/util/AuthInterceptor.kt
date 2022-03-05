@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
 import com.nadosunbae_android.app.di.NadoSunBaeApplication
+import com.nadosunbae_android.app.presentation.ui.main.SplashActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.app.util.ManageUtil.isServiceRunning
 import com.nadosunbae_android.app.util.ManageUtil.restartApp
@@ -61,7 +62,7 @@ class AuthInterceptor(
                     NadoSunBaeSharedPreference.removeRefreshToken(appContext)      // 만료된 refresh token 제거
 
                     appContext.run {
-                        if (!isServiceRunning(SignInActivity::class.java.name))     // SignIn 액티비티 실행 여부 확인
+                        if (!isServiceRunning(SplashActivity::class.java.name))     // Splash 액티비티 실행 여부 확인
                             restartApp()                                              // 재발급 실패 -> 앱 재실행 후 로그인
                     }
                 }

@@ -62,6 +62,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
 
     companion object {
-        private const val DURATION: Long = 3000
+        private const val DURATION: Long = 2000
     }
 }
