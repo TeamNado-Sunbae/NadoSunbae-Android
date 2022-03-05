@@ -45,7 +45,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         moveQeustionPage()
         setupTimber()
         observeSignIn()
-        autoLogin()         // 자동 로그인
 
     }
     //Timber 초기화
@@ -154,15 +153,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         })
     }
 
-    private fun autoLogin() {
-        val refreshToken = NadoSunBaeSharedPreference.getRefreshToken(this)
-        Log.d("auto login refresh token : ", refreshToken)
-
-        // 자동 로그인
-        if (refreshToken != null && refreshToken.isNotEmpty()) {
-            signUpBasicInfoViewModel.postRenewalToken(refreshToken)
-        }
-    }
 
     private fun observeSignIn() {
         signUpBasicInfoViewModel.signIn.observe(this) {

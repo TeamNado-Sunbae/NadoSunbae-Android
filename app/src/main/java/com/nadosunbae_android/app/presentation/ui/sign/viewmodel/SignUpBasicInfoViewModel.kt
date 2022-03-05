@@ -21,8 +21,7 @@ class SignUpBasicInfoViewModel(
     private val postSignInUseCase: PostSignInUseCase,
     private val postSignNicknameUseCase: PostSignNicknameUseCase,
     private val postSignUpUseCase: PostSignUpUseCase,
-    private val postCertificationEmailUseCase: PostCertificationEmailUseCase,
-    private val postRenewalTokenUseCase: PostRenewalTokenUseCase
+    private val postCertificationEmailUseCase: PostCertificationEmailUseCase
 ) : ViewModel() {
     //닉네임 중복 체크 변수
     var nicknameDuplicationCheck: MutableLiveData<NicknameDuplicationCheck> = MutableLiveData()
@@ -213,18 +212,4 @@ class SignUpBasicInfoViewModel(
         }
     }
 
-    // 토큰 재발급 및 자동 로그인
-    fun postRenewalToken(refreshToken: String) {
-        viewModelScope.launch {
-            kotlin.runCatching { postRenewalTokenUseCase(refreshToken) }
-                .onSuccess {
-                    signIn.value = it
-                    Log.d("auth", "서버 통신 성공")
-                }
-                .onFailure {
-                    it.printStackTrace()
-                    Log.d("auth", "서버 통신 실패")
-                }
-        }
-    }
 }
