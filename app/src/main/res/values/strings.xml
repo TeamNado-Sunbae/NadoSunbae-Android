@@ -363,17 +363,17 @@
 
 
     <!-- 신고 사유 -->
-    <string name = "report_reason">신고 사유 선택</string>
-    <string name = "report_one">음란/욕설/분쟁</string>
-    <string name = "report_two">유출/사칭/사기</string>
-    <string name = "report_three">상업성 내용</string>
-    <string name = "report_four">우리 학교/학과가 아닌 학생</string>
-    <string name = "report_five">서비스 취지에 맞지 않는 글</string>
-    <string name = "report_six">기타</string>
+    <string name="report_reason">신고 사유 선택</string>
+    <string name="report_one">음란/욕설/분쟁</string>
+    <string name="report_two">유출/사칭/사기</string>
+    <string name="report_three">상업성 내용</string>
+    <string name="report_four">우리 학교/학과가 아닌 학생</string>
+    <string name="report_five">서비스 취지에 맞지 않는 글</string>
+    <string name="report_six">기타</string>
 
     <!-- 신고 -->
-    <string name = "request_report">신고하시겠어요?</string>
-    <string name = "agree_report">신고하기</string>
-    <string name = "disagree_report">취소하기</string>
+    <string name="request_report">신고하시겠어요?</string>
+    <string name="agree_report">신고하기</string>
+    <string name="disagree_report">취소하기</string>
 
 </resources>
