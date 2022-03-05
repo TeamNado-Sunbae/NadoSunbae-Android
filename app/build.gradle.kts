@@ -146,12 +146,11 @@ dependencies {
     implementation("androidx.work:work-runtime:2.8.0-alpha01")
 
 
+    //dot indicator
+    implementation ("com.tbuonomo:dotsindicator:4.2")
+
     //Timber
     implementation("com.jakewharton.timber:timber:4.7.1")
-
-
-    //dot indicator
-
 
 
 }

@@ -35,6 +35,7 @@
     <color name="notification_oval">#FE6231</color>
     <color name="mint_bar">#B4E4DF</color>
     <color name="inform_gray">#545454</color>
+    <color name="onboarding">#EFF6F6</color>
 
     <!-- review_colors -->
     <color name="purple_tag_fill">#f4f0ff</color>
