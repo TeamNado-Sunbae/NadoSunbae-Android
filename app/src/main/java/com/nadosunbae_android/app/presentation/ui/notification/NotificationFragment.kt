@@ -38,6 +38,7 @@ class NotificationFragment :
         super.onResume()
         mainViewModel.signData.observe(viewLifecycleOwner) {
             notificationViewModel.getNotification(it.userId)
+            mainViewModel.userId.value = it.userId
         }
     }
 
@@ -62,7 +63,7 @@ class NotificationFragment :
             notificationViewModel.deleteNotification(id)
             notificationViewModel.deleteNotification.observe(viewLifecycleOwner) {
                 if (it.isDeleted) {
-                    notificationViewModel.getNotification(3)
+                    notificationViewModel.getNotification(mainViewModel.userId.value ?: 0)
                 }
             }
         }
