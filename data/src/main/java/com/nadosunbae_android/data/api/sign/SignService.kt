@@ -39,7 +39,7 @@ interface SignService {
 
     @POST("auth/renewal/token")
     suspend fun postRenewalToken(
-        @Query("refreshToken") refreshToken: String
-    ) : ResponseRenewalToken
+        @Header("refreshtoken") refreshToken: String
+    ) : ResponseSignIn
 
 }

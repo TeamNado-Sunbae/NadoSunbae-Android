@@ -127,24 +127,4 @@ object SignMapper {
         )
     }
 
-    fun mapperToRenewalTokenData(responseRenewalToken: ResponseRenewalToken): RenewalTokenData {
-        return RenewalTokenData(
-            status = responseRenewalToken.status,
-            success = responseRenewalToken.success,
-            accessToken = responseRenewalToken.data.accesstoken,
-            refreshToken = responseRenewalToken.data.refreshtoken,
-            user = responseRenewalToken.data.user.run {
-                SignInData.User(
-                    email = this.email,
-                    firstMajorId = this.firstMajorId,
-                    firstMajorName = this.firstMajorName,
-                    isReviewed = this.isReviewed,
-                    secondMajorId = this.secondMajorId,
-                    secondMajorName = this.secondMajorName,
-                    universityId = this.universityId,
-                    userId = this.userId
-                )
-            }
-        )
-    }
 }

@@ -7,7 +7,10 @@ import com.nadosunbae_android.app.di.NadoSunBaeApplication
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.app.util.ManageUtil.isServiceRunning
 import com.nadosunbae_android.app.util.ManageUtil.restartApp
+import com.nadosunbae_android.data.mapper.classroom.SignMapper
+import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
 import com.nadosunbae_android.domain.model.sign.RenewalTokenData
+import com.nadosunbae_android.domain.model.sign.SignInData
 import okhttp3.*
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.lang.Exception
@@ -41,7 +44,7 @@ class AuthInterceptor(
                 if (NadoSunBaeSharedPreference.getRefreshToken(appContext).isEmpty())     // refresh token 없으면 재발급 로직 실행 x -> 루프 방지
                     return response
 
-                val data: RenewalTokenData? = postRenewalData(appContext, chain)       // access token 재발급
+                val data: SignInData? = postRenewalData(appContext, chain)       // access token 재발급
 
                 if (data != null && data.success) {      // access token 재발급 성공
                     val newToken = data.accessToken
@@ -70,27 +73,22 @@ class AuthInterceptor(
         return response
     }
     
-    private fun Response.extractRenewalData(): RenewalTokenData {
+    private fun Response.extractRenewalData(): SignInData {
         try {
-            val result = Gson().fromJson(body?.string(), ResponseRenewalToken::class.java)
+            val result = Gson().fromJson(body?.string(), ResponseSignIn::class.java)
             this.close()
 
-            return RenewalTokenData(
-                    status = result.status,
-                    success = result.success,
-                    accessToken = result.data.accesstoken
-                )
+            return SignMapper.mapperToSignInData(result)
         } catch (e: Exception) {
             throw e
         }
     }
 
-    private fun postRenewalData(context: Context, chain: Interceptor.Chain): RenewalTokenData? {
+    private fun postRenewalData(context: Context, chain: Interceptor.Chain): SignInData? {
         val newRequest = Request.Builder()
             .url("${baseUrl}auth/renewal/token")
             .method("POST", "".toRequestBody())
             .addHeader("Content-Type", "application/json")
-            .addHeader("accesstoken", NadoSunBaeSharedPreference.getAccessToken(context))
             .addHeader("refreshtoken", NadoSunBaeSharedPreference.getRefreshToken(context))
             .build()
 

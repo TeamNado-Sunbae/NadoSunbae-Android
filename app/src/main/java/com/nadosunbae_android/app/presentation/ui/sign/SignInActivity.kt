@@ -1,6 +1,8 @@
 package com.nadosunbae_android.app.presentation.ui.sign
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -32,9 +34,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
-        autoLogin()
         deviceToken()
         onViewId()
         moveFindPw()
@@ -42,6 +44,8 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         onViewPw()
         moveQeustionPage()
         setupTimber()
+        observeSignIn()
+        autoLogin()         // 자동 로그인
 
     }
     //Timber 초기화
@@ -151,9 +155,38 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     private fun autoLogin() {
-        val accessToken = NadoSunBaeSharedPreference.getAccessToken(this)
+        val refreshToken = NadoSunBaeSharedPreference.getRefreshToken(this)
+        Log.d("auto login refresh token : ", refreshToken)
 
-        if (accessToken != null) {
+        // 자동 로그인
+        if (refreshToken != null && refreshToken.isNotEmpty()) {
+            signUpBasicInfoViewModel.postRenewalToken(refreshToken)
+        }
+    }
+
+    private fun observeSignIn() {
+        signUpBasicInfoViewModel.signIn.observe(this) {
+            dismissLoading()
+
+            if (it.success) {
+                Log.d(TAG, "access token : ${it.accessToken}")
+                Log.d(TAG, "refresh token : ${it.refreshToken}")
+                Log.d(TAG, "--- Login Success ---")
+                NadoSunBaeSharedPreference.setAccessToken(this, it.accessToken)
+                NadoSunBaeSharedPreference.setRefreshToken(this, it.refreshToken)
+                val intent = Intent(this, MainActivity::class.java)
+                val data = it.user
+                intent.apply {
+                    putExtra("signData", data)
+                }
+                startActivity(intent)
+                finish()
+            }
+            else {
+                binding.textSignInWarn.visibility = View.VISIBLE
+                NadoSunBaeSharedPreference.setUserId(this, it.user.userId)
+                Log.d(TAG, " --- Login Failed ---")
+            }
 
         }
     }
@@ -172,30 +205,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                     signUpBasicInfoViewModel.deviceToken.value.toString()
                 )
             )
-
-            signUpBasicInfoViewModel.signIn.observe(this) {
-
-                if (it.success) {
-                    Log.d(TAG, "access token : ${it.accessToken}")
-                    Log.d(TAG, "refresh token : ${it.refreshToken}")
-                    Log.d(TAG, "--- Login Success ---")
-                    NadoSunBaeSharedPreference.setAccessToken(this, it.accessToken)
-                    NadoSunBaeSharedPreference.setRefreshToken(this, it.refreshToken)
-                    val intent = Intent(this, MainActivity::class.java)
-                    val data = it.user
-                    intent.apply {
-                        putExtra("signData", data)
-                    }
-                    startActivity(intent)
-                    finish()
-                }
-                else {
-                    binding.textSignInWarn.visibility = View.VISIBLE
-                    NadoSunBaeSharedPreference.setUserId(this, it.user.userId)
-                    Log.d(TAG, " --- Login Failed ---")
-                }
-
-            }
 
         }
     }

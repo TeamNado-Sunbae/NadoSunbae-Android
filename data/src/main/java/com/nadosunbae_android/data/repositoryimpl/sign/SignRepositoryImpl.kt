@@ -50,7 +50,7 @@ class SignRepositoryImpl(private val signDataSource : SignDataSource) : SignRepo
         ))
     }
 
-    override suspend fun postRenewalToken(refreshToken: String): RenewalTokenData {
-        return SignMapper.mapperToRenewalTokenData(signDataSource.postRenewalToken(refreshToken))
+    override suspend fun postRenewalToken(refreshToken: String): SignInData {
+        return SignMapper.mapperToSignInData(signDataSource.postRenewalToken(refreshToken))
     }
 }
