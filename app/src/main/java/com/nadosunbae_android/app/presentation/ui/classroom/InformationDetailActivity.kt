@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityInformationDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInfoDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.InfoDetailViewModel
+import com.nadosunbae_android.app.presentation.ui.main.MainActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
@@ -19,6 +22,7 @@ import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class InformationDetailActivity :
     BaseActivity<ActivityInformationDetailBinding>(R.layout.activity_information_detail) {
@@ -34,6 +38,7 @@ class InformationDetailActivity :
         infoCommentMenu()
         infoCommentMenuClick()
         reportToast()
+        clickNickname()
     }
 
     override fun onResume() {
@@ -46,13 +51,16 @@ class InformationDetailActivity :
         val postId = intent.getIntExtra("postId", 0)
         Log.d("infoPostId", postId.toString())
         val userId = intent.getIntExtra("userId", 0)
-
         infoDetailViewModel.setPostId(postId)
         infoDetailViewModel.getInfoDetail(postId)
+        infoDetailViewModel.userId.value = userId
 
         classRoomInfoDetailAdapter = ClassRoomInfoDetailAdapter(userId, this)
         binding.rcInformationDetailQuestionComment.adapter = classRoomInfoDetailAdapter
         infoDetailViewModel.infoDetailData.observe(this) {
+            //작성자 Id
+            infoDetailViewModel.writerId.value = it.writerId
+
             // 원글 데이터 연결
             binding.informationDetail = it
 
@@ -332,6 +340,36 @@ class InformationDetailActivity :
             finish()
         }
     }
+
+    //클릭시 마이페이지 또는 선배 개인페이지 이동
+    private fun clickNickname(){
+
+        binding.textInformationDetailQuestionName.setOnClickListener {
+            val writerId = infoDetailViewModel.writerId.value ?: 0
+            val userId = infoDetailViewModel.userId.value ?: 0
+            Timber.d("userId : $userId, writerId : $writerId")
+            var fragmentNum = -1
+            var bottomNavItem = -1
+
+            if (userId == writerId) {
+                fragmentNum = 6
+                bottomNavItem = 4
+            } else {
+                fragmentNum = 4
+                bottomNavItem = 2
+            }
+            val intent = Intent(this, MainActivity::class.java)
+            intent.apply {
+                putExtra("fragmentNum", fragmentNum)
+                putExtra("bottomNavItem", bottomNavItem)
+                putExtra("signData", MainGlobals.signInData)
+                putExtra("loading", false)
+                putExtra("seniorId", writerId)
+            }
+            startActivity(intent)
+        }
+    }
+
 
     companion object {
         const val update = 1

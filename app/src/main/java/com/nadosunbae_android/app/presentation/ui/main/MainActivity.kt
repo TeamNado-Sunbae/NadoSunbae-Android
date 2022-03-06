@@ -36,6 +36,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         DateUtil.initTimeZone()
 
         initBottomNav()
+
         classRoomFragmentChange()
 
         initMajorList()
@@ -43,8 +44,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getSignDataFromIntent()
         classRoomBack()
         // clickBottomNav()
-        clickBottomNavItem()
+
         myPageFragmentChange()
+        initClickProfile()
     }
 
 
@@ -72,8 +74,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     //바텀네비
     private fun initBottomNav(){
-        // 첫 프래그먼트
-        changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+        //바텀 네비 아이템 클릭된 것 처럼 보이도록 ( 4-> 마이페이지, 2 -> 과방)
+        // 첫 프래그먼트 설정 (닉네임 클릭시 마이페이지 및 선배 개인페이지를 위해)
+        mainViewModel.bottomNavItem.observe(this){
+            when (it) {
+                4 -> {
+                    binding.btNvMain.selectedItemId= R.id.navigation_mypage
+
+                }
+                2 -> {
+                    binding.btNvMain.selectedItemId = R.id.navigation_room
+                    changeFragmentNoBackStack(R.id.fragment_container_main, SeniorPersonalFragment())
+                }
+                else -> {
+                    changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                }
+            }
+        }
         binding.btNvMain.itemIconTintList = null
         binding.btNvMain.setOnItemSelectedListener { item ->
             when(item.itemId){
@@ -102,15 +119,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             true
         }
     }
-    //바텀 네비 아이템 클릭된 것 처럼 보이도록
-    private fun clickBottomNavItem(){
-        mainViewModel.bottomNavItem.observe(this){
-            Timber.d("bottomNavItem : $it")
-            if(it == 4){
-                binding.btNvMain.selectedItemId= R.id.navigation_mypage
-            }
-        }
-    }
+
+
+
 
 
     //과방 프레그먼트 전환
@@ -131,6 +142,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         })
     }
+    //프로필 및 닉네임 클릭시 전환되는 데이터 받아오는 부분
+    private fun initClickProfile(){
+        mainViewModel.bottomNavItem.value = intent.getIntExtra("bottomNavItem", -1)
+        mainViewModel.seniorId.value = intent.getIntExtra("seniorId", -1)
+        mainViewModel.initLoading.value = intent.getBooleanExtra("loading", false)
+    }
+
 
     //과방 뒤로가기 전환
     private fun classRoomBack(){
@@ -148,7 +166,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun getSignDataFromIntent() {
         // real code
         val signData = intent.getParcelableExtra<SignInData.User>("signData") as SignInData.User
-
+        MainGlobals.signInData = signData
         // null check
         mainViewModel.setSignData(signData)
 
