@@ -25,7 +25,7 @@ object BindingAdapter {
         if (date == null) {
             textView.text = ""
         } else {
-            val format = SimpleDateFormat("a HH:MM")
+            val format = SimpleDateFormat("yy/MM/dd")
             format.format(date).also { textView.text = it }
         }
     }
