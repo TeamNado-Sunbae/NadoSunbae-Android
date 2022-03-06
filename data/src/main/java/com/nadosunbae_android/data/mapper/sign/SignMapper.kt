@@ -126,4 +126,5 @@ object SignMapper {
             password = certificationEmailData.password
         )
     }
+
 }

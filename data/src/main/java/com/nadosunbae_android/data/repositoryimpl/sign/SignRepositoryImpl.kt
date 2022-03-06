@@ -49,4 +49,8 @@ class SignRepositoryImpl(private val signDataSource : SignDataSource) : SignRepo
             SignMapper.mapperToCertificationEmailItem(certificationEmailItem)
         ))
     }
+
+    override suspend fun postRenewalToken(refreshToken: String): SignInData {
+        return SignMapper.mapperToSignInData(signDataSource.postRenewalToken(refreshToken))
+    }
 }

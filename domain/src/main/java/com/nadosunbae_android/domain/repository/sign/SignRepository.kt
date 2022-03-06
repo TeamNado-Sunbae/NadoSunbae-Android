@@ -21,4 +21,7 @@ interface SignRepository {
     //이메일 재전송
     suspend fun postCertificationEmail(certificationEmailData: CertificationEmailData) : CertificationEmailItem
 
+    //토큰 재발급 및 자동 로그인
+    suspend fun postRenewalToken(refreshToken: String): SignInData
+
 }
