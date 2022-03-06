@@ -9,6 +9,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySplashBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.SplashViewModel
+import com.nadosunbae_android.app.presentation.ui.onboarding.OnBoardingActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
@@ -53,7 +54,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
                     putExtra("signData", splashViewModel.signIn.value?.user)
                 }
             }
-            else { Intent(this, SignInActivity::class.java) }
+            else { Intent(this, OnBoardingActivity::class.java) }
 
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
