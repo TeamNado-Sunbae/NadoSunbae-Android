@@ -506,6 +506,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
             putExtra("bottomNavItem", bottomNavItem)
             putExtra("signData", MainGlobals.signInData)
             putExtra("loading", false)
+            putExtra("seniorId", writerId)
         }
         ContextCompat.startActivity(context, intent, null)
     }

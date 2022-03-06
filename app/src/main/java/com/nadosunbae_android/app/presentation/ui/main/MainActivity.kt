@@ -36,6 +36,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         DateUtil.initTimeZone()
 
         initBottomNav()
+
         classRoomFragmentChange()
 
         initMajorList()
@@ -43,7 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getSignDataFromIntent()
         classRoomBack()
         // clickBottomNav()
-        clickBottomNavItem()
+
         myPageFragmentChange()
         initClickProfile()
     }
@@ -73,14 +74,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     //바텀네비
     private fun initBottomNav(){
+        //바텀 네비 아이템 클릭된 것 처럼 보이도록 ( 4-> 마이페이지, 2 -> 과방)
         // 첫 프래그먼트 설정 (닉네임 클릭시 마이페이지 및 선배 개인페이지를 위해)
         mainViewModel.bottomNavItem.observe(this){
-            if(it == 4){
-                changeFragmentNoBackStack(R.id.fragment_container_main, MyPageFragment())
-            }else if(it == 2){
-                changeFragmentNoBackStack(R.id.fragment_container_main, SeniorPersonalFragment())
-            }else{
-                changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+            when (it) {
+                4 -> {
+                    binding.btNvMain.selectedItemId= R.id.navigation_mypage
+                    changeFragmentNoBackStack(R.id.fragment_container_main, MyPageFragment())
+                }
+                2 -> {
+                    binding.btNvMain.selectedItemId = R.id.navigation_room
+                    changeFragmentNoBackStack(R.id.fragment_container_main, SeniorPersonalFragment())
+                }
+                else -> {
+                    changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                }
             }
         }
         binding.btNvMain.itemIconTintList = null
@@ -111,13 +119,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             true
         }
     }
-    //바텀 네비 아이템 클릭된 것 처럼 보이도록 ( 4-> 마이페이지, 2 -> 과방)
+
     private fun clickBottomNavItem(){
         mainViewModel.bottomNavItem.observe(this){
-            Timber.d("bottomNavItem : $it")
-            if(it == 4){
-                binding.btNvMain.selectedItemId= R.id.navigation_mypage
-            }
+
         }
     }
 
