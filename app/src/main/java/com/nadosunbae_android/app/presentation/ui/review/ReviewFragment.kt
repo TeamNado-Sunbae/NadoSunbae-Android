@@ -21,6 +21,7 @@ import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewListVie
 import com.nadosunbae_android.app.util.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
@@ -37,7 +38,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setBinding()
         setStickyHeader()
         initReviewListAdapter()
@@ -47,14 +47,12 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         observeSelectedMajor()
         observeFilter()
         observeSort()
-        observeLoadingEnd()
         initBottomSheet()
-
+        observeLoadingEnd()
     }
 
     override fun onResume() {
         super.onResume()
-
         observeUserMajor()
         observeIsReviewed()
         loadReviewList()
@@ -65,7 +63,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         binding.lifecycleOwner = viewLifecycleOwner
         binding.mainViewModel = mainViewModel
     }
-
 
 
     private fun observeReviewListData() {
@@ -329,7 +326,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         if (selectedMajorData != null) {
             val request = ReviewFilterItem(selectedMajorData.majorId, writerFilter, tagFilter)
 
-            showLoading() // 로딩 시작
+           showLoading() // 로딩 시작
             reviewListViewModel.getReviewList(request, sort)
         }
 

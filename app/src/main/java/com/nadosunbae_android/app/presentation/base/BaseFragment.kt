@@ -13,6 +13,7 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
+import timber.log.Timber
 
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) : Fragment() {
     private var _binding: T? = null
@@ -61,4 +62,6 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
         if (loadingDialog != null)
             loadingDialog!!.dismiss()
     }
+
+
 }
