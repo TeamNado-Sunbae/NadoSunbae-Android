@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageSettingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -12,13 +13,15 @@ import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageQuitItem
 import kotlinx.android.synthetic.main.activity_quit_alert_custom_dialog.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layout.fragment_my_page_setting) {
+class MyPageSettingFragment :
+    BaseFragment<FragmentMyPageSettingBinding>(R.layout.fragment_my_page_setting) {
 
     private val mainViewModel: MainViewModel by sharedViewModel()
     private val myPageViewModel: MyPageViewModel by viewModel()
@@ -29,7 +32,6 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
         quitBranchProcessing()
         observeLoadingEnd()
         changeActivity()
-        initLogOut()
         backBtn()
 
     }
@@ -74,10 +76,10 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
             dialog.showDialog()
             dialog.initBtnClickDialog(R.layout.activity_quit_alert_custom_dialog)
             dialog.editTextWatcher()
-            dialog.setOnClickListener(object : QuitAlertCustomDialog.ButtonClickListener{
+            dialog.setOnClickListener(object : QuitAlertCustomDialog.ButtonClickListener {
                 override fun onClicked(num: Int, toString: String) {
-                    if(num == 2) {
-                        if(toString != null) {
+                    if (num == 2) {
+                        if (toString != null) {
                             Log.d("입력된 PW", " : $toString")
                             myPageViewModel.deleteMyPageQuit(MyPageQuitItem(toString))
 
@@ -105,16 +107,22 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
             mainViewModel.mypageFragmentNum.value = 3
         }
 
+
+        //로그아웃
+        binding.textMypageSettingLogout.setOnClickListener {
+            logoutAlert()
+        }
+
     }
 
 
+    //회원 탈퇴 토스트메시지 + 분기처리
     private fun quitBranchProcessing() {
         myPageViewModel.reportStatusInfo.observe(viewLifecycleOwner) {
             if (it == 400) {
                 Log.d("회원탈퇴 서버통신 체크", "실패")
                 Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
-            }
-            else if(it == 200) {
+            } else if (it == 200) {
                 Log.d("회원탈퇴 서버통신 체크", "성공")
                 val intent = Intent(requireContext(), SignInActivity::class.java)
                 startActivity(intent)
@@ -123,28 +131,47 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
         }
     }
 
+
+    //로그아웃 서버통신
     private fun initLogOut() {
-        binding.textMypageSettingLogout.setOnClickListener {
-            myPageViewModel.postMyPageLogOut()
+        myPageViewModel.postMyPageLogOut()
+        val intent = Intent(getActivity(), SignInActivity::class.java)
+        myPageViewModel.logOut.observe(viewLifecycleOwner) {
+            if (it.success) {
+                showLoading()
+                startActivity(intent)
+                Log.d("로그아웃", "성공")
 
-            val intent = Intent(getActivity(), SignInActivity::class.java)
-
-            myPageViewModel.logOut.observe(viewLifecycleOwner) {
-                if(it.success) {
-                    showLoading()
-                    startActivity(intent)
-                    Log.d("로그아웃", "성공")
-
-                } else {
-                    Log.d("로그아웃", "실패")
-                }
+            } else {
+                Log.d("로그아웃", "실패")
             }
         }
     }
 
+
+    //로그아웃 알럿
+    private fun logoutAlert(): MutableLiveData<Boolean> {
+        val confirm = MutableLiveData<Boolean>()
+        CustomDialog(requireContext()).genericDialog(
+            CustomDialog.DialogData(
+                getString(R.string.logout_message),
+                getString(R.string.alert_modify_review_complete),
+                getString(R.string.alert_modify_review_cancel),
+            ),
+            complete = {
+                initLogOut()
+            },
+            cancel = {
+
+            }
+        )
+        return confirm
+    }
+
+
     override fun onResume() {
         super.onResume()
-        initLogOut()
+        //initLogOut()
     }
 
     //뒤로가기 버튼

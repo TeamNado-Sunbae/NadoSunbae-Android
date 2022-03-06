@@ -419,4 +419,8 @@
     <string name="quit_input_pw">비밀번호 입력</string>
 
 
+    <!-- 로그아웃 알럿 -->
+    <string name="logout_message">로그아웃 하시겠습니까?</string>
+
+
 </resources>

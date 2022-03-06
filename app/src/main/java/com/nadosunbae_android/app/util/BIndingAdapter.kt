@@ -159,7 +159,6 @@ object BindingAdapter {
     @BindingAdapter("questionCheck")
     fun getQuestionCheck(imageView : ImageView, question : Boolean){
         imageView.isSelected = question
-
     }
 
 
