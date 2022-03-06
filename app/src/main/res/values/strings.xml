@@ -412,5 +412,9 @@
     <!-- splash -->
     <string name="copyright">© nadosunbae</string>
 
+    <!-- 탈퇴 알럿 -->
+    <string name="quit_message">탈퇴하시겠습니까?</string>
+    <string name="quit_input_pw">비밀번호 입력</string>
+
 
 </resources>
