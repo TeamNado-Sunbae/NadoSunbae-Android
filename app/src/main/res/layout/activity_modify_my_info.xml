@@ -250,6 +250,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="66dp"
                     android:layout_marginRight="16dp"
+                    questionCheck="@{myPageInfo.data.isOnQuestion}"
                     android:background="@drawable/selector_ic_switch"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cl_my_page_nickname" />

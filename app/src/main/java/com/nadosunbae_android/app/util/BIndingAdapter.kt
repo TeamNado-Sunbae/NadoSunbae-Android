@@ -154,6 +154,14 @@ object BindingAdapter {
         }
     }
 
+    //마이페이지 수정 1:1질문 토글
+    @JvmStatic
+    @BindingAdapter("questionCheck")
+    fun getQuestionCheck(imageView : ImageView, question : Boolean){
+        imageView.isSelected = question
+
+    }
+
 
 
 
@@ -245,3 +253,4 @@ fun android.widget.Button.intToString(num: Int) {
 fun View.setSelected(selected: Boolean) {
     this.isSelected = selected
 }
+
