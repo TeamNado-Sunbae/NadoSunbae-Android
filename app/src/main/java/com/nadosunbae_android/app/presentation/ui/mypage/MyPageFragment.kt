@@ -1,9 +1,11 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageBinding
@@ -12,6 +14,7 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
+import kotlinx.coroutines.flow.callbackFlow
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -23,6 +26,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     private val mainViewModel: MainViewModel by sharedViewModel()
 
     private lateinit var myPageQuestionAdapter: MyPageMainAdapter
+    private lateinit var callback : OnBackPressedCallback
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -131,6 +135,24 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                if(mainViewModel.bottomNavItem.value == 4){
+                    mainViewModel.bottomNavItem.value = 3
+                }else{
+                    requireActivity().finish()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
 }
 
 

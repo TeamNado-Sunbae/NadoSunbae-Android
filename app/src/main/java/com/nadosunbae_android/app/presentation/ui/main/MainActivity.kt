@@ -86,6 +86,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     binding.btNvMain.selectedItemId = R.id.navigation_room
                     changeFragmentNoBackStack(R.id.fragment_container_main, SeniorPersonalFragment())
                 }
+                3 ->{
+                    binding.btNvMain.selectedItemId = R.id.navigation_room
+                }
+
                 else -> {
                     changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
                 }
@@ -186,11 +190,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun setDefaultMajor() {
         mainViewModel.signData.observe(this) {
             val signData = mainViewModel.signData.value
-
             // null check
             if (signData != null)
                 mainViewModel.setSelectedMajor(MajorSelectData(signData.firstMajorId, signData.firstMajorName))
-
         }
     }
 
