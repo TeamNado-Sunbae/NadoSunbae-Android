@@ -1,14 +1,18 @@
 package com.nadosunbae_android.app.presentation.ui.classroom.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.icu.text.Transliterator
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemInformationDetailBinding
+import com.nadosunbae_android.app.presentation.ui.main.MainActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.domain.model.classroom.InfoDetailData
 
 class ClassRoomInfoDetailAdapter(private var userId: Int, val context : Context) :
@@ -45,7 +49,10 @@ class ClassRoomInfoDetailAdapter(private var userId: Int, val context : Context)
                 infoDetailData[position].commentId
             )
         }
-
+        //닉네임 클릭시 마이페이지 또는 선배 개인페이지 이동
+        holder.binding.textInformationDetailCommentName.setOnClickListener {
+            goMyPage(holder.itemView.context, userId, infoDetailData[position].writerId)
+        }
 
     }
 
@@ -99,7 +106,28 @@ class ClassRoomInfoDetailAdapter(private var userId: Int, val context : Context)
 
     }
 
+    //닉네임 클릭시 마이페이지 또는 선배 페이지 이동
+    private fun goMyPage(context: Context, userId: Int, writerId: Int) {
+        var fragmentNum = -1
+        var bottomNavItem = -1
 
+        if (userId == writerId) {
+            fragmentNum = 6
+            bottomNavItem = 4
+        } else {
+            fragmentNum = 4
+            bottomNavItem = 2
+        }
+        val intent = Intent(context, MainActivity::class.java)
+        intent.apply {
+            putExtra("fragmentNum", fragmentNum)
+            putExtra("bottomNavItem", bottomNavItem)
+            putExtra("signData", MainGlobals.signInData)
+            putExtra("loading", false)
+            putExtra("seniorId", writerId)
+        }
+        ContextCompat.startActivity(context, intent, null)
+    }
 
 
 

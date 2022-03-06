@@ -69,6 +69,13 @@ class InfoDetailViewModel(
     private fun setPostLike(likeData : LikeData){
         _postLike.value = likeData
     }
+
+    //작성자 Id
+    var writerId = MutableLiveData<Int>()
+
+    //유저 Id
+    var userId = MutableLiveData<Int>()
+
     //신고 데이터
     private var _reportData = MutableLiveData<ReportData?>()
     val reportData : LiveData<ReportData?>

@@ -46,15 +46,15 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
 
     }
     //선배 Id = userId가 같을 경우 마이페이지로 이동
-    private fun goMyPage(seniorId : Int, seniorNum : Int){
+    private fun goMyPage(seniorId : Int){
         val userId = mainViewModel.userId.value ?: 0
         Timber.d("userId : $userId")
         Timber.d("seniorId : $seniorId")
         if(userId == seniorId){
             mainViewModel.bottomNavItem.value = 4
         }else{
-            mainViewModel.classRoomFragmentNum.value = seniorNum
-            mainViewModel.bottomNavItem.value = -1
+            mainViewModel.bottomNavItem.value = 2
+            mainViewModel.initLoading.value = true
         }
 
     }
@@ -75,9 +75,9 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         }
     }
     inner class DataToFragment{
-        fun getSeniorId(seniorNum : Int, seniorId : Int){
+        fun getSeniorId( seniorId : Int){
             mainViewModel.seniorId.value = seniorId
-            goMyPage(seniorId, seniorNum)
+            goMyPage(seniorId)
 
         }
     }

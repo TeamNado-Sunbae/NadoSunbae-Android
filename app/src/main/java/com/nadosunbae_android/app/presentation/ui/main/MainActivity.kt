@@ -80,7 +80,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             when (it) {
                 4 -> {
                     binding.btNvMain.selectedItemId= R.id.navigation_mypage
-                    changeFragmentNoBackStack(R.id.fragment_container_main, MyPageFragment())
+
                 }
                 2 -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_room
@@ -120,11 +120,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    private fun clickBottomNavItem(){
-        mainViewModel.bottomNavItem.observe(this){
 
-        }
-    }
+
 
 
     //과방 프레그먼트 전환
