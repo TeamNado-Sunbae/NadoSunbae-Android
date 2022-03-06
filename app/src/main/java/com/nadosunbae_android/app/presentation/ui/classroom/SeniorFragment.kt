@@ -56,7 +56,6 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
             mainViewModel.bottomNavItem.value = 2
             mainViewModel.initLoading.value = true
         }
-
     }
 
 

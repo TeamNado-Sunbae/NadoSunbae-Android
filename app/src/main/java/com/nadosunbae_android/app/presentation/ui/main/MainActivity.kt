@@ -143,6 +143,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 5 -> changeFragment(R.id.fragment_container_main, ClassRoomReviewFragment(),"classRoomReview")
 
                 6 -> changeFragment(R.id.fragment_container_main, MyPageFragment(), "myPage")
+
+                7 -> changeFragmentNoBackStack(R.id.fragment_container_main, SeniorFragment())
             }
         })
     }
