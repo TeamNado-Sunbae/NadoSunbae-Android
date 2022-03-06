@@ -45,7 +45,7 @@ class AuthInterceptor(
                 if (NadoSunBaeSharedPreference.getRefreshToken(appContext).isEmpty())     // refresh token 없으면 재발급 로직 실행 x -> 루프 방지
                     return response
 
-                val data: SignInData? = postRenewalData(appContext, chain)       // access token 재발급
+                val data: SignInData? = chain.postRenewalData(appContext)       // access token 재발급
 
                 if (data != null && data.success) {      // access token 재발급 성공
                     val newToken = data.accessToken
@@ -85,7 +85,7 @@ class AuthInterceptor(
         }
     }
 
-    private fun postRenewalData(context: Context, chain: Interceptor.Chain): SignInData? {
+    private fun Interceptor.Chain.postRenewalData(context: Context): SignInData? {
         val newRequest = Request.Builder()
             .url("${baseUrl}auth/renewal/token")
             .method("POST", "".toRequestBody())
@@ -94,7 +94,7 @@ class AuthInterceptor(
             .build()
 
         return try {
-            chain.proceed(newRequest).extractRenewalData()
+            this.proceed(newRequest).extractRenewalData()
         } catch (e: Exception) {
             null
         }

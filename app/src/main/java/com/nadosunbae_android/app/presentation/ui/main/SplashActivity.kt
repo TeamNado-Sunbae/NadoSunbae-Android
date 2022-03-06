@@ -32,6 +32,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         splashViewModel.signIn.observe(this) {
             if (it.success) {
                 loginSuccess = true
+                NadoSunBaeSharedPreference.setAccessToken(this, it.accessToken)
+                NadoSunBaeSharedPreference.setRefreshToken(this, it.refreshToken)
             }
         }
     }
