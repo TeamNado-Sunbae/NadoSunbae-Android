@@ -73,7 +73,7 @@ class MyPageSettingFragment : BaseFragment<FragmentMyPageSettingBinding>(R.layou
             val dialog = QuitAlertCustomDialog(requireActivity())
             dialog.showDialog()
             dialog.initBtnClickDialog(R.layout.activity_quit_alert_custom_dialog)
-
+            dialog.editTextWatcher()
             dialog.setOnClickListener(object : QuitAlertCustomDialog.ButtonClickListener{
                 override fun onClicked(num: Int, toString: String) {
                     if(num == 2) {

@@ -20,9 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp"
             android:fontFamily="@font/pretendard_regular"
-            android:text="정말로 탈퇴하시겠습니까? \n 탈퇴하시려면 비밀번호를 입력해주세요."
-            android:layout_marginRight="24dp"
-            android:layout_marginLeft="24dp"
+            android:text="@string/quit_message"
+            android:layout_marginRight="80dp"
+            android:layout_marginLeft="81dp"
             android:textAlignment="center"
             android:textColor="@color/main_text"
             android:textSize="14sp"
@@ -35,56 +35,71 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_border_gray_1_4"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp"
             android:inputType="textPassword"
             android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:paddingStart="4dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:hint="@string/quit_input_pw"
+            android:textSize="12sp"
+            android:paddingLeft="85dp"
+            android:paddingRight="85dp"
+            android:textAlignment="center"
+            android:textColorHint="@color/gray_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_dialog" />
 
-        <TextView
-            android:id="@+id/text_mypage_dialog_out"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginBottom="14dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rectangle_fill_gray0_12dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:paddingLeft="32dp"
-            android:paddingTop="15dp"
-            android:paddingRight="32dp"
-            android:paddingBottom="15dp"
-            android:text="취소"
-            android:textColor="@color/gray_3"
-            android:textSize="14sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
-
-
-        <TextView
-            android:id="@+id/text_mypage_dialog_in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
-            android:background="@drawable/rectangle_fill_black_12dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:paddingLeft="32dp"
-            android:paddingTop="15dp"
-            android:paddingRight="32dp"
-            android:paddingBottom="15dp"
-            android:text="확인"
-            android:textColor="@color/main_default"
-            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/text_mypage_dialog_out"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_dialog_out" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText">
+
+            <TextView
+                android:id="@+id/text_mypage_dialog_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_fill_gray0_12dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:paddingLeft="44dp"
+                android:paddingTop="15dp"
+                android:paddingRight="43dp"
+                android:paddingBottom="15dp"
+                android:text="취소"
+                android:textColor="@color/gray_3"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/text_mypage_dialog_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/selector_rectangle_gray_0_black_12"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingLeft="44dp"
+                android:paddingTop="15dp"
+                android:paddingRight="43dp"
+                android:paddingBottom="15dp"
+                android:text="확인"
+                android:textColor="@drawable/selector_text_gray_to_mint"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/text_mypage_dialog_out"
+                app:layout_constraintTop_toTopOf="@+id/text_mypage_dialog_out" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

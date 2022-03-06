@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.WindowManager
 import androidx.annotation.LayoutRes
@@ -23,7 +25,6 @@ class QuitAlertCustomDialog(val context: Context) {
         onClickedListener = listener
     }
 
-
     //버튼 클릭
     fun initBtnClickDialog(@LayoutRes layout: Int) {
         dialog.setContentView(layout)
@@ -31,7 +32,9 @@ class QuitAlertCustomDialog(val context: Context) {
             onClickedListener.onClicked(1, dialog.editText.text.toString())
             dialog.dismiss()
         }
+    }
 
+    private fun initInBtn() {
         dialog.text_mypage_dialog_in.setOnClickListener {
             Log.d("비밀번호", ":" + dialog.editText.text.toString())
             onClickedListener.onClicked(2, dialog.editText.text.toString())
@@ -52,14 +55,30 @@ class QuitAlertCustomDialog(val context: Context) {
         dialog.text_mypage_dialog_out.setOnClickListener {
             dialog.dismiss()
         }
+    }
 
-        dialog.text_mypage_dialog_in.setOnClickListener {
-            if (dialog.editText != null) {
-                Log.d("비밀번호", ":" + dialog.editText.text.toString())
+    fun editTextWatcher() {
+        dialog.editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
-            dialog.dismiss()
-        }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                if(dialog.editText.text.toString() == "") {
+                    dialog.text_mypage_dialog_in.isSelected = false
+                    dialog.text_mypage_dialog_in.isEnabled = false
+                } else {
+                    dialog.text_mypage_dialog_in.isSelected = true
+                    dialog.text_mypage_dialog_in.isEnabled = true
+                    initInBtn()
+                }
+            }
+
+        })
     }
 
 }
