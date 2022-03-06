@@ -14,6 +14,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewMod
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
@@ -25,17 +26,26 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initLoadingDismiss()
         observeLoadingEnd()
         initAskPersonal()
         movePage()
         initPersonalInfo()
+
     }
 
     private fun observeLoadingEnd() {
         myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+                dismissLoading()
+        }
+    }
+
+    private fun initLoadingDismiss(){
+        mainViewModel.initLoading.observe(viewLifecycleOwner){
+            Timber.d("프로필 및 닉네임 클릭시 전환되는 MyPage")
             dismissLoading()
         }
+
     }
 
 

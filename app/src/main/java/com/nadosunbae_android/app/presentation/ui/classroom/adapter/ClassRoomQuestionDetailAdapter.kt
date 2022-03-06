@@ -13,6 +13,8 @@ import com.nadosunbae_android.app.databinding.ItemQuestionDetailQuestionerBindin
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 
@@ -117,6 +119,10 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         write
                     )
                 }
+                //닉네임 클릭시 마이페이지 또는 선배 개인페이지 이동
+                holder.binding.textQuestionDetailWriterName.setOnClickListener {
+                    goMyPage(holder.itemView.context, userId, questionDetailData[position].writerId)
+                }
 
                 //수정일 경우 띄우기
                 if (menuNum == 1) {
@@ -140,7 +146,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     val dialog = CustomDialog(holder.itemView.context)
                     dialog.reportDialog(holder.itemView.context)
                     dialog.setReportClickListener(
-                        object : CustomDialog.ReportClickListener{
+                        object : CustomDialog.ReportClickListener {
                             override fun reportClick(text: String) {
                                 reportListener.onReport(text, classRoom)
                             }
@@ -156,6 +162,11 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 if (questionDetailData[position].secondMajorName == "미진입") {
                     holder.binding.includeQuestionDetailQuestionerText.textQuestionDetailQuestionerSecondStartMajor.visibility =
                         View.GONE
+                }
+
+                //닉네임 클릭시 마이페이지 또는 선배 개인페이지 이동
+                holder.binding.includeQuestionDetailQuestionerText.textQuestionDetailQuestionerName.setOnClickListener {
+                    goMyPage(holder.itemView.context, userId, questionDetailData[position].writerId)
                 }
 
                 holder.binding.includeQuestionDetailQuestionerText.imgQuestionDetailQuestionerMenu.setOnClickListener {
@@ -179,15 +190,13 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     val dialog = CustomDialog(holder.itemView.context)
                     dialog.reportDialog(holder.itemView.context)
                     dialog.setReportClickListener(
-                        object : CustomDialog.ReportClickListener{
+                        object : CustomDialog.ReportClickListener {
                             override fun reportClick(text: String) {
                                 reportListener.onReport(text, classRoomComment)
                             }
                         }
                     )
                 }
-
-
 
 
                 //저장 버튼 누르기
@@ -214,6 +223,12 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     holder.binding.includeQuestionDetailCommentText.textQuestionDetailWriterCommentSecondStartMajor.visibility =
                         View.GONE
                 }
+
+                //닉네임 클릭시 마이페이지 또는 선배 개인페이지 이동
+                holder.binding.includeQuestionDetailCommentText.textQuestionDetailWriterCommentName.setOnClickListener {
+                    goMyPage(holder.itemView.context, userId, questionDetailData[position].writerId)
+                }
+
                 holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu.setOnClickListener {
                     itemClickListener.onClick(
                         it,
@@ -235,7 +250,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     val dialog = CustomDialog(holder.itemView.context)
                     dialog.reportDialog(holder.itemView.context)
                     dialog.setReportClickListener(
-                        object : CustomDialog.ReportClickListener{
+                        object : CustomDialog.ReportClickListener {
                             override fun reportClick(text: String) {
                                 reportListener.onReport(text, classRoomComment)
                             }
@@ -446,15 +461,16 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     private lateinit var updateListener: UpdateListener
 
     //글 신고 (divisionNum -> 후기글, 과방글, 댓글 구분)
-    interface ReportListener{
-        fun onReport(text : String, divisionNum : Int)
+    interface ReportListener {
+        fun onReport(text: String, divisionNum: Int)
     }
 
-    private lateinit var reportListener : ReportListener
+    private lateinit var reportListener: ReportListener
 
-    fun setReportListener(reportListener : ReportListener){
+    fun setReportListener(reportListener: ReportListener) {
         this.reportListener = reportListener
     }
+
     // writer(질문자) -> 1, questioner -> 2, thirdParty -> 3
     private fun lookForThirdParty(userId: Int, position: Int): Int {
         Log.d("questionOneToUserId", userId.toString())
@@ -470,6 +486,28 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 return thirdParty
             }
         }
+    }
+
+    //닉네임 클릭시 마이페이지 또는 선배 페이지 이동
+    private fun goMyPage(context: Context, userId: Int, writerId: Int) {
+        var fragmentNum = -1
+        var bottomNavItem = -1
+
+        if (userId == writerId) {
+            fragmentNum = 6
+            bottomNavItem = 4
+        } else {
+            fragmentNum = 4
+            bottomNavItem = 2
+        }
+        val intent = Intent(context, MainActivity::class.java)
+        intent.apply {
+            putExtra("fragmentNum", fragmentNum)
+            putExtra("bottomNavItem", bottomNavItem)
+            putExtra("signData", MainGlobals.signInData)
+            putExtra("loading", false)
+        }
+        ContextCompat.startActivity(context, intent, null)
     }
 
 
