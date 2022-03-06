@@ -11,6 +11,7 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.mypage.MyPageClassroomReviewActivity
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
@@ -39,7 +40,7 @@ class SeniorPersonalFragment :
         questionSort()
         initQuestionSort()
         observeArray()
-
+        goMyPageClassRoomReview()
     }
 
     //선배에게 온 1:1 질문 목록
@@ -50,6 +51,18 @@ class SeniorPersonalFragment :
             Log.d("seniorQuestionAdapter", "좀 되라")
             classRoomQuestionMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
         }
+    }
+
+    //학과 후기로 이동
+    private fun goMyPageClassRoomReview(){
+        binding.clSeniorPersonalClassReview.setOnClickListener {
+            val intent = Intent(requireActivity(), MyPageClassroomReviewActivity::class.java)
+            intent.apply {
+                putExtra("userId", seniorPersonalViewModel.userId.value)
+            }
+            requireActivity().startActivity(intent)
+        }
+
 
 
     }
