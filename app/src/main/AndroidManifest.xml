@@ -14,6 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid"
         android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".presentation.ui.onboarding.OnBoardingActivity"
+            android:exported="true" />
+
         <activity
             android:name=".presentation.ui.main.SplashActivity"
             android:exported="true">
@@ -23,9 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.ui.mypage.QuitAlertCustomDialog"
-            android:exported="false" />
+
+
         <activity
             android:name=".presentation.ui.mypage.ChangePwFinishActivity"
             android:exported="false" />
@@ -81,7 +85,8 @@
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing" />
+
         <activity
             android:name=".presentation.ui.mypage.ServiceInqueryActivity"
             android:exported="false" />
