@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.di
 
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.*
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.main.viewmodel.SplashViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.notification.viewmodel.NotificationViewModel
 import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewDetailViewModel
@@ -41,5 +42,8 @@ val viewModelModule = module {
     //sign
     viewModel { SignUpBasicInfoViewModel(get(),get(),get(),get(),get(),get(), get())}
     viewModel { SignViewModel()}
+
+    //splash
+    viewModel { SplashViewModel(get()) }
 
 }

@@ -3,6 +3,8 @@ package com.nadosunbae_android.app.presentation.ui.main
 import android.os.Bundle
 import androidx.core.view.doOnAttach
 import androidx.lifecycle.Observer
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import androidx.viewpager2.widget.ViewPager2
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
@@ -60,6 +62,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
      } */
 
+    private fun firebaseLogTab(tab: String) {
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, getString(R.string.ga_activity_main))
+            param(FirebaseAnalytics.Param.SCREEN_NAME, tab)
+        }
+    }
+
 
     //바텀네비
     private fun initBottomNav(){
@@ -70,19 +79,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             when(item.itemId){
                 R.id.navigation_review -> {
                     changeFragmentNoBackStack(R.id.fragment_container_main,ReviewFragment())
+                    firebaseLogTab(getString(R.string.ga_tab_review))
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_room -> {
                     mainViewModel.classRoomNum.value = 1
                     changeFragmentNoBackStack(R.id.fragment_container_main,ClassRoomFragment())
+                    firebaseLogTab(getString(R.string.ga_tab_classroom))
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_notice -> {
                     changeFragmentNoBackStack(R.id.fragment_container_main,NotificationFragment())
+                    firebaseLogTab(getString(R.string.ga_tab_notification))
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_mypage -> {
                     changeFragmentNoBackStack(R.id.fragment_container_main,MyPageFragment())
+                    firebaseLogTab(getString(R.string.ga_tab_mypage))
                     return@setOnItemSelectedListener true
                 }
             }

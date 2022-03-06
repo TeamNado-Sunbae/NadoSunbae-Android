@@ -9,19 +9,19 @@ import com.nadosunbae_android.domain.model.sign.*
 import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.sign.GetSecondDepartmentUseCase
 import com.nadosunbae_android.domain.usecase.sign.PostCertificationEmailUseCase
+import com.nadosunbae_android.domain.usecase.sign.PostRenewalTokenUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SignUpBasicInfoViewModel(
-    val getFirstDepartmentUseCase: GetFirstDepartmentUseCase,
-    val getSecondDepartmentUseCase: GetSecondDepartmentUseCase,
-    val postSignEmailUseCase: PostSignEmailUseCase,
-    val postSignInUseCase: PostSignInUseCase,
-    val postSignNicknameUseCase: PostSignNicknameUseCase,
-    val postSignUpUseCase: PostSignUpUseCase,
-    val postCertificationEmailUseCase: PostCertificationEmailUseCase
-
+    private val getFirstDepartmentUseCase: GetFirstDepartmentUseCase,
+    private val getSecondDepartmentUseCase: GetSecondDepartmentUseCase,
+    private val postSignEmailUseCase: PostSignEmailUseCase,
+    private val postSignInUseCase: PostSignInUseCase,
+    private val postSignNicknameUseCase: PostSignNicknameUseCase,
+    private val postSignUpUseCase: PostSignUpUseCase,
+    private val postCertificationEmailUseCase: PostCertificationEmailUseCase
 ) : ViewModel() {
     //닉네임 중복 체크 변수
     var nicknameDuplicationCheck: MutableLiveData<NicknameDuplicationCheck> = MutableLiveData()
@@ -211,4 +211,5 @@ class SignUpBasicInfoViewModel(
                 }
         }
     }
+
 }

@@ -37,4 +37,9 @@ interface SignService {
         @Body requestCertificationEmail: RequestCertificationEmail
     ) : ResponseCertificationEmail
 
+    @POST("auth/renewal/token")
+    suspend fun postRenewalToken(
+        @Header("refreshtoken") refreshToken: String
+    ) : ResponseSignIn
+
 }

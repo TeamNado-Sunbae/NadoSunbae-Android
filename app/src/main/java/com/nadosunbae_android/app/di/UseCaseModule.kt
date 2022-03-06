@@ -11,6 +11,7 @@ import com.nadosunbae_android.domain.usecase.notification.ReadNotificationUseCas
 import com.nadosunbae_android.domain.usecase.review.*
 import com.nadosunbae_android.domain.usecase.sign.GetSecondDepartmentUseCase
 import com.nadosunbae_android.domain.usecase.sign.PostCertificationEmailUseCase
+import com.nadosunbae_android.domain.usecase.sign.PostRenewalTokenUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module{
@@ -43,6 +44,7 @@ val useCaseModule = module{
     single {PostSignUpUseCase(get())}
     single { GetSecondDepartmentUseCase(get()) }
     single {PostCertificationEmailUseCase(get())}
+    single {PostRenewalTokenUseCase(get())}
 
     // main
     single {GetMajorListDataUseCase(get())}

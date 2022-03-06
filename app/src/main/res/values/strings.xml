@@ -42,7 +42,7 @@
 
 
     <!-- 로그인 view -->
-    <string name="sign_in_subtitle">다양한 학과 정보를 공유해요!</string>
+    <string name="sign_in_subtitle">학과 후기 열람부터 전공생과의 질의응답까지!</string>
     <string name="sign_in_pw">비밀번호</string>
     <string name="sign_in_signup">회원가입</string>
     <string name="sign_in_question">문의하기</string>
@@ -401,5 +401,16 @@
 
     <string name="onboarding_info_title">다양한 정보 공유까지 !</string>
     <string name="onboarding_info_subtext">학과 공지사항, 족보 등의 유용한 자료들이\n정보 게시판에 학과 별로 누적되고 있어요.</string>
+
+    <!-- firebase analytics -->
+    <string name="ga_activity_main">MainActivity</string>
+    <string name="ga_tab_review">Review Tab</string>
+    <string name="ga_tab_classroom">ClassRoom Tab</string>
+    <string name="ga_tab_notification">Notification Tab</string>
+    <string name="ga_tab_mypage">MyPage Tab</string>
+
+    <!-- splash -->
+    <string name="copyright">© nadosunbae</string>
+
 
 </resources>
