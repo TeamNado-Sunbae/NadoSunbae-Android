@@ -45,6 +45,9 @@ class MainViewModel(
     //과방탭 1:1 선배 Id
     var seniorId  = MutableLiveData<Int>()
 
+    //마이페이지탭 뒤로가기 전환
+    var myPageFragmentNum = MutableLiveData<Int>()
+
     //닉네임 클릭시 Loading 부분
     var initLoading = MutableLiveData<Boolean>()
 

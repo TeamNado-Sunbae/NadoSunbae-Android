@@ -47,9 +47,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getSignDataFromIntent()
         classRoomBack()
         // clickBottomNav()
-
         myPageFragmentChange()
+        myPageBack()
         initClickProfile()
+
     }
 
 
@@ -208,7 +209,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 1 -> changeFragment(R.id.fragment_container_main, MyPageSettingFragment(), "myPageSetting")
                 2 -> changeFragment(R.id.fragment_container_main, AppInfoFragment(), "myPageAppInfo")
                 3 -> changeFragment(R.id.fragment_container_main, MyPageBlockFragment(), "myPageBlock")
+                4 -> changeFragment(R.id.fragment_container_main, MyPageFragment(), "myPageMain")
             }
         }
+    }
+
+
+    //마이페이지 뒤로가기 전환
+    private fun myPageBack(){
+        mainViewModel.myPageFragmentNum.observe(this){
+            when (it) {
+                1 -> popFragmentBackStack("myPageSetting")
+                2 -> popFragmentBackStack("myPageAppInfo")
+                3 -> popFragmentBackStack("myPageBlock")
+                4 -> popFragmentBackStack("")
+            }
+
+        }
+
     }
 }

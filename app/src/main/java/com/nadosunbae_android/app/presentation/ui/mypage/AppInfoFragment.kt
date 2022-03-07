@@ -59,7 +59,7 @@ class AppInfoFragment : BaseFragment<ActivityAppInfoBinding>(R.layout.activity_a
 
     private fun backBtn() {
         binding.imgMypageAppInfoMovePage.setOnClickListener {
-            mainViewModel.mypageFragmentNum.value = 1
+            mainViewModel.myPageFragmentNum.value = 2
         }
     }
 

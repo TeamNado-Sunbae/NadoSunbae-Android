@@ -126,6 +126,7 @@ class MyPageSettingFragment :
                 Log.d("회원탈퇴 서버통신 체크", "성공")
                 val intent = Intent(requireContext(), SignInActivity::class.java)
                 startActivity(intent)
+                activity?.finish()
                 Toast.makeText(context, "탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show()
             }
         }
@@ -160,6 +161,7 @@ class MyPageSettingFragment :
             ),
             complete = {
                 initLogOut()
+                activity?.finish()
             },
             cancel = {
 
@@ -177,7 +179,7 @@ class MyPageSettingFragment :
     //뒤로가기 버튼
     private fun backBtn() {
         binding.imgMypageSettingMovePage.setOnClickListener {
-            mainViewModel.classRoomFragmentNum.value = 6
+            mainViewModel.myPageFragmentNum.value = 1
         }
     }
 
