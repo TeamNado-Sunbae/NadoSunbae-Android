@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Companion.MODE_MODIFY
 import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewTagBoxAdapter
 import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewDetailViewModel
@@ -103,9 +105,8 @@ class ReviewDetailActivity :
 
         // 선배 프로필
         binding.clReviewWriterInfo.setOnClickListener {
-
             if (userId == writerId) {       // 자신의 마이페이지로 이동
-
+                setResult(ReviewFragment.GOTO_MYPAGE)
                 finish()
             } else {                        // 해당 선배의 페이지로 이동
                 val intent = Intent(this, SeniorPersonalActivity::class.java).apply {
