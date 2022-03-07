@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.annotation.LayoutRes
@@ -36,6 +37,14 @@ class CustomDialog(val context : Context) {
 
     fun setReportClickListener(listener : ReportClickListener){
         reportClickListener = listener
+    }
+
+    fun setReportClickAction(action: (String) -> Unit) {
+        reportClickListener = object : ReportClickListener {
+            override fun reportClick(text: String) {
+                action(text)
+            }
+        }
     }
 
     //작성 취소
@@ -141,7 +150,7 @@ class CustomDialog(val context : Context) {
         val cancel: String
     )
 
-    fun reportDialog(context : Context) {
+    fun reportDialog() : CustomDialog {
         val binding = DialogReportBinding.inflate(LayoutInflater.from(context))
 
 
@@ -175,13 +184,9 @@ class CustomDialog(val context : Context) {
             dialog.dismiss()
         }
 
-
+        return this
     }
-
-
-
 }
-
 
 fun BottomSheetDialogFragment.finish() {
     activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()

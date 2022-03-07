@@ -144,7 +144,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                     activity.finish()
                 } else if (menuNum == 2) {
                     val dialog = CustomDialog(holder.itemView.context)
-                    dialog.reportDialog(holder.itemView.context)
+                    dialog.reportDialog()
                     dialog.setReportClickListener(
                         object : CustomDialog.ReportClickListener {
                             override fun reportClick(text: String) {
@@ -188,7 +188,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 //댓글 신고
                 if (menuNum == 2) {
                     val dialog = CustomDialog(holder.itemView.context)
-                    dialog.reportDialog(holder.itemView.context)
+                    dialog.reportDialog()
                     dialog.setReportClickListener(
                         object : CustomDialog.ReportClickListener {
                             override fun reportClick(text: String) {
@@ -248,7 +248,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 //댓글 신고
                 if (menuNum == 2) {
                     val dialog = CustomDialog(holder.itemView.context)
-                    dialog.reportDialog(holder.itemView.context)
+                    dialog.reportDialog()
                     dialog.setReportClickListener(
                         object : CustomDialog.ReportClickListener {
                             override fun reportClick(text: String) {

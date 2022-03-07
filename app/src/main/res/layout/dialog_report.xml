@@ -4,7 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp">
+        android:paddingStart="20dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/text_report_reason"
@@ -13,78 +14,89 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:text="@string/report_reason"
-            android:textSize="20sp"
-            android:fontFamily="@font/pretendard_bold"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:id="@+id/text_report_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/text_report_reason"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/report_one"
             android:textSize="18sp"
-            android:fontFamily="@font/pretendard_regular"
-            android:layout_marginStart="10dp"
+            android:textColor="@color/gray_4"
+            android:fontFamily="@font/pretendard_semibold"
             android:layout_marginTop="20dp" />
 
         <TextView
+            android:id="@+id/text_report_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/report_one"
+            android:textColor="@color/main_text"
+            android:textSize="14sp"
+            android:paddingVertical="10dp"
+            android:focusable="true"
+            app:layout_constraintStart_toStartOf="@+id/text_report_reason"
+            app:layout_constraintTop_toBottomOf="@+id/text_report_reason" />
+
+        <TextView
             android:id="@+id/text_report_two"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/text_report_one"
             app:layout_constraintStart_toStartOf="@+id/text_report_one"
             android:text="@string/report_two"
-            android:textSize="18sp"
-            android:fontFamily="@font/pretendard_regular"
-            android:layout_marginTop="20dp" />
+            android:textColor="@color/main_text"
+            android:textSize="14sp"
+            android:paddingVertical="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/pretendard_regular" />
 
         <TextView
             android:id="@+id/text_report_three"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/text_report_two"
             app:layout_constraintStart_toStartOf="@+id/text_report_one"
             android:text="@string/report_three"
-            android:textSize="18sp"
-            android:fontFamily="@font/pretendard_regular"
-            android:layout_marginTop="20dp" />
+            android:textColor="@color/main_text"
+            android:textSize="14sp"
+            android:paddingVertical="10dp"
+            android:focusable="true"
+            android:fontFamily="@font/pretendard_regular" />
 
         <TextView
             android:id="@+id/text_report_four"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/text_report_three"
             app:layout_constraintStart_toStartOf="@+id/text_report_one"
             android:text="@string/report_four"
-            android:textSize="18sp"
-            android:fontFamily="@font/pretendard_regular"
-            android:layout_marginTop="20dp" />
+            android:textColor="@color/main_text"
+            android:textSize="14sp"
+            android:paddingVertical="10dp"
+            android:focusable="true"
+            android:fontFamily="@font/pretendard_regular" />
 
         <TextView
             android:id="@+id/text_report_five"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/text_report_four"
             app:layout_constraintStart_toStartOf="@+id/text_report_one"
             android:text="@string/report_five"
-            android:textSize="18sp"
-            android:fontFamily="@font/pretendard_regular"
-            android:layout_marginTop="20dp" />
+            android:textColor="@color/main_text"
+            android:textSize="14sp"
+            android:paddingVertical="10dp"
+            android:focusable="true"
+            android:fontFamily="@font/pretendard_regular" />
 
         <TextView
             android:id="@+id/text_report_six"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/text_report_five"
             app:layout_constraintStart_toStartOf="@+id/text_report_one"
             android:text="@string/report_six"
-            android:textSize="18sp"
-            android:fontFamily="@font/pretendard_regular"
-            android:layout_marginTop="20dp"
-            />
-
+            android:textColor="@color/main_text"
+            android:textSize="14sp"
+            android:paddingVertical="10dp"
+            android:focusable="true"
+            android:fontFamily="@font/pretendard_regular" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
