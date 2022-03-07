@@ -13,22 +13,58 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.nadosunbae_android.app.R
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
 object BindingAdapter {
+    const val SEC = 60
+    const val MIN = 60
+    const val HOUR = 24
+    const val DAY = 30
+
 
     //날짜 변환
     @JvmStatic
-    @BindingAdapter("dateToText")
-    fun getDateToText(textView: TextView, date: Date?) {
-        if (date == null) {
-            textView.text = ""
-        } else {
-            val format = SimpleDateFormat("a HH:MM")
-            format.format(date).also { textView.text = it }
+    @BindingAdapter("dateToTextMinute")
+    fun getDateToTextMinute(textView: TextView, date: Date?) {
+        val format = SimpleDateFormat("yy/MM/dd")
+        val currentTime = System.currentTimeMillis()
+        var diffTime = (currentTime - date!!.time) / 1000
+
+        val minuteFormat = SimpleDateFormat("mm")
+        val hourFormat = SimpleDateFormat("hh")
+        when {
+            (diffTime) < SEC -> {
+                textView.text = "방금 전"
+            }
+            (diffTime / SEC) < MIN -> {
+                diffTime /= SEC
+                minuteFormat.format(diffTime).also { textView.text = "$it 분전" }
+            }
+            (diffTime / MIN) < HOUR -> {
+                diffTime /= MIN
+                hourFormat.format(diffTime).also{textView.text = "$it 시간전"}
+            }
+            else -> {
+                format.format(date).also{textView.text = it}
+            }
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("dateToText")
+    fun getDateToText(textView: TextView, date: Date?) {
+        val format = SimpleDateFormat("yy/MM/dd")
+        if(date == null){
+            textView.text = ""
+        }else{
+            format.format(date).also{textView.text = it}
+        }
+
+
+    }
+
 
     @JvmStatic
     @BindingAdapter("intToText")
@@ -41,25 +77,27 @@ object BindingAdapter {
     fun plusStart(textView: TextView, text: String): String {
         return (text + "진입").also { textView.text = it }
     }
+
     //좋아요 selector
     @JvmStatic
     @BindingAdapter("likeCheck")
-    fun getLikeCheck(imageView : ImageView, like : Boolean){
+    fun getLikeCheck(imageView: ImageView, like: Boolean) {
         imageView.isSelected = like
 
     }
+
     @JvmStatic
     @BindingAdapter("int", "nickname", requireAll = false)
     fun notification(textView: TextView, int: Int, nickname: String): SpannableStringBuilder {
-        val param = listOf("","1:1질문", "작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글" )
+        val param = listOf("", "1:1질문", "작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글")
         val text = listOf(
-            "","마이페이지에 ${nickname}이 1:1질문을 남겼습니다.",
+            "", "마이페이지에 ${nickname}이 1:1질문을 남겼습니다.",
             "작성하신 질문글에 ${nickname}이 답글을 남겼습니다",
             "작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
             "답글을 작성하신 질문글에 ${nickname}이 답글을 남겼습니다.",
             "답글을 작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
 
-        )
+            )
         var content = param[int]
         var start = text[int].indexOf(content)
         var end = start + content.length
@@ -75,27 +113,27 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("notificationOval")
     fun notificationOval(imageView: ImageView, isRead: Boolean) {
-        if (isRead){
+        if (isRead) {
             imageView.visibility = View.GONE
-        } else{
+        } else {
             imageView.visibility = View.VISIBLE
         }
     }
-    
+
     //댓글 개수 보이게
     @JvmStatic
     @BindingAdapter("commentCount")
-    fun commentCount(textView : TextView, text : Int){
+    fun commentCount(textView: TextView, text: Int) {
         textView.text = "댓글 ${text}개"
     }
 
     //작성자 처리
     @JvmStatic
     @BindingAdapter("writerVisible")
-    fun writerVisible(textView : TextView, isPosterWriter : Boolean){
-        if(isPosterWriter){
+    fun writerVisible(textView: TextView, isPosterWriter: Boolean) {
+        if (isPosterWriter) {
             textView.visibility = View.VISIBLE
-        }else{
+        } else {
             textView.visibility = View.GONE
         }
     }
@@ -103,7 +141,7 @@ object BindingAdapter {
     //프로필 이미지72
     @JvmStatic
     @BindingAdapter("profileImgBig")
-    fun setProfileImgBig(imageView : ImageView, imageId : Int){
+    fun setProfileImgBig(imageView: ImageView, imageId: Int) {
         when (imageId) {
             1 -> imageSelect(imageView, R.drawable.mask_group_1)
             2 -> imageSelect(imageView, R.drawable.mask_group_2)
@@ -112,10 +150,11 @@ object BindingAdapter {
             5 -> imageSelect(imageView, R.drawable.mask_group_5)
         }
     }
+
     @JvmStatic
     @BindingAdapter("profileImgSmall")
-    fun setProfileImgSmall(imageView : ImageView, imageId : Int){
-        when(imageId){
+    fun setProfileImgSmall(imageView: ImageView, imageId: Int) {
+        when (imageId) {
             1 -> imageSelect(imageView, R.drawable.mask_group_1_64)
             2 -> imageSelect(imageView, R.drawable.mask_group_2_64)
             3 -> imageSelect(imageView, R.drawable.mask_group_3_64)
@@ -123,7 +162,8 @@ object BindingAdapter {
             5 -> imageSelect(imageView, R.drawable.mask_group_5_64)
         }
     }
-    fun imageSelect(imageView : ImageView, image : Int){
+
+    fun imageSelect(imageView: ImageView, image: Int) {
         Glide.with(imageView.context)
             .load(image)
             .override(72.dpToPx, 72.dpToPx)
@@ -133,23 +173,22 @@ object BindingAdapter {
     // 1:1질문, 전체 질문 댓글 isDelete 여부(update랑, text) -> 일반 댓글 표시
     @JvmStatic
     @BindingAdapter("isDeleteTextUpdate")
-    fun isDeleteTextUpdate(layout : ConstraintLayout, isDelete : Boolean){
-        if(!isDelete){
+    fun isDeleteTextUpdate(layout: ConstraintLayout, isDelete: Boolean) {
+        if (!isDelete) {
             layout.visibility = View.VISIBLE
-        }else{
+        } else {
             layout.visibility = View.GONE
         }
     }
 
 
-
     // 1:1질문, 전체 질문 댓글 isDelete 여부(delete) -> 삭제된 댓글 표시
     @JvmStatic
     @BindingAdapter("isDeleteComment")
-    fun isDelete(layout : ConstraintLayout, isDelete : Boolean){
-        if(isDelete){
+    fun isDelete(layout: ConstraintLayout, isDelete: Boolean) {
+        if (isDelete) {
             layout.visibility = View.VISIBLE
-        }else{
+        } else {
             layout.visibility = View.GONE
         }
     }
@@ -157,11 +196,9 @@ object BindingAdapter {
     //마이페이지 수정 1:1질문 토글
     @JvmStatic
     @BindingAdapter("questionCheck")
-    fun getQuestionCheck(imageView : ImageView, question : Boolean){
+    fun getQuestionCheck(imageView: ImageView, question: Boolean) {
         imageView.isSelected = question
     }
-
-
 
 
 }
@@ -195,7 +232,6 @@ fun ImageView.loadImageFromUrl(url: String?) {
         .load(url)
         .into(this)
 }
-
 
 
 @BindingAdapter("loadImageFromId")
