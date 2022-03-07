@@ -43,12 +43,7 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
         }
     }
 
-    override fun getItemCount() : Int {
-        return myPageMainData.size
-        if(myPageMainData.size == 0) {
-            val binding : ItemMypagePersonalQuestionBinding
-        }
-    }
+    override fun getItemCount(): Int = myPageMainData.size
 
 
     inner class MyPageMainViewHolder(

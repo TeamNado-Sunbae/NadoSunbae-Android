@@ -96,6 +96,7 @@
             app:layout_constraintStart_toEndOf="@+id/text_mypage_like_question"
             app:layout_constraintTop_toTopOf="@+id/text_mypage_like_question" />
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_mypage_like"
             android:layout_width="match_parent"

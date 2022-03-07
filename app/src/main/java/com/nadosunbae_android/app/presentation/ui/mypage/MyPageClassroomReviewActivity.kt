@@ -44,6 +44,14 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
         }
     }
 
+    //정보 엠티뷰
+    private fun initReviewEmpty(size : Int){
+        if(size == 0){
+            binding.textReviewEmpty.visibility = View.VISIBLE
+        }else{
+            binding.textReviewEmpty.visibility = View.GONE
+        }
+    }
 
     private fun initNickName(){
         binding.textMypageReviewNickname.setText(intent.getStringExtra("userNickName"))
@@ -61,6 +69,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
         myPageReviewAdapter = MyPageReviewAdapter()
         binding.rvMypageReview.adapter = myPageReviewAdapter
         myPageViewModel.reviewList.observe(this) {
+            initReviewEmpty(it.data.reviewPostList.size)
             myPageReviewAdapter.setReviewListData((it.data.reviewPostList) as MutableList<MyPageReviewData.Data.ReviewPost>)
         }
     }

@@ -425,5 +425,10 @@
     <!-- 로그아웃 알럿 -->
     <string name="logout_message">로그아웃 하시겠습니까?</string>
 
+    <!-- 빈 리스트 -->
+    <string name="empty_question">등록된 질문글이 없습니다.</string>
+    <string name="empty_info">등록된 정보글이 없습니다.</string>
+    <string name="empty_review">등록된 후기글이 없습니다.</string>
+
 
 </resources>

@@ -42,6 +42,28 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
         }
     }
 
+    //질문 엠티뷰
+    private fun initQuestionEmpty(size : Int){
+        if(size == 0){
+            binding.textQuestionEmpty.visibility = View.VISIBLE
+            binding.textInfoEmpty.visibility = View.GONE
+        }else{
+            binding.textQuestionEmpty.visibility = View.GONE
+            binding.textInfoEmpty.visibility = View.GONE
+        }
+    }
+
+    //정보 엠티뷰
+    private fun initInfoEmpty(size : Int){
+        if(size == 0){
+            binding.textInfoEmpty.visibility = View.VISIBLE
+            binding.textQuestionEmpty.visibility = View.GONE
+        }else{
+            binding.textInfoEmpty.visibility = View.GONE
+            binding.textQuestionEmpty.visibility = View.GONE
+        }
+    }
+
 
 
     private fun backBtn() {
@@ -110,6 +132,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
         binding.rvMypageQuestion.adapter = myPagePostAdapter
 
         myPageViewModel.postByMe.observe(this) {
+            initQuestionEmpty(it.data.classroomPostList.size)
             myPagePostAdapter.setQuestionPost((it.data.classroomPostList) as MutableList<MyPagePostData.Data.ClassroomPost>)
         }
     }
@@ -124,6 +147,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
         binding.rvMypageQuestion.adapter = myPagePostAdapter
 
         myPageViewModel.postByMe.observe(this) {
+            initInfoEmpty(it.data.classroomPostList.size)
             myPagePostAdapter.setQuestionPost((it.data.classroomPostList) as MutableList<MyPagePostData.Data.ClassroomPost>)
         }
     }
