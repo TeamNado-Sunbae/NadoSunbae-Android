@@ -33,7 +33,7 @@ class MyPageBlockFragment :
     //뒤로가기 버튼 리스너
     private fun backBtn() {
         binding.imgMypageBlock.setOnClickListener {
-            mainViewModel.mypageFragmentNum.value = 1
+            mainViewModel.myPageFragmentNum.value = 3
         }
     }
 
