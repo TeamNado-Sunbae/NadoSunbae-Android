@@ -1,6 +1,8 @@
 package com.nadosunbae_android.app.presentation.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.core.view.doOnAttach
 import androidx.lifecycle.Observer
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -56,7 +58,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 
 
-    //바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
+//바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
     /* private fun clickBottomNav(){
          mainViewModel.notificationClickNum.observe(this){
              when(it){
@@ -77,67 +79,92 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 
     //바텀네비
-    private fun initBottomNav(){
+    private fun initBottomNav() {
+
         //바텀 네비 아이템 클릭된 것 처럼 보이도록 ( 4-> 마이페이지, 2 -> 과방)
         // 첫 프래그먼트 설정 (닉네임 클릭시 마이페이지 및 선배 개인페이지를 위해)
 
         mainViewModel.bottomNavItem.observe(this) {
-
             when (it) {
-                MYPAGE -> binding.btNvMain.selectedItemId = R.id.navigation_mypage
-                NOTIFICATION -> binding.btNvMain.selectedItemId = R.id.navigation_notice
-                CLASSROOM -> binding.btNvMain.selectedItemId = R.id.navigation_room
-                else -> binding.btNvMain.selectedItemId = R.id.navigation_review
-            }
+                MYPAGE, MYPAGEDIVISION -> {
+                    binding.btNvMain.selectedItemId = R.id.navigation_mypage
+                }
+                SENIORPERSONAL -> {
+                    binding.btNvMain.selectedItemId = R.id.navigation_room
+                    changeFragmentNoBackStack(
+                        R.id.fragment_container_main,
+                        SeniorPersonalFragment()
+                    )
+                }
+                CLASSROOM -> {
+                    binding.btNvMain.selectedItemId = R.id.navigation_room
 
-        }
-
-        binding.btNvMain.itemIconTintList = null
-        binding.btNvMain.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_review -> {
+                }else ->{
                     changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
-                    firebaseLogTab(getString(R.string.ga_tab_review))
-                    return@setOnItemSelectedListener true
-                }
-                R.id.navigation_room -> {
-                    mainViewModel.classRoomNum.value = 1
-                    changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
-                    firebaseLogTab(getString(R.string.ga_tab_classroom))
-                    return@setOnItemSelectedListener true
-                }
-                R.id.navigation_notice -> {
-                    changeFragmentNoBackStack(R.id.fragment_container_main, NotificationFragment())
-                    firebaseLogTab(getString(R.string.ga_tab_notification))
-                    return@setOnItemSelectedListener true
-                }
-                R.id.navigation_mypage -> {
-                    changeFragmentNoBackStack(R.id.fragment_container_main, MyPageFragment())
-                    firebaseLogTab(getString(R.string.ga_tab_mypage))
-                    return@setOnItemSelectedListener true
                 }
             }
-            true
+
+
+            binding.btNvMain.itemIconTintList = null
+            binding.btNvMain.setOnItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.navigation_review -> {
+                        changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                        firebaseLogTab(getString(R.string.ga_tab_review))
+                        return@setOnItemSelectedListener true
+                    }
+                    R.id.navigation_room -> {
+                        mainViewModel.classRoomNum.value = 1
+                        changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
+                        firebaseLogTab(getString(R.string.ga_tab_classroom))
+                        return@setOnItemSelectedListener true
+                    }
+                    R.id.navigation_notice -> {
+                        changeFragmentNoBackStack(
+                            R.id.fragment_container_main,
+                            NotificationFragment()
+                        )
+                        firebaseLogTab(getString(R.string.ga_tab_notification))
+                        return@setOnItemSelectedListener true
+                    }
+                    R.id.navigation_mypage -> {
+                        changeFragmentNoBackStack(R.id.fragment_container_main, MyPageFragment())
+                        firebaseLogTab(getString(R.string.ga_tab_mypage))
+                        return@setOnItemSelectedListener true
+                    }
+                }
+                true
+            }
         }
     }
     //계산
 
 
-
-
     //과방 프레그먼트 전환
-    private fun classRoomFragmentChange(){
+    private fun classRoomFragmentChange() {
         mainViewModel.classRoomFragmentNum.observe(this, Observer {
             when (it) {
-                2 -> changeFragment(R.id.fragment_container_main,AskEveryoneFragment(), "askEveryOne")
+                2 -> changeFragment(
+                    R.id.fragment_container_main,
+                    AskEveryoneFragment(),
+                    "askEveryOne"
+                )
 
                 1 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
 
-                3 -> changeFragment(R.id.fragment_container_main, SeniorFragment(),"senior")
+                3 -> changeFragment(R.id.fragment_container_main, SeniorFragment(), "senior")
 
-                4 -> changeFragment(R.id.fragment_container_main, SeniorPersonalFragment(),"seniorPersonal")
+                4 -> changeFragment(
+                    R.id.fragment_container_main,
+                    SeniorPersonalFragment(),
+                    "seniorPersonal"
+                )
 
-                5 -> changeFragment(R.id.fragment_container_main, ClassRoomReviewFragment(),"classRoomReview")
+                5 -> changeFragment(
+                    R.id.fragment_container_main,
+                    ClassRoomReviewFragment(),
+                    "classRoomReview"
+                )
 
                 6 -> changeFragment(R.id.fragment_container_main, MyPageFragment(), "myPage")
 
@@ -145,17 +172,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         })
     }
+
     //프로필 및 닉네임 클릭시 전환되는 데이터 받아오는 부분
-    private fun initClickProfile(){
+    private fun initClickProfile() {
         mainViewModel.bottomNavItem.value = intent.getIntExtra("bottomNavItem", -1)
         mainViewModel.seniorId.value = intent.getIntExtra("seniorId", -1)
         mainViewModel.initLoading.value = intent.getBooleanExtra("loading", false)
+        mainViewModel.divisionBlock.value = intent.getIntExtra("blockDivision", -1)
+        Log.d("informationDetaildelete", mainViewModel.divisionBlock.value.toString())
     }
 
 
     //과방 뒤로가기 전환
-    private fun classRoomBack(){
-        mainViewModel.classRoomBackFragmentNum.observe(this){
+    private fun classRoomBack() {
+        mainViewModel.classRoomBackFragmentNum.observe(this) {
             when (it) {
                 1 -> popFragmentBackStack("seniorPersonal")
                 2 -> popFragmentBackStack("senior")
@@ -172,11 +202,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         MainGlobals.signInData = signData
         // null check
         mainViewModel.setSignData(signData)
-
         // 본전공이 default 선택
-        mainViewModel.setSelectedMajor(MajorSelectData(signData.firstMajorId, signData.secondMajorName))
+        mainViewModel.setSelectedMajor(
+            MajorSelectData(
+                signData.firstMajorId,
+                signData.secondMajorName
+            )
+        )
         mainViewModel.setFirstMajor(MajorSelectData(signData.firstMajorId, signData.firstMajorName))
-        mainViewModel.setSecondMajor(MajorSelectData(signData.secondMajorId, signData.secondMajorName))
+        mainViewModel.setSecondMajor(
+            MajorSelectData(
+                signData.secondMajorId,
+                signData.secondMajorName
+            )
+        )
     }
 
 
@@ -191,17 +230,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             val signData = mainViewModel.signData.value
             // null check
             if (signData != null)
-                mainViewModel.setSelectedMajor(MajorSelectData(signData.firstMajorId, signData.firstMajorName))
+                mainViewModel.setSelectedMajor(
+                    MajorSelectData(
+                        signData.firstMajorId,
+                        signData.firstMajorName
+                    )
+                )
         }
     }
 
     //마이페이지 프래그먼트 전환
     private fun myPageFragmentChange() {
         mainViewModel.mypageFragmentNum.observe(this) {
-            when(it) {
-                1 -> changeFragment(R.id.fragment_container_main, MyPageSettingFragment(), "myPageSetting")
-                2 -> changeFragment(R.id.fragment_container_main, AppInfoFragment(), "myPageAppInfo")
-                3 -> changeFragment(R.id.fragment_container_main, MyPageBlockFragment(), "myPageBlock")
+            when (it) {
+                1 -> changeFragment(
+                    R.id.fragment_container_main,
+                    MyPageSettingFragment(),
+                    "myPageSetting"
+                )
+                2 -> changeFragment(
+                    R.id.fragment_container_main,
+                    AppInfoFragment(),
+                    "myPageAppInfo"
+                )
+                3 -> changeFragment(
+                    R.id.fragment_container_main,
+                    MyPageBlockFragment(),
+                    "myPageBlock"
+                )
                 4 -> changeFragment(R.id.fragment_container_main, MyPageFragment(), "myPageMain")
             }
         }
@@ -209,8 +265,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 
     //마이페이지 뒤로가기 전환
-    private fun myPageBack(){
-        mainViewModel.myPageFragmentNum.observe(this){
+    private fun myPageBack() {
+        mainViewModel.myPageFragmentNum.observe(this) {
             when (it) {
                 1 -> popFragmentBackStack("myPageSetting")
                 2 -> popFragmentBackStack("myPageAppInfo")
@@ -225,8 +281,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     companion object {
         const val REVIEW = 1
-        const val CLASSROOM = 2
-        const val NOTIFICATION = 3
+        const val SENIORPERSONAL = 2
+        const val CLASSROOM = 3
         const val MYPAGE = 4
+            const val MYPAGEDIVISION = 5
     }
 }

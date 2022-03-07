@@ -24,7 +24,7 @@ object BindingAdapter {
     const val DAY = 30
 
 
-    //날짜 변환
+    //날짜 변환(알림)
     @JvmStatic
     @BindingAdapter("dateToTextMinute")
     fun getDateToTextMinute(textView: TextView, date: Date?) {
@@ -52,6 +52,7 @@ object BindingAdapter {
         }
     }
 
+    //날짜
     @JvmStatic
     @BindingAdapter("dateToText")
     fun getDateToText(textView: TextView, date: Date?) {
@@ -61,7 +62,17 @@ object BindingAdapter {
         }else{
             format.format(date).also{textView.text = it}
         }
+    }
 
+    //선배 구성원 페이지 본전공 2중전공 구분
+    @JvmStatic
+    @BindingAdapter("divisionFirst")
+    fun divisionFirst(textView : TextView, isFirst : Boolean){
+        if(isFirst){
+            textView.text = "본"
+        }else{
+            textView.text = "제2"
+        }
 
     }
 

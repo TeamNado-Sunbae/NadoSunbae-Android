@@ -37,6 +37,8 @@ class MyPageBlockFragment :
         }
     }
 
+
+
     //뒤로가기 버튼 리스너
     private fun backBtn() {
         binding.imgMypageBlock.setOnClickListener {
@@ -72,7 +74,6 @@ class MyPageBlockFragment :
         myPageBlockAdapter.setItemClickListener(
             object : MyPageBlockAdapter.ItemClickListener {
                 override fun onClick(view: View, position: Int) {
-
                     val userNickName = myPageBlockAdapter.myPageBlockData[position].nickname
                     val userId = myPageBlockAdapter.myPageBlockData[position].userId
 
@@ -85,6 +86,7 @@ class MyPageBlockFragment :
                         ),
                         complete = {
                             initBlockUpdate(userId)
+                            myPageBlockAdapter.removeItem(position)
                         },
                         cancel = {
 

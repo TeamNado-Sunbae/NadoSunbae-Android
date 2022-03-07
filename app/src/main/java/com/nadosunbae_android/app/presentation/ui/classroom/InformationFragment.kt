@@ -36,7 +36,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
 
     override fun onResume() {
         super.onResume()
-        mainViewModel.getClassRoomMain(2,mainViewModel.majorId.value ?: 0, "recent")
+        mainViewModel.getClassRoomMain(2,mainViewModel.selectedMajor.value!!.majorId, "recent")
     }
 
     private fun initInfoMain(){
@@ -72,7 +72,6 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
     //정보 데이터 받기
     private fun infoServer(sort : String){
         mainViewModel.selectedMajor.observe(viewLifecycleOwner){
-            mainViewModel.majorId.value = it.majorId
             mainViewModel.getClassRoomMain(2,it.majorId, sort)
         }
     }
@@ -107,7 +106,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
                 val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
                 intent.apply {
                     putExtra("postTypeId", 2)
-                    putExtra("majorId", mainViewModel.majorId.value)
+                    putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
                     putExtra("title", "정보글 작성")
                     putExtra("division", write)
                 }

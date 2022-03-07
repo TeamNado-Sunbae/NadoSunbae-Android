@@ -62,8 +62,8 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
 
     //질문 전체보기 서버통신
     private fun questionEveryone(sort : String){
-        mainViewModel.majorId.observe(viewLifecycleOwner){
-            mainViewModel.getClassRoomMain(3,it,sort)
+        mainViewModel.selectedMajor.observe(viewLifecycleOwner){
+            mainViewModel.getClassRoomMain(3,it.majorId,sort)
         }
 
     }
@@ -83,7 +83,7 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
                     putExtra("division", 0)
                     putExtra("title", "전체에게 질문 작성")
                     putExtra("postTypeId", 3)
-                    putExtra("majorId", mainViewModel.majorId.value)
+                    putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
                 }
                 startActivity(intent)
             } else {

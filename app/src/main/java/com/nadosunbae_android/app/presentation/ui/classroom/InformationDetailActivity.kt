@@ -1,10 +1,14 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityInformationDetailBinding
@@ -29,8 +33,10 @@ class InformationDetailActivity :
     private val infoDetailViewModel: InfoDetailViewModel by viewModel()
     private lateinit var classRoomInfoDetailAdapter: ClassRoomInfoDetailAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        onInfo()
         initInfoDetail()
         infoLike()
         clickBackBtn()
@@ -40,11 +46,21 @@ class InformationDetailActivity :
         reportToast()
         clickNickname()
     }
+    //안꺼지게 조절
+    private fun onInfo(){
+        MainGlobals.infoBlock = 0
+    }
+
 
     override fun onResume() {
         super.onResume()
+        if(MainGlobals.infoBlock == 1){
+            finish()
+        }
         infoDetailViewModel.getInfoDetail(infoDetailViewModel.infoPostId.value ?: 0)
     }
+
+
 
     //정보 상세보기 서버 통신
     private fun initInfoDetail() {
@@ -350,13 +366,15 @@ class InformationDetailActivity :
             Timber.d("userId : $userId, writerId : $writerId")
             var fragmentNum = -1
             var bottomNavItem = -1
+            var blockDivision = -1
 
             if (userId == writerId) {
                 fragmentNum = 6
-                bottomNavItem = 4
+                bottomNavItem = 5
             } else {
                 fragmentNum = 4
                 bottomNavItem = 2
+                blockDivision = 1
             }
             val intent = Intent(this, MainActivity::class.java)
             intent.apply {
@@ -365,10 +383,12 @@ class InformationDetailActivity :
                 putExtra("signData", MainGlobals.signInData)
                 putExtra("loading", false)
                 putExtra("seniorId", writerId)
+                putExtra("blockDivision", blockDivision)
             }
             startActivity(intent)
         }
     }
+
 
 
     companion object {
@@ -380,5 +400,18 @@ class InformationDetailActivity :
         //원글 댓글 분류
         const val post = 2
         const val comment = 3
+    }
+
+
+
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("인포디테일", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("인포디테일", "onStop")
     }
 }

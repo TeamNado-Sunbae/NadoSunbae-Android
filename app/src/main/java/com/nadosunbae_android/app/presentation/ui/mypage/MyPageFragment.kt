@@ -35,7 +35,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         initAskPersonal()
         movePage()
         initPersonalInfo()
-
+        Timber.d("실행되는 중")
     }
 
     private fun observeLoadingEnd() {
@@ -113,7 +113,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private fun initAskPersonal() {
         //마이페이지 선배 1:1
-        showLoading()
+        //showLoading()
         mainViewModel.signData.observe(viewLifecycleOwner) {
             myPageViewModel.getMyPageQuestion(it.userId)
         }
@@ -128,7 +128,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     //내 정보 서버통신
     private fun initPersonalInfo() {
-        showLoading()
+       // showLoading()
         mainViewModel.signData.observe(viewLifecycleOwner) {
             myPageViewModel.getPersonalInfo(it.userId)
         }

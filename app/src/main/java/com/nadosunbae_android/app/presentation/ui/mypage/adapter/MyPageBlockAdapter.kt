@@ -12,6 +12,7 @@ class MyPageBlockAdapter(private val userId: Int) :
     RecyclerView.Adapter<MyPageBlockAdapter.MyPageBlockViewHodler>() {
     var myPageBlockData = mutableListOf<MyPageBlockData.Data>()
 
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -61,12 +62,16 @@ class MyPageBlockAdapter(private val userId: Int) :
         this.itemClickListener = itemClickListener
 
     }
-
+    fun removeItem(itemPosition : Int){
+        myPageBlockData.removeAt(itemPosition)
+        notifyItemRemoved(itemPosition)
+    }
 
     fun setBlockMain(myPageBlockData: MutableList<MyPageBlockData.Data>) {
         this.myPageBlockData = myPageBlockData
         notifyDataSetChanged()
     }
+
 
 
 }
