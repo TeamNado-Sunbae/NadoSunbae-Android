@@ -1,27 +1,59 @@
 package com.nadosunbae_android.app.presentation.ui.sign
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
+import android.view.View
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityFindPwBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.presentation.ui.mypage.ChangePwFinishActivity
+import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
+import com.nadosunbae_android.domain.model.mypage.MyPageResetPasswordItem
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-//4순위 뷰 -> 뷰만 만들어 놓음
 class FindPwActivity : BaseActivity<ActivityFindPwBinding>(R.layout.activity_find_pw) {
+
+    private val myPageViewModel: MyPageViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_find_pw)
 
-        onView()
+        emailTextWatcher()
+        initBackBtn()
+
     }
 
-    private fun onView() {
-        binding.etFindpwEmail.addTextChangedListener(object : TextWatcher {
+    //비밀번호 변경 서버 통신
+    private fun changePw() {
+        Log.d("ChangePw", "서버 통신 성공")
+        myPageViewModel.resetPassword.observe(this) {
+            if(!it.success) {
+                Log.d("비밀번호 서버통신 체크", "실패")
+                binding.textFindPwWarn.visibility = View.VISIBLE
+                binding.textFindPwOk.isSelected = false
+                binding.imgFindPwCancel.isSelected = false
+            }
+            if(it.success) {
+                Log.d("비밀번호 서버통신 체크", "성공")
+                binding.textFindPwWarn.visibility = View.INVISIBLE
+                binding.textFindPwOk.isSelected = true
+                binding.imgFindPwCancel.isSelected = true
+                initNextBtn()
+            }
+        }
+    }
+
+
+    private fun emailTextWatcher() {
+        binding.etFindPwEmail.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -29,22 +61,52 @@ class FindPwActivity : BaseActivity<ActivityFindPwBinding>(R.layout.activity_fin
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                isEmailPattern()
-
-                if (binding.etFindpwEmail.text.toString() == "") {
-                    binding.imgFindpwEmailCancel.isSelected = false
+                if(binding.etFindPwEmail.text.toString() != "") {
+                    binding.textFindPwOk.isSelected = true
+                    binding.imgFindPwCancel.isSelected = true
+                    initCancelBtn()
+                    binding.textFindPwOk.setOnClickListener {
+                        myPageViewModel.postMyPageRestPassword(MyPageResetPasswordItem(binding.etFindPwEmail.text.toString()))
+                        changePw()
+                    }
                 } else {
-                    binding.imgFindpwEmailCancel.isSelected = true
+                    //isEmailPattern()
+                    binding.textFindPwOk.isSelected = false
+                    binding.imgFindPwCancel.isSelected = false
+                    binding.textFindPwWarn.visibility = View.INVISIBLE
+
                 }
             }
+
         })
-
     }
 
-    //이메일 정규식
+    //textfield x버튼 클릭 이벤트
+    private fun initCancelBtn() {
+        binding.imgFindPwCancel.setOnClickListener {
+            binding.etFindPwEmail.setText(null)
+        }
+    }
+
+    // 뒤로가기 버튼 클릭 이벤트
+    private fun initBackBtn() {
+        binding.imgFindPwBack.setOnClickListener {
+            finish()
+        }
+    }
+
+
+    //이메일 정규식 -> 릴리즈 직전에 함수 활성화
     private fun isEmailPattern() {
-        val pattern = Patterns.EMAIL_ADDRESS
-        binding.clFindpwOk.isSelected = pattern.matcher(binding.etFindpwEmail.text).matches()
+        binding.etFindPwEmail.isSelected =
+            binding.etFindPwEmail.text.contains("@korea.ac.kr")
+        binding.textFindPwOk.isSelected = true
     }
 
+    private fun initNextBtn() {
+        val intent = Intent(this, ChangePwFinishActivity::class.java)
+        intent.putExtra("email", binding.etFindPwEmail.text.toString())
+        startActivity(intent)
+        finish()
+    }
 }
