@@ -53,6 +53,7 @@ class NotificationFragment :
 
         notificationViewModel.notificationList.observe(viewLifecycleOwner) {
             Log.d("알림 정보", it.toString())
+            initNotificationEmpty(it.size)
             notificationAdapter.setNotification(it as MutableList<NotificationListData>)
         }
     }
@@ -118,6 +119,15 @@ class NotificationFragment :
         }
     }
 
+
+    //알림 엠티뷰
+    private fun initNotificationEmpty(size : Int){
+        if(size == 0){
+            binding.textNotificationEmpty.visibility = View.VISIBLE
+        }else{
+            binding.textNotificationEmpty.visibility = View.GONE
+        }
+    }
 
 }
 
