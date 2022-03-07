@@ -292,9 +292,7 @@ class ModifyMyInfoActivity :
             //키보드 나오게
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.etMyPageNickname, InputMethodManager.SHOW_IMPLICIT)
-
             binding.textMyPageNicknameChange.isVisible = false
-            //signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
         }
 
         // scrollView 안의 constraintlayout 클릭 시 editText의 포커스 뺏어오고 해당 레이아웃에 focus 요청
@@ -314,14 +312,15 @@ class ModifyMyInfoActivity :
                     binding.textMyPageNicknameChange.isVisible = true
                     if (binding.etMyPageNickname.text.toString() != myPageViewModel.personalInfo.value?.data?.nickname) {
                         signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
+
                     } else {
                         binding.textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
                         binding.textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
                     }
-
                 }
                 return false
             }
+
         })
 
         //키보드의 완료 버튼 눌렀을 때 editText의 focus 뺏기
@@ -340,9 +339,9 @@ class ModifyMyInfoActivity :
     //닉네임 정규식
     private fun isNickNamePattern() = with(binding) {
         val nickname = etMyPageNickname
-
         textMyPageNicknameTitle.isSelected =
             !Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())
+
 
     }
 
@@ -354,7 +353,11 @@ class ModifyMyInfoActivity :
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(p0: Editable?) {
-                nicknameDuplication()
+
+                if(!textMyPageNicknameTitle.isSelected) {
+                    nicknameDuplication()
+                }
+
 
                 //닉네임 textfield 빈칸인지 체크
                 if (etMyPageNickname.text.toString() == "") {
@@ -362,7 +365,6 @@ class ModifyMyInfoActivity :
                     textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
                 } else {
                     isNickNamePattern()
-
                 }
 
                 val nickname = signUpBasicInfoViewModel.nickName.value
@@ -372,10 +374,11 @@ class ModifyMyInfoActivity :
                     textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
                     textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
                 }
+
+
             }
         })
     }
-
 
     //닉네임 중복 체크 서버 통신
     private fun nicknameDuplication() {
@@ -399,16 +402,15 @@ class ModifyMyInfoActivity :
         }
     }
 
+    //2전공 미진입 분기처리
     private fun saveBtn() {
         if(binding.textMyPageMajorinfoDoubleMajor.text.toString() != "미진입") {
-            if(binding.textMyPageMajorinfoDoubleMajorTime.text.toString() == "선택하기") {
-                binding.textMyPageSave.isSelected = false
-            } else {
-                binding.textMyPageSave.isSelected = true
-            }
+            binding.textMyPageSave.isSelected =
+                binding.textMyPageMajorinfoDoubleMajorTime.text.toString() != "선택하기"
 
         }
     }
+
 
     // 저장 버튼 활성화
     private fun initActiveSaveBtn() {

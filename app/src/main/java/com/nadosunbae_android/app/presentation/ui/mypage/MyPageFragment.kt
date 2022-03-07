@@ -140,6 +140,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 binding.textMyPageSecondMajorTime.visibility = View.INVISIBLE
             else
                 binding.textMyPageSecondMajorTime.visibility = View.VISIBLE
+
+            if(!it.data.isOnQuestion) {
+                binding.clMyPageMainQuestion.visibility = View.VISIBLE
+            } else {
+                binding.clMyPageMainQuestion.visibility = View.GONE
+            }
         }
     }
 
