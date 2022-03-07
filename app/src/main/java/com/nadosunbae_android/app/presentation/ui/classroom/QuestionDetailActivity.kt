@@ -12,6 +12,7 @@ import com.nadosunbae_android.app.databinding.ActivityQuestionDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
@@ -43,10 +44,20 @@ class QuestionDetailActivity :
         updateComment()
         getReportReason()
         reportToast()
+        onQuestion()
     }
+    //종료 금지
+    private fun onQuestion(){
+        MainGlobals.infoBlock = 0
+
+    }
+
 
     override fun onResume() {
         super.onResume()
+        if(MainGlobals.infoBlock == 1){
+            finish()
+        }
         questionDetailViewModel.getClassRoomQuestionDetail(
             questionDetailViewModel.postId.value ?: 0
         )

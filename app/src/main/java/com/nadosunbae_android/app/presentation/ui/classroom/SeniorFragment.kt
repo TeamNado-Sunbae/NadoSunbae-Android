@@ -31,18 +31,19 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
 
     // 구성원 보여주기
     private fun initSenior(){
-        mainViewModel.selectedMajor.observe(viewLifecycleOwner){
-            mainViewModel.getClassRoomSenior(it.majorId)
-        }
+            mainViewModel.selectedMajor.observe(viewLifecycleOwner) {
+                mainViewModel.getClassRoomSenior(it.majorId)
 
-        classRoomSeniorOnAdapter = ClassRoomSeniorOnAdapter(link)
-        classRoomSeniorOffAdapter = ClassRoomSeniorOffAdapter(link)
-        binding.rcSeniorQuestionOff.adapter = classRoomSeniorOffAdapter
-        binding.rcSeniorQuestionOn.adapter = classRoomSeniorOnAdapter
-        mainViewModel.seniorData.observe(viewLifecycleOwner){
-            classRoomSeniorOnAdapter.setOnQuestionUser(it.onQuestionUserList as MutableList<ClassRoomSeniorData.OnQuestionUser>)
-            classRoomSeniorOffAdapter.setOffQuestionUser(it.offQuestionUserList as MutableList<ClassRoomSeniorData.OffQuestionUser>)
-        }
+
+                classRoomSeniorOnAdapter = ClassRoomSeniorOnAdapter(link)
+                classRoomSeniorOffAdapter = ClassRoomSeniorOffAdapter(link)
+                binding.rcSeniorQuestionOff.adapter = classRoomSeniorOffAdapter
+                binding.rcSeniorQuestionOn.adapter = classRoomSeniorOnAdapter
+                mainViewModel.seniorData.observe(viewLifecycleOwner) {
+                    classRoomSeniorOnAdapter.setOnQuestionUser(it.onQuestionUserList as MutableList<ClassRoomSeniorData.OnQuestionUser>)
+                    classRoomSeniorOffAdapter.setOffQuestionUser(it.offQuestionUserList as MutableList<ClassRoomSeniorData.OffQuestionUser>)
+                }
+            }
 
     }
     //선배 Id = userId가 같을 경우 마이페이지로 이동

@@ -121,7 +121,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 }
                 //닉네임 클릭시 마이페이지 또는 선배 개인페이지 이동
                 holder.binding.textQuestionDetailWriterName.setOnClickListener {
-                    goMyPage(holder.itemView.context, userId, questionDetailData[position].writerId)
+                    goMyPage(holder.itemView.context, userId, questionDetailData[position].writerId , 1)
                 }
 
                 //수정일 경우 띄우기
@@ -166,7 +166,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
                 //닉네임 클릭시 마이페이지 또는 선배 개인페이지 이동
                 holder.binding.includeQuestionDetailQuestionerText.textQuestionDetailQuestionerName.setOnClickListener {
-                    goMyPage(holder.itemView.context, userId, questionDetailData[position].writerId)
+                    goMyPage(holder.itemView.context, userId, questionDetailData[position].writerId,1)
                 }
 
                 holder.binding.includeQuestionDetailQuestionerText.imgQuestionDetailQuestionerMenu.setOnClickListener {
@@ -226,7 +226,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
                 //닉네임 클릭시 마이페이지 또는 선배 개인페이지 이동
                 holder.binding.includeQuestionDetailCommentText.textQuestionDetailWriterCommentName.setOnClickListener {
-                    goMyPage(holder.itemView.context, userId, questionDetailData[position].writerId)
+                    goMyPage(holder.itemView.context, userId, questionDetailData[position].writerId,1)
                 }
 
                 holder.binding.includeQuestionDetailCommentText.imgQuestionDetailWriterCommentMenu.setOnClickListener {
@@ -489,13 +489,13 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     }
 
     //닉네임 클릭시 마이페이지 또는 선배 페이지 이동
-    private fun goMyPage(context: Context, userId: Int, writerId: Int) {
+    private fun goMyPage(context: Context, userId: Int, writerId: Int, blockNum : Int) {
         var fragmentNum = -1
         var bottomNavItem = -1
 
         if (userId == writerId) {
             fragmentNum = 6
-            bottomNavItem = 4
+            bottomNavItem = 5
         } else {
             fragmentNum = 4
             bottomNavItem = 2
@@ -507,6 +507,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
             putExtra("signData", MainGlobals.signInData)
             putExtra("loading", false)
             putExtra("seniorId", writerId)
+            putExtra("blockDivision", blockNum)
         }
         ContextCompat.startActivity(context, intent, null)
     }
