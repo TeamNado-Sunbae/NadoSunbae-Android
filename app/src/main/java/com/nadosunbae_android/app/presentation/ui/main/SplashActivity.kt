@@ -14,6 +14,9 @@ import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 
@@ -27,6 +30,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         observeSignIn()
         autoLogin()
         startLoading()
+
     }
 
     private fun observeSignIn() {
@@ -45,6 +49,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         if (refreshToken != null && refreshToken.isNotEmpty())
             splashViewModel.postRenewalToken(refreshToken)
     }
+
+
 
     private fun startLoading() {
 

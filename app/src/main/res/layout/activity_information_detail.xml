@@ -75,7 +75,7 @@
                 android:id="@+id/cl_information_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cl_information_detail"
@@ -86,6 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="20dp"
+                    android:background="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -200,38 +201,28 @@
                         app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_content"
                         app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_content" />
 
-                    <TextView
-                        android:id="@+id/text_information_detail_question_like"
+                    <android.widget.Button
+                        android:id="@+id/btn_info_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="34dp"
+                        style="?android:attr/borderlessButtonStyle"
+                        intToString="@{informationDetail.likeCount}"
+                        setSelected="@{informationDetail.liked}"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/rectangle_fill_gray_16"
-                        android:fontFamily="@font/pretendard_light"
-                        android:paddingVertical="12dp"
-                        android:paddingStart="40dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:paddingStart="4dp"
                         android:paddingEnd="12dp"
-                        android:shadowColor="@color/shadow"
-                        android:shadowDx="5.0"
-                        android:shadowDy="5.0"
-                        android:shadowRadius="8.0"
-                        intToText="@{informationDetail.likeCount}"
-                        android:textColor="@color/gray_2"
+                        android:fontFamily="@font/pretendard_semibold"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_content" />
-
-
-                    <ImageView
-                        android:id="@+id/img_information_detail_question_like"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        likeCheck="@{informationDetail.liked}"
-                        android:background="@drawable/selector_heart_gray_mint"
-                        android:layout_marginStart="6dp"
-                        app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_like"
-                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_like"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_like"/>
+                        android:textColor="@drawable/selector_gray_2_to_main_default"
+                        android:background="@drawable/selector_ic_btn_like"
+                        android:drawableStart="@drawable/selector_icon_like"
+                        tools:text="1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

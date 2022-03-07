@@ -30,7 +30,7 @@ class ClassRoomSeniorOffAdapter(
     ) {
         holder.onBind(offQuestionUserList[position])
         holder.itemView.setOnClickListener {
-            link.getSeniorId(4, offQuestionUserList[position].userId)
+            link.getSeniorId(offQuestionUserList[position].userId)
         }
     }
 
