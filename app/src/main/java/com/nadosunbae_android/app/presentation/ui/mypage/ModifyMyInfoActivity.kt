@@ -71,7 +71,7 @@ class ModifyMyInfoActivity :
 
 
     //기존 데이터 불러오기
-    private fun initWriteMode() {
+    private fun initWriteMode(){
         mainViewModel.signData.observe(this) {
             myPageViewModel.getPersonalInfo(it.userId)
         }
@@ -81,12 +81,21 @@ class ModifyMyInfoActivity :
             binding.myPageInfo = it
             Log.d("서버통신", "성공")
 
-            if (it.data.secondMajorName == "미진입")
-                binding.textMyPageMajorinfoDoubleMajorTime.setText("미진입")
+            binding.apply {
+                if (it.data.secondMajorName == "미진입") {
+                    binding.textMyPageMajorinfoDoubleMajorTime.setText("미진입")
+                    textMyPageMajorinfoDoubleMajorMintTime.isEnabled = false
+                    textMyPageMajorinfoDoubleMajorTime.text = "선택하기"
+                    textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+                    textMyPageMajorinfoDoubleMajorMintTime.setText("선택")
+                    textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#C0C0CB"))
+                } else {
+                    textMyPageMajorinfoDoubleMajorMintTime.isEnabled = true
+                    textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
+                    textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#00C8B0"))
+                }
+            }
         }
-
-        initNotEntered()
-
     }
 
 
@@ -190,6 +199,8 @@ class ModifyMyInfoActivity :
             )
 
             signUpBasicInfoViewModel.getSecondDepartment(1, "secondMajor")
+            saveBtn()
+
         }
 
         signUpBasicInfoViewModel.secondDepartment.observe(this) {
@@ -202,6 +213,7 @@ class ModifyMyInfoActivity :
             signViewModel.secondMajor.value = secondMajor?.name
             signUpBasicInfoViewModel.secondDepartmentClick.value = true
             initNotEntered()
+            saveBtn()
         }
 
         signViewModel.secondMajor
@@ -210,8 +222,8 @@ class ModifyMyInfoActivity :
                 binding.textMyPageMajorinfoDoubleMajor.text = it
                 binding.textMyPageMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
                 binding.textMyPageMajorinfoDoubleMajorMint.text = "변경"
-                initActiveSaveBtn()
             }
+
     }
 
 
@@ -384,6 +396,17 @@ class ModifyMyInfoActivity :
         if (binding.etMyPageNickname.text.toString() == "") {
             binding.textMyPageModifyNicknameDuplicaitionOk.isVisible = false
             binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = false
+        }
+    }
+
+    private fun saveBtn() {
+        if(binding.textMyPageMajorinfoDoubleMajor.text.toString() != "미진입") {
+            if(binding.textMyPageMajorinfoDoubleMajorTime.text.toString() == "선택하기") {
+                binding.textMyPageSave.isSelected = false
+            } else {
+                binding.textMyPageSave.isSelected = true
+            }
+
         }
     }
 
