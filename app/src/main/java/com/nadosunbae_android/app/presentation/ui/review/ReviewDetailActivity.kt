@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.review
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -69,8 +70,18 @@ class ReviewDetailActivity :
             showLoading()
             // load review data from server
             reviewDetailViewModel.getReviewDetail(postId)
+
+            lookMyPost()
         }
 
+    }
+
+    // 자신의 글이면 질문 가능여부 표시 x
+    private fun lookMyPost() {
+        if (userId == writerId)
+            binding.tvOnQuestion.visibility = View.VISIBLE
+        else
+            binding.tvOnQuestion.visibility = View.INVISIBLE
     }
 
     private fun setClickListener() {
@@ -92,13 +103,16 @@ class ReviewDetailActivity :
 
         // 선배 프로필
         binding.clReviewWriterInfo.setOnClickListener {
-            val intent = Intent(this, SeniorPersonalActivity::class.java)
-            val reviewData = reviewDetailViewModel.reviewDetailData.value
 
-            if (reviewData != null)
-                intent.putExtra("userId", reviewData.writerId)
+            if (userId == writerId) {       // 자신의 마이페이지로 이동
 
-            startActivity(intent)
+                finish()
+            } else {                        // 해당 선배의 페이지로 이동
+                val intent = Intent(this, SeniorPersonalActivity::class.java).apply {
+                    putExtra("userId", writerId)
+                }
+                startActivity(intent)
+            }
         }
     }
 
