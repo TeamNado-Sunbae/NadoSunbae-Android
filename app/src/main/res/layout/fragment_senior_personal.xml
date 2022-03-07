@@ -319,6 +319,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:orientation="vertical"
+                    android:overScrollMode="never"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="12dp"
                     android:background="@drawable/rectangle_border_1_gray0_fill_white_16"

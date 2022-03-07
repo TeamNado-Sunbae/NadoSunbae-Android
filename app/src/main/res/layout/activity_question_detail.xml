@@ -51,6 +51,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:overScrollMode="never"
             android:background="@color/background"
             app:layout_constraintBottom_toTopOf="@+id/cl_question_detail_comment"
             app:layout_constraintTop_toBottomOf="@+id/cl_question_detail_title">
@@ -64,6 +65,7 @@
                     android:id="@+id/rc_question_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="vertical"
                     app:layout_constraintTop_toTopOf="parent" />
