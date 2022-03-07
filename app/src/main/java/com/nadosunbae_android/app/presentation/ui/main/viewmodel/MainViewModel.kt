@@ -37,7 +37,7 @@ class MainViewModel(
     var classRoomFragmentNum = MutableLiveData<Int>()
 
     //바텀 네비 아이템들 클릭된
-    var bottomNavItem = MutableLiveData<Int>()
+    var bottomNavItem = MutableLiveData<Int>(0)
 
     //과방탭 뒤로가기 전환( 1 : 선배개인페이지 -> 구성원, 2: 구성원 -> 과방 메인)
     var classRoomBackFragmentNum = MutableLiveData<Int>()
@@ -48,6 +48,8 @@ class MainViewModel(
     //마이페이지탭 뒤로가기 전환
     var myPageFragmentNum = MutableLiveData<Int>()
 
+    //닉네임 클릭시 Loading 부분
+    var initLoading = MutableLiveData<Boolean>()
 
     //유저 아이디
     var userId = MutableLiveData<Int>()

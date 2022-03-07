@@ -86,7 +86,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
 
     //질문 구성원 목록으로 이동
     private fun changeSeniorFragment(){
-        binding.imgPersonalQuestionGo.setOnClickListener {
+        binding.clSearchSenior.setOnClickListener {
             mainViewModel.classRoomFragmentNum.value = 3
         }
     }
@@ -94,7 +94,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     //전체 질문 작성으로 이동
     // 질문 전체(3)
     private fun goQuestionWriteAll(){
-        binding.imgQuestionWriteGo.setOnClickListener {
+        binding.clQuestionWrite.setOnClickListener {
             if(ReviewGlobals.isReviewed){
                 val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
                 intent.apply {

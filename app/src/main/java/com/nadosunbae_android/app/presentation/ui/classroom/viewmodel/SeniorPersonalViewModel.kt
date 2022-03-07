@@ -9,13 +9,18 @@ import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.SeniorPersonalData
 import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateData
+import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
 import com.nadosunbae_android.domain.usecase.classroom.GetQuestionSeniorListDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorPersonalDataUseCase
+import com.nadosunbae_android.domain.usecase.mypage.PostMyPageBlockUpdateUseCase
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SeniorPersonalViewModel(
     val getSeniorPersonalDataUseCase: GetSeniorPersonalDataUseCase,
-    val getQuestionSeniorListDataUseCase : GetQuestionSeniorListDataUseCase
+    val getQuestionSeniorListDataUseCase : GetQuestionSeniorListDataUseCase,
+    val postMyPageBlockUpdateUseCase : PostMyPageBlockUpdateUseCase
 ) : ViewModel(), DropDownSelectableViewModel {
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
@@ -33,6 +38,11 @@ class SeniorPersonalViewModel(
 
     //선배 userId
     var userId = MutableLiveData<Int>()
+
+    //선배 차단
+    private var _blockData = MutableLiveData<MyPageBlockUpdateData>()
+    val blockData : LiveData<MyPageBlockUpdateData>
+        get() = _blockData
 
     //선배 개인페이지 정보 서버통신
     fun getSeniorPersonal(userId : Int){
@@ -62,6 +72,21 @@ class SeniorPersonalViewModel(
                     Log.d("seniorQuestion", "선배 1:1질문 서버 통신 실패")
                 }
         }
+    }
 
+    //과방 차단 & 차단 해제
+    fun postClassRoomBlockUpdate(myPageBlockUpdateItem: MyPageBlockUpdateItem) {
+        viewModelScope.launch {
+            kotlin.runCatching { postMyPageBlockUpdateUseCase(myPageBlockUpdateItem) }
+                .onSuccess {
+                    _blockData.value = it
+                    Timber.d("classRoomBlockUpdate 서버 통신 완료")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Timber.d("classRoomBlockUpdate 서버 통신 실패")
+                }
+
+        }
     }
 }
