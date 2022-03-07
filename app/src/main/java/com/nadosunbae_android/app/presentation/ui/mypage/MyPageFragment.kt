@@ -137,7 +137,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             binding.myPageInfo = it
 
             if (it.data.secondMajorName == "미진입")
-                binding.textMyPageSecondMajorTime.visibility = View.GONE
+                binding.textMyPageSecondMajorTime.visibility = View.INVISIBLE
+            else
+                binding.textMyPageSecondMajorTime.visibility = View.VISIBLE
         }
     }
 

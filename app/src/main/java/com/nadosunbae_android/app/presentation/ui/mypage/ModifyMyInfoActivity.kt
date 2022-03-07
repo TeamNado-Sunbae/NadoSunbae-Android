@@ -71,17 +71,17 @@ class ModifyMyInfoActivity :
 
 
     //기존 데이터 불러오기
-    private fun initWriteMode()  {
+    private fun initWriteMode() {
         mainViewModel.signData.observe(this) {
             myPageViewModel.getPersonalInfo(it.userId)
         }
 
-        myPageViewModel.getPersonalInfo(intent.getIntExtra("id",0))
+        myPageViewModel.getPersonalInfo(intent.getIntExtra("id", 0))
         myPageViewModel.personalInfo.observe(this) {
             binding.myPageInfo = it
             Log.d("서버통신", "성공")
 
-            if(it.data.secondMajorName == "미진입")
+            if (it.data.secondMajorName == "미진입")
                 binding.textMyPageMajorinfoDoubleMajorTime.setText("미진입")
         }
 
@@ -300,7 +300,7 @@ class ModifyMyInfoActivity :
                     imm.hideSoftInputFromWindow(binding.etMyPageNickname.windowToken, 0)
 
                     binding.textMyPageNicknameChange.isVisible = true
-                    if(binding.etMyPageNickname.text.toString() != myPageViewModel.personalInfo.value?.data?.nickname)  {
+                    if (binding.etMyPageNickname.text.toString() != myPageViewModel.personalInfo.value?.data?.nickname) {
                         signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
                     } else {
                         binding.textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
@@ -331,7 +331,9 @@ class ModifyMyInfoActivity :
 
         textMyPageNicknameTitle.isSelected =
             !Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())
+
     }
+
 
     //닉네임 textwatcher
     private fun nicknameTextWatcher() = with(binding) {
@@ -344,11 +346,11 @@ class ModifyMyInfoActivity :
 
                 //닉네임 textfield 빈칸인지 체크
                 if (etMyPageNickname.text.toString() == "") {
-
                     textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
                     textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
                 } else {
                     isNickNamePattern()
+
                 }
 
                 val nickname = signUpBasicInfoViewModel.nickName.value
@@ -398,11 +400,15 @@ class ModifyMyInfoActivity :
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        completeModifyInfo()
+    }
+
     //뒤로가기 버튼 클릭 리스너
     private fun backBtnClick() {
         binding.imgMypageModifyTitle.setOnClickListener {
             if (binding.textMyPageSave.isSelected) {
-                showLoading()
                 confirmBack()
             } else {
                 finish()
@@ -471,7 +477,6 @@ class ModifyMyInfoActivity :
                 getString(R.string.mypage_modify_alert_back_continue)
             ),
             complete = {
-                showLoading()
                 finish()
             },
             cancel = {
