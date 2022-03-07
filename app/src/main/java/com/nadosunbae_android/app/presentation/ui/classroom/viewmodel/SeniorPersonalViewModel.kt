@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.SeniorPersonalData
@@ -21,7 +22,7 @@ class SeniorPersonalViewModel(
     val getSeniorPersonalDataUseCase: GetSeniorPersonalDataUseCase,
     val getQuestionSeniorListDataUseCase : GetQuestionSeniorListDataUseCase,
     val postMyPageBlockUpdateUseCase : PostMyPageBlockUpdateUseCase
-) : ViewModel(), DropDownSelectableViewModel {
+) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
 
@@ -55,6 +56,8 @@ class SeniorPersonalViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("seniorPersonal", "선배 개인페이지 서버 통신 실패")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -70,7 +73,9 @@ class SeniorPersonalViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("seniorQuestion", "선배 1:1질문 서버 통신 실패")
-                }
+                } .also {
+                            onLoadingEnd.value = true
+                        }
         }
     }
 
@@ -89,4 +94,6 @@ class SeniorPersonalViewModel(
 
         }
     }
+
+    override val onLoadingEnd = MutableLiveData<Boolean>()
 }

@@ -45,7 +45,16 @@ class QuestionDetailActivity :
         getReportReason()
         reportToast()
         onQuestion()
+        observeLoadingEnd()
     }
+    //로딩 종료
+    private fun observeLoadingEnd() {
+        questionDetailViewModel.onLoadingEnd.observe(this){
+            dismissLoading()
+        }
+    }
+
+
     //종료 금지
     private fun onQuestion(){
         MainGlobals.infoBlock = 0
@@ -77,6 +86,7 @@ class QuestionDetailActivity :
 
         Log.d("postId", postId.toString())
         Log.d("userId", userId.toString())
+        showLoading()
         questionDetailViewModel.getClassRoomQuestionDetail(postId)
         classRoomQuestionDetailAdapter = ClassRoomQuestionDetailAdapter(this, userId)
         binding.rcQuestionDetail.adapter = classRoomQuestionDetailAdapter
@@ -117,6 +127,7 @@ class QuestionDetailActivity :
             object : ClassRoomQuestionDetailAdapter.OnItemLikeClickListener {
                 override fun onLikeClick(v: View) {
                     val postId = questionDetailViewModel.likePostId.value ?: 0
+                    showLoading()
                     if (divisionNum == 1) {
                         Log.d("전체 질문 좋아요", "서버 통신 하는 중")
                         questionDetailViewModel.postClassRoomLike(LikeItem(postId, 3))
@@ -145,6 +156,7 @@ class QuestionDetailActivity :
 
         questionDetailViewModel.registerComment.observe(this) {
             if (it.success) {
+                showLoading()
                 questionDetailViewModel.getClassRoomQuestionDetail(postId)
             }
         }
@@ -253,6 +265,7 @@ class QuestionDetailActivity :
         classRoomQuestionDetailAdapter.setUpdateListener(
             object : ClassRoomQuestionDetailAdapter.UpdateListener {
                 override fun onUpdate(content: String, commentId: Int) {
+                    showLoading()
                     questionDetailViewModel.putCommentUpdate(commentId, CommentUpdateItem(content))
                 }
             }

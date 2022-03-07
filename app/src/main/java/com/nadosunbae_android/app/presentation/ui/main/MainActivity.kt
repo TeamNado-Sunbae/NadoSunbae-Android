@@ -88,6 +88,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             when (it) {
                 MYPAGE, MYPAGEDIVISION -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_mypage
+                    changeFragmentNoBackStack(
+                        R.id.fragment_container_main,
+                        MyPageFragment()
+                    )
                 }
                 SENIORPERSONAL -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_room
@@ -284,6 +288,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         const val SENIORPERSONAL = 2
         const val CLASSROOM = 3
         const val MYPAGE = 4
-            const val MYPAGEDIVISION = 5
+        const val MYPAGEDIVISION = 5
     }
 }
