@@ -40,7 +40,6 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     //질문 메인 데이터 받아오기
     private fun initQuestionMain(){
         mainViewModel.selectedMajor.observe(viewLifecycleOwner){
-            mainViewModel.majorId.value = it.majorId
             Log.d("QuestionMainMajorId", it.majorId.toString())
             mainViewModel.getClassRoomMain(3,it.majorId, "recent")
         }
@@ -100,7 +99,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
                 intent.apply {
                     putExtra("division", 0)
                     putExtra("postTypeId", 3)
-                    putExtra("majorId", mainViewModel.majorId.value)
+                    putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
                     putExtra("title", "전체에게 질문 작성")
                 }
                 startActivity(intent)

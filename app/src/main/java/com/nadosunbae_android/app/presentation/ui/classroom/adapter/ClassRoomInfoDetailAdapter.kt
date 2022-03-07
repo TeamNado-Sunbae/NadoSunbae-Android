@@ -113,7 +113,7 @@ class ClassRoomInfoDetailAdapter(private var userId: Int, val context : Context)
 
         if (userId == writerId) {
             fragmentNum = 6
-            bottomNavItem = 4
+            bottomNavItem = 5
         } else {
             fragmentNum = 4
             bottomNavItem = 2
@@ -125,6 +125,7 @@ class ClassRoomInfoDetailAdapter(private var userId: Int, val context : Context)
             putExtra("signData", MainGlobals.signInData)
             putExtra("loading", false)
             putExtra("seniorId", writerId)
+            putExtra("blockDivision", 1)
         }
         ContextCompat.startActivity(context, intent, null)
     }

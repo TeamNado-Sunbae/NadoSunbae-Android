@@ -65,6 +65,11 @@ class MainViewModel(
     val majorList: LiveData<List<com.nadosunbae_android.domain.model.main.MajorKeyData>>
         get() = _majorList
 
+    //차단 구분( 1일때 원글 또는 답글)
+    var divisionBlock = MutableLiveData<Int>()
+
+    //액티비티 종료
+    var informationDetail = MutableLiveData<Int>()
 
     //학과 목록 id
     var majorId = MutableLiveData<Int>()
