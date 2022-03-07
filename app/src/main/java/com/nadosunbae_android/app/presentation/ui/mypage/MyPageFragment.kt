@@ -54,6 +54,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
 
     private fun movePage() {
+        //내가 쓴 글
         binding.textMyPagePostByMe.setOnClickListener {
             showLoading()
             val intentMyPagePost = Intent(requireActivity(), MyPagePostActivity::class.java)
@@ -61,6 +62,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             startActivity(intentMyPagePost)
         }
 
+        //내가 쓴 답글
         binding.textMyPageReplyByMe.setOnClickListener {
             showLoading()
             val intentMyPageReply = Intent(requireActivity(), MyPageReplyActivity::class.java)
@@ -68,6 +70,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             startActivity(intentMyPageReply)
         }
 
+        //학과 후기
         binding.textMyPageReview.setOnClickListener {
             showLoading()
             val intentMyPageReview =
@@ -78,17 +81,19 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             startActivity(intentMyPageReview)
         }
 
+        //좋아요 한 글
         binding.clMyPageHeartList.setOnClickListener {
             showLoading()
             val intentHeartList = Intent(requireActivity(), MyPageLikeListActivity::class.java)
             startActivity(intentHeartList)
         }
 
+        //톱니바퀴
         binding.imgMyPageSetting.setOnClickListener {
             mainViewModel.mypageFragmentNum.value = 1
         }
 
-
+        //내 정보 수정
         binding.clMyPageProfileModify.setOnClickListener {
             showLoading()
             val intentMyPageModify = Intent(requireActivity(), ModifyMyInfoActivity::class.java)
@@ -102,6 +107,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         super.onResume()
         initAskPersonal()
         initPersonalInfo()
+        observeLoadingEnd()
     }
 
     private fun initAskPersonal() {

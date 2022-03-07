@@ -23,6 +23,9 @@ class SignUpBasicInfoViewModel(
     private val postSignUpUseCase: PostSignUpUseCase,
     private val postCertificationEmailUseCase: PostCertificationEmailUseCase
 ) : ViewModel() {
+
+    val onLoadingEnd = MutableLiveData<Boolean>(false)
+
     //닉네임 중복 체크 변수
     var nicknameDuplicationCheck: MutableLiveData<NicknameDuplicationCheck> = MutableLiveData()
 
@@ -36,6 +39,7 @@ class SignUpBasicInfoViewModel(
     var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
     var deviceToken = MutableLiveData<String>()
+
 
     //로그인
     var signIn: MutableLiveData<SignInData> = MutableLiveData()
@@ -134,6 +138,7 @@ class SignUpBasicInfoViewModel(
         }
     }
 
+
     //로그인
     fun signIn(signInItem: SignInItem) {
         viewModelScope.launch {
@@ -148,6 +153,9 @@ class SignUpBasicInfoViewModel(
                     signIn.value = SignInData(postSignIn.code!!, false, "", "", SignInData.User())
                 }
             }
+                .also {
+                    onLoadingEnd.value = true
+                }
             Log.d("signInStatus", status.value.toString())
         }
     }

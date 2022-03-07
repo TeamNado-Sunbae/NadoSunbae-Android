@@ -39,7 +39,6 @@ class MyPageSettingFragment :
     private fun observeLoadingEnd() {
         myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
             dismissLoading()
-
         }
     }
 
@@ -47,7 +46,6 @@ class MyPageSettingFragment :
     private fun changeActivity() {
         //프로필 수정 activity
         binding.textMypageSettingModifyInformation.setOnClickListener {
-            showLoading()
             val intentModifyInfo = Intent(getActivity(), ModifyMyInfoActivity::class.java)
             intentModifyInfo.putExtra("id", mainViewModel.userId.value)
             startActivity(intentModifyInfo)
@@ -67,7 +65,6 @@ class MyPageSettingFragment :
 
         //앱 정보 fragment
         binding.textMypageAppinfo.setOnClickListener {
-            showLoading()
             mainViewModel.mypageFragmentNum.value = 2
         }
 
@@ -81,7 +78,6 @@ class MyPageSettingFragment :
                 override fun onClicked(num: Int, toString: String) {
                     if (num == 2) {
                         if (toString != null) {
-                            showLoading()
                             Log.d("입력된 PW", " : $toString")
                             myPageViewModel.deleteMyPageQuit(MyPageQuitItem(toString))
 
@@ -106,14 +102,12 @@ class MyPageSettingFragment :
 
         //차단 정보 fragment
         binding.textMypageBlock.setOnClickListener {
-            showLoading()
             mainViewModel.mypageFragmentNum.value = 3
         }
 
 
         //로그아웃
         binding.textMypageSettingLogout.setOnClickListener {
-            showLoading()
             logoutAlert()
         }
 
@@ -129,6 +123,7 @@ class MyPageSettingFragment :
             } else if (it == 200) {
                 Log.d("회원탈퇴 서버통신 체크", "성공")
                 val intent = Intent(requireContext(), SignInActivity::class.java)
+                showLoading()
                 startActivity(intent)
                 activity?.finish()
                 Toast.makeText(context, "탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show()
@@ -175,16 +170,9 @@ class MyPageSettingFragment :
         return confirm
     }
 
-
-    override fun onResume() {
-        super.onResume()
-        changeActivity()
-    }
-
     //뒤로가기 버튼
     private fun backBtn() {
         binding.imgMypageSettingMovePage.setOnClickListener {
-            showLoading()
             mainViewModel.myPageFragmentNum.value = 1
         }
     }

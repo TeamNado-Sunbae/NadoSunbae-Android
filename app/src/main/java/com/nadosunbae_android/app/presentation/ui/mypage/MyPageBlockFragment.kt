@@ -28,6 +28,13 @@ class MyPageBlockFragment :
         backBtn()
         initBlockList()
         setClickListener()
+        observeLoadingEnd()
+    }
+
+    private fun observeLoadingEnd() {
+        myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+            dismissLoading()
+        }
     }
 
     //뒤로가기 버튼 리스너
@@ -35,6 +42,11 @@ class MyPageBlockFragment :
         binding.imgMypageBlock.setOnClickListener {
             mainViewModel.myPageFragmentNum.value = 3
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 
     //마이페이지 차단 리스트
