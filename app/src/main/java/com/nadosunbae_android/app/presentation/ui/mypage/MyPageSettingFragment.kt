@@ -39,13 +39,11 @@ class MyPageSettingFragment :
     private fun observeLoadingEnd() {
         myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
             dismissLoading()
-
         }
     }
 
     //각각의 activity로 이동
     private fun changeActivity() {
-
         //프로필 수정 activity
         binding.textMypageSettingModifyInformation.setOnClickListener {
             val intentModifyInfo = Intent(getActivity(), ModifyMyInfoActivity::class.java)
@@ -125,6 +123,7 @@ class MyPageSettingFragment :
             } else if (it == 200) {
                 Log.d("회원탈퇴 서버통신 체크", "성공")
                 val intent = Intent(requireContext(), SignInActivity::class.java)
+                showLoading()
                 startActivity(intent)
                 activity?.finish()
                 Toast.makeText(context, "탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show()
@@ -160,6 +159,7 @@ class MyPageSettingFragment :
                 getString(R.string.alert_modify_review_cancel),
             ),
             complete = {
+                showLoading()
                 initLogOut()
                 activity?.finish()
             },
@@ -168,12 +168,6 @@ class MyPageSettingFragment :
             }
         )
         return confirm
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        //initLogOut()
     }
 
     //뒤로가기 버튼

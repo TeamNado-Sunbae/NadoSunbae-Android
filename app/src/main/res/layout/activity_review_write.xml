@@ -74,6 +74,7 @@
             android:id="@+id/sv_review_write"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:overScrollMode="never"
             android:background="@color/gray_background_dark"
             app:layout_constraintTop_toBottomOf="@+id/cl_review_write_tool_bar"
             app:layout_constraintBottom_toBottomOf="parent">

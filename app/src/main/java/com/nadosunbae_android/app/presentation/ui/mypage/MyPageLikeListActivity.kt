@@ -49,6 +49,7 @@ class MyPageLikeListActivity :
 
     private fun backBtn() {
         binding.imgMypageLikeTitle.setOnClickListener {
+            showLoading()
             finish()
         }
     }

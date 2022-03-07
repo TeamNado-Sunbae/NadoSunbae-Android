@@ -55,7 +55,7 @@
 
             <EditText
                 android:id="@+id/et_findpw_email"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:fontFamily="@font/pretendard_regular"
@@ -65,6 +65,7 @@
                 android:paddingBottom="13dp"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/img_findpw_email_cancel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />

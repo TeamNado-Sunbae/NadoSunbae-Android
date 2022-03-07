@@ -44,10 +44,7 @@ class MyPageReplyAdapter(private val num: Int, private val userId: Int, private 
         }
     }
 
-    override fun getItemCount(): Int {
-        return if (myPageReplyData.size < 6) myPageReplyData.size else 5
-
-    }
+    override fun getItemCount(): Int = myPageReplyData.size
 
     inner class MyPageReplyViewHolder(
         val binding: ItemMypageReplyByMeBinding

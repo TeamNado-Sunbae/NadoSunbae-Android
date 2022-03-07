@@ -65,6 +65,7 @@
             android:id="@+id/sv_review_detail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toTopOf="@+id/cl_bottom_bar"
             app:layout_constraintTop_toBottomOf="@+id/cl_review_detail_tool_bar">
 

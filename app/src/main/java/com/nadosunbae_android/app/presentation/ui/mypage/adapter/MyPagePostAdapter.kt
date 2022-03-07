@@ -44,10 +44,7 @@ class MyPagePostAdapter(private val num: Int, private val userId: Int, private v
         }
     }
 
-    override fun getItemCount(): Int {
-        return if (myPagePostData.size < 6) myPagePostData.size else 5
-
-    }
+    override fun getItemCount(): Int = myPagePostData.size
 
     inner class MyPagePostViewHolder(
         val binding: ItemMypagePostByMeBinding

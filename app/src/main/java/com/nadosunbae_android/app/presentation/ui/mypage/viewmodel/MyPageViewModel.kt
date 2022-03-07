@@ -316,21 +316,6 @@ class MyPageViewModel(
 
     //마이페이지 탈퇴
     fun deleteMyPageQuit(myPageQuitItem: MyPageQuitItem) {
-        /*
-        viewModelScope.launch {
-            kotlin.runCatching { deleteMyPageQuitUseCase(myPageQuitItem) }
-                .onSuccess {
-                    quitInfo.value = it
-                    Log.d("MyPageQuit", "서버 통신 완료")
-                }
-                .onFailure {
-                    it.printStackTrace()
-                    Log.d("MyPageQuit", "서버 통신 실패")
-                }
-        }
-
-         */
-
         viewModelScope.launch {
             when(val quitData = safeApiCall(Dispatchers.IO){ deleteMyPageQuitUseCase(myPageQuitItem) }) {
                 is ResultWrapper.Success -> {
@@ -345,6 +330,9 @@ class MyPageViewModel(
                     reportStatusInfo.value = quitData.code ?: 0
                 }
             }
+                .also {
+                    onLoadingEnd.value = true
+                }
 
         }
     }

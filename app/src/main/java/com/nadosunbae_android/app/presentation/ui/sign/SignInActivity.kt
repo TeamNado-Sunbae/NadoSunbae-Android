@@ -45,8 +45,17 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         moveQeustionPage()
         setupTimber()
         observeSignIn()
+        observeLoadingEnd()
 
     }
+
+    private fun observeLoadingEnd() {
+        signUpBasicInfoViewModel.onLoadingEnd.observe(this) {
+            dismissLoading()
+
+        }
+    }
+
     //Timber 초기화
     private fun setupTimber() {
         Timber.plant(Timber.DebugTree())
@@ -188,6 +197,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         Log.d("SignUp", "서버 통신 성공!")
 
         binding.clLogin.setOnClickListener {
+            showLoading()
             signUpBasicInfoViewModel.signIn(
                 SignInItem(
                     signUpBasicInfoViewModel.email.value.toString(),

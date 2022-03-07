@@ -46,7 +46,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
     private fun backBtn() {
         binding.imgMypagePostTitle.setOnClickListener {
-
+            showLoading()
             finish()
         }
     }
