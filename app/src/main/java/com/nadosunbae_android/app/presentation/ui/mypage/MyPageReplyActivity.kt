@@ -41,6 +41,7 @@ class MyPageReplyActivity :
 
     private fun backBtn() {
         binding.imgMypageReplyTitle.setOnClickListener {
+            showLoading()
             finish()
         }
     }

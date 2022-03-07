@@ -45,9 +45,9 @@ class MyPageSettingFragment :
 
     //각각의 activity로 이동
     private fun changeActivity() {
-
         //프로필 수정 activity
         binding.textMypageSettingModifyInformation.setOnClickListener {
+            showLoading()
             val intentModifyInfo = Intent(getActivity(), ModifyMyInfoActivity::class.java)
             intentModifyInfo.putExtra("id", mainViewModel.userId.value)
             startActivity(intentModifyInfo)
@@ -67,6 +67,7 @@ class MyPageSettingFragment :
 
         //앱 정보 fragment
         binding.textMypageAppinfo.setOnClickListener {
+            showLoading()
             mainViewModel.mypageFragmentNum.value = 2
         }
 
@@ -80,6 +81,7 @@ class MyPageSettingFragment :
                 override fun onClicked(num: Int, toString: String) {
                     if (num == 2) {
                         if (toString != null) {
+                            showLoading()
                             Log.d("입력된 PW", " : $toString")
                             myPageViewModel.deleteMyPageQuit(MyPageQuitItem(toString))
 
@@ -104,12 +106,14 @@ class MyPageSettingFragment :
 
         //차단 정보 fragment
         binding.textMypageBlock.setOnClickListener {
+            showLoading()
             mainViewModel.mypageFragmentNum.value = 3
         }
 
 
         //로그아웃
         binding.textMypageSettingLogout.setOnClickListener {
+            showLoading()
             logoutAlert()
         }
 
@@ -160,6 +164,7 @@ class MyPageSettingFragment :
                 getString(R.string.alert_modify_review_cancel),
             ),
             complete = {
+                showLoading()
                 initLogOut()
                 activity?.finish()
             },
@@ -173,12 +178,13 @@ class MyPageSettingFragment :
 
     override fun onResume() {
         super.onResume()
-        //initLogOut()
+        changeActivity()
     }
 
     //뒤로가기 버튼
     private fun backBtn() {
         binding.imgMypageSettingMovePage.setOnClickListener {
+            showLoading()
             mainViewModel.myPageFragmentNum.value = 1
         }
     }
