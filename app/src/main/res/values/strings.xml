@@ -377,6 +377,8 @@
     <string name="request_report">신고하시겠어요?</string>
     <string name="agree_report">신고하기</string>
     <string name="disagree_report">취소하기</string>
+    <string name="report_success">신고가 접수되었습니다.</string>
+    <string name="report_fail">이미 신고한 유저/글 입니다.</string>
 
 
     <!-- 온보딩 -->

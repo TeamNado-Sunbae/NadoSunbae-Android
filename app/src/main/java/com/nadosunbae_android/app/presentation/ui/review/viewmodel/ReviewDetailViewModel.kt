@@ -15,12 +15,15 @@ import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import com.nadosunbae_android.domain.usecase.review.DeleteReviewDataUseCase
 import com.nadosunbae_android.domain.usecase.review.GetReviewDetailDataUseCase
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
+import com.nadosunbae_android.domain.model.classroom.ReportItem
+import com.nadosunbae_android.domain.usecase.classroom.PostReportUseCase
 import kotlinx.coroutines.launch
 
 class ReviewDetailViewModel(
     private val getReviewDetailDataUseCase: GetReviewDetailDataUseCase,
     private val deleteReviewDataUseCase: DeleteReviewDataUseCase,
-    private val postLikeDataUseCase: PostLikeDataUseCase
+    private val postLikeDataUseCase: PostLikeDataUseCase,
+    private val postReportUseCase: PostReportUseCase
 ) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
 
     private val _reviewDetailData = MutableLiveData<ReviewDetailData>()
@@ -34,6 +37,10 @@ class ReviewDetailViewModel(
     private val _signUserId = MutableLiveData<Int>()
     val signUserId: LiveData<Int>
         get() = _signUserId
+
+    private val _reportSuccess = MutableLiveData<Boolean>()
+    val reportSuccess: LiveData<Boolean>
+        get() = _reportSuccess
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
     override val onLoadingEnd = MutableLiveData<Boolean>(false)
@@ -88,6 +95,25 @@ class ReviewDetailViewModel(
                 }
                 .onFailure {
                     it.printStackTrace()
+                    Log.d(TAG, "서버통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
+                }
+        }
+    }
+
+    // 후기 신고
+    fun postReport(reportItem: ReportItem) {
+        viewModelScope.launch {
+            runCatching { postReportUseCase(reportItem) }
+                .onSuccess {
+                    _reportSuccess.value = true
+                    Log.d(TAG, "서버통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    _reportSuccess.value = false
                     Log.d(TAG, "서버통신 실패")
                 }
                 .also {
