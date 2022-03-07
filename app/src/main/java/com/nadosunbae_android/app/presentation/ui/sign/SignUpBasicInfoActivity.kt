@@ -25,7 +25,6 @@ class SignUpBasicInfoActivity :
     BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         nicknameTextWatcher()
@@ -50,6 +49,7 @@ class SignUpBasicInfoActivity :
                 Log.d("닉네임 중복확인", "성공")
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
+                activationNextBtn()
             }
         }
         if (binding.etSignupBasicinfoNickname.text.toString() == "") {
@@ -71,6 +71,7 @@ class SignUpBasicInfoActivity :
                 Log.d("이메일 중복확인", "성공")
                 binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
                 binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
+                activationNextBtn()
             }
         }
         if (binding.etSignupBasicinfoNickname.text.toString() == "") {
@@ -274,13 +275,13 @@ class SignUpBasicInfoActivity :
         binding.textSignupBasicinfoEmailDuplication.isSelected = true
         binding.textSignupBasicinfoEmailDuplication.isEnabled = true
 
-//        if (binding.etSignupBasicinfoEmail.text.contains("@korea.ac.kr")) {
-//            binding.textSignupBasicinfoEmailDuplication.isSelected = true
-//            binding.textSignupBasicinfoEmailDuplication.isEnabled = true
-//        } else {
-//            binding.textSignupBasicinfoEmailDuplication.isSelected = false
-//            binding.textSignupBasicinfoEmailDuplication.isEnabled = false
-//        }
+        if (binding.etSignupBasicinfoEmail.text.contains("@korea.ac.kr")) {
+            binding.textSignupBasicinfoEmailDuplication.isSelected = true
+            binding.textSignupBasicinfoEmailDuplication.isEnabled = true
+        } else {
+            binding.textSignupBasicinfoEmailDuplication.isSelected = false
+            binding.textSignupBasicinfoEmailDuplication.isEnabled = false
+        }
     }
 
 
@@ -337,7 +338,6 @@ class SignUpBasicInfoActivity :
 
             //다음 버튼 클릭 리스터
             clSignupBasicinfoMoveNext.setOnClickListener {
-                Log.d("signUp", "post0")
                 signUpBasicInfoViewModel.signUp(
                     SignUpData(
                         signUpBasicInfoViewModel.requestSignUp.email,
@@ -355,9 +355,6 @@ class SignUpBasicInfoActivity :
                 val intent = Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java)
                 intent.putExtra("email", etSignupBasicinfoEmail.text.toString())
                 intent.putExtra("password", etSignupBasicinfoPw.text.toString())
-
-                Log.d("finishEmail", etSignupBasicinfoEmail.text.toString())
-                Log.d("finishPassword", etSignupBasicinfoPw.text.toString())
 
                 startActivity(intent)
                 finish()

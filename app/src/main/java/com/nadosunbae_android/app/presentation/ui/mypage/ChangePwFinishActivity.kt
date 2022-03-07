@@ -28,7 +28,6 @@ class ChangePwFinishActivity :
 
     private fun initLoginBtn() {
         binding.clChangePwFinish.setOnClickListener {
-            startActivity(Intent(this, SignInActivity::class.java))
             finish()
         }
     }
