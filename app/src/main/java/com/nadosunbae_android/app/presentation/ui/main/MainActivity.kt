@@ -98,6 +98,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
                 CLASSROOM -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_room
+                    
+                }else ->{
+                    changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
                 }
             }
 
