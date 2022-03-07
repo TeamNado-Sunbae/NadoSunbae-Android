@@ -327,7 +327,7 @@ class InformationDetailActivity :
 
     //정보 좋아요 서버 통신
     private fun infoLike() {
-        binding.imgInformationDetailQuestionLike.setOnClickListener {
+        binding.btnInfoLike.setOnClickListener {
             val likePostId = infoDetailViewModel.infoPostId.value ?: 0
             infoDetailViewModel.postClassRoomInfoLike(LikeItem(likePostId, 2))
             infoDetailViewModel.getInfoDetail(likePostId)
