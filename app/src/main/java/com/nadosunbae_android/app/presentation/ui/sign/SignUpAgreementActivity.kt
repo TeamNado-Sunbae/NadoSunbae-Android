@@ -9,9 +9,15 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySignUpAgreementBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
+import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.SignInCustomDialog
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.layout.activity_sign_up_agreement) {
+
+    private val mainViewModel: MainViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         closePage()
@@ -39,9 +45,9 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
         binding.apply {
             imageAgreementCheckInformation.setOnClickListener {
                 imageAgreementCheckInformation.isSelected = !imageAgreementCheckInformation.isSelected
-                if((!imageAgreementCheckInformation.isSelected) or (imageAgreementCheckService.isSelected == false)) {
+                if((!imageAgreementCheckInformation.isSelected) or (!imageAgreementCheckService.isSelected)) {
                     isNotAllSelected()
-                } else if ((imageAgreementCheckInformation.isSelected == true) and (imageAgreementCheckService.isSelected == true)){
+                } else if ((imageAgreementCheckInformation.isSelected) and (imageAgreementCheckService.isSelected)){
                     isAllSelected()
                 }
             }
@@ -59,14 +65,14 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
             clAgreementAll.setOnClickListener {
                 imageAgreementCheckAll.isSelected = !imageAgreementCheckAll.isSelected
 
-                if(imageAgreementCheckAll.isSelected == true) {
+                if(imageAgreementCheckAll.isSelected) {
                     imageAgreementCheckInformation.isSelected = true
                     imageAgreementCheckService.isSelected = true
                     clAgreementMoveNext.isSelected = true
                     pressNextBtnEvent()
                 }
 
-                else if(imageAgreementCheckAll.isSelected == false) {
+                else if(!imageAgreementCheckAll.isSelected) {
                     imageAgreementCheckInformation.isSelected = false
                     imageAgreementCheckService.isSelected = false
                     clAgreementMoveNext.isSelected = false
@@ -99,16 +105,31 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
         }
     }
 
+
+    //페이지 이동 intent 함수
+    private fun initIntent(url: String) {
+        val intent = Intent(this, WebViewActivity::class.java)
+        intent.putExtra("url", url)
+        startActivity(intent)
+    }
+
+
     //외부 링크로 연결
     private fun goPage() {
-        binding.imageAgreementMoveInformation.setOnClickListener {
-            var intentService = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.notion.so/nadosunbae/V-1-0-2022-3-1-e4637880bb1d4a6e8938f4f0c306b2d5"))
-            startActivity(intentService)
-        }
+        mainViewModel.getAppLink()
+        mainViewModel.appLink.observe(this) {
+            val privacyPolicy = it.data.personalInformationPolicy
+            val termsOfService = it.data.termsOfService
 
-        binding.imageAgreementMoveService.setOnClickListener {
-            var intentService = Intent(Intent.ACTION_VIEW, Uri.parse("https://nadosunbae.notion.site/V-1-0-2022-3-1-d1d15e411b0b417198b2405468894dea"))
-            startActivity(intentService)
+            //개인정보 수집 동의
+            binding.imageAgreementMoveInformation.setOnClickListener {
+                initIntent(privacyPolicy)
+            }
+
+            //서비스 이용 약관 동의
+            binding.imageAgreementMoveService.setOnClickListener {
+                initIntent(termsOfService)
+            }
         }
     }
 
