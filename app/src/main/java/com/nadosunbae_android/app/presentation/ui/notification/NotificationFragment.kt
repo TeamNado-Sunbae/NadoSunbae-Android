@@ -30,8 +30,15 @@ class NotificationFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initNotificationList()
+        observeLoadingEnd()
 
+    }
 
+    //로딩 종료
+    private fun observeLoadingEnd() {
+        notificationViewModel.onLoadingEnd.observe(viewLifecycleOwner){
+            dismissLoading()
+        }
     }
 
     override fun onResume() {
@@ -48,6 +55,7 @@ class NotificationFragment :
         binding.rcNotification.adapter = notificationAdapter
 
         mainViewModel.signData.observe(viewLifecycleOwner) {
+            showLoading()
             notificationViewModel.getNotification(it.userId)
         }
 
@@ -63,6 +71,7 @@ class NotificationFragment :
             notificationViewModel.deleteNotification(id)
             notificationViewModel.deleteNotification.observe(viewLifecycleOwner) {
                 if (it.isDeleted) {
+                    showLoading()
                     notificationViewModel.getNotification(mainViewModel.userId.value ?: 0)
                 }
             }
@@ -114,6 +123,7 @@ class NotificationFragment :
 
         //알림 읽기
         fun getReadNotification(notificationId: Int) {
+            showLoading()
             notificationViewModel.putReadNotification(notificationId)
         }
     }

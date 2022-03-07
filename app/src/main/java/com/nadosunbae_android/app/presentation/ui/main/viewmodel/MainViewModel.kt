@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import com.nadosunbae_android.domain.model.main.AppLinkData
@@ -21,7 +22,7 @@ class MainViewModel(
     val getSeniorDataUseCase : GetSeniorDataUseCase,
     val getMajorListDataUseCase: GetMajorListDataUseCase,
     val getAppLinkUseCase: GetAppLinkUseCase
-) : ViewModel() {
+) : ViewModel(), LoadableViewModel {
 
     // 로그인 response 데이터
     private val _signData = MutableLiveData<SignInData.User>()
@@ -142,6 +143,8 @@ class MainViewModel(
                .onFailure {
                    it.printStackTrace()
                    Log.d("classRoomMain", "서버 통신 실패")
+               }.also {
+                   onLoadingEnd.value = true
                }
        }
     }
@@ -157,6 +160,8 @@ class MainViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("classRoomSenior", "구성원 서버 통신 실패")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -207,6 +212,9 @@ class MainViewModel(
         val writerFilter: Int,
         val tagFilter: List<Int>
     )
+
+    override val onLoadingEnd = MutableLiveData<Boolean>()
+
 
 }
 

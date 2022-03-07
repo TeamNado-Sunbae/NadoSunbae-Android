@@ -28,6 +28,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
         changeAskEveryOne()
         changeSeniorFragment()
         goQuestionWriteAll()
+        observeLoadingEnd()
     }
 
     override fun onResume() {
@@ -37,10 +38,18 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
         }
     }
 
+    //로딩 종료
+    private fun observeLoadingEnd() {
+        mainViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+            dismissLoading()
+        }
+    }
+
     //질문 메인 데이터 받아오기
     private fun initQuestionMain(){
         mainViewModel.selectedMajor.observe(viewLifecycleOwner){
             Log.d("QuestionMainMajorId", it.majorId.toString())
+            showLoading()
             mainViewModel.getClassRoomMain(3,it.majorId, "recent")
         }
 
