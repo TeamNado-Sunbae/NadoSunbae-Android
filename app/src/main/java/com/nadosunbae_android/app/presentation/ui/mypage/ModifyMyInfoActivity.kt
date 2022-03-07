@@ -117,17 +117,14 @@ class ModifyMyInfoActivity :
 
     //제 1전공 학과 선택 바텀시트
     private fun firstMajor() {
-
         binding.textMyPageMajorinfoMajorMint.setOnClickListener {
             firstDepartmentBottomSheetDialog.show(
                 supportFragmentManager,
                 firstDepartmentBottomSheetDialog.tag
             )
-
         }
 
         signUpBasicInfoViewModel.getFirstDepartment(1, "firstMajor")
-
         signUpBasicInfoViewModel.firstDepartment.observe(this) {
             firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
                 .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
@@ -312,7 +309,6 @@ class ModifyMyInfoActivity :
                     binding.textMyPageNicknameChange.isVisible = true
                     if (binding.etMyPageNickname.text.toString() != myPageViewModel.personalInfo.value?.data?.nickname) {
                         signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
-
                     } else {
                         binding.textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
                         binding.textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
@@ -341,8 +337,6 @@ class ModifyMyInfoActivity :
         val nickname = etMyPageNickname
         textMyPageNicknameTitle.isSelected =
             !Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())
-
-
     }
 
 

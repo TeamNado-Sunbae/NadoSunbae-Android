@@ -13,14 +13,18 @@ import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeRevie
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.review.ReviewDetailActivity
+import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
+import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 import com.nadosunbae_android.domain.model.mypage.MyPageReviewData
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReviewBinding>(R.layout.activity_my_page_classroom_review) {
 
     private val myPageViewModel: MyPageViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel()
     private lateinit var myPageReviewAdapter: MyPageReviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,17 +77,16 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
                     // null check
                     if (reviewData != null) {
                         // postId Intent로 전달 (후기 상세보기 이동)
-                        val intent =
-                            Intent(this@MyPageClassroomReviewActivity, ReviewDetailActivity::class.java)
+                        val intent = Intent(this@MyPageClassroomReviewActivity, ReviewDetailActivity::class.java)
+
                         val postId = reviewData.data.reviewPostList[position].postId
+
                         intent.putExtra("postId", postId)
-                        intent.putExtra("userId", intent.getIntExtra("userId", 0))
+                        intent.putExtra("userId",  myPageViewModel.reviewList.value!!.data.writer.writerId)
+
                         startActivity(intent)
                     }
-
-
                 }
-
             }
         )
     }

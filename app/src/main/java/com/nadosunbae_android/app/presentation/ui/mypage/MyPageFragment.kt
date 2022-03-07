@@ -85,6 +85,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         binding.clMyPageHeartList.setOnClickListener {
             showLoading()
             val intentHeartList = Intent(requireActivity(), MyPageLikeListActivity::class.java)
+            intentHeartList.putExtra("userId", mainViewModel.userId.value ?: 0)
             startActivity(intentHeartList)
         }
 
