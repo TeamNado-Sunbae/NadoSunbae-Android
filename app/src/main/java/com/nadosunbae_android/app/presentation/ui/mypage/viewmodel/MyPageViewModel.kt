@@ -60,6 +60,9 @@ class MyPageViewModel(
    //val quitInfo : MutableLiveData<MyPageQuitData> = MutableLiveData()
 
 
+    //아이템 position
+    var itemPosition = MutableLiveData<Int>()
+
     private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
     val myPagePersonal : LiveData<MyPageMyInfo>
     get() = _myPagePersonal

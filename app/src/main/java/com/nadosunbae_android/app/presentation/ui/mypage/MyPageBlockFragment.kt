@@ -74,7 +74,6 @@ class MyPageBlockFragment :
         myPageBlockAdapter.setItemClickListener(
             object : MyPageBlockAdapter.ItemClickListener {
                 override fun onClick(view: View, position: Int) {
-
                     val userNickName = myPageBlockAdapter.myPageBlockData[position].nickname
                     val userId = myPageBlockAdapter.myPageBlockData[position].userId
 
@@ -87,6 +86,7 @@ class MyPageBlockFragment :
                         ),
                         complete = {
                             initBlockUpdate(userId)
+                            myPageBlockAdapter.removeItem(position)
                         },
                         cancel = {
 
