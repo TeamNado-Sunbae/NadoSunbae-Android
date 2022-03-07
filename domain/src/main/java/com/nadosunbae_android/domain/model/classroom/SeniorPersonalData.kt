@@ -8,5 +8,6 @@ data class SeniorPersonalData(
     val profileImageId: Int,
     val secondMajorName: String,
     val secondMajorStart: String,
-    val userId: Int
+    val userId: Int,
+    val count : Int
 )

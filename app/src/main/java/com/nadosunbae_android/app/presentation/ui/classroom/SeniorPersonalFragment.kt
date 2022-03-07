@@ -36,7 +36,6 @@ class SeniorPersonalFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        goClassRoomReview()
         initSeniorQuestion()
         goSeniorFragment()
         goQuestionWrite()
@@ -64,6 +63,7 @@ class SeniorPersonalFragment :
             val intent = Intent(requireActivity(), MyPageClassroomReviewActivity::class.java)
             intent.apply {
                 putExtra("userId", seniorPersonalViewModel.userId.value)
+                putExtra("userNickName", seniorPersonalViewModel.seniorPersonal.value?.nickname)
             }
             requireActivity().startActivity(intent)
         }
@@ -71,12 +71,7 @@ class SeniorPersonalFragment :
 
     }
 
-    //리뷰 보러가기기
-    private fun goClassRoomReview() {
-        binding.imgSeniorPersonalClassReviewArrow.setOnClickListener {
-            mainViewModel.classRoomFragmentNum.value = 5
-        }
-    }
+
 
     //선배 개인페이지 서버 통신
     private fun getSeniorPersonal(sort: String) {

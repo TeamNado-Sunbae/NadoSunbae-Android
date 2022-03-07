@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemMypageLikeReviewBinding
 import com.nadosunbae_android.app.databinding.ItemMypageReviewBinding
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 import com.nadosunbae_android.domain.model.mypage.MyPageReviewData
 
@@ -56,7 +58,12 @@ class MyPageReviewAdapter():
     ) {
         holder.onBind(myPageReviewData[position])
         holder.itemView.setOnClickListener {
-            itemClickListener.onClick(it, position)
+            if(ReviewGlobals.isReviewed){
+                itemClickListener.onClick(it, position)
+            }else{
+                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
+            }
+
         }
     }
 
