@@ -333,10 +333,16 @@ class ModifyMyInfoActivity :
 
 
     //닉네임 정규식
-    private fun isNickNamePattern() = with(binding) {
-        val nickname = etMyPageNickname
-        textMyPageNicknameTitle.isSelected =
-            !Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())
+    private fun isNickNamePattern() {
+        if (!Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", binding.etMyPageNickname.text.toString())) {
+            binding.textMyPageNicknameTitle.isSelected = true
+            signUpBasicInfoViewModel.nicknameDuplicationCheck.observe(this) {
+                binding.textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
+                binding.textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
+            }
+        } else {
+            binding.textMyPageNicknameTitle.isSelected = false
+        }
     }
 
 
@@ -383,7 +389,7 @@ class ModifyMyInfoActivity :
                 binding.textMyPageModifyNicknameDuplicaitionOk.isVisible = false
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = true
             }
-            if (it.success) {
+            else if (it.success) {
                 Log.d("닉네임 중복확인", "성공")
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = false
                 binding.textMyPageModifyNicknameDuplicaitionOk.isVisible = true
@@ -408,7 +414,7 @@ class ModifyMyInfoActivity :
 
     // 저장 버튼 활성화
     private fun initActiveSaveBtn() {
-        if (!binding.textMyPageModifyNicknameDuplicaitionNo.isVisible) {
+        if (!binding.textMyPageModifyNicknameDuplicaitionNo.isVisible && !binding.textMyPageNicknameTitle.isSelected) {
             binding.textMyPageSave.isSelected = true
             if (binding.textMyPageSave.isSelected) {
                 binding.textMyPageSave.setOnClickListener {
