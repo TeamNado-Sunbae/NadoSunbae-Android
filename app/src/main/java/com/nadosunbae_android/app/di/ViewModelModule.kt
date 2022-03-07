@@ -35,7 +35,7 @@ val viewModelModule = module {
     viewModel {NotificationViewModel(get(),get(),get())}
 
     //review
-    viewModel {ReviewDetailViewModel(get(),get(),get())}
+    viewModel {ReviewDetailViewModel(get(),get(),get(), get())}
     viewModel { ReviewListViewModel(get(),get()) }
     viewModel { ReviewWriteViewModel(get(),get(),get()) }
 

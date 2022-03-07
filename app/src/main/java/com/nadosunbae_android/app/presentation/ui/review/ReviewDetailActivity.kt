@@ -3,18 +3,14 @@ package com.nadosunbae_android.app.presentation.ui.review
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Companion.MODE_MODIFY
 import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewTagBoxAdapter
 import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewDetailViewModel
-import com.nadosunbae_android.app.util.CustomDialog
-import com.nadosunbae_android.app.util.dpToPx
-import com.nadosunbae_android.app.util.getBackgroundImage
-import com.nadosunbae_android.app.util.showCustomDropDown
-import com.nadosunbae_android.domain.model.main.MajorSelectData
+import com.nadosunbae_android.app.util.*
+import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,6 +37,8 @@ class ReviewDetailActivity :
         setClickListener()
         observeContent()
         observeLoadingEnd()
+        observeDropDown()
+        observeReportResult()
 
     }
 
@@ -79,39 +77,7 @@ class ReviewDetailActivity :
 
         // 메뉴 버튼
         binding.btnMoreVert.setOnClickListener {
-
-            // 로그인 유저가 해당 글 작성자일 때 -> 수정/삭제 권한
-            val writerDropDownList = mutableListOf(
-                SelectableData(REVIEW_EDIT, getString(R.string.review_edit), false),
-                SelectableData(REVIEW_DELETE, getString(R.string.review_delete), false),
-            )
-
-            // 다른 유저의 글일 때 -> 신고만 가능
-            val reportDropDownList = mutableListOf(
-                SelectableData(REVIEW_REPORT, getString(R.string.review_report), false)
-            )
-            var dropDownList = reportDropDownList
-
-            // 로그인 유저가 해당 글 작성자 (수정/삭제 권한)
-            if (writerId == userId)
-                dropDownList = writerDropDownList
-
-            showCustomDropDown(reviewDetailViewModel, binding.btnMoreVert, 160f.dpToPx, 0, dropDownList)
-
-            // 드롭다운 메뉴 선택 시
-            reviewDetailViewModel.dropDownSelected.observe(this) {
-                val selected = reviewDetailViewModel.dropDownSelected.value
-
-                if (selected != null) {
-
-                    runMenuAction(selected.id)
-                    // 선택된 드롭다운 다시 취소
-                    reviewDetailViewModel.dropDownSelected.value = null
-                }
-
-
-            }
-
+            runMenuAction()
         }
 
         binding.btnBack.setOnClickListener {
@@ -136,52 +102,115 @@ class ReviewDetailActivity :
         }
     }
 
-    private fun runMenuAction(menuId: Int) {
+    private fun observeDropDown() {
 
-        when (menuId) {
-            // 수정 버튼
-            REVIEW_EDIT -> {
-                val intent = Intent(this, ReviewWriteActivity::class.java)
-                val responseData = reviewDetailViewModel.reviewDetailData.value
+        // 드롭다운 메뉴 선택 시
+        reviewDetailViewModel.dropDownSelected.observe(this) {
+            val selected = reviewDetailViewModel.dropDownSelected.value
 
-                // null check
-                if (responseData != null) {
+            if (selected != null) {
 
-                    intent.putExtra("mode", MODE_MODIFY)
-                    // 후기 수정을 위해 기존 데이터를 넘겨줌
-                    intent.putExtra("modifyData", responseData)
-                    startActivity(intent)
+                when (selected.id) {
+                    REVIEW_EDIT -> editReview()
+                    REVIEW_DELETE -> deleteReview()
+                    REVIEW_REPORT -> reportReview()
                 }
+                // 선택된 드롭다운 다시 취소
+                reviewDetailViewModel.dropDownSelected.value = null
             }
 
-            // 삭제 버튼
-            REVIEW_DELETE -> {
 
-                // 삭제 확인 다이얼로그
+        }
+    }
+
+    // 메뉴 버튼 동작
+    private fun runMenuAction() {
+
+        // 로그인 유저가 해당 글 작성자일 때 -> 수정/삭제 권한
+        val writerDropDownList = mutableListOf(
+            SelectableData(REVIEW_EDIT, getString(R.string.review_edit), false),
+            SelectableData(REVIEW_DELETE, getString(R.string.review_delete), false),
+        )
+
+        // 다른 유저의 글일 때 -> 신고만 가능
+        val reportDropDownList = mutableListOf(
+            SelectableData(REVIEW_REPORT, getString(R.string.review_report), false)
+        )
+        var dropDownList = reportDropDownList
+
+        // 로그인 유저가 해당 글 작성자 (수정/삭제 권한)
+        if (writerId == userId)
+            dropDownList = writerDropDownList
+
+        showCustomDropDown(reviewDetailViewModel, binding.btnMoreVert, 160f.dpToPx, 0, dropDownList)
+
+    }
+
+    // 후기 수정
+    private fun editReview() {
+        val intent = Intent(this, ReviewWriteActivity::class.java)
+        val responseData = reviewDetailViewModel.reviewDetailData.value
+
+        // null check
+        if (responseData != null) {
+
+            intent.putExtra("mode", MODE_MODIFY)
+            // 후기 수정을 위해 기존 데이터를 넘겨줌
+            intent.putExtra("modifyData", responseData)
+            startActivity(intent)
+        }
+    }
+
+    // 후기 삭제
+    private fun deleteReview() {
+        // 삭제 확인 다이얼로그
+        CustomDialog(this).genericDialog(
+            CustomDialog.DialogData(
+                getString(R.string.alert_delete_review_title),
+                getString(R.string.alert_delete_review_complete),
+                getString(R.string.alert_delete_review_cancel)
+            ),
+            complete = {
+                showLoading()
+                reviewDetailViewModel.deleteReview(postId)
+                finish()
+            },
+            cancel = {
+            }
+        )
+    }
+
+    // 후기 신고
+    private fun reportReview() {
+        // 신고 사유 고르는 다이얼로그
+        CustomDialog(this).reportDialog()
+            .setReportClickAction {
+
+                // 신고할지 확인하는 알럿
                 CustomDialog(this).genericDialog(
-                    CustomDialog.DialogData(
-                        getString(R.string.alert_delete_review_title),
-                        getString(R.string.alert_delete_review_complete),
-                        getString(R.string.alert_delete_review_cancel)
+                    dialogText = CustomDialog.DialogData(
+                        title = getString(R.string.request_report),
+                        complete = getString(R.string.agree_report),
+                        cancel = getString(R.string.disagree_report)
                     ),
                     complete = {
-                        showLoading()
-                        reviewDetailViewModel.deleteReview(postId)
-                        finish()
+                       requestReportReview(it)  // 신고 진행
                     },
                     cancel = {
                     }
                 )
-
             }
-            // 신고 버튼
-            REVIEW_REPORT -> {
+    }
 
-                // 플로우 확정되면 구현 예정
-
-            }
-
-        }
+    // viewModel을 통해 서버에 신고 요청
+    private fun requestReportReview(reason: String) {
+        reviewDetailViewModel.postReport(
+            ReportItem(
+                reportedTargetId = postId,
+                reportedTargetTypeId = REPORT_TYPE_REVIEW,
+                reason = reason
+            )
+        )
     }
 
 
@@ -218,6 +247,16 @@ class ReviewDetailActivity :
         }
     }
 
+    private fun observeReportResult() {
+        reviewDetailViewModel.reportSuccess.observe(this) {
+            val msg = if (it)
+                getString(R.string.report_success)       // 신고 성공
+            else
+                getString(R.string.report_fail)         // 신고 실패
+            shortToast(msg)
+        }
+    }
+
 
     companion object {
         const val TAG = "ReviewDetailActivity"
@@ -226,6 +265,8 @@ class ReviewDetailActivity :
         const val REVIEW_EDIT = 1
         const val REVIEW_DELETE = 2
         const val REVIEW_REPORT = 3
+
+        const val REPORT_TYPE_REVIEW = 1
     }
 
 }

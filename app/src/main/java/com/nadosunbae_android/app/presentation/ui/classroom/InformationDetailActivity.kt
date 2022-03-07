@@ -250,7 +250,7 @@ class InformationDetailActivity :
     private fun floatReportReasonDialog() {
         val divisionPost = infoDetailViewModel.divisionPost.value ?: 0
         val dialog = CustomDialog(this)
-        dialog.reportDialog(this)
+        dialog.reportDialog()
         dialog.setReportClickListener(
             object : CustomDialog.ReportClickListener {
                 override fun reportClick(text: String) {
