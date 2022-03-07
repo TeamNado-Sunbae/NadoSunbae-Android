@@ -80,46 +80,39 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun initBottomNav(){
         //바텀 네비 아이템 클릭된 것 처럼 보이도록 ( 4-> 마이페이지, 2 -> 과방)
         // 첫 프래그먼트 설정 (닉네임 클릭시 마이페이지 및 선배 개인페이지를 위해)
-        mainViewModel.bottomNavItem.observe(this){
+
+        mainViewModel.bottomNavItem.observe(this) {
+
             when (it) {
-                4 -> {
-                    binding.btNvMain.selectedItemId= R.id.navigation_mypage
-
-                }
-                2 -> {
-                    binding.btNvMain.selectedItemId = R.id.navigation_room
-                    changeFragmentNoBackStack(R.id.fragment_container_main, SeniorPersonalFragment())
-                }
-                3 ->{
-                    binding.btNvMain.selectedItemId = R.id.navigation_room
-                }
-
-                else -> {
-                    changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
-                }
+                MYPAGE -> binding.btNvMain.selectedItemId = R.id.navigation_mypage
+                NOTIFICATION -> binding.btNvMain.selectedItemId = R.id.navigation_notice
+                CLASSROOM -> binding.btNvMain.selectedItemId = R.id.navigation_room
+                else -> binding.btNvMain.selectedItemId = R.id.navigation_review
             }
+
         }
+
         binding.btNvMain.itemIconTintList = null
         binding.btNvMain.setOnItemSelectedListener { item ->
-            when(item.itemId){
+            when (item.itemId) {
                 R.id.navigation_review -> {
-                    changeFragmentNoBackStack(R.id.fragment_container_main,ReviewFragment())
+                    changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
                     firebaseLogTab(getString(R.string.ga_tab_review))
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_room -> {
                     mainViewModel.classRoomNum.value = 1
-                    changeFragmentNoBackStack(R.id.fragment_container_main,ClassRoomFragment())
+                    changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
                     firebaseLogTab(getString(R.string.ga_tab_classroom))
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_notice -> {
-                    changeFragmentNoBackStack(R.id.fragment_container_main,NotificationFragment())
+                    changeFragmentNoBackStack(R.id.fragment_container_main, NotificationFragment())
                     firebaseLogTab(getString(R.string.ga_tab_notification))
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_mypage -> {
-                    changeFragmentNoBackStack(R.id.fragment_container_main,MyPageFragment())
+                    changeFragmentNoBackStack(R.id.fragment_container_main, MyPageFragment())
                     firebaseLogTab(getString(R.string.ga_tab_mypage))
                     return@setOnItemSelectedListener true
                 }
@@ -227,5 +220,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         }
 
+    }
+
+
+    companion object {
+        const val REVIEW = 1
+        const val CLASSROOM = 2
+        const val NOTIFICATION = 3
+        const val MYPAGE = 4
     }
 }

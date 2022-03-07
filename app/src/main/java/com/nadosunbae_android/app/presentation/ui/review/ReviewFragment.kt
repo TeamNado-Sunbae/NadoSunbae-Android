@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.main.MajorSelectData
@@ -12,6 +13,7 @@ import com.nadosunbae_android.app.di.NadoSunBaeApplication
 import com.nadosunbae_android.domain.model.review.ReviewFilterItem
 import com.nadosunbae_android.domain.model.review.ReviewPreviewData
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
@@ -37,6 +39,15 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
     private lateinit var filterBottomSheetDialog: FilterBottomSheetDialog
+
+
+    private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        // 마이페이지로 이동하도록 콜백 받음
+        if (it.resultCode == GOTO_MYPAGE) {
+            mainViewModel.bottomNavItem.value = MainActivity.MYPAGE
+        }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -116,11 +127,12 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                     // null check
                     if (reviewListData != null) {
                         // postId Intent로 전달 (후기 상세보기 이동)
-                        val intent = Intent(context, ReviewDetailActivity::class.java)
                         val postId = reviewListData[position].postId
-                        intent.putExtra("postId", postId)
-                        intent.putExtra("userId", mainViewModel.userId.value)
-                        startActivity(intent)
+                        val intent = Intent(context, ReviewDetailActivity::class.java).apply {
+                            putExtra("postId", postId)
+                            putExtra("userId", mainViewModel.userId.value)
+                        }
+                        activityResultLauncher.launch(intent)
                     }
 
 
@@ -360,4 +372,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     }
 
+    companion object {
+        const val GOTO_MYPAGE = 1001
+    }
 }
