@@ -53,6 +53,12 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
         binding.rcClassroomInfo.adapter = classRoomInfoMainAdapter
        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
            Log.d("classRoomInfo", it.toString())
+           if(it.isEmpty()){
+               binding.textInfoEmpty.visibility = View.VISIBLE
+           }else{
+               binding.textInfoEmpty.visibility = View.GONE
+           }
+
            classRoomInfoMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
        }
     }
