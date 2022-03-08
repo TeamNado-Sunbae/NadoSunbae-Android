@@ -14,6 +14,10 @@ import com.nadosunbae_android.app.util.getBackgroundImage
 class ReviewSelectBackgroundAdapter : RecyclerView.Adapter<ReviewSelectBackgroundAdapter.ReviewSelectBackgroundHolder>() {
     var dataList = mutableListOf<SelectBackgroundBoxData>()
 
+    private val _backgroundSelected = MutableLiveData<Boolean>()
+    val backgroundSelected: LiveData<Boolean>
+        get() = _backgroundSelected
+
     private val _mSelectedPos = MutableLiveData(NOT_SELECTED)
     val mSelectedPos: LiveData<Int>
         get() = _mSelectedPos
@@ -55,7 +59,6 @@ class ReviewSelectBackgroundAdapter : RecyclerView.Adapter<ReviewSelectBackgroun
 
         holder.itemView.setOnClickListener {
 
-
             when (_mSelectedPos.value) {
                 // 새로 선택할 때
                 NOT_SELECTED -> {
@@ -76,6 +79,7 @@ class ReviewSelectBackgroundAdapter : RecyclerView.Adapter<ReviewSelectBackgroun
                     dataList[position].isSelected = true
                 }
             }
+            _backgroundSelected.value = true
             notifyDataSetChanged()
         }
     }
