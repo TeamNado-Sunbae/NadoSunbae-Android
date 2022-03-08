@@ -36,7 +36,10 @@ object SignMapper {
                 secondMajorId = responseSignIn.data.user.secondMajorId,
                 secondMajorName = responseSignIn.data.user.secondMajorName,
                 universityId = responseSignIn.data.user.universityId,
-                userId = responseSignIn.data.user.userId
+                userId = responseSignIn.data.user.userId,
+                isEmailVerified = responseSignIn.data.user.isEmailVerified,
+                isUserReported = responseSignIn.data.user.isUserReported,
+                isReviewInappropriate = responseSignIn.data.user.isReviewInappropriate
             )
         )
     }

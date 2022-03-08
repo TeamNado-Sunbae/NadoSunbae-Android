@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.util
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
