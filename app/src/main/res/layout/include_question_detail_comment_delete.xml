@@ -23,7 +23,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:padding="30dp"
-            android:background="@drawable/rectangle_fill_white_8dp">
+            android:background="@drawable/rectangle_fill_white_border_gray_1_8">
 
 
             <TextView
