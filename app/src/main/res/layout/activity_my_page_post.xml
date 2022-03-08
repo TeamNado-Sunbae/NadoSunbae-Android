@@ -116,7 +116,7 @@
             android:id="@+id/text_info_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/empty_review"
+            android:text="@string/empty_info"
             android:textColor="@color/gray_3"
             android:fontFamily="@font/pretendard_regular"
             android:textSize="14sp"
