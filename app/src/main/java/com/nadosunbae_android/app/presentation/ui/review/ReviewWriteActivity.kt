@@ -114,6 +114,11 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     private fun initReviewSelectBackgroundAdapter() {
         reviewSelectBackgroundAdapter = ReviewSelectBackgroundAdapter()
         binding.rvSelectBackground.adapter = reviewSelectBackgroundAdapter
+
+        // 배경선택 변경 여부 -> 수정 가능하도록
+        reviewSelectBackgroundAdapter.backgroundSelected.observe(this) {
+            applyInputValid()
+        }
     }
 
     private fun initReviewRequireTextWatcher() {
@@ -409,8 +414,9 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         val validBackground = reviewSelectBackgroundAdapter.getSelectedBackgroundId()
 
         // null check 및 배경 선택 여부 검사
-        binding.btnWriteComplete.isEnabled = validTextInput != null && validTextInput && validBackground != null
-
+        binding.btnWriteComplete.isEnabled =
+            (validTextInput != null && validTextInput && validBackground != null)
+                || (reviewSelectBackgroundAdapter.backgroundSelected.value == true)
     }
 
     private fun setDropDownDefault() {
