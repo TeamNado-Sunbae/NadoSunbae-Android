@@ -52,7 +52,15 @@ class SeniorPersonalFragment :
         observeArray()
         goMyPageClassRoomReview()
         blockSenior()
+        observeLoadingEnd()
     }
+    //로딩 종료
+    private fun observeLoadingEnd() {
+        seniorPersonalViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+            dismissLoading()
+        }
+    }
+
 
     //선배에게 온 1:1 질문 목록
     private fun initSeniorQuestion() {
@@ -85,7 +93,7 @@ class SeniorPersonalFragment :
     private fun getSeniorPersonal(sort: String) {
         mainViewModel.seniorId.observe(viewLifecycleOwner) {
             Log.d("seniorId", it.toString())
-
+            showLoading()
             seniorPersonalViewModel.getSeniorPersonal(it)
             seniorPersonalViewModel.getSeniorQuestionList(it, sort)
         }
@@ -217,6 +225,7 @@ class SeniorPersonalFragment :
 
             }
             Timber.d("seniorQuestion  : $sort")
+            showLoading()
             seniorPersonalViewModel.getSeniorQuestionList(mainViewModel.seniorId.value ?: 0, sort)
         }
     }

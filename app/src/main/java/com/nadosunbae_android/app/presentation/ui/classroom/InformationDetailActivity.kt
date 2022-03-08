@@ -45,7 +45,16 @@ class InformationDetailActivity :
         infoCommentMenuClick()
         reportToast()
         clickNickname()
+        observeLoadingEnd()
     }
+    //로딩 종료
+    private fun observeLoadingEnd() {
+        infoDetailViewModel.onLoadingEnd.observe(this) {
+            dismissLoading()
+        }
+    }
+
+
     //안꺼지게 조절
     private fun onInfo(){
         MainGlobals.infoBlock = 0
@@ -68,6 +77,7 @@ class InformationDetailActivity :
         Log.d("infoPostId", postId.toString())
         val userId = intent.getIntExtra("userId", 0)
         infoDetailViewModel.setPostId(postId)
+        showLoading()
         infoDetailViewModel.getInfoDetail(postId)
         infoDetailViewModel.userId.value = userId
 

@@ -15,6 +15,7 @@ import com.nadosunbae_android.app.presentation.ui.notification.adapter.Notificat
 import com.nadosunbae_android.app.presentation.ui.notification.viewmodel.NotificationViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class NotificationFragment :
@@ -30,8 +31,15 @@ class NotificationFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initNotificationList()
+        observeLoadingEnd()
 
+    }
 
+    //로딩 종료
+    private fun observeLoadingEnd() {
+        notificationViewModel.onLoadingEnd.observe(viewLifecycleOwner){
+            dismissLoading()
+        }
     }
 
     override fun onResume() {
@@ -48,11 +56,13 @@ class NotificationFragment :
         binding.rcNotification.adapter = notificationAdapter
 
         mainViewModel.signData.observe(viewLifecycleOwner) {
+            showLoading()
             notificationViewModel.getNotification(it.userId)
         }
 
         notificationViewModel.notificationList.observe(viewLifecycleOwner) {
-            Log.d("알림 정보", it.toString())
+            Log.d("알림 정보", it.size.toString())
+
             initNotificationEmpty(it.size)
             notificationAdapter.setNotification(it as MutableList<NotificationListData>)
         }
@@ -64,6 +74,7 @@ class NotificationFragment :
             notificationViewModel.deleteNotification(id)
             notificationViewModel.deleteNotification.observe(viewLifecycleOwner) {
                 if (it.isDeleted) {
+                    showLoading()
                     notificationViewModel.getNotification(mainViewModel.userId.value ?: 0)
                 }
             }
@@ -115,6 +126,7 @@ class NotificationFragment :
 
         //알림 읽기
         fun getReadNotification(notificationId: Int) {
+            showLoading()
             notificationViewModel.putReadNotification(notificationId)
         }
     }
