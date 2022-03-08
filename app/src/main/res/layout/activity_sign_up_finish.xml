@@ -34,7 +34,6 @@
             android:includeFontPadding="true"
             android:lineHeight="19sp"
             android:text="@string/signup_finish_subtitle"
-            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/text_signup_finish_title"

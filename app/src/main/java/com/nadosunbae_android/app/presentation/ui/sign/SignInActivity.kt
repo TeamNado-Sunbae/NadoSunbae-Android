@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.nadosunbae_android.app.R
@@ -18,7 +19,9 @@ import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
+import com.nadosunbae_android.domain.model.sign.CertificationEmailData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.getScopeId
 import org.koin.core.component.getScopeName
@@ -55,6 +58,10 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         }
     }
 
+    //Timber 초기화
+    private fun setupTimber() {
+        Timber.plant(Timber.DebugTree())
+    }
 
     //id editText textwatcher
     private fun onViewId() {
@@ -125,15 +132,14 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
     private fun moveQeustionPage() {
         mainViewModel.getAppLink()
-            binding.textSignInQuestion.setOnClickListener {
-                mainViewModel.appLink.observe(this) {
-                    val intent = Intent(this, WebViewActivity::class.java)
-                    intent.putExtra("url", it.data.kakaoTalkChannel)
-                    startActivity(intent)
-                }
+        binding.textSignInQuestion.setOnClickListener {
+            mainViewModel.appLink.observe(this) {
+                val intent = Intent(this, WebViewActivity::class.java)
+                intent.putExtra("url", it.data.kakaoTalkChannel)
+                startActivity(intent)
             }
         }
-
+    }
 
 
     //비밀번호 찾기 페이지로 이동
@@ -147,51 +153,105 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     private fun deviceToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.d("deviceToken", "디바이스 토큰 정보 가저오기 실패", task.exception)
+                Timber.d( "디바이스 토큰 정보 가저오기 실패: ${task.exception}")
                 return@OnCompleteListener
             }
 
             val token = task.result
             signUpBasicInfoViewModel.deviceToken.value = token
-            Log.d("token", token)
+            Timber.d("token: ${token}")
 
         })
     }
 
 
     private fun observeSignIn() {
-        signUpBasicInfoViewModel.signIn.observe(this) {
-            dismissLoading()
 
-            if (it.success) {
-                Log.d(TAG, "access token : ${it.accessToken}")
-                Log.d(TAG, "refresh token : ${it.refreshToken}")
-                Log.d(TAG, "--- Login Success ---")
-                NadoSunBaeSharedPreference.setAccessToken(this, it.accessToken)
-                NadoSunBaeSharedPreference.setRefreshToken(this, it.refreshToken)
+        dismissLoading()
+
+        signUpBasicInfoViewModel.signInStatus.observe(this) {
+            if (it == 200) {
+                Timber.d("testest : signUpBasicInfoViewModel.signIn.value?.user?.userId")
+                Timber.d(
+                    "access token : ${signUpBasicInfoViewModel.signIn.value?.accessToken}"
+                )
+                Timber.d(
+                    "refresh token : ${signUpBasicInfoViewModel.signIn.value?.refreshToken}"
+                )
+                Timber.d("--- Login Success ---")
+                NadoSunBaeSharedPreference.setAccessToken(
+                    this,
+                    signUpBasicInfoViewModel.signIn.value?.accessToken ?: ""
+                )
+                NadoSunBaeSharedPreference.setRefreshToken(
+                    this,
+                    signUpBasicInfoViewModel.signIn.value?.refreshToken ?: ""
+                )
                 val intent = Intent(this, MainActivity::class.java)
-                val data = it.user
+                val data = signUpBasicInfoViewModel.signIn.value?.user
+                Timber.d("signInData : $data")
                 intent.apply {
                     putExtra("signData", data)
                 }
                 startActivity(intent)
                 finish()
-            }
-            else {
-                binding.textSignInWarn.visibility = View.VISIBLE
-                NadoSunBaeSharedPreference.setUserId(this, it.user.userId)
-                Log.d(TAG, " --- Login Failed ---")
-            }
 
+            } else if (it == 202) {
+                certificationAlert()
+                NadoSunBaeSharedPreference.setUserId(
+                    this,
+                    signUpBasicInfoViewModel.signIn.value?.user?.userId ?: 0
+                )
+                Timber.d(" --- Email Certification ---")
+
+            } else {
+                binding.textSignInWarn.visibility = View.VISIBLE
+                NadoSunBaeSharedPreference.setUserId(
+                    this,
+                    signUpBasicInfoViewModel.signIn.value?.user?.userId ?: 0
+                )
+                Timber.d(" --- Login Failed ---")
+            }
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        observeSignIn()
+    }
+
+
+    //재전송
+    private fun initResend() {
+        val email = binding.etSignInId.text.toString()
+        val password = binding.etSignInPw.text.toString()
+        signUpBasicInfoViewModel.postCertificationEmail(
+            CertificationEmailData(email, password)
+        )
+    }
+
+    //메일 인증 알럿
+    private fun certificationAlert(): MutableLiveData<Boolean> {
+        val confirm = MutableLiveData<Boolean>()
+        CustomDialog(this).genericDialog(
+            CustomDialog.DialogData(
+                getString(R.string.email_certification_title),
+                getString(R.string.email_certification_email),
+                getString(R.string.email_certification_close)
+            ),
+            complete = {
+                initResend()
+            },
+            cancel = {
+
+            }
+        )
+        return confirm
+    }
 
 
     //로그인 버튼 클릭 이벤트
     private fun moveMainPage() {
-        Log.d("SignUp", "서버 통신 성공!")
-
         binding.clLogin.setOnClickListener {
             showLoading()
             signUpBasicInfoViewModel.signIn(
