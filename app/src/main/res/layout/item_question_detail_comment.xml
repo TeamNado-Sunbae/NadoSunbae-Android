@@ -9,9 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
-        android:paddingBottom="12dp"
-        android:paddingTop="8dp">
+        android:background="@color/background">
 
        <include
            android:id="@+id/include_question_detail_comment_text"

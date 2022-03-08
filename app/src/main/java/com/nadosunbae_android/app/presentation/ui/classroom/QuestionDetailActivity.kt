@@ -127,14 +127,17 @@ class QuestionDetailActivity :
             object : ClassRoomQuestionDetailAdapter.OnItemLikeClickListener {
                 override fun onLikeClick(v: View) {
                     val postId = questionDetailViewModel.likePostId.value ?: 0
-                    showLoading()
+
                     if (divisionNum == 1) {
                         Log.d("전체 질문 좋아요", "서버 통신 하는 중")
                         questionDetailViewModel.postClassRoomLike(LikeItem(postId, 3))
+                        showLoading()
                         questionDetailViewModel.getClassRoomQuestionDetail(postId)
                     } else {
+
                         Log.d("1:1 질문 좋아요", "서버 통신 하는 중")
                         questionDetailViewModel.postClassRoomLike(LikeItem(postId, 4))
+                        showLoading()
                         questionDetailViewModel.getClassRoomQuestionDetail(postId)
                     }
                 }

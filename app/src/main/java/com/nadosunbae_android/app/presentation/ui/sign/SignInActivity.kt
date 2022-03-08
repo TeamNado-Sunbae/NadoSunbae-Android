@@ -46,7 +46,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         moveSignUp()
         onViewPw()
         moveQeustionPage()
-        setupTimber()
         observeSignIn()
         observeLoadingEnd()
 
@@ -59,10 +58,13 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         }
     }
 
+<<<<<<< HEAD
     //Timber 초기화
     private fun setupTimber() {
         Timber.plant(Timber.DebugTree())
     }
+=======
+>>>>>>> aa8755a5e95b8ffe8c9e07241e26722c3a890ace
 
     //id editText textwatcher
     private fun onViewId() {

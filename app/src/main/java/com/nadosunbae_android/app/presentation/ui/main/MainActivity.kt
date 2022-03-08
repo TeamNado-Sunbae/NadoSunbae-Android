@@ -1,13 +1,11 @@
 package com.nadosunbae_android.app.presentation.ui.main
 
-import android.content.Intent
 import android.os.Bundle
+import android.service.autofill.SaveCallback
 import android.util.Log
-import androidx.core.view.doOnAttach
 import androidx.lifecycle.Observer
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
-import androidx.viewpager2.widget.ViewPager2
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -25,11 +23,8 @@ import com.nadosunbae_android.app.util.changeFragmentNoBackStack
 import com.nadosunbae_android.app.util.popFragmentBackStack
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
-import okhttp3.internal.http.toHttpDateOrNull
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -38,12 +33,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         DateUtil.initTimeZone()
 
         initBottomNav()
 
         classRoomFragmentChange()
-
         initMajorList()
         setDefaultMajor()
         getSignDataFromIntent()
@@ -57,8 +52,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 
 
-
-//바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
+    //바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
     /* private fun clickBottomNav(){
          mainViewModel.notificationClickNum.observe(this){
              when(it){
@@ -103,7 +97,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 CLASSROOM -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_room
 
-                }else ->{
+                }NOTIFICATION -> {
+                    binding.btNvMain.selectedItemId = R.id.navigation_notice
+                changeFragmentNoBackStack(R.id.fragment_container_main, NotificationFragment())
+                }
+
+                else ->{
                     changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
                 }
             }
@@ -184,6 +183,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         mainViewModel.initLoading.value = intent.getBooleanExtra("loading", false)
         mainViewModel.divisionBlock.value = intent.getIntExtra("blockDivision", -1)
         Log.d("informationDetaildelete", mainViewModel.divisionBlock.value.toString())
+        Timber.d("bottomNavItem : ${mainViewModel.bottomNavItem.value}")
     }
 
 
@@ -289,5 +289,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         const val CLASSROOM = 3
         const val MYPAGE = 4
         const val MYPAGEDIVISION = 5
+        const val NOTIFICATION = 6
     }
 }
