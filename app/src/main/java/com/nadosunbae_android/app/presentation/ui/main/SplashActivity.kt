@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.ui.onboarding.OnBoardingActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
@@ -20,17 +21,28 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     private val splashViewModel: SplashViewModel by viewModel()
 
     private var loginSuccess = false
+    private var notification = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setupTimber()
         observeSignIn()
         autoLogin()
         startLoading()
 
+        val bundle: Bundle? = intent.extras
+        if (bundle != null) {
+            Timber.d("푸쉬 알림 백그라운드에서")
+            notification = 6
+        }
+
+
     }
 
-
+    //Timber 초기화
+    private fun setupTimber() {
+        Timber.plant(Timber.DebugTree())
+    }
 
     private fun observeSignIn() {
         splashViewModel.signIn.observe(this) {
@@ -50,7 +62,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     }
 
 
-
     private fun startLoading() {
         val pref = getSharedPreferences("isFirst", MODE_PRIVATE)
         val first = pref.getBoolean("isFirst", false)
@@ -64,29 +75,25 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
             val intent = Intent(this, OnBoardingActivity::class.java)
             startActivity(intent)
             finish()
-        }
-
-        //앱 최초 실행 아닐 때
+        } //앱 최초 실행 아닐 때
         else {
             Log.d("FirstTimeCheck", " : false")
             Handler(Looper.getMainLooper()).postDelayed({
                 val intent = if (loginSuccess) {
                     Intent(this, MainActivity::class.java).apply {
                         putExtra("signData", splashViewModel.signIn.value?.user)
+                        putExtra("bottomNavItem", notification)
                     }
-                }
-                else { Intent(this, SignInActivity::class.java) }
+                } else { Intent(this, SignInActivity::class.java) }
 
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                startActivity(intent)
-                finish()
-            }, DURATION)
+
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    startActivity(intent)
+                    finish()
+                }, DURATION)
+            }
         }
-    }
-
-
-
-    companion object {
-        private const val DURATION: Long = 2000
-    }
+        companion object {
+            private const val DURATION: Long = 2000
+        }
 }
