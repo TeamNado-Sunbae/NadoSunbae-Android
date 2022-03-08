@@ -435,4 +435,9 @@
     <string name="empty_personal_question">등록된 1:1 질문이 없습니다.</string>
     <string name="empty_block_list">차단한 사용자가 없습니다.</string>
 
+    <!-- 메일 인증 알럿 -->
+    <string name="email_certification_title">학교 이메일 인증을 완료해야
+로그인이 가능합니다.</string>
+    <string name="email_certification_close">닫기</string>
+    <string name="email_certification_email">메일 재전송</string>
 </resources>
