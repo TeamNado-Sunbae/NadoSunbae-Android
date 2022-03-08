@@ -15,6 +15,19 @@
         android:background="@color/background"
         tools:context=".app.presentation.ui.classroom.SeniorPersnoalFragment">
 
+        <TextView
+            android:id="@+id/text_senior_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/classroom_senior_item_no"
+            android:textColor="@color/gray_3"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="14sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_senior_personal_title"
             android:layout_width="match_parent"
