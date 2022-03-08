@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.domain.model.notification.NotificationDeleteData
 import com.nadosunbae_android.domain.model.notification.NotificationListData
 import com.nadosunbae_android.domain.model.notification.NotificationReadData
@@ -16,7 +17,10 @@ class NotificationViewModel(
     private val getNotificationListDataUseCase: GetNotificationListDataUseCase,
     private val deleteNotificationUseCase : DeleteNotificationUseCase,
     private val readNotificationUseCase : ReadNotificationUseCase
-) : ViewModel() {
+) : ViewModel(), LoadableViewModel {
+
+    override val onLoadingEnd = MutableLiveData<Boolean>()
+
 
     //알림탭
     //전체 알림 리스트
@@ -39,6 +43,8 @@ class NotificationViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("notificationList", "전체 알림 리스트 통신 실패")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -54,6 +60,8 @@ class NotificationViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("deleteNotification", "알림 삭제 실패")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -70,6 +78,8 @@ class NotificationViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("putNotificationRead", "알림 읽기 실패")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }

@@ -26,12 +26,20 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         initSenior()
         goQuestionFragment()
         changeTitle()
+        observeLoadingEnd()
     }
 
+    //로딩 종료
+    private fun observeLoadingEnd() {
+        mainViewModel.onLoadingEnd.observe(viewLifecycleOwner){
+            dismissLoading()
+        }
+    }
 
     // 구성원 보여주기
     private fun initSenior(){
             mainViewModel.selectedMajor.observe(viewLifecycleOwner) {
+                showLoading()
                 mainViewModel.getClassRoomSenior(it.majorId)
 
 

@@ -32,8 +32,16 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
         observeArray()
         questionSort()
         goInfoWrite()
+        observeLoadingEnd()
     }
 
+
+    //로딩 종료
+    private fun observeLoadingEnd() {
+        mainViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+            dismissLoading()
+        }
+    }
     override fun onResume() {
         super.onResume()
         mainViewModel.getClassRoomMain(2,mainViewModel.selectedMajor.value!!.majorId, "recent")
@@ -72,6 +80,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
     //정보 데이터 받기
     private fun infoServer(sort : String){
         mainViewModel.selectedMajor.observe(viewLifecycleOwner){
+            showLoading()
             mainViewModel.getClassRoomMain(2,it.majorId, sort)
         }
     }

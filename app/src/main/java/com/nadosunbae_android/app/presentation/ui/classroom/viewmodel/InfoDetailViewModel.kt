@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
@@ -24,7 +25,9 @@ class InfoDetailViewModel(
     val deleteCommentDataUseCase: DeleteCommentDataUseCase,
     val postReportUseCase: PostReportUseCase,
     val deletePostDataUseCase: DeletePostDataUseCase,
-) : ViewModel(), DropDownSelectableViewModel {
+) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
+
+    override val onLoadingEnd = MutableLiveData<Boolean>()
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
 
@@ -103,7 +106,9 @@ class InfoDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("infoDetail", "정보 상세보기 서버 통신 실패")
-                }
+                }.also {
+            onLoadingEnd.value = true
+        }
         }
 
     }
@@ -121,6 +126,8 @@ class InfoDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("infoComment", "댓글 통신 실패 ")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -136,6 +143,8 @@ class InfoDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("InformationPostLike", "좋아요 서버 통신 실패!")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
 
@@ -153,6 +162,8 @@ class InfoDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("deleteComment", "댓글 삭제 실패")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -193,6 +204,8 @@ class InfoDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("deletePost", "원글 삭제 실패")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }

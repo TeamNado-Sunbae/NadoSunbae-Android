@@ -30,7 +30,7 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
         initQuestionSort()
         observeArray()
         questionSort()
-
+        observeLoadingEnd()
         initAskEveryone()
         goQuestionWrite()
 
@@ -39,6 +39,12 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
 
     }
 
+    //로딩 종료
+    private fun observeLoadingEnd() {
+        mainViewModel.onLoadingEnd.observe(viewLifecycleOwner){
+            dismissLoading()
+        }
+    }
 
     //과방탭 메인으로 이동
     private fun changeClassRoom(){
@@ -63,6 +69,7 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
     //질문 전체보기 서버통신
     private fun questionEveryone(sort : String){
         mainViewModel.selectedMajor.observe(viewLifecycleOwner){
+            showLoading()
             mainViewModel.getClassRoomMain(3,it.majorId,sort)
         }
 

@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.presentation.base.LoadableViewModel
+import com.nadosunbae_android.app.presentation.ui.classroom.SeniorPersonalFragment
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
@@ -26,7 +29,9 @@ class QuestionDetailViewModel(
     val deleteCommentDataUseCase : DeleteCommentDataUseCase,
     val deletePostDataUseCase: DeletePostDataUseCase,
     val postReportUseCase: PostReportUseCase
-) : ViewModel(), DropDownSelectableViewModel {
+) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
+
+    override val onLoadingEnd = MutableLiveData<Boolean>()
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
 
@@ -121,6 +126,8 @@ class QuestionDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("classRoomMain", "메인 서버 통신 실패")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -135,6 +142,8 @@ class QuestionDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("classRoomPostLike", "좋아요 서버 통신 실패!")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
 
@@ -153,6 +162,8 @@ class QuestionDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("questionComment", "댓글 통신 실패 ")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -168,6 +179,8 @@ class QuestionDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("commentUpdate", "댓글 수정 실패 ")
+                }.also {
+                    onLoadingEnd.value = true
                 }
 
         }
@@ -184,6 +197,8 @@ class QuestionDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("deleteComment", "댓글 삭제 실패")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }
@@ -199,6 +214,8 @@ class QuestionDetailViewModel(
                 .onFailure {
                     it.printStackTrace()
                     Log.d("deletePost", "원글 삭제 실패")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }
