@@ -52,6 +52,15 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     }
 
+    //1:1질문 엠티뷰
+    private fun initReviewEmpty(size : Int){
+        if(size == 0){
+            binding.textQuestionEmpty.visibility = View.VISIBLE
+        }else{
+            binding.textQuestionEmpty.visibility = View.GONE
+        }
+    }
+
 
     private fun movePage() {
         //내가 쓴 글
@@ -121,6 +130,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         myPageQuestionAdapter = MyPageMainAdapter(2, mainViewModel.userId.value ?: 0, 1)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
         myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
+            initReviewEmpty(it.data.classroomPostList.size)
             myPageQuestionAdapter.setQuestionMain((it.data.classroomPostList) as MutableList<MyPageQuestionData.Data.ClassroomPost>)
 
         }

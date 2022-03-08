@@ -118,6 +118,46 @@ class MyPageLikeListActivity :
         }
     }
 
+
+    //후기 엠티뷰
+    private fun initReviewEmpty(size : Int){
+        if(size == 0){
+            binding.textReviewEmpty.visibility = View.VISIBLE
+            binding.textInfoEmpty.visibility = View.GONE
+            binding.textQuestionEmpty.visibility = View.GONE
+        }else{
+            binding.textReviewEmpty.visibility = View.GONE
+            binding.textQuestionEmpty.visibility = View.GONE
+            binding.textInfoEmpty.visibility = View.GONE
+        }
+    }
+
+    //정보 엠티뷰
+    private fun initInfoEmpty(size : Int){
+        if(size == 0){
+            binding.textReviewEmpty.visibility = View.GONE
+            binding.textInfoEmpty.visibility = View.VISIBLE
+            binding.textQuestionEmpty.visibility = View.GONE
+        }else{
+            binding.textReviewEmpty.visibility = View.GONE
+            binding.textQuestionEmpty.visibility = View.GONE
+            binding.textInfoEmpty.visibility = View.GONE
+        }
+    }
+
+    // 질문 엠티뷰
+    private fun initQuestionEmpty(size : Int){
+        if(size == 0){
+            binding.textReviewEmpty.visibility = View.GONE
+            binding.textInfoEmpty.visibility = View.GONE
+            binding.textQuestionEmpty.visibility = View.VISIBLE
+        }else{
+            binding.textReviewEmpty.visibility = View.GONE
+            binding.textQuestionEmpty.visibility = View.GONE
+            binding.textInfoEmpty.visibility = View.GONE
+        }
+    }
+
     private fun questionPosting() {
         showLoading()
         intent.getIntExtra("userId", 0)
@@ -126,6 +166,7 @@ class MyPageLikeListActivity :
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 
         myPageViewModel.likeQuestion.observe(this) {
+            initQuestionEmpty(it.data.likePostList.size)
             myPageLikeQuestionAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
         }
     }
@@ -139,6 +180,7 @@ class MyPageLikeListActivity :
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 
         myPageViewModel.likeQuestion.observe(this) {
+            initInfoEmpty(it.data.likePostList.size)
             myPageLikeQuestionAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
         }
     }
@@ -152,6 +194,7 @@ class MyPageLikeListActivity :
         binding.rvMypageLike.adapter = myPageLikeReviewAdapter
 
         myPageViewModel.likeReview.observe(this) {
+            initReviewEmpty(it.data.likePostList.size)
             myPageLikeReviewAdapter.setReviewListData((it.data.likePostList) as MutableList<MyPageLikeReviewData.Data.LikePost>)
         }
     }
