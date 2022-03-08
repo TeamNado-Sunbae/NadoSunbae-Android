@@ -54,7 +54,6 @@ class ReviewWriteViewModel(
         viewModelScope.launch {
             runCatching { postReviewDataUseCase(reviewWriteItem) }
                 .onSuccess {
-                    ReviewGlobals.isReviewed = it.isReviewed
                     Log.d(TAG, "서버통신 성공")
                 }
                 .onFailure {
@@ -62,6 +61,7 @@ class ReviewWriteViewModel(
                     Log.d(TAG, "서버통신 실패")
                 }
                 .also {
+                    ReviewGlobals.isReviewed = true    // fail로 넘어오는 경우가 많아서 일단 이렇게 TODO
                     onLoadingEnd.value = true
                 }
         }

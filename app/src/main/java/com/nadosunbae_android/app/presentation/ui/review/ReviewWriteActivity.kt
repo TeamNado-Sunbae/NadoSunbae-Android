@@ -414,9 +414,11 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         val validBackground = reviewSelectBackgroundAdapter.getSelectedBackgroundId()
 
         // null check 및 배경 선택 여부 검사
+        val valid = validTextInput != null && validTextInput && validBackground != null
         binding.btnWriteComplete.isEnabled =
-            (validTextInput != null && validTextInput && validBackground != null)
-                || (reviewSelectBackgroundAdapter.backgroundSelected.value == true)
+            if (mode == MODE_MODIFY) valid || reviewSelectBackgroundAdapter.backgroundSelected.value == true
+            else valid
+
     }
 
     private fun setDropDownDefault() {
