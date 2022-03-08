@@ -1,22 +1,19 @@
 package com.nadosunbae_android.app.presentation.ui.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySplashBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.SplashViewModel
 import com.nadosunbae_android.app.presentation.ui.onboarding.OnBoardingActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
-import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.*
+
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 
@@ -32,6 +29,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         startLoading()
 
     }
+
+
 
     private fun observeSignIn() {
         splashViewModel.signIn.observe(this) {
@@ -53,19 +52,36 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
 
     private fun startLoading() {
+        val pref = getSharedPreferences("isFirst", MODE_PRIVATE)
+        val first = pref.getBoolean("isFirst", false)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = if (loginSuccess) {
-                Intent(this, MainActivity::class.java).apply {
-                    putExtra("signData", splashViewModel.signIn.value?.user)
-                }
-            }
-            else { Intent(this, OnBoardingActivity::class.java) }
-
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        //앱 최초 실행일 때
+        if (first == false) {
+            Log.d("FirstTimeCheck", ": true")
+            val editor = pref.edit()
+            editor.putBoolean("isFirst", true)
+            editor.commit()
+            val intent = Intent(this, OnBoardingActivity::class.java)
             startActivity(intent)
             finish()
-        }, DURATION)
+        }
+
+        //앱 최초 실행 아닐 때
+        else {
+            Log.d("FirstTimeCheck", " : false")
+            Handler(Looper.getMainLooper()).postDelayed({
+                val intent = if (loginSuccess) {
+                    Intent(this, MainActivity::class.java).apply {
+                        putExtra("signData", splashViewModel.signIn.value?.user)
+                    }
+                }
+                else { Intent(this, SignInActivity::class.java) }
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                startActivity(intent)
+                finish()
+            }, DURATION)
+        }
     }
 
 
