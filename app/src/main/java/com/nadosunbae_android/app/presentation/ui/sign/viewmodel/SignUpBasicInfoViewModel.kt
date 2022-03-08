@@ -147,7 +147,7 @@ class SignUpBasicInfoViewModel(
         viewModelScope.launch {
             when (val postSignIn = safeApiCall(Dispatchers.IO) { postSignInUseCase(signInItem) }) {
                 is ResultWrapper.Success -> {
-                    signInStatus.value = 200
+                    signInStatus.value = postSignIn.data!!.status
                     signIn.value = postSignIn.data!!
                 }
                 is ResultWrapper.NetworkError -> {
