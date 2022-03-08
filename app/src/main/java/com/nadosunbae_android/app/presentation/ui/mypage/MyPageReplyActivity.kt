@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.nadosunbae_android.app.R
@@ -63,6 +64,28 @@ class MyPageReplyActivity :
 
     }
 
+    //질문 엠티뷰
+    private fun initQuestionEmpty(size : Int){
+        if(size == 0){
+            binding.textQuestionEmpty.visibility = View.VISIBLE
+            binding.textInfoEmpty.visibility = View.GONE
+        }else{
+            binding.textQuestionEmpty.visibility = View.GONE
+            binding.textInfoEmpty.visibility = View.GONE
+        }
+    }
+
+    //정보 엠티뷰
+    private fun initInfoEmpty(size : Int){
+        if(size == 0){
+            binding.textInfoEmpty.visibility = View.VISIBLE
+            binding.textQuestionEmpty.visibility = View.GONE
+        }else{
+            binding.textInfoEmpty.visibility = View.GONE
+            binding.textQuestionEmpty.visibility = View.GONE
+        }
+    }
+
     private fun selectOption() {
         binding.apply {
             textMypageReplyQuestionTitle.setOnClickListener {
@@ -104,6 +127,7 @@ class MyPageReplyActivity :
         binding.rvMypageQuestion.adapter = myPageReplyAdapter
 
         myPageViewModel.replyByMe.observe(this) {
+            initQuestionEmpty(it.data.classroomPostListByMyCommentList.size)
             myPageReplyAdapter.setQuestionReply((it.data.classroomPostListByMyCommentList) as MutableList<MyPageReplyData.Data.ClassroomPostListByMyComment>)
         }
     }
@@ -118,6 +142,7 @@ class MyPageReplyActivity :
         binding.rvMypageQuestion.adapter = myPageReplyAdapter
 
         myPageViewModel.replyByMe.observe(this) {
+            initInfoEmpty(it.data.classroomPostListByMyCommentList.size)
             myPageReplyAdapter.setQuestionReply((it.data.classroomPostListByMyCommentList) as MutableList<MyPageReplyData.Data.ClassroomPostListByMyComment>)
         }
     }

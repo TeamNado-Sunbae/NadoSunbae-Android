@@ -96,6 +96,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_mypage_post_question_title" />
 
+
+        <TextView
+            android:id="@+id/text_question_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_question"
+            android:textColor="@color/gray_3"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_post_question_title"
+            android:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/text_info_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_info"
+            android:textColor="@color/gray_3"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_mypage_post_question_title"
+            android:visibility="gone"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

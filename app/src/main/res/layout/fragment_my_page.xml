@@ -100,10 +100,11 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cl_my_page_main_title">
+                app:layout_constraintTop_toBottomOf="@+id/cl_my_page_main_question">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -438,6 +439,22 @@
                     app:layout_constraintTop_toBottomOf="@+id/cl_my_page_heart_list" />
 
 
+                <TextView
+                    android:id="@+id/text_question_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:text="@string/empty_personal_question"
+                    android:textColor="@color/gray_3"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    android:layout_marginTop="120dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_my_page_personal_question" />
+
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rc_my_page_question"
                     android:layout_width="match_parent"
@@ -448,6 +465,7 @@
                     android:orientation="vertical"
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_my_page_personal_question" />

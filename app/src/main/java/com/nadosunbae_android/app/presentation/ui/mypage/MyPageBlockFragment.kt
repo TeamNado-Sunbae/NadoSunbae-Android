@@ -51,6 +51,15 @@ class MyPageBlockFragment :
 
     }
 
+    //1:1질문 엠티뷰
+    private fun initBlockEmpty(size : Int){
+        if(size == 0){
+            binding.textBlockEmpty.visibility = View.VISIBLE
+        }else{
+            binding.textBlockEmpty.visibility = View.GONE
+        }
+    }
+
     //마이페이지 차단 리스트
     private fun initBlockList() {
         mainViewModel.signData.observe(viewLifecycleOwner) {
@@ -59,6 +68,7 @@ class MyPageBlockFragment :
         myPageBlockAdapter = MyPageBlockAdapter(mainViewModel.userId.value ?: 0)
         binding.rcMyPageQuestion.adapter = myPageBlockAdapter
         myPageViewModel.blockList.observe(viewLifecycleOwner) {
+            initBlockEmpty(it.data.size)
             myPageBlockAdapter.setBlockMain((it.data) as MutableList<MyPageBlockData.Data>)
         }
     }

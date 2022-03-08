@@ -52,6 +52,15 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     }
 
+    //1:1질문 엠티뷰
+    private fun initReviewEmpty(size : Int){
+        if(size == 0){
+            binding.textQuestionEmpty.visibility = View.VISIBLE
+        }else{
+            binding.textQuestionEmpty.visibility = View.GONE
+        }
+    }
+
 
     private fun movePage() {
         //내가 쓴 글
@@ -85,6 +94,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         binding.clMyPageHeartList.setOnClickListener {
             showLoading()
             val intentHeartList = Intent(requireActivity(), MyPageLikeListActivity::class.java)
+            intentHeartList.putExtra("userId", mainViewModel.userId.value ?: 0)
             startActivity(intentHeartList)
         }
 
@@ -120,6 +130,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         myPageQuestionAdapter = MyPageMainAdapter(2, mainViewModel.userId.value ?: 0, 1)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
         myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
+            initReviewEmpty(it.data.classroomPostList.size)
             myPageQuestionAdapter.setQuestionMain((it.data.classroomPostList) as MutableList<MyPageQuestionData.Data.ClassroomPost>)
 
         }
@@ -137,7 +148,15 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             binding.myPageInfo = it
 
             if (it.data.secondMajorName == "미진입")
-                binding.textMyPageSecondMajorTime.visibility = View.GONE
+                binding.textMyPageSecondMajorTime.visibility = View.INVISIBLE
+            else
+                binding.textMyPageSecondMajorTime.visibility = View.VISIBLE
+
+            if(!it.data.isOnQuestion) {
+                binding.clMyPageMainQuestion.visibility = View.VISIBLE
+            } else {
+                binding.clMyPageMainQuestion.visibility = View.GONE
+            }
         }
     }
 

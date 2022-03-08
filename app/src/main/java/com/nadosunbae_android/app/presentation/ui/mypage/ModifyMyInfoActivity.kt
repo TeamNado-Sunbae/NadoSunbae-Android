@@ -71,22 +71,31 @@ class ModifyMyInfoActivity :
 
 
     //기존 데이터 불러오기
-    private fun initWriteMode()  {
+    private fun initWriteMode(){
         mainViewModel.signData.observe(this) {
             myPageViewModel.getPersonalInfo(it.userId)
         }
 
-        myPageViewModel.getPersonalInfo(intent.getIntExtra("id",0))
+        myPageViewModel.getPersonalInfo(intent.getIntExtra("id", 0))
         myPageViewModel.personalInfo.observe(this) {
             binding.myPageInfo = it
             Log.d("서버통신", "성공")
 
-            if(it.data.secondMajorName == "미진입")
-                binding.textMyPageMajorinfoDoubleMajorTime.setText("미진입")
+            binding.apply {
+                if (it.data.secondMajorName == "미진입") {
+                    binding.textMyPageMajorinfoDoubleMajorTime.setText("미진입")
+                    textMyPageMajorinfoDoubleMajorMintTime.isEnabled = false
+                    textMyPageMajorinfoDoubleMajorTime.text = "선택하기"
+                    textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+                    textMyPageMajorinfoDoubleMajorMintTime.setText("선택")
+                    textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#C0C0CB"))
+                } else {
+                    textMyPageMajorinfoDoubleMajorMintTime.isEnabled = true
+                    textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
+                    textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#00C8B0"))
+                }
+            }
         }
-
-        initNotEntered()
-
     }
 
 
@@ -108,17 +117,14 @@ class ModifyMyInfoActivity :
 
     //제 1전공 학과 선택 바텀시트
     private fun firstMajor() {
-
         binding.textMyPageMajorinfoMajorMint.setOnClickListener {
             firstDepartmentBottomSheetDialog.show(
                 supportFragmentManager,
                 firstDepartmentBottomSheetDialog.tag
             )
-
         }
 
         signUpBasicInfoViewModel.getFirstDepartment(1, "firstMajor")
-
         signUpBasicInfoViewModel.firstDepartment.observe(this) {
             firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
                 .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
@@ -190,6 +196,8 @@ class ModifyMyInfoActivity :
             )
 
             signUpBasicInfoViewModel.getSecondDepartment(1, "secondMajor")
+            saveBtn()
+
         }
 
         signUpBasicInfoViewModel.secondDepartment.observe(this) {
@@ -202,6 +210,7 @@ class ModifyMyInfoActivity :
             signViewModel.secondMajor.value = secondMajor?.name
             signUpBasicInfoViewModel.secondDepartmentClick.value = true
             initNotEntered()
+            saveBtn()
         }
 
         signViewModel.secondMajor
@@ -210,8 +219,8 @@ class ModifyMyInfoActivity :
                 binding.textMyPageMajorinfoDoubleMajor.text = it
                 binding.textMyPageMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
                 binding.textMyPageMajorinfoDoubleMajorMint.text = "변경"
-                initActiveSaveBtn()
             }
+
     }
 
 
@@ -280,9 +289,7 @@ class ModifyMyInfoActivity :
             //키보드 나오게
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.etMyPageNickname, InputMethodManager.SHOW_IMPLICIT)
-
             binding.textMyPageNicknameChange.isVisible = false
-            //signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
         }
 
         // scrollView 안의 constraintlayout 클릭 시 editText의 포커스 뺏어오고 해당 레이아웃에 focus 요청
@@ -300,16 +307,16 @@ class ModifyMyInfoActivity :
                     imm.hideSoftInputFromWindow(binding.etMyPageNickname.windowToken, 0)
 
                     binding.textMyPageNicknameChange.isVisible = true
-                    if(binding.etMyPageNickname.text.toString() != myPageViewModel.personalInfo.value?.data?.nickname)  {
+                    if (binding.etMyPageNickname.text.toString() != myPageViewModel.personalInfo.value?.data?.nickname) {
                         signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
                     } else {
                         binding.textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
                         binding.textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
                     }
-
                 }
                 return false
             }
+
         })
 
         //키보드의 완료 버튼 눌렀을 때 editText의 focus 뺏기
@@ -326,12 +333,18 @@ class ModifyMyInfoActivity :
 
 
     //닉네임 정규식
-    private fun isNickNamePattern() = with(binding) {
-        val nickname = etMyPageNickname
-
-        textMyPageNicknameTitle.isSelected =
-            !Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())
+    private fun isNickNamePattern() {
+        if (!Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", binding.etMyPageNickname.text.toString())) {
+            binding.textMyPageNicknameTitle.isSelected = true
+            signUpBasicInfoViewModel.nicknameDuplicationCheck.observe(this) {
+                binding.textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
+                binding.textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
+            }
+        } else {
+            binding.textMyPageNicknameTitle.isSelected = false
+        }
     }
+
 
     //닉네임 textwatcher
     private fun nicknameTextWatcher() = with(binding) {
@@ -340,11 +353,14 @@ class ModifyMyInfoActivity :
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(p0: Editable?) {
-                nicknameDuplication()
+
+                if(!textMyPageNicknameTitle.isSelected) {
+                    nicknameDuplication()
+                }
+
 
                 //닉네임 textfield 빈칸인지 체크
                 if (etMyPageNickname.text.toString() == "") {
-
                     textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
                     textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
                 } else {
@@ -358,10 +374,11 @@ class ModifyMyInfoActivity :
                     textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
                     textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
                 }
+
+
             }
         })
     }
-
 
     //닉네임 중복 체크 서버 통신
     private fun nicknameDuplication() {
@@ -372,7 +389,7 @@ class ModifyMyInfoActivity :
                 binding.textMyPageModifyNicknameDuplicaitionOk.isVisible = false
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = true
             }
-            if (it.success) {
+            else if (it.success) {
                 Log.d("닉네임 중복확인", "성공")
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = false
                 binding.textMyPageModifyNicknameDuplicaitionOk.isVisible = true
@@ -385,9 +402,19 @@ class ModifyMyInfoActivity :
         }
     }
 
+    //2전공 미진입 분기처리
+    private fun saveBtn() {
+        if(binding.textMyPageMajorinfoDoubleMajor.text.toString() != "미진입") {
+            binding.textMyPageSave.isSelected =
+                binding.textMyPageMajorinfoDoubleMajorTime.text.toString() != "선택하기"
+
+        }
+    }
+
+
     // 저장 버튼 활성화
     private fun initActiveSaveBtn() {
-        if (!binding.textMyPageModifyNicknameDuplicaitionNo.isVisible) {
+        if (!binding.textMyPageModifyNicknameDuplicaitionNo.isVisible && !binding.textMyPageNicknameTitle.isSelected) {
             binding.textMyPageSave.isSelected = true
             if (binding.textMyPageSave.isSelected) {
                 binding.textMyPageSave.setOnClickListener {
@@ -398,11 +425,15 @@ class ModifyMyInfoActivity :
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        completeModifyInfo()
+    }
+
     //뒤로가기 버튼 클릭 리스너
     private fun backBtnClick() {
         binding.imgMypageModifyTitle.setOnClickListener {
             if (binding.textMyPageSave.isSelected) {
-                showLoading()
                 confirmBack()
             } else {
                 finish()
@@ -471,7 +502,6 @@ class ModifyMyInfoActivity :
                 getString(R.string.mypage_modify_alert_back_continue)
             ),
             complete = {
-                showLoading()
                 finish()
             },
             cancel = {

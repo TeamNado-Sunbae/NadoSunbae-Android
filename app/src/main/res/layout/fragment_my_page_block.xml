@@ -49,6 +49,22 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+        <TextView
+            android:id="@+id/text_block_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/empty_block_list"
+            android:textColor="@color/gray_3"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_mypage_block" />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rc_my_page_question"
             android:layout_width="match_parent"
