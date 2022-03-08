@@ -154,13 +154,13 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     private fun deviceToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.d("deviceToken", "디바이스 토큰 정보 가저오기 실패", task.exception)
+                Timber.d( "디바이스 토큰 정보 가저오기 실패: ${task.exception}")
                 return@OnCompleteListener
             }
 
             val token = task.result
             signUpBasicInfoViewModel.deviceToken.value = token
-            Log.d("token", token)
+            Timber.d("token: ${token}")
 
         })
     }
@@ -170,54 +170,16 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
         dismissLoading()
 
-        /*
-        signUpBasicInfoViewModel.signIn.observe(this) {
-            dismissLoading()
-
-            if (signUpBasicInfoViewModel.signInStatus.value == 200) {
-                Log.d(TAG, "access token : ${it.accessToken}")
-                Log.d(TAG, "refresh token : ${it.refreshToken}")
-                Log.d(TAG, "--- Login Success ---")
-                NadoSunBaeSharedPreference.setAccessToken(this, it.accessToken)
-                NadoSunBaeSharedPreference.setRefreshToken(this, it.refreshToken)
-                val intent = Intent(this, MainActivity::class.java)
-                val data = it.user
-                intent.apply {
-                    putExtra("signData", data)
-                }
-                startActivity(intent)
-                finish()
-            }
-
-            else if(signUpBasicInfoViewModel.signInStatus.value == 202) {
-                certificationAlert()
-                NadoSunBaeSharedPreference.setUserId(this, it.user.userId)
-                Log.d(TAG, " --- Email Certification ---")
-            }
-
-            else {
-                binding.textSignInWarn.visibility = View.VISIBLE
-                NadoSunBaeSharedPreference.setUserId(this, it.user.userId)
-                Log.d(TAG, " --- Login Failed ---")
-            }
-
-        }
-    }
-
-         */
-
-
         signUpBasicInfoViewModel.signInStatus.observe(this) {
             if (it == 200) {
-                Log.d(
-                    TAG,
+                Timber.d("testest : signUpBasicInfoViewModel.signIn.value?.user?.userId")
+                Timber.d(
                     "access token : ${signUpBasicInfoViewModel.signIn.value?.accessToken}"
                 )
-                Log.d(
-                    TAG,
+                Timber.d(
                     "refresh token : ${signUpBasicInfoViewModel.signIn.value?.refreshToken}"
                 )
-                Log.d(TAG, "--- Login Success ---")
+                Timber.d("--- Login Success ---")
                 NadoSunBaeSharedPreference.setAccessToken(
                     this,
                     signUpBasicInfoViewModel.signIn.value?.accessToken ?: ""
@@ -228,6 +190,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                 )
                 val intent = Intent(this, MainActivity::class.java)
                 val data = signUpBasicInfoViewModel.signIn.value?.user
+                Timber.d("signInData : $data")
                 intent.apply {
                     putExtra("signData", data)
                 }
@@ -240,7 +203,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                     this,
                     signUpBasicInfoViewModel.signIn.value?.user?.userId ?: 0
                 )
-                Log.d(TAG, " --- Login Failed ---")
+                Timber.d(" --- Email Certification ---")
 
             } else {
                 binding.textSignInWarn.visibility = View.VISIBLE
@@ -248,19 +211,21 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                     this,
                     signUpBasicInfoViewModel.signIn.value?.user?.userId ?: 0
                 )
-                Log.d(TAG, " --- Login Failed ---")
+                Timber.d(" --- Login Failed ---")
             }
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        observeSignIn()
+    }
 
 
     //재전송
     private fun initResend() {
         val email = binding.etSignInId.text.toString()
         val password = binding.etSignInPw.text.toString()
-        Log.d("ResendCheckEmail", email)
-        Log.d("ResendCheckPassword", password)
         signUpBasicInfoViewModel.postCertificationEmail(
             CertificationEmailData(email, password)
         )
@@ -288,8 +253,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
     //로그인 버튼 클릭 이벤트
     private fun moveMainPage() {
-        Log.d("SignUp", "서버 통신 성공!")
-
         binding.clLogin.setOnClickListener {
             showLoading()
             signUpBasicInfoViewModel.signIn(

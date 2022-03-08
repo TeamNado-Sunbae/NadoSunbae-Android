@@ -13,6 +13,7 @@ import com.nadosunbae_android.domain.usecase.sign.PostRenewalTokenUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SignUpBasicInfoViewModel(
     private val getFirstDepartmentUseCase: GetFirstDepartmentUseCase,
@@ -106,7 +107,7 @@ class SignUpBasicInfoViewModel(
                 is ResultWrapper.Success -> nicknameDuplicationCheck.value =
                     NicknameDuplicationCheck(200, true)
                 is ResultWrapper.NetworkError -> {
-                    Log.d("NickNameDuplication", "네트워크 실패")
+                    Timber.d("NickNameDuplication : 네트워크 실패")
                     nicknameDuplicationCheck.value = NicknameDuplicationCheck(500, false)
                 }
                 is ResultWrapper.GenericError -> {
@@ -115,7 +116,7 @@ class SignUpBasicInfoViewModel(
                         NicknameDuplicationCheck(nicknameDuplication.code!!, false)
                 }
             }
-            Log.d("nicknameDuplication", status.value.toString())
+            Timber.d("nicknameDuplication: ${status.value.toString()}")
         }
     }
 
@@ -128,7 +129,7 @@ class SignUpBasicInfoViewModel(
                 is ResultWrapper.Success -> emailDuplicationCheck.value =
                     EmailDuplicationCheck(200, true)
                 is ResultWrapper.NetworkError -> {
-                    Log.d("EmailDuplication", "네트워크 실패")
+                    Timber.d("EmailDuplication : 네트워크 실패")
                     emailDuplicationCheck.value = EmailDuplicationCheck(500, false)
                 }
                 is ResultWrapper.GenericError -> {
@@ -137,7 +138,7 @@ class SignUpBasicInfoViewModel(
                         EmailDuplicationCheck(emailDuplication.code!!, false)
                 }
             }
-            Log.d("emailDuplication", status.value.toString())
+            Timber.d("emailDuplication: ${status.value.toString()}")
         }
     }
 
@@ -147,11 +148,12 @@ class SignUpBasicInfoViewModel(
         viewModelScope.launch {
             when (val postSignIn = safeApiCall(Dispatchers.IO) { postSignInUseCase(signInItem) }) {
                 is ResultWrapper.Success -> {
-                    signInStatus.value = postSignIn.data!!.status
                     signIn.value = postSignIn.data!!
+                    signInStatus.value = 200
+                    Timber.d("testaaa : ${signIn.value.toString()}")
                 }
                 is ResultWrapper.NetworkError -> {
-                    Log.d("SignIn", "네트워크 실패")
+                    Timber.d("SignIn : 네트워크 실패")
                     signInStatus.value = 500
                 }
                 is ResultWrapper.GenericError -> {
@@ -162,7 +164,7 @@ class SignUpBasicInfoViewModel(
                 .also {
                     onLoadingEnd.value = true
                 }
-            Log.d("signInStatus", signInStatus.value.toString())
+            Timber.d("signInStatus: ${signInStatus.value.toString()}")
         }
     }
 
@@ -172,11 +174,11 @@ class SignUpBasicInfoViewModel(
             kotlin.runCatching { postSignUpUseCase(signUpData) }
                 .onSuccess {
                     signUp.value = it
-                    Log.d("SignUp", "서버 통신 성공")
+                    Timber.d("SignUp : 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("SignUp", "서버 통신 실패")
+                    Timber.d("SignUp : 서버 통신 실패")
                 }
         }
     }
@@ -187,11 +189,11 @@ class SignUpBasicInfoViewModel(
             kotlin.runCatching { postCertificationEmailUseCase(certificationEmailData) }
                 .onSuccess {
                     certificationEmail.value = it
-                    Log.d("EmailCertification", "서버 통신 성공")
+                    Timber.d("EmailCertification :서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("EmailCertification", "서버 통신 실패")
+                    Timber.d("EmailCertification : 서버 통신 실패")
                 }
         }
     }
@@ -202,11 +204,11 @@ class SignUpBasicInfoViewModel(
             kotlin.runCatching { getFirstDepartmentUseCase(universityId, filter) }
                 .onSuccess {
                     firstDepartment.value = it
-                    Log.d("FirstMajorBottomSheet", "서버 통신 성공")
+                    Timber.d("FirstMajorBottomSheet : 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("FirstMajorBottomSheet", "서버 통신 실패")
+                    Timber.d("FirstMajorBottomSheet : 서버 통신 실패")
                 }
         }
     }
@@ -217,11 +219,11 @@ class SignUpBasicInfoViewModel(
             kotlin.runCatching { getSecondDepartmentUseCase(universityId, filter) }
                 .onSuccess {
                     secondDepartment.value = it
-                    Log.d("SecondMajorBottomSheet", "서버 통신 성공")
+                    Timber.d("SecondMajorBottomSheet : 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("SecondMajorBottomSheet", "서버 통신 실패")
+                    Timber.d("SecondMajorBottomSheet : 서버 통신 실패")
                 }
         }
     }
