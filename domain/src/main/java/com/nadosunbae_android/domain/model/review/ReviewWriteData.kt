@@ -11,6 +11,7 @@ data class ReviewWriteData(
     val backgroundImageId: Int,
     val backgroundImageUrl: String,
     val isLiked: Boolean,
+    val isReviewed: Boolean,
     val likeCount: Int,
     val writerId: Int
 ) {

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.review.BackgroundImageData
 import com.nadosunbae_android.domain.model.review.ReviewEditItem
@@ -53,6 +54,7 @@ class ReviewWriteViewModel(
         viewModelScope.launch {
             runCatching { postReviewDataUseCase(reviewWriteItem) }
                 .onSuccess {
+                    ReviewGlobals.isReviewed = it.isReviewed
                     Log.d(TAG, "서버통신 성공")
                 }
                 .onFailure {
