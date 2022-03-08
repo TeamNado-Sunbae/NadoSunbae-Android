@@ -356,6 +356,7 @@ class InformationDetailActivity :
         binding.btnInfoLike.setOnClickListener {
             val likePostId = infoDetailViewModel.infoPostId.value ?: 0
             infoDetailViewModel.postClassRoomInfoLike(LikeItem(likePostId, 2))
+            showLoading()
             infoDetailViewModel.getInfoDetail(likePostId)
         }
     }
