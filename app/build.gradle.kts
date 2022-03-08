@@ -154,5 +154,7 @@ dependencies {
     //Timber
     implementation("com.jakewharton.timber:timber:4.7.1")
 
+    //update
+    implementation("com.google.android.play:core:1.10.3")
 
 }
