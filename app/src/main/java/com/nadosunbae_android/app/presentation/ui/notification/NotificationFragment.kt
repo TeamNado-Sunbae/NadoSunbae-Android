@@ -15,6 +15,7 @@ import com.nadosunbae_android.app.presentation.ui.notification.adapter.Notificat
 import com.nadosunbae_android.app.presentation.ui.notification.viewmodel.NotificationViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class NotificationFragment :
@@ -60,7 +61,8 @@ class NotificationFragment :
         }
 
         notificationViewModel.notificationList.observe(viewLifecycleOwner) {
-            Log.d("알림 정보", it.toString())
+            Log.d("알림 정보", it.size.toString())
+
             initNotificationEmpty(it.size)
             notificationAdapter.setNotification(it as MutableList<NotificationListData>)
         }
