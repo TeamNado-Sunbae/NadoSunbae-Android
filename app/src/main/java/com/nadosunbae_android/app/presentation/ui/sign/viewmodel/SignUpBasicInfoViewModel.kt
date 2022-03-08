@@ -143,7 +143,10 @@ class SignUpBasicInfoViewModel(
     fun signIn(signInItem: SignInItem) {
         viewModelScope.launch {
             when (val postSignIn = safeApiCall(Dispatchers.IO) { postSignInUseCase(signInItem) }) {
-                is ResultWrapper.Success -> signIn.value = postSignIn.data!!
+                is ResultWrapper.Success -> {
+                    signIn.value = postSignIn.data!!
+
+                }
                 is ResultWrapper.NetworkError -> {
                     Log.d("SignIn", "네트워크 실패")
                     signIn.value = SignInData(500, false, "", "", SignInData.User())
