@@ -21,7 +21,10 @@ data class ResponseSignIn(
             val secondMajorId: Int,
             val secondMajorName: String,
             val universityId: Int,
-            val userId: Int
+            val userId: Int,
+            val isEmailVerified: Boolean = false,
+            val isUserReported : Boolean = false,
+            val isReviewInappropriate : Boolean = false
         ) : Serializable
     }
 }

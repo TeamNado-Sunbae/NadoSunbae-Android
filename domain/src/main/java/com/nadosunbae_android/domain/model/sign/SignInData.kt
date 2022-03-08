@@ -20,6 +20,9 @@ data class SignInData(
         val secondMajorId: Int = 0,
         val secondMajorName: String = "",
         val universityId: Int = 0,
-        val userId: Int = 0
+        val userId: Int = 0,
+        val isEmailVerified: Boolean = false,
+        val isUserReported : Boolean = false,
+        val isReviewInappropriate : Boolean = false
     ) : Parcelable
 }
