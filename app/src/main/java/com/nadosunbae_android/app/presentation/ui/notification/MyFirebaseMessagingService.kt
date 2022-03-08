@@ -13,6 +13,8 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -26,7 +28,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // 토큰 값 따로 저장
         val pref = this.getSharedPreferences("token", Context.MODE_PRIVATE)
         val editor = pref.edit()
-        editor.putString("token",token).apply()
+        editor.putString("token", token).apply()
         editor.commit()
 
         Log.i("로그", "토큰 저장 성공적")
@@ -37,28 +39,31 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         Log.d(TAG, "From: " + remoteMessage.from)
 
-        if(remoteMessage.data.isNotEmpty()){
+        if (remoteMessage.data.isNotEmpty()) {
             Log.i("바디", remoteMessage.data["body"].toString())
-            Log.i("타이틀",remoteMessage.data["title"].toString())
+            Log.i("타이틀", remoteMessage.data["title"].toString())
             sendNotification(remoteMessage)
-        }
-        else {
+        } else {
             Log.i("수신에러 : ", "data가 비어있습니다. 메시지를 수신하지 못했습니다.")
-            Log.i("data값 :",remoteMessage.data.toString())
+            Log.i("data값 :", remoteMessage.data.toString())
         }
     }
 
 
     // 알림 생성 (아이콘, 알림 소리 등)
-    private fun sendNotification(remoteMessage: RemoteMessage){
+    private fun sendNotification(remoteMessage: RemoteMessage) {
         // RemoteCode, ID를 고유값으로 지정하여 알림이 개별 표시 되도록 함
         val uniId: Int = (System.currentTimeMillis() / 7).toInt()
 
         // 일회용 PendingIntent
         // PendingIntent : Intent 의 실행 권한을 외부의 어플리케이션에게 위임
-        val intent = Intent(this, SignInActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // Activity Stack을 경로만 남김, A-B-C-D-B => A-B
-        val pendingIntent = PendingIntent.getActivity(this, uniId, intent, PendingIntent.FLAG_ONE_SHOT)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.apply {
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP) // Activity Stack을 경로만 남김, A-B-C-D-B => A-B
+            putExtra("bottomNavItem", 6)
+        }
+        val pendingIntent =
+            PendingIntent.getActivity(this, uniId, intent, PendingIntent.FLAG_ONE_SHOT)
 
         val channelId = getString(R.string.firebase_notification_channel_id)
 
@@ -78,13 +83,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         // 오레오 버전 이후에는 채널이 필요
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val channel = NotificationChannel(channelId, "Notice", NotificationManager.IMPORTANCE_DEFAULT)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel =
+                NotificationChannel(channelId, "Notice", NotificationManager.IMPORTANCE_DEFAULT)
             notificationManager.createNotificationChannel(channel)
         }
 
         // 알림 생성
         notificationManager.notify(uniId, notificationBuilder.build())
-
     }
+
 }
+
