@@ -104,7 +104,8 @@ object ReviewMapper {
             backgroundImageUrl = responsePostReviewData.data.backgroundImage.imageUrl.imageUrl,
             isLiked = responsePostReviewData.data.like.isLiked,
             likeCount = responsePostReviewData.data.like.likeCount,
-            writerId = responsePostReviewData.data.writer.writerId
+            writerId = responsePostReviewData.data.writer.writerId,
+            isReviewed = responsePostReviewData.data.writer.isReviewed
         )
     }
 
@@ -140,7 +141,8 @@ object ReviewMapper {
             backgroundImageUrl = responsePutReviewData.data.backgroundImage.imageUrl,
             isLiked = responsePutReviewData.data.like.isLiked,
             likeCount = responsePutReviewData.data.like.likeCount,
-            writerId = responsePutReviewData.data.writer.writerId
+            writerId = responsePutReviewData.data.writer.writerId,
+            isReviewed = true
         )
     }
 
