@@ -43,14 +43,13 @@
                 android:id="@+id/text_senior_personal_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
                 android:layout_marginTop="56dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:includeFontPadding="false"
                 android:text="@{seniorPersonal.nickname}"
-                android:textColor="@color/origin_black"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/origin_black"
+                app:layout_constraintStart_toEndOf="@+id/img_senior_personal_title"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView

@@ -116,7 +116,7 @@ class SeniorPersonalFragment :
     //뒤로가기
     private fun goSeniorFragment() {
         binding.imgSeniorPersonalTitle.setOnClickListener {
-            mainViewModel.classRoomBackFragmentNum.value = 1
+            mainViewModel.classRoomFragmentNum.value = 7
         }
 
     }
