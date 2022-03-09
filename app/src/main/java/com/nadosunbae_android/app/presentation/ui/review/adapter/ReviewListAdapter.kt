@@ -71,6 +71,8 @@ class ReviewListAdapter(): RecyclerView.Adapter<ReviewListAdapter.ReviewHolder>(
 
     override fun getItemCount(): Int = dataList.size
 
+    fun isEmpty(): Boolean = dataList.isEmpty()
+
     interface ItemClickListener {
         fun onClick(view: View, position: Int)
     }
