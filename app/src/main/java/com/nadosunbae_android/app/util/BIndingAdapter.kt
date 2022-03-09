@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.di.NadoSunBaeApplication
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -218,6 +219,19 @@ object BindingAdapter {
         imageView.isSelected = question
     }
 
+    // 현재 글자/최대 글자
+    @JvmStatic
+    @BindingAdapter("displayMaxLength")
+    fun displayMaxLength(textView: TextView, length: Int) {
+        textView.text = "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_max_40)}"
+    }
+
+    // 현재 글자/최소 글자
+    @JvmStatic
+    @BindingAdapter("displayMinLength")
+    fun displayMinLength(textView: TextView, length: Int) {
+        textView.text = "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_min_100)}"
+    }
 
 }
 
@@ -306,4 +320,3 @@ fun android.widget.Button.intToString(num: Int) {
 fun View.setSelected(selected: Boolean) {
     this.isSelected = selected
 }
-

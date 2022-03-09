@@ -32,6 +32,15 @@ class ReviewWriteViewModel(
     val backgroundImageList: LiveData<List<BackgroundImageData>>
         get() = _backgroundImageList
 
+    // 입력값 길이
+    val oneLineLength = MutableLiveData<Int>(0)
+    val prosConsLength = MutableLiveData<Int>(0)
+    val curriculumLength = MutableLiveData<Int>(0)
+    val recommendLectureLength = MutableLiveData<Int>(0)
+    val nonRecommendLectureLength = MutableLiveData<Int>(0)
+    val careerLength = MutableLiveData<Int>(0)
+    val tipLength = MutableLiveData<Int>(0)
+
     // 후기 배경 목록 불러오기 -> 사용x 변경됨
     fun getBackgroundImageList() {
         viewModelScope.launch {
