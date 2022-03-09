@@ -16,7 +16,7 @@ import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 import com.nadosunbae_android.domain.model.mypage.MyPageReviewData
 
-class MyPageReviewAdapter():
+class MyPageReviewAdapter(var userId : Int):
     RecyclerView.Adapter<MyPageReviewAdapter.MyPageReviewViewHolder>() {
 
     var myPageReviewData = mutableListOf<MyPageReviewData.Data.ReviewPost>()
@@ -65,7 +65,7 @@ class MyPageReviewAdapter():
                 Intent(holder.itemView.context, ReviewDetailActivity::class.java)
             val postId = myPageReviewData[position].postId
             intent.putExtra("postId", postId)
-            intent.putExtra("userId", intent.getIntExtra("userId", 0))
+            intent.putExtra("userId", userId)
             ContextCompat.startActivity(holder.itemView.context,intent, null)
         }
     }

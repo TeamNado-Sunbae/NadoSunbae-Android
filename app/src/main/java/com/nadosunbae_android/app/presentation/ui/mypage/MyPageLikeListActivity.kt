@@ -205,9 +205,9 @@ class MyPageLikeListActivity :
 
     private fun initReviewListAdapter() {
         showLoading()
-        intent.getIntExtra("userId", 0)
+        val userId = intent.getIntExtra("userId", 0)
         myPageViewModel.getMyPageLikeReview("review")
-        myPageLikeReviewAdapter = MyPageLikeReviewAdapter()
+        myPageLikeReviewAdapter = MyPageLikeReviewAdapter(userId)
         binding.rvMypageLike.adapter = myPageLikeReviewAdapter
 
         myPageViewModel.likeReview.observe(this) {

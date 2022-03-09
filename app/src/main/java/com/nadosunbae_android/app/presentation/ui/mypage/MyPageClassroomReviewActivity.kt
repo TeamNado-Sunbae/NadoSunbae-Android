@@ -69,8 +69,9 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
 
     private fun initReviewListAdapter() {
         showLoading()
-        myPageViewModel.getMyPageReview(intent.getIntExtra("userId", 0))
-        myPageReviewAdapter = MyPageReviewAdapter()
+        val userId = intent.getIntExtra("userId", 0)
+        myPageViewModel.getMyPageReview(userId)
+        myPageReviewAdapter = MyPageReviewAdapter(userId)
         binding.rvMypageReview.adapter = myPageReviewAdapter
         myPageViewModel.reviewList.observe(this) {
             initReviewEmpty(it.data.reviewPostList.size)
