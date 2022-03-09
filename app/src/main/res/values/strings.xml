@@ -412,7 +412,8 @@
     <!-- firebase analytics -->
     <string name="ga_activity_main">MainActivity</string>
     <string name="ga_tab_review">Review Tab</string>
-    <string name="ga_tab_classroom">ClassRoom Tab</string>
+    <string name="ga_tab_classroom_question">ClassRoom_Question Tab</string>
+    <string name="ga_tab_classroom_info">ClassRoom_Info Tab</string>
     <string name="ga_tab_notification">Notification Tab</string>
     <string name="ga_tab_mypage">MyPage Tab</string>
 

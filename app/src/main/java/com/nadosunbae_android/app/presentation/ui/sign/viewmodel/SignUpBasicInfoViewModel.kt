@@ -2,6 +2,11 @@ package com.nadosunbae_android.app.presentation.ui.sign.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.data.model.request.sign.RequestSignUp
@@ -151,6 +156,9 @@ class SignUpBasicInfoViewModel(
                     signIn.value = postSignIn.data!!
                     signInStatus.value = 200
                     Timber.d("testaaa : ${signIn.value.toString()}")
+
+                    FirebaseAnalyticsUtil.login()
+
                 }
                 is ResultWrapper.NetworkError -> {
                     Timber.d("SignIn : 네트워크 실패")
@@ -175,6 +183,9 @@ class SignUpBasicInfoViewModel(
                 .onSuccess {
                     signUp.value = it
                     Timber.d("SignUp : 서버 통신 성공")
+
+                    FirebaseAnalyticsUtil.signup()
+
                 }
                 .onFailure {
                     it.printStackTrace()

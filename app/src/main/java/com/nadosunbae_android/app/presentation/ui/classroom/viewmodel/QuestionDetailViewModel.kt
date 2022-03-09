@@ -9,6 +9,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.presentation.ui.classroom.SeniorPersonalFragment
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.classroom.*
@@ -157,6 +158,7 @@ class QuestionDetailViewModel(
             runCatching {postQuestionCommentWriteUseCase(questionCommentWriteItem)  }
                 .onSuccess {
                     registerComment.value = it
+                    replyQuestionAnalytics()
                     Log.d("questionComment", "댓글 통신 성공")
                 }
                 .onFailure {
@@ -241,6 +243,22 @@ class QuestionDetailViewModel(
             }
 
         }
+
+    private fun replyQuestionAnalytics() {
+        // question_reply analytics
+        var isNewReply = true
+        val data = _questionDetailData.value
+        if (data != null) {
+            for (m in data.messageList) {   // 기존 대화에서 모든 메시지가 질문자의 것일 경우 isNewReply = true
+                if (!m.isQuestioner)
+                    isNewReply = false
+            }
+
+            if (isNewReply)
+                FirebaseAnalyticsUtil.question(FirebaseAnalyticsUtil.Question.QUESTION_REPLY)
+
+        }
+    }
 }
 
 
