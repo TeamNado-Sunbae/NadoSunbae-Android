@@ -14,6 +14,7 @@ import com.nadosunbae_android.app.di.NadoSunBaeApplication
 import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionAdapter
+import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
@@ -31,6 +32,7 @@ class MyPageLikeListActivity :
     private val myPageViewModel: MyPageViewModel by viewModel()
     private lateinit var myPageLikeQuestionAdapter: MyPageLikeQuestionAdapter
     private lateinit var myPageLikeReviewAdapter: MyPageLikeReviewAdapter
+    private lateinit var myPageLikeQuestionInfoAdapter: MyPageLikeQuestionInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -178,12 +180,12 @@ class MyPageLikeListActivity :
         intent.getIntExtra("userId", 0)
 
         myPageViewModel.getMyPageLikeQuestion("information")
-        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
-        binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
+        myPageLikeQuestionInfoAdapter = MyPageLikeQuestionInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
+        binding.rvMypageLike.adapter = myPageLikeQuestionInfoAdapter
 
         myPageViewModel.likeQuestion.observe(this) {
             initInfoEmpty(it.data.likePostList.size)
-            myPageLikeQuestionAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
+            myPageLikeQuestionInfoAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
         }
     }
 

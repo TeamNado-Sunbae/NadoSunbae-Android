@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyAdapter
+import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.domain.model.mypage.MyPagePostData
 import com.nadosunbae_android.domain.model.mypage.MyPageReplyData
@@ -24,6 +25,7 @@ class MyPageReplyActivity :
     private val myPageViewModel: MyPageViewModel by viewModel()
 
     private lateinit var myPageReplyAdapter: MyPageReplyAdapter
+    private lateinit var myPageeReplyInfoAdapter : MyPageReplyInfoAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,12 +140,12 @@ class MyPageReplyActivity :
         Log.d("ReplyuserId", "- id: " + intent.getIntExtra("userId", 0))
 
         myPageViewModel.getMyPageReply(2)
-        myPageReplyAdapter = MyPageReplyAdapter(2, intent.getIntExtra("userId", 0), 1)
-        binding.rvMypageQuestion.adapter = myPageReplyAdapter
+        myPageeReplyInfoAdapter = MyPageReplyInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
+        binding.rvMypageQuestion.adapter = myPageeReplyInfoAdapter
 
         myPageViewModel.replyByMe.observe(this) {
             initInfoEmpty(it.data.classroomPostListByMyCommentList.size)
-            myPageReplyAdapter.setQuestionReply((it.data.classroomPostListByMyCommentList) as MutableList<MyPageReplyData.Data.ClassroomPostListByMyComment>)
+            myPageeReplyInfoAdapter.setQuestionReply((it.data.classroomPostListByMyCommentList) as MutableList<MyPageReplyData.Data.ClassroomPostListByMyComment>)
         }
     }
 }
