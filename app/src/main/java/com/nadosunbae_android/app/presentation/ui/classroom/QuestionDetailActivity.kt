@@ -25,6 +25,7 @@ import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import kotlinx.android.synthetic.main.activity_sign_up_agreement.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding as ItemQuestionDetailWriterBinding
 
 class QuestionDetailActivity :
@@ -86,8 +87,8 @@ class QuestionDetailActivity :
         questionDetailViewModel.setDivisionQuestion(all)
         val myPageNum = intent.getIntExtra("myPageNum", 0)
 
-        Log.d("postId", postId.toString())
-        Log.d("userId", userId.toString())
+        Timber.d("postId: $postId")
+        Timber.d("userId: $userId")
         showLoading()
         questionDetailViewModel.getClassRoomQuestionDetail(postId)
         classRoomQuestionDetailAdapter = ClassRoomQuestionDetailAdapter(this, userId)
@@ -95,11 +96,8 @@ class QuestionDetailActivity :
 
         questionDetailViewModel.questionDetailData.observe(this) {
             with(classRoomQuestionDetailAdapter) {
-                Log.d(
-                    "questionDetailUser",
-                    it.answererId.toString() + ":" + it.questionerId.toString()
-                )
-                Log.d("questionDetailUserWriter", it.messageList.toString())
+                Timber.d("questionDetailUser: ${it.answererId}, ${it.questionerId}")
+                Timber.d("questionDetailUserWriter : ${it.messageList}")
                 setViewTitle(all, postId)
                 setQuestionDetailUser(it)
                 setLike(it.likeCount, it.isLiked)
@@ -133,13 +131,12 @@ class QuestionDetailActivity :
                     val postId = questionDetailViewModel.likePostId.value ?: 0
 
                     if (divisionNum == 1 || myPageDivisionNum == 3) {
-                        Log.d("전체 질문 좋아요", "서버 통신 하는 중")
+                        Timber.d("전체 질문 좋아요: 서버 통신 하는 중")
                         questionDetailViewModel.postClassRoomLike(LikeItem(postId, 3))
                         showLoading()
                         questionDetailViewModel.getClassRoomQuestionDetail(postId)
                     } else {
-
-                        Log.d("1:1 질문 좋아요", "서버 통신 하는 중")
+                        Timber.d("1:1 질문 좋아요: 서버 통신 하는 중")
                         questionDetailViewModel.postClassRoomLike(LikeItem(postId, 4))
                         showLoading()
                         questionDetailViewModel.getClassRoomQuestionDetail(postId)
@@ -188,8 +185,7 @@ class QuestionDetailActivity :
                     commentId: Int,
                     deleteNum: Int
                 ) {
-                    Log.d("oneToOneVIew", v.toString())
-                    Log.d("oneToOneNum", "$user+$viewNum+$commentId")
+                    Timber.d("oneToOneNum: $user+$viewNum+$commentId")
                     questionDetailViewModel.commentId.value = commentId
                     questionDetailViewModel.position.value = position
                     questionDetailViewModel.viewNum.value = viewNum

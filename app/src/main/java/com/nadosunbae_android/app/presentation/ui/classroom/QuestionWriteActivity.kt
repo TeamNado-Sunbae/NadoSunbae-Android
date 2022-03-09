@@ -14,6 +14,7 @@ import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteItem
 import com.nadosunbae_android.domain.model.classroom.WriteUpdateItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class QuestionWriteActivity :
     BaseActivity<ActivityQuestionWriteBinding>(R.layout.activity_question_write) {
@@ -152,7 +153,6 @@ class QuestionWriteActivity :
 
     //작성 서버통신
     private fun questionWrite(majorId: Int, answerId: Int?, postTypeId: Int) {
-        Log.d("나 서버통신", "나 강림")
         questionWriteViewModel.postClassRoomWrite(
             ClassRoomPostWriteItem(
                 majorId, answerId, postTypeId,
@@ -161,7 +161,7 @@ class QuestionWriteActivity :
             )
         )
         questionWriteViewModel.postDataWrite.observe(this) { its ->
-            Log.d("its", its.success.toString())
+            Timber.d("its: ${its.success}")
             if (its.success) {
                 finish()
             }
@@ -171,8 +171,8 @@ class QuestionWriteActivity :
     //수정 서버통신
     private fun updateWrite(){
         val postId = intent.getIntExtra("postId", 0)
-        Log.d("updateWritePostId", postId.toString())
-        Log.d("updateWrite",questionWriteViewModel.title.value.toString() + questionWriteViewModel.content.value.toString())
+        Timber.d("updateWritePostId: $postId")
+        Timber.d("updateWrite: ${questionWriteViewModel.title.value} , ${questionWriteViewModel.content.value}")
         questionWriteViewModel.putWriteUpdate(postId,
         WriteUpdateItem(
             questionWriteViewModel.titleData.value.toString(),

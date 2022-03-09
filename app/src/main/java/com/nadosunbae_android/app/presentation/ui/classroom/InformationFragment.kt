@@ -18,6 +18,7 @@ import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fragment_information) {
@@ -51,7 +52,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
         classRoomInfoMainAdapter = ClassRoomInfoMainAdapter(userId)
         binding.rcClassroomInfo.adapter = classRoomInfoMainAdapter
        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
-           Log.d("classRoomInfo", it.toString())
+           Timber.d("classRoomInfo: $it")
            if(it.isEmpty()){
                mainViewModel.classRoomInfoEmpty.value = EMPTY
                binding.rcClassroomInfo.visibility = View.GONE

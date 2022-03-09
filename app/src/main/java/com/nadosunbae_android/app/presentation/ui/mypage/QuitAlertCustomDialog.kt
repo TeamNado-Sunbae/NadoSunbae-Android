@@ -11,6 +11,7 @@ import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import com.nadosunbae_android.app.R
 import kotlinx.android.synthetic.main.activity_quit_alert_custom_dialog.*
+import timber.log.Timber
 
 
 class QuitAlertCustomDialog(val context: Context) {
@@ -36,7 +37,7 @@ class QuitAlertCustomDialog(val context: Context) {
 
     private fun initInBtn() {
         dialog.text_mypage_dialog_in.setOnClickListener {
-            Log.d("비밀번호", ":" + dialog.editText.text.toString())
+            Timber.d("비밀번호: ${dialog.editText.text}")
             onClickedListener.onClicked(2, dialog.editText.text.toString())
             dialog.dismiss()
         }

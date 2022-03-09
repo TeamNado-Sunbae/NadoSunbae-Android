@@ -14,6 +14,7 @@ import com.nadosunbae_android.domain.model.sign.RenewalTokenData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import okhttp3.*
 import okhttp3.RequestBody.Companion.toRequestBody
+import timber.log.Timber
 import java.lang.Exception
 
 class AuthInterceptor(
@@ -26,12 +27,12 @@ class AuthInterceptor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        Log.d(TAG, "request : $request")
-        Log.d(TAG, "request header : ${request.headers}")
+        Timber.d("request : $request")
+        Timber.d("request header : ${request.headers}")
 
         val response = chain.proceed(request)
-        Log.d(TAG, "response : $response")
-        Log.d(TAG, "response header: ${response.headers}")
+        Timber.d("response : $response")
+        Timber.d("response header: ${response.headers}")
 
         when (response.code) {
 
@@ -50,14 +51,14 @@ class AuthInterceptor(
                 if (data != null && data.success) {      // access token 재발급 성공
                     val newToken = data.accessToken
                     NadoSunBaeSharedPreference.setAccessToken(appContext, data.accessToken)     // 재발급 access token 저장
-                    Log.d(TAG, "refresh token renewal : ${newToken}")
+                    Timber.d("refresh token renewal : ${newToken}")
                     val newRequest = request.newBuilder()
                         .header("accesstoken", newToken)
                         .build()
                     return chain.proceed(newRequest)
                 }
                 else {
-                    Log.d(TAG, "refresh renewal failed")
+                    Timber.d("refresh renewal failed")
                     NadoSunBaeSharedPreference.removeAccessToken(appContext)        // 만료된 access token 제거
                     NadoSunBaeSharedPreference.removeRefreshToken(appContext)      // 만료된 refresh token 제거
 

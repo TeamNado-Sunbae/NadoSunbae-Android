@@ -12,6 +12,7 @@ import com.nadosunbae_android.domain.usecase.notification.DeleteNotificationUseC
 import com.nadosunbae_android.domain.usecase.notification.GetNotificationListDataUseCase
 import com.nadosunbae_android.domain.usecase.notification.ReadNotificationUseCase
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class NotificationViewModel(
     private val getNotificationListDataUseCase: GetNotificationListDataUseCase,
@@ -38,11 +39,11 @@ class NotificationViewModel(
             runCatching { getNotificationListDataUseCase(receiverId) }
                 .onSuccess {
                     notificationList.value = it
-                    Log.d("notificationList", "전체 알림 리스트 통신 성공")
+                    Timber.d("notificationList: 전체 알림 리스트 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("notificationList", "전체 알림 리스트 통신 실패")
+                    Timber.d("notificationList: 전체 알림 리스트 통신 실패")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -55,11 +56,11 @@ class NotificationViewModel(
             runCatching { deleteNotificationUseCase(notificationId) }
                 .onSuccess {
                     deleteNotification.value = it
-                    Log.d("deleteNotification", "알림 삭제 성공")
+                    Timber.d("deleteNotification: 알림 삭제 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("deleteNotification", "알림 삭제 실패")
+                    Timber.d("deleteNotification: 알림 삭제 실패")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -73,11 +74,11 @@ class NotificationViewModel(
             runCatching { readNotificationUseCase(notificationId) }
                 .onSuccess {
                     notificationRead.value = it
-                    Log.d("putNotificationRead", "알림 읽기 성공")
+                    Timber.d("putNotificationRead: 알림 읽기 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("putNotificationRead", "알림 읽기 실패")
+                    Timber.d("putNotificationRead: 알림 읽기 실패")
                 }.also {
                     onLoadingEnd.value = true
                 }

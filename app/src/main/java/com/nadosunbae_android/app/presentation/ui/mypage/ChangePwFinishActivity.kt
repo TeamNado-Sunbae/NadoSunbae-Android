@@ -12,6 +12,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewMod
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.domain.model.mypage.MyPageResetPasswordItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class ChangePwFinishActivity :
     BaseActivity<ActivityChangePwFinishBinding>(R.layout.activity_change_pw_finish) {
@@ -35,7 +36,7 @@ class ChangePwFinishActivity :
     private fun initResendBtn() {
         binding.textChangePwResend.setOnClickListener {
             val email = intent.getStringExtra("email") ?: ""
-            Log.d("ChangePwFinishEmailCheck", email)
+            Timber.d("ChangePwFinishEmailCheck $email")
             myPageViewModel.postMyPageRestPassword(MyPageResetPasswordItem(email))
         }
     }

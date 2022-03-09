@@ -68,7 +68,6 @@ class SeniorPersonalFragment :
             ClassRoomQuestionMainAdapter(2, mainViewModel.userId.value ?: 0, 0)
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
         seniorPersonalViewModel.seniorQuestion.observe(viewLifecycleOwner) {
-            Log.d("seniorQuestionAdapter", "좀 되라")
             if(it.isEmpty()){
                 binding.textSeniorEmpty.visibility = View.VISIBLE
                 binding.rcSeniorPersonal.visibility = View.GONE
@@ -99,7 +98,7 @@ class SeniorPersonalFragment :
     //선배 개인페이지 서버 통신
     private fun getSeniorPersonal(sort: String) {
         mainViewModel.seniorId.observe(viewLifecycleOwner) {
-            Log.d("seniorId", it.toString())
+            Timber.d("seniorId: $it")
             showLoading()
             seniorPersonalViewModel.getSeniorPersonal(it)
             seniorPersonalViewModel.getSeniorQuestionList(it, sort)
@@ -124,14 +123,14 @@ class SeniorPersonalFragment :
     //작성창으로 이동
     private fun goQuestionWrite() {
         binding.btnGoQuestionWrite.setOnClickListener {
-            Log.d("isReviewedSenior", ReviewGlobals.isReviewed.toString())
+            Timber.d("isReviewedSenior: ${ReviewGlobals.isReviewed}")
             if (ReviewGlobals.isReviewed) {
                 val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
                 intent.apply {
                     putExtra("division", 0)
                     putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
                     putExtra("userId", seniorPersonalViewModel.userId.value)
-                    Log.d("answerId", seniorPersonalViewModel.userId.value.toString())
+                    Timber.d("answerId: ${seniorPersonalViewModel.userId.value}")
                     putExtra("postTypeId", 4)
                     putExtra("title", resources.getString(R.string.question_write_one_to_one))
                 }

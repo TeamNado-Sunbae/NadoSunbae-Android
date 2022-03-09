@@ -17,6 +17,7 @@ import com.nadosunbae_android.domain.usecase.review.PutReviewDataUseCase
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ReviewWriteViewModel(
     val getBackgroundImageListDataUseCase: GetBackgroundImageListDataUseCase,
@@ -38,11 +39,11 @@ class ReviewWriteViewModel(
             runCatching { getBackgroundImageListDataUseCase() }
                 .onSuccess {
                     _backgroundImageList.value = it
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -55,11 +56,11 @@ class ReviewWriteViewModel(
         viewModelScope.launch {
             runCatching { postReviewDataUseCase(reviewWriteItem) }
                 .onSuccess {
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     // TODO 이상하게 성공해도 fail로 와서.. onSuccess에 있어야하지만 여기 두겠습니다..!
@@ -79,11 +80,11 @@ class ReviewWriteViewModel(
         viewModelScope.launch {
             runCatching { putReviewDataUseCase(postId, reviewEditItem) }
                 .onSuccess {
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true

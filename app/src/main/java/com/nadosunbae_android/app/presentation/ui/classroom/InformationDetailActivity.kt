@@ -74,7 +74,7 @@ class InformationDetailActivity :
     //정보 상세보기 서버 통신
     private fun initInfoDetail() {
         val postId = intent.getIntExtra("postId", 0)
-        Log.d("infoPostId", postId.toString())
+        Timber.d("infoPostId $postId")
         val userId = intent.getIntExtra("userId", 0)
         infoDetailViewModel.setPostId(postId)
         showLoading()
@@ -208,9 +208,9 @@ class InformationDetailActivity :
             val position = infoDetailViewModel.position.value ?: 0
             val commentId = infoDetailViewModel.commentId.value ?: 0
             val postId = infoDetailViewModel.infoPostId.value ?: 0
-            Log.d("infoDeleteDivision", divisionPost.toString())
-            Log.d("infoDeleteCommentId", commentId.toString())
-            Log.d("infoDeleteName", it.name)
+            Timber.d("infoDeleteDivision : $divisionPost")
+            Timber.d("infoDeleteCommentId : $commentId")
+            Timber.d("infoDeleteName : ${it.name}")
             when (it.name) {
                 resources.getString(R.string.question_detail_delete) ->
                     deleteDialog(
@@ -418,11 +418,12 @@ class InformationDetailActivity :
 
     override fun onPause() {
         super.onPause()
-        Log.d("인포디테일", "onPause")
+        Timber.d("인포디테일: onPause")
+
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d("인포디테일", "onStop")
+        Timber.d("인포디테일 : onStop")
     }
 }

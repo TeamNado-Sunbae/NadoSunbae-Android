@@ -5,6 +5,7 @@ import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import timber.log.Timber
 
 object ManageUtil {
     fun Context.restartApp() {
@@ -13,7 +14,7 @@ object ManageUtil {
         startActivity(mainIntent)
         Runtime.getRuntime().exit(0)
 
-        Log.d("ManageUtil", "Application Restart")
+        Timber.d("ManageUtil: Application Restart")
     }
 
     fun Context.isServiceRunning(className: String): Boolean {

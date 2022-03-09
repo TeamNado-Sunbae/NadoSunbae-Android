@@ -16,6 +16,7 @@ import com.nadosunbae_android.domain.usecase.classroom.GetSeniorDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetMajorListDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetAppLinkUseCase
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class MainViewModel(
     val getClassRoomMainDataUseCase : GetClassRoomMainDataUseCase,
@@ -124,11 +125,11 @@ class MainViewModel(
             runCatching { getMajorListDataUseCase(universityId, filter) }
                 .onSuccess {
                     _majorList.value = it
-                    Log.d("MainRepository", "서버통신 성공")
+                    Timber.d("MainRepository: 서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("MainRepository", "서버통신 실패")
+                    Timber.d("MainRepository: 서버통신 실패")
                 }
         }
     }
@@ -140,11 +141,11 @@ class MainViewModel(
            runCatching { getClassRoomMainDataUseCase(postTypeId, majorId, sort) }
                .onSuccess {
                    _classRoomMain.value = it
-                   Log.d("classRoomMain", "서버 통신 성공")
+                   Timber.d("classRoomMain: 서버 통신 성공")
                }
                .onFailure {
                    it.printStackTrace()
-                   Log.d("classRoomMain", "서버 통신 실패")
+                   Timber.d("classRoomMain: 서버 통신 실패")
                }.also {
                    onLoadingEnd.value = true
                }
@@ -157,11 +158,11 @@ class MainViewModel(
             runCatching { getSeniorDataUseCase(majorId) }
                 .onSuccess {
                     _seniorData.value = it
-                    Log.d("classRoomSenior", "구성원 서버 통신 성공")
+                    Timber.d("classRoomSenior: 구성원 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("classRoomSenior", "구성원 서버 통신 실패")
+                    Timber.d("classRoomSenior: 구성원 서버 통신 실패")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -174,11 +175,11 @@ class MainViewModel(
             kotlin.runCatching { getAppLinkUseCase() }
                 .onSuccess {
                     appLink.value = it
-                    Log.d("AppLink", "서버 통신 완료")
+                    Timber.d("AppLink: 서버 통신 완료")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("AppLink", "서버 통신 실패")
+                    Timber.d("AppLink: 서버 통신 실패")
                 }
         }
     }

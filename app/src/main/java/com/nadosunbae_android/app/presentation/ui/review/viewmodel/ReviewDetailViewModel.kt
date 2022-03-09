@@ -18,6 +18,7 @@ import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.usecase.classroom.PostReportUseCase
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ReviewDetailViewModel(
     private val getReviewDetailDataUseCase: GetReviewDetailDataUseCase,
@@ -51,11 +52,11 @@ class ReviewDetailViewModel(
             runCatching { getReviewDetailDataUseCase(postId) }
                 .onSuccess {
                     _reviewDetailData.value = it
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d( "서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -70,13 +71,13 @@ class ReviewDetailViewModel(
         viewModelScope.launch {
             runCatching { postLikeDataUseCase(likeItem) }
                 .onSuccess {
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
 
                     getReviewDetail(postId)
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -91,11 +92,11 @@ class ReviewDetailViewModel(
             runCatching { deleteReviewDataUseCase(postId) }
                 .onSuccess {
                     ReviewGlobals.isReviewed = it.isReviewed
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -109,12 +110,12 @@ class ReviewDetailViewModel(
             runCatching { postReportUseCase(reportItem) }
                 .onSuccess {
                     _reportSuccess.value = true
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
                     _reportSuccess.value = false
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true

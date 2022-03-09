@@ -39,8 +39,6 @@ class MyPageLikeQuestionAdapter (private val num: Int, private val userId: Int, 
                 putExtra("postId", myPageLikeQuestionData[position].postId)
                 putExtra("postTypeId", myPageLikeQuestionData[position].postTypeId)
                 putExtra("all", num)
-
-                Log.d("test", " : " + postTypeId)
             }
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }

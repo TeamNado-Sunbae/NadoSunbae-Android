@@ -18,6 +18,7 @@ import com.nadosunbae_android.domain.model.sign.EmailDuplicationData
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
 import com.nadosunbae_android.domain.model.sign.SignUpData
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import java.util.regex.Pattern
 
 
@@ -38,15 +39,15 @@ class SignUpBasicInfoActivity :
 
     //닉네임 중복 체크 서버 통신
     private fun nicknameDuplication() {
-        Log.d("NicknameDuplication", "서버 통신 성공")
+        Timber.d("NicknameDuplication: 서버 통신 성공")
         signUpBasicInfoViewModel.nicknameDuplicationCheck.observe(this) {
             if (!it.success) {
-                Log.d("닉네임 중복확인", "실패")
+                Timber.d("닉네임 중복확인: 실패")
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.VISIBLE
             }
             if (it.success) {
-                Log.d("닉네임 중복확인", "성공")
+                Timber.d("닉네임 중복확인: 성공")
                 binding.textSignupBasicinfoNicknameDuplicationNo.visibility = View.INVISIBLE
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.VISIBLE
                 activationNextBtn()
@@ -64,11 +65,11 @@ class SignUpBasicInfoActivity :
     private fun emailDuplication() {
         signUpBasicInfoViewModel.emailDuplicationCheck.observe(this) {
             if (!it.success) {
-                Log.d("이메일 중복확인", "실패")
+                Timber.d("이메일 중복확인: 실패")
                 binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.VISIBLE
                 binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
             } else {
-                Log.d("이메일 중복확인", "성공")
+                Timber.d("이메일 중복확인: 성공")
                 binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
                 binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
                 activationNextBtn()
