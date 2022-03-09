@@ -86,7 +86,7 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("plusStart")
     fun plusStart(textView: TextView, text: String): String {
-        return (text + "진입").also { textView.text = it }
+        return ("$text 진입").also { textView.text = it }
     }
 
     //좋아요 selector
