@@ -19,6 +19,7 @@ import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 import com.nadosunbae_android.domain.model.mypage.MyPageReviewData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReviewBinding>(R.layout.activity_my_page_classroom_review) {
@@ -34,6 +35,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
         initReviewListAdapter()
         backBtn()
         initNickName()
+        observeMyPagePost()
 
     }
 
@@ -47,8 +49,10 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
     private fun initReviewEmpty(size : Int){
         if(size == 0){
             binding.textReviewEmpty.visibility = View.VISIBLE
+            binding.rvMypageReview.visibility = View.GONE
         }else{
             binding.textReviewEmpty.visibility = View.GONE
+            binding.rvMypageReview.visibility = View.VISIBLE
         }
     }
 
@@ -62,16 +66,29 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
         }
     }
 
-    override fun onRestart() {
-        super.onRestart()
-        initReviewListAdapter()
+    override fun onResume() {
+        super.onResume()
+        myPageViewModel.getMyPageReview(myPageViewModel.userId.value ?: 0)
+        Timber.d("mypageUserId ${myPageViewModel.userId.value}")
+    }
+
+    private fun observeMyPagePost() {
+        myPageViewModel.myPagePostStatus.observe(this) {
+            if(it == 204) {
+                initReviewEmpty(0)
+            }else if(it == 200){
+                initReviewListAdapter()
+            }
+        }
     }
 
     private fun initReviewListAdapter() {
         showLoading()
         val userId = intent.getIntExtra("userId", 0)
-        myPageViewModel.getMyPageReview(userId)
-        myPageReviewAdapter = MyPageReviewAdapter(userId)
+        myPageViewModel.userId.value = userId
+        Timber.d("mypageUserId ${myPageViewModel.userId.value}")
+        myPageViewModel.getMyPageReview(myPageViewModel.userId.value ?: 0)
+        myPageReviewAdapter = MyPageReviewAdapter(myPageViewModel.userId.value ?: 0)
         binding.rvMypageReview.adapter = myPageReviewAdapter
         myPageViewModel.reviewList.observe(this) {
             initReviewEmpty(it.data.reviewPostList.size)

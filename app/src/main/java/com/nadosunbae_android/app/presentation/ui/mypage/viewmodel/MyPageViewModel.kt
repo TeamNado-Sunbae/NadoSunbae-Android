@@ -14,6 +14,7 @@ import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.usecase.mypage.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class MyPageViewModel(
     val getMyPageMyInfoUseCase: GetMyPageMyInfoUseCase,
@@ -40,6 +41,9 @@ class MyPageViewModel(
 
     override val onLoadingEnd = MutableLiveData<Boolean>(false)
 
+
+    //로그인 status 체크
+    var myPagePostStatus = MutableLiveData<Int>()
 
     //유저 아이디
     var userId = MutableLiveData<Int>()
@@ -122,6 +126,7 @@ class MyPageViewModel(
 
     //마이페이지 내가 쓴 학과 후기글
     fun getMyPageReview(userId: Int) {
+        /*
         viewModelScope.launch {
             kotlin.runCatching { getMyPageReviewUseCase(userId) }
                 .onSuccess {
@@ -135,6 +140,28 @@ class MyPageViewModel(
                 .also {
                     onLoadingEnd.value = true
                 }
+
+        }
+
+         */
+        viewModelScope.launch {
+            when (val postSignIn = safeApiCall(Dispatchers.IO) { getMyPageReviewUseCase(userId) }) {
+                is ResultWrapper.Success -> {
+                    reviewList.value = postSignIn.data!!
+                    myPagePostStatus.value = 200
+                }
+                is ResultWrapper.NetworkError -> {
+                    Timber.d("SignIn : 네트워크 실패")
+                    myPagePostStatus.value = 500
+                }
+                is ResultWrapper.GenericError -> {
+                    myPagePostStatus.value = postSignIn.code ?: 204
+                }
+            }
+                .also {
+                    onLoadingEnd.value = true
+                }
+            Timber.d("signInStatus: ${myPagePostStatus.value.toString()}")
         }
     }
 
