@@ -67,6 +67,7 @@ class ReviewWriteViewModel(
             when (val reviewWrite =
                 safeApiCall(Dispatchers.IO) { postReviewDataUseCase(reviewWriteItem) }) {
                 is ResultWrapper.Success -> {
+                    _statusCode.value = 200
                     Timber.d("postReviewWright : 서버 통신 성공")
                 }
                 is ResultWrapper.NetworkError -> {

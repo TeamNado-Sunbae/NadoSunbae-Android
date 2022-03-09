@@ -295,7 +295,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             }
 
         // 액티비티 종료
-        finish()
+
     }
 
 
@@ -315,6 +315,8 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                     },
                     cancel = {finish()}
                 )
+            }else if(it == 200){
+                finish()
             }
 
         }
