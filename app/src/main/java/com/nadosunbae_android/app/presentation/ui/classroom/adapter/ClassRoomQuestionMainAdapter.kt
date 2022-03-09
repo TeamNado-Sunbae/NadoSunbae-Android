@@ -48,7 +48,7 @@ class ClassRoomQuestionMainAdapter(private val num: Int, private val userId: Int
                 CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
             }
         }
-        if(questionMainData.size == 1){
+        if(position==(itemCount - 1)){
             holder.binding.lineQuestionAll.visibility = View.GONE
         }
 
