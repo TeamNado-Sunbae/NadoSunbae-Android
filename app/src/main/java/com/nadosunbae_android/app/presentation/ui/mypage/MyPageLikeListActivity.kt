@@ -14,6 +14,7 @@ import com.nadosunbae_android.app.di.NadoSunBaeApplication
 import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionAdapter
+import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
@@ -31,6 +32,7 @@ class MyPageLikeListActivity :
     private val myPageViewModel: MyPageViewModel by viewModel()
     private lateinit var myPageLikeQuestionAdapter: MyPageLikeQuestionAdapter
     private lateinit var myPageLikeReviewAdapter: MyPageLikeReviewAdapter
+    private lateinit var myPageLikeQuestionInfoAdapter: MyPageLikeQuestionInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +40,6 @@ class MyPageLikeListActivity :
         backBtn()
         initBtn()
         selectOption()
-        setClickListener()
     }
 
     private fun observeLoadingEnd() {
@@ -61,9 +62,12 @@ class MyPageLikeListActivity :
         binding.textMypageLikeInfo.isSelected = false
 
         //폰트 설정
-        binding.textMypageLikeReview.typeface = ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-        binding.textMypageLikeQuestion.typeface = ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-        binding.textMypageLikeInfo.typeface = ResourcesCompat.getFont(context(), R.font.pretendard_regular)
+        binding.textMypageLikeReview.typeface =
+            ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
+        binding.textMypageLikeQuestion.typeface =
+            ResourcesCompat.getFont(context(), R.font.pretendard_regular)
+        binding.textMypageLikeInfo.typeface =
+            ResourcesCompat.getFont(context(), R.font.pretendard_regular)
     }
 
     private fun selectOption() {
@@ -118,14 +122,26 @@ class MyPageLikeListActivity :
         }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        if(binding.textMypageLikeReview.isSelected) {
+            initReviewListAdapter()
+        }
+        else if(binding.textMypageLikeQuestion.isSelected) {
+            questionPosting()
+        } else {
+            infoPosting()
+        }
+    }
+
 
     //후기 엠티뷰
-    private fun initReviewEmpty(size : Int){
-        if(size == 0){
+    private fun initReviewEmpty(size: Int) {
+        if (size == 0) {
             binding.textReviewEmpty.visibility = View.VISIBLE
             binding.textInfoEmpty.visibility = View.GONE
             binding.textQuestionEmpty.visibility = View.GONE
-        }else{
+        } else {
             binding.textReviewEmpty.visibility = View.GONE
             binding.textQuestionEmpty.visibility = View.GONE
             binding.textInfoEmpty.visibility = View.GONE
@@ -133,12 +149,12 @@ class MyPageLikeListActivity :
     }
 
     //정보 엠티뷰
-    private fun initInfoEmpty(size : Int){
-        if(size == 0){
+    private fun initInfoEmpty(size: Int) {
+        if (size == 0) {
             binding.textReviewEmpty.visibility = View.GONE
             binding.textInfoEmpty.visibility = View.VISIBLE
             binding.textQuestionEmpty.visibility = View.GONE
-        }else{
+        } else {
             binding.textReviewEmpty.visibility = View.GONE
             binding.textQuestionEmpty.visibility = View.GONE
             binding.textInfoEmpty.visibility = View.GONE
@@ -146,12 +162,12 @@ class MyPageLikeListActivity :
     }
 
     // 질문 엠티뷰
-    private fun initQuestionEmpty(size : Int){
-        if(size == 0){
+    private fun initQuestionEmpty(size: Int) {
+        if (size == 0) {
             binding.textReviewEmpty.visibility = View.GONE
             binding.textInfoEmpty.visibility = View.GONE
             binding.textQuestionEmpty.visibility = View.VISIBLE
-        }else{
+        } else {
             binding.textReviewEmpty.visibility = View.GONE
             binding.textQuestionEmpty.visibility = View.GONE
             binding.textInfoEmpty.visibility = View.GONE
@@ -162,7 +178,7 @@ class MyPageLikeListActivity :
         showLoading()
         intent.getIntExtra("userId", 0)
         myPageViewModel.getMyPageLikeQuestion("question")
-        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1)
+        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1,0)
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 
         myPageViewModel.likeQuestion.observe(this) {
@@ -176,14 +192,15 @@ class MyPageLikeListActivity :
         intent.getIntExtra("userId", 0)
 
         myPageViewModel.getMyPageLikeQuestion("information")
-        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1)
-        binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
+        myPageLikeQuestionInfoAdapter = MyPageLikeQuestionInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
+        binding.rvMypageLike.adapter = myPageLikeQuestionInfoAdapter
 
         myPageViewModel.likeQuestion.observe(this) {
             initInfoEmpty(it.data.likePostList.size)
-            myPageLikeQuestionAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
+            myPageLikeQuestionInfoAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
         }
     }
+
 
 
     private fun initReviewListAdapter() {
@@ -197,33 +214,5 @@ class MyPageLikeListActivity :
             initReviewEmpty(it.data.likePostList.size)
             myPageLikeReviewAdapter.setReviewListData((it.data.likePostList) as MutableList<MyPageLikeReviewData.Data.LikePost>)
         }
-    }
-
-
-    private fun setClickListener() {
-        showLoading()
-        // RecyclerView ItemClickListener
-        myPageLikeReviewAdapter.setItemClickListener(
-            object : MyPageLikeReviewAdapter.ItemClickListener {
-                override fun onClick(view: View, position: Int) {
-
-                    val reviewListData = myPageViewModel.likeReview.value
-
-                    // null check
-                    if (reviewListData != null) {
-                        // postId Intent로 전달 (후기 상세보기 이동)
-                        val intent =
-                            Intent(this@MyPageLikeListActivity, ReviewDetailActivity::class.java)
-                        val postId = reviewListData.data.likePostList[position].postId
-                        intent.putExtra("postId", postId)
-                        intent.putExtra("userId", intent.getIntExtra("userId", 0))
-                        startActivity(intent)
-                    }
-
-
-                }
-
-            }
-        )
     }
 }

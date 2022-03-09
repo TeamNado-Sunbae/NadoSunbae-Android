@@ -14,6 +14,7 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapter
+import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.domain.model.mypage.MyPagePostData
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
@@ -26,6 +27,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
     private val myPageViewModel: MyPageViewModel by viewModel()
 
     private lateinit var myPagePostAdapter: MyPagePostAdapter
+    private lateinit var myPagePostInfoAdapter: MyPagePostInfoAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,18 +139,29 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
         }
     }
 
+
+    override fun onRestart() {
+        super.onRestart()
+        if(binding.textMypagePostQuestionTitle.isSelected) {
+            questionPosting()
+        } else {
+            infoPosting()
+        }
+    }
+
+
     private fun infoPosting() {
         showLoading()
         intent.getIntExtra("userId", 0)
         Log.d("PostuserId", "- id: " + intent.getIntExtra("userId", 0))
 
         myPageViewModel.getMyPagePost("information")
-        myPagePostAdapter = MyPagePostAdapter(2, intent.getIntExtra("userId", 0), 1)
-        binding.rvMypageQuestion.adapter = myPagePostAdapter
+        myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
+        binding.rvMypageQuestion.adapter = myPagePostInfoAdapter
 
         myPageViewModel.postByMe.observe(this) {
             initInfoEmpty(it.data.classroomPostList.size)
-            myPagePostAdapter.setQuestionPost((it.data.classroomPostList) as MutableList<MyPagePostData.Data.ClassroomPost>)
+            myPagePostInfoAdapter.setQuestionPost((it.data.classroomPostList) as MutableList<MyPagePostData.Data.ClassroomPost>)
         }
     }
 

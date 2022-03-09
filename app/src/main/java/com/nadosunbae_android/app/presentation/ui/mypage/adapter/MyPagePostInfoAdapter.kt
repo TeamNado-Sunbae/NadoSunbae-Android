@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.app.databinding.ItemMypagePersonalQuestionBinding
 import com.nadosunbae_android.app.databinding.ItemMypagePostByMeBinding
+import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPagePostData
-import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 
-class MyPagePostAdapter(private val num: Int, private val userId: Int, private val myPageNum : Int) :
-    RecyclerView.Adapter<MyPagePostAdapter.MyPagePostViewHolder>() {
+class MyPagePostInfoAdapter (private val num: Int, private val userId: Int, private val myPageNum : Int) :
+    RecyclerView.Adapter<MyPagePostInfoAdapter.MyPagePostViewHolder>() {
     var myPagePostData = mutableListOf<MyPagePostData.Data.ClassroomPost>()
 
     override fun onCreateViewHolder(
@@ -33,15 +34,18 @@ class MyPagePostAdapter(private val num: Int, private val userId: Int, private v
     ) {
         holder.onBind(myPagePostData[position])
         holder.binding.root.setOnClickListener {
-            val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
-            intent.apply {
-                putExtra("myPageNum", myPageNum)
-                putExtra("userId", userId)
-                putExtra("postId", myPagePostData[position].postId)
-                putExtra("postTypeId", myPagePostData[position].postTypeId)
-                putExtra("all", num)
+            if(ReviewGlobals.isReviewed){
+                val intent = Intent(holder.itemView.context, InformationDetailActivity::class.java)
+                intent.apply {
+                    putExtra("postId", myPagePostData[position].postId)
+                    putExtra("userId", userId)
+                }
+                ContextCompat.startActivity(holder.itemView.context, intent, null)
             }
-            ContextCompat.startActivity(holder.itemView.context, intent, null)
+
+            else {
+                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
+            }
         }
     }
 

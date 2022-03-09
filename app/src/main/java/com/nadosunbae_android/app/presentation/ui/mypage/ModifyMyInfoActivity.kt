@@ -70,6 +70,12 @@ class ModifyMyInfoActivity :
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        initWriteMode()
+        completeModifyInfo()
+    }
+
     //기존 데이터 불러오기
     private fun initWriteMode(){
         mainViewModel.signData.observe(this) {
@@ -418,17 +424,12 @@ class ModifyMyInfoActivity :
             binding.textMyPageSave.isSelected = true
             if (binding.textMyPageSave.isSelected) {
                 binding.textMyPageSave.setOnClickListener {
-                    showLoading()
                     confirmExit()
                 }
             }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        completeModifyInfo()
-    }
 
     //뒤로가기 버튼 클릭 리스너
     private fun backBtnClick() {
@@ -480,7 +481,6 @@ class ModifyMyInfoActivity :
                 getString(R.string.mypage_alert_modify_no)
             ),
             complete = {
-                showLoading()
                 completeModifyInfo()
                 finish()
             },

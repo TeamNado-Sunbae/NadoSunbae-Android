@@ -15,6 +15,7 @@ data class MyPageReplyData(
             val createdAt: Date?,
             val like: Like,
             val postId: Int,
+            val postTypeId: Int,
             val title: String,
             val writer: Writer
         ) {

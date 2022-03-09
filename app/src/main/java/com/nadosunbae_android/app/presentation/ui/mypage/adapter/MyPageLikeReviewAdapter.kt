@@ -1,12 +1,15 @@
 package com.nadosunbae_android.app.presentation.ui.mypage.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemMypageLikeReviewBinding
+import com.nadosunbae_android.app.presentation.ui.review.ReviewDetailActivity
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 
 class MyPageLikeReviewAdapter():
@@ -54,7 +57,13 @@ class MyPageLikeReviewAdapter():
     ) {
         holder.onBind(myPageLikeReviewData[position])
         holder.itemView.setOnClickListener {
-            itemClickListener.onClick(it, position)
+
+            val intent =
+                Intent(holder.itemView.context, ReviewDetailActivity::class.java)
+            val postId = myPageLikeReviewData[position].postId
+            intent.putExtra("postId", postId)
+            intent.putExtra("userId", intent.getIntExtra("userId", 0))
+            ContextCompat.startActivity(holder.itemView.context,intent, null)
         }
     }
 

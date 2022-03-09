@@ -16,6 +16,7 @@ data class MyPagePostData(
             val like: Like,
             val majorName: String,
             val postId: Int,
+            val postTypeId: Int,
             val title: String
         ) {
             data class Like(
