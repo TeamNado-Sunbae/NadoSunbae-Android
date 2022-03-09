@@ -132,7 +132,7 @@ class QuestionDetailViewModel(
             when (val questionDetail =
                 safeApiCall(Dispatchers.IO) { getQuestionDetailDataUseCase(postId) }) {
                 is ResultWrapper.Success -> {
-                    _statusCode.value = 200
+                    _questionDetailData.value = questionDetail.data!!
                     Timber.d("questionDetail : 서버 통신 성공")
                 }
                 is ResultWrapper.NetworkError -> {
