@@ -30,7 +30,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        getReviewListData()
         observeLoadingEnd()
         initReviewListAdapter()
         backBtn()
@@ -68,7 +68,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
 
     override fun onResume() {
         super.onResume()
-        myPageViewModel.getMyPageReview(myPageViewModel.userId.value ?: 0)
+        getReviewListData()
         Timber.d("mypageUserId ${myPageViewModel.userId.value}")
     }
 
@@ -83,16 +83,20 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
     }
 
     private fun initReviewListAdapter() {
-        showLoading()
-        val userId = intent.getIntExtra("userId", 0)
-        myPageViewModel.userId.value = userId
         Timber.d("mypageUserId ${myPageViewModel.userId.value}")
-        myPageViewModel.getMyPageReview(myPageViewModel.userId.value ?: 0)
         myPageReviewAdapter = MyPageReviewAdapter(myPageViewModel.userId.value ?: 0)
         binding.rvMypageReview.adapter = myPageReviewAdapter
         myPageViewModel.reviewList.observe(this) {
             initReviewEmpty(it.data.reviewPostList.size)
             myPageReviewAdapter.setReviewListData((it.data.reviewPostList) as MutableList<MyPageReviewData.Data.ReviewPost>)
         }
+    }
+
+    //서버 통신
+    private fun getReviewListData(){
+        val userId = intent.getIntExtra("userId", 0)
+        myPageViewModel.userId.value = userId
+        showLoading()
+        myPageViewModel.getMyPageReview(myPageViewModel.userId.value ?: 0)
     }
 }
