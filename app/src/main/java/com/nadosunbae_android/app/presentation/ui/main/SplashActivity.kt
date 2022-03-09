@@ -42,7 +42,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         override fun onStateUpdate(state: InstallState) {
 
             if (state.installStatus() == InstallStatus.DOWNLOADED) {
-
+                popupSnackbarForCompleteUpdate()
 
             } else if (state.installStatus() == InstallStatus.INSTALLED) {
                 if (appUpdateManager != null) {
