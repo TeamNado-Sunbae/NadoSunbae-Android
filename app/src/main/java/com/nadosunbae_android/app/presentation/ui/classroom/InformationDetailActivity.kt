@@ -72,6 +72,10 @@ class InformationDetailActivity :
                     },
                     cancel = {finish()}
                 )
+            }else if(it == 404){
+                CustomDialog(this).deleteNotificationDialog {
+                    finish()
+                }
             }
         }
 

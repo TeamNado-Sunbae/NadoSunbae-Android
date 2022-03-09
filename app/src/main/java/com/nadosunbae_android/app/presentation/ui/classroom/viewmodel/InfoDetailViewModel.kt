@@ -111,7 +111,7 @@ class InfoDetailViewModel(
             when (val infoDetail =
                 safeApiCall(Dispatchers.IO) { getInformationDetailUseCase(postId) }) {
                 is ResultWrapper.Success -> {
-                    _statusCode.value = 200
+                    _infoDetailData.value = infoDetail.data!!
                     Timber.d("infoDetail : 서버 통신 성공")
                 }
                 is ResultWrapper.NetworkError -> {
