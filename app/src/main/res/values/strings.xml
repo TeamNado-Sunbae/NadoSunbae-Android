@@ -442,4 +442,7 @@
     <string name="email_certification_title">학교 이메일 인증을 완료해야\n로그인이 가능합니다.</string>
     <string name="email_certification_close">닫기</string>
     <string name="email_certification_email">메일 재전송</string>
+
+    <!-- 카카오 문의 -->
+    <string name="question_kakao">http://pf.kakao.com/_pxcFib</string>
 </resources>

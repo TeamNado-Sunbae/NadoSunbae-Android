@@ -1,5 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.review
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -53,7 +55,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         loadBackgroundImage()
         loadMajorList()
         setDropDownDefault()
-
+        floatBadUserDialog()
     }
 
     override fun onBackPressed() {
@@ -294,6 +296,28 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
         // 액티비티 종료
         finish()
+    }
+
+
+    //부적절 사용자 다이얼로그 띄우기
+    private fun floatBadUserDialog(){
+        reviewWriteViewModel.statusCode.observe(this){
+            if(it == 403){
+                CustomDialog(this).genericDialog(
+                    CustomDialog.DialogData(
+                        reviewWriteViewModel.message.value.toString(),
+                        resources.getString(R.string.sign_in_question),
+                        resources.getString(R.string.email_certification_close)
+                    ),
+                    complete = {
+                        var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
+                        startActivity(intent)
+                    },
+                    cancel = {finish()}
+                )
+            }
+
+        }
 
     }
 

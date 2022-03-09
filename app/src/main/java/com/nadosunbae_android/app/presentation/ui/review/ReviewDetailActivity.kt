@@ -90,7 +90,7 @@ class ReviewDetailActivity :
                             resources.getString(R.string.email_certification_close)
                         ),
                         complete = {
-                            var intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_pxcFib"))
+                            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
                             startActivity(intent)
                         },
                         cancel = {finish()}
