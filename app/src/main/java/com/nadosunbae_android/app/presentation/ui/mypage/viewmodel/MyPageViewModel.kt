@@ -74,6 +74,11 @@ class MyPageViewModel(
     val quitInfo : LiveData<MyPageQuitData?>
     get() = _quitInfo
 
+
+    private var _questionPostId = MutableLiveData<MyPageLikeQuestionData.Data.LikePost>()
+    val questionPostId : LiveData<MyPageLikeQuestionData.Data.LikePost>
+    get() = _questionPostId
+
     //토스트
     var reportStatusInfo = MutableLiveData<Int>()
 

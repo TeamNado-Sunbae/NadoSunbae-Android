@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
+import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
@@ -29,6 +30,7 @@ import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding as
 class QuestionDetailActivity :
     BaseActivity<ActivityQuestionDetailBinding>(R.layout.activity_question_detail) {
     private val questionDetailViewModel: QuestionDetailViewModel by viewModel()
+    private val myPageViewModel : MyPageViewModel by viewModel()
     private lateinit var dialog: CustomDialog
 
     private lateinit var classRoomQuestionDetailAdapter: ClassRoomQuestionDetailAdapter
@@ -123,12 +125,14 @@ class QuestionDetailActivity :
     //전체 질문 상세보기 좋아요
     private fun questionAllDetailLike() {
         val divisionNum = questionDetailViewModel.divisionQuestion.value
+        val myPageDivisionNum = intent.getIntExtra("postTypeId", -1)
+
         classRoomQuestionDetailAdapter.setItemLikeClickListener(
             object : ClassRoomQuestionDetailAdapter.OnItemLikeClickListener {
                 override fun onLikeClick(v: View) {
                     val postId = questionDetailViewModel.likePostId.value ?: 0
 
-                    if (divisionNum == 1) {
+                    if (divisionNum == 1 || myPageDivisionNum == 3) {
                         Log.d("전체 질문 좋아요", "서버 통신 하는 중")
                         questionDetailViewModel.postClassRoomLike(LikeItem(postId, 3))
                         showLoading()

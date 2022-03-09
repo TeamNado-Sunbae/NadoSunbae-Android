@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.mypage.adapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -9,7 +10,7 @@ import com.nadosunbae_android.app.databinding.ItemMypageLikeQuestionBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeQuestionData
 
-class MyPageLikeQuestionAdapter (private val num: Int, private val userId: Int, private val myPageNum : Int) :
+class MyPageLikeQuestionAdapter (private val num: Int, private val userId: Int, private val myPageNum : Int, private val postTypeId : Int) :
     RecyclerView.Adapter<MyPageLikeQuestionAdapter.MyPageLikeQuestionViewHolder>() {
     var myPageLikeQuestionData = mutableListOf<MyPageLikeQuestionData.Data.LikePost>()
 
@@ -36,7 +37,10 @@ class MyPageLikeQuestionAdapter (private val num: Int, private val userId: Int, 
                 putExtra("myPageNum", myPageNum)
                 putExtra("userId", userId)
                 putExtra("postId", myPageLikeQuestionData[position].postId)
+                putExtra("postTypeId", myPageLikeQuestionData[position].postTypeId)
                 putExtra("all", num)
+
+                Log.d("test", " : " + postTypeId)
             }
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }

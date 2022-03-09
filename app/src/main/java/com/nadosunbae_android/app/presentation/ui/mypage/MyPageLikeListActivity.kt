@@ -164,7 +164,7 @@ class MyPageLikeListActivity :
         showLoading()
         intent.getIntExtra("userId", 0)
         myPageViewModel.getMyPageLikeQuestion("question")
-        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1)
+        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1,0)
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 
         myPageViewModel.likeQuestion.observe(this) {
@@ -178,7 +178,7 @@ class MyPageLikeListActivity :
         intent.getIntExtra("userId", 0)
 
         myPageViewModel.getMyPageLikeQuestion("information")
-        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1)
+        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 
         myPageViewModel.likeQuestion.observe(this) {
