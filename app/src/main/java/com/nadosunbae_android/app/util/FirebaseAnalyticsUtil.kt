@@ -1,6 +1,5 @@
 package com.nadosunbae_android.app.util
 
-import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
@@ -12,14 +11,21 @@ object FirebaseAnalyticsUtil {
     private const val ACTIVE_USER = "user_active"
     private const val USER_PERSONAL = "user_post"
     private const val AU_DIVISION = "au_type"
-    private const val NEW_POST = "post_type"
+    private const val POST_TYPE = "post_type"
+    private const val QUESTION = "user_question"
+    private const val QUESTION_TYPE ="question_type"
 
-    object POST {
+    object Post {
         const val REVIEW_NEW = "review_new"
         const val REVIEW_ADD = "review_additional"
         const val INFORMATION = "classroom_information"
         const val QUESTION_ALL = "classromm_question_all"
         const val QUESTION_PERSONAL = "classroom_question_personal"
+    }
+
+    object Question {
+        const val QUESTION_START = "question_start"
+        const val QUESTION_REPLY = "question_reply"
     }
 
     private lateinit var _firebaseAnalytics: FirebaseAnalytics
@@ -76,7 +82,11 @@ object FirebaseAnalyticsUtil {
     }
 
     fun userPost(value: String = "other") = _firebaseAnalytics.logEvent(USER_PERSONAL) {
-        param(NEW_POST, value)
+        param(POST_TYPE, value)
+    }
+
+    fun question(value: String = "other") = _firebaseAnalytics.logEvent(QUESTION) {
+        param(QUESTION_TYPE, value)
     }
 
     // 커스텀 이벤트 로그 (단일 파라미터)

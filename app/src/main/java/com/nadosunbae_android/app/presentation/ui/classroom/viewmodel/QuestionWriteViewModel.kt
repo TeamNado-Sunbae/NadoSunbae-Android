@@ -60,9 +60,12 @@ class QuestionWriteViewModel(
                     postDataWrite.value = it
 
                     when (classRoomPostWriteItem.postTypeId) {
-                        2 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.POST.INFORMATION)
-                        3 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.POST.QUESTION_ALL)
-                        4 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.POST.QUESTION_PERSONAL)
+                        2 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.INFORMATION)
+                        3 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.QUESTION_ALL)
+                        4 -> {
+                            FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.QUESTION_PERSONAL)
+                            FirebaseAnalyticsUtil.question(FirebaseAnalyticsUtil.Question.QUESTION_START)
+                        }
                     }
 
                     Log.d("classRoomWrite", "글 작성 등록 완료")
