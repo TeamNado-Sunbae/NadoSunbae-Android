@@ -109,7 +109,7 @@ class QuestionWriteActivity :
     //작성취소 다이얼로그 띄우기
     private fun initCancelDialog() {
         dialog = CustomDialog(this)
-        dialog.writeCancelDialog(R.layout.dialog_question_write_cancel)
+        dialog.writeCancelDialog(R.layout.dialog_question_write_cancel, division)
         dialog.setOnClickedListener(object : CustomDialog.ButtonClickListener {
             override fun onClicked(num: Int) {
                 if (num == 1) finish()
@@ -204,5 +204,11 @@ class QuestionWriteActivity :
     companion object{
         const val write = 0
         const val update = 1
+    }
+
+    //백버튼
+    override fun onBackPressed() {
+        super.onBackPressed()
+        initCancelDialog()
     }
 }
