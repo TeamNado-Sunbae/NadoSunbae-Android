@@ -280,7 +280,7 @@
     <string name="question_write_complete_no">아니요</string>
     <string name="question_write_complete_yes">예</string>
     <string name="title_activity_senior_personal">SeniorPersonalActivity</string>
-    <string name="question_update_cancel">페이지를 나가면 수정한 내용이 저장되지 않아요.</string>
+    <string name="question_update_cancel">페이지를 나가면 \n수정한 내용이 저장되지 않아요.</string>
 
     <!-- 후기 미작성자 알럿 -->
     <string name="alert_no_review_title">내 학과 후기를 작성해야\n이용할 수 있는 기능이에요.</string>
