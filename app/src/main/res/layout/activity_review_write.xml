@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewWriteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -227,13 +229,14 @@
                         android:id="@+id/tv_review_write_max_40"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/review_write_max_40"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:textSize="12sp"
+                        displayMaxLength="@{viewModel.oneLineLength}"
                         android:textColor="@color/gray_2"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_write_one_line"
-                        app:layout_constraintStart_toEndOf="@+id/tv_write_one_line"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_write_one_line" />
 
                     <EditText
@@ -275,13 +278,14 @@
                         android:id="@+id/tv_review_write_pros_cons_min_100"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/review_write_min_100"
-                        android:fontFamily="@font/pretendard_medium"
-                        android:textSize="12sp"
-                        android:textColor="@color/gray_2"
                         android:layout_marginStart="8dp"
+                        android:fontFamily="@font/pretendard_medium"
+                        displayMinLength="@{viewModel.prosConsLength}"
+                        android:textColor="@color/gray_2"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_review_write_pros_cons"
-                        app:layout_constraintStart_toEndOf="@+id/tv_review_write_pros_cons"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_pros_cons" />
 
                     <com.nadosunbae_android.app.util.CustomEditText
@@ -354,11 +358,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:text="@string/review_write_min_100"
+                        displayMinLength="@{viewModel.curriculumLength}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
+                        android:layout_marginEnd="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_review_write_curriculum"
-                        app:layout_constraintStart_toEndOf="@+id/tv_review_write_curriculum"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_curriculum" />
 
                     <com.nadosunbae_android.app.util.CustomEditText
@@ -388,11 +393,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:text="@string/review_write_min_100"
+                        displayMinLength="@{viewModel.recommendLectureLength}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_review_write_recommend_lecture"
-                        app:layout_constraintStart_toEndOf="@+id/tv_review_write_recommend_lecture"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_recommend_lecture" />
 
                     <com.nadosunbae_android.app.util.CustomEditText
@@ -422,11 +428,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:text="@string/review_write_min_100"
+                        displayMinLength="@{viewModel.nonRecommendLectureLength}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
+                        android:layout_marginEnd="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_review_write_non_recommend_lecture"
-                        app:layout_constraintStart_toEndOf="@+id/tv_review_write_non_recommend_lecture"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_non_recommend_lecture" />
 
                     <com.nadosunbae_android.app.util.CustomEditText
@@ -456,11 +463,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:text="@string/review_write_min_100"
+                        displayMinLength="@{viewModel.careerLength}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
+                        android:layout_marginEnd="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_review_write_career"
-                        app:layout_constraintStart_toEndOf="@+id/tv_review_write_career"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_career" />
 
                     <com.nadosunbae_android.app.util.CustomEditText
@@ -490,11 +498,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:text="@string/review_write_min_100"
+                        displayMinLength="@{viewModel.tipLength}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
+                        android:layout_marginEnd="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_review_write_tip"
-                        app:layout_constraintStart_toEndOf="@+id/tv_review_write_tip"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_review_write_tip" />
 
                     <com.nadosunbae_android.app.util.CustomEditText
