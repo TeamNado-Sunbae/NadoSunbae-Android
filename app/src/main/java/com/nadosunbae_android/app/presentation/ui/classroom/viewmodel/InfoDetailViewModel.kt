@@ -22,7 +22,7 @@ import timber.log.Timber
 class InfoDetailViewModel(
     val getInformationDetailUseCase: GetInformationDetailUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
-    val postLikeDataUseCase : PostLikeDataUseCase,
+    val postLikeDataUseCase: PostLikeDataUseCase,
     val deleteCommentDataUseCase: DeleteCommentDataUseCase,
     val postReportUseCase: PostReportUseCase,
     val deletePostDataUseCase: DeletePostDataUseCase,
@@ -43,7 +43,7 @@ class InfoDetailViewModel(
 
     //정보 좋아요를 위한 postId
     private var _infoPostId = MutableLiveData<Int>()
-    val infoPostId : LiveData<Int>
+    val infoPostId: LiveData<Int>
         get() = _infoPostId
 
     //정보 댓글 commentId
@@ -57,20 +57,29 @@ class InfoDetailViewModel(
 
     //댓글 삭제 데이터
     private var _deleteComment = MutableLiveData<DeleteCommentData>()
-    val deleteComment : LiveData<DeleteCommentData>
+    val deleteComment: LiveData<DeleteCommentData>
         get() = _deleteComment
 
-    fun setPostId(postId : Int){
+    fun setPostId(postId: Int) {
         _infoPostId.value = postId
     }
 
+    //부적절 사용자 데이터들
+    private var _statusCode = MutableLiveData<Int>()
+    val statusCode: LiveData<Int>
+        get() = _statusCode
+
+    private var _message = MutableLiveData<String>()
+    val message: LiveData<String>
+        get() = _message
+
     // 좋아요 데이터
     private var _postLike = MutableLiveData<LikeData>()
-    val postLike : LiveData<LikeData>
+    val postLike: LiveData<LikeData>
         get() = _postLike
 
     //좋아요 데이터 저장
-    private fun setPostLike(likeData : LikeData){
+    private fun setPostLike(likeData: LikeData) {
         _postLike.value = likeData
     }
 
@@ -82,7 +91,7 @@ class InfoDetailViewModel(
 
     //신고 데이터
     private var _reportData = MutableLiveData<ReportData?>()
-    val reportData : LiveData<ReportData?>
+    val reportData: LiveData<ReportData?>
         get() = _reportData
 
     //신고 사유
@@ -93,26 +102,37 @@ class InfoDetailViewModel(
 
     //원글 삭제 데이터
     private var _deletePostData = MutableLiveData<DeleteCommentData>()
-    val deletePostData : LiveData<DeleteCommentData>
+    val deletePostData: LiveData<DeleteCommentData>
         get() = _deletePostData
 
     //정보 상세 조회 서버통신
     fun getInfoDetail(postId: Int) {
         viewModelScope.launch {
-            runCatching { getInformationDetailUseCase(postId) }
-                .onSuccess {
-                    _infoDetailData.value = it
-                    Timber.d("InfoDetail : 정보 상세보기 서버 통신 성공")
+            when (val infoDetail =
+                safeApiCall(Dispatchers.IO) { getInformationDetailUseCase(postId) }) {
+                is ResultWrapper.Success -> {
+                    _statusCode.value = 200
+                    Timber.d("infoDetail : 서버 통신 성공")
                 }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("InfoDetail : 정보 상세보기 서버 통신 실패")
-                }.also {
-            onLoadingEnd.value = true
-        }
-        }
+                is ResultWrapper.NetworkError -> {
+                    Timber.d("infoDetail : 네트워크 실패")
 
+                }
+                is ResultWrapper.GenericError -> {
+                    Timber.d("infoDetail :사용자 에러")
+                    _message.value = infoDetail.message ?: ""
+                    _statusCode.value = infoDetail.code ?: 0
+                    Timber.d("reviewDetail : ${infoDetail.message}")
+                    Timber.d("reviewDetail : ${infoDetail.code}")
+                }
+            }
+                .also {
+                    onLoadingEnd.value = true
+                }
+
+        }
     }
+
 
     //정보 상세 댓글 등록
     fun postInfoCommentWrite(
@@ -134,7 +154,7 @@ class InfoDetailViewModel(
     }
 
     // 정보 상세 좋아요
-    fun postClassRoomInfoLike(likeItem : LikeItem){
+    fun postClassRoomInfoLike(likeItem: LikeItem) {
         viewModelScope.launch {
             runCatching { postLikeDataUseCase(likeItem) }
                 .onSuccess {
@@ -153,7 +173,7 @@ class InfoDetailViewModel(
 
     //정보 댓글 삭제
     //댓글 삭제 서버통신
-    fun deleteComment(commentId : Int){
+    fun deleteComment(commentId: Int) {
         viewModelScope.launch {
             runCatching { deleteCommentDataUseCase(commentId) }
                 .onSuccess {
@@ -171,11 +191,11 @@ class InfoDetailViewModel(
 
 
     //신고하기 서버통신
-    fun postReport(reportItem: ReportItem){
+    fun postReport(reportItem: ReportItem) {
         viewModelScope.launch {
             when (val reportData =
                 safeApiCall(Dispatchers.IO) { postReportUseCase(reportItem) }) {
-                is ResultWrapper.Success ->  {
+                is ResultWrapper.Success -> {
                     _reportData.value = reportData.data
                     reportStatusInfo.value = 200
                     Timber.d("postReport : 신고 성공!")
@@ -195,7 +215,7 @@ class InfoDetailViewModel(
 
 
     // 원글 삭제 서버통신
-    fun deletePost(postId : Int){
+    fun deletePost(postId: Int) {
         viewModelScope.launch {
             runCatching { deletePostDataUseCase(postId) }
                 .onSuccess {
