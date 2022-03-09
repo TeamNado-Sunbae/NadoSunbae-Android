@@ -43,6 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setDefaultMajor()
         getSignDataFromIntent()
         classRoomBack()
+        observeClassRoomNum()
         // clickBottomNav()
         myPageFragmentChange()
         myPageBack()
@@ -68,6 +69,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
             param(FirebaseAnalytics.Param.SCREEN_CLASS, getString(R.string.ga_activity_main))
             param(FirebaseAnalytics.Param.SCREEN_NAME, tab)
+        }
+    }
+
+    private fun observeClassRoomNum() {
+        mainViewModel.classRoomNum.observe(this) {
+            if (it == 1)
+                firebaseLogTab(getString(R.string.ga_tab_classroom_question))
+            else if (it == 2)
+                firebaseLogTab(getString(R.string.ga_tab_classroom_info))
         }
     }
 
@@ -104,6 +114,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                 else ->{
                     changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                    firebaseLogTab(getString(R.string.ga_tab_review))
                 }
             }
 
@@ -119,7 +130,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     R.id.navigation_room -> {
                         mainViewModel.classRoomNum.value = 1
                         changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
-                        firebaseLogTab(getString(R.string.ga_tab_classroom))
+                        firebaseLogTab(getString(R.string.ga_tab_classroom_question))
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_notice -> {
