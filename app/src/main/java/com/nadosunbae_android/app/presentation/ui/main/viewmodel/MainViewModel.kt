@@ -60,6 +60,8 @@ class MainViewModel(
     val classRoomMain : LiveData<List<ClassRoomData>>
         get() = _classRoomMain
 
+    //과방탭 정보글 등록된 정보글 없는 경우 (0 -> 없는 경우 1-> 있는 경우)
+    var classRoomInfoEmpty = MutableLiveData<Int>(1)
 
     // 학과 목록
     private val _majorList = MutableLiveData<List<com.nadosunbae_android.domain.model.main.MajorKeyData>>()

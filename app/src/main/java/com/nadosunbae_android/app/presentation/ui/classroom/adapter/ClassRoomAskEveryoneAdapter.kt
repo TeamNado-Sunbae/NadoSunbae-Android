@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.classroom.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +47,10 @@ class ClassRoomAskEveryoneAdapter(private var userId : Int) : RecyclerView.Adapt
                 CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
             }
 
+        }
+
+        if(position == (itemCount - 1)){
+            holder.binding.lineQuestionAll.visibility = View.GONE
         }
     }
 

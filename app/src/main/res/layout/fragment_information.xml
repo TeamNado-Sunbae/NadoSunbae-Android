@@ -9,14 +9,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context=".app.presentation.ui.classroom.InformationFragment">
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="5dp">
 
             <android.widget.Button
                 android:id="@+id/btn_classroom_info_array"
@@ -40,6 +44,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_classroom_info"
                 android:layout_width="match_parent"
@@ -59,24 +65,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/btn_classroom_info_array" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_go_information_write"
-            android:layout_width="64dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/oval_fill_black"
-            android:drawableTop="@drawable/ic_plus"
-            android:elevation="25dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:paddingTop="14dp"
-            android:paddingBottom="10dp"
-            android:text="@string/classroom_info_title"
-            android:textColor="@color/main_light"
-            android:textSize="11sp"
-            app:backgroundTint="@color/main_black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

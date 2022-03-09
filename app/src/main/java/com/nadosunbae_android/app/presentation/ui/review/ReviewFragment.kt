@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
 import androidx.activity.result.contract.ActivityResultContracts
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.domain.model.main.SelectableData
@@ -54,6 +55,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
         setBinding()
         setStickyHeader()
+        setScrollMinHeight()
         initReviewListAdapter()
         observeReviewListData()
         setClickListener()
@@ -73,23 +75,39 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         loadReviewList()
     }
 
-
     private fun setBinding() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.mainViewModel = mainViewModel
     }
 
+    // NestedScrollView 내부의 recycler 뷰의 minHeight을 동적으로 설정합니다. (구조 상 layout에서 한계 있음)
+    private fun setScrollMinHeight() {
+        binding.clReviewMain.viewTreeObserver.addOnGlobalLayoutListener(    // viewTreeObserver를 등록하여 height을 동적으로 가져옴
+            object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    binding.clReviewMain.viewTreeObserver.removeOnGlobalLayoutListener(this)    // 한번만 실행되도록 layoutListener를 제거
+
+                    binding.clScroll.minHeight = binding.run {
+                        clReviewMain.height - clReviewToolBar.height
+                    }
+                }
+            }
+        )
+    }
 
     private fun observeReviewListData() {
         // reviewListViewModel observe (목록에 표시되도록)
         reviewListViewModel.reviewListData.observe(viewLifecycleOwner) {
             reviewListAdapter.setReviewListData(it as MutableList<ReviewPreviewData>)
+
+            // empty review list -> 표시
+            if (reviewListAdapter.isEmpty())
+                binding.tvEmptyReview.visibility = View.VISIBLE
+            else
+                binding.tvEmptyReview.visibility = View.INVISIBLE
         }
 
     }
-
-
-
 
     private fun initReviewListAdapter() {
         reviewListAdapter = ReviewListAdapter()

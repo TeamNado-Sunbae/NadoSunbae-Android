@@ -14,8 +14,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         android:paddingHorizontal="12dp"
-        tools:listitem="@layout/item_drop_down"
-        />
+        tools:listitem="@layout/item_drop_down" />
 
 
 

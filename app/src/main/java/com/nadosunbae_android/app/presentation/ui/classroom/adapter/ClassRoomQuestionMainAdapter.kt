@@ -47,8 +47,11 @@ class ClassRoomQuestionMainAdapter(private val num: Int, private val userId: Int
             }else{
                 CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
             }
-
         }
+        if(position==(itemCount - 1)){
+            holder.binding.lineQuestionAll.visibility = View.GONE
+        }
+
     }
 
     override fun getItemCount(): Int {

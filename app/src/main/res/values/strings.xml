@@ -132,7 +132,7 @@
     <string name="classroom_question_nickname">닉네임</string>
     <string name="classroom_question_time">오후 5:42</string>
     <string name="classroom_question_count">n</string>
-    <string name="classroom_question_zero_count">등록된 전체 공개 질문이 없습니다.</string>
+    <string name="classroom_question_zero_count">등록된 질문글이 없습니다.</string>
     <string name="classroom_question_all_go">질문 전체보기</string>
     <string name="classroom_question_senior_personal_title">선배에게 개인 질문</string>
     <string name="classroom_question_senior_all_see">구성원 전체보기</string>
@@ -144,7 +144,7 @@
     <!-- 전체에게 질문 -->
     <string name="ask_everyone_title">전체에게 질문</string>
     <string name="ask_everyone_new">최신순</string>
-
+    <string name="classroom_senior_item_no">등록된 1:1질문이 없습니다.</string>
 
     <!-- 회원가입 끝  -->
     <string name="signup_finish_title">메일함을 확인해보세요!</string>
@@ -209,14 +209,14 @@
     <string name="mypage_like_list">좋아요 목록</string>
     <string name="mypage_like_list_num">nn</string>
     <string name="mypage_personal_question">나에게 온 1:1 질문</string>
-
+    <string name="mypage_item_no">등록된 1:1 질문이 없습니다.</string>
 
     <!-- 전체에게 질문 작성 -->
     <string name="question_write_all">전체에게 질문 작성</string>
     <string name="question_write_all_save">완료</string>
     <string name="question_write_hint">제목을 입력하세요</string>
     <string name="question_write_content">내용</string>
-    <string name="question_write_content_hint">질문을 남겨보세요.\n선배들이 답변해 줄 거예요!</string>
+    <string name="question_write_content_hint">선배에게 1:1 질문을 남겨보세요.\n선배가 답변해 줄 거예요!</string>
 
     <!-- 1:1 질문 작성 -->
     <string name="question_write_one_to_one">1:1질문 작성</string>
@@ -269,7 +269,8 @@
     <string name="information_title">정보글</string>
     <string name="information_question_title">정보글제목 정보글제목 글자수 제한은 없고 마진은</string>
     <string name="information_question_detail_comment">댓글 2개</string>
-
+    <string name="information_no_item">등록된 정보글이 없습니다.</string>
+    <string name="information_hint_write">구성원에게 유용한 학과 정보를 공유해주세요.</string>
     <!-- 알림 -->
     <string name="firebase_notification_channel_id">나도 선배</string>
 
@@ -279,6 +280,7 @@
     <string name="question_write_complete_no">아니요</string>
     <string name="question_write_complete_yes">예</string>
     <string name="title_activity_senior_personal">SeniorPersonalActivity</string>
+    <string name="question_update_cancel">페이지를 나가면 \n수정한 내용이 저장되지 않아요.</string>
 
     <!-- 후기 미작성자 알럿 -->
     <string name="alert_no_review_title">내 학과 후기를 작성해야\n이용할 수 있는 기능이에요.</string>

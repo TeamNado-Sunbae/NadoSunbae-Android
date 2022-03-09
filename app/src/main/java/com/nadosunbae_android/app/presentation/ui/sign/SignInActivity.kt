@@ -57,13 +57,11 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
         }
     }
-
-
+    
     //Timber 초기화
     private fun setupTimber() {
         Timber.plant(Timber.DebugTree())
     }
-
 
     //id editText textwatcher
     private fun onViewId() {

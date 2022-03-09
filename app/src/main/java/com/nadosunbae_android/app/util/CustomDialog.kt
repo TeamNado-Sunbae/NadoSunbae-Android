@@ -48,11 +48,14 @@ class CustomDialog(val context : Context) {
     }
 
     //작성 취소
-    fun writeCancelDialog(@LayoutRes layout : Int){
+    fun writeCancelDialog(@LayoutRes layout : Int, divisionNum : Int){
         dialog.setContentView(layout)
         dialog.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
         dialog.show()
+        if(divisionNum == 1){
+            dialog.text_question_write_dialog.text = context.getString(R.string.question_update_cancel)
+        }
         dialog.text_question_write_dialog_out.setOnClickListener {
             onClickedListener.onClicked(1)
             dialog.dismiss()

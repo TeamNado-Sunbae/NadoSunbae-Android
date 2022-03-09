@@ -69,6 +69,13 @@ class SeniorPersonalFragment :
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
         seniorPersonalViewModel.seniorQuestion.observe(viewLifecycleOwner) {
             Log.d("seniorQuestionAdapter", "좀 되라")
+            if(it.isEmpty()){
+                binding.textSeniorEmpty.visibility = View.VISIBLE
+                binding.rcSeniorPersonal.visibility = View.GONE
+            }else{
+                binding.textSeniorEmpty.visibility = View.GONE
+                binding.rcSeniorPersonal.visibility = View.VISIBLE
+            }
             classRoomQuestionMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
         }
     }
@@ -109,7 +116,7 @@ class SeniorPersonalFragment :
     //뒤로가기
     private fun goSeniorFragment() {
         binding.imgSeniorPersonalTitle.setOnClickListener {
-            mainViewModel.classRoomBackFragmentNum.value = 1
+            mainViewModel.classRoomFragmentNum.value = 7
         }
 
     }

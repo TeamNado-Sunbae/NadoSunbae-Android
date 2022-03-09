@@ -2,6 +2,9 @@ package com.nadosunbae_android.app.util
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -66,6 +69,9 @@ private fun showCustomDropDownByContext(viewModel: DropDownSelectableViewModel, 
     val inflater = layoutInflater.inflate(R.layout.view_drop_down, null, false)
 
     val popup = PopupWindow(inflater, width ?: RelativeLayout.LayoutParams.WRAP_CONTENT, height ?: RelativeLayout.LayoutParams.WRAP_CONTENT, true)
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        popup.elevation = 10F
 
     val recyclerView: RecyclerView = inflater.findViewById(R.id.rv_drop_down)
     recyclerView.addItemDecoration(

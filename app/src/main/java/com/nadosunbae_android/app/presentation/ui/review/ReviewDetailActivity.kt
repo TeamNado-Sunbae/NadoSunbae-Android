@@ -29,6 +29,9 @@ class ReviewDetailActivity :
     // 로그인 유저 id
     private var userId: Int? = null
 
+    private val isMyPost: Boolean
+        get() = userId == writerId
+
 
     private val reviewDetailViewModel: ReviewDetailViewModel by viewModel()
 
@@ -72,18 +75,16 @@ class ReviewDetailActivity :
             showLoading()
             // load review data from server
             reviewDetailViewModel.getReviewDetail(postId)
-
-            lookMyPost()
         }
 
     }
 
     // 자신의 글이면 질문 가능여부 표시 x
     private fun lookMyPost() {
-        if (userId == writerId)
-            binding.tvOnQuestion.visibility = View.VISIBLE
+        if (isMyPost)
+            binding.clReviewWriterInfo.visibility = View.GONE
         else
-            binding.tvOnQuestion.visibility = View.INVISIBLE
+            binding.clReviewWriterInfo.visibility = View.VISIBLE
     }
 
     private fun setClickListener() {
@@ -105,7 +106,7 @@ class ReviewDetailActivity :
 
         // 선배 프로필
         binding.clReviewWriterInfo.setOnClickListener {
-            if (userId == writerId) {       // 자신의 마이페이지로 이동
+            if (isMyPost) {       // 자신의 마이페이지로 이동
                 setResult(ReviewFragment.GOTO_MYPAGE)
                 finish()
             } else {                        // 해당 선배의 페이지로 이동
@@ -249,6 +250,8 @@ class ReviewDetailActivity :
 
                 // writer
                 writerId = reviewDetail.writerId
+
+                lookMyPost()
 
                 binding.executePendingBindings()
             }

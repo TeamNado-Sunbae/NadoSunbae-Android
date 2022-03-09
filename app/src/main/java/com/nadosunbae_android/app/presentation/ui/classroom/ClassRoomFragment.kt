@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
@@ -8,7 +9,9 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentClassRoomBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -23,6 +26,8 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
         clickBottomSheet()
         initBottomSheet()
         changeTitle()
+        goInfoWrite()
+        hideInfo()
     }
 
 
@@ -43,17 +48,54 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
                 binding.textClassroomInfoTitle.isSelected = false
                 binding.textClassroomQuestionTitle.typeface = ResourcesCompat.getFont(requireActivity(), R.font.pretendard_semibold)
                 binding.textClassroomInfoTitle.typeface = ResourcesCompat.getFont(requireActivity(), R.font.pretendard_regular)
+                binding.btnGoInformationWrite.visibility = View.GONE
                 changeFragment(QuestionFragment())
             }else{
                 binding.textClassroomQuestionTitle.typeface = ResourcesCompat.getFont(requireActivity(), R.font.pretendard_regular)
                 binding.textClassroomInfoTitle.typeface = ResourcesCompat.getFont(requireActivity(), R.font.pretendard_semibold)
                 binding.textClassroomInfoTitle.isSelected = true
                 binding.textClassroomQuestionTitle.isSelected = false
+                binding.btnGoInformationWrite.visibility = View.VISIBLE
                 changeFragment(InformationFragment())
             }
         }
     }
+    //정보 등록글 없을 경우
+    private fun hideInfo(){
+        mainViewModel.classRoomInfoEmpty.observe(viewLifecycleOwner){
+            if(it == 0){
+                binding.textInfoEmpty.apply{
+                    visibility = View.VISIBLE
+                    bringToFront()
+                }
+            }else{
+                binding.textInfoEmpty.visibility = View.GONE
+            }
 
+        }
+
+    }
+
+
+
+    //정보 작성창 이동
+    private fun goInfoWrite(){
+        binding.btnGoInformationWrite.setOnClickListener {
+            if(ReviewGlobals.isReviewed){
+                val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+                intent.apply {
+                    putExtra("postTypeId", 2)
+                    putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
+                    putExtra("title", "정보글 작성")
+                    putExtra("division", InformationFragment.write)
+                    putExtra("hintContent", getString(R.string.information_hint_write))
+                }
+                startActivity(intent)
+            }else{
+                CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
+            }
+        }
+    }
 
 
 
