@@ -9,6 +9,7 @@ import com.nadosunbae_android.domain.model.classroom.WriteUpdateItem
 import com.nadosunbae_android.domain.usecase.classroom.PostClassRoomWriteUseCase
 import com.nadosunbae_android.domain.usecase.classroom.PutWriteUpdateUseCase
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class QuestionWriteViewModel(
     val postClassRoomWriteUseCase: PostClassRoomWriteUseCase,
@@ -57,11 +58,11 @@ class QuestionWriteViewModel(
             runCatching { postClassRoomWriteUseCase(classRoomPostWriteItem) }
                 .onSuccess {
                     postDataWrite.value = it
-                    Log.d("classRoomWrite", "글 작성 등록 완료")
+                    Timber.d("classRoomWrite : 글 작성 등록 완료")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("classRoomWrite", "글 작성 등록 실패")
+                    Timber.d("classRoomWrite : 글 작성 등록 실패")
                 }
         }
     }
@@ -72,11 +73,11 @@ class QuestionWriteViewModel(
             runCatching { putWriteUpdateUseCase(postId, writeUpdateItem) }
                 .onSuccess {
                     _writeUpdate.value = it
-                    Log.d("writeUpdate", "글 수정 완료")
+                    Timber.d("writeUpdate : 글 수정 완료")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("writeUpdate", "글 수정 실패")
+                    Timber.d("writeUpdate : 글 수정 실패")
                 }
         }
 

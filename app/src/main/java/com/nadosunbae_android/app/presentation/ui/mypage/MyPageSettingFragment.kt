@@ -19,6 +19,7 @@ import com.nadosunbae_android.domain.model.mypage.MyPageQuitItem
 import kotlinx.android.synthetic.main.activity_quit_alert_custom_dialog.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class MyPageSettingFragment :
@@ -79,11 +80,11 @@ class MyPageSettingFragment :
                 override fun onClicked(num: Int, toString: String) {
                     if (num == 2) {
                         if (toString != null) {
-                            Log.d("입력된 PW", " : $toString")
+                            Timber.d("입력된 PW: $toString")
                             myPageViewModel.deleteMyPageQuit(MyPageQuitItem(toString))
 
                         } else {
-                            Log.d("check", "editText is null")
+                            Timber.d("check: editText is null")
                         }
 
                     }
@@ -118,10 +119,10 @@ class MyPageSettingFragment :
     private fun quitBranchProcessing() {
         myPageViewModel.reportStatusInfo.observe(viewLifecycleOwner) {
             if (it == 400) {
-                Log.d("회원탈퇴 서버통신 체크", "실패")
+                Timber.d("회원탈퇴 서버통신 체크: 실패")
                 Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
             } else if (it == 200) {
-                Log.d("회원탈퇴 서버통신 체크", "성공")
+                Timber.d("회원탈퇴 서버통신 체크: 성공")
                 val intent = Intent(requireContext(), SignInActivity::class.java)
                 showLoading()
                 startActivity(intent)
@@ -140,10 +141,10 @@ class MyPageSettingFragment :
             if (it.success) {
                 showLoading()
                 startActivity(intent)
-                Log.d("로그아웃", "성공")
+                Timber.d("로그아웃: 성공")
 
             } else {
-                Log.d("로그아웃", "실패")
+                Timber.d("로그아웃: 실패")
             }
         }
     }

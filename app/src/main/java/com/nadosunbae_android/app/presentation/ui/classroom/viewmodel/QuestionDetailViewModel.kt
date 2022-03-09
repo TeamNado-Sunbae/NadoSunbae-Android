@@ -20,13 +20,14 @@ import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class QuestionDetailViewModel(
-    val getQuestionDetailDataUseCase : GetQuestionDetailDataUseCase,
+    val getQuestionDetailDataUseCase: GetQuestionDetailDataUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
-    val postLikeDataUseCase : PostLikeDataUseCase,
+    val postLikeDataUseCase: PostLikeDataUseCase,
     val putCommentUpdateUseCase: PutCommentUpdateUseCase,
-    val deleteCommentDataUseCase : DeleteCommentDataUseCase,
+    val deleteCommentDataUseCase: DeleteCommentDataUseCase,
     val deletePostDataUseCase: DeletePostDataUseCase,
     val postReportUseCase: PostReportUseCase
 ) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
@@ -37,7 +38,7 @@ class QuestionDetailViewModel(
 
     //전체 질문 상세보기 데이터
     private var _questionDetailData = MutableLiveData<QuestionDetailData>()
-    val questionDetailData : LiveData<QuestionDetailData>
+    val questionDetailData: LiveData<QuestionDetailData>
         get() = _questionDetailData
 
     //답글, 질문, 질문에대한 답글 뷰 넘버 ( 1 -> 질문자, 2 -> 답변자 )
@@ -48,6 +49,7 @@ class QuestionDetailViewModel(
 
     // 댓글 id
     var commentId = MutableLiveData<Int>()
+
     //댓글 등록
     var registerComment = MutableLiveData<QuestionCommentWriteData>()
 
@@ -63,32 +65,32 @@ class QuestionDetailViewModel(
 
     //댓글 삭제 데이터
     private var _deleteData = MutableLiveData<DeleteCommentData>()
-    val deleteData : LiveData<DeleteCommentData>
+    val deleteData: LiveData<DeleteCommentData>
         get() = _deleteData
 
     //원글 삭제 데이터
     private var _deletePostData = MutableLiveData<DeleteCommentData>()
-    val deletePostData : LiveData<DeleteCommentData>
+    val deletePostData: LiveData<DeleteCommentData>
         get() = _deletePostData
 
     // 좋아요를 위한 postId 설정
     private var _likePostId = MutableLiveData<Int>()
-    val likePostId : LiveData<Int>
+    val likePostId: LiveData<Int>
         get() = _likePostId
 
     // 좋아요 postId 설정
-    fun setLikePostId(postId : Int){
+    fun setLikePostId(postId: Int) {
         _likePostId.value = postId
     }
 
     // 댓글 수정 데이터
     private var _commentUpdate = MutableLiveData<CommentUpdateData>()
-    val commentUpdate : LiveData<CommentUpdateData>
+    val commentUpdate: LiveData<CommentUpdateData>
         get() = _commentUpdate
 
     //신고 데이터
     private var _reportData = MutableLiveData<ReportData?>()
-    val reportData : LiveData<ReportData?>
+    val reportData: LiveData<ReportData?>
         get() = _reportData
 
     //신고 status 체크
@@ -96,52 +98,53 @@ class QuestionDetailViewModel(
 
     //전체 질문 1:1 질문 구분
     private var _divisionQuestion = MutableLiveData<Int>()
-    val divisionQuestion : LiveData<Int>
+    val divisionQuestion: LiveData<Int>
         get() = _divisionQuestion
 
-    fun setDivisionQuestion(num : Int){
+    fun setDivisionQuestion(num: Int) {
         _divisionQuestion.value = num
     }
 
     // 좋아요 데이터
     private var _postLike = MutableLiveData<LikeData>()
-    val postLike : LiveData<LikeData>
+    val postLike: LiveData<LikeData>
         get() = _postLike
 
 
     //좋아요 데이터 저장
-    private fun setPostLike(likeData : LikeData){
+    private fun setPostLike(likeData: LikeData) {
         _postLike.value = likeData
     }
 
 
     //전체 질문 상세보기 서버 통신
-    fun getClassRoomQuestionDetail(postId : Int){
+    fun getClassRoomQuestionDetail(postId: Int) {
         viewModelScope.launch {
             runCatching { getQuestionDetailDataUseCase(postId) }
                 .onSuccess {
                     _questionDetailData.value = it
-                    Log.d("classRoomDetail", "메인 서버 통신 성공")
+                    Timber.d("classRoomDetail : 메인 서버 통신 성공!")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("classRoomMain", "메인 서버 통신 실패")
+                    Timber.d("classRoomDetail : 메인 서버 통신 실패!")
                 }.also {
                     onLoadingEnd.value = true
                 }
         }
     }
+
     // 질문 좋아요 및 좋아요 취소 서버 통신
-    fun postClassRoomLike(likeItem : LikeItem){
+    fun postClassRoomLike(likeItem: LikeItem) {
         viewModelScope.launch {
             runCatching { postLikeDataUseCase(likeItem) }
                 .onSuccess {
                     setPostLike(it)
-                    Log.d("classRoomPostLike", "좋아요 서버 통신 성공!")
+                    Timber.d("classRoomPostLike : 좋아요 서버 통신 성공!")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("classRoomPostLike", "좋아요 서버 통신 실패!")
+                    Timber.d("classRoomPostLike : 좋아요 서버 통신 실패!")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -150,18 +153,17 @@ class QuestionDetailViewModel(
     }
 
 
-
     //댓글 등록 서버 통신
-    fun postQuestionCommentWrite(questionCommentWriteItem: QuestionCommentWriteItem){
+    fun postQuestionCommentWrite(questionCommentWriteItem: QuestionCommentWriteItem) {
         viewModelScope.launch {
-            runCatching {postQuestionCommentWriteUseCase(questionCommentWriteItem)  }
+            runCatching { postQuestionCommentWriteUseCase(questionCommentWriteItem) }
                 .onSuccess {
                     registerComment.value = it
-                    Log.d("questionComment", "댓글 통신 성공")
+                    Timber.d("questionComment : 댓글 통신 성공!")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("questionComment", "댓글 통신 실패 ")
+                    Timber.d("questionComment : 댓글 통신 실패!")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -169,16 +171,16 @@ class QuestionDetailViewModel(
     }
 
     //댓글 수정 서버통신
-    fun putCommentUpdate(commentId : Int, commentUpdateItem : CommentUpdateItem){
+    fun putCommentUpdate(commentId: Int, commentUpdateItem: CommentUpdateItem) {
         viewModelScope.launch {
             runCatching { putCommentUpdateUseCase(commentId, commentUpdateItem) }
                 .onSuccess {
                     _commentUpdate.value = it
-                    Log.d("commentUpdate", "댓글 수정 성공 ")
+                    Timber.d("commentUpdate : 댓글 수정 성공!")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("commentUpdate", "댓글 수정 실패 ")
+                    Timber.d("commentUpdate : 댓글 수정 실패!")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -187,16 +189,16 @@ class QuestionDetailViewModel(
     }
 
     //댓글 삭제 서버통신
-    fun deleteComment(commentId : Int){
+    fun deleteComment(commentId: Int) {
         viewModelScope.launch {
             runCatching { deleteCommentDataUseCase(commentId) }
                 .onSuccess {
                     _deleteData.value = it
-                    Log.d("deleteComment", "댓글 삭제 성공")
+                    Timber.d("deleteComment : 댓글 삭제 성공!")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("deleteComment", "댓글 삭제 실패")
+                    Timber.d("deleteComment : 댓글 삭제 실패!")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -204,16 +206,16 @@ class QuestionDetailViewModel(
     }
 
     // 원글 삭제 서버통신
-    fun deletePost(postId : Int){
+    fun deletePost(postId: Int) {
         viewModelScope.launch {
             runCatching { deletePostDataUseCase(postId) }
                 .onSuccess {
                     _deletePostData.value = it
-                    Log.d("deletePost", "원글 삭제 성공")
+                    Timber.d("deletePost : 원글 삭제 성공!")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("deletePost", "원글 삭제 실패")
+                    Timber.d("deletePost : 원글 삭제 실패!")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -221,26 +223,25 @@ class QuestionDetailViewModel(
     }
 
     //신고하기 서버통신
-    fun postReport(reportItem: ReportItem){
+    fun postReport(reportItem: ReportItem) {
         viewModelScope.launch {
             when (val reportData =
                 safeApiCall(Dispatchers.IO) { postReportUseCase(reportItem) }) {
-                is ResultWrapper.Success ->  {
+                is ResultWrapper.Success -> {
                     _reportData.value = reportData.data
                     reportStatus.value = 200
                 }
-                    is ResultWrapper.NetworkError -> {
-                    Log.d("postReport", "네트워크 실패")
-
+                is ResultWrapper.NetworkError -> {
+                    Timber.d("postReport : 네트워크 실패")
                 }
-                    is ResultWrapper.GenericError -> {
-                    Log.d("postReport", "사용자 에러")
+                is ResultWrapper.GenericError -> {
+                    Timber.d("postReport : 사용자 에러")
                     reportStatus.value = reportData.code ?: 0
                 }
-                }
             }
-
         }
+
+    }
 }
 
 

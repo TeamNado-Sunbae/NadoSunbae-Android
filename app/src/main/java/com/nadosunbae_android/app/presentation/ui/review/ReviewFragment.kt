@@ -240,10 +240,10 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         binding.svReview.run {
             header = binding.clReviewFunctionBox
             stickListener = { _ ->
-                Log.d("LOGGER_TAG", "stickListener")
+                Timber.d("LOGGER_TAG: stickListener")
             }
             freeListener = { _ ->
-                Log.d("LOGGER_TAG", "freeListener")
+                Timber.d("LOGGER_TAG: freeListener")
             }
         }
     }

@@ -16,6 +16,7 @@ import com.nadosunbae_android.domain.usecase.review.PostReviewDataUseCase
 import com.nadosunbae_android.domain.usecase.review.PutReviewDataUseCase
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ReviewWriteViewModel(
     val getBackgroundImageListDataUseCase: GetBackgroundImageListDataUseCase,
@@ -37,11 +38,11 @@ class ReviewWriteViewModel(
             runCatching { getBackgroundImageListDataUseCase() }
                 .onSuccess {
                     _backgroundImageList.value = it
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -54,11 +55,11 @@ class ReviewWriteViewModel(
         viewModelScope.launch {
             runCatching { postReviewDataUseCase(reviewWriteItem) }
                 .onSuccess {
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     ReviewGlobals.isReviewed = true    // fail로 넘어오는 경우가 많아서 일단 이렇게 TODO
@@ -72,11 +73,11 @@ class ReviewWriteViewModel(
         viewModelScope.launch {
             runCatching { putReviewDataUseCase(postId, reviewEditItem) }
                 .onSuccess {
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true

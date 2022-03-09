@@ -16,6 +16,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
+import timber.log.Timber
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     private val TAG = "FirebaseService"
@@ -23,7 +24,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     // 토큰 생성
     override fun onNewToken(token: String) {
-        Log.d(TAG, "Refreshed token: $token")
+        Timber.d("Refreshed token: $token")
 
         // 토큰 값 따로 저장
         val pref = this.getSharedPreferences("token", Context.MODE_PRIVATE)
@@ -31,21 +32,21 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         editor.putString("token", token).apply()
         editor.commit()
 
-        Log.i("로그", "토큰 저장 성공적")
+        Timber.i("로그: 토큰 저장 성공적")
     }
 
 
     // 메시지 수신
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Log.d(TAG, "From: " + remoteMessage.from)
+        Timber.d("From: ${remoteMessage.from}")
 
         if (remoteMessage.data.isNotEmpty()) {
-            Log.i("바디", remoteMessage.data["body"].toString())
-            Log.i("타이틀", remoteMessage.data["title"].toString())
+            Timber.i("바디: ${remoteMessage.data["body"]}")
+            Timber.i("타이틀: ${remoteMessage.data["title"]}")
             sendNotification(remoteMessage)
         } else {
-            Log.i("수신에러 : ", "data가 비어있습니다. 메시지를 수신하지 못했습니다.")
-            Log.i("data값 :", remoteMessage.data.toString())
+            Timber.i("수신에러 : data가 비어있습니다. 메시지를 수신하지 못했습니다.")
+            Timber.i("data값 : ${remoteMessage.data}")
         }
     }
 

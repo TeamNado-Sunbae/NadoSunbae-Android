@@ -17,6 +17,7 @@ import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class InfoDetailViewModel(
     val getInformationDetailUseCase: GetInformationDetailUseCase,
@@ -101,11 +102,11 @@ class InfoDetailViewModel(
             runCatching { getInformationDetailUseCase(postId) }
                 .onSuccess {
                     _infoDetailData.value = it
-                    Log.d("infoDetail", "정보 상세보기 서버 통신 성공")
+                    Timber.d("InfoDetail : 정보 상세보기 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("infoDetail", "정보 상세보기 서버 통신 실패")
+                    Timber.d("InfoDetail : 정보 상세보기 서버 통신 실패")
                 }.also {
             onLoadingEnd.value = true
         }
@@ -121,11 +122,11 @@ class InfoDetailViewModel(
             runCatching { postQuestionCommentWriteUseCase(questionCommentWriteItem) }
                 .onSuccess {
                     registerInfoComment.value = it
-                    Log.d("infoComment", "댓글 통신 성공")
+                    Timber.d("InfoComment : 댓글 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("infoComment", "댓글 통신 실패 ")
+                    Timber.d("InfoComment : 댓글 통신 실패")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -138,11 +139,11 @@ class InfoDetailViewModel(
             runCatching { postLikeDataUseCase(likeItem) }
                 .onSuccess {
                     setPostLike(it)
-                    Log.d("InformationPostLike", "좋아요 서버 통신 성공!")
+                    Timber.d("InformationPostLike : 좋아요 서버 통신 성공!")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("InformationPostLike", "좋아요 서버 통신 실패!")
+                    Timber.d("InformationPostLike : 좋아요 서버 통신 실패!")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -157,11 +158,11 @@ class InfoDetailViewModel(
             runCatching { deleteCommentDataUseCase(commentId) }
                 .onSuccess {
                     _deleteComment.value = it
-                    Log.d("deleteComment", "댓글 삭제 성공")
+                    Timber.d("deleteComment : 댓글 삭제 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("deleteComment", "댓글 삭제 실패")
+                    Timber.d("deleteComment : 댓글 삭제 실패")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -177,15 +178,15 @@ class InfoDetailViewModel(
                 is ResultWrapper.Success ->  {
                     _reportData.value = reportData.data
                     reportStatusInfo.value = 200
-                    Log.d("postReport", "신고 성공!")
+                    Timber.d("postReport : 신고 성공!")
 
                 }
                 is ResultWrapper.NetworkError -> {
-                    Log.d("postReport", "네트워크 실패")
+                    Timber.d("postReport : 네트워크 실패")
 
                 }
                 is ResultWrapper.GenericError -> {
-                    Log.d("postReport", "사용자 에러")
+                    Timber.d("postReport : 사용자 에러")
                     reportStatusInfo.value = reportData.code ?: 0
                 }
             }
@@ -199,11 +200,11 @@ class InfoDetailViewModel(
             runCatching { deletePostDataUseCase(postId) }
                 .onSuccess {
                     _deletePostData.value = it
-                    Log.d("deletePost", "원글 삭제 성공")
+                    Timber.d("deletePost : 원글 삭제 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("deletePost", "원글 삭제 실패")
+                    Timber.d("deletePost : 원글 삭제 실패")
                 }.also {
                     onLoadingEnd.value = true
                 }

@@ -179,7 +179,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
         //앱 최초 실행일 때
         if (first == false) {
-            Log.d("FirstTimeCheck", ": true")
+            Timber.d("FirstTimeCheck: true")
             val editor = pref.edit()
             editor.putBoolean("isFirst", true)
             editor.commit()
@@ -188,7 +188,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
             finish()
         } //앱 최초 실행 아닐 때
         else {
-            Log.d("FirstTimeCheck", " : false")
+            Timber.d("FirstTimeCheck : false")
             Handler(Looper.getMainLooper()).postDelayed({
                 val intent = if (loginSuccess) {
                     Intent(this, MainActivity::class.java).apply {
