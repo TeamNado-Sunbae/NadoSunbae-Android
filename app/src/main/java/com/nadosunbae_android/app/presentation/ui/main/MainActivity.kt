@@ -1,13 +1,10 @@
 package com.nadosunbae_android.app.presentation.ui.main
 
 import android.os.Bundle
-import android.service.autofill.SaveCallback
 import android.util.Log
 import androidx.lifecycle.Observer
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.ktx.Firebase
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -24,6 +21,7 @@ import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -36,7 +34,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         DateUtil.initTimeZone()
 
         initBottomNav()
-
         classRoomFragmentChange()
         initMajorList()
         setDefaultMajor()
@@ -47,6 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         myPageFragmentChange()
         myPageBack()
         initClickProfile()
+        trackActiveUser()
 
     }
 
@@ -292,6 +290,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     }
 
+    private fun trackActiveUser() {
+
+        val now = Date(System.currentTimeMillis())      // 현재 시각
+        val timeFlag = NadoSunBaeSharedPreference.getTimeFlag(this) ?: now
+
+        if (timeFlag == now)
+            NadoSunBaeSharedPreference.setTimeFlag(this, now)
+
+        val term = now.time - timeFlag.time
+
+        // dau, wau, mau
+        when (term) {
+            in 0..DAY_VALUE -> FirebaseAnalyticsUtil.dau()
+            in DAY_VALUE..WEEK_VALUE -> FirebaseAnalyticsUtil.wau()
+            in WEEK_VALUE..MONTH_VALUE -> FirebaseAnalyticsUtil.mau()
+            else -> {
+                // 한달 끝나서 다시 time flag 설정
+                FirebaseAnalyticsUtil.mau()
+                NadoSunBaeSharedPreference.setTimeFlag(this, now)
+            }
+        }
+
+        NadoSunBaeSharedPreference.setTimeFlag(this, now)
+    }
+
 
     companion object {
         const val REVIEW = 1
@@ -300,5 +323,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         const val MYPAGE = 4
         const val MYPAGEDIVISION = 5
         const val NOTIFICATION = 6
+
+        const val DAY_VALUE = 1000L * 60 * 60 * 24
+        const val WEEK_VALUE = 1000L * 60 * 60 * 24 * 7
+        const val MONTH_VALUE = 1000L * 60 * 60 * 24 * 28
     }
 }
