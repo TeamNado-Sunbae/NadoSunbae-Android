@@ -18,10 +18,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object BindingAdapter {
+
+
     const val SEC = 60
     const val MIN = 60
     const val HOUR = 24
-    const val DAY = 30
+
+    enum class TimeValue(val value: Int,val maximum : Int, val msg : String) {
+        SEC(60,60,"분 전"),
+        MIN(60,24,"시간 전"),
+        HOUR(24,30,"일 전"),
+
+    }
 
 
     //날짜 변환(알림)
@@ -31,27 +39,26 @@ object BindingAdapter {
         val format = SimpleDateFormat("yy/MM/dd")
         val currentTime = System.currentTimeMillis()
         var diffTime = (currentTime - date!!.time) / 1000
+        Timber.d("시간 $diffTime")
+        if (diffTime < TimeValue.SEC.value){
+            textView.text = "방금 전"
+        }
+        else {
+            for (i in TimeValue.values()) {
+                diffTime /= i.value
+                Timber.d("첫번째 계산 시간 $diffTime")
+                if (i.value == 24) {
+                    format.format(date).also { textView.text = it }
+                    break
+                }
+                if (diffTime < i.maximum) {
+                    textView.text = "$diffTime${i.msg}"
+                    break
+                }
 
-        val minuteFormat = SimpleDateFormat("mm")
-        val hourFormat = SimpleDateFormat("hh")
-        when {
-            (diffTime) < SEC -> {
-                textView.text = "방금 전"
-            }
-            (diffTime / SEC) < MIN -> {
-                diffTime /= SEC
-                minuteFormat.format(diffTime).also { textView.text = "$it 분전" }
-            }
-            (diffTime / MIN) < HOUR -> {
-                diffTime /= MIN
-                hourFormat.format(diffTime).also{textView.text = "$it 시간전"}
-            }
-            else -> {
-                format.format(date).also{textView.text = it}
             }
         }
     }
-
     //날짜
     @JvmStatic
     @BindingAdapter("dateToText")
