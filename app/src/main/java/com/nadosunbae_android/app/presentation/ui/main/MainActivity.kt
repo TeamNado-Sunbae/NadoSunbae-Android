@@ -5,7 +5,9 @@ import android.service.autofill.SaveCallback
 import android.util.Log
 import androidx.lifecycle.Observer
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -17,10 +19,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
 import com.nadosunbae_android.app.presentation.ui.review.ReviewFragment
-import com.nadosunbae_android.app.util.DateUtil
-import com.nadosunbae_android.app.util.changeFragment
-import com.nadosunbae_android.app.util.changeFragmentNoBackStack
-import com.nadosunbae_android.app.util.popFragmentBackStack
+import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -66,7 +65,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
      } */
 
     private fun firebaseLogTab(tab: String) {
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+        FirebaseAnalyticsUtil.get().logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
             param(FirebaseAnalytics.Param.SCREEN_CLASS, getString(R.string.ga_activity_main))
             param(FirebaseAnalytics.Param.SCREEN_NAME, tab)
         }

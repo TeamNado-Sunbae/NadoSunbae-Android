@@ -22,14 +22,11 @@ abstract class BaseActivity<T : ViewDataBinding>(
     private var _binding: T? = null
     val binding get() = _binding!!
 
-    protected lateinit var firebaseAnalytics: FirebaseAnalytics
     protected var loadingDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this, layoutResId)
-
-        firebaseAnalytics = Firebase.analytics
 
         // 화면고정 (세로모드)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -65,12 +62,6 @@ abstract class BaseActivity<T : ViewDataBinding>(
             loadingDialog!!.dismiss()
     }
 
-    // 커스텀 이벤트 로그 (단일 파라미터)
-    protected fun firebaseLog(event: String, paramKey: String, paramVal: String) {
-        firebaseAnalytics.logEvent(event) {
-            param(paramKey, paramVal)
-        }
-    }
 
 
 }
