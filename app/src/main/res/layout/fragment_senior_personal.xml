@@ -112,6 +112,7 @@
                 android:text="@string/senior_personal_major"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
+                android:lineHeight="18sp"
                 app:layout_constraintStart_toStartOf="@+id/text_senior_personal_nickname"
                 app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_nickname" />
 
@@ -134,6 +135,7 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
                 android:text="@{seniorPersonal.firstMajorName}"
+                android:lineHeight="18sp"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/line_senior_personal_major"
@@ -147,6 +149,7 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
                 android:text="@{seniorPersonal.firstMajorStart}"
+                android:lineHeight="18sp"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_personal_major_name"
@@ -162,6 +165,7 @@
                 android:text="@string/senior_personal_second_major"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
+                android:lineHeight="18sp"
                 app:layout_constraintStart_toStartOf="@+id/text_senior_personal_major"
                 app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_major"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -186,6 +190,7 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
                 android:text="@{seniorPersonal.secondMajorName}"
+                android:lineHeight="18sp"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/line_senior_personal_second_major"
@@ -199,6 +204,7 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
                 android:text="@{seniorPersonal.secondMajorStart}"
+                android:lineHeight="18sp"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_personal_second_major_name"
@@ -238,6 +244,7 @@
                 android:text="@string/senior_personal_class_review_title"
                 android:textColor="@color/origin_black"
                 android:textSize="14sp"
+                android:lineHeight="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -251,6 +258,7 @@
                 intToText="@{seniorPersonal.count}"
                 android:textColor="@color/main_default"
                 android:textSize="14sp"
+                android:lineHeight="22sp"
                 app:layout_constraintBottom_toBottomOf="@+id/text_senior_personal_class_review_title"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_personal_class_review_title"
                 app:layout_constraintTop_toTopOf="@+id/text_senior_personal_class_review_title" />

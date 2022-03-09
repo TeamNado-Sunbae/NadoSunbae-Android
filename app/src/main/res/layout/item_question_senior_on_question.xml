@@ -40,6 +40,7 @@
                 android:fontFamily="@font/pretendard_semibold"
                 android:textSize="14sp"
                 android:textColor="@color/black"
+                android:lineHeight="22sp"
                 app:layout_constraintTop_toBottomOf="@+id/img_senior_title_on"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -53,6 +54,7 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="12sp"
                 android:textColor="@color/main_default"
+                android:lineHeight="18sp"
                 app:layout_constraintTop_toBottomOf="@+id/text_senior_nickname_on"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="17dp" />
@@ -62,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 plusStart="@{seniorOn.majorStart}"
+                android:lineHeight="18sp"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="12sp"
                 android:textColor="@color/gray_4"

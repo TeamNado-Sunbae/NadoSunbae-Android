@@ -22,6 +22,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
             android:maxLines="1"
+            android:lineHeight="22sp"
             android:text="@{questionMain.title}"
             android:textColor="@color/black"
             android:textSize="14sp"
@@ -39,6 +40,7 @@
             android:text="@{questionMain.content}"
             android:textColor="@color/gray_3"
             android:textSize="14sp"
+            android:lineHeight="22sp"
             app:layout_constraintStart_toStartOf="@+id/text_question_all_title"
             app:layout_constraintTop_toBottomOf="@+id/text_question_all_title" />
 
@@ -52,6 +54,7 @@
             android:text="@{questionMain.writer.nickname}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
+            android:lineHeight="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_question_all_content" />
 
@@ -66,6 +69,7 @@
             android:includeFontPadding="false"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
+            android:lineHeight="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_question_all_nickname"
             app:layout_constraintStart_toEndOf="@+id/text_question_all_nickname"
             app:layout_constraintTop_toBottomOf="@+id/text_question_all_content" />
