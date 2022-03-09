@@ -5,6 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MajorSelectData(
-    val majorId: Int,
-    val majorName: String
+    var majorId: Int,
+    var majorName: String
 ) : Parcelable

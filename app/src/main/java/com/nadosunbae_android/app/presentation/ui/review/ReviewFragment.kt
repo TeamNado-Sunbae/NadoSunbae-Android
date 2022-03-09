@@ -72,6 +72,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         super.onResume()
         observeUserMajor()
         observeIsReviewed()
+        updateMajorStatus()
         loadReviewList()
     }
 
@@ -389,6 +390,16 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
         setFilterApplyListener()
 
+    }
+
+    private fun updateMajorStatus() {
+        val firstMajor = ReviewGlobals.firstMajor
+        val secondMajor = ReviewGlobals.secondMajor
+
+        if (firstMajor != null && secondMajor != null) {
+            mainViewModel.setFirstMajor(firstMajor)
+            mainViewModel.setSecondMajor(secondMajor)
+        }
     }
 
     companion object {
