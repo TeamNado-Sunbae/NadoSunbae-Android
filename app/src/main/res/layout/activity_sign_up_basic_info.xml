@@ -292,7 +292,7 @@
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:fontFamily="@font/pretendard_regular"
-                        android:hint="@string/signup_basicinfo_before_input"
+                        android:hint="@string/signup_basicinfo_email_korea"
                         android:paddingLeft="16dp"
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
