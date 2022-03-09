@@ -48,11 +48,14 @@ class CustomDialog(val context : Context) {
     }
 
     //작성 취소
-    fun writeCancelDialog(@LayoutRes layout : Int){
+    fun writeCancelDialog(@LayoutRes layout : Int, divisionNum : Int){
         dialog.setContentView(layout)
         dialog.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
         dialog.show()
+        if(divisionNum == 1){
+            dialog.text_question_write_dialog.text = "페이지를 나가면 수정한 내용이 저장되지 않아요."
+        }
         dialog.text_question_write_dialog_out.setOnClickListener {
             onClickedListener.onClicked(1)
             dialog.dismiss()
