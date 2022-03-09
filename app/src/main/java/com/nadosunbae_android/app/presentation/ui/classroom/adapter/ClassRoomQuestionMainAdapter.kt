@@ -51,6 +51,7 @@ class ClassRoomQuestionMainAdapter(private val num: Int, private val userId: Int
         if(questionMainData.size == 1){
             holder.binding.lineQuestionAll.visibility = View.GONE
         }
+
     }
 
     override fun getItemCount(): Int {

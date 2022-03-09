@@ -93,8 +93,9 @@ class QuestionWriteActivity :
     //제목 변경
     private fun titleChange() {
         val title = intent.getStringExtra("title")
+        val hintContent = intent.getStringExtra("hintContent")
         binding.textQuestionWriteAllTitle.text = title.toString()
-
+        binding.etQuestionWriteAllContent.hint = hintContent.toString()
     }
 
 

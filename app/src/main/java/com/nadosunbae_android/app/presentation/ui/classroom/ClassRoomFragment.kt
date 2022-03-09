@@ -88,6 +88,7 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
                     putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
                     putExtra("title", "정보글 작성")
                     putExtra("division", InformationFragment.write)
+                    putExtra("hintContent", getString(R.string.information_hint_write))
                 }
                 startActivity(intent)
             }else{
