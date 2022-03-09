@@ -149,6 +149,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                         val intent = Intent(context, ReviewDetailActivity::class.java).apply {
                             putExtra("postId", postId)
                             putExtra("userId", mainViewModel.userId.value)
+                            putExtra("appLink", mainViewModel.appLink.value?.data?.kakaoTalkChannel)
                         }
                         activityResultLauncher.launch(intent)
                     }

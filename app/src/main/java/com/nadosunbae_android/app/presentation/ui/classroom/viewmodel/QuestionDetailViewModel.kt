@@ -63,6 +63,14 @@ class QuestionDetailViewModel(
     //신고 사유 데이터 및 후기, 과방, 댓글 구분
     var reportReason = MutableLiveData<String>()
 
+    //부적절 사용자 데이터들
+    private var _statusCode = MutableLiveData<Int>()
+    val statusCode: LiveData<Int>
+        get() = _statusCode
+
+    private var _message = MutableLiveData<String>()
+    val message: LiveData<String>
+        get() = _message
 
     //댓글 삭제 데이터
     private var _deleteData = MutableLiveData<DeleteCommentData>()
@@ -121,15 +129,25 @@ class QuestionDetailViewModel(
     //전체 질문 상세보기 서버 통신
     fun getClassRoomQuestionDetail(postId: Int) {
         viewModelScope.launch {
-            runCatching { getQuestionDetailDataUseCase(postId) }
-                .onSuccess {
-                    _questionDetailData.value = it
-                    Timber.d("classRoomDetail : 메인 서버 통신 성공!")
+            when (val questionDetail =
+                safeApiCall(Dispatchers.IO) { getQuestionDetailDataUseCase(postId) }) {
+                is ResultWrapper.Success -> {
+                    _statusCode.value = 200
+                    Timber.d("questionDetail : 서버 통신 성공")
                 }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("classRoomDetail : 메인 서버 통신 실패!")
-                }.also {
+                is ResultWrapper.NetworkError -> {
+                    Timber.d("questionDetail : 네트워크 실패")
+
+                }
+                is ResultWrapper.GenericError -> {
+                    Timber.d("questionDetail :사용자 에러")
+                    _message.value = questionDetail.message ?: ""
+                    _statusCode.value = questionDetail.code ?: 0
+                    Timber.d("questionDetail : ${questionDetail.message}")
+                    Timber.d("questionDetail : ${questionDetail.code}")
+                }
+            }
+                .also {
                     onLoadingEnd.value = true
                 }
         }
@@ -242,7 +260,7 @@ class QuestionDetailViewModel(
                 }
             }
         }
-
+    }
 
     private fun replyQuestionAnalytics() {
         // question_reply analytics
