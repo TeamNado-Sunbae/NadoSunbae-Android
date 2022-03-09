@@ -12,6 +12,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R
+import com.nadosunbae_android.app.databinding.DialogDeletePostBinding
 import com.nadosunbae_android.app.databinding.DialogGenericBinding
 import com.nadosunbae_android.app.databinding.DialogProgressBinding
 import com.nadosunbae_android.app.databinding.DialogReportBinding
@@ -189,6 +190,23 @@ class CustomDialog(val context : Context) {
 
         return this
     }
+
+    fun deleteNotificationDialog(complete : () -> Unit) : CustomDialog {
+        val binding = DialogDeletePostBinding.inflate(LayoutInflater.from(context))
+
+        dialog.setContentView(binding.root)
+        dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.inset_8)
+        dialog.show()
+
+      binding.btnDialogComplete.setOnClickListener {
+          complete()
+          dialog.dismiss()
+      }
+
+       return this
+    }
+
 }
 
 fun BottomSheetDialogFragment.finish() {
