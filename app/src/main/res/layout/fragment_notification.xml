@@ -54,6 +54,7 @@
                 android:textColor="@color/gray_3"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="14sp"
+                android:lineHeight="22sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
