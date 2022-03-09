@@ -192,12 +192,12 @@ object MypageMapper {
                             likeCount = it.like.likeCount
                         ),
                         postId = it.postId,
+                        postTypeId = it.postTypeId,
                         title = it.title,
                         writer = MyPageLikeQuestionData.Data.LikePost.Writer(
                             nickname = it.writer.nickname,
                             writerId = it.writer.writerId
                         )
-
                     )
                 }
             ),

@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -94,8 +95,7 @@ class MyPageSettingFragment :
         binding.textMypageSettingService.setOnClickListener {
             mainViewModel.getAppLink()
             mainViewModel.appLink.observe(viewLifecycleOwner) {
-                val intent = Intent(getActivity(), WebViewActivity::class.java)
-                intent.putExtra("url", it.data.kakaoTalkChannel)
+                var intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.data.kakaoTalkChannel))
                 startActivity(intent)
             }
         }
