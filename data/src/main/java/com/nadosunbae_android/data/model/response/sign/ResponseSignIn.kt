@@ -24,7 +24,8 @@ data class ResponseSignIn(
             val userId: Int,
             val isEmailVerified: Boolean = false,
             val isUserReported : Boolean = false,
-            val isReviewInappropriate : Boolean = false
+            val isReviewInappropriate : Boolean = false,
+            val message : String = ""
         ) : Serializable
     }
 }

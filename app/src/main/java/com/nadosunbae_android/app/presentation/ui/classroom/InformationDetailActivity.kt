@@ -58,28 +58,23 @@ class InformationDetailActivity :
 
     //부적절 사용자 다이얼로그 띄우기
     private fun floatBadUserDialog(){
-        infoDetailViewModel.statusCode.observe(this){
-            if(it == 403){
-                CustomDialog(this).genericDialog(
-                    CustomDialog.DialogData(
-                        infoDetailViewModel.message.value.toString(),
-                        resources.getString(R.string.sign_in_question),
-                        resources.getString(R.string.email_certification_close)
-                    ),
-                    complete = {
-                        var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
-                        startActivity(intent)
-                    },
-                    cancel = {finish()}
-                )
-            }else if(it == 404){
-                CustomDialog(this).deleteNotificationDialog {
-                    finish()
-                }
-            }
+        if(MainGlobals.signInData!!.isUserReported || MainGlobals.signInData!!.isReviewInappropriate){
+            CustomDialog(this).genericDialog(
+                CustomDialog.DialogData(
+                    MainGlobals.signInData!!.message,
+                    resources.getString(R.string.sign_in_question),
+                    resources.getString(R.string.email_certification_close)
+                ),
+                complete = {
+                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
+                    startActivity(intent)
+                },
+                cancel = {finish()}
+            )
         }
-
     }
+
+
 
     //안꺼지게 조절
     private fun onInfo(){

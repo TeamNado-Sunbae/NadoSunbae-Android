@@ -36,7 +36,7 @@ class QuestionWriteActivity :
         cancelWrite()
         titleChange()
         initUpdateDetail()
-        floatBadUserDialog()
+
     }
 
 
@@ -152,26 +152,7 @@ class QuestionWriteActivity :
     }
 
 
-    //부적절 사용자 다이얼로그 띄우기
-    private fun floatBadUserDialog(){
-        questionWriteViewModel.statusCode.observe(this){
-            if(it == 403){
-                CustomDialog(this).genericDialog(
-                    CustomDialog.DialogData(
-                        questionWriteViewModel.message.value.toString(),
-                        resources.getString(R.string.sign_in_question),
-                        resources.getString(R.string.email_certification_close)
-                    ),
-                    complete = {
-                        var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
-                        startActivity(intent)
-                    },
-                    cancel = {finish()}
-                )
-            }
-        }
 
-    }
 
     //작성 서버통신
     private fun questionWrite(majorId: Int, answerId: Int?, postTypeId: Int) {

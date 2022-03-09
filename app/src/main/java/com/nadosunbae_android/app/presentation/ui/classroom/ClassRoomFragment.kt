@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentClassRoomBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
@@ -79,20 +81,38 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
 
 
     //정보 작성창 이동
-    private fun goInfoWrite(){
+    private fun goInfoWrite() {
         binding.btnGoInformationWrite.setOnClickListener {
-            if(ReviewGlobals.isReviewed){
-                val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
-                intent.apply {
-                    putExtra("postTypeId", 2)
-                    putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
-                    putExtra("title", "정보글 작성")
-                    putExtra("division", InformationFragment.write)
-                    putExtra("hintContent", getString(R.string.information_hint_write))
+            if (MainGlobals.signInData!!.isReviewInappropriate || MainGlobals.signInData!!.isUserReported) {
+                CustomDialog(requireActivity()).genericDialog(
+                    CustomDialog.DialogData(
+                        MainGlobals.signInData!!.message,
+                        resources.getString(R.string.sign_in_question),
+                        resources.getString(R.string.email_certification_close)
+                    ),
+                    complete = {
+                        var intent = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(getString(R.string.question_kakao))
+                        )
+                        startActivity(intent)
+                    },
+                    cancel = {}
+                )
+            } else {
+                if (ReviewGlobals.isReviewed) {
+                    val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+                    intent.apply {
+                        putExtra("postTypeId", 2)
+                        putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
+                        putExtra("title", "정보글 작성")
+                        putExtra("division", InformationFragment.write)
+                        putExtra("hintContent", getString(R.string.information_hint_write))
+                    }
+                    startActivity(intent)
+                } else {
+                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
                 }
-                startActivity(intent)
-            }else{
-                CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
             }
         }
     }

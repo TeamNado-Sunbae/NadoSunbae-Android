@@ -39,7 +39,8 @@ object SignMapper {
                 userId = responseSignIn.data.user.userId,
                 isEmailVerified = responseSignIn.data.user.isEmailVerified,
                 isUserReported = responseSignIn.data.user.isUserReported,
-                isReviewInappropriate = responseSignIn.data.user.isReviewInappropriate
+                isReviewInappropriate = responseSignIn.data.user.isReviewInappropriate,
+                message = responseSignIn.data.user.message
             )
         )
     }
