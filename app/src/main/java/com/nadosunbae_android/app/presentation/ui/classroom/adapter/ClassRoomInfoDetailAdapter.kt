@@ -53,6 +53,9 @@ class ClassRoomInfoDetailAdapter(private var userId: Int, val context : Context)
         holder.binding.textInformationDetailCommentName.setOnClickListener {
             goMyPage(holder.itemView.context, userId, infoDetailData[position].writerId)
         }
+        holder.binding.imgInformationDetailCommentProfile.setOnClickListener {
+            goMyPage(holder.itemView.context, userId, infoDetailData[position].writerId)
+        }
 
     }
 

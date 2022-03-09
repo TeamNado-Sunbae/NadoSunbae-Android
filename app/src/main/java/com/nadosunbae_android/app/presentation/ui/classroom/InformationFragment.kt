@@ -31,7 +31,6 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
         initInfoMain()
         observeArray()
         questionSort()
-        goInfoWrite()
         observeLoadingEnd()
     }
 
@@ -54,11 +53,13 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
            Log.d("classRoomInfo", it.toString())
            if(it.isEmpty()){
-               binding.textInfoEmpty.visibility = View.VISIBLE
+               mainViewModel.classRoomInfoEmpty.value = EMPTY
                binding.rcClassroomInfo.visibility = View.GONE
+               binding.btnClassroomInfoArray.visibility = View.GONE
            }else{
-               binding.textInfoEmpty.visibility = View.GONE
+               mainViewModel.classRoomInfoEmpty.value = NOTEMPTY
                binding.rcClassroomInfo.visibility = View.VISIBLE
+               binding.btnClassroomInfoArray.visibility = View.VISIBLE
            }
 
            classRoomInfoMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
@@ -116,26 +117,13 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
         }
     }
 
-    //정보 작성창 이동
-    private fun goInfoWrite(){
-        binding.btnGoInformationWrite.setOnClickListener {
-            if(ReviewGlobals.isReviewed){
-                val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
-                intent.apply {
-                    putExtra("postTypeId", 2)
-                    putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
-                    putExtra("title", "정보글 작성")
-                    putExtra("division", write)
-                }
-                startActivity(intent)
-            }else{
-                CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
-            }
-        }
-    }
+
 
     companion object{
         const val write = 0
         const val update = 1
+
+        const val EMPTY = 0
+        const val NOTEMPTY = 1
     }
 }
