@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.classroom.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteData
 import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteItem
 import com.nadosunbae_android.domain.model.classroom.WriteUpdateData
@@ -57,6 +58,13 @@ class QuestionWriteViewModel(
             runCatching { postClassRoomWriteUseCase(classRoomPostWriteItem) }
                 .onSuccess {
                     postDataWrite.value = it
+
+                    when (classRoomPostWriteItem.postTypeId) {
+                        2 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.POST.INFORMATION)
+                        3 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.POST.QUESTION_ALL)
+                        4 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.POST.QUESTION_PERSONAL)
+                    }
+
                     Log.d("classRoomWrite", "글 작성 등록 완료")
                 }
                 .onFailure {

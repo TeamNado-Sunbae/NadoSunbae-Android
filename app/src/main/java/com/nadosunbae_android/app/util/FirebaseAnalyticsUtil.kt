@@ -9,8 +9,18 @@ import com.nadosunbae_android.app.di.NadoSunBaeApplication
 
 object FirebaseAnalyticsUtil {
 
-    private const val ACTIVE_USER = "active_user"
-    private const val AU_DIVISION = "type"
+    private const val ACTIVE_USER = "user_active"
+    private const val USER_PERSONAL = "user_post"
+    private const val AU_DIVISION = "au_type"
+    private const val NEW_POST = "post_type"
+
+    object POST {
+        const val REVIEW_NEW = "review_new"
+        const val REVIEW_ADD = "review_additional"
+        const val INFORMATION = "classroom_information"
+        const val QUESTION_ALL = "classromm_question_all"
+        const val QUESTION_PERSONAL = "classroom_question_personal"
+    }
 
     private lateinit var _firebaseAnalytics: FirebaseAnalytics
     val firebaseAnalytics: FirebaseAnalytics
@@ -63,6 +73,10 @@ object FirebaseAnalyticsUtil {
             }
             NadoSunBaeSharedPreference.setFlag(context, NadoSunBaeSharedPreference.MAU_FLAG, true)
         }
+    }
+
+    fun userPost(value: String = "other") = _firebaseAnalytics.logEvent(USER_PERSONAL) {
+        param(NEW_POST, value)
     }
 
     // 커스텀 이벤트 로그 (단일 파라미터)

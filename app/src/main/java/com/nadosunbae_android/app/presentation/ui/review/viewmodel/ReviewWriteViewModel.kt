@@ -15,6 +15,7 @@ import com.nadosunbae_android.domain.usecase.review.GetBackgroundImageListDataUs
 import com.nadosunbae_android.domain.usecase.review.PostReviewDataUseCase
 import com.nadosunbae_android.domain.usecase.review.PutReviewDataUseCase
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import kotlinx.coroutines.launch
 
 class ReviewWriteViewModel(
@@ -61,7 +62,13 @@ class ReviewWriteViewModel(
                     Log.d(TAG, "서버통신 실패")
                 }
                 .also {
-                    ReviewGlobals.isReviewed = true    // fail로 넘어오는 경우가 많아서 일단 이렇게 TODO
+                    // TODO 이상하게 성공해도 fail로 와서.. onSuccess에 있어야하지만 여기 두겠습니다..!
+                    if (!ReviewGlobals.isReviewed)     // 후기 글을 처음 작성하는 사람
+                        FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.POST.REVIEW_NEW)
+                    else
+                        FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.POST.REVIEW_ADD)
+
+                    ReviewGlobals.isReviewed = true
                     onLoadingEnd.value = true
                 }
         }

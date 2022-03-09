@@ -302,9 +302,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         // dau, wau, mau
         when (term) {
-            in 0..DAY_VALUE -> FirebaseAnalyticsUtil.dau()
-            in DAY_VALUE..WEEK_VALUE -> FirebaseAnalyticsUtil.wau()
-            in WEEK_VALUE..MONTH_VALUE -> FirebaseAnalyticsUtil.mau()
+            in 0..DAY_SECOND -> FirebaseAnalyticsUtil.dau()
+            in DAY_SECOND..WEEK_SECOND -> FirebaseAnalyticsUtil.wau()
+            in WEEK_SECOND..MONTH_SECOND -> FirebaseAnalyticsUtil.mau()
             else -> {
                 // 한달 끝나서 다시 time flag 설정
                 FirebaseAnalyticsUtil.mau()
@@ -324,8 +324,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         const val MYPAGEDIVISION = 5
         const val NOTIFICATION = 6
 
-        const val DAY_VALUE = 1000L * 60 * 60 * 24
-        const val WEEK_VALUE = 1000L * 60 * 60 * 24 * 7
-        const val MONTH_VALUE = 1000L * 60 * 60 * 24 * 28
+        const val DAY_SECOND = 1000L * 60 * 60 * 24
+        const val WEEK_SECOND = 1000L * 60 * 60 * 24 * 7
+        const val MONTH_SECOND = 1000L * 60 * 60 * 24 * 28
     }
 }
