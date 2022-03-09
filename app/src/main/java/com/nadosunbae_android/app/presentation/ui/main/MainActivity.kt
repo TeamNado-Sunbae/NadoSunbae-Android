@@ -1,7 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.main
 
 import android.os.Bundle
-import android.service.autofill.SaveCallback
 import android.util.Log
 import androidx.lifecycle.Observer
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -17,14 +16,12 @@ import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
 import com.nadosunbae_android.app.presentation.ui.review.ReviewFragment
-import com.nadosunbae_android.app.util.DateUtil
-import com.nadosunbae_android.app.util.changeFragment
-import com.nadosunbae_android.app.util.changeFragmentNoBackStack
-import com.nadosunbae_android.app.util.popFragmentBackStack
+import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -37,16 +34,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         DateUtil.initTimeZone()
 
         initBottomNav()
-
         classRoomFragmentChange()
         initMajorList()
         setDefaultMajor()
         getSignDataFromIntent()
         classRoomBack()
+        observeClassRoomNum()
         // clickBottomNav()
         myPageFragmentChange()
         myPageBack()
         initClickProfile()
+        trackActiveUser()
 
     }
 
@@ -65,9 +63,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
      } */
 
     private fun firebaseLogTab(tab: String) {
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+        FirebaseAnalyticsUtil.get().logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
             param(FirebaseAnalytics.Param.SCREEN_CLASS, getString(R.string.ga_activity_main))
             param(FirebaseAnalytics.Param.SCREEN_NAME, tab)
+        }
+    }
+
+    private fun observeClassRoomNum() {
+        mainViewModel.classRoomNum.observe(this) {
+            if (it == 1)
+                firebaseLogTab(getString(R.string.ga_tab_classroom_question))
+            else if (it == 2)
+                firebaseLogTab(getString(R.string.ga_tab_classroom_info))
         }
     }
 
@@ -104,6 +111,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                 else ->{
                     changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                    firebaseLogTab(getString(R.string.ga_tab_review))
                 }
             }
 
@@ -119,7 +127,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     R.id.navigation_room -> {
                         mainViewModel.classRoomNum.value = 1
                         changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
-                        firebaseLogTab(getString(R.string.ga_tab_classroom))
+                        firebaseLogTab(getString(R.string.ga_tab_classroom_question))
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_notice -> {
@@ -282,6 +290,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     }
 
+    private fun trackActiveUser() {
+
+        val now = Date(System.currentTimeMillis())      // 현재 시각
+        val timeFlag = NadoSunBaeSharedPreference.getTimeFlag(this) ?: now
+
+        if (timeFlag == now)
+            NadoSunBaeSharedPreference.setTimeFlag(this, now)
+
+        val term = now.time - timeFlag.time
+
+        // dau, wau, mau
+        when (term) {
+            in 0..DAY_SECOND -> FirebaseAnalyticsUtil.dau()
+            in DAY_SECOND..WEEK_SECOND -> FirebaseAnalyticsUtil.wau()
+            in WEEK_SECOND..MONTH_SECOND -> FirebaseAnalyticsUtil.mau()
+            else -> {
+                // 한달 끝나서 다시 time flag 설정
+                FirebaseAnalyticsUtil.mau()
+                NadoSunBaeSharedPreference.setTimeFlag(this, now)
+            }
+        }
+
+        NadoSunBaeSharedPreference.setTimeFlag(this, now)
+    }
+
 
     companion object {
         const val REVIEW = 1
@@ -290,5 +323,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         const val MYPAGE = 4
         const val MYPAGEDIVISION = 5
         const val NOTIFICATION = 6
+
+        const val DAY_SECOND = 1000L * 60 * 60 * 24
+        const val WEEK_SECOND = 1000L * 60 * 60 * 24 * 7
+        const val MONTH_SECOND = 1000L * 60 * 60 * 24 * 28
     }
 }

@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.usecase.sign.PostRenewalTokenUseCase
 import kotlinx.coroutines.launch
@@ -25,7 +28,10 @@ class SplashViewModel(
             kotlin.runCatching { postRenewalTokenUseCase(refreshToken) }
                 .onSuccess {
                     _signIn.value = it
+
                     Timber.d("auth: 서버 통신 성공")
+                    FirebaseAnalyticsUtil.autoLogin()
+
                 }
                 .onFailure {
                     it.printStackTrace()

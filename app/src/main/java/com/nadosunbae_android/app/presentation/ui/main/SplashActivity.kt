@@ -18,12 +18,15 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySplashBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.SplashViewModel
 import com.nadosunbae_android.app.presentation.ui.onboarding.OnBoardingActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -57,6 +60,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        FirebaseAnalyticsUtil.initFirebaseAnalytics(Firebase.analytics)
         setupTimber()
         observeSignIn()
         autoLogin()
