@@ -17,6 +17,7 @@ import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
+import timber.log.Timber
 
 
 class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) :
@@ -140,7 +141,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                         ContextCompat.startActivity(holder.itemView.context, intent, null)
                     }
                 } else if (menuNum == 3) {
-                    Log.d("postDelete", "너는 왜?")
+                    Timber.d("postDelete : Test")
                     activity.finish()
                 } else if (menuNum == 2) {
                     val dialog = CustomDialog(holder.itemView.context)
@@ -412,7 +413,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     // viewNum -> 질문자, 질문자 답변, 답변자 뷰 어떤 것 인지
     //수정,삭제, 신고 중 어떤 것을 선택했는지 질문자, 답변자 뷰인지, 어떤 position 인지 받아옴
     fun setCheckMenu(menuNum: Int, viewNum: Int, position: Int) {
-        Log.d("setDeleteCheckc", "형이 여기서 왜 나와")
+        Timber.d("setDeleteCheckc : Test")
         this.menuNum = menuNum
         this.viewNum = viewNum
         this.position = position
@@ -473,7 +474,7 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
 
     // writer(질문자) -> 1, questioner -> 2, thirdParty -> 3
     private fun lookForThirdParty(userId: Int, position: Int): Int {
-        Log.d("questionOneToUserId", userId.toString())
+        Timber.d("questionOneToUserId : $userId")
         return when {
             (questionDetailUserData.answererId == userId || questionDetailData[position].writerId == userId
                     && questionDetailUserData.questionerId != userId) -> {

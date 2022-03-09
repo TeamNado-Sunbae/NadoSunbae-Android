@@ -92,11 +92,11 @@ class MyPageViewModel(
             kotlin.runCatching { getMyPageVersionUseCase() }
                 .onSuccess {
                     versionInfo.value = it
-                    Log.d("mypageVersion", "서버 통신 성공")
+                    Timber.d("mypageVersion : 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("mypageVersion", "서버 통신 실패")
+                    Timber.d("mypageVersion : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -111,11 +111,11 @@ class MyPageViewModel(
             kotlin.runCatching { getMyPageQuestionUseCase(userId, sort) }
                 .onSuccess {
                     personalQuestion.value = it
-                    Log.d("mypageQuestion", "서버 통신 성공")
+                    Timber.d("mypageQuestion : 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("mypageQuestion", "서버 통신 실패")
+                    Timber.d("mypageQuestion : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -126,24 +126,6 @@ class MyPageViewModel(
 
     //마이페이지 내가 쓴 학과 후기글
     fun getMyPageReview(userId: Int) {
-        /*
-        viewModelScope.launch {
-            kotlin.runCatching { getMyPageReviewUseCase(userId) }
-                .onSuccess {
-                    reviewList.value = it
-                    Log.d("mypageReview", "서버 통신 성공")
-                }
-                .onFailure {
-                    it.printStackTrace()
-                    Log.d("mypageReview", "서버 통신 실패")
-                }
-                .also {
-                    onLoadingEnd.value = true
-                }
-
-        }
-
-         */
         viewModelScope.launch {
             when (val postSignIn = safeApiCall(Dispatchers.IO) { getMyPageReviewUseCase(userId) }) {
                 is ResultWrapper.Success -> {
@@ -171,11 +153,11 @@ class MyPageViewModel(
             kotlin.runCatching { getMyPageLikeReviewUseCase(type) }
                 .onSuccess {
                     likeReview.value = it
-                    Log.d("mypageLikeReview", "서버 통신 성공")
+                    Timber.d("mypageLikeReview : 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("mypageLikeReview", "서버 통신 실패")
+                    Timber.d("mypageLikeReview : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -189,11 +171,11 @@ class MyPageViewModel(
             kotlin.runCatching { getMyPageLikeQuestionUseCase(type) }
                 .onSuccess {
                     likeQuestion.value = it
-                    Log.d("mypageLikeQuestion", "서버 통신 성공")
+                    Timber.d("mypageLikeQuestion : 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("mypageLikeQuestion", "서버 통신 실패")
+                    Timber.d("mypageLikeQuestion : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -207,11 +189,11 @@ class MyPageViewModel(
             kotlin.runCatching { getMyPagePostUseCase(type) }
                 .onSuccess {
                     postByMe.value = it
-                    Log.d("mypagePost", "서버 통신 성공")
+                    Timber.d("mypagePost : 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("mypagePost", "서버 통신 실패")
+                    Timber.d("mypagePost : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -226,11 +208,11 @@ class MyPageViewModel(
             kotlin.runCatching { getMyPageReplyUseCase(postTypeId) }
                 .onSuccess {
                     replyByMe.value = it
-                    Log.d("mypageReply", "서버 통신 성공")
+                    Timber.d("mypageReply : 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("mypageReply", "서버 통신 실패")
+                    Timber.d("mypageReply : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -245,11 +227,11 @@ class MyPageViewModel(
             kotlin.runCatching { getMyPageMyInfoUseCase(userId) }
                 .onSuccess {
                     personalInfo.value = it
-                    Log.d("myPageInfo", "서버 통신 완료")
+                    Timber.d("myPageInfo : 서버 통신 완료")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("myPageInfo", "서버 통신 실패")
+                    Timber.d("myPageInfo : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -263,11 +245,11 @@ class MyPageViewModel(
             kotlin.runCatching { putMyPageModifyUseCase(myPageModifyItem) }
                 .onSuccess {
                     modifyInfo.value = it
-                    Log.d("MyPageModify", "서버 통신 완료")
+                    Timber.d("MyPageModify : 서버 통신 완료")
                }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("MyPageModify", "서버 통신 실패")
+                    Timber.d("MyPageModify : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -281,11 +263,11 @@ class MyPageViewModel(
             kotlin.runCatching { postMyPageBlockUpdateUseCase(myPageBlockUpdateItem) }
                 .onSuccess {
                     blockUpdate.value = it
-                    Log.d("MyPageBlockUpdate", "서버 통신 완료")
+                    Timber.d("MyPageBlockUpdate : 서버 통신 완료")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("MyPageBlockUpdate", "서버 통신 실패")
+                    Timber.d("MyPageBlockUpdate : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -299,11 +281,11 @@ class MyPageViewModel(
             kotlin.runCatching { postMyPageLogOutUseCase() }
                 .onSuccess {
                     logOut.value = it
-                    Log.d("MyPageLogOut", "서버 통신 완료")
+                    Timber.d("MyPageLogOut : 서버 통신 완료")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("MyPageLogOut", "서버 통신 실패")
+                    Timber.d("MyPageLogOut : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -320,11 +302,11 @@ class MyPageViewModel(
                 is ResultWrapper.Success -> resetPassword.value =
                     MyPageResetPasswordData("",200, true)
                 is ResultWrapper.NetworkError -> {
-                    Log.d("MyPageResetPw", "네트워크 실패")
+                    Timber.d("MyPageResetPw : 네트워크 실패")
                     resetPassword.value = MyPageResetPasswordData("", 500, false)
                 }
                 is ResultWrapper.GenericError -> {
-                    Log.d("MyPageResetPw", "존재하지 않는 이메일")
+                    Timber.d("MyPageResetPw : 존재하지 않는 이메일")
                     resetPassword.value = MyPageResetPasswordData("", 400, false)
                 }
             }
@@ -337,11 +319,11 @@ class MyPageViewModel(
             kotlin.runCatching { getMyPageBlockUseCase() }
                 .onSuccess {
                     blockList.value = it
-                    Log.d("MyPageBlock", "서버 통신 완료")
+                    Timber.d("MyPageBlock : 서버 통신 완료")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("MyPageBlock", "서버 통신 실패")
+                    Timber.d("MyPageBlock : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -358,10 +340,10 @@ class MyPageViewModel(
                     reportStatusInfo.value = 200
                 }
                 is ResultWrapper.NetworkError -> {
-                    Log.d("MyPageQuit", "네트워크 실패")
+                    Timber.d("MyPageQuit : 네트워크 실패")
                 }
                 is ResultWrapper.GenericError -> {
-                    Log.d("MyPageResetPw", "존재하지 않는 비밀번호")
+                    Timber.d("MyPageResetPw : 존재하지 않는 비밀번호")
                     reportStatusInfo.value = quitData.code ?: 0
                 }
             }

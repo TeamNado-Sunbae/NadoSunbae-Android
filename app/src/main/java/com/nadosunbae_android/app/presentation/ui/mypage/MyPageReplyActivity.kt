@@ -122,8 +122,6 @@ class MyPageReplyActivity :
     private fun questionPosting() {
         showLoading()
         intent.getIntExtra("userId", 0)
-        Log.d("ReplyuserId", "- id: " + intent.getIntExtra("userId", 0))
-
         myPageViewModel.getMyPageReply(3)
         myPageReplyAdapter = MyPageReplyAdapter(2, intent.getIntExtra("userId", 0), 1)
         binding.rvMypageQuestion.adapter = myPageReplyAdapter
@@ -146,8 +144,6 @@ class MyPageReplyActivity :
     private fun infoPosting() {
         showLoading()
         intent.getIntExtra("userId", 0)
-        Log.d("ReplyuserId", "- id: " + intent.getIntExtra("userId", 0))
-
         myPageViewModel.getMyPageReply(2)
         myPageeReplyInfoAdapter = MyPageReplyInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
         binding.rvMypageQuestion.adapter = myPageeReplyInfoAdapter

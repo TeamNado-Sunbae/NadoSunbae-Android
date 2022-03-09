@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewMod
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.domain.model.mypage.MyPageResetPasswordItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(R.layout.activity_change_password) {
 
@@ -28,16 +29,16 @@ class ChangePasswordActivity : BaseActivity<ActivityChangePasswordBinding>(R.lay
 
     //비밀번호 변경 서버 통신
     private fun changePw() {
-        Log.d("ChangePw", "서버 통신 성공")
+        Timber.d("ChangePw : 서버 통신 성공")
         myPageViewModel.resetPassword.observe(this) {
             if(!it.success) {
-                Log.d("비밀번호 서버통신 체크", "실패")
+                Timber.d("비밀번호 서버통신 체크 : 실패")
                 binding.textChangePwWarn.visibility = View.VISIBLE
                 binding.textChangePwOk.isSelected = false
                 binding.imgChangePwCancel.isSelected = false
             }
             if(it.success) {
-                Log.d("비밀번호 서버통신 체크", "성공")
+                Timber.d("비밀번호 서버통신 체크 : 성공")
                 binding.textChangePwWarn.visibility = View.INVISIBLE
                 binding.textChangePwOk.isSelected = true
                 binding.imgChangePwCancel.isSelected = true

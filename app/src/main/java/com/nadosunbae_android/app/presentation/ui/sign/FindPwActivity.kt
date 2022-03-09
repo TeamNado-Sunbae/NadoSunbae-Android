@@ -15,6 +15,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.ChangePwFinishActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.domain.model.mypage.MyPageResetPasswordItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class FindPwActivity : BaseActivity<ActivityFindPwBinding>(R.layout.activity_find_pw) {
@@ -31,16 +32,16 @@ class FindPwActivity : BaseActivity<ActivityFindPwBinding>(R.layout.activity_fin
 
     //비밀번호 변경 서버 통신
     private fun changePw() {
-        Log.d("ChangePw", "서버 통신 성공")
+        Timber.d("ChangePw: 서버 통신 성공")
         myPageViewModel.resetPassword.observe(this) {
             if(!it.success) {
-                Log.d("비밀번호 서버통신 체크", "실패")
+                Timber.d("비밀번호 서버통신 체크: 실패")
                 binding.textFindPwWarn.visibility = View.VISIBLE
                 binding.textFindPwOk.isSelected = false
                 binding.imgFindPwCancel.isSelected = false
             }
             if(it.success) {
-                Log.d("비밀번호 서버통신 체크", "성공")
+                Timber.d("비밀번호 서버통신 체크: 성공")
                 binding.textFindPwWarn.visibility = View.INVISIBLE
                 binding.textFindPwOk.isSelected = true
                 binding.imgFindPwCancel.isSelected = true

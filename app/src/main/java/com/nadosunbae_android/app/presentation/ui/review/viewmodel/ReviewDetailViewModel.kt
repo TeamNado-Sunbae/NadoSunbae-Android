@@ -15,9 +15,13 @@ import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import com.nadosunbae_android.domain.usecase.review.DeleteReviewDataUseCase
 import com.nadosunbae_android.domain.usecase.review.GetReviewDetailDataUseCase
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
+import com.nadosunbae_android.app.util.ResultWrapper
+import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.usecase.classroom.PostReportUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ReviewDetailViewModel(
     private val getReviewDetailDataUseCase: GetReviewDetailDataUseCase,
@@ -45,18 +49,38 @@ class ReviewDetailViewModel(
     override var dropDownSelected = MutableLiveData<SelectableData>()
     override val onLoadingEnd = MutableLiveData<Boolean>(false)
 
+
+    private var _statusCode = MutableLiveData<Int>()
+    val statusCode: LiveData<Int>
+        get() = _statusCode
+
+    private var _message = MutableLiveData<String>()
+    val message: LiveData<String>
+        get() = _message
+
     // 후기 상세정보 불러오기
     fun getReviewDetail(postId: Int) {
         viewModelScope.launch {
-            runCatching { getReviewDetailDataUseCase(postId) }
-                .onSuccess {
-                    _reviewDetailData.value = it
-                    Log.d(TAG, "서버통신 성공")
+            when (val reviewDetailData =
+                safeApiCall(Dispatchers.IO) { getReviewDetailDataUseCase(postId) }) {
+                is ResultWrapper.Success -> {
+                    _reviewDetailData.value = reviewDetailData.data!!
+                    _statusCode.value = 200
+                    Timber.d("postReport : 신고 성공!")
                 }
-                .onFailure {
-                    it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                is ResultWrapper.NetworkError -> {
+                    Timber.d("postReport : 네트워크 실패")
+
+
                 }
+                is ResultWrapper.GenericError -> {
+                    Timber.d("postReport :사용자 에러")
+                    _message.value = reviewDetailData.message ?: ""
+                    _statusCode.value = reviewDetailData.code ?: 0
+                    Timber.d("reviewDetail : ${reviewDetailData.message}")
+                    Timber.d("reviewDetail : ${reviewDetailData.code}")
+                }
+            }
                 .also {
                     onLoadingEnd.value = true
                 }
@@ -70,13 +94,13 @@ class ReviewDetailViewModel(
         viewModelScope.launch {
             runCatching { postLikeDataUseCase(likeItem) }
                 .onSuccess {
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
 
                     getReviewDetail(postId)
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -91,11 +115,11 @@ class ReviewDetailViewModel(
             runCatching { deleteReviewDataUseCase(postId) }
                 .onSuccess {
                     ReviewGlobals.isReviewed = it.isReviewed
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -109,19 +133,19 @@ class ReviewDetailViewModel(
             runCatching { postReportUseCase(reportItem) }
                 .onSuccess {
                     _reportSuccess.value = true
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
                     _reportSuccess.value = false
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
                 }
         }
     }
-    
+
 
     fun setBackgroundRes(res: Drawable?) {
         if (res != null)

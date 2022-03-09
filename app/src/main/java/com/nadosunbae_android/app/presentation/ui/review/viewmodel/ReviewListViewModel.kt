@@ -14,6 +14,7 @@ import com.nadosunbae_android.domain.usecase.review.GetMajorInfoDataUseCase
 import com.nadosunbae_android.domain.usecase.review.GetReviewListDataUseCase
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ReviewListViewModel(
     val getReviewListDataUseCase: GetReviewListDataUseCase,
@@ -43,11 +44,11 @@ class ReviewListViewModel(
             runCatching { getReviewListDataUseCase(reviewFilterItem, sort) }
                 .onSuccess {
                     _reviewListData.value = it
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -62,11 +63,11 @@ class ReviewListViewModel(
             runCatching { getMajorInfoDataUseCase(majorId) }
                 .onSuccess {
                     _majorInfo.value = it
-                    Log.d(TAG, "서버통신 성공")
+                    Timber.d("서버통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d(TAG, "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true

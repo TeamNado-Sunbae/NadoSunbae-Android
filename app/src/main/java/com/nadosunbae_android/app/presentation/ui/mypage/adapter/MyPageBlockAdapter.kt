@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemMypageBlockBinding
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockData
+import timber.log.Timber
 
 class MyPageBlockAdapter(private val userId: Int) :
     RecyclerView.Adapter<MyPageBlockAdapter.MyPageBlockViewHodler>() {
@@ -33,9 +34,9 @@ class MyPageBlockAdapter(private val userId: Int) :
         holder.onBind(myPageBlockData[position])
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
-            Log.d("user", ":" + myPageBlockData[position].nickname)
-            Log.d("userId", ":" + myPageBlockData[position].userId)
-            Log.d("userImg", ":" + myPageBlockData[position].profileImageId)
+            Timber.d("user: ${myPageBlockData[position].nickname}")
+            Timber.d("userId : ${myPageBlockData[position].userId}")
+            Timber.d("userImg : ${myPageBlockData[position].profileImageId}")
         }
     }
 

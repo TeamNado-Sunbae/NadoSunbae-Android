@@ -10,6 +10,7 @@ import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.domain.model.sign.CertificationEmailData
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class SignUpFinishActivity : BaseActivity<ActivitySignUpFinishBinding>(R.layout.activity_sign_up_finish) {
 
@@ -39,8 +40,8 @@ class SignUpFinishActivity : BaseActivity<ActivitySignUpFinishBinding>(R.layout.
     private fun initResend() {
         val email = intent.getStringExtra("email") ?: ""
         val password = intent.getStringExtra("password") ?: ""
-        Log.d("ResendCheckEmail", email)
-        Log.d("ResendCheckPassword", password)
+        Timber.d("ResendCheckEmail: $email")
+        Timber.d("ResendCheckPassword: $password")
         signUpBasicInfoViewModel.postCertificationEmail(
             CertificationEmailData(email, password)
         )

@@ -125,7 +125,7 @@ object BindingAdapter {
             ForegroundColorSpan(Color.parseColor("#00C8B0")), start, end,
             Spannable.SPAN_INCLUSIVE_INCLUSIVE
         )
-        Log.d("spannable", "spannable이 작동이 안되는 것인가")
+        Timber.d("spannable: spannable이 작동이 안되는 것인가")
         return spannable.also { textView.text = it }
     }
 

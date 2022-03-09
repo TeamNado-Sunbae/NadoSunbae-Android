@@ -48,8 +48,6 @@ class AppInfoFragment : BaseFragment<ActivityAppInfoBinding>(R.layout.activity_a
     private fun versionInfo() {
         myPageViewModel.getMyPageVersion()
         myPageViewModel.versionInfo.observe(viewLifecycleOwner) {
-            Log.d("버전 정보", it.data.AOS)
-
             showLoading()
             val info: PackageInfo = context?.packageManager!!.getPackageInfo(requireContext().packageName, 0)
             binding.textMypageAppInfoNowVersion.setText(info.versionName)

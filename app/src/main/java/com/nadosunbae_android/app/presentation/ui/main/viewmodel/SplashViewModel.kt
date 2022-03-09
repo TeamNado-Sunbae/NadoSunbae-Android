@@ -11,6 +11,7 @@ import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.usecase.sign.PostRenewalTokenUseCase
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SplashViewModel(
     private val postRenewalTokenUseCase: PostRenewalTokenUseCase
@@ -27,13 +28,14 @@ class SplashViewModel(
             kotlin.runCatching { postRenewalTokenUseCase(refreshToken) }
                 .onSuccess {
                     _signIn.value = it
-                    Log.d("auth", "서버 통신 성공")
 
+                    Timber.d("auth: 서버 통신 성공")
                     FirebaseAnalyticsUtil.autoLogin()
+
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("auth", "서버 통신 실패")
+                    Timber.d("auth: 서버 통신 실패")
                 }
         }
     }

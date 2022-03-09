@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 
 class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment_question) {
@@ -48,7 +49,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     //질문 메인 데이터 받아오기
     private fun initQuestionMain(){
         mainViewModel.selectedMajor.observe(viewLifecycleOwner){
-            Log.d("QuestionMainMajorId", it.majorId.toString())
+            Timber.d("QuestionMainMajorId: ${it.majorId}")
             showLoading()
             mainViewModel.getClassRoomMain(3,it.majorId, "recent")
         }

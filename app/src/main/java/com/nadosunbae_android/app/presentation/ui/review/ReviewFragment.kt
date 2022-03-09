@@ -149,6 +149,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                         val intent = Intent(context, ReviewDetailActivity::class.java).apply {
                             putExtra("postId", postId)
                             putExtra("userId", mainViewModel.userId.value)
+                            putExtra("appLink", mainViewModel.appLink.value?.data?.kakaoTalkChannel)
                         }
                         activityResultLauncher.launch(intent)
                     }
@@ -240,10 +241,10 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         binding.svReview.run {
             header = binding.clReviewFunctionBox
             stickListener = { _ ->
-                Log.d("LOGGER_TAG", "stickListener")
+                Timber.d("LOGGER_TAG: stickListener")
             }
             freeListener = { _ ->
-                Log.d("LOGGER_TAG", "freeListener")
+                Timber.d("LOGGER_TAG: freeListener")
             }
         }
     }

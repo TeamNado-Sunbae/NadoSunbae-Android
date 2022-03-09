@@ -28,6 +28,7 @@ import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import java.util.regex.Pattern
 
 
@@ -85,7 +86,7 @@ class ModifyMyInfoActivity :
         myPageViewModel.getPersonalInfo(intent.getIntExtra("id", 0))
         myPageViewModel.personalInfo.observe(this) {
             binding.myPageInfo = it
-            Log.d("서버통신", "성공")
+            Timber.d("서버통신 : 성공")
 
             binding.apply {
                 if (it.data.secondMajorName == "미진입") {
@@ -388,15 +389,15 @@ class ModifyMyInfoActivity :
 
     //닉네임 중복 체크 서버 통신
     private fun nicknameDuplication() {
-        Log.d("NicknameDuplication", "서버 통신 성공")
+        Timber.d("NicknameDuplication : 서버 통신 성공")
         signUpBasicInfoViewModel.nicknameDuplicationCheck.observe(this) {
             if (!it.success) {
-                Log.d("닉네임 중복확인", "실패")
+                Timber.d("닉네임 중복확인: 실패")
                 binding.textMyPageModifyNicknameDuplicaitionOk.isVisible = false
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = true
             }
             else if (it.success) {
-                Log.d("닉네임 중복확인", "성공")
+                Timber.d("닉네임 중복확인: 성공")
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = false
                 binding.textMyPageModifyNicknameDuplicaitionOk.isVisible = true
                 initActiveSaveBtn()

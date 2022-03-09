@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -46,6 +47,7 @@ class InformationDetailActivity :
         reportToast()
         clickNickname()
         observeLoadingEnd()
+        floatBadUserDialog()
     }
     //로딩 종료
     private fun observeLoadingEnd() {
@@ -54,6 +56,26 @@ class InformationDetailActivity :
         }
     }
 
+    //부적절 사용자 다이얼로그 띄우기
+    private fun floatBadUserDialog(){
+        infoDetailViewModel.statusCode.observe(this){
+            if(it == 403){
+                CustomDialog(this).genericDialog(
+                    CustomDialog.DialogData(
+                        infoDetailViewModel.message.value.toString(),
+                        resources.getString(R.string.sign_in_question),
+                        resources.getString(R.string.email_certification_close)
+                    ),
+                    complete = {
+                        var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
+                        startActivity(intent)
+                    },
+                    cancel = {finish()}
+                )
+            }
+        }
+
+    }
 
     //안꺼지게 조절
     private fun onInfo(){
@@ -74,7 +96,7 @@ class InformationDetailActivity :
     //정보 상세보기 서버 통신
     private fun initInfoDetail() {
         val postId = intent.getIntExtra("postId", 0)
-        Log.d("infoPostId", postId.toString())
+        Timber.d("infoPostId $postId")
         val userId = intent.getIntExtra("userId", 0)
         infoDetailViewModel.setPostId(postId)
         showLoading()
@@ -208,9 +230,9 @@ class InformationDetailActivity :
             val position = infoDetailViewModel.position.value ?: 0
             val commentId = infoDetailViewModel.commentId.value ?: 0
             val postId = infoDetailViewModel.infoPostId.value ?: 0
-            Log.d("infoDeleteDivision", divisionPost.toString())
-            Log.d("infoDeleteCommentId", commentId.toString())
-            Log.d("infoDeleteName", it.name)
+            Timber.d("infoDeleteDivision : $divisionPost")
+            Timber.d("infoDeleteCommentId : $commentId")
+            Timber.d("infoDeleteName : ${it.name}")
             when (it.name) {
                 resources.getString(R.string.question_detail_delete) ->
                     deleteDialog(
@@ -418,11 +440,12 @@ class InformationDetailActivity :
 
     override fun onPause() {
         super.onPause()
-        Log.d("인포디테일", "onPause")
+        Timber.d("인포디테일: onPause")
+
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d("인포디테일", "onStop")
+        Timber.d("인포디테일 : onStop")
     }
 }

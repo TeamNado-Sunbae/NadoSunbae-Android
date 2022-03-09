@@ -61,7 +61,7 @@ class NotificationFragment :
         }
 
         notificationViewModel.notificationList.observe(viewLifecycleOwner) {
-            Log.d("알림 정보", it.size.toString())
+            Timber.d("알림 정보: ${it.size}")
 
             initNotificationEmpty(it.size)
             notificationAdapter.setNotification(it as MutableList<NotificationListData>)
@@ -85,10 +85,6 @@ class NotificationFragment :
             postId: Int,
             notificationType: Int
         ) {
-            Log.d(
-                "notificationKing",
-                "postId:" + postId.toString() + "notification:" + notificationType.toString()
-            )
             // 2,4 -> 질문글, 3,5 -> 정보글, 1 -> 1:1질문글
             when (notificationType) {
                 2 -> {

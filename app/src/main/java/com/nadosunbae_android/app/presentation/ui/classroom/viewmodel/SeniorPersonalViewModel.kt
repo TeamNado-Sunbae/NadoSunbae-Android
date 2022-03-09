@@ -51,11 +51,11 @@ class SeniorPersonalViewModel(
             runCatching { getSeniorPersonalDataUseCase(userId) }
                 .onSuccess {
                     _seniorPersonal.value = it
-                    Log.d("seniorPersonal", "선배 개인페이지 서버 통신 완료")
+                    Timber.d("seniorPersonal : 선배 개인페이지 서버 통신 완료")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("seniorPersonal", "선배 개인페이지 서버 통신 실패")
+                    Timber.d("seniorPersonal : 선배 개인페이지 서버 통신 실패")
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -68,11 +68,11 @@ class SeniorPersonalViewModel(
             runCatching { getQuestionSeniorListDataUseCase(userId, sort) }
                 .onSuccess {
                     _seniorQuestion.value = it
-                    Log.d("seniorQuestion", "선배 1:1질문 서버 통신 완료")
+                    Timber.d("seniorQuestion : 선배 1:1질문 서버 통신 완료")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Log.d("seniorQuestion", "선배 1:1질문 서버 통신 실패")
+                    Timber.d("seniorQuestion : 선배 1:1질문 서버 통신 실패")
                 } .also {
                             onLoadingEnd.value = true
                         }
