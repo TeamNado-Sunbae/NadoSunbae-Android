@@ -23,6 +23,7 @@ import com.nadosunbae_android.domain.model.review.ReviewWriteItem
 import com.nadosunbae_android.domain.model.review.SelectBackgroundBoxData
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.w3c.dom.Text
 
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
 
@@ -45,6 +46,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         initReviewRequireTextWatcher()
         setOneLineTextWatcher()
         setWriteRequireTextWatcher()
+        setTextLengthWatcher()
         setOnClickListener()
         observeBackgroundImageList()
         observeValidInput()
@@ -111,6 +113,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     private fun initBinding() {
         binding.lifecycleOwner = this
+        binding.viewModel = reviewWriteViewModel
     }
 
     private fun initReviewSelectBackgroundAdapter() {
@@ -172,6 +175,20 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             etTip.editText.addTextChangedListener(reviewRequireTextWatcher)
         }
 
+    }
+
+    private fun setTextLengthWatcher() {
+        val textLengthWatcher = TextLengthWatcher()
+        // 글자수 표시를 위한 TextWatcher
+        with (binding) {
+            etOneLine.addTextChangedListener(textLengthWatcher)
+            etProsCons.editText.addTextChangedListener(textLengthWatcher)
+            etCurriculum.editText.addTextChangedListener(textLengthWatcher)
+            etRecommendLecture.editText.addTextChangedListener(textLengthWatcher)
+            etNonRecommendLecture.editText.addTextChangedListener(textLengthWatcher)
+            etCareer.editText.addTextChangedListener(textLengthWatcher)
+            etTip.editText.addTextChangedListener(textLengthWatcher)
+        }
     }
 
     private fun setOnClickListener() {
@@ -504,6 +521,28 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     }
 
     private fun loadMajorList() = mainViewModel.getMajorList(1)
+
+    inner class TextLengthWatcher : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            with (reviewWriteViewModel) {
+                with (binding) {
+                    oneLineLength.value = etOneLine.text.length
+                    prosConsLength.value = etProsCons.editText.text.length
+                    curriculumLength.value = etCurriculum.editText.text.length
+                    recommendLectureLength.value = etRecommendLecture.editText.text.length
+                    nonRecommendLectureLength.value = etNonRecommendLecture.editText.text.length
+                    careerLength.value = etCareer.editText.text.length
+                    tipLength.value = etTip.editText.text.length
+                }
+            }
+        }
+    }
 
     companion object {
         const val ONE_LINE_MAX_LENGTH = 40
