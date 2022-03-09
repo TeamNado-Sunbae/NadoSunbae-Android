@@ -38,6 +38,7 @@ class MyPagePostAdapter(private val num: Int, private val userId: Int, private v
                 putExtra("myPageNum", myPageNum)
                 putExtra("userId", userId)
                 putExtra("postId", myPagePostData[position].postId)
+                putExtra("postTypeId", myPagePostData[position].postTypeId)
                 putExtra("all", num)
             }
             ContextCompat.startActivity(holder.itemView.context, intent, null)

@@ -100,7 +100,8 @@ object MypageMapper {
                         ),
                         majorName = it.majorName,
                         postId = it.postId,
-                        title = it.title
+                        title = it.title,
+                        postTypeId = it.postTypeId
                     )
                 }
             ),
@@ -121,6 +122,7 @@ object MypageMapper {
                             isLiked = it.like.isLiked,
                             likeCount = it.like.likeCount
                         ),
+                        postTypeId = it.postTypeId,
                         postId = it.postId,
                         title = it.title,
                         writer = MyPageReplyData.Data.ClassroomPostListByMyComment.Writer(

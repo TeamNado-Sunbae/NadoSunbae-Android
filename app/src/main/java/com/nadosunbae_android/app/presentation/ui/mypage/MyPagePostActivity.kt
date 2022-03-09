@@ -139,6 +139,17 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
         }
     }
 
+
+    override fun onRestart() {
+        super.onRestart()
+        if(binding.textMypagePostQuestionTitle.isSelected) {
+            questionPosting()
+        } else {
+            infoPosting()
+        }
+    }
+
+
     private fun infoPosting() {
         showLoading()
         intent.getIntExtra("userId", 0)

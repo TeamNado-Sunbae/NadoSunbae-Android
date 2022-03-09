@@ -1,13 +1,16 @@
 package com.nadosunbae_android.app.presentation.ui.mypage.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemMypageLikeReviewBinding
 import com.nadosunbae_android.app.databinding.ItemMypageReviewBinding
+import com.nadosunbae_android.app.presentation.ui.review.ReviewDetailActivity
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
@@ -58,12 +61,12 @@ class MyPageReviewAdapter():
     ) {
         holder.onBind(myPageReviewData[position])
         holder.itemView.setOnClickListener {
-            if(ReviewGlobals.isReviewed){
-                itemClickListener.onClick(it, position)
-            }else{
-                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
-            }
-
+            val intent =
+                Intent(holder.itemView.context, ReviewDetailActivity::class.java)
+            val postId = myPageReviewData[position].postId
+            intent.putExtra("postId", postId)
+            intent.putExtra("userId", intent.getIntExtra("userId", 0))
+            ContextCompat.startActivity(holder.itemView.context,intent, null)
         }
     }
 

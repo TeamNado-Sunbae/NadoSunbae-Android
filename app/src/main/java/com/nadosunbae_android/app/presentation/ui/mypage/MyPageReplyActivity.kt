@@ -134,6 +134,15 @@ class MyPageReplyActivity :
         }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        if(binding.textMypageReplyQuestionTitle.isSelected) {
+            questionPosting()
+        } else {
+            infoPosting()
+        }
+    }
+
     private fun infoPosting() {
         showLoading()
         intent.getIntExtra("userId", 0)
@@ -148,4 +157,5 @@ class MyPageReplyActivity :
             myPageeReplyInfoAdapter.setQuestionReply((it.data.classroomPostListByMyCommentList) as MutableList<MyPageReplyData.Data.ClassroomPostListByMyComment>)
         }
     }
+
 }

@@ -38,6 +38,7 @@ class MyPageReplyAdapter(private val num: Int, private val userId: Int, private 
                 putExtra("myPageNum", myPageNum)
                 putExtra("userId", userId)
                 putExtra("postId", myPageReplyData[position].postId)
+                putExtra("postTypeId", myPageReplyData[position].postTypeId)
                 putExtra("all", num)
             }
             ContextCompat.startActivity(holder.itemView.context, intent, null)

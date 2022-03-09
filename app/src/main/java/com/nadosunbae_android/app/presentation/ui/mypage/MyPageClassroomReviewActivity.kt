@@ -33,7 +33,6 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
         observeLoadingEnd()
         initReviewListAdapter()
         backBtn()
-        setClickListener()
         initNickName()
 
     }
@@ -63,6 +62,11 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
         }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        initReviewListAdapter()
+    }
+
     private fun initReviewListAdapter() {
         showLoading()
         myPageViewModel.getMyPageReview(intent.getIntExtra("userId", 0))
@@ -72,31 +76,5 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
             initReviewEmpty(it.data.reviewPostList.size)
             myPageReviewAdapter.setReviewListData((it.data.reviewPostList) as MutableList<MyPageReviewData.Data.ReviewPost>)
         }
-    }
-
-    private fun setClickListener() {
-        showLoading()
-        // RecyclerView ItemClickListener
-        myPageReviewAdapter.setItemClickListener(
-            object : MyPageReviewAdapter.ItemClickListener {
-                override fun onClick(view: View, position: Int) {
-
-                    val reviewData = myPageViewModel.reviewList.value
-
-                    // null check
-                    if (reviewData != null) {
-                        // postId Intent로 전달 (후기 상세보기 이동)
-                        val intent = Intent(this@MyPageClassroomReviewActivity, ReviewDetailActivity::class.java)
-
-                        val postId = reviewData.data.reviewPostList[position].postId
-
-                        intent.putExtra("postId", postId)
-                        intent.putExtra("userId",  myPageViewModel.reviewList.value!!.data.writer.writerId)
-
-                        startActivity(intent)
-                    }
-                }
-            }
-        )
     }
 }

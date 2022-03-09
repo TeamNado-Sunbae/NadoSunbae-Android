@@ -122,6 +122,18 @@ class MyPageLikeListActivity :
         }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        if(binding.textMypageLikeReview.isSelected) {
+            initReviewListAdapter()
+        }
+        else if(binding.textMypageLikeQuestion.isSelected) {
+            questionPosting()
+        } else {
+            infoPosting()
+        }
+    }
+
 
     //후기 엠티뷰
     private fun initReviewEmpty(size: Int) {
@@ -188,6 +200,7 @@ class MyPageLikeListActivity :
             myPageLikeQuestionInfoAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
         }
     }
+
 
 
     private fun initReviewListAdapter() {
