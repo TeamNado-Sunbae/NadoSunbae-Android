@@ -85,6 +85,7 @@ class NotificationFragment :
             postId: Int,
             notificationType: Int
         ) {
+            val userId = mainViewModel.signData.value?.userId
             // 2,4 -> 질문글, 3,5 -> 정보글, 1 -> 1:1질문글
             when (notificationType) {
                 2 -> {
@@ -92,6 +93,7 @@ class NotificationFragment :
                     intent.apply {
                         putExtra("postId", postId)
                         putExtra("all", 1)
+                        putExtra("userId", userId)
                     }
                     startActivity(intent)
                 }
@@ -100,6 +102,7 @@ class NotificationFragment :
                     intent.apply {
                         putExtra("postId", postId)
                         putExtra("all", 1)
+                        putExtra("userId", userId)
                     }
                     startActivity(intent)
                 }
@@ -109,12 +112,16 @@ class NotificationFragment :
                         putExtra("myPageNum",1)
                         putExtra("postId", postId)
                         putExtra("all", 2)
+                        putExtra("userId", userId)
                     }
                     startActivity(intent)
                 }
                 else -> {
                     val intent = Intent(requireActivity(), InformationDetailActivity::class.java)
-                    intent.putExtra("postId", postId)
+                    intent.apply {
+                        putExtra("postId", postId)
+                        putExtra("userId", userId)
+                    }
                     startActivity(intent)
                 }
             }
