@@ -85,7 +85,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
     private fun initReviewListAdapter() {
         Timber.d("mypageUserId ${myPageViewModel.userId.value}")
         myPageViewModel.getMyPageReview(myPageViewModel.userId.value ?: 0)
-        myPageReviewAdapter = MyPageReviewAdapter(myPageViewModel.userId.value ?: 0)
+        myPageReviewAdapter = MyPageReviewAdapter( myPageViewModel.userId.value ?: 0)
         binding.rvMypageReview.adapter = myPageReviewAdapter
         myPageViewModel.reviewList.observe(this) {
             initReviewEmpty(it.data.reviewPostList.size)
