@@ -129,25 +129,16 @@ class QuestionDetailViewModel(
     //전체 질문 상세보기 서버 통신
     fun getClassRoomQuestionDetail(postId: Int) {
         viewModelScope.launch {
-            when (val questionDetail =
-                safeApiCall(Dispatchers.IO) { getQuestionDetailDataUseCase(postId) }) {
-                is ResultWrapper.Success -> {
-                    _questionDetailData.value = questionDetail.data!!
-                    Timber.d("questionDetail : 서버 통신 성공")
-                }
-                is ResultWrapper.NetworkError -> {
-                    Timber.d("questionDetail : 네트워크 실패")
+            runCatching { getQuestionDetailDataUseCase(postId) }
+                .onSuccess {
+                    _questionDetailData.value = it
+                    Timber.d("classRoomDetail : 메인 서버 통신 성공!")
 
                 }
-                is ResultWrapper.GenericError -> {
-                    Timber.d("questionDetail :사용자 에러")
-                    _message.value = questionDetail.message ?: ""
-                    _statusCode.value = questionDetail.code ?: 0
-                    Timber.d("questionDetail : ${questionDetail.message}")
-                    Timber.d("questionDetail : ${questionDetail.code}")
-                }
-            }
-                .also {
+                .onFailure {
+                    it.printStackTrace()
+                    Timber.d("classRoomDetail : 메인 서버 통신 실패!")
+                }.also {
                     onLoadingEnd.value = true
                 }
         }

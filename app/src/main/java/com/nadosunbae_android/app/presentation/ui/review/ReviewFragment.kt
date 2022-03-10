@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.review
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -15,6 +16,7 @@ import com.nadosunbae_android.domain.model.review.ReviewFilterItem
 import com.nadosunbae_android.domain.model.review.ReviewPreviewData
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
@@ -232,10 +234,25 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     }
 
     private fun openReviewWrite() {
-        val intent = Intent(context, ReviewWriteActivity::class.java)
-        intent.putExtra("mode", MODE_NEW)
+        if(MainGlobals.signInData!!.isReviewInappropriate || MainGlobals.signInData!!.isUserReported){
+            CustomDialog(requireActivity()).genericDialog(
+                CustomDialog.DialogData(
+                    MainGlobals.signInData!!.message,
+                    resources.getString(R.string.sign_in_question),
+                    resources.getString(R.string.email_certification_close)
+                ),
+                complete = {
+                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
+                    startActivity(intent)
+                },
+                cancel = {}
+            )
+        }else{
+            val intent = Intent(context, ReviewWriteActivity::class.java)
+            intent.putExtra("mode", MODE_NEW)
+            startActivity(intent)
+        }
 
-        startActivity(intent)
     }
 
     private fun setStickyHeader() {

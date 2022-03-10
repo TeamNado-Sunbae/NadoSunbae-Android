@@ -67,11 +67,12 @@ class QuestionWriteViewModel(
     //1:1, 질문, 정보글 등록
     fun postClassRoomWrite(classRoomPostWriteItem: ClassRoomPostWriteItem){
         viewModelScope.launch {
-            when (val questionWrite =
-                safeApiCall(Dispatchers.IO) { postClassRoomWriteUseCase(classRoomPostWriteItem) }) {
-                is ResultWrapper.Success -> {
-                    _statusCode.value = 200
-                    Timber.d("questionWrite : 서버 통신 성공")
+            runCatching { postClassRoomWriteUseCase(classRoomPostWriteItem) }
+                .onSuccess {
+                    postDataWrite.value = it
+
+                    Timber.d("classRoomWrite : 글 작성 등록 완료")
+
                     when (classRoomPostWriteItem.postTypeId) {
                         2 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.INFORMATION)
                         3 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.QUESTION_ALL)
@@ -80,22 +81,16 @@ class QuestionWriteViewModel(
                             FirebaseAnalyticsUtil.question(FirebaseAnalyticsUtil.Question.QUESTION_START)
                         }
                     }
-                }
-                is ResultWrapper.NetworkError -> {
-                    Timber.d("questionWrite : 네트워크 실패")
+
 
                 }
-                is ResultWrapper.GenericError -> {
-                    Timber.d("questionWrite :사용자 에러")
-                    _message.value = questionWrite.message ?: ""
-                    _statusCode.value = questionWrite.code ?: 0
-                    Timber.d("questionWrite : ${questionWrite.message}")
-                    Timber.d("questionWrite : ${questionWrite.code}")
-
+                .onFailure {
+                    it.printStackTrace()
+                    Timber.d("classRoomWrite : 글 작성 등록 실패")
                 }
             }
         }
-    }
+
 
     //1:1, 질문, 정보글 수정
     fun putWriteUpdate(postId : Int, writeUpdateItem: WriteUpdateItem){
