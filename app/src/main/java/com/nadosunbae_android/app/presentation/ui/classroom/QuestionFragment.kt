@@ -128,7 +128,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
                         putExtra("postTypeId", 3)
                         putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
                         putExtra("title", "전체에게 질문 작성")
-                        putExtra("hintContent", getString(R.string.question_write_content_hint))
+                        putExtra("hintContent", getString(R.string.classroom_question_write_hint))
                     }
                     startActivity(intent)
                 }else{

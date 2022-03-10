@@ -91,6 +91,7 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
                     putExtra("title", "전체에게 질문 작성")
                     putExtra("postTypeId", 3)
                     putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
+                    putExtra("hintContent", getString(R.string.classroom_question_write_hint))
                 }
                 startActivity(intent)
             } else {

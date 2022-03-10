@@ -62,7 +62,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
                binding.rcClassroomInfo.visibility = View.VISIBLE
                binding.btnClassroomInfoArray.visibility = View.VISIBLE
            }
-
+            Timber.d("classRoomInfo empty : ${mainViewModel.classRoomInfoEmpty.value}")
            classRoomInfoMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
        }
     }

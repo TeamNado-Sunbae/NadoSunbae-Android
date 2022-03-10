@@ -1,20 +1,15 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
-import android.content.Context
 import android.content.Intent
-import android.content.Intent.*
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentSeniorPersonalBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionMainAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.SeniorPersonalViewModel
-import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageClassroomReviewActivity
@@ -25,7 +20,6 @@ import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
-import kotlinx.android.synthetic.main.activity_change_pw_finish.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -133,6 +127,7 @@ class SeniorPersonalFragment :
                     Timber.d("answerId: ${seniorPersonalViewModel.userId.value}")
                     putExtra("postTypeId", 4)
                     putExtra("title", resources.getString(R.string.question_write_one_to_one))
+                    putExtra("hintContent", getString(R.string.question_write_content_hint))
                 }
                 startActivity(intent)
             } else {

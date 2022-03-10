@@ -70,9 +70,7 @@ class QuestionWriteViewModel(
             runCatching { postClassRoomWriteUseCase(classRoomPostWriteItem) }
                 .onSuccess {
                     postDataWrite.value = it
-
                     Timber.d("classRoomWrite : 글 작성 등록 완료")
-
                     when (classRoomPostWriteItem.postTypeId) {
                         2 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.INFORMATION)
                         3 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.QUESTION_ALL)
