@@ -65,6 +65,7 @@ class ModifyMyInfoActivity :
         nicknameTextWatcher()
         backBtnClick()
         observeModifyResult()
+        observeEditFinish()
 
     }
 
@@ -486,8 +487,8 @@ class ModifyMyInfoActivity :
                 getString(R.string.mypage_alert_modify_no)
             ),
             complete = {
+                showLoading()
                 completeModifyInfo()
-                finish()
             },
             cancel = {
 
@@ -518,6 +519,7 @@ class ModifyMyInfoActivity :
 
     // 수정 완료 시 학과 정보 저장
     private fun observeModifyResult() {
+
         myPageViewModel.modifyInfo.observe(this) {
             myPageViewModel.getMajorName(isFirstMajor = true, it.data.firstMajorId)
         }
@@ -529,6 +531,17 @@ class ModifyMyInfoActivity :
             ReviewGlobals.firstMajor!!.majorName = myPageViewModel.firstMajorName.value ?: ""
             ReviewGlobals.secondMajor!!.majorId = myPageViewModel.modifyInfo.value?.data?.secondMajorId ?: 1
             ReviewGlobals.secondMajor!!.majorName = myPageViewModel.secondMajorName.value ?: ""
+            myPageViewModel.editFinish()
+        }
+    }
+
+    // 모든 과정 끝나고 finish 하도록
+    private fun observeEditFinish() {
+        myPageViewModel.editFinish.observe(this) {
+            if (it == true) {
+                dismissLoading()
+                finish()
+            }
         }
     }
 

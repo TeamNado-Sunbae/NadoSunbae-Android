@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.mypage.viewmodel
 
+import android.text.BoringLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,8 +13,7 @@ import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.usecase.mypage.*
 import com.nadosunbae_android.domain.usecase.review.GetMajorInfoDataUseCase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 class MyPageViewModel(
@@ -91,6 +91,10 @@ class MyPageViewModel(
     private val _secondMajorName = MutableLiveData<String>()
     val secondMajorName: LiveData<String>
         get() = _secondMajorName
+
+    private val _editFinish = MutableLiveData<Boolean>()
+    val editFinish: LiveData<Boolean>
+        get() = _editFinish
 
     //토스트
     var reportStatusInfo = MutableLiveData<Int>()
@@ -366,20 +370,31 @@ class MyPageViewModel(
     // 학과 이름
     fun getMajorName(isFirstMajor: Boolean, majorId: Int) {
         viewModelScope.launch {
-            runCatching { getMajorInfoDataUseCase(majorId) }
-                .onSuccess {
-                    Timber.d("AEAEA ${isFirstMajor.toString()} ${it.majorName}")
-                    if (isFirstMajor)
-                        _firstMajorName.value = it.majorName
-                    else
-                        _secondMajorName.value = it.majorName
-                    Timber.d("MyPageGetMajor : 서버 통신 성공")
+            runBlocking {
+                kotlin.runCatching {
+
+
+                    runCatching { getMajorInfoDataUseCase(majorId) }
+                        .onSuccess {
+                            if (isFirstMajor)
+                                _firstMajorName.value = it.majorName
+                            else
+                                _secondMajorName.value = it.majorName
+                            Timber.d("MyPageGetMajor : 서버 통신 성공")
+                        }
+                        .onFailure {
+                            Timber.d("MyPageGetMajor : 서버 통신 실패")
+                            it.printStackTrace()
+                        }
                 }
-                .onFailure {
-                    Timber.d("MyPageGetMajor : 서버 통신 실패")
-                    it.printStackTrace()
-                }
+            }
         }
+
+    }
+
+    // 저장 완료
+    fun editFinish() {
+        _editFinish.value = true
     }
 }
 
