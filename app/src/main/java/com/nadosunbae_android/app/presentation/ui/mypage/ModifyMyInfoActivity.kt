@@ -519,7 +519,6 @@ class ModifyMyInfoActivity :
 
     // 수정 완료 시 학과 정보 저장
     private fun observeModifyResult() {
-
         myPageViewModel.modifyInfo.observe(this) {
             myPageViewModel.getMajorName(isFirstMajor = true, it.data.firstMajorId)
         }
