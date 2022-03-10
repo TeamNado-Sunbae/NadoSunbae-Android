@@ -137,7 +137,8 @@ class QuestionDetailActivity :
         }
 
         //전체질문 1:1질문 구분
-        if (all == 1) {
+        val myPageDivisionNum = intent.getIntExtra("postTypeId", -1)
+        if (all == 1 || myPageDivisionNum == 3) {
             binding.textQuestionDetailTitle.text = "질문"
         } else {
             binding.textQuestionDetailTitle.text = "1:1질문"
