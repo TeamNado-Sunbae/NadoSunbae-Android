@@ -292,27 +292,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun trackActiveUser() {
 
-        val now = Date(System.currentTimeMillis())      // 현재 시각
-        val timeFlag = NadoSunBaeSharedPreference.getTimeFlag(this) ?: now
+        val now = Calendar.getInstance()
 
-        if (timeFlag == now)
-            NadoSunBaeSharedPreference.setTimeFlag(this, now)
-
-        val term = now.time - timeFlag.time
-
-        // dau, wau, mau
-        when (term) {
-            in 0..DAY_SECOND -> FirebaseAnalyticsUtil.dau()
-            in DAY_SECOND..WEEK_SECOND -> FirebaseAnalyticsUtil.wau()
-            in WEEK_SECOND..MONTH_SECOND -> FirebaseAnalyticsUtil.mau()
-            else -> {
-                // 한달 끝나서 다시 time flag 설정
-                FirebaseAnalyticsUtil.mau()
-                NadoSunBaeSharedPreference.setTimeFlag(this, now)
-            }
+        if (!NadoSunBaeSharedPreference.getUserActive(this, now, ActiveUser.DAU)) {   // dau 없을 때 -> 등록
+            NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.DAU)
+            FirebaseAnalyticsUtil.dau()
         }
 
-        NadoSunBaeSharedPreference.setTimeFlag(this, now)
+        if (!NadoSunBaeSharedPreference.getUserActive(this, now, ActiveUser.WAU)) {   // wau 없을 때 -> 등록
+            NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.WAU)
+            FirebaseAnalyticsUtil.wau()
+        }
+
+        if (!NadoSunBaeSharedPreference.getUserActive(this, now, ActiveUser.MAU)) {     // mau 없을 때 -> 등록
+            NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.MAU)
+            FirebaseAnalyticsUtil.mau()
+        }
     }
 
 
@@ -323,9 +318,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         const val MYPAGE = 4
         const val MYPAGEDIVISION = 5
         const val NOTIFICATION = 6
-
-        const val DAY_SECOND = 1000L * 60 * 60 * 24
-        const val WEEK_SECOND = 1000L * 60 * 60 * 24 * 7
-        const val MONTH_SECOND = 1000L * 60 * 60 * 24 * 28
     }
 }
