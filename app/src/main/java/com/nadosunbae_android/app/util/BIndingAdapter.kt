@@ -160,9 +160,9 @@ object BindingAdapter {
 
     //작성자 처리
     @JvmStatic
-    @BindingAdapter("writerVisible")
-    fun writerVisible(textView: TextView, isPosterWriter: Boolean) {
-        if (isPosterWriter) {
+    @BindingAdapter("writerVisible", "isDelete")
+    fun writerVisible(textView: TextView, isPosterWriter: Boolean, isDelete : Boolean) {
+        if (isPosterWriter && !isDelete) {
             textView.visibility = View.VISIBLE
         } else {
             textView.visibility = View.GONE
