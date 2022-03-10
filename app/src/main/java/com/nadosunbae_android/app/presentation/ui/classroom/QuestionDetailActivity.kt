@@ -419,7 +419,7 @@ class QuestionDetailActivity :
             if (it == 200) {
                 Toast.makeText(this, "신고가 접수되었습니다", Toast.LENGTH_SHORT).show()
             } else if (it == 409) {
-                Toast.makeText(this, "이미 신고한 댓글입니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "이미 신고한 글입니다.", Toast.LENGTH_SHORT).show()
             }
 
         }
