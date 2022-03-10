@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentAskEveryoneBinding
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
@@ -86,25 +87,13 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
     //전체 질문 작성으로 이동
     private fun goQuestionWrite() {
         binding.btnGoQuestionWrite.setOnClickListener {
-            //부적절 사용자
-            if(MainGlobals.signInData!!.isReviewInappropriate || MainGlobals.signInData!!.isUserReported) {
-                CustomDialog(requireActivity()).genericDialog(
-                    CustomDialog.DialogData(
-                        MainGlobals.signInData?.message.toString(),
-                        resources.getString(R.string.sign_in_question),
-                        resources.getString(R.string.email_certification_close)
-                    ),
-                    complete = {
-                        var intent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.question_kakao))
-                        )
-                        startActivity(intent)
-                    },
-                    cancel = {}
-                )
-            }else {
-                if (ReviewGlobals.isReviewed) {
+            CustomDialog(requireActivity()).restrictDialog(
+                requireActivity(),
+                ReviewGlobals.isReviewed,
+                MainGlobals.signInData!!.isUserReported,
+                MainGlobals.signInData!!.isReviewInappropriate,
+                MainGlobals.signInData?.message.toString(),
+                behavior = {
                     val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
                     intent.apply {
                         putExtra("division", 0)
@@ -114,11 +103,8 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
                         putExtra("hintContent", getString(R.string.classroom_question_write_hint))
                     }
                     startActivity(intent)
-                } else {
-                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity(), "")
                 }
-            }
-
+            )
         }
     }
 
