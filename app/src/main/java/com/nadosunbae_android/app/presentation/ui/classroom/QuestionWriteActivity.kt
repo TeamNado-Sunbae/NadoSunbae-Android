@@ -114,7 +114,9 @@ class QuestionWriteActivity :
         dialog.writeCancelDialog(R.layout.dialog_question_write_cancel, division)
         dialog.setOnClickedListener(object : CustomDialog.ButtonClickListener {
             override fun onClicked(num: Int) {
-                if (num == 1) finish()
+                if (num == 1) {
+                    finish()
+                }
             }
         })
     }
@@ -211,7 +213,7 @@ class QuestionWriteActivity :
 
     //백버튼
     override fun onBackPressed() {
-        super.onBackPressed()
+       // super.onBackPressed()
         initCancelDialog()
     }
 }

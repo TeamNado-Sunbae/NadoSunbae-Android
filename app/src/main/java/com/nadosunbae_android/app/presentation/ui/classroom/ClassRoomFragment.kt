@@ -16,6 +16,7 @@ import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 
 class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragment_class_room) {
@@ -45,6 +46,7 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
         }
 
         mainViewModel.classRoomNum.observe(viewLifecycleOwner){
+            Timber.d("classRoomNum : $it")
             if(it == 1){
                 binding.textClassroomQuestionTitle.isSelected = true
                 binding.textClassroomInfoTitle.isSelected = false
@@ -52,6 +54,7 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
                 binding.textClassroomInfoTitle.typeface = ResourcesCompat.getFont(requireActivity(), R.font.pretendard_regular)
                 binding.btnGoInformationWrite.visibility = View.GONE
                 changeFragment(QuestionFragment())
+                binding.textInfoEmpty.visibility = View.GONE
             }else{
                 binding.textClassroomQuestionTitle.typeface = ResourcesCompat.getFont(requireActivity(), R.font.pretendard_regular)
                 binding.textClassroomInfoTitle.typeface = ResourcesCompat.getFont(requireActivity(), R.font.pretendard_semibold)
@@ -71,12 +74,18 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
                     bringToFront()
                 }
             }else{
-                binding.textInfoEmpty.visibility = View.GONE
+                binding.textInfoEmpty.apply{
+                    visibility = View.GONE
+                }
+
             }
+        }
+
+
 
         }
 
-    }
+
 
 
 

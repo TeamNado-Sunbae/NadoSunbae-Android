@@ -141,6 +141,7 @@
     <string name="classroom_question_delete_comment">(삭제된 답변입니다)</string>
     <string name="classroom_block_title">해당 유저를 차단하시겠어요?\n차단시 본인이 쓴 글 및 마이페이지에\n해당유저가 접근할 수 없습니다.</string>
     <string name="classroom_block_agree">차단하기</string>
+    <string name="classroom_question_write_hint">질문을 남겨보세요.\n선배들이 답변해 줄 거예요!</string>
     <!-- 전체에게 질문 -->
     <string name="ask_everyone_title">전체에게 질문</string>
     <string name="ask_everyone_new">최신순</string>
@@ -218,6 +219,7 @@
     <string name="question_write_hint">제목을 입력하세요</string>
     <string name="question_write_content">내용</string>
     <string name="question_write_content_hint">선배에게 1:1 질문을 남겨보세요.\n선배가 답변해 줄 거예요!</string>
+
 
     <!-- 1:1 질문 작성 -->
     <string name="question_write_one_to_one">1:1질문 작성</string>

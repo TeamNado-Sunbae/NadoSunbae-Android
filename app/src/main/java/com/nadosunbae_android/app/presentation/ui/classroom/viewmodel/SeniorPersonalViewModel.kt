@@ -38,7 +38,7 @@ class SeniorPersonalViewModel(
         get() = _seniorQuestion
 
     //선배 userId
-    var userId = MutableLiveData<Int>()
+    var seniorId = MutableLiveData<Int>()
 
     //선배 차단
     private var _blockData = MutableLiveData<MyPageBlockUpdateData>()

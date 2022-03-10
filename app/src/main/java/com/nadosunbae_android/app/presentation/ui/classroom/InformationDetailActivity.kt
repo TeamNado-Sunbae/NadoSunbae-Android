@@ -47,6 +47,7 @@ class InformationDetailActivity :
         reportToast()
         clickNickname()
         observeLoadingEnd()
+        clickInfoPostMenu()
         floatBadUserDialog()
     }
     //로딩 종료
@@ -112,7 +113,6 @@ class InformationDetailActivity :
             binding.informationDetail = it
 
             //원글 다이얼로그
-            initInfoPostMenu(userId, it.writerId)
             if (it.secondMajorName == "미진입") {
                 binding.textInformationDetailQuestionSecondMajorStart.visibility = View.GONE
             }
@@ -121,13 +121,20 @@ class InformationDetailActivity :
                 registerComment(postId)
                 binding.etInformationComment.setText("")
             }
+        }
 
+    }
+    //원글 점 세개 메뉴 클릭
+    private fun clickInfoPostMenu(){
+        binding.imgInforamtionDetailMenu.setOnClickListener {
+            initInfoPostMenu(infoDetailViewModel.userId.value ?:0, infoDetailViewModel.writerId.value ?: 0)
         }
     }
 
     //원글 점 세개 메뉴
     private fun initInfoPostMenu(userId: Int, writerId: Int) {
         val v = binding.imgInforamtionDetailMenu
+        Timber.d("info 원글 메뉴 클릭")
         infoDetailViewModel.divisionPost.value = post
         binding.imgInforamtionDetailMenu.setOnClickListener {
             if (userId == writerId) {
@@ -237,7 +244,7 @@ class InformationDetailActivity :
                     deleteDialog(
                         divisionPost,
                         setCheckMenu = {
-                            if(divisionPost == 1){
+                            if(divisionPost == 3){
                                 classRoomInfoDetailAdapter.setCheckMenu(
                                     delete,
                                     position
@@ -281,7 +288,7 @@ class InformationDetailActivity :
                 resources.getString(R.string.alert_delete_review_cancel)
             ),
             complete = {
-                if (divisionPost == 1) {
+                if (divisionPost == 3) {
                     deleteComment()
                 } else {
                     deleteWrite()
@@ -350,7 +357,7 @@ class InformationDetailActivity :
         infoDetailViewModel.reportStatusInfo.observe(this) {
             if (it == 200) {
                 Toast.makeText(this, "신고가 접수되었습니다", Toast.LENGTH_SHORT).show()
-            } else if (it == 400) {
+            } else if (it == 409) {
                 Toast.makeText(this, "이미 신고한 댓글입니다.", Toast.LENGTH_SHORT).show()
             }
         }

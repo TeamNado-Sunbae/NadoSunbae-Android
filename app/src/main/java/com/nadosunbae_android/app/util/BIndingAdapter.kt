@@ -71,6 +71,18 @@ object BindingAdapter {
             format.format(date).also{textView.text = it}
         }
     }
+    //정보글 삭제
+    @JvmStatic
+    @BindingAdapter("infoTextVisible")
+    fun visibleInfo(view: View, isDelete : Boolean){
+        if(!isDelete){
+            view.visibility = View.VISIBLE
+        }else{
+            view.visibility = View.GONE
+        }
+    }
+
+
 
     //선배 구성원 페이지 본전공 2중전공 구분
     @JvmStatic

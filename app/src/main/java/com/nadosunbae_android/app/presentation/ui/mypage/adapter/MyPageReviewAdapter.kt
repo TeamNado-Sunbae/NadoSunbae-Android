@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemMypageLikeReviewBinding
 import com.nadosunbae_android.app.databinding.ItemMypageReviewBinding
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.review.ReviewDetailActivity
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
@@ -20,6 +21,7 @@ class MyPageReviewAdapter(var userId : Int):
     RecyclerView.Adapter<MyPageReviewAdapter.MyPageReviewViewHolder>() {
 
     var myPageReviewData = mutableListOf<MyPageReviewData.Data.ReviewPost>()
+
 
     class MyPageReviewViewHolder(private val binding: ItemMypageReviewBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
         // tag info data
@@ -61,8 +63,10 @@ class MyPageReviewAdapter(var userId : Int):
     ) {
         holder.onBind(myPageReviewData[position])
         holder.itemView.setOnClickListener {
-            val intent =
-                Intent(holder.itemView.context, ReviewDetailActivity::class.java)
+            if(userId != MainGlobals.signInData?.userId) {
+                userId = MainGlobals.signInData?.userId!!
+            }
+            val intent = Intent(holder.itemView.context, ReviewDetailActivity::class.java)
             val postId = myPageReviewData[position].postId
             intent.putExtra("postId", postId)
             intent.putExtra("userId", userId)
