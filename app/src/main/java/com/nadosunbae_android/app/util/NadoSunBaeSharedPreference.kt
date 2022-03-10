@@ -4,15 +4,14 @@ import android.content.Context
 import java.text.SimpleDateFormat
 import java.util.*
 
+enum class ActiveUser {
+    DAU, WAU, MAU
+}
+
 object NadoSunBaeSharedPreference {
     private const val ACCESS_TOKEN = "ACCESS_TOKEN"
     private const val REFRESH_TOKEN = "REFRESH_TOKEN"
     private const val USER_ID = "USER_ID"
-    private const val TIME_FLAG = "TIME_FLAG"
-    const val DAU_FLAG = "DAU_FLAG"
-    const val WAU_FLAG = "WAU_FLAG"
-    const val MAU_FLAG = "MAU_FLAG"
-    private const val DATE_FORMAT = "yyyy-MM-dd HH:mm:ss"
 
     fun getAccessToken(context: Context): String {
         val preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
@@ -54,31 +53,30 @@ object NadoSunBaeSharedPreference {
         preferences.edit().putInt(USER_ID, value).apply()
     }
 
-    fun setTimeFlag(context: Context, value: Date) {
+    // user active
+    fun setUserActive(context: Context, calendar: Calendar, type: ActiveUser) {
         val preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
-        val dateFormat = SimpleDateFormat(DATE_FORMAT)
-        preferences.edit().putString(TIME_FLAG, dateFormat.format(value)).apply()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DATE)
+
+        when (type) {
+            ActiveUser.DAU -> preferences.edit().putBoolean("${type}_${year}_${month}_${day}", true).apply()
+            ActiveUser.WAU -> preferences.edit().putBoolean("${type}_${year}_${calendar.weekYear}", true).apply()
+            ActiveUser.MAU -> preferences.edit().putBoolean("${type}_${year}_${month}", true).apply()
+        }
     }
 
-    fun getTimeFlag(context: Context): Date? {
+    fun getUserActive(context: Context, calendar: Calendar, type: ActiveUser): Boolean {
         val preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
-        val dateString = preferences.getString(TIME_FLAG, null)
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DATE)
 
-        return if (dateString != null) {
-            val dateFormat = SimpleDateFormat(DATE_FORMAT)
-            dateFormat.parse(dateString)
-        } else null
+        return when (type) {
+            ActiveUser.DAU ->  preferences.getBoolean("${ActiveUser.DAU}_${year}_${month}_${day}", false)
+            ActiveUser.WAU -> preferences.getBoolean("${ActiveUser.WAU}_${year}_${calendar.weekYear}", false)
+            ActiveUser.MAU -> preferences.getBoolean("${ActiveUser.MAU}_${year}_${month}", false)
+        }
     }
-
-    fun setFlag(context: Context, key: String, flag: Boolean) {
-        val preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
-        preferences.edit().putBoolean(key, flag).apply()
-    }
-
-    fun getFlag(context: Context, key: String): Boolean {
-        val preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
-        return preferences.getBoolean(key, false)
-    }
-
-    //userId 저장
 }

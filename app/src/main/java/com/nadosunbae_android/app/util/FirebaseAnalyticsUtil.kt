@@ -1,10 +1,9 @@
 package com.nadosunbae_android.app.util
 
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.ktx.Firebase
 import com.nadosunbae_android.app.di.NadoSunBaeApplication
+import java.util.*
 
 object FirebaseAnalyticsUtil {
 
@@ -14,6 +13,10 @@ object FirebaseAnalyticsUtil {
     private const val POST_TYPE = "post_type"
     private const val QUESTION = "user_question"
     private const val QUESTION_TYPE ="question_type"
+
+    const val DAU = 1
+    const val WAU = 2
+    const val MAU = 3
 
     object Post {
         const val REVIEW_NEW = "review_new"
@@ -27,6 +30,7 @@ object FirebaseAnalyticsUtil {
         const val QUESTION_START = "question_start"
         const val QUESTION_REPLY = "question_reply"
     }
+
 
     private lateinit var _firebaseAnalytics: FirebaseAnalytics
     val firebaseAnalytics: FirebaseAnalytics
@@ -51,33 +55,22 @@ object FirebaseAnalyticsUtil {
         param(FirebaseAnalytics.Param.METHOD, "auto")
     }
 
+
     fun dau() {
-        val context = NadoSunBaeApplication.context()
-        if (!NadoSunBaeSharedPreference.getFlag(context, NadoSunBaeSharedPreference.DAU_FLAG)) {
-            firebaseAnalytics.logEvent(ACTIVE_USER) {
-                param(AU_DIVISION, "DAU")
-            }
-            NadoSunBaeSharedPreference.setFlag(context, NadoSunBaeSharedPreference.DAU_FLAG, true)
+        firebaseAnalytics.logEvent(ACTIVE_USER) {
+            param(AU_DIVISION, "DAU")
         }
     }
 
     fun wau() {
-        val context = NadoSunBaeApplication.context()
-        if (!NadoSunBaeSharedPreference.getFlag(context, NadoSunBaeSharedPreference.WAU_FLAG)) {
-            firebaseAnalytics.logEvent(ACTIVE_USER) {
-                param(AU_DIVISION, "WAU")
-            }
-            NadoSunBaeSharedPreference.setFlag(context, NadoSunBaeSharedPreference.WAU_FLAG, true)
+        firebaseAnalytics.logEvent(ACTIVE_USER) {
+            param(AU_DIVISION, "WAU")
         }
     }
 
     fun mau() {
-        val context = NadoSunBaeApplication.context()
-        if (!NadoSunBaeSharedPreference.getFlag(context, NadoSunBaeSharedPreference.MAU_FLAG)) {
-            firebaseAnalytics.logEvent(ACTIVE_USER) {
-                param(AU_DIVISION, "MAU")
-            }
-            NadoSunBaeSharedPreference.setFlag(context, NadoSunBaeSharedPreference.MAU_FLAG, true)
+        firebaseAnalytics.logEvent(ACTIVE_USER) {
+            param(AU_DIVISION, "MAU")
         }
     }
 
