@@ -7,5 +7,4 @@ object MainGlobals {
     var signInData : SignInData.User? = null
     var infoBlock : Int = 0
 
-
 }

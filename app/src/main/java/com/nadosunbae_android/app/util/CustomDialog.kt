@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -133,10 +135,10 @@ class CustomDialog(val context : Context) {
         return dialog
     }
 
-     fun reviewAlertDialog(context : Context){
+     fun reviewAlertDialog(context : Context, message : String){
         CustomDialog(context).genericDialog(
             DialogData(
-                context.resources.getString(R.string.alert_no_review_title),
+                message,
                 context.resources.getString(R.string.alert_no_review_complete),
                 context.resources.getString(R.string.alert_no_review_cancel)
             ),
@@ -206,6 +208,37 @@ class CustomDialog(val context : Context) {
 
        return this
     }
+
+    //후기 미작성자, 신고, 부적절 후기 작성자 구분
+    fun restrictDialog(context : Context, isReviewed : Boolean, isUserReported : Boolean, isReviewInappropriate : Boolean, message : String){
+        if(isUserReported){
+            CustomDialog(context).genericDialog(
+                CustomDialog.DialogData(
+                    message,
+                    context.getString(R.string.sign_in_question),
+                    context.getString(R.string.email_certification_close)
+                ),
+                complete = {
+                    var intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(context.getString(R.string.question_kakao))
+                    )
+                    context.startActivity(intent)
+                },
+                cancel = {}
+            )
+        }
+        else if(isReviewInappropriate){
+            CustomDialog(context).reviewAlertDialog(context, message)
+
+        }else if(!isReviewed){
+            CustomDialog(context).reviewAlertDialog(context, context.getString(R.string.alert_no_review_title))
+        }
+    }
+
+
+
+
 
 }
 
