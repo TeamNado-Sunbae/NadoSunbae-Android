@@ -45,7 +45,9 @@ class ReviewWriteViewModel(
     val careerLength = MutableLiveData<Int>(0)
     val tipLength = MutableLiveData<Int>(0)
 
-
+    private val _writeFinish = MutableLiveData<Boolean>()
+    val writeFinish: LiveData<Boolean>
+        get() = _writeFinish
   
     // 후기 배경 목록 불러오기 -> 사용x 변경됨
     fun getBackgroundImageList() {
@@ -84,6 +86,7 @@ class ReviewWriteViewModel(
                         FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.REVIEW_ADD)
 
                     ReviewGlobals.isReviewed = true
+                    _writeFinish.value = true
                     onLoadingEnd.value = true
                 }
         }
@@ -104,6 +107,7 @@ class ReviewWriteViewModel(
                 }
                 .also {
                     onLoadingEnd.value = true
+                    _writeFinish.value = true
                 }
         }
     }
@@ -111,7 +115,6 @@ class ReviewWriteViewModel(
     fun setBackgroundImageList(list: List<BackgroundImageData>) {
         _backgroundImageList.value = list
     }
-
 
     companion object {
         const val TAG = "ReviewWriteViewModel"
