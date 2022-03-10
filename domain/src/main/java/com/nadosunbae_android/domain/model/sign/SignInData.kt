@@ -23,7 +23,7 @@ data class SignInData(
         val userId: Int = 0,
         val isEmailVerified: Boolean = false,
         val isUserReported : Boolean = false,
-        val isReviewInappropriate : Boolean = false,
+        var isReviewInappropriate : Boolean = false,
         val message : String? = ""
     ) : Parcelable
 }

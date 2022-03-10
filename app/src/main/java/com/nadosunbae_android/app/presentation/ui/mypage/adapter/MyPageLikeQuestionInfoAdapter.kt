@@ -44,7 +44,7 @@ class MyPageLikeQuestionInfoAdapter(private val num: Int, private val userId: In
             }
 
             else {
-                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
+                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context,"")
             }
         }
     }

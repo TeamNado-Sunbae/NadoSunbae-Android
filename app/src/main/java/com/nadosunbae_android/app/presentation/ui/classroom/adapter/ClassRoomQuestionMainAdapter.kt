@@ -45,7 +45,7 @@ class ClassRoomQuestionMainAdapter(private val num: Int, private val userId: Int
                 }
                 ContextCompat.startActivity(holder.itemView.context, intent, null)
             }else{
-                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
+                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context,"")
             }
         }
         if(position==(itemCount - 1)){

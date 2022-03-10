@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.review.BackgroundImageData
@@ -84,7 +85,7 @@ class ReviewWriteViewModel(
                         FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.REVIEW_NEW)
                     else
                         FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.REVIEW_ADD)
-
+                    MainGlobals.signInData?.isReviewInappropriate = true
                     ReviewGlobals.isReviewed = true
                     _writeFinish.value = true
                     onLoadingEnd.value = true

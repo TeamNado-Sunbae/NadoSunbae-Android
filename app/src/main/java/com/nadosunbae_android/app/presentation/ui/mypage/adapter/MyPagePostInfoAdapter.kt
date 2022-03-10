@@ -44,7 +44,7 @@ class MyPagePostInfoAdapter (private val num: Int, private val userId: Int, priv
             }
 
             else {
-                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
+                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context,"")
             }
         }
     }
