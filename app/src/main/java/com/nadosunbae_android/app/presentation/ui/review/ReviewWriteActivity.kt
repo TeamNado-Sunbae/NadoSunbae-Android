@@ -54,6 +54,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         observeMajorList()
         observeDropDownSelect()
         observeLoadingEnd()
+        observeWriteFinish()
         loadBackgroundImage()
         loadMajorList()
         setDropDownDefault()
@@ -307,10 +308,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             showLoading()
             reviewWriteViewModel.postReview(requestBody)
 
-
             }
-
-        // 액티비티 종료
 
     }
 
@@ -343,7 +341,6 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
         }
 
-        finish()
     }
 
     private fun observeBackgroundImageList() {
@@ -425,6 +422,13 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     private fun observeLoadingEnd() {
         reviewWriteViewModel.onLoadingEnd.observe(this) {
             dismissLoading()
+        }
+    }
+
+    private fun observeWriteFinish() {
+        reviewWriteViewModel.writeFinish.observe(this) {
+            if (it == true)
+                finish()
         }
     }
 
