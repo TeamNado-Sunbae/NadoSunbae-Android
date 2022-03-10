@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import com.nadosunbae_android.app.R
@@ -9,6 +10,7 @@ import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomAskEveryoneAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.AskEveryOneViewModel
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
@@ -84,19 +86,39 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
     //전체 질문 작성으로 이동
     private fun goQuestionWrite() {
         binding.btnGoQuestionWrite.setOnClickListener {
-            if (ReviewGlobals.isReviewed) {
-                val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
-                intent.apply {
-                    putExtra("division", 0)
-                    putExtra("title", "전체에게 질문 작성")
-                    putExtra("postTypeId", 3)
-                    putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
-                    putExtra("hintContent", getString(R.string.classroom_question_write_hint))
+            //부적절 사용자
+            if(MainGlobals.signInData!!.isReviewInappropriate || MainGlobals.signInData!!.isUserReported) {
+                CustomDialog(requireActivity()).genericDialog(
+                    CustomDialog.DialogData(
+                        MainGlobals.signInData?.message.toString(),
+                        resources.getString(R.string.sign_in_question),
+                        resources.getString(R.string.email_certification_close)
+                    ),
+                    complete = {
+                        var intent = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(getString(R.string.question_kakao))
+                        )
+                        startActivity(intent)
+                    },
+                    cancel = {}
+                )
+            }else {
+                if (ReviewGlobals.isReviewed) {
+                    val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+                    intent.apply {
+                        putExtra("division", 0)
+                        putExtra("title", "전체에게 질문 작성")
+                        putExtra("postTypeId", 3)
+                        putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
+                        putExtra("hintContent", getString(R.string.classroom_question_write_hint))
+                    }
+                    startActivity(intent)
+                } else {
+                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
                 }
-                startActivity(intent)
-            } else {
-                CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
             }
+
         }
     }
 

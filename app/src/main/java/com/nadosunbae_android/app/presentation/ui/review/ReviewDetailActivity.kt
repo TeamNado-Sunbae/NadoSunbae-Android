@@ -87,6 +87,7 @@ class ReviewDetailActivity() :
     //부적절 사용자 다이얼로그 띄우기
     private fun floatBadUserDialog(){
         if(MainGlobals.signInData!!.isUserReported || MainGlobals.signInData!!.isReviewInappropriate){
+            Timber.d("부적절사용자 : ${MainGlobals.signInData?.message.toString()}")
             CustomDialog(this).genericDialog(
                 CustomDialog.DialogData(
                     MainGlobals.signInData?.message.toString(),
