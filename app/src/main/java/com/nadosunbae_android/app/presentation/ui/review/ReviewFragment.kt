@@ -141,23 +141,21 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                                 }
                             )
                         return
-                    }
+                    }else{
+                        val reviewListData = reviewListViewModel.reviewListData.value
 
-                    val reviewListData = reviewListViewModel.reviewListData.value
-
-                    // null check
-                    if (reviewListData != null) {
-                        // postId Intent로 전달 (후기 상세보기 이동)
-                        val postId = reviewListData[position].postId
-                        val intent = Intent(context, ReviewDetailActivity::class.java).apply {
-                            putExtra("postId", postId)
-                            putExtra("userId", mainViewModel.userId.value)
-                            putExtra("appLink", mainViewModel.appLink.value?.data?.kakaoTalkChannel)
+                        // null check
+                        if (reviewListData != null) {
+                            // postId Intent로 전달 (후기 상세보기 이동)
+                            val postId = reviewListData[position].postId
+                            val intent = Intent(context, ReviewDetailActivity::class.java).apply {
+                                putExtra("postId", postId)
+                                putExtra("userId", mainViewModel.userId.value)
+                                putExtra("appLink", mainViewModel.appLink.value?.data?.kakaoTalkChannel)
+                            }
+                            activityResultLauncher.launch(intent)
                         }
-                        activityResultLauncher.launch(intent)
                     }
-
-
                 }
 
             }
