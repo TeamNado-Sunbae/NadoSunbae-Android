@@ -118,44 +118,31 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     }
 
     private fun setClickListener() {
-
         // RecyclerView ItemClickListener
         reviewListAdapter.setItemClickListener(
             object: ReviewListAdapter.ItemClickListener {
                 override fun onClick(view: View, position: Int) {
-
-                    // 후기 작성 여부 확인
-                    if (!ReviewGlobals.isReviewed) {
-                        // 후기 미작성시 알럿 띄우기
-                        CustomDialog(requireContext())
-                            .genericDialog(CustomDialog.DialogData(
-                                getString(R.string.alert_no_review_title),
-                                getString(R.string.alert_no_review_complete),
-                                getString(R.string.alert_no_review_cancel)
-                            ),
-                            complete = {
-                                   openReviewWrite()
-                            },
-                            cancel = {
-
+                    CustomDialog(requireActivity()).restrictDialog(
+                        requireActivity(),
+                        ReviewGlobals.isReviewed,
+                        MainGlobals.signInData!!.isUserReported,
+                        MainGlobals.signInData!!.isReviewInappropriate,
+                        MainGlobals.signInData!!.message.toString(),
+                        behavior = {
+                            val reviewListData = reviewListViewModel.reviewListData.value
+                            // null check
+                            if (reviewListData != null) {
+                                // postId Intent로 전달 (후기 상세보기 이동)
+                                val postId = reviewListData[position].postId
+                                val intent = Intent(context, ReviewDetailActivity::class.java).apply {
+                                    putExtra("postId", postId)
+                                    putExtra("userId", mainViewModel.userId.value)
+                                    putExtra("appLink", mainViewModel.appLink.value?.data?.kakaoTalkChannel)
                                 }
-                            )
-                        return
-                    }else{
-                        val reviewListData = reviewListViewModel.reviewListData.value
-
-                        // null check
-                        if (reviewListData != null) {
-                            // postId Intent로 전달 (후기 상세보기 이동)
-                            val postId = reviewListData[position].postId
-                            val intent = Intent(context, ReviewDetailActivity::class.java).apply {
-                                putExtra("postId", postId)
-                                putExtra("userId", mainViewModel.userId.value)
-                                putExtra("appLink", mainViewModel.appLink.value?.data?.kakaoTalkChannel)
+                                activityResultLauncher.launch(intent)
                             }
-                            activityResultLauncher.launch(intent)
                         }
-                    }
+                    )
                 }
 
             }
@@ -182,7 +169,18 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
 
         binding.btnWriteReview.setOnClickListener {
-            openReviewWrite()
+            CustomDialog(requireActivity()).restrictDialog(
+                requireActivity(),
+                true,
+                MainGlobals.signInData!!.isUserReported,
+                false,
+                MainGlobals.signInData!!.message.toString(),
+                behavior = {
+                    val intent = Intent(context, ReviewWriteActivity::class.java)
+                    intent.putExtra("mode", MODE_NEW)
+                    startActivity(intent)
+                }
+            )
         }
 
         // 정렬 버튼
@@ -229,28 +227,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         filterBottomSheetDialog.resetFilterOperation = {
             mainViewModel.filterData.value = MainViewModel.FilterData(FILTER_ALL, listOf(1, 2, 3, 4, 5))
         }
-    }
-
-    private fun openReviewWrite() {
-        if(MainGlobals.signInData!!.isReviewInappropriate || MainGlobals.signInData!!.isUserReported){
-            CustomDialog(requireActivity()).genericDialog(
-                CustomDialog.DialogData(
-                    MainGlobals.signInData?.message.toString(),
-                    resources.getString(R.string.sign_in_question),
-                    resources.getString(R.string.email_certification_close)
-                ),
-                complete = {
-                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
-                    startActivity(intent)
-                },
-                cancel = {}
-            )
-        }else{
-            val intent = Intent(context, ReviewWriteActivity::class.java)
-            intent.putExtra("mode", MODE_NEW)
-            startActivity(intent)
-        }
-
     }
 
     private fun setStickyHeader() {

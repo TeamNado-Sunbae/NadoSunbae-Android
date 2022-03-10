@@ -115,7 +115,7 @@ class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fr
                     }
                     startActivity(intent)
                 } else {
-                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
+                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity(), "")
                 }
             }
 

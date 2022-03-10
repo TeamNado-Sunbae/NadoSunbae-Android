@@ -132,7 +132,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
                     }
                     startActivity(intent)
                 }else{
-                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
+                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity(),"")
                 }
             }
 

@@ -44,7 +44,7 @@ class ClassRoomAskEveryoneAdapter(private var userId : Int) : RecyclerView.Adapt
                 }
                 ContextCompat.startActivity(holder.itemView.context, intent, null)
             }else{
-                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
+                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context,"")
             }
 
         }

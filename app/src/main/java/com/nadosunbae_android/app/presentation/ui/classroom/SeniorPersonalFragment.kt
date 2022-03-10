@@ -149,7 +149,7 @@ class SeniorPersonalFragment :
                     }
                     startActivity(intent)
                 } else {
-                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
+                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity(),"")
 
                 }
             }
