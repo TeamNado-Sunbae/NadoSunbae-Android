@@ -23,10 +23,13 @@ import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfo
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
 import com.nadosunbae_android.domain.model.sign.SignInData
+import kotlinx.android.synthetic.main.item_mypage_block.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.regex.Pattern
@@ -61,6 +64,8 @@ class ModifyMyInfoActivity :
         isNickNamePattern()
         nicknameTextWatcher()
         backBtnClick()
+        observeModifyResult()
+        observeEditFinish()
 
     }
 
@@ -482,8 +487,8 @@ class ModifyMyInfoActivity :
                 getString(R.string.mypage_alert_modify_no)
             ),
             complete = {
+                showLoading()
                 completeModifyInfo()
-                finish()
             },
             cancel = {
 
@@ -510,6 +515,33 @@ class ModifyMyInfoActivity :
             }
         )
         return confirm
+    }
+
+    // 수정 완료 시 학과 정보 저장
+    private fun observeModifyResult() {
+        myPageViewModel.modifyInfo.observe(this) {
+            myPageViewModel.getMajorName(isFirstMajor = true, it.data.firstMajorId)
+        }
+        myPageViewModel.firstMajorName.observe(this) {
+            myPageViewModel.getMajorName(isFirstMajor = false, myPageViewModel.modifyInfo.value?.data?.secondMajorId ?: 1)
+        }
+        myPageViewModel.secondMajorName.observe(this) {
+            ReviewGlobals.firstMajor!!.majorId = myPageViewModel.modifyInfo.value?.data?.firstMajorId ?: 1
+            ReviewGlobals.firstMajor!!.majorName = myPageViewModel.firstMajorName.value ?: ""
+            ReviewGlobals.secondMajor!!.majorId = myPageViewModel.modifyInfo.value?.data?.secondMajorId ?: 1
+            ReviewGlobals.secondMajor!!.majorName = myPageViewModel.secondMajorName.value ?: ""
+            myPageViewModel.editFinish()
+        }
+    }
+
+    // 모든 과정 끝나고 finish 하도록
+    private fun observeEditFinish() {
+        myPageViewModel.editFinish.observe(this) {
+            if (it == true) {
+                dismissLoading()
+                finish()
+            }
+        }
     }
 
 }

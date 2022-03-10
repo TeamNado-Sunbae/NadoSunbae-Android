@@ -33,7 +33,7 @@ object FirebaseAnalyticsUtil {
         get() = _firebaseAnalytics
 
     fun initFirebaseAnalytics(firebaseAnalytics: FirebaseAnalytics) {
-        this._firebaseAnalytics = Firebase.analytics
+        this._firebaseAnalytics = firebaseAnalytics
     }
 
     fun get() = _firebaseAnalytics
