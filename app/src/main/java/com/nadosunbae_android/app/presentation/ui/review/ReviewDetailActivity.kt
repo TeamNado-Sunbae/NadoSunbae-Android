@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.review
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewDetailBinding
+import com.nadosunbae_android.app.di.NadoSunBaeApplication
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
@@ -21,7 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 
-class ReviewDetailActivity :
+class ReviewDetailActivity() :
     BaseActivity<ActivityReviewDetailBinding>(R.layout.activity_review_detail) {
 
     private lateinit var reviewTagBoxAdapter: ReviewTagBoxAdapter
@@ -34,6 +36,8 @@ class ReviewDetailActivity :
 
     private val isMyPost: Boolean
         get() = userId == writerId
+
+    private var permissionDenied = false
 
 
     private val reviewDetailViewModel: ReviewDetailViewModel by viewModel()
@@ -56,7 +60,6 @@ class ReviewDetailActivity :
 
         loadServerData()
     }
-
 
     private fun initTagBoxAdapter() {
         reviewTagBoxAdapter = ReviewTagBoxAdapter(this)
