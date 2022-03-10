@@ -14,6 +14,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeRevie
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.review.ReviewDetailActivity
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
@@ -78,6 +79,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
         myPageViewModel.myPagePostStatus.observe(this) {
             if(it == 204) {
                 initReviewEmpty(0)
+                ReviewGlobals.isReviewed = false
             }
         }
     }
