@@ -106,22 +106,13 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
     // 질문 전체(3)
     private fun goQuestionWriteAll(){
         binding.clQuestionWrite.setOnClickListener {
-            //부적절 사용자
-            if(MainGlobals.signInData!!.isReviewInappropriate || MainGlobals.signInData!!.isUserReported){
-                CustomDialog(requireActivity()).genericDialog(
-                    CustomDialog.DialogData(
-                        MainGlobals.signInData?.message.toString(),
-                        resources.getString(R.string.sign_in_question),
-                        resources.getString(R.string.email_certification_close)
-                    ),
-                    complete = {
-                        var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
-                        startActivity(intent)
-                    },
-                    cancel = {}
-                )
-            }else{
-                if(ReviewGlobals.isReviewed ){
+            CustomDialog(requireActivity()).restrictDialog(
+                requireActivity(),
+                ReviewGlobals.isReviewed,
+                MainGlobals.signInData!!.isUserReported,
+                MainGlobals.signInData!!.isReviewInappropriate,
+                MainGlobals.signInData?.message.toString(),
+                behavior = {
                     val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
                     intent.apply {
                         putExtra("division", 0)
@@ -131,13 +122,8 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
                         putExtra("hintContent", getString(R.string.classroom_question_write_hint))
                     }
                     startActivity(intent)
-                }else{
-                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity(),"")
                 }
-            }
-
+            )
         }
     }
-
-
 }
