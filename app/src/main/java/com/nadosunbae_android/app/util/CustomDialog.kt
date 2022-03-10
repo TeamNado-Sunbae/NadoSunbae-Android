@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -19,24 +21,26 @@ import com.nadosunbae_android.app.databinding.DialogReportBinding
 import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity
 import kotlinx.android.synthetic.main.dialog_question_write_cancel.*
 import kotlinx.android.synthetic.main.dialog_question_write_complete.*
+import timber.log.Timber
 
-class CustomDialog(val context : Context) {
+class CustomDialog(val context: Context) {
     private val dialog = Dialog(context)
-    private lateinit var onClickedListener : ButtonClickListener
-    private lateinit var reportClickListener : ReportClickListener
+    private lateinit var onClickedListener: ButtonClickListener
+    private lateinit var reportClickListener: ReportClickListener
 
-    interface ButtonClickListener{
-        fun onClicked(num : Int)
+    interface ButtonClickListener {
+        fun onClicked(num: Int)
     }
-    fun setOnClickedListener(listener : ButtonClickListener){
+
+    fun setOnClickedListener(listener: ButtonClickListener) {
         onClickedListener = listener
     }
 
-    interface ReportClickListener{
-        fun reportClick(text : String)
+    interface ReportClickListener {
+        fun reportClick(text: String)
     }
 
-    fun setReportClickListener(listener : ReportClickListener){
+    fun setReportClickListener(listener: ReportClickListener) {
         reportClickListener = listener
     }
 
@@ -49,13 +53,17 @@ class CustomDialog(val context : Context) {
     }
 
     //작성 취소
-    fun writeCancelDialog(@LayoutRes layout : Int, divisionNum : Int){
+    fun writeCancelDialog(@LayoutRes layout: Int, divisionNum: Int) {
         dialog.setContentView(layout)
-        dialog.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
         dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
         dialog.show()
-        if(divisionNum == 1){
-            dialog.text_question_write_dialog.text = context.getString(R.string.question_update_cancel)
+        if (divisionNum == 1) {
+            dialog.text_question_write_dialog.text =
+                context.getString(R.string.question_update_cancel)
         }
         dialog.text_question_write_dialog_out.setOnClickListener {
             onClickedListener.onClicked(1)
@@ -69,9 +77,12 @@ class CustomDialog(val context : Context) {
     }
 
     //작성 완료
-    fun writeCompleteDialog(@LayoutRes layout : Int){
+    fun writeCompleteDialog(@LayoutRes layout: Int) {
         dialog.setContentView(layout)
-        dialog.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
         dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
         dialog.show()
 
@@ -87,10 +98,17 @@ class CustomDialog(val context : Context) {
         }
     }
 
-    fun genericDialog(dialogText: DialogData,
-                      complete: () -> Unit,
-                      cancel: () -> Unit) {
-        val binding = DataBindingUtil.inflate<DialogGenericBinding>(LayoutInflater.from(context), R.layout.dialog_generic, null, false)
+    fun genericDialog(
+        dialogText: DialogData,
+        complete: () -> Unit,
+        cancel: () -> Unit
+    ) {
+        val binding = DataBindingUtil.inflate<DialogGenericBinding>(
+            LayoutInflater.from(context),
+            R.layout.dialog_generic,
+            null,
+            false
+        )
         binding.dialogText = dialogText
         binding.btnDialogCancel.setOnClickListener {
             cancel()
@@ -102,7 +120,10 @@ class CustomDialog(val context : Context) {
         }
 
         dialog.setContentView(binding.root)
-        dialog.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
         dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
 
         adjustViewWidth(binding.btnDialogCancel, binding.btnDialogComplete)     // 버튼 길이를 긴 쪽에 맞춤
@@ -121,8 +142,13 @@ class CustomDialog(val context : Context) {
         }
     }
 
-    fun progressDialog() : Dialog {
-        val binding = DataBindingUtil.inflate<DialogProgressBinding>(LayoutInflater.from(context), R.layout.dialog_progress, null, false)
+    fun progressDialog(): Dialog {
+        val binding = DataBindingUtil.inflate<DialogProgressBinding>(
+            LayoutInflater.from(context),
+            R.layout.dialog_progress,
+            null,
+            false
+        )
 
         dialog.setContentView(binding.root)
         dialog.setCancelable(false)     // 로딩창 꺼지지 않도록
@@ -133,15 +159,16 @@ class CustomDialog(val context : Context) {
         return dialog
     }
 
-     fun reviewAlertDialog(context : Context){
+    fun reviewAlertDialog(context: Context, message: String?) {
         CustomDialog(context).genericDialog(
             DialogData(
-                context.resources.getString(R.string.alert_no_review_title),
+                message,
                 context.resources.getString(R.string.alert_no_review_complete),
                 context.resources.getString(R.string.alert_no_review_cancel)
             ),
             complete = {
                 val intent = Intent(context, ReviewWriteActivity::class.java)
+                intent.putExtra("mode", ReviewWriteActivity.MODE_NEW)
                 context.startActivity(intent)
             },
             cancel = {}
@@ -149,17 +176,20 @@ class CustomDialog(val context : Context) {
     }
 
     data class DialogData(
-        val title: String,
+        val title: String?,
         val complete: String,
         val cancel: String
     )
 
-    fun reportDialog() : CustomDialog {
+    fun reportDialog(): CustomDialog {
         val binding = DialogReportBinding.inflate(LayoutInflater.from(context))
 
 
         dialog.setContentView(binding.root)
-        dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
         dialog.window?.setBackgroundDrawableResource(R.drawable.inset_8)
         dialog.show()
 
@@ -191,21 +221,66 @@ class CustomDialog(val context : Context) {
         return this
     }
 
-    fun deleteNotificationDialog(complete : () -> Unit) : CustomDialog {
+    fun deleteNotificationDialog(complete: () -> Unit): CustomDialog {
         val binding = DialogDeletePostBinding.inflate(LayoutInflater.from(context))
 
         dialog.setContentView(binding.root)
-        dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
         dialog.window?.setBackgroundDrawableResource(R.drawable.inset_8)
         dialog.show()
 
-      binding.btnDialogComplete.setOnClickListener {
-          complete()
-          dialog.dismiss()
-      }
+        binding.btnDialogComplete.setOnClickListener {
+            complete()
+            dialog.dismiss()
+        }
 
-       return this
+        return this
     }
+
+    //후기 미작성자, 신고, 부적절 후기 작성자 구분
+    fun restrictDialog(
+        context: Context,
+        isReviewed: Boolean,
+        isUserReported: Boolean,
+        isReviewInappropriate: Boolean,
+        message: String,
+        behavior : () -> Unit
+    ) {
+        if (isUserReported) {
+            CustomDialog(context).genericDialog(
+                CustomDialog.DialogData(
+                    message,
+                    context.getString(R.string.sign_in_question),
+                    context.getString(R.string.email_certification_close)
+                ),
+                complete = {
+                    var intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(context.getString(R.string.question_kakao))
+                    )
+                    context.startActivity(intent)
+                },
+                cancel = {}
+            )
+            Timber.d("제한 다이얼로그 신고 유저")
+        } else if (isReviewInappropriate) {
+            CustomDialog(context).reviewAlertDialog(context, message)
+            Timber.d("제한 다이얼로그 부적절 후기 유저")
+        } else if (!isReviewed) {
+            CustomDialog(context).reviewAlertDialog(
+                context,
+                context.getString(R.string.alert_no_review_title)
+            )
+            Timber.d("제한 다이얼로그 후기 미작성 유저")
+        } else {
+            behavior()
+            Timber.d("제한 다이얼로그 올바른 유저")
+        }
+    }
+
 
 }
 

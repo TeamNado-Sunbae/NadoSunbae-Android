@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -118,21 +119,39 @@ class SeniorPersonalFragment :
     private fun goQuestionWrite() {
         binding.btnGoQuestionWrite.setOnClickListener {
             Timber.d("isReviewedSenior: ${ReviewGlobals.isReviewed}")
-            if (ReviewGlobals.isReviewed) {
-                val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
-                intent.apply {
-                    putExtra("division", 0)
-                    putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
-                    putExtra("userId", seniorPersonalViewModel.seniorId.value)
-                    Timber.d("answerId: ${seniorPersonalViewModel.seniorId.value}")
-                    putExtra("postTypeId", 4)
-                    putExtra("title", resources.getString(R.string.question_write_one_to_one))
-                    putExtra("hintContent", getString(R.string.question_write_content_hint))
-                }
-                startActivity(intent)
-            } else {
-                CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
+            if(MainGlobals.signInData!!.isReviewInappropriate || MainGlobals.signInData!!.isUserReported) {
+                CustomDialog(requireActivity()).genericDialog(
+                    CustomDialog.DialogData(
+                        MainGlobals.signInData?.message.toString(),
+                        resources.getString(R.string.sign_in_question),
+                        resources.getString(R.string.email_certification_close)
+                    ),
+                    complete = {
+                        var intent = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(getString(R.string.question_kakao))
+                        )
+                        startActivity(intent)
+                    },
+                    cancel = {}
+                )
+            }else{
+                if (ReviewGlobals.isReviewed) {
+                    val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
+                    intent.apply {
+                        putExtra("division", 0)
+                        putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
+                        putExtra("userId", seniorPersonalViewModel.seniorId.value)
+                        Timber.d("answerId: ${seniorPersonalViewModel.seniorId.value}")
+                        putExtra("postTypeId", 4)
+                        putExtra("title", resources.getString(R.string.question_write_one_to_one))
+                        putExtra("hintContent", getString(R.string.question_write_content_hint))
+                    }
+                    startActivity(intent)
+                } else {
+                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity(),"")
 
+                }
             }
         }
     }

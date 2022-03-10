@@ -41,7 +41,7 @@ class ClassRoomInfoMainAdapter(private var userId : Int): RecyclerView.Adapter<C
                 }
                 ContextCompat.startActivity(holder.itemView.context, intent, null)
             }else {
-                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
+                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context,"")
             }
         }
         

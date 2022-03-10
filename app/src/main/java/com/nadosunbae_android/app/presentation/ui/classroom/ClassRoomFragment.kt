@@ -120,7 +120,7 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
                     }
                     startActivity(intent)
                 } else {
-                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity())
+                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity(), "")
                 }
             }
         }

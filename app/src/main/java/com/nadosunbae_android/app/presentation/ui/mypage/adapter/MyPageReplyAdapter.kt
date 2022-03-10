@@ -46,7 +46,7 @@ class MyPageReplyAdapter(private val num: Int, private val userId: Int, private 
                 }
                 ContextCompat.startActivity(holder.itemView.context, intent, null)
             }else{
-                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
+                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context,"")
             }
 
         }

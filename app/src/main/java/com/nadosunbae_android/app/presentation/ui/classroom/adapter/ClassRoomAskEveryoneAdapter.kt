@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
+import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
@@ -35,18 +38,22 @@ class ClassRoomAskEveryoneAdapter(private var userId : Int) : RecyclerView.Adapt
     ) {
         holder.onBind(askEveryoneData[position])
         holder.itemView.setOnClickListener {
-            if(ReviewGlobals.isReviewed){
-                val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
-                intent.apply {
-                    putExtra("postId", askEveryoneData[position].postId)
-                    putExtra("all", 1)
-                    putExtra("userId", userId)
+            CustomDialog(holder.itemView.context).restrictDialog(
+                holder.itemView.context,
+                ReviewGlobals.isReviewed,
+                MainGlobals.signInData!!.isUserReported,
+                MainGlobals.signInData!!.isReviewInappropriate,
+                MainGlobals.signInData?.message.toString(),
+                behavior = {
+                    val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+                    intent.apply {
+                        putExtra("postId", askEveryoneData[position].postId)
+                        putExtra("all", 1)
+                        putExtra("userId", userId)
+                    }
+                    ContextCompat.startActivity(holder.itemView.context, intent, null)
                 }
-                ContextCompat.startActivity(holder.itemView.context, intent, null)
-            }else{
-                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context)
-            }
-
+            )
         }
 
         if(position == (itemCount - 1)){
