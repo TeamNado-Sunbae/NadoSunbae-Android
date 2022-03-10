@@ -18,6 +18,7 @@ import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class ReviewDetailActivity :
@@ -70,7 +71,7 @@ class ReviewDetailActivity :
     private fun loadServerData() {
         postId = intent.getIntExtra("postId", NOT_POST_ID)
         userId = intent.getIntExtra("userId", 0)
-
+        Timber.d("reviewUserId : $userId")
         // intent extra check
         if (postId != NOT_POST_ID) {
 

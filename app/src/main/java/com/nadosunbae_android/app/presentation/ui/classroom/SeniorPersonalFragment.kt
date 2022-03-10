@@ -78,7 +78,7 @@ class SeniorPersonalFragment :
         binding.clSeniorPersonalClassReview.setOnClickListener {
             val intent = Intent(requireActivity(), MyPageClassroomReviewActivity::class.java)
             intent.apply {
-                putExtra("userId", seniorPersonalViewModel.userId.value)
+                putExtra("userId", seniorPersonalViewModel.seniorId.value)
                 putExtra("userNickName", seniorPersonalViewModel.seniorPersonal.value?.nickname)
             }
             requireActivity().startActivity(intent)
@@ -99,7 +99,7 @@ class SeniorPersonalFragment :
         }
 
         seniorPersonalViewModel.seniorPersonal.observe(viewLifecycleOwner) {
-            seniorPersonalViewModel.userId.value = it.userId
+            seniorPersonalViewModel.seniorId.value = it.userId
             binding.seniorPersonal = it
             if (it.secondMajorName == "미진입")
                 binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
@@ -123,8 +123,8 @@ class SeniorPersonalFragment :
                 intent.apply {
                     putExtra("division", 0)
                     putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
-                    putExtra("userId", seniorPersonalViewModel.userId.value)
-                    Timber.d("answerId: ${seniorPersonalViewModel.userId.value}")
+                    putExtra("userId", seniorPersonalViewModel.seniorId.value)
+                    Timber.d("answerId: ${seniorPersonalViewModel.seniorId.value}")
                     putExtra("postTypeId", 4)
                     putExtra("title", resources.getString(R.string.question_write_one_to_one))
                     putExtra("hintContent", getString(R.string.question_write_content_hint))
@@ -207,7 +207,7 @@ class SeniorPersonalFragment :
                         blockDialog(
                             deleteUser = {seniorPersonalViewModel.postClassRoomBlockUpdate(
                                 MyPageBlockUpdateItem(
-                                    seniorPersonalViewModel.userId.value ?: 0
+                                    seniorPersonalViewModel.seniorId.value ?: 0
                                 )
                             )}
                         )

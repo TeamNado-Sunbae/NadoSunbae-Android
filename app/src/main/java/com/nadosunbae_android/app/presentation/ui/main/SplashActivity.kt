@@ -163,6 +163,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     private fun observeSignIn() {
         splashViewModel.signIn.observe(this) {
             if (it.success) {
+                Timber.d("자동 로그인 토큰 갱신 성공")
                 loginSuccess = true
                 NadoSunBaeSharedPreference.setAccessToken(this, it.accessToken)
                 NadoSunBaeSharedPreference.setRefreshToken(this, it.refreshToken)
@@ -172,8 +173,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     private fun autoLogin() {
         val refreshToken = NadoSunBaeSharedPreference.getRefreshToken(this)
-
-        if (refreshToken != null && refreshToken.isNotEmpty())
+        Timber.d("splash : $refreshToken")
+        if (refreshToken.isNotEmpty())
             splashViewModel.postRenewalToken(refreshToken)
     }
 

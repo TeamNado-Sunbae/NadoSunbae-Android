@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageClassroomReviewBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReviewAdapter
@@ -27,6 +28,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
     private val myPageViewModel: MyPageViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
     private lateinit var myPageReviewAdapter: MyPageReviewAdapter
+    var userId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,8 +78,6 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
         myPageViewModel.myPagePostStatus.observe(this) {
             if(it == 204) {
                 initReviewEmpty(0)
-            }else if(it == 200){
-                initReviewListAdapter()
             }
         }
     }
@@ -95,7 +95,9 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
 
     //서버 통신
     private fun getReviewListData(){
-        val userId = intent.getIntExtra("userId", 0)
+         val userId = intent.getIntExtra("userId", 0)
+        Timber.d("유저 아이디 : $userId")
+        Timber.d("현 사용자 아이디 : ${MainGlobals.signInData?.userId}")
         myPageViewModel.userId.value = userId
         showLoading()
         myPageViewModel.getMyPageReview(myPageViewModel.userId.value ?: 0)
