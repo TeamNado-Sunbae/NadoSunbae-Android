@@ -104,6 +104,7 @@ class ClassRoomInfoDetailAdapter(private var userId: Int, val context : Context)
     fun setCheckMenu(menuNum: Int, position: Int) {
         if(menuNum == 3){
             infoDetailData[position].content = context.getString(R.string.classroom_question_delete_comment)
+            infoDetailData[position].isDeleted = true
             notifyItemChanged(position)
         }
 

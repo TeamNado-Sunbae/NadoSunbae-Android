@@ -24,7 +24,7 @@ data class InfoDetailData(
             val commentId: Int,
             var content: String,
             val createdAt: Date?,
-            val isDeleted: Boolean,
+            var isDeleted: Boolean,
             val firstMajorName: String,
             val firstMajorStart: String,
             val isPostWriter: Boolean,
@@ -32,7 +32,7 @@ data class InfoDetailData(
             val profileImageId: Int,
             val secondMajorName: String,
             val secondMajorStart: String,
-            val writerId: Int
+            val writerId: Int,
         )
 }
 
