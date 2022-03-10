@@ -16,6 +16,7 @@ import com.nadosunbae_android.app.databinding.ActivitySignInBinding
 import com.nadosunbae_android.domain.model.sign.SignInItem
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
@@ -214,6 +215,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             }
         }
     }
+
+
+
 
     override fun onResume() {
         super.onResume()

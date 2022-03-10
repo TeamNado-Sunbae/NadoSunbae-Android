@@ -108,28 +108,17 @@ class InfoDetailViewModel(
     //정보 상세 조회 서버통신
     fun getInfoDetail(postId: Int) {
         viewModelScope.launch {
-            when (val infoDetail =
-                safeApiCall(Dispatchers.IO) { getInformationDetailUseCase(postId) }) {
-                is ResultWrapper.Success -> {
-                    _infoDetailData.value = infoDetail.data!!
-                    Timber.d("infoDetail : 서버 통신 성공")
+            runCatching { getInformationDetailUseCase(postId) }
+                .onSuccess {
+                    _infoDetailData.value = it
+                    Timber.d("InfoDetail : 정보 상세보기 서버 통신 성공")
                 }
-                is ResultWrapper.NetworkError -> {
-                    Timber.d("infoDetail : 네트워크 실패")
-
-                }
-                is ResultWrapper.GenericError -> {
-                    Timber.d("infoDetail :사용자 에러")
-                    _message.value = infoDetail.message ?: ""
-                    _statusCode.value = infoDetail.code ?: 0
-                    Timber.d("reviewDetail : ${infoDetail.message}")
-                    Timber.d("reviewDetail : ${infoDetail.code}")
-                }
-            }
-                .also {
+                .onFailure {
+                    it.printStackTrace()
+                    Timber.d("InfoDetail : 정보 상세보기 서버 통신 실패")
+                }.also {
                     onLoadingEnd.value = true
                 }
-
         }
     }
 

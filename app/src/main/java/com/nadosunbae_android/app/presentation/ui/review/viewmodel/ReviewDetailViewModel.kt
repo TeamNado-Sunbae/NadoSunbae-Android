@@ -61,26 +61,15 @@ class ReviewDetailViewModel(
     // 후기 상세정보 불러오기
     fun getReviewDetail(postId: Int) {
         viewModelScope.launch {
-            when (val reviewDetailData =
-                safeApiCall(Dispatchers.IO) { getReviewDetailDataUseCase(postId) }) {
-                is ResultWrapper.Success -> {
-                    _reviewDetailData.value = reviewDetailData.data!!
-                    _statusCode.value = 200
-                    Timber.d("postReport : 신고 성공!")
+            runCatching { getReviewDetailDataUseCase(postId) }
+                .onSuccess {
+                    _reviewDetailData.value = it
+                    Timber.d("서버통신 성공")
                 }
-                is ResultWrapper.NetworkError -> {
-                    Timber.d("postReport : 네트워크 실패")
-
-
+                .onFailure {
+                    it.printStackTrace()
+                    Timber.d( "서버통신 실패")
                 }
-                is ResultWrapper.GenericError -> {
-                    Timber.d("postReport :사용자 에러")
-                    _message.value = reviewDetailData.message ?: ""
-                    _statusCode.value = reviewDetailData.code ?: 0
-                    Timber.d("reviewDetail : ${reviewDetailData.message}")
-                    Timber.d("reviewDetail : ${reviewDetailData.code}")
-                }
-            }
                 .also {
                     onLoadingEnd.value = true
                 }

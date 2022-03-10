@@ -10,6 +10,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Companion.MODE_MODIFY
 import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewTagBoxAdapter
 import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewDetailViewModel
@@ -81,24 +82,20 @@ class ReviewDetailActivity :
 
     //부적절 사용자 다이얼로그 띄우기
     private fun floatBadUserDialog(){
-        reviewDetailViewModel.statusCode.observe(this){
-                if(it == 403){
-                    CustomDialog(this).genericDialog(
-                        CustomDialog.DialogData(
-                            reviewDetailViewModel.message.value.toString(),
-                            resources.getString(R.string.sign_in_question),
-                            resources.getString(R.string.email_certification_close)
-                        ),
-                        complete = {
-                            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
-                            startActivity(intent)
-                        },
-                        cancel = {finish()}
-                    )
-                }
-
+        if(MainGlobals.signInData!!.isUserReported || MainGlobals.signInData!!.isReviewInappropriate){
+            CustomDialog(this).genericDialog(
+                CustomDialog.DialogData(
+                    MainGlobals.signInData!!.message,
+                    resources.getString(R.string.sign_in_question),
+                    resources.getString(R.string.email_certification_close)
+                ),
+                complete = {
+                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
+                    startActivity(intent)
+                },
+                cancel = {finish()}
+            )
         }
-
     }
 
     // 자신의 글이면 질문 가능여부 표시 x

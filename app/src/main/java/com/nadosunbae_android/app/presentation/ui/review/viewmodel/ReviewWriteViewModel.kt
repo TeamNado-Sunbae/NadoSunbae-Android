@@ -45,13 +45,7 @@ class ReviewWriteViewModel(
     val careerLength = MutableLiveData<Int>(0)
     val tipLength = MutableLiveData<Int>(0)
 
-    private var _statusCode = MutableLiveData<Int>()
-    val statusCode: LiveData<Int>
-        get() = _statusCode
 
-    private var _message = MutableLiveData<String>()
-    val message: LiveData<String>
-        get() = _message
   
     // 후기 배경 목록 불러오기 -> 사용x 변경됨
     fun getBackgroundImageList() {
@@ -74,24 +68,14 @@ class ReviewWriteViewModel(
     // 후기 작성
     fun postReview(reviewWriteItem: ReviewWriteItem) {
         viewModelScope.launch {
-            when (val reviewWrite =
-                safeApiCall(Dispatchers.IO) { postReviewDataUseCase(reviewWriteItem) }) {
-                is ResultWrapper.Success -> {
-                    _statusCode.value = 200
-                    Timber.d("postReviewWright : 서버 통신 성공")
+            runCatching { postReviewDataUseCase(reviewWriteItem) }
+                .onSuccess {
+                    Timber.d("서버통신 성공")
                 }
-                is ResultWrapper.NetworkError -> {
-                    Timber.d("postReviewWright : 네트워크 실패")
-
+                .onFailure {
+                    it.printStackTrace()
+                    Timber.d("서버통신 실패")
                 }
-                is ResultWrapper.GenericError -> {
-                    Timber.d("postReviewWright :사용자 에러")
-                    _message.value = reviewWrite.message ?: ""
-                    _statusCode.value = reviewWrite.code ?: 0
-                    Timber.d("reviewDetail : ${reviewWrite.message}")
-                    Timber.d("reviewDetail : ${reviewWrite.code}")
-                }
-            }
                 .also {
                     // TODO 이상하게 성공해도 fail로 와서.. onSuccess에 있어야하지만 여기 두겠습니다..!
                     if (!ReviewGlobals.isReviewed)     // 후기 글을 처음 작성하는 사람

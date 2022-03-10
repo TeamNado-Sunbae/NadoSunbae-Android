@@ -56,11 +56,10 @@ class QuestionDetailActivity :
 
     //부적절 사용자 다이얼로그 띄우기
     private fun floatBadUserDialog(){
-        questionDetailViewModel.statusCode.observe(this){
-            if(it == 403){
+       if(MainGlobals.signInData!!.isUserReported || MainGlobals.signInData!!.isReviewInappropriate){
                 CustomDialog(this).genericDialog(
                     CustomDialog.DialogData(
-                        questionDetailViewModel.message.value.toString(),
+                        MainGlobals.signInData!!.message,
                         resources.getString(R.string.sign_in_question),
                         resources.getString(R.string.email_certification_close)
                     ),
@@ -70,14 +69,9 @@ class QuestionDetailActivity :
                     },
                     cancel = {finish()}
                 )
-            }else if(it == 404){
-                CustomDialog(this).deleteNotificationDialog {
-                    finish()
-                }
             }
         }
 
-    }
 
 
     //로딩 종료
