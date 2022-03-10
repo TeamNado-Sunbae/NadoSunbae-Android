@@ -242,7 +242,8 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                     binding.clReviewWriteSelectMajor,
                     binding.clReviewWriteSelectMajor.width,
                     reviewWriteViewModel.dropDownSelected.value!!.id,
-                    selectableList
+                    selectableList,
+                    checkVisibility = true
                 )
             }
         }
