@@ -29,16 +29,24 @@ import kotlinx.coroutines.selects.select
  */
 fun Activity.showCustomDropDown(
     viewModel: DropDownSelectableViewModel,
-    view: View, width: Int, selectedItem: Int,
-    dataList: MutableList<SelectableData>) {
-    showCustomDropDown(viewModel, view, width, null, null, null, false, selectedItem, dataList)
+    view: View,
+    width: Int,
+    selectedItem: Int,
+    dataList: MutableList<SelectableData>,
+    checkVisibility: Boolean = false
+) {
+    showCustomDropDown(viewModel, view, width, null, null, null, false, selectedItem, dataList, checkVisibility)
 }
 
 fun Fragment.showCustomDropDown(
     viewModel: DropDownSelectableViewModel,
-    view: View, width: Int, selectedItem: Int,
-    dataList: MutableList<SelectableData>) {
-    showCustomDropDown(viewModel, view, width, null, null, null, false, selectedItem, dataList)
+    view: View,
+    width: Int,
+    selectedItem: Int,
+    dataList: MutableList<SelectableData>,
+    checkVisibility: Boolean = false
+) {
+    showCustomDropDown(viewModel, view, width, null, null, null, false, selectedItem, dataList, checkVisibility)
 }
 
 
@@ -50,7 +58,8 @@ fun Activity.showCustomDropDown(
                                 xOff: Int?, yOff: Int?,
                                 overlapAnchor: Boolean,
                                 selectedItem: Int,
-                                dataList: MutableList<SelectableData>) = showCustomDropDownByContext(viewModel, this, layoutInflater, view, width, height, xOff, yOff, overlapAnchor, selectedItem, dataList)
+                                dataList: MutableList<SelectableData>,
+                                checkVisibility: Boolean = false) = showCustomDropDownByContext(viewModel, this, layoutInflater, view, width, height, xOff, yOff, overlapAnchor, selectedItem, dataList, checkVisibility)
 
 fun Fragment.showCustomDropDown(
                                 viewModel: DropDownSelectableViewModel,
@@ -58,13 +67,24 @@ fun Fragment.showCustomDropDown(
                                 xOff: Int?, yOff: Int?,
                                 overlapAnchor: Boolean,
                                 selectedItem: Int,
-                                dataList: MutableList<SelectableData>) = showCustomDropDownByContext(viewModel, requireContext(), layoutInflater, view, width, height, xOff, yOff, overlapAnchor, selectedItem, dataList)
+                                dataList: MutableList<SelectableData>,
+                                checkVisibility: Boolean = false) = showCustomDropDownByContext(viewModel, requireContext(), layoutInflater, view, width, height, xOff, yOff, overlapAnchor, selectedItem, dataList, checkVisibility)
 
 
 // width, height는 null일 경우 wrap_content로 적용
-private fun showCustomDropDownByContext(viewModel: DropDownSelectableViewModel, context: Context, layoutInflater: LayoutInflater,
-                                        view: View, width: Int?, height: Int?, xOff: Int?, yOff: Int?, overlapAnchor: Boolean, selectedItemId: Int, dataList: MutableList<SelectableData>) {
 
+private fun showCustomDropDownByContext(viewModel: DropDownSelectableViewModel,
+                                         context: Context,
+                                         layoutInflater: LayoutInflater,
+                                         view: View,
+                                         width: Int?,
+                                         height: Int?,
+                                         xOff: Int?,
+                                         yOff: Int?,
+                                         overlapAnchor: Boolean,
+                                         selectedItemId: Int,
+                                         dataList: MutableList<SelectableData>,
+                                         checkVisibility: Boolean) {
 
     val inflater = layoutInflater.inflate(R.layout.view_drop_down, null, false)
 
@@ -79,7 +99,7 @@ private fun showCustomDropDownByContext(viewModel: DropDownSelectableViewModel, 
     )
 
     // 리사이클러 뷰 어댑터
-    val adapter = CustomDropDownAdapter(viewModel, selectedItemId)
+    val adapter = CustomDropDownAdapter(viewModel, selectedItemId, checkVisibility)
 
     // 어댑터 리스너
     adapter.setItemClickListener(object : CustomDropDownAdapter.ItemClickListener {
@@ -95,7 +115,6 @@ private fun showCustomDropDownByContext(viewModel: DropDownSelectableViewModel, 
 
     popup.overlapAnchor = overlapAnchor
     popup.showAsDropDown(view, xOff ?: 0, yOff ?: 0)
-
 }
 
 interface DropDownSelectableViewModel {

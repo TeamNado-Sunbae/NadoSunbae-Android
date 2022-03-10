@@ -8,7 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.app.databinding.ItemDropDownBinding
 
-class CustomDropDownAdapter(val viewModel: DropDownSelectableViewModel, val selectedItemId: Int) : RecyclerView.Adapter<CustomDropDownAdapter.DropDownViewHolder>() {
+class CustomDropDownAdapter(
+    val viewModel: DropDownSelectableViewModel,
+    val selectedItemId: Int,
+    val checkVisibility: Boolean = false
+    ) : RecyclerView.Adapter<CustomDropDownAdapter.DropDownViewHolder>() {
 
     private var dataList = mutableListOf<SelectableData>()
 
@@ -16,9 +20,9 @@ class CustomDropDownAdapter(val viewModel: DropDownSelectableViewModel, val sele
     val selectedId: Int
         get() = _selectedId
 
-    class DropDownViewHolder(private val binding: ItemDropDownBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
+    class DropDownViewHolder(private val binding: ItemDropDownBinding, private val checkVisibility: Boolean) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: SelectableData) {
-            if (data.isSelected)
+            if (data.isSelected && checkVisibility)
                 binding.ivChecked.visibility = View.VISIBLE
             else
                 binding.ivChecked.visibility = View.INVISIBLE
@@ -34,7 +38,7 @@ class CustomDropDownAdapter(val viewModel: DropDownSelectableViewModel, val sele
             parent, false
         )
 
-        return DropDownViewHolder(binding, parent.context)
+        return DropDownViewHolder(binding, checkVisibility)
     }
 
     override fun onBindViewHolder(holder: DropDownViewHolder, position: Int) {
