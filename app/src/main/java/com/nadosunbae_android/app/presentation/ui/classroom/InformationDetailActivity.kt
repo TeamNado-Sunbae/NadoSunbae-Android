@@ -62,7 +62,7 @@ class InformationDetailActivity :
         if(MainGlobals.signInData!!.isUserReported || MainGlobals.signInData!!.isReviewInappropriate){
             CustomDialog(this).genericDialog(
                 CustomDialog.DialogData(
-                    MainGlobals.signInData!!.message,
+                    MainGlobals.signInData?.message.toString(),
                     resources.getString(R.string.sign_in_question),
                     resources.getString(R.string.email_certification_close)
                 ),

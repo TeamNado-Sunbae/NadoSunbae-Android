@@ -237,7 +237,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         if(MainGlobals.signInData!!.isReviewInappropriate || MainGlobals.signInData!!.isUserReported){
             CustomDialog(requireActivity()).genericDialog(
                 CustomDialog.DialogData(
-                    MainGlobals.signInData!!.message,
+                    MainGlobals.signInData?.message.toString(),
                     resources.getString(R.string.sign_in_question),
                     resources.getString(R.string.email_certification_close)
                 ),

@@ -23,12 +23,11 @@ class SplashViewModel(
 
 
     // 토큰 재발급 및 자동 로그인
-    fun postRenewalToken(refreshToken: String) {
+    fun postRenewalToken() {
         viewModelScope.launch {
-            kotlin.runCatching { postRenewalTokenUseCase(refreshToken) }
+            kotlin.runCatching { postRenewalTokenUseCase() }
                 .onSuccess {
                     _signIn.value = it
-
                     Timber.d("auth: 서버 통신 성공")
                     FirebaseAnalyticsUtil.autoLogin()
 

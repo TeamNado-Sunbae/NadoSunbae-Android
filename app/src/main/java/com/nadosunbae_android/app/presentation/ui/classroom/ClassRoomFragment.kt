@@ -95,7 +95,7 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
             if (MainGlobals.signInData!!.isReviewInappropriate || MainGlobals.signInData!!.isUserReported) {
                 CustomDialog(requireActivity()).genericDialog(
                     CustomDialog.DialogData(
-                        MainGlobals.signInData!!.message,
+                        MainGlobals.signInData?.message.toString(),
                         resources.getString(R.string.sign_in_question),
                         resources.getString(R.string.email_certification_close)
                     ),
