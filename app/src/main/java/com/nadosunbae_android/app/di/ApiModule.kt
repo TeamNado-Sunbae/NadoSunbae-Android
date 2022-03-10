@@ -40,6 +40,8 @@ val apiModule = module {
                     .addHeader("accesstoken",
                         NadoSunBaeSharedPreference.getAccessToken(NadoSunBaeApplication.context()))
                     .addHeader("Content-Type", "application/json")
+                    .addHeader("refreshToken",
+                    NadoSunBaeSharedPreference.getRefreshToken(NadoSunBaeApplication.context()))
                     .build()
                 proceed(newRequest)
             }
