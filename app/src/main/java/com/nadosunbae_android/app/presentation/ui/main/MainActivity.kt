@@ -18,6 +18,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
 import com.nadosunbae_android.app.presentation.ui.review.ReviewFragment
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
@@ -228,6 +229,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         // real code
         val signData = intent.getParcelableExtra<SignInData.User>("signData") as SignInData.User
         MainGlobals.signInData = signData
+        ReviewGlobals.isReviewed = signData.isReviewed
         // null check
         mainViewModel.setSignData(signData)
         // 본전공이 default 선택
