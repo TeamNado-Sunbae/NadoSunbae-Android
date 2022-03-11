@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.nadosunbae_android.app.R
@@ -92,24 +93,13 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
     //정보 작성창 이동
     private fun goInfoWrite() {
         binding.btnGoInformationWrite.setOnClickListener {
-            if (MainGlobals.signInData!!.isReviewInappropriate || MainGlobals.signInData!!.isUserReported) {
-                CustomDialog(requireActivity()).genericDialog(
-                    CustomDialog.DialogData(
-                        MainGlobals.signInData?.message.toString(),
-                        resources.getString(R.string.sign_in_question),
-                        resources.getString(R.string.email_certification_close)
-                    ),
-                    complete = {
-                        var intent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.question_kakao))
-                        )
-                        startActivity(intent)
-                    },
-                    cancel = {}
-                )
-            } else {
-                if (ReviewGlobals.isReviewed) {
+            CustomDialog(requireActivity()).restrictDialog(
+                requireActivity(),
+                ReviewGlobals.isReviewed,
+                MainGlobals.signInData!!.isUserReported,
+                MainGlobals.signInData!!.isReviewInappropriate,
+                MainGlobals.signInData?.message.toString(),
+                behavior = {
                     val intent = Intent(requireActivity(), QuestionWriteActivity::class.java)
                     intent.apply {
                         putExtra("postTypeId", 2)
@@ -119,10 +109,7 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
                         putExtra("hintContent", getString(R.string.information_hint_write))
                     }
                     startActivity(intent)
-                } else {
-                    CustomDialog(requireActivity()).reviewAlertDialog(requireActivity(), "")
-                }
-            }
+                })
         }
     }
 
