@@ -197,6 +197,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
             Timber.d("FirstTimeCheck : false")
             Handler(Looper.getMainLooper()).postDelayed({
                 val intent = if (loginSuccess) {
+                    Timber.d("자동로그인 부분")
                     Intent(this, MainActivity::class.java).apply {
                         putExtra("signData", splashViewModel.signIn.value?.user)
                         putExtra("bottomNavItem", notification)
