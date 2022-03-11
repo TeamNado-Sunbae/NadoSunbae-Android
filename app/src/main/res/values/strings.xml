@@ -413,14 +413,6 @@
     <string name="onboarding_info_title">다양한 정보 공유까지 !</string>
     <string name="onboarding_info_subtext">학과 공지사항, 족보 등의 유용한 자료들이\n정보 게시판에 학과 별로 누적되고 있어요.</string>
 
-    <!-- firebase analytics -->
-    <string name="ga_activity_main">MainActivity</string>
-    <string name="ga_tab_review">Review Tab</string>
-    <string name="ga_tab_classroom_question">ClassRoom_Question Tab</string>
-    <string name="ga_tab_classroom_info">ClassRoom_Info Tab</string>
-    <string name="ga_tab_notification">Notification Tab</string>
-    <string name="ga_tab_mypage">MyPage Tab</string>
-
     <!-- splash -->
     <string name="copyright">© nadosunbae</string>
 
