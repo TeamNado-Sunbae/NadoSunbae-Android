@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import com.nadosunbae_android.domain.model.main.AppLinkData
@@ -186,6 +187,9 @@ class MainViewModel(
 
     fun setSelectedMajor(majorData: MajorSelectData) {
         _selectedMajor.value = majorData
+
+        // 선택한 학과 추적
+        FirebaseAnalyticsUtil.setSelectedMajor(majorData.majorName)
     }
 
     fun setFirstMajor(majorData: MajorSelectData) {

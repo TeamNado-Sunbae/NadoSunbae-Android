@@ -64,19 +64,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
      } */
 
-    private fun firebaseLogTab(tab: String) {
-        FirebaseAnalyticsUtil.get().logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
-            param(FirebaseAnalytics.Param.SCREEN_CLASS, getString(R.string.ga_activity_main))
-            param(FirebaseAnalytics.Param.SCREEN_NAME, tab)
-        }
-    }
-
     private fun observeClassRoomNum() {
         mainViewModel.classRoomNum.observe(this) {
             if (it == 1)
-                firebaseLogTab(getString(R.string.ga_tab_classroom_question))
+                FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.CLASSROOM_QUESTION)
             else if (it == 2)
-                firebaseLogTab(getString(R.string.ga_tab_classroom_info))
+                FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.CLASSROOM_INFO)
         }
     }
 
@@ -134,7 +127,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                 else ->{
                     changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
-                    firebaseLogTab(getString(R.string.ga_tab_review))
+                    FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.REVIEW)
                 }
             }
 
@@ -144,13 +137,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 when (item.itemId) {
                     R.id.navigation_review -> {
                         changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
-                        firebaseLogTab(getString(R.string.ga_tab_review))
+                        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.REVIEW)
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_room -> {
                         mainViewModel.classRoomNum.value = 1
                         changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
-                        firebaseLogTab(getString(R.string.ga_tab_classroom_question))
+                        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.CLASSROOM_QUESTION)
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_notice -> {
@@ -158,12 +151,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             R.id.fragment_container_main,
                             NotificationFragment()
                         )
-                        firebaseLogTab(getString(R.string.ga_tab_notification))
+                        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.NOTIFICATION)
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_mypage -> {
                         changeFragmentNoBackStack(R.id.fragment_container_main, MyPageFragment())
-                        firebaseLogTab(getString(R.string.ga_tab_mypage))
+                        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.MYPAGE)
                         return@setOnItemSelectedListener true
                     }
                 }
@@ -264,13 +257,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         mainViewModel.signData.observe(this) {
             val signData = mainViewModel.signData.value
             // null check
-            if (signData != null)
+            if (signData != null) {
                 mainViewModel.setSelectedMajor(
                     MajorSelectData(
                         signData.firstMajorId,
                         signData.firstMajorName
                     )
                 )
+
+                // firebase analytics user property
+                FirebaseAnalyticsUtil.setUserProperty(signData)
+            }
         }
     }
 

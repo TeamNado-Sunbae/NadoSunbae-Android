@@ -61,7 +61,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        FirebaseAnalyticsUtil.initFirebaseAnalytics(Firebase.analytics)
         setupTimber()
         observeSignIn()
         autoLogin()
