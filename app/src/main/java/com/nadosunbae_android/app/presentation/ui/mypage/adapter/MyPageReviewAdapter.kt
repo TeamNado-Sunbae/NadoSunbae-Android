@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemMypageLikeReviewBinding
 import com.nadosunbae_android.app.databinding.ItemMypageReviewBinding
+import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.review.ReviewDetailActivity
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
@@ -71,33 +72,19 @@ class MyPageReviewAdapter(var userId : Int):
 
             val context = holder.itemView.context
 
-            if (ReviewGlobals.isReviewed) {
-                val intent = Intent(context, ReviewDetailActivity::class.java)
-                val postId = myPageReviewData[position].postId
-                intent.putExtra("postId", postId)
-                intent.putExtra("userId", userId)
-                ContextCompat.startActivity(context, intent, null)
-            }
-            else {
-                // 후기 미작성시 알럿 띄우기
-                CustomDialog(context)
-                    .genericDialog(CustomDialog.DialogData(
-                        context.getString(R.string.alert_no_review_title),
-                        context.getString(R.string.alert_no_review_complete),
-                        context.getString(R.string.alert_no_review_cancel)
-                    ),
-                        complete = {
-                           val writeIntent = Intent(context, ReviewWriteActivity::class.java)
-                            writeIntent.apply {
-                                putExtra("mode", MODE_NEW)
-                            }
-                            context.startActivity(writeIntent)
-                        },
-                        cancel = {
-
-                        }
-                    )
-            }
+            CustomDialog(context).restrictDialog(
+                context,
+                ReviewGlobals.isReviewed,
+                MainGlobals.signInData!!.isUserReported,
+                MainGlobals.signInData!!.isReviewInappropriate,
+                MainGlobals.signInData?.message.toString(),
+                behavior = {
+                    val writeIntent = Intent(context, ReviewWriteActivity::class.java)
+                    writeIntent.apply {
+                        putExtra("mode", MODE_NEW)
+                    }
+                    context.startActivity(writeIntent)
+                })
         }
     }
 

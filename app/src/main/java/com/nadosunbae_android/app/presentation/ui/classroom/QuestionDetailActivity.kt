@@ -16,6 +16,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQue
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
@@ -51,26 +52,11 @@ class QuestionDetailActivity :
         reportToast()
         onQuestion()
         observeLoadingEnd()
-        floatBadUserDialog()
+
     }
 
-    //부적절 사용자 다이얼로그 띄우기
-    private fun floatBadUserDialog(){
-       if(MainGlobals.signInData!!.isUserReported || MainGlobals.signInData!!.isReviewInappropriate){
-                CustomDialog(this).genericDialog(
-                    CustomDialog.DialogData(
-                        MainGlobals.signInData?.message.toString(),
-                        resources.getString(R.string.sign_in_question),
-                        resources.getString(R.string.email_certification_close)
-                    ),
-                    complete = {
-                        var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
-                        startActivity(intent)
-                    },
-                    cancel = {finish()}
-                )
-            }
-        }
+
+
 
 
 

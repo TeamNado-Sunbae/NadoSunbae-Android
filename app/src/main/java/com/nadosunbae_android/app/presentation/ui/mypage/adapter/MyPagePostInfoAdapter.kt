@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemMypagePostByMeBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPagePostData
@@ -34,18 +35,20 @@ class MyPagePostInfoAdapter (private val num: Int, private val userId: Int, priv
     ) {
         holder.onBind(myPagePostData[position])
         holder.binding.root.setOnClickListener {
-            if(ReviewGlobals.isReviewed){
-                val intent = Intent(holder.itemView.context, InformationDetailActivity::class.java)
-                intent.apply {
-                    putExtra("postId", myPagePostData[position].postId)
-                    putExtra("userId", userId)
-                }
-                ContextCompat.startActivity(holder.itemView.context, intent, null)
-            }
-
-            else {
-                CustomDialog(holder.itemView.context).reviewAlertDialog(holder.itemView.context,"")
-            }
+            CustomDialog(holder.itemView.context).restrictDialog(
+                holder.itemView.context,
+                ReviewGlobals.isReviewed,
+                MainGlobals.signInData!!.isUserReported,
+                MainGlobals.signInData!!.isReviewInappropriate,
+                MainGlobals.signInData?.message.toString(),
+                behavior = {
+                    val intent = Intent(holder.itemView.context, InformationDetailActivity::class.java)
+                    intent.apply {
+                        putExtra("postId", myPagePostData[position].postId)
+                        putExtra("userId", userId)
+                    }
+                    ContextCompat.startActivity(holder.itemView.context, intent, null)
+                })
         }
     }
 
