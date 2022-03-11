@@ -73,7 +73,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     override fun onResume() {
         super.onResume()
         observeUserMajor()
-        observeIsReviewed()
         updateMajorStatus()
         loadReviewList()
     }
@@ -239,12 +238,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             freeListener = { _ ->
                 Timber.d("LOGGER_TAG: freeListener")
             }
-        }
-    }
-
-    private fun observeIsReviewed() {
-        mainViewModel.signData.observe(viewLifecycleOwner) {
-            ReviewGlobals.isReviewed = it.isReviewed
         }
     }
 

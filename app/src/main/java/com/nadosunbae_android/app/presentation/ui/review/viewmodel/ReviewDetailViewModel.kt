@@ -103,6 +103,7 @@ class ReviewDetailViewModel(
         viewModelScope.launch {
             runCatching { deleteReviewDataUseCase(postId) }
                 .onSuccess {
+                    ReviewGlobals.isReviewed = it.isReviewed
                     Timber.d("후기 삭제 서버통신 성공")
                 }
                 .onFailure {
@@ -110,7 +111,6 @@ class ReviewDetailViewModel(
                     Timber.d("후기 삭제 서버통신 실패")
                 }
                 .also {
-                    ReviewGlobals.isReviewed = false
                     onLoadingEnd.value = true
                 }
         }
