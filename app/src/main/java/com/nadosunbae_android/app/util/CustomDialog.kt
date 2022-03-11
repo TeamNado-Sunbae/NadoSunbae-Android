@@ -221,19 +221,18 @@ class CustomDialog(val context: Context) {
         return this
     }
 
-    fun deleteNotificationDialog(complete: () -> Unit): CustomDialog {
+    fun deleteNotificationDialog(): CustomDialog {
         val binding = DialogDeletePostBinding.inflate(LayoutInflater.from(context))
 
         dialog.setContentView(binding.root)
         dialog.window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog.window?.setBackgroundDrawableResource(R.drawable.inset_8)
         dialog.show()
 
         binding.btnDialogComplete.setOnClickListener {
-            complete()
             dialog.dismiss()
         }
 
