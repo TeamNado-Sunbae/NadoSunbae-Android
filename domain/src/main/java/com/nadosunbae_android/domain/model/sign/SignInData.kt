@@ -16,7 +16,7 @@ data class SignInData(
         val email: String = "",
         val firstMajorId: Int = 0,
         var firstMajorName: String = "",
-        val isReviewed: Boolean = false,
+        var isReviewed: Boolean = false,
         val secondMajorId: Int = 0,
         val secondMajorName: String = "",
         val universityId: Int = 0,
