@@ -28,6 +28,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
 
     private val myPageViewModel: MyPageViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
+    private val signViewModel: SignViewModel by viewModel()
     private lateinit var myPageReviewAdapter: MyPageReviewAdapter
     var userId = 0
 
@@ -79,7 +80,6 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
         myPageViewModel.myPagePostStatus.observe(this) {
             if(it == 204) {
                 initReviewEmpty(0)
-                ReviewGlobals.isReviewed = false
             }
         }
     }
