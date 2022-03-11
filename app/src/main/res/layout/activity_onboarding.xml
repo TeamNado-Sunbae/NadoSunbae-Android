@@ -40,23 +40,21 @@
                     android:id="@+id/dots_indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     app:dotsColor="@color/main_text"
-                    app:dotsStrokeColor="@color/gray_1"
-                    app:dotsStrokeWidth="4dp"
                     app:dotsSize="8dp"
                     app:dotsSpacing="4dp"
+                    app:dotsStrokeColor="@color/gray_1"
+                    app:dotsStrokeWidth="4dp"
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintBottom_toTopOf="@+id/text_signup"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:selectedDotColor="@color/main_text" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
                 <TextView
                     android:id="@+id/text_signup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="33dp"
                     android:background="@drawable/rectangle_fill_main_black_8"
                     android:fontFamily="@font/pretendard_semibold"
                     android:paddingLeft="28dp"
@@ -66,17 +64,18 @@
                     android:text="@string/signup_agreement_title"
                     android:textColor="@color/main_default"
                     android:textSize="14sp"
+                    android:layout_marginBottom="12dp"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dots_indicator" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_signup">
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/text_is_member"
