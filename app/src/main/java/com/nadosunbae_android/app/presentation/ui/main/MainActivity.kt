@@ -257,13 +257,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         mainViewModel.signData.observe(this) {
             val signData = mainViewModel.signData.value
             // null check
-            if (signData != null)
+            if (signData != null) {
                 mainViewModel.setSelectedMajor(
                     MajorSelectData(
                         signData.firstMajorId,
                         signData.firstMajorName
                     )
                 )
+
+                // firebase analytics user property
+                FirebaseAnalyticsUtil.setUserProperty(signData)
+            }
         }
     }
 
