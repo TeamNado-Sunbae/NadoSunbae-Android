@@ -92,6 +92,7 @@ class NotificationFragment :
             // 2,4 -> 질문글, 3,5 -> 정보글, 1 -> 1:1질문글
             when (notificationType) {
                 2,4 -> {
+                    Timber.d("알림 : 후기 작성여부 ${ReviewGlobals.isReviewed}")
                     CustomDialog(requireActivity()).restrictDialog(
                         requireActivity(),
                         ReviewGlobals.isReviewed,

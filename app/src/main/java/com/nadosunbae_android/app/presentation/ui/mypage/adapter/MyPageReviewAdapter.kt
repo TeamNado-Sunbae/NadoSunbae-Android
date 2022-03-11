@@ -79,11 +79,12 @@ class MyPageReviewAdapter(var userId : Int):
                 MainGlobals.signInData!!.isReviewInappropriate,
                 MainGlobals.signInData?.message.toString(),
                 behavior = {
-                    val writeIntent = Intent(context, ReviewWriteActivity::class.java)
-                    writeIntent.apply {
-                        putExtra("mode", MODE_NEW)
-                    }
-                    context.startActivity(writeIntent)
+                    val intent =
+                        Intent(holder.itemView.context, ReviewDetailActivity::class.java)
+                    val postId = myPageReviewData[position].postId
+                    intent.putExtra("postId", postId)
+                    intent.putExtra("userId", userId)
+                    ContextCompat.startActivity(holder.itemView.context,intent, null)
                 })
         }
     }
