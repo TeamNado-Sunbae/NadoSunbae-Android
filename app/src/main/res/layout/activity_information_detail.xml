@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background">
 
     <data>
 
@@ -117,7 +118,8 @@
                         android:textColor="@color/gray_4"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_title"
-                        app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_title" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_title"
+                        tools:text="111"/>
 
                     <TextView
                         android:id="@+id/text_information_detail_question_major"
@@ -125,12 +127,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:text="@{informationDetail.firstMajorName}"
                         android:lineHeight="18sp"
+                        android:text="@{informationDetail.firstMajorName}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_name"
                         app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_name"
-                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_name" />
+                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_name"
+                        tools:text="111" />
 
                     <TextView
                         android:id="@+id/text_information_detail_question_major_start"
@@ -138,12 +142,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:fontFamily="@font/pretendard_medium"
+                        android:lineHeight="18sp"
                         android:text="@{informationDetail.firstMajorStart}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
-                        android:lineHeight="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_major"
                         app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_major"
-                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_major" />
+                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_major"
+                        tools:text="111" />
 
                     <View
                         android:id="@+id/line_information_detail_question"
@@ -151,7 +157,8 @@
                         android:layout_height="18dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:background="@color/gray_2"
+                        android:background="@color/gray_1"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_major_start"
                         app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_major_start"
                         app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_title" />
 
@@ -161,12 +168,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/pretendard_medium"
+                        android:lineHeight="18sp"
                         android:text="@{informationDetail.secondMajorName}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
-                        android:lineHeight="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_major_start"
                         app:layout_constraintStart_toEndOf="@+id/line_information_detail_question"
-                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_major_start" />
+                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_major_start"
+                        tools:text="111" />
 
                     <TextView
                         android:id="@+id/text_information_detail_question_second_major_start"
@@ -174,12 +183,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:fontFamily="@font/pretendard_medium"
+                        android:lineHeight="18sp"
                         android:text="@{informationDetail.secondMajorStart}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
-                        android:lineHeight="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_second_major"
                         app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_second_major"
-                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_second_major" />
+                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_second_major"
+                        tools:text="111" />
 
                     <TextView
                         android:id="@+id/text_information_detail_question_content"
@@ -209,26 +220,28 @@
 
                     <android.widget.Button
                         android:id="@+id/btn_info_like"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         style="?android:attr/borderlessButtonStyle"
                         intToString="@{informationDetail.likeCount}"
                         setSelected="@{informationDetail.liked}"
-                        android:minHeight="0dp"
-                        android:minWidth="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="12dp"
-                        android:fontFamily="@font/pretendard_semibold"
-                        android:textSize="14sp"
-                        android:textColor="@drawable/selector_gray_2_to_main_default"
                         android:background="@drawable/selector_ic_btn_like"
                         android:drawableStart="@drawable/selector_icon_like"
-                        tools:text="1"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="4dp"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="4dp"
+                        android:layout_marginTop="34dp"
+                        android:textColor="@drawable/selector_gray_2_to_main_default"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_content"
+                        tools:text="1" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
