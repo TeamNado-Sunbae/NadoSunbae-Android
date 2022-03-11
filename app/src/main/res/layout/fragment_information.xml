@@ -26,7 +26,6 @@
                 android:id="@+id/btn_classroom_info_array"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_array"
