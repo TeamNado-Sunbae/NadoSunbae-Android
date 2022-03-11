@@ -113,7 +113,7 @@ class NotificationFragment :
                     CustomDialog(requireActivity()).restrictDialog(
                         requireActivity(),
                         true,
-                        MainGlobals.signInData!!.isUserReported,
+                        false,
                         false,
                         MainGlobals.signInData?.message.toString(),
                         behavior = {

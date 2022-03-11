@@ -105,6 +105,8 @@ class QuestionDetailActivity :
         binding.rcQuestionDetail.adapter = classRoomQuestionDetailAdapter
 
         questionDetailViewModel.questionDetailData.observe(this) {
+
+
             with(classRoomQuestionDetailAdapter) {
                 Timber.d("questionDetailUser: ${it.answererId}, ${it.questionerId}")
                 Timber.d("questionDetailUserWriter : ${it.messageList}")

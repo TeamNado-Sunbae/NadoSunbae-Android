@@ -39,6 +39,7 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
 
     //질문 정보 탭 클릭시에
     private fun selectTitle(){
+
         binding.textClassroomQuestionTitle.setOnClickListener {
             mainViewModel.classRoomNum.value = 1
         }
@@ -81,14 +82,14 @@ class ClassRoomFragment : BaseFragment<FragmentClassRoomBinding>(R.layout.fragme
 
             }
         }
-
-
-
         }
 
-
-
-
+    override fun onResume() {
+        super.onResume()
+        if(mainViewModel.classRoomNum.value == 1){
+            binding.textInfoEmpty.visibility = View.GONE
+        }
+    }
 
     //정보 작성창 이동
     private fun goInfoWrite() {
