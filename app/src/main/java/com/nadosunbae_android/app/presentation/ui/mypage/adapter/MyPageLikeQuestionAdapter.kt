@@ -8,6 +8,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemMypageLikeQuestionBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeQuestionData
 
 class MyPageLikeQuestionAdapter (private val num: Int, private val userId: Int, private val myPageNum : Int, private val postTypeId : Int) :
@@ -32,15 +36,23 @@ class MyPageLikeQuestionAdapter (private val num: Int, private val userId: Int, 
     ) {
         holder.onBind(myPageLikeQuestionData[position])
         holder.binding.root.setOnClickListener {
-            val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
-            intent.apply {
-                putExtra("myPageNum", myPageNum)
-                putExtra("userId", userId)
-                putExtra("postId", myPageLikeQuestionData[position].postId)
-                putExtra("postTypeId", myPageLikeQuestionData[position].postTypeId)
-                putExtra("all", num)
-            }
-            ContextCompat.startActivity(holder.itemView.context, intent, null)
+            CustomDialog(holder.itemView.context).restrictDialog(
+                holder.itemView.context,
+                ReviewGlobals.isReviewed,
+                MainGlobals.signInData!!.isUserReported,
+                MainGlobals.signInData!!.isReviewInappropriate,
+                MainGlobals.signInData?.message.toString(),
+                behavior = {
+                    val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+                    intent.apply {
+                        putExtra("myPageNum", myPageNum)
+                        putExtra("userId", userId)
+                        putExtra("postId", myPageLikeQuestionData[position].postId)
+                        putExtra("postTypeId", myPageLikeQuestionData[position].postTypeId)
+                        putExtra("all", num)
+                    }
+                    ContextCompat.startActivity(holder.itemView.context, intent, null)
+                })
         }
     }
 
