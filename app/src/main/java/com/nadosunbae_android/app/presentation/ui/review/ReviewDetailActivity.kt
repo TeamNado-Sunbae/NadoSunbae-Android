@@ -52,7 +52,6 @@ class ReviewDetailActivity() :
         observeLoadingEnd()
         observeDropDown()
         observeReportResult()
-        floatBadUserDialog()
     }
 
     override fun onResume() {
@@ -84,24 +83,6 @@ class ReviewDetailActivity() :
         }
     }
 
-    //부적절 사용자 다이얼로그 띄우기
-    private fun floatBadUserDialog(){
-        if(MainGlobals.signInData!!.isUserReported || MainGlobals.signInData!!.isReviewInappropriate){
-            Timber.d("부적절사용자 : ${MainGlobals.signInData?.message.toString()}")
-            CustomDialog(this).genericDialog(
-                CustomDialog.DialogData(
-                    MainGlobals.signInData?.message.toString(),
-                    resources.getString(R.string.sign_in_question),
-                    resources.getString(R.string.email_certification_close)
-                ),
-                complete = {
-                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
-                    startActivity(intent)
-                },
-                cancel = {finish()}
-            )
-        }
-    }
 
     // 자신의 글이면 질문 가능여부 표시 x
     private fun lookMyPost() {

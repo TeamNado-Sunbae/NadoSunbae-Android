@@ -122,6 +122,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         reviewListAdapter.setItemClickListener(
             object: ReviewListAdapter.ItemClickListener {
                 override fun onClick(view: View, position: Int) {
+                    Timber.d("후기 메인, ${MainGlobals.signInData!!.isReviewInappropriate}")
                     CustomDialog(requireActivity()).restrictDialog(
                         requireActivity(),
                         ReviewGlobals.isReviewed,

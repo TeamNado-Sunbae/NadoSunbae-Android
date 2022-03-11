@@ -85,7 +85,7 @@ class ReviewWriteViewModel(
                         FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.REVIEW_NEW)
                     else
                         FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.REVIEW_ADD)
-                    MainGlobals.signInData?.isReviewInappropriate = true
+                    MainGlobals.signInData?.isReviewInappropriate = false
                     ReviewGlobals.isReviewed = true
                     _writeFinish.value = true
                     onLoadingEnd.value = true
