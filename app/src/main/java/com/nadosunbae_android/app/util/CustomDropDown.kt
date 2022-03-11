@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.domain.model.main.SelectableData
 import kotlinx.coroutines.selects.select
+import timber.log.Timber
 
 
 /*
@@ -88,7 +89,12 @@ private fun showCustomDropDownByContext(viewModel: DropDownSelectableViewModel,
 
     val inflater = layoutInflater.inflate(R.layout.view_drop_down, null, false)
 
-    val popup = PopupWindow(inflater, width ?: RelativeLayout.LayoutParams.WRAP_CONTENT, height ?: RelativeLayout.LayoutParams.WRAP_CONTENT, true)
+    val popup = PopupWindow(
+        inflater,
+        width ?: RelativeLayout.LayoutParams.WRAP_CONTENT,
+        height ?: RelativeLayout.LayoutParams.WRAP_CONTENT,
+        true
+    )
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         popup.elevation = 10F
@@ -114,7 +120,8 @@ private fun showCustomDropDownByContext(viewModel: DropDownSelectableViewModel,
     adapter.notifyDataSetChanged()
 
     popup.overlapAnchor = overlapAnchor
-    popup.showAsDropDown(view, xOff ?: 0, yOff ?: 0)
+
+    popup.showAsDropDown(view, xOff ?: 0, yOff ?: 0, Gravity.RIGHT)
 }
 
 interface DropDownSelectableViewModel {
