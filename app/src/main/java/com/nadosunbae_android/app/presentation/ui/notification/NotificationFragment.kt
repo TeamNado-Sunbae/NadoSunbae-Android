@@ -10,9 +10,12 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.notification.adapter.NotificationAdapter
 import com.nadosunbae_android.app.presentation.ui.notification.viewmodel.NotificationViewModel
+import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.util.CustomDialog
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -88,41 +91,56 @@ class NotificationFragment :
             val userId = mainViewModel.signData.value?.userId
             // 2,4 -> 질문글, 3,5 -> 정보글, 1 -> 1:1질문글
             when (notificationType) {
-                2 -> {
-                    val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
-                    intent.apply {
-                        putExtra("postId", postId)
-                        putExtra("all", 1)
-                        putExtra("userId", userId)
-                    }
-                    startActivity(intent)
-                }
-                4 -> {
-                    val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
-                    intent.apply {
-                        putExtra("postId", postId)
-                        putExtra("all", 1)
-                        putExtra("userId", userId)
-                    }
-                    startActivity(intent)
+                2,4 -> {
+                    CustomDialog(requireActivity()).restrictDialog(
+                        requireActivity(),
+                        ReviewGlobals.isReviewed,
+                        MainGlobals.signInData!!.isUserReported,
+                        MainGlobals.signInData!!.isReviewInappropriate,
+                        MainGlobals.signInData?.message.toString(),
+                        behavior = {
+                            val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
+                            intent.apply {
+                                putExtra("postId", postId)
+                                putExtra("all", 1)
+                                putExtra("userId", userId)
+                            }
+                            startActivity(intent)
+                        })
                 }
                 1 -> {
-                    val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
-                    intent.apply {
-                        putExtra("myPageNum",1)
-                        putExtra("postId", postId)
-                        putExtra("all", 2)
-                        putExtra("userId", userId)
-                    }
-                    startActivity(intent)
+                    CustomDialog(requireActivity()).restrictDialog(
+                        requireActivity(),
+                        true,
+                        MainGlobals.signInData!!.isUserReported,
+                        false,
+                        MainGlobals.signInData?.message.toString(),
+                        behavior = {
+                            val intent = Intent(requireActivity(), QuestionDetailActivity::class.java)
+                            intent.apply {
+                                putExtra("myPageNum",1)
+                                putExtra("postId", postId)
+                                putExtra("all", 2)
+                                putExtra("userId", userId)
+                            }
+                            startActivity(intent)
+                        })
                 }
                 else -> {
-                    val intent = Intent(requireActivity(), InformationDetailActivity::class.java)
-                    intent.apply {
-                        putExtra("postId", postId)
-                        putExtra("userId", userId)
-                    }
-                    startActivity(intent)
+                    CustomDialog(requireActivity()).restrictDialog(
+                        requireActivity(),
+                        ReviewGlobals.isReviewed,
+                        MainGlobals.signInData!!.isUserReported,
+                        MainGlobals.signInData!!.isReviewInappropriate,
+                        MainGlobals.signInData?.message.toString(),
+                        behavior = {
+                            val intent = Intent(requireActivity(), InformationDetailActivity::class.java)
+                            intent.apply {
+                                putExtra("postId", postId)
+                                putExtra("userId", userId)
+                            }
+                            startActivity(intent)
+                        })
                 }
             }
         }
