@@ -45,7 +45,7 @@
                     app:dotsSpacing="4dp"
                     app:dotsStrokeColor="@color/gray_1"
                     app:dotsStrokeWidth="4dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_ssmarginBottom="24dp"
                     app:layout_constraintBottom_toTopOf="@+id/text_signup"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
