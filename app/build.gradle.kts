@@ -157,4 +157,7 @@ dependencies {
     //update
     implementation("com.google.android.play:core:1.10.3")
 
+    //flex-box layout
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+
 }
