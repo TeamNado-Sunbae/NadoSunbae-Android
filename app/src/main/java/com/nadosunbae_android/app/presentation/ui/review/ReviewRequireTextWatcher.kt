@@ -40,17 +40,13 @@ class ReviewRequireTextWatcher(private var binding: ActivityReviewWriteBinding) 
         // 한줄평 40자 이상
         val validOneLine = binding.etOneLine.text.length >= MIN_LENGTH_ONELINE
         // 장단점 100자 이상
-        val validProsCons = binding.etProsCons.editText.text.length >= MIN_LENGTH_GENERAL
+        val validProsCons = binding.etProsCons.editText.text.length >= MIN_LENGTH_PROSCONS
         // 선택작성 100자 이상 최소 1개
         var validOptional = false
 
         for (e in optionalEditTexts) {
-            if (e.text.length >= MIN_LENGTH_GENERAL)
+            if (e.text.length >= MIN_LENGTH_OPTIONAL)
                 validOptional = true
-            else if (e.text.isNotEmpty()) {
-                validOptional = false
-                break
-            }
         }
 
         // 조건 만족
@@ -59,6 +55,7 @@ class ReviewRequireTextWatcher(private var binding: ActivityReviewWriteBinding) 
 
     companion object {
         const val MIN_LENGTH_ONELINE = 1
-        const val MIN_LENGTH_GENERAL = 100
+        const val MIN_LENGTH_PROSCONS = 100
+        const val MIN_LENGTH_OPTIONAL = 50
     }
 }
