@@ -96,12 +96,13 @@
     <string name="review_write_select_background">배경선택</string>
     <string name="review_write_required">필수작성</string>
     <string name="review_write_optional">선택작성</string>
-    <string name="review_write_min_items">* 최소 1개 항목 이상</string>
+    <string name="review_write_min_items">* 최소 1개 항목을 50자 이상 작성</string>
     <string name="review_write_hint_content">내용을 입력해주세요.</string>
     <string name="review_write_hint_one_line">학과를 한줄로 표현한다면?</string>
     <string name="review_write_max_40">최대 40자</string>
     <string name="review_write_min_100">최소 100자</string>
     <string name="review_write_pros_cons">장단점</string>
+    <string name="review_write_length">자</string>
 
     <!-- filter bottom sheet -->
     <string name="filter_writer">작성자</string>
