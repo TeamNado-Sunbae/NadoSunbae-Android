@@ -61,7 +61,7 @@
     <string name="review_pros_cons">장단점</string>
     <string name="review_career">향후 진로</string>
     <string name="review_recommend_lecture">추천 수업</string>
-    <string name="review_non_recommend_lecture">비추 수업</string>
+    <string name="review_non_recommend_lecture">힘든 수업</string>
     <string name="review_curriculum">뭘 배우나요?</string>
     <string name="review_tip">꿀팁</string>
 
@@ -403,7 +403,7 @@
     <string name="onboarding_is_member">이미 회원이신가요?</string>
 
     <string name="onboarding_lively_review">생생한 학과 후기</string>
-    <string name="onbaording_lively_review_content">장단점, 뭘배우나요?, 추천수업, 비추수업, \n향후진로, 꿀팁 등으로 구성되어 있어요.</string>
+    <string name="onbaording_lively_review_content">장단점, 뭘배우나요?, 추천수업, 힘든수업, \n향후진로, 꿀팁 등으로 구성되어 있어요.</string>
 
     <string name="onboarding_question_title">1:1 질문, 전체에게 질문</string>
     <string name="onboarding_question_subtext1">궁금한게 있는 학과 선배에겐</string>
