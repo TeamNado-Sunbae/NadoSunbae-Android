@@ -245,6 +245,13 @@ object BindingAdapter {
         textView.text = "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_min_100)}"
     }
 
+    // 글자수 + 자
+    @JvmStatic
+    @BindingAdapter("displayWriteLength")
+    fun displayWriteLength(textView: TextView, length: Int) {
+        textView.text = "${length}${NadoSunBaeApplication.context().getString(R.string.review_write_length)}"
+    }
+
 }
 
 
