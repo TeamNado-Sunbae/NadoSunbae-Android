@@ -293,14 +293,18 @@ class SignUpMajorInfoActivity :
 
     //전공 중복 체크
     private fun checkMajor() {
-        if(binding.textSignupMajorInfoDoubleMajor.toString() == "미진입") {
+        if (signViewModel.secondMajor.value.toString() == "미진입") {
 
         }
+
         else if (signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString() &&
-                binding.textSignupMajorinfoMajorTime.text !="선택하기" && binding.textSignupMajorinfoDoubleMajorTime.text !="선택하기") {
+            binding.textSignupMajorinfoMajorTime.text != "선택하기" && binding.textSignupMajorinfoDoubleMajorTime.text != "선택하기"
+        ) {
             binding.clSignupMajorInfoMoveNext.isSelected = true
             binding.textSignupMajorInfoNext.isSelected = true
-        } else {
+        }
+
+        else {
             binding.clSignupMajorInfoMoveNext.isSelected = false
             binding.textSignupMajorInfoNext.isSelected = false
         }
@@ -310,14 +314,16 @@ class SignUpMajorInfoActivity :
 
     //다음 버튼 변경
     private fun changeNext() {
-
         signUpBasicInfoViewModel.selectedAll.observe(this) {
             binding.clSignupMajorInfoMoveNext.isSelected = it
             binding.textSignupMajorInfoNext.isSelected = it
+
             checkMajor()
+
             if (binding.clSignupMajorInfoMoveNext.isSelected && binding.textSignupMajorInfoNext.isSelected) {
                 nextBtnActivate()
-
+            } else {
+                binding.clSignupMajorInfoMoveNext.isClickable = false
             }
         }
     }
