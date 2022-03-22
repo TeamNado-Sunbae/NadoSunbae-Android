@@ -89,11 +89,7 @@ class InformationDetailActivity :
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if(s.isNullOrEmpty()){
-                    binding.imgInformationCommentComplete.setBackgroundColor(getColor(R.color.gray_2))
-                }else{
-                    binding.imgInformationCommentComplete.setBackgroundColor(getColor(R.color.main_default))
-                }
+               binding.imgInformationCommentComplete.isSelected = !s.isNullOrEmpty()
             }
         })
     }

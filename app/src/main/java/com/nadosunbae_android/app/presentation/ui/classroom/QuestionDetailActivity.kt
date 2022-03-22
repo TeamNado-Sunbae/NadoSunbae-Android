@@ -173,11 +173,7 @@ class QuestionDetailActivity :
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if(s.isNullOrEmpty()){
-                    binding.imgQuestionCommentComplete.setBackgroundColor(ContextCompat.getColor(this@QuestionDetailActivity, R.color.gray_2))
-                }else{
-                    binding.imgQuestionCommentComplete.setBackgroundColor(ContextCompat.getColor(this@QuestionDetailActivity, R.color.main_default))
-                }
+                binding.imgQuestionCommentComplete.isSelected = !s.isNullOrEmpty()
             }
         })
     }
