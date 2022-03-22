@@ -121,6 +121,7 @@
                 android:textColor="@color/black"
                 android:lineHeight="22sp"
                 android:autoLink="web"
+                android:linksClickable="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_question_detail_questioner_second_start_major"

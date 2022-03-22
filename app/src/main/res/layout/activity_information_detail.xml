@@ -200,6 +200,7 @@
                         android:fontFamily="@font/pretendard_regular"
                         android:text="@{informationDetail.content}"
                         android:lineHeight="22sp"
+                        android:linksClickable="true"
                         android:autoLink="web"
                         android:textColor="@color/main_text"
                         android:textSize="14sp"
