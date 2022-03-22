@@ -5,7 +5,8 @@ name: Android CD
 
 on:
   push:
-    branches: [ main, release/1.0, version/1.0 ]
+    branches:
+      - 'version/*'
     
 jobs:
   build:
@@ -49,3 +50,4 @@ jobs:
         MSG_MINIMAL: true
         SLACK_USERNAME: APK_GEN
         SLACK_MESSAGE: '오류를 확인해주세요...'
+
