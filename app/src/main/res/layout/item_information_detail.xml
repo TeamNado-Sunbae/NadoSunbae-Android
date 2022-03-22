@@ -142,6 +142,7 @@
             android:textSize="14sp"
             android:textColor="@color/gray_4"
             android:lineHeight="22sp"
+            android:autoLink="web"
             app:layout_constraintTop_toBottomOf="@+id/text_information_detail_comment_major"
             app:layout_constraintStart_toStartOf="@+id/text_information_detail_comment_major"
             app:layout_constraintEnd_toEndOf="parent"
