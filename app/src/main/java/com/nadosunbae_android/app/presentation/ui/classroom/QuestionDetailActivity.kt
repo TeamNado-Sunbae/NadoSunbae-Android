@@ -3,6 +3,8 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -52,7 +54,7 @@ class QuestionDetailActivity :
         reportToast()
         onQuestion()
         observeLoadingEnd()
-
+        changeRegisterBtn()
     }
 
 
@@ -157,8 +159,29 @@ class QuestionDetailActivity :
                 }
             }
         )
-
     }
+
+    //답글 작성 중 종이비행기 색상 변경
+    private fun changeRegisterBtn(){
+        binding.etQuestionComment.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(s.isNullOrEmpty()){
+                    binding.imgQuestionCommentComplete.setBackgroundColor(getColor(R.color.gray_2))
+                }else{
+                    binding.imgQuestionCommentComplete.setBackgroundColor(getColor(R.color.main_default))
+                }
+            }
+        })
+    }
+
+
 
     // 전체 질문 상세 댓글 등록
     private fun registerComment(postId: Int) {
