@@ -5,6 +5,8 @@ import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -49,6 +51,7 @@ class InformationDetailActivity :
         observeLoadingEnd()
         clickInfoPostMenu()
         floatBadUserDialog()
+        changeRegisterBtn()
     }
     //로딩 종료
     private fun observeLoadingEnd() {
@@ -75,6 +78,25 @@ class InformationDetailActivity :
         }
     }
 
+    //답글 작성 중 종이비행기 색상 변경
+    private fun changeRegisterBtn(){
+        binding.etInformationComment.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(s.isNullOrEmpty()){
+                    binding.imgInformationCommentComplete.setBackgroundColor(getColor(R.color.gray_2))
+                }else{
+                    binding.imgInformationCommentComplete.setBackgroundColor(getColor(R.color.main_default))
+                }
+            }
+        })
+    }
 
 
     //안꺼지게 조절
