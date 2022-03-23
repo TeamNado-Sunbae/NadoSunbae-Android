@@ -57,6 +57,7 @@ class SignUpMajorInfoActivity :
         secondMajor()
 
         changeNext()
+
     }
 
     //X버튼 클릭 리스너
@@ -75,6 +76,7 @@ class SignUpMajorInfoActivity :
 
         }
     }
+
     private fun moveBeforePage() {
         binding.clSignupMajorInfoMoveBefore.setOnClickListener {
             startActivity(Intent(this, SignUpAgreementActivity::class.java))
@@ -87,10 +89,19 @@ class SignUpMajorInfoActivity :
     private fun nextBtnActivate() {
         binding.clSignupMajorInfoMoveNext.setOnClickListener {
             val intent = Intent(this, SignUpBasicInfoActivity::class.java)
-            intent.putExtra("firstMajorId", firstDepartmentBottomSheetDialog.getSelectedData()?.id!!)
+            intent.putExtra(
+                "firstMajorId",
+                firstDepartmentBottomSheetDialog.getSelectedData()?.id!!
+            )
             intent.putExtra("firstMajorStart", binding.textSignupMajorinfoMajorTime.text.toString())
-            intent.putExtra("secondMajorId", secondDepartmentBottomSheetDialog.getSelectedData()?.id!!)
-            intent.putExtra("secondMajorStart", binding.textSignupMajorinfoDoubleMajorTime.text.toString())
+            intent.putExtra(
+                "secondMajorId",
+                secondDepartmentBottomSheetDialog.getSelectedData()?.id!!
+            )
+            intent.putExtra(
+                "secondMajorStart",
+                binding.textSignupMajorinfoDoubleMajorTime.text.toString()
+            )
             startActivity(intent)
             finish()
         }
@@ -280,13 +291,39 @@ class SignUpMajorInfoActivity :
     }
 
 
+    //전공 중복 체크
+    private fun checkMajor() {
+        if (signViewModel.secondMajor.value.toString() == "미진입") {
+
+        }
+
+        else if (signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString() &&
+            binding.textSignupMajorinfoMajorTime.text != "선택하기" && binding.textSignupMajorinfoDoubleMajorTime.text != "선택하기"
+        ) {
+            binding.clSignupMajorInfoMoveNext.isSelected = true
+            binding.textSignupMajorInfoNext.isSelected = true
+        }
+
+        else {
+            binding.clSignupMajorInfoMoveNext.isSelected = false
+            binding.textSignupMajorInfoNext.isSelected = false
+        }
+
+    }
+
+
     //다음 버튼 변경
-    private fun changeNext(){
-        signUpBasicInfoViewModel.selectedAll.observe(this){
+    private fun changeNext() {
+        signUpBasicInfoViewModel.selectedAll.observe(this) {
             binding.clSignupMajorInfoMoveNext.isSelected = it
             binding.textSignupMajorInfoNext.isSelected = it
-            if(binding.clSignupMajorInfoMoveNext.isSelected && binding.textSignupMajorInfoNext.isSelected) {
+
+            checkMajor()
+
+            if (binding.clSignupMajorInfoMoveNext.isSelected && binding.textSignupMajorInfoNext.isSelected) {
                 nextBtnActivate()
+            } else {
+                binding.clSignupMajorInfoMoveNext.isClickable = false
             }
         }
     }
