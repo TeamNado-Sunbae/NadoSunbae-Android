@@ -3,11 +3,14 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityQuestionDetailBinding
@@ -52,7 +55,7 @@ class QuestionDetailActivity :
         reportToast()
         onQuestion()
         observeLoadingEnd()
-
+        changeRegisterBtn()
     }
 
 
@@ -157,8 +160,25 @@ class QuestionDetailActivity :
                 }
             }
         )
-
     }
+
+    //답글 작성 중 종이비행기 색상 변경
+    private fun changeRegisterBtn(){
+        binding.etQuestionComment.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.imgQuestionCommentComplete.isSelected = !s.isNullOrEmpty()
+            }
+        })
+    }
+
+
 
     // 전체 질문 상세 댓글 등록
     private fun registerComment(postId: Int) {

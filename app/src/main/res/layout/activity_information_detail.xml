@@ -200,6 +200,8 @@
                         android:fontFamily="@font/pretendard_regular"
                         android:text="@{informationDetail.content}"
                         android:lineHeight="22sp"
+                        android:linksClickable="true"
+                        android:autoLink="web"
                         android:textColor="@color/main_text"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/text_information_detail_question_title"
@@ -323,7 +325,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/btn_send"
+                android:background="@drawable/selector_send"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
