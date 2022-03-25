@@ -15,7 +15,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SeniorPersonalActivity : BaseActivity<ActivitySeniorPersonalBinding>(R.layout.activity_senior_personal) {
 
-    private val fragment = SeniorPersonalFragment()
+    private val fragment = SeniorPersonalFragment().apply {
+        isActivity = true
+    }
     private val mainViewModel: MainViewModel by viewModel()
 
     private var seniorId: Int = 0
