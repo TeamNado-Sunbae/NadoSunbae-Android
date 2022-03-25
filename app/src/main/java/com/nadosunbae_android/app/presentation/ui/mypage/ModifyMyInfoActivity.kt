@@ -67,7 +67,6 @@ class ModifyMyInfoActivity :
         backBtnClick()
         observeModifyResult()
         observeEditFinish()
-        //initActiveSaveBtn()
 
     }
 
@@ -435,7 +434,6 @@ class ModifyMyInfoActivity :
                 binding.textMyPageMajorinfoDoubleMajorTime.text.toString() != "선택하기"
 
         }
-        Timber.d("test2")
     }
 
 
@@ -445,12 +443,10 @@ class ModifyMyInfoActivity :
             binding.textMyPageSave.isSelected = true
             binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_main_black_8)
             binding.textMyPageSave.setTextColor(Color.parseColor("#DFF6F4"))
-            Timber.d("test3")
 
             if (binding.textMyPageSave.isSelected) {
                 binding.textMyPageSave.setOnClickListener {
                     confirmExit()
-                    Timber.d("test4")
                 }
             } else {
                 binding.textMyPageSave.isClickable = false
@@ -460,7 +456,6 @@ class ModifyMyInfoActivity :
             binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
             binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
             binding.textMyPageSave.isClickable = false
-            Timber.d("test5")
         }
     }
 
@@ -470,7 +465,6 @@ class ModifyMyInfoActivity :
         binding.imgMypageModifyTitle.setOnClickListener {
             if (binding.textMyPageSave.isSelected) {
                 confirmBack()
-                Timber.d("test6")
             } else {
                 finish()
             }
@@ -501,7 +495,6 @@ class ModifyMyInfoActivity :
                 textMyPageMajorinfoDoubleMajorTime.text.toString(),
                 binding.imgMyPageModifySwitch.isSelected
             )
-            Timber.d("test10")
             myPageViewModel.putMyPageModify(requestBody)
         }
     }
