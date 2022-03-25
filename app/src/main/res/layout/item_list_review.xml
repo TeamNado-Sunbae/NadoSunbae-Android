@@ -183,48 +183,38 @@
                 android:layout_marginEnd="4dp"
                 tools:text="@string/review_example_nickname" />
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/fl_review_writer_major"
+            <TextView
+                android:id="@+id/tv_first_major"
+                majorName="@{previewData.firstMajorName}"
+                majorStart="@{previewData.firstMajorStart}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:flexWrap="wrap"
-                app:alignItems="center">
+                android:fontFamily="@font/pretendard_medium"
+                android:textColor="@color/gray_2"
+                android:textSize="12sp"
+                tools:text="@string/review_example_first_major" />
 
-                <TextView
-                    android:id="@+id/tv_first_major"
-                    majorName="@{previewData.firstMajorName}"
-                    majorStart="@{previewData.firstMajorStart}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/pretendard_medium"
-                    android:textColor="@color/gray_2"
-                    android:textSize="12sp"
-                    tools:text="@string/review_example_first_major" />
+            <View
+                android:id="@+id/view_line_vertical"
+                android:layout_width="1dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/gray_1"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_first_major"
+                app:layout_constraintStart_toEndOf="@+id/tv_first_major"
+                app:layout_constraintTop_toTopOf="@+id/tv_first_major" />
 
-                <View
-                    android:id="@+id/view_line_vertical"
-                    android:layout_width="1dp"
-                    android:layout_height="18dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/gray_1"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_first_major"
-                    app:layout_constraintStart_toEndOf="@+id/tv_first_major"
-                    app:layout_constraintTop_toTopOf="@+id/tv_first_major" />
-
-                <TextView
-                    android:id="@+id/tv_second_major"
-                    majorName="@{previewData.secondMajorName}"
-                    majorStart="@{previewData.secondMajorStart}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/pretendard_medium"
-                    android:textColor="@color/gray_2"
-                    android:textSize="12sp"
-                    tools:text="@string/review_example_second_major" />
-            </com.google.android.flexbox.FlexboxLayout>
-
-
+            <TextView
+                android:id="@+id/tv_second_major"
+                majorName="@{previewData.secondMajorName}"
+                majorStart="@{previewData.secondMajorStart}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_medium"
+                android:textColor="@color/gray_2"
+                android:textSize="12sp"
+                tools:text="@string/review_example_second_major" />
 
         </com.google.android.flexbox.FlexboxLayout>
 
