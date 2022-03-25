@@ -34,7 +34,7 @@ class SeniorPersonalFragment :
 
     private val seniorPersonalViewModel: SeniorPersonalViewModel by viewModel()
 
-
+    var isActivity = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -110,7 +110,10 @@ class SeniorPersonalFragment :
     //뒤로가기
     private fun goSeniorFragment() {
         binding.imgSeniorPersonalTitle.setOnClickListener {
-            mainViewModel.classRoomFragmentNum.value = 7
+            if (isActivity)
+                requireActivity().finish()
+            else
+                mainViewModel.classRoomFragmentNum.value = 7
         }
 
     }
