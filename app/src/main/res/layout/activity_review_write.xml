@@ -255,7 +255,7 @@
                         android:textColor="@color/main_text"
                         android:lines="2"
                         android:textColorHint="@color/gray_2"
-                        android:lineHeight="22sp"
+                        android:lineSpacingExtra="4sp"
                         android:gravity="top"
                         android:letterSpacing="-0.009"
                         app:layout_constraintEnd_toEndOf="parent"

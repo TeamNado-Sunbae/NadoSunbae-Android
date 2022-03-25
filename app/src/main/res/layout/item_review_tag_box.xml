@@ -51,7 +51,7 @@
             android:fontFamily="@font/pretendard_regular"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
-            android:lineHeight="22sp"
+            android:lineSpacingExtra="4sp"
             android:letterSpacing="-0.009"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="24dp"
