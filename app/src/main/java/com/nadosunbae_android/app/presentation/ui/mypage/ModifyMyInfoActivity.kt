@@ -162,7 +162,6 @@ class ModifyMyInfoActivity :
             .observe(this) {
                 binding.textMyPageMajorinfoMajor.setText(it)
                 binding.textMyPageMajorinfoMajor.text = it
-
             }
     }
 
@@ -202,7 +201,6 @@ class ModifyMyInfoActivity :
             }
             signViewModel.firstMajorPeriod.observe(this) {
                 binding.textMyPageMajorinfoMajorTime.setText(it)
-
             }
         }
     }
