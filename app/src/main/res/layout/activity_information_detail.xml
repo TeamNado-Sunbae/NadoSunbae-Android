@@ -199,7 +199,7 @@
                         android:layout_marginTop="32dp"
                         android:fontFamily="@font/pretendard_regular"
                         android:text="@{informationDetail.content}"
-                        android:lineHeight="22sp"
+                        android:lineSpacingExtra="4sp"
                         android:linksClickable="true"
                         android:autoLink="web"
                         android:textColor="@color/main_text"

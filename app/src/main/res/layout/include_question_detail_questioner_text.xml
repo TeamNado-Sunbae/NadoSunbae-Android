@@ -141,7 +141,7 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:lineHeight="22sp"
+                android:lineSpacingExtra="4sp"
                 android:autoLink="web"
                 android:linksClickable="true"
                 app:layout_constraintStart_toStartOf="parent"
