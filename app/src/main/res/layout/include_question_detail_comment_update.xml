@@ -94,14 +94,13 @@
                     android:id="@+id/line_question_detail_writer_comment"
                     android:layout_width="1dp"
                     android:layout_height="18dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginHorizontal="8dp"
                     android:background="@color/gray_1" />
 
                 <LinearLayout
                     android:id="@+id/ll_comment_update_second_major"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:orientation="horizontal">
 
                     <TextView
