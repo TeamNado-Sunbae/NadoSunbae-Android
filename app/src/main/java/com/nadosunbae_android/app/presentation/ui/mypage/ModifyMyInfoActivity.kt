@@ -161,7 +161,6 @@ class ModifyMyInfoActivity :
             .observe(this) {
                 binding.textMyPageMajorinfoMajor.setText(it)
                 binding.textMyPageMajorinfoMajor.text = it
-                binding.textMyPageMajorinfoMajorMint.text = "변경"
                 initActiveSaveBtn()
             }
     }
@@ -201,7 +200,6 @@ class ModifyMyInfoActivity :
             }
             signViewModel.firstMajorPeriod.observe(this) {
                 binding.textMyPageMajorinfoMajorTime.setText(it)
-                binding.textMyPageMajorinfoMajorTimeMint.text = "변경"
                 initActiveSaveBtn()
             }
         }
@@ -283,7 +281,6 @@ class ModifyMyInfoActivity :
                 binding.textMyPageMajorinfoDoubleMajorTime.setText(it)
                 binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
                 binding.textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#00C8B0"))
-                binding.textMyPageMajorinfoDoubleMajorMintTime.text = "변경"
                 initActiveSaveBtn()
             }
         }

@@ -205,9 +205,10 @@
                         android:text="@{myPageInfo.Data.firstMajorName}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/view_my_page_bar1"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_my_page_first_major"
                         app:layout_constraintStart_toEndOf="@+id/view_my_page_bar1"
-                        app:layout_constraintTop_toTopOf="@+id/view_my_page_bar1" />
+                        app:layout_constraintTop_toTopOf="@+id/text_my_page_first_major"
+                        tools:text="본전공명" />
 
 
                     <TextView
@@ -219,6 +220,7 @@
                         android:text="@{myPageInfo.Data.firstMajorStart}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
+                        tools:text="진입시기"
                         app:layout_constraintBottom_toBottomOf="@+id/text_my_page_first_major_name"
                         app:layout_constraintStart_toEndOf="@+id/text_my_page_first_major_name"
                         app:layout_constraintTop_toTopOf="@+id/text_my_page_first_major_name" />
@@ -230,6 +232,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/pretendard_regular"
                         android:text="@string/mypage_second_major"
+                        android:layout_marginTop="1dp"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="@+id/text_my_page_first_major"
@@ -255,9 +258,10 @@
                         android:text="@{myPageInfo.Data.secondMajorName}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/view_my_page_bar2"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_my_page_second_major"
                         app:layout_constraintStart_toEndOf="@+id/view_my_page_bar2"
-                        app:layout_constraintTop_toTopOf="@+id/view_my_page_bar2" />
+                        app:layout_constraintTop_toTopOf="@+id/text_my_page_second_major"
+                        tools:text="제 2전공" />
 
 
                     <TextView
@@ -269,6 +273,7 @@
                         android:text="@{myPageInfo.Data.secondMajorStart}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
+                        tools:text="진입시기"
                         app:layout_constraintBottom_toBottomOf="@+id/text_my_page_second_major_name"
                         app:layout_constraintStart_toEndOf="@+id/text_my_page_second_major_name"
                         app:layout_constraintTop_toTopOf="@+id/text_my_page_second_major_name" />
@@ -449,7 +454,7 @@
                     android:textColor="@color/gray_3"
                     android:textSize="14sp"
                     android:visibility="gone"
-                    android:layout_marginTop="120dp"
+                    android:layout_marginTop="100dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
