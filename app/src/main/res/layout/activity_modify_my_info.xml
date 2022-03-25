@@ -55,7 +55,7 @@
                 android:id="@+id/text_my_page_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_rectangle_gray_to_main_black_8 "
+                android:background="@drawable/selector_rectangle_gray_to_main_black_8"
                 android:fontFamily="@font/pretendard_medium"
                 android:includeFontPadding="false"
                 android:paddingLeft="14dp"

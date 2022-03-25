@@ -85,7 +85,7 @@ class ModifyMyInfoActivity :
     }
 
     //기존 데이터 불러오기
-    private fun initWriteMode(){
+    private fun initWriteMode() {
         mainViewModel.signData.observe(this) {
             myPageViewModel.getPersonalInfo(it.userId)
         }
@@ -356,7 +356,11 @@ class ModifyMyInfoActivity :
 
     //닉네임 정규식
     private fun isNickNamePattern() {
-        if (!Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", binding.etMyPageNickname.text.toString())) {
+        if (!Pattern.matches(
+                "^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$",
+                binding.etMyPageNickname.text.toString()
+            )
+        ) {
             binding.textMyPageNicknameTitle.isSelected = true
             signUpBasicInfoViewModel.nicknameDuplicationCheck.observe(this) {
                 binding.textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
@@ -376,7 +380,7 @@ class ModifyMyInfoActivity :
 
             override fun afterTextChanged(p0: Editable?) {
 
-                if(!textMyPageNicknameTitle.isSelected) {
+                if (!textMyPageNicknameTitle.isSelected) {
                     nicknameDuplication()
                 }
 
@@ -410,8 +414,7 @@ class ModifyMyInfoActivity :
                 Timber.d("닉네임 중복확인: 실패")
                 binding.textMyPageModifyNicknameDuplicaitionOk.isVisible = false
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = true
-            }
-            else if (it.success) {
+            } else if (it.success) {
                 Timber.d("닉네임 중복확인: 성공")
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = false
                 binding.textMyPageModifyNicknameDuplicaitionOk.isVisible = true
@@ -426,7 +429,7 @@ class ModifyMyInfoActivity :
 
     //2전공 미진입 분기처리
     private fun saveBtn() {
-        if(binding.textMyPageMajorinfoDoubleMajor.text.toString() != "미진입") {
+        if (binding.textMyPageMajorinfoDoubleMajor.text.toString() != "미진입") {
             binding.textMyPageSave.isSelected =
                 binding.textMyPageMajorinfoDoubleMajorTime.text.toString() != "선택하기"
 
@@ -445,39 +448,24 @@ class ModifyMyInfoActivity :
             Timber.d("test4: ${signViewModel.secondMajor.value.toString()}")
 
             binding.textMyPageSave.isSelected = true
+
+            binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_main_black_8)
+            binding.textMyPageSave.setTextColor(Color.parseColor("#DFF6F4"))
+
+
             if (binding.textMyPageSave.isSelected) {
                 binding.textMyPageSave.setOnClickListener {
                     confirmExit()
                 }
             }
-        }
-        else {
+        } else {
+            binding.textMyPageSave.isSelected = false
+            binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
+            binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
             Timber.d("test5: ${signViewModel.firstMajor.value.toString()}")
             Timber.d("test6: ${signViewModel.secondMajor.value.toString()}")
-            binding.textMyPageSave.isSelected = false
-            binding.textMyPageSave
         }
     }
-
-
-    //전공 중복 체크
-    private fun checkMajor() {
-        if (signViewModel.secondMajor.value.toString() == "미진입") {
-//            binding.textMyPageSave.isSelected = true
-        }
-
-        else if (signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString() &&
-            binding.textMyPageMajorinfoMajorTime.text != "선택하기" && binding.textMyPageMajorinfoDoubleMajorTime.text != "선택하기"
-        ) {
-//            binding.textMyPageSave.isSelected = true
-        }
-
-        else {
-            binding.textMyPageSave.isSelected = false
-        }
-
-    }
-
 
 
     //뒤로가기 버튼 클릭 리스너
@@ -566,12 +554,17 @@ class ModifyMyInfoActivity :
             myPageViewModel.getMajorName(isFirstMajor = true, it.data.firstMajorId)
         }
         myPageViewModel.firstMajorName.observe(this) {
-            myPageViewModel.getMajorName(isFirstMajor = false, myPageViewModel.modifyInfo.value?.data?.secondMajorId ?: 1)
+            myPageViewModel.getMajorName(
+                isFirstMajor = false,
+                myPageViewModel.modifyInfo.value?.data?.secondMajorId ?: 1
+            )
         }
         myPageViewModel.secondMajorName.observe(this) {
-            ReviewGlobals.firstMajor!!.majorId = myPageViewModel.modifyInfo.value?.data?.firstMajorId ?: 1
+            ReviewGlobals.firstMajor!!.majorId =
+                myPageViewModel.modifyInfo.value?.data?.firstMajorId ?: 1
             ReviewGlobals.firstMajor!!.majorName = myPageViewModel.firstMajorName.value ?: ""
-            ReviewGlobals.secondMajor!!.majorId = myPageViewModel.modifyInfo.value?.data?.secondMajorId ?: 1
+            ReviewGlobals.secondMajor!!.majorId =
+                myPageViewModel.modifyInfo.value?.data?.secondMajorId ?: 1
             ReviewGlobals.secondMajor!!.majorName = myPageViewModel.secondMajorName.value ?: ""
             myPageViewModel.editFinish()
         }
