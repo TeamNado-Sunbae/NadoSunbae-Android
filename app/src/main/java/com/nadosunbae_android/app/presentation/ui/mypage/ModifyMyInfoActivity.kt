@@ -33,6 +33,7 @@ import kotlinx.android.synthetic.main.item_mypage_block.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.regex.Pattern
+import kotlin.math.sign
 
 
 class ModifyMyInfoActivity :
@@ -66,6 +67,7 @@ class ModifyMyInfoActivity :
         backBtnClick()
         observeModifyResult()
         observeEditFinish()
+        initActiveSaveBtn()
 
     }
 
@@ -92,6 +94,12 @@ class ModifyMyInfoActivity :
         myPageViewModel.personalInfo.observe(this) {
             binding.myPageInfo = it
             Timber.d("서버통신 : 성공")
+
+            signViewModel.firstMajor.value = it.data.firstMajorName
+            signViewModel.secondMajor.value = it.data.secondMajorName
+            Timber.d("test : ${signViewModel.firstMajor.value}")
+            Timber.d("test : ${signViewModel.secondMajor.value}")
+
 
             binding.apply {
                 if (it.data.secondMajorName == "미진입") {
@@ -129,6 +137,7 @@ class ModifyMyInfoActivity :
 
     //제 1전공 학과 선택 바텀시트
     private fun firstMajor() {
+
         binding.textMyPageMajorinfoMajorMint.setOnClickListener {
             firstDepartmentBottomSheetDialog.show(
                 supportFragmentManager,
@@ -231,6 +240,7 @@ class ModifyMyInfoActivity :
                 binding.textMyPageMajorinfoDoubleMajor.text = it
                 binding.textMyPageMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
                 binding.textMyPageMajorinfoDoubleMajorMint.text = "변경"
+                initActiveSaveBtn()
             }
 
     }
@@ -426,7 +436,14 @@ class ModifyMyInfoActivity :
 
     // 저장 버튼 활성화
     private fun initActiveSaveBtn() {
-        if (!binding.textMyPageModifyNicknameDuplicaitionNo.isVisible && !binding.textMyPageNicknameTitle.isSelected) {
+        Timber.d("test: ${signViewModel.firstMajor.value.toString()}")
+        Timber.d("test2 ${signViewModel.secondMajor.value.toString()}")
+
+        if (!binding.textMyPageModifyNicknameDuplicaitionNo.isVisible && !binding.textMyPageNicknameTitle.isSelected && signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString()) {
+
+            Timber.d("test3: ${signViewModel.firstMajor.value.toString()}")
+            Timber.d("test4: ${signViewModel.secondMajor.value.toString()}")
+
             binding.textMyPageSave.isSelected = true
             if (binding.textMyPageSave.isSelected) {
                 binding.textMyPageSave.setOnClickListener {
@@ -434,7 +451,33 @@ class ModifyMyInfoActivity :
                 }
             }
         }
+        else {
+            Timber.d("test5: ${signViewModel.firstMajor.value.toString()}")
+            Timber.d("test6: ${signViewModel.secondMajor.value.toString()}")
+            binding.textMyPageSave.isSelected = false
+            binding.textMyPageSave
+        }
     }
+
+
+    //전공 중복 체크
+    private fun checkMajor() {
+        if (signViewModel.secondMajor.value.toString() == "미진입") {
+//            binding.textMyPageSave.isSelected = true
+        }
+
+        else if (signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString() &&
+            binding.textMyPageMajorinfoMajorTime.text != "선택하기" && binding.textMyPageMajorinfoDoubleMajorTime.text != "선택하기"
+        ) {
+//            binding.textMyPageSave.isSelected = true
+        }
+
+        else {
+            binding.textMyPageSave.isSelected = false
+        }
+
+    }
+
 
 
     //뒤로가기 버튼 클릭 리스너
