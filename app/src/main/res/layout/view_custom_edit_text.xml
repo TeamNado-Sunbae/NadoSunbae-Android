@@ -15,7 +15,7 @@
         android:hint="@string/review_write_hint_content"
         android:letterSpacing="-0.009"
         style="@style/scroll_custom"
-        android:lineHeight="22sp"
+        android:lineSpacingExtra="4sp"
         android:lines="4"
         android:paddingVertical="16dp"
         android:paddingStart="12dp"

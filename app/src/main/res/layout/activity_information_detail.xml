@@ -56,9 +56,9 @@
                 android:id="@+id/img_inforamtion_detail_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/btn_more_vert"
-                android:layout_marginTop="56dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -66,11 +66,11 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:fillViewport="true"
             app:layout_constraintBottom_toTopOf="@+id/cl_information_detail_comment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_information_detail"
-            android:fillViewport="true">
+            app:layout_constraintTop_toBottomOf="@+id/cl_information_detail">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_information_scroll"
@@ -79,15 +79,14 @@
                 android:background="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cl_information_detail"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/cl_information_detail">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_information_detail_question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="20dp"
                     android:background="@color/white"
+                    android:paddingBottom="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -100,8 +99,8 @@
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/pretendard_semibold"
-                        android:text="@{informationDetail.title}"
                         android:lineHeight="30sp"
+                        android:text="@{informationDetail.title}"
                         android:textColor="@color/main_default"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -119,94 +118,95 @@
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_title"
                         app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_title"
-                        tools:text="111"/>
+                        tools:text="111" />
 
-                    <TextView
-                        android:id="@+id/text_information_detail_question_major"
-                        android:layout_width="wrap_content"
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/fl_information_detail_question_major"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:fontFamily="@font/pretendard_medium"
-                        android:lineHeight="18sp"
-                        android:text="@{informationDetail.firstMajorName}"
-                        android:textColor="@color/gray_2"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_name"
+                        app:flexWrap="wrap"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_name"
-                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_name"
-                        tools:text="111" />
+                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_name">
 
-                    <TextView
-                        android:id="@+id/text_information_detail_question_major_start"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:fontFamily="@font/pretendard_medium"
-                        android:lineHeight="18sp"
-                        android:text="@{informationDetail.firstMajorStart}"
-                        android:textColor="@color/gray_2"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_major"
-                        app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_major"
-                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_major"
-                        tools:text="111" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-                    <View
-                        android:id="@+id/line_information_detail_question"
-                        android:layout_width="1dp"
-                        android:layout_height="18dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/gray_1"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_major_start"
-                        app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_major_start"
-                        app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_title" />
+                            <TextView
+                                android:id="@+id/text_information_detail_question_major"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:text="@{informationDetail.firstMajorName}"
+                                android:textColor="@color/gray_2"
+                                android:textSize="12sp"
+                                tools:text="111" />
 
-                    <TextView
-                        android:id="@+id/text_information_detail_question_second_major"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/pretendard_medium"
-                        android:lineHeight="18sp"
-                        android:text="@{informationDetail.secondMajorName}"
-                        android:textColor="@color/gray_2"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_major_start"
-                        app:layout_constraintStart_toEndOf="@+id/line_information_detail_question"
-                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_major_start"
-                        tools:text="111" />
+                            <TextView
+                                android:id="@+id/text_information_detail_question_major_start"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:layout_marginStart="4dp"
+                                android:text="@{informationDetail.firstMajorStart}"
+                                android:textColor="@color/gray_2"
+                                android:textSize="12sp"
+                                tools:text="111" />
+                        </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/text_information_detail_question_second_major_start"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:fontFamily="@font/pretendard_medium"
-                        android:lineHeight="18sp"
-                        android:text="@{informationDetail.secondMajorStart}"
-                        android:textColor="@color/gray_2"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_information_detail_question_second_major"
-                        app:layout_constraintStart_toEndOf="@+id/text_information_detail_question_second_major"
-                        app:layout_constraintTop_toTopOf="@+id/text_information_detail_question_second_major"
-                        tools:text="111" />
+                        <View
+                            android:id="@+id/line_information_detail_question"
+                            android:layout_width="1dp"
+                            android:layout_height="18dp"
+                            android:layout_marginHorizontal="8dp"
+                            android:background="@color/gray_1"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_information_detail_question_second_major"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:text="@{informationDetail.secondMajorName}"
+                                android:textColor="@color/gray_2"
+                                android:textSize="12sp"
+                                tools:text="111" />
+
+                            <TextView
+                                android:id="@+id/text_information_detail_question_second_major_start"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:layout_marginStart="4dp"
+                                android:text="@{informationDetail.secondMajorStart}"
+                                android:textColor="@color/gray_2"
+                                android:textSize="12sp"
+                                tools:text="111" />
+                        </LinearLayout>
+                    </com.google.android.flexbox.FlexboxLayout>
 
                     <TextView
                         android:id="@+id/text_information_detail_question_content"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:text="@{informationDetail.content}"
-                        android:lineHeight="22sp"
-                        android:linksClickable="true"
                         android:autoLink="web"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:lineSpacingExtra="4sp"
+                        android:linksClickable="true"
+                        android:text="@{informationDetail.content}"
                         android:textColor="@color/main_text"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/text_information_detail_question_title"
                         app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_title"
-                        app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_second_major_start" />
+                        app:layout_constraintTop_toBottomOf="@+id/fl_information_detail_question_major" />
 
                     <TextView
                         android:id="@+id/text_information_detail_question_time"
@@ -227,6 +227,7 @@
                         setSelected="@{informationDetail.liked}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="34dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/selector_ic_btn_like"
                         android:drawableStart="@drawable/selector_icon_like"
@@ -237,7 +238,6 @@
                         android:paddingTop="4dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="4dp"
-                        android:layout_marginTop="34dp"
                         android:textColor="@drawable/selector_gray_2_to_main_default"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -249,12 +249,11 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_information_detail_question_comment"
                     android:layout_width="match_parent"
-                    android:layout_height= "wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@color/background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_information_detail_question"
-                    >
+                    app:layout_constraintTop_toBottomOf="@+id/cl_information_detail_question">
 
                     <TextView
                         android:id="@+id/text_information_detail_question_comment_count"
@@ -267,8 +266,7 @@
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        />
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -278,8 +276,8 @@
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"

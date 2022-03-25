@@ -49,75 +49,94 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/text_question_detail_writer_comment_major"
-                android:layout_width="wrap_content"
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/fl_comment_writer_major"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{questionDetailWriterComment.firstMajorName}"
-                android:textSize="12sp"
-                android:textColor="@color/gray_2"
-                android:lineHeight="18sp"
                 app:layout_constraintTop_toBottomOf="@+id/text_question_detail_writer_comment_name"
                 app:layout_constraintStart_toStartOf="@+id/text_question_detail_writer_comment_name"
-                android:layout_marginTop="4dp"
-                tools:text="11111"
-                android:fontFamily="@font/pretendard_medium" />
+                app:layout_constraintEnd_toEndOf="@id/img_question_detail_writer_comment_menu"
+                app:flexWrap="wrap"
+                android:layout_marginTop="4dp">
 
-            <TextView
-                android:id="@+id/text_question_detail_writer_comment_start_major"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:fontFamily="@font/pretendard_regular"
-                android:lineHeight="18sp"
-                android:text="@{questionDetailWriterComment.firstMajorStart}"
-                android:textColor="@color/gray_2"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_question_detail_writer_comment_major"
-                app:layout_constraintStart_toEndOf="@+id/text_question_detail_writer_comment_major"
-                app:layout_constraintTop_toTopOf="@+id/text_question_detail_writer_comment_major"
-                tools:text="11111" />
+                <LinearLayout
+                    android:id="@+id/ll_first_major"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            <View
-                android:id="@+id/line_question_detail_writer_comment"
-                android:layout_width="1dp"
-                android:layout_height="18dp"
-                android:background="@color/gray_1"
-                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_writer_comment_name"
-                app:layout_constraintStart_toEndOf="@+id/text_question_detail_writer_comment_start_major"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="8dp" />
+                    <TextView
+                        android:id="@+id/text_question_detail_writer_comment_major"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{questionDetailWriterComment.firstMajorName}"
+                        android:textSize="12sp"
+                        android:textColor="@color/gray_2"
+                        android:lineHeight="18sp"
+                        android:layout_gravity="center"
+                        tools:text="11111"
+                        android:fontFamily="@font/pretendard_medium" />
 
-            <TextView
-                android:id="@+id/text_question_detail_writer_comment_second_major"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/pretendard_medium"
-                android:lineHeight="18sp"
-                android:text="@{questionDetailWriterComment.secondMajorName}"
-                android:textColor="@color/gray_2"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_question_detail_writer_comment_start_major"
-                app:layout_constraintStart_toEndOf="@+id/line_question_detail_writer_comment"
-                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_writer_comment_name"
-                tools:text="11111" />
+                    <TextView
+                        android:id="@+id/text_question_detail_writer_comment_start_major"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:lineHeight="18sp"
+                        android:text="@{questionDetailWriterComment.firstMajorStart}"
+                        android:textColor="@color/gray_2"
+                        android:textSize="12sp"
+                        tools:text="11111" />
 
-            <TextView
-                android:id="@+id/text_question_detail_writer_comment_second_start_major"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:fontFamily="@font/pretendard_regular"
-                android:lineHeight="18sp"
-                android:text="@{questionDetailWriterComment.secondMajorStart}"
-                android:textColor="@color/gray_2"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_question_detail_writer_comment_second_major"
-                app:layout_constraintStart_toEndOf="@+id/text_question_detail_writer_comment_second_major"
-                app:layout_constraintTop_toTopOf="@+id/text_question_detail_writer_comment_second_major"
-                tools:text="11111" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/line_question_detail_writer_comment"
+                    android:layout_width="1dp"
+                    android:layout_height="18dp"
+                    android:background="@color/gray_1"
+                    app:layout_constraintTop_toTopOf="@id/ll_first_major"
+                    app:layout_constraintBottom_toBottomOf="@id/ll_first_major"
+                    app:layout_constraintStart_toEndOf="@+id/ll_first_major"
+                    android:layout_marginHorizontal="8dp"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_second_major"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/text_question_detail_writer_comment_second_major"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:lineHeight="18sp"
+                        android:text="@{questionDetailWriterComment.secondMajorName}"
+                        android:textColor="@color/gray_2"
+                        android:textSize="12sp"
+                        tools:text="1111sdfjdsklfjdslfjdsfilsjflsdlfjsfjsdalijf1" />
+
+                    <TextView
+                        android:id="@+id/text_question_detail_writer_comment_second_start_major"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:lineHeight="18sp"
+                        android:text="@{questionDetailWriterComment.secondMajorStart}"
+                        android:textColor="@color/gray_2"
+                        android:textSize="12sp"
+                        tools:text="11111" />
+
+                </LinearLayout>
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+
 
             <TextView
                 android:id="@+id/text_question_detail_writer_comment_content"
@@ -127,12 +146,12 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:lineHeight="22sp"
+                android:lineSpacingExtra="4sp"
                 android:autoLink="web"
                 android:linksClickable="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_question_detail_writer_comment_second_start_major"
+                app:layout_constraintTop_toBottomOf="@+id/fl_comment_writer_major"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="24dp" />
