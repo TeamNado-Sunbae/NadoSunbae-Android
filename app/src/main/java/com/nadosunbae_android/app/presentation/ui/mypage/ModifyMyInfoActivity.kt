@@ -86,6 +86,9 @@ class ModifyMyInfoActivity :
 
     //기존 데이터 불러오기
     private fun initWriteMode() {
+        binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
+        binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
+
         mainViewModel.signData.observe(this) {
             myPageViewModel.getPersonalInfo(it.userId)
         }
@@ -436,31 +439,23 @@ class ModifyMyInfoActivity :
 
     // 저장 버튼 활성화
     private fun initActiveSaveBtn() {
-        Timber.d("test: ${signViewModel.firstMajor.value.toString()}")
-        Timber.d("test2 ${signViewModel.secondMajor.value.toString()}")
-
         if (!binding.textMyPageModifyNicknameDuplicaitionNo.isVisible && !binding.textMyPageNicknameTitle.isSelected && signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString()) {
-
-            Timber.d("test3: ${signViewModel.firstMajor.value.toString()}")
-            Timber.d("test4: ${signViewModel.secondMajor.value.toString()}")
-
             binding.textMyPageSave.isSelected = true
-
             binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_main_black_8)
             binding.textMyPageSave.setTextColor(Color.parseColor("#DFF6F4"))
-
 
             if (binding.textMyPageSave.isSelected) {
                 binding.textMyPageSave.setOnClickListener {
                     confirmExit()
                 }
+            } else {
+                binding.textMyPageSave.isClickable = false
             }
         } else {
             binding.textMyPageSave.isSelected = false
             binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
             binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
-            Timber.d("test5: ${signViewModel.firstMajor.value.toString()}")
-            Timber.d("test6: ${signViewModel.secondMajor.value.toString()}")
+            binding.textMyPageSave.isClickable = false
         }
     }
 
