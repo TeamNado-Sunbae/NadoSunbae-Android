@@ -6,7 +6,6 @@ import android.content.IntentSender
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.snackbar.Snackbar
@@ -18,15 +17,12 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySplashBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.SplashViewModel
 import com.nadosunbae_android.app.presentation.ui.onboarding.OnBoardingActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
-import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -35,18 +31,15 @@ import timber.log.Timber
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 
     private val splashViewModel : SplashViewModel by viewModel()
-
     private var loginSuccess = false
     private var notification = -1
     private lateinit var appUpdateManager: AppUpdateManager
 
-    //업데이트 상태 확인인
-    var installStateUpdatedListener: InstallStateUpdatedListener = object : InstallStateUpdatedListener {
+    //업데이트 상태 확인
+    private var installStateUpdatedListener: InstallStateUpdatedListener = object : InstallStateUpdatedListener {
         override fun onStateUpdate(state: InstallState) {
-
             if (state.installStatus() == InstallStatus.DOWNLOADED) {
                 popupSnackbarForCompleteUpdate()
-
             } else if (state.installStatus() == InstallStatus.INSTALLED) {
                 if (appUpdateManager != null) {
                     appUpdateManager?.unregisterListener(this)
@@ -60,12 +53,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setupTimber()
+        updateVersion()
+        divisionUpdateAvailability()
         observeSignIn()
         autoLogin()
-        startLoading()
-        updateVersion()
+
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
             Timber.d("푸쉬 알림 백그라운드에서")
@@ -74,25 +67,35 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
 
     }
+    //업데이트 구분
+    private fun divisionUpdateAvailability(){
+        splashViewModel.updateAvailability.observe(this){
+            if(!it){
+                startLoading()
+            }
+        }
+    }
+
+
 
     //버전 업데이트
     private fun updateVersion() {
         appUpdateManager = AppUpdateManagerFactory.create(this)
-        val appUpdateInfoTask = appUpdateManager?.appUpdateInfo
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
 
-        appUpdateManager?.registerListener(installStateUpdatedListener)
+        appUpdateManager.registerListener(installStateUpdatedListener)
 
-        appUpdateInfoTask?.addOnSuccessListener { appUpdateInfo ->
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
 
             when (appUpdateInfo.updateAvailability()) {
                 UpdateAvailability.UPDATE_AVAILABLE -> {
                     appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
-
+                    splashViewModel.updateAvailability.value = true
                     requestUpdate(appUpdateInfo)
                 }
 
                 else -> {
-
+                    splashViewModel.updateAvailability.value = false
                 }
             }
         }
@@ -101,11 +104,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     override fun onResume() {
         super.onResume()
-        appUpdateManager?.appUpdateInfo?.addOnSuccessListener{
+        appUpdateManager.appUpdateInfo.addOnSuccessListener{
             if (it.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
                 // 인 앱 업데이트가 실행된 상태라면 계속 업데이트 진행
                 try {
-                    appUpdateManager?.startUpdateFlowForResult(it, AppUpdateType.IMMEDIATE, this, UPDATE)
+                    appUpdateManager.startUpdateFlowForResult(it, AppUpdateType.IMMEDIATE, this, UPDATE)
                 } catch (e: IntentSender.SendIntentException) {
                     e.printStackTrace()
                 }
@@ -182,7 +185,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         val pref = getSharedPreferences("isFirst", MODE_PRIVATE)
         val first = pref.getBoolean("isFirst", false)
 
-        //앱 최초 실행일 때
+
+
         if (first == false) {
             Timber.d("FirstTimeCheck: true")
             val editor = pref.edit()

@@ -21,6 +21,8 @@ class SplashViewModel(
     val signIn: LiveData<SignInData>
         get() = _signIn
 
+    //업데이트 확인
+    var updateAvailability = MutableLiveData<Boolean>()
 
     // 토큰 재발급 및 자동 로그인
     fun postRenewalToken() {
