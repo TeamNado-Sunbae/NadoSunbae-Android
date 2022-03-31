@@ -52,6 +52,7 @@ class ReviewDetailActivity() :
         observeLoadingEnd()
         observeDropDown()
         observeReportResult()
+        submitAnalytics()
     }
 
     override fun onResume() {
@@ -73,7 +74,7 @@ class ReviewDetailActivity() :
     private fun loadServerData() {
         postId = intent.getIntExtra("postId", NOT_POST_ID)
         userId = intent.getIntExtra("userId", 0)
-        Timber.d("reviewUserId : $userId")
+        Timber.d("$TAG reviewUserId : $userId")
         // intent extra check
         if (postId != NOT_POST_ID) {
 
@@ -280,6 +281,9 @@ class ReviewDetailActivity() :
         }
     }
 
+    private fun submitAnalytics() {
+        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.REVIEW_DETAIL)
+    }
 
     companion object {
         const val TAG = "ReviewDetailActivity"
