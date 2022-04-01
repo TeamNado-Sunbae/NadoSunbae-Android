@@ -32,6 +32,7 @@ object FirebaseAnalyticsUtil {
     // Parameter value
     object Tab {
         const val REVIEW = "Review Tab"
+        const val REVIEW_DETAIL = "Review Detail"
         const val CLASSROOM_QUESTION = "ClassRoom_Question Tab"
         const val CLASSROOM_INFO = "ClassRoom_Info Tab"
         const val NOTIFICATION = "Notification Tab"
@@ -70,7 +71,6 @@ object FirebaseAnalyticsUtil {
     fun selectTab(tab: String) = firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
         param(FirebaseAnalytics.Param.SCREEN_NAME, tab)
     }
-
 
     fun dau() {
         firebaseAnalytics.logEvent(ACTIVE_USER) {
