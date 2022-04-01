@@ -264,7 +264,7 @@ fun TextView.isOnQuestion(isOnQuestion: Boolean) {
 @BindingAdapter("majorName", "majorStart")
 fun TextView.majorText(majorName: String?, majorStart: String?) {
 
-    if (majorName == "정보없음")
+    if (majorName == "정보없음" || majorName == "미진입")
         text = majorName
     else if (majorName != null && majorStart != null)
         text = "$majorName ($majorStart)"
