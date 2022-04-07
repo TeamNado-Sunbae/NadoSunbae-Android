@@ -67,7 +67,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         observeSort()
         initBottomSheet()
         observeLoadingEnd()
-
+        submitAnalytics()
     }
 
     override fun onResume() {
@@ -385,6 +385,10 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             mainViewModel.setFirstMajor(firstMajor)
             mainViewModel.setSecondMajor(secondMajor)
         }
+    }
+
+    private fun submitAnalytics() {
+        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.REVIEW)
     }
 
     companion object {

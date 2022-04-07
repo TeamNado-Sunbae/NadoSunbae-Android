@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -32,6 +33,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
         changeSeniorFragment()
         goQuestionWriteAll()
         observeLoadingEnd()
+        submitAnalytics()
     }
 
     override fun onResume() {
@@ -125,5 +127,9 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
                 }
             )
         }
+    }
+
+    private fun submitAnalytics() {
+        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.CLASSROOM_QUESTION)
     }
 }

@@ -52,7 +52,6 @@ class ReviewDetailActivity() :
         observeLoadingEnd()
         observeDropDown()
         observeReportResult()
-        submitAnalytics()
     }
 
     override fun onResume() {
@@ -279,10 +278,6 @@ class ReviewDetailActivity() :
                 getString(R.string.report_fail)         // 신고 실패
             shortToast(msg)
         }
-    }
-
-    private fun submitAnalytics() {
-        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.REVIEW_DETAIL)
     }
 
     companion object {

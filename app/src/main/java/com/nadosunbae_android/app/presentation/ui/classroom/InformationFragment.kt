@@ -12,6 +12,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.Informatio
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
@@ -33,6 +34,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
         observeArray()
         questionSort()
         observeLoadingEnd()
+        submitAnalytics()
     }
 
 
@@ -118,7 +120,9 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
         }
     }
 
-
+    private fun submitAnalytics() {
+        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.CLASSROOM_INFO)
+    }
 
     companion object{
         const val write = 0
