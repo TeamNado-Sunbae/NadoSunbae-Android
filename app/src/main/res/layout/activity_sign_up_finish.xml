@@ -16,8 +16,8 @@
             android:id="@+id/text_signup_finish_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="128dp"
             android:layout_marginLeft="24dp"
+            android:layout_marginTop="128dp"
             android:fontFamily="@font/pretendard_semibold"
             android:text="@string/signup_finish_title"
             android:textColor="@color/main_default"
@@ -44,21 +44,22 @@
             android:id="@+id/img_signup_finish"
             android:layout_width="240dp"
             android:layout_height="240dp"
-            android:src="@drawable/img_mail_sent"
             android:layout_marginTop="12dp"
+            android:src="@drawable/img_mail_sent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_finish_warning" />
 
         <TextView
             android:id="@+id/text_signup_finish_warning"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="38dp"
             android:fontFamily="@font/pretendard_semibold"
             android:text="@string/signup_finish_warning"
             android:textColor="@color/gray_4"
             android:textSize="12sp"
-            android:layout_marginTop="38dp"
+            app:layout_constraintEnd_toStartOf="@+id/text_signup_resend"
             app:layout_constraintStart_toStartOf="@+id/text_signup_finish_subtitle"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_finish_subtitle" />
 
@@ -67,7 +68,7 @@
             android:id="@+id/text_signup_resend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/rectangle_fill_mint_8dp"
             android:fontFamily="@font/pretendard_regular"
             android:paddingLeft="12dp"
@@ -78,7 +79,7 @@
             android:textColor="@color/main_default"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/text_signup_finish_warning"
-            app:layout_constraintStart_toEndOf="@+id/text_signup_finish_warning"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_signup_finish_warning" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
