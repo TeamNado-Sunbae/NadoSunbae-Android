@@ -42,7 +42,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setDefaultMajor()
         getSignDataFromIntent()
         classRoomBack()
-        observeClassRoomNum()
         // clickBottomNav()
         myPageFragmentChange()
         myPageBack()
@@ -64,15 +63,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 
      } */
-
-    private fun observeClassRoomNum() {
-        mainViewModel.classRoomNum.observe(this) {
-            if (it == 1)
-                FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.CLASSROOM_QUESTION)
-            else if (it == 2)
-                FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.CLASSROOM_INFO)
-        }
-    }
 
     //부적절 후기 일경우 띄우기
     private fun floatIsReviewInappropriate(){
@@ -128,7 +118,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                 else ->{
                     changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
-                    FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.REVIEW)
                 }
             }
 
@@ -138,13 +127,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 when (item.itemId) {
                     R.id.navigation_review -> {
                         changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
-                        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.REVIEW)
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_room -> {
                         mainViewModel.classRoomNum.value = 1
                         changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
-                        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.CLASSROOM_QUESTION)
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_notice -> {
@@ -152,12 +139,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             R.id.fragment_container_main,
                             NotificationFragment()
                         )
-                        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.NOTIFICATION)
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_mypage -> {
                         changeFragmentNoBackStack(R.id.fragment_container_main, MyPageFragment())
-                        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.MYPAGE)
                         return@setOnItemSelectedListener true
                     }
                 }

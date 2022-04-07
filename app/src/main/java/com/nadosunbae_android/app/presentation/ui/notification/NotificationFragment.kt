@@ -16,6 +16,7 @@ import com.nadosunbae_android.app.presentation.ui.notification.adapter.Notificat
 import com.nadosunbae_android.app.presentation.ui.notification.viewmodel.NotificationViewModel
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -35,6 +36,7 @@ class NotificationFragment :
         super.onViewCreated(view, savedInstanceState)
         initNotificationList()
         observeLoadingEnd()
+        submitAnalytics()
 
     }
 
@@ -161,6 +163,10 @@ class NotificationFragment :
         }else{
             binding.textNotificationEmpty.visibility = View.GONE
         }
+    }
+
+    private fun submitAnalytics() {
+        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.NOTIFICATION)
     }
 
 }

@@ -23,16 +23,17 @@ object FirebaseAnalyticsUtil {
     private const val ACTIVE_USER = "user_active"
     private const val USER_PERSONAL = "user_post"
     private const val QUESTION = "user_question"
+    private const val TAB_SELECT = "tab_select"
 
     // Parameter name
     private const val AU_DIVISION = "au_type"
     private const val POST_TYPE = "post_type"
     private const val QUESTION_TYPE ="question_type"
+    private const val TAB_NAME = "tab_name"
 
     // Parameter value
     object Tab {
         const val REVIEW = "Review Tab"
-        const val REVIEW_DETAIL = "Review Detail"
         const val CLASSROOM_QUESTION = "ClassRoom_Question Tab"
         const val CLASSROOM_INFO = "ClassRoom_Info Tab"
         const val NOTIFICATION = "Notification Tab"
@@ -68,8 +69,8 @@ object FirebaseAnalyticsUtil {
         param(FirebaseAnalytics.Param.METHOD, "auto")
     }
 
-    fun selectTab(tab: String) = firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
-        param(FirebaseAnalytics.Param.SCREEN_NAME, tab)
+    fun selectTab(tab: String) = firebaseAnalytics.logEvent(TAB_SELECT) {
+        param(TAB_NAME, tab)
     }
 
     fun dau() {

@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 import kotlinx.coroutines.flow.callbackFlow
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -35,6 +36,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         initAskPersonal()
         movePage()
         initPersonalInfo()
+        submitAnalytics()
         Timber.d("실행되는 중")
     }
 
@@ -158,6 +160,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 binding.clMyPageMainQuestion.visibility = View.GONE
             }
         }
+    }
+
+    private fun submitAnalytics() {
+        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.MYPAGE)
     }
 
     override fun onAttach(context: Context) {
