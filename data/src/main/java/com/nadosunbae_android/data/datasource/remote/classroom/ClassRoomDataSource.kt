@@ -2,6 +2,7 @@ package com.nadosunbae_android.data.datasource.remote.classroom
 
 import com.nadosunbae_android.data.model.request.classroom.*
 import com.nadosunbae_android.data.model.response.classroom.*
+import kotlinx.coroutines.flow.Flow
 
 interface ClassRoomDataSource {
     //메인 정보 조회
@@ -22,10 +23,10 @@ interface ClassRoomDataSource {
     suspend fun postQuestionCommentWrite(requestQuestionCommentWriteData: RequestQuestionCommentWriteData) : ResponseQuestionCommentWrite
 
     //선배 개인페이지
-    suspend fun getSeniorPersonal(userId : Int) : ResponseSeniorPersonalData
+    fun getSeniorPersonal(userId : Int) : Flow<ResponseSeniorPersonalData>
 
     //선배 1:1 질문 조회
-    suspend fun getSeniorQuestionList(userId : Int, sort : String) : ResponseSeniorQuestionData
+    fun getSeniorQuestionList(userId : Int, sort : String) : Flow<ResponseSeniorQuestionData>
 
     //정보 상세 조회
     suspend fun getInformationDetail(postId: Int) : ResponseInfoDetailData
