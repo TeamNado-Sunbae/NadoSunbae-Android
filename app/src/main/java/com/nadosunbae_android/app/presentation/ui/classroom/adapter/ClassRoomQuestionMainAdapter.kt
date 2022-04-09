@@ -17,7 +17,7 @@ import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 
 class ClassRoomQuestionMainAdapter(private val num: Int, private val userId: Int, private val myPageNum : Int) :
     RecyclerView.Adapter<ClassRoomQuestionMainAdapter.ClassRoomQuestionMainViewHolder>() {
-    var questionMainData = mutableListOf<ClassRoomData>()
+    var questionMainData = listOf<ClassRoomData>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -78,7 +78,7 @@ class ClassRoomQuestionMainAdapter(private val num: Int, private val userId: Int
         }
     }
 
-    fun setQuestionMain(questionMainData: MutableList<ClassRoomData>) {
+    fun setQuestionMain(questionMainData: List<ClassRoomData>) {
         this.questionMainData = questionMainData
         notifyDataSetChanged()
     }

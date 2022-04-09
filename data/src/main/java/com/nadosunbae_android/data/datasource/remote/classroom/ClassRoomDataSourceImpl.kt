@@ -3,6 +3,8 @@ package com.nadosunbae_android.data.datasource.remote.classroom
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
 import com.nadosunbae_android.data.model.request.classroom.*
 import com.nadosunbae_android.data.model.response.classroom.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class ClassRoomDataSourceImpl(private val service : ClassRoomService) : ClassRoomDataSource {
     override suspend fun getClassRoomMain(
@@ -29,15 +31,20 @@ class ClassRoomDataSourceImpl(private val service : ClassRoomService) : ClassRoo
         return service.postQuestionCommentWrite(requestQuestionCommentWriteData)
     }
 
-    override suspend fun getSeniorPersonal(userId: Int): ResponseSeniorPersonalData {
-        return service.getSeniorPersonal(userId)
+    override fun getSeniorPersonal(userId: Int): Flow<ResponseSeniorPersonalData> {
+        return flow{
+            emit(service.getSeniorPersonal(userId))
+        }
+
     }
 
-    override suspend fun getSeniorQuestionList(
+    override  fun getSeniorQuestionList(
         userId: Int,
         sort: String
-    ): ResponseSeniorQuestionData {
-        return service.getSeniorQuestionList(userId, sort)
+    ): Flow<ResponseSeniorQuestionData> {
+        return flow {
+            emit(service.getSeniorQuestionList(userId, sort))
+        }
     }
 
 

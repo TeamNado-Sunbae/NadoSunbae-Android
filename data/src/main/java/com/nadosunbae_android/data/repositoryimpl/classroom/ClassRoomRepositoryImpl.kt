@@ -4,6 +4,9 @@ import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSour
 import com.nadosunbae_android.data.mapper.classroom.ClassRoomMapper
 import com.nadosunbae_android.domain.model.classroom.*
 import com.nadosunbae_android.domain.repository.classroom.ClassRoomRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 
 class ClassRoomRepositoryImpl(private val dataSource : ClassRoomDataSource) : ClassRoomRepository {
     //질문글 메인
@@ -37,13 +40,23 @@ class ClassRoomRepositoryImpl(private val dataSource : ClassRoomDataSource) : Cl
     }
 
     // 선배 개인페이지
-    override suspend fun getSeniorPersonal(userId: Int): SeniorPersonalData {
-        return ClassRoomMapper.mapperToSeniorPersonalData(dataSource.getSeniorPersonal(userId))
+    override fun getSeniorPersonal(userId: Int): Flow<SeniorPersonalData> {
+        return flow {
+            // dataSource.getSeniorPersonal에서 수집한 뒤 이를 mapper로 변환하여 emit
+            dataSource.getSeniorPersonal(userId).collect {
+                emit(ClassRoomMapper.mapperToSeniorPersonalData(it))
+            }
+        }
     }
 
     // 선배 질문 리스트
-    override suspend fun getSeniorQuestionList(userId: Int, sort: String): List<ClassRoomData> {
-        return ClassRoomMapper.mapperToSeniorQuestion(dataSource.getSeniorQuestionList(userId, sort))
+    override fun getSeniorQuestionList(userId: Int, sort: String): Flow<List<ClassRoomData>> {
+        return flow{
+            dataSource.getSeniorQuestionList(userId, sort).collect {
+                emit(ClassRoomMapper.mapperToSeniorQuestion(it))
+            }
+
+        }
     }
 
     // 정보글 상세
