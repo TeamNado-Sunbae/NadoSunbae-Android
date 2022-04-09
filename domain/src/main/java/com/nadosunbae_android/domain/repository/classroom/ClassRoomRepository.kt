@@ -1,6 +1,7 @@
 package com.nadosunbae_android.domain.repository.classroom
 
 import com.nadosunbae_android.domain.model.classroom.*
+import kotlinx.coroutines.flow.Flow
 
 interface ClassRoomRepository {
     //질문 메인
@@ -19,10 +20,10 @@ interface ClassRoomRepository {
     suspend fun postQuestionCommentWrite(questionCommentWriteItem: QuestionCommentWriteItem) : QuestionCommentWriteData
 
     //선배 개인페이지
-    suspend fun getSeniorPersonal(userId : Int) : SeniorPersonalData
+    fun getSeniorPersonal(userId : Int) : Flow<SeniorPersonalData>
 
     //선배 1:1 질문글 리스트
-    suspend fun getSeniorQuestionList(userId : Int, sort : String) : List<ClassRoomData>
+    fun getSeniorQuestionList(userId : Int, sort : String) : Flow<List<ClassRoomData>>
 
     //정보 상세 조회
     suspend fun getInformationDetail(postId: Int) : InfoDetailData

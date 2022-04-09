@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentSeniorPersonalBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -21,6 +24,7 @@ import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -39,10 +43,11 @@ class SeniorPersonalFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initSeniorQuestion()
+        getSeniorPersonal("recent")
         goSeniorFragment()
         goQuestionWrite()
         questionSort()
+        initSeniorQuestion()
         initQuestionSort()
         observeArray()
         goMyPageClassRoomReview()
@@ -62,15 +67,20 @@ class SeniorPersonalFragment :
         classRoomQuestionMainAdapter =
             ClassRoomQuestionMainAdapter(2, mainViewModel.userId.value ?: 0, 0)
         binding.rcSeniorPersonal.adapter = classRoomQuestionMainAdapter
-        seniorPersonalViewModel.seniorQuestion.observe(viewLifecycleOwner) {
-            if(it.isEmpty()){
-                binding.textSeniorEmpty.visibility = View.VISIBLE
-                binding.rcSeniorPersonal.visibility = View.GONE
-            }else{
-                binding.textSeniorEmpty.visibility = View.GONE
-                binding.rcSeniorPersonal.visibility = View.VISIBLE
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                seniorPersonalViewModel.seniorQuestion.collect{
+                    Timber.d("seniorQuestion $it")
+                    if(it.isEmpty()){
+                        binding.textSeniorEmpty.visibility = View.VISIBLE
+                        binding.rcSeniorPersonal.visibility = View.GONE
+                    }else{
+                        binding.textSeniorEmpty.visibility = View.GONE
+                        binding.rcSeniorPersonal.visibility = View.VISIBLE
+                    }
+                    classRoomQuestionMainAdapter.setQuestionMain(it)
+                }
             }
-            classRoomQuestionMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
         }
     }
 
@@ -96,14 +106,20 @@ class SeniorPersonalFragment :
             Timber.d("seniorId: $it")
             showLoading()
             seniorPersonalViewModel.getSeniorPersonal(it)
-            seniorPersonalViewModel.getSeniorQuestionList(it, sort)
+
         }
 
-        seniorPersonalViewModel.seniorPersonal.observe(viewLifecycleOwner) {
-            seniorPersonalViewModel.seniorId.value = it.userId
-            binding.seniorPersonal = it
-            if (it.secondMajorName == "미진입")
-                binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                seniorPersonalViewModel.seniorPersonal.collect{
+                    Timber.d("seniorPersonal $it")
+                    seniorPersonalViewModel.seniorId.value = it.userId
+                    seniorPersonalViewModel.getSeniorQuestionList(it.userId, sort)
+                    binding.seniorPersonal = it
+                    if (it.secondMajorName == "미진입")
+                        binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
+                }
+            }
         }
     }
 
@@ -170,7 +186,7 @@ class SeniorPersonalFragment :
 
     override fun onResume() {
         super.onResume()
-        getSeniorPersonal("recent")
+
     }
 
     //최신순, 도움순 정렬

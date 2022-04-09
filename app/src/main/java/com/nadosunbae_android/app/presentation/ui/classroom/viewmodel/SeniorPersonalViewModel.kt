@@ -1,6 +1,5 @@
 package com.nadosunbae_android.app.presentation.ui.classroom.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +14,12 @@ import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
 import com.nadosunbae_android.domain.usecase.classroom.GetQuestionSeniorListDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorPersonalDataUseCase
 import com.nadosunbae_android.domain.usecase.mypage.PostMyPageBlockUpdateUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
 import timber.log.Timber
 
 class SeniorPersonalViewModel(
@@ -28,13 +32,17 @@ class SeniorPersonalViewModel(
 
 
     //선배 개인페이지
-    private val _seniorPersonal = MutableLiveData<SeniorPersonalData>()
-    val seniorPersonal : LiveData<SeniorPersonalData>
+    private val _seniorPersonal = MutableStateFlow(
+        SeniorPersonalData("","",false,"",0,"","",0,0)
+    )
+    val seniorPersonal : StateFlow<SeniorPersonalData>
         get() = _seniorPersonal
 
     //선배 1:1 질문
-    private val _seniorQuestion = MutableLiveData<List<ClassRoomData>>()
-    val seniorQuestion : LiveData<List<ClassRoomData>>
+    private val _seniorQuestion = MutableStateFlow(
+        listOf<ClassRoomData>()
+    )
+    val seniorQuestion : StateFlow<List<ClassRoomData>>
         get() = _seniorQuestion
 
     //선배 userId
@@ -50,7 +58,9 @@ class SeniorPersonalViewModel(
         viewModelScope.launch {
             runCatching { getSeniorPersonalDataUseCase(userId) }
                 .onSuccess {
-                    _seniorPersonal.value = it
+                    it.collectLatest { its ->
+                        _seniorPersonal.value = its
+                    }
                     Timber.d("seniorPersonal : 선배 개인페이지 서버 통신 완료")
                 }
                 .onFailure {
@@ -67,7 +77,9 @@ class SeniorPersonalViewModel(
         viewModelScope.launch {
             runCatching { getQuestionSeniorListDataUseCase(userId, sort) }
                 .onSuccess {
-                    _seniorQuestion.value = it
+                    it.collectLatest {its ->
+                        _seniorQuestion.value = its
+                    }
                     Timber.d("seniorQuestion : 선배 1:1질문 서버 통신 완료")
                 }
                 .onFailure {
@@ -97,3 +109,5 @@ class SeniorPersonalViewModel(
 
     override val onLoadingEnd = MutableLiveData<Boolean>()
 }
+
+
