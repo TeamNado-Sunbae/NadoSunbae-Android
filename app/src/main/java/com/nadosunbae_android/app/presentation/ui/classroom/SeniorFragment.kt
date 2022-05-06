@@ -39,8 +39,7 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
     // 구성원 보여주기
     private fun initSenior(){
         showLoading()
-        val majorId = mainViewModel.selectedMajor.value?.majorId
-        mainViewModel.getClassRoomSenior(majorId ?: 0)
+
 
         classRoomSeniorOnAdapter = ClassRoomSeniorOnAdapter(link)
         classRoomSeniorOffAdapter = ClassRoomSeniorOffAdapter(link)
@@ -60,7 +59,7 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         if(userId == seniorId){
             mainViewModel.bottomNavItem.value = 4
         }else{
-            mainViewModel.bottomNavItem.value = 2
+            mainViewModel.classRoomFragmentNum.value = 4
             mainViewModel.initLoading.value = true
         }
     }
