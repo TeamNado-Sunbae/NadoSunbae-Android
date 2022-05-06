@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.nadosunbae_android.app.R
@@ -24,6 +25,8 @@ import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -108,19 +111,17 @@ class SeniorPersonalFragment :
             seniorPersonalViewModel.getSeniorPersonal(it)
 
         }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                seniorPersonalViewModel.seniorPersonal.collect{
-                    Timber.d("seniorPersonal $it")
-                    seniorPersonalViewModel.seniorId.value = it.userId
-                    seniorPersonalViewModel.getSeniorQuestionList(it.userId, sort)
-                    binding.seniorPersonal = it
-                    if (it.secondMajorName == "미진입")
-                        binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
-                }
+        seniorPersonalViewModel.seniorPersonal
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .onEach {
+                Timber.d("seniorPersonal $it")
+                seniorPersonalViewModel.seniorId.value = it.userId
+                seniorPersonalViewModel.getSeniorQuestionList(it.userId, sort)
+                binding.seniorPersonal = it
+                if (it.secondMajorName == "미진입")
+                    binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
             }
-        }
+            .launchIn(lifecycleScope)
     }
 
     //뒤로가기
@@ -183,11 +184,6 @@ class SeniorPersonalFragment :
 
     }
 
-
-    override fun onResume() {
-        super.onResume()
-
-    }
 
     //최신순, 도움순 정렬
     private fun questionSort() {

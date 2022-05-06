@@ -34,6 +34,8 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
         goQuestionWriteAll()
         observeLoadingEnd()
         submitAnalytics()
+        setSeniorData()
+        Timber.d("질문 프래그먼트 onViewCreated 실행")
     }
 
     override fun onResume() {
@@ -88,6 +90,11 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
                 textQuestionAllNoComment.visibility = View.GONE
             }
         }
+    }
+    //구성원 데이터
+    private fun setSeniorData(){
+        val majorId = mainViewModel.selectedMajor.value?.majorId
+        mainViewModel.getClassRoomSenior(majorId ?: 0)
     }
 
     //전체에게 질문으로 이동
