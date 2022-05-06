@@ -64,7 +64,6 @@ class SeniorPersonalViewModel(
                     Timber.d("seniorPersonal : 선배 개인페이지 서버 통신 완료")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("seniorPersonal : 선배 개인페이지 서버 통신 실패")
                 }.also {
                     onLoadingEnd.value = true
