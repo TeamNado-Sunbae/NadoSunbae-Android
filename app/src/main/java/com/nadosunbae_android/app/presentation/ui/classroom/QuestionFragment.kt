@@ -34,7 +34,6 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
         goQuestionWriteAll()
         observeLoadingEnd()
         submitAnalytics()
-        setSeniorData()
         Timber.d("질문 프래그먼트 onViewCreated 실행")
     }
 
@@ -58,6 +57,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
             Timber.d("QuestionMainMajorId: ${it.majorId}")
             showLoading()
             mainViewModel.getClassRoomMain(3,it.majorId, "recent")
+            setSeniorData(it.majorId)
         }
 
         classRoomQuestionMainAdapter = ClassRoomQuestionMainAdapter(1, mainViewModel.userId.value ?: 0,0)
@@ -91,10 +91,9 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment
             }
         }
     }
-    //구성원 데이터
-    private fun setSeniorData(){
-        val majorId = mainViewModel.selectedMajor.value?.majorId
-        mainViewModel.getClassRoomSenior(majorId ?: 0)
+    //구성원 데이터 서버 통신
+    private fun setSeniorData(majorId : Int){
+        mainViewModel.getClassRoomSenior(majorId)
     }
 
     //전체에게 질문으로 이동
