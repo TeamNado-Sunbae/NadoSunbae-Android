@@ -105,7 +105,7 @@ class ModifyMyInfoActivity :
                 if (it.data.secondMajorName == "미진입") {
                     binding.textMyPageMajorinfoDoubleMajorTime.setText("미진입")
                     textMyPageMajorinfoDoubleMajorMintTime.isEnabled = false
-                    textMyPageMajorinfoDoubleMajorTime.text = "선택하기"
+                    textMyPageMajorinfoDoubleMajorTime.text = "미진입"
                     textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
                     textMyPageMajorinfoDoubleMajorMintTime.setText("선택")
                     textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#C0C0CB"))
@@ -123,7 +123,7 @@ class ModifyMyInfoActivity :
     private fun initNotEntered() = with(binding) {
         if (textMyPageMajorinfoDoubleMajor.text.toString() == "미진입") {
             textMyPageMajorinfoDoubleMajorMintTime.isEnabled = false
-            textMyPageMajorinfoDoubleMajorTime.text = "선택하기"
+            textMyPageMajorinfoDoubleMajorTime.text = "미진입"
             textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
             textMyPageMajorinfoDoubleMajorMintTime.setText("선택")
             textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#C0C0CB"))
@@ -231,6 +231,8 @@ class ModifyMyInfoActivity :
             initNotEntered()
             saveBtn()
             initActiveSaveBtn()
+
+            initBtnActive()
         }
 
         signViewModel.secondMajor
@@ -241,6 +243,23 @@ class ModifyMyInfoActivity :
                 binding.textMyPageMajorinfoDoubleMajorMint.text = "변경"
             }
 
+    }
+
+    private fun initBtnActive() {
+        if(binding.textMyPageMajorinfoDoubleMajor.text.toString() != "미진입") {
+            if(binding.textMyPageMajorinfoDoubleMajorTime.text.toString() == "미진입") {
+                binding.textMyPageSave.isSelected = false
+                binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
+                binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
+                binding.textMyPageSave.isClickable = false
+            } else {
+                binding.textMyPageSave.isClickable = true
+                binding.textMyPageSave.isSelected = true
+                binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_main_black_8)
+                binding.textMyPageSave.setTextColor(Color.parseColor("#DFF6F4"))
+
+            }
+        }
     }
 
 
@@ -277,6 +296,7 @@ class ModifyMyInfoActivity :
                 val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
                 signViewModel.secondMajorPeriod.value = secondMajorPeriod?.name
                 initActiveSaveBtn()
+                initBtnActive()
             }
             signViewModel.secondMajorPeriod.observe(this) {
                 binding.textMyPageMajorinfoDoubleMajorTime.setText(it)
