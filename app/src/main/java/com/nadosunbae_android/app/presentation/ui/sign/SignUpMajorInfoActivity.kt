@@ -218,9 +218,9 @@ class SignUpMajorInfoActivity :
                 signUpBasicInfoViewModel.secondDepartmentGo.value = true
 
                 binding.clSignupMajorInfoDoubleMajorTime.isClickable = false
-                binding.textSignupMajorinfoDoubleMajorTime.text = "선택하기"
-                binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+                binding.textSignupMajorinfoDoubleMajorTime.text = "미진입"
                 binding.textSignupMajorinfoDoubleMajorMintTime.setText("선택")
+                binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
             } else {
                 signUpBasicInfoViewModel.secondDepartmentGo.value = false
                 binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
@@ -298,7 +298,7 @@ class SignUpMajorInfoActivity :
         }
 
         else if (signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString() &&
-            binding.textSignupMajorinfoMajorTime.text != "선택하기" && binding.textSignupMajorinfoDoubleMajorTime.text != "선택하기"
+            binding.textSignupMajorinfoMajorTime.text != "선택하기" && binding.textSignupMajorinfoDoubleMajorTime.text != "미진입"
         ) {
             binding.clSignupMajorInfoMoveNext.isSelected = true
             binding.textSignupMajorInfoNext.isSelected = true
