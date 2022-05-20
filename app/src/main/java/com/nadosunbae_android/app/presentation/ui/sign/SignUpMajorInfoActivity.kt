@@ -68,25 +68,36 @@ class SignUpMajorInfoActivity :
         secondMajorNum = intent.getIntExtra("secondMajorId",0)
         textSignupMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart")?: "선택하기")
 
-
-
         //선택하기 분기처리
         if(textSignupMajorinfoMajor.text.toString() != "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorMint.text = "변경"
         }
+
         if(textSignupMajorinfoMajorTime.text.toString() != "선택하기") {
             textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorTimeMint.text = "변경"
         }
+
         if(textSignupMajorinfoDoubleMajor.text.toString() != "선택하기") {
             textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
+        } else if(textSignupMajorinfoDoubleMajor.text.toString() == "미진입") {
+            textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
+            binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
         }
+
         if(textSignupMajorinfoDoubleMajorTime.text.toString() != "선택하기") {
             textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoDoubleMajorMintTime.setText("변경")
         }
+
+        if(textSignupMajorinfoDoubleMajor.text.toString() == "미진입") {
+            textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#94959E"))
+            binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
+            textSignupMajorinfoDoubleMajorTime.setEnabled(false)
+        }
+
     }
 
     //X버튼 클릭 리스너
