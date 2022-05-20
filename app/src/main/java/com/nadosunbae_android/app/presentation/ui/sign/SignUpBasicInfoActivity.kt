@@ -247,18 +247,24 @@ class SignUpBasicInfoActivity :
     private fun beforeBtnClick() {
         binding.clSignupBasicinfoMoveBefore.setOnClickListener {
 
-            val firstMajor = intent.getStringExtra("firstMajorId").toString()
+            val firstMajor = intent.getStringExtra("firstMajorName").toString()
+            val firstMajorNum = intent.getIntExtra("firstMajorId", 0)
             val firstMajorStart = intent.getStringExtra("firstMajorStart").toString()
-            val secondMajor = intent.getIntExtra("secondMajorId", 0)
+            val secondMajor = intent.getStringExtra("secondMajorName").toString()
+            val secondMajorNum = intent.getIntExtra("secondMajorId", 0)
             val secondMajorStart = intent.getStringExtra("secondMajorStart").toString()
 
+
+            Timber.d("이거도 null? : ${firstMajorNum}")
+
             val intent = Intent(this, SignUpMajorInfoActivity::class.java)
-            intent.putExtra("firstMajorId", firstMajor)
+            intent.putExtra("firstMajorName", firstMajor)
+            intent.putExtra("firstMajorNum", firstMajorNum)
             intent.putExtra("firstMajorStart", firstMajorStart)
-            intent.putExtra("secondMajorId", secondMajor)
+            intent.putExtra("secondMajorName", secondMajor)
+            intent.putExtra("secondMajorNum", secondMajorNum)
             intent.putExtra("secondMajorStart", secondMajorStart)
             startActivity(intent)
-            Timber.d("BasicToMajor Test: ${firstMajorStart}")
             finish()
         }
     }

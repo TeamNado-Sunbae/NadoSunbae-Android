@@ -4,12 +4,8 @@ package com.nadosunbae_android.app.presentation.ui.sign
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -20,11 +16,7 @@ import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.PixelRatio
 import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
-import com.nadosunbae_android.domain.model.sign.SignBottomSheetItem
-import com.nadosunbae_android.domain.model.sign.SignUpData
-import com.nadosunbae_android.domain.model.sign.SignUpItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.component.getScopeId
 import timber.log.Timber
 
 
@@ -41,6 +33,9 @@ class SignUpMajorInfoActivity :
     val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("제2전공 진입시기")
 
     private val bottomSheetDialog = CustomBottomSheetDialog("본전공")
+
+    private var firstMajorNum = 0
+    private var secondMajorNum = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,13 +57,20 @@ class SignUpMajorInfoActivity :
 
     }
 
+    //뒤로버튼으로 왔을 시 텍스트 필드 채우기
     private fun initTextfield() = with(binding) {
-        textSignupMajorinfoMajor.setText(intent.getStringExtra("firstMajorId")?:"선택하기")
+        textSignupMajorinfoMajor.setText(intent.getStringExtra("firstMajorName")?:"선택하기")
+        firstMajorNum = intent.getIntExtra("firstMajorNum",0)
         textSignupMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart")?:"선택하기")
-        textSignupMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajorId")?:"선택하기")
-        textSignupMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart")?: "선택하기")
-        Timber.d("BackTest : ${intent.getStringExtra("firstMajorStart")}")
 
+        //두번째 전공
+        textSignupMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajorName")?:"선택하기")
+        secondMajorNum = intent.getIntExtra("secondMajorId",0)
+        textSignupMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart")?: "선택하기")
+
+
+
+        //선택하기 분기처리
         if(textSignupMajorinfoMajor.text.toString() != "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorMint.text = "변경"
@@ -116,19 +118,22 @@ class SignUpMajorInfoActivity :
     private fun nextBtnActivate() {
         binding.clSignupMajorInfoMoveNext.setOnClickListener {
             val intent = Intent(this, SignUpBasicInfoActivity::class.java)
+
             intent.putExtra(
                 "firstMajorId",
-                firstDepartmentBottomSheetDialog.getSelectedData()?.id!!
+                firstDepartmentBottomSheetDialog.getSelectedData()?.id?:firstMajorNum
             )
             intent.putExtra("firstMajorStart", binding.textSignupMajorinfoMajorTime.text.toString())
             intent.putExtra(
                 "secondMajorId",
-                secondDepartmentBottomSheetDialog.getSelectedData()?.id!!
+                secondDepartmentBottomSheetDialog.getSelectedData()?.id?:secondMajorNum
             )
             intent.putExtra(
                 "secondMajorStart",
                 binding.textSignupMajorinfoDoubleMajorTime.text.toString()
             )
+            intent.putExtra("firstMajorName", binding.textSignupMajorinfoMajor.text.toString())
+            intent.putExtra("secondMajorName", binding.textSignupMajorinfoDoubleMajor.text.toString())
             Timber.d("MajorGoTest : ${binding.textSignupMajorinfoMajorTime.text.toString()}")
             startActivity(intent)
             finish()
