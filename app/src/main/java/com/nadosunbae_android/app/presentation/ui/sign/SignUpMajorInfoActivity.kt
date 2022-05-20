@@ -25,6 +25,7 @@ import com.nadosunbae_android.domain.model.sign.SignUpData
 import com.nadosunbae_android.domain.model.sign.SignUpItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.getScopeId
+import timber.log.Timber
 
 
 class SignUpMajorInfoActivity :
@@ -57,7 +58,33 @@ class SignUpMajorInfoActivity :
         secondMajor()
 
         changeNext()
+        initTextfield()
 
+    }
+
+    private fun initTextfield() = with(binding) {
+        textSignupMajorinfoMajor.setText(intent.getStringExtra("firstMajorId")?:"선택하기")
+        textSignupMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart")?:"선택하기")
+        textSignupMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajorId")?:"선택하기")
+        textSignupMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart")?: "선택하기")
+        Timber.d("BackTest : ${intent.getStringExtra("firstMajorStart")}")
+
+        if(textSignupMajorinfoMajor.text.toString() != "선택하기") {
+            textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
+            binding.textSignupMajorinfoMajorMint.text = "변경"
+        }
+        if(textSignupMajorinfoMajorTime.text.toString() != "선택하기") {
+            textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
+            binding.textSignupMajorinfoMajorTimeMint.text = "변경"
+        }
+        if(textSignupMajorinfoDoubleMajor.text.toString() != "선택하기") {
+            textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
+            binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
+        }
+        if(textSignupMajorinfoDoubleMajorTime.text.toString() != "선택하기") {
+            textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
+            binding.textSignupMajorinfoDoubleMajorMintTime.setText("변경")
+        }
     }
 
     //X버튼 클릭 리스너
@@ -102,6 +129,7 @@ class SignUpMajorInfoActivity :
                 "secondMajorStart",
                 binding.textSignupMajorinfoDoubleMajorTime.text.toString()
             )
+            Timber.d("MajorGoTest : ${binding.textSignupMajorinfoMajorTime.text.toString()}")
             startActivity(intent)
             finish()
         }

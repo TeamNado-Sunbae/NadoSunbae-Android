@@ -46,7 +46,6 @@ class SignUpBasicInfoViewModel(
     var password = MutableLiveData<String>()
     var deviceToken = MutableLiveData<String>()
 
-
     //로그인
     var signIn: MutableLiveData<SignInData> = MutableLiveData()
 
