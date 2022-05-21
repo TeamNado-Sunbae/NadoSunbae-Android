@@ -264,6 +264,7 @@ class SignUpBasicInfoActivity :
             intent.putExtra("secondMajorName", secondMajor)
             intent.putExtra("secondMajorNum", secondMajorNum)
             intent.putExtra("secondMajorStart", secondMajorStart)
+
             startActivity(intent)
             finish()
         }

@@ -23,15 +23,12 @@ import timber.log.Timber
 class SignUpMajorInfoActivity :
     BaseActivity<ActivitySignUpMajorInfoBinding>(R.layout.activity_sign_up_major_info) {
     private val signViewModel: SignViewModel by viewModel()
-
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
 
     val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
     val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
-
     val secondDepartmentBottomSheetDialog = CustomBottomSheetDialog("제2전공")
     val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("제2전공 진입시기")
-
     private val bottomSheetDialog = CustomBottomSheetDialog("본전공")
 
     private var firstMajorNum = 0
@@ -40,63 +37,69 @@ class SignUpMajorInfoActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initTextfield()
         closePage()
         moveBeforePage()
         onClickbottomSheetUniv()
-
         firstMajorPeriod()
         setupSpinner()
         setupSpinnerHandler()
         secondMajorPeriod()
-
         firstMajor()
         secondMajor()
-
         changeNext()
-        initTextfield()
 
     }
 
     //뒤로버튼으로 왔을 시 텍스트 필드 채우기
     private fun initTextfield() = with(binding) {
-        textSignupMajorinfoMajor.setText(intent.getStringExtra("firstMajorName")?:"선택하기")
-        firstMajorNum = intent.getIntExtra("firstMajorNum",0)
-        textSignupMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart")?:"선택하기")
+        textSignupMajorinfoMajor.setText(intent.getStringExtra("firstMajorName") ?: "선택하기")
+        firstMajorNum = intent.getIntExtra("firstMajorNum", 0)
+        textSignupMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart") ?: "선택하기")
 
         //두번째 전공
-        textSignupMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajorName")?:"선택하기")
-        secondMajorNum = intent.getIntExtra("secondMajorId",0)
-        textSignupMajorinfoDoubleMajorTime.setText(intent.getStringExtra("secondMajorStart")?: "선택하기")
+        textSignupMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajorName") ?: "선택하기")
+        secondMajorNum = intent.getIntExtra("secondMajorId", 0)
+        textSignupMajorinfoDoubleMajorTime.setText(
+            intent.getStringExtra("secondMajorStart") ?: "선택하기"
+        )
 
         //선택하기 분기처리
-        if(textSignupMajorinfoMajor.text.toString() != "선택하기") {
+        if (textSignupMajorinfoMajor.text.toString() != "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorMint.text = "변경"
+            binding.clSignupMajorInfoMoveNext.setBackgroundResource(R.drawable.rectangle_fill_main_black_8)
+            binding.textSignupMajorInfoNext.setTextColor(Color.parseColor("#00c8b0"))
+            binding.clSignupMajorInfoMoveNext.isClickable = true
+            nextBtnActivate()
         }
 
-        if(textSignupMajorinfoMajorTime.text.toString() != "선택하기") {
+        if (textSignupMajorinfoMajorTime.text.toString() != "선택하기") {
             textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorTimeMint.text = "변경"
         }
 
-        if(textSignupMajorinfoDoubleMajor.text.toString() != "선택하기") {
+        if (textSignupMajorinfoDoubleMajor.text.toString() != "선택하기") {
             textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
-        } else if(textSignupMajorinfoDoubleMajor.text.toString() == "미진입") {
+        } else if (textSignupMajorinfoDoubleMajor.text.toString() == "미진입") {
             textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
         }
 
-        if(textSignupMajorinfoDoubleMajorTime.text.toString() != "선택하기") {
+        if (textSignupMajorinfoDoubleMajorTime.text.toString() != "선택하기") {
             textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoDoubleMajorMintTime.setText("변경")
         }
 
-        if(textSignupMajorinfoDoubleMajor.text.toString() == "미진입") {
+        if (textSignupMajorinfoDoubleMajor.text.toString() == "미진입") {
             textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#94959E"))
             binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
-            textSignupMajorinfoDoubleMajorTime.setEnabled(false)
+            textSignupMajorinfoDoubleMajorTime.isClickable = false
         }
+
+
+
 
     }
 
@@ -109,18 +112,14 @@ class SignUpMajorInfoActivity :
             dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener {
                 override fun onClicked(num: () -> Unit) {
                     startActivity(Intent(this@SignUpMajorInfoActivity, SignInActivity::class.java))
-
                 }
-
             })
-
         }
     }
 
     private fun moveBeforePage() {
         binding.clSignupMajorInfoMoveBefore.setOnClickListener {
             startActivity(Intent(this, SignUpAgreementActivity::class.java))
-
             finish()
         }
     }
@@ -132,20 +131,22 @@ class SignUpMajorInfoActivity :
 
             intent.putExtra(
                 "firstMajorId",
-                firstDepartmentBottomSheetDialog.getSelectedData()?.id?:firstMajorNum
+                firstDepartmentBottomSheetDialog.getSelectedData()?.id ?: firstMajorNum
             )
             intent.putExtra("firstMajorStart", binding.textSignupMajorinfoMajorTime.text.toString())
             intent.putExtra(
                 "secondMajorId",
-                secondDepartmentBottomSheetDialog.getSelectedData()?.id?:secondMajorNum
+                secondDepartmentBottomSheetDialog.getSelectedData()?.id ?: secondMajorNum
             )
             intent.putExtra(
                 "secondMajorStart",
                 binding.textSignupMajorinfoDoubleMajorTime.text.toString()
             )
             intent.putExtra("firstMajorName", binding.textSignupMajorinfoMajor.text.toString())
-            intent.putExtra("secondMajorName", binding.textSignupMajorinfoDoubleMajor.text.toString())
-            Timber.d("MajorGoTest : ${binding.textSignupMajorinfoMajorTime.text.toString()}")
+            intent.putExtra(
+                "secondMajorName",
+                binding.textSignupMajorinfoDoubleMajor.text.toString()
+            )
             startActivity(intent)
             finish()
         }
@@ -339,16 +340,12 @@ class SignUpMajorInfoActivity :
     private fun checkMajor() {
         if (signViewModel.secondMajor.value.toString() == "미진입") {
 
-        }
-
-        else if (signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString() &&
+        } else if (signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString() &&
             binding.textSignupMajorinfoMajorTime.text != "선택하기" && binding.textSignupMajorinfoDoubleMajorTime.text != "미진입"
         ) {
             binding.clSignupMajorInfoMoveNext.isSelected = true
             binding.textSignupMajorInfoNext.isSelected = true
-        }
-
-        else {
+        } else {
             binding.clSignupMajorInfoMoveNext.isSelected = false
             binding.textSignupMajorInfoNext.isSelected = false
         }
