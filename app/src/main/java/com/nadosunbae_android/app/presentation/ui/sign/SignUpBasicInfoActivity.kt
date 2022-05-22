@@ -368,7 +368,10 @@ class SignUpBasicInfoActivity :
                         intent.getStringExtra("secondMajorStart").toString()
                     )
                 )
+                Timber.d("LastCheck : ${intent.getStringExtra("firstMajorId").toString()}")
                 Timber.d("LastCheck : ${intent.getStringExtra("firstMajorStart").toString()}")
+                Timber.d("LastCheck : ${intent.getStringExtra("secondMajorId").toString()}")
+                Timber.d("LastCheck : ${intent.getStringExtra("secondMajorStart").toString()}")
 
                 val intent = Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java)
                 intent.putExtra("email", etSignupBasicinfoEmail.text.toString())

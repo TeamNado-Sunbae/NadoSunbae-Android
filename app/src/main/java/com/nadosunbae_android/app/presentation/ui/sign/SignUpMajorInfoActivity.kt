@@ -68,10 +68,13 @@ class SignUpMajorInfoActivity :
         if (textSignupMajorinfoMajor.text.toString() != "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorMint.text = "변경"
-            binding.clSignupMajorInfoMoveNext.setBackgroundResource(R.drawable.rectangle_fill_main_black_8)
-            binding.textSignupMajorInfoNext.setTextColor(Color.parseColor("#00c8b0"))
-            binding.clSignupMajorInfoMoveNext.isClickable = true
-            nextBtnActivate()
+
+            signUpBasicInfoViewModel.firstDepartmentClick.value = true
+            signUpBasicInfoViewModel.firstDepartmentGo.value = true
+            signUpBasicInfoViewModel.secondDepartmentClick.value = true
+            signUpBasicInfoViewModel.secondDepartmentGo.value = true
+
+            changeNext()
         }
 
         if (textSignupMajorinfoMajorTime.text.toString() != "선택하기") {
@@ -97,8 +100,6 @@ class SignUpMajorInfoActivity :
             binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
             textSignupMajorinfoDoubleMajorTime.isClickable = false
         }
-
-
 
 
     }
@@ -255,10 +256,8 @@ class SignUpMajorInfoActivity :
         secondDepartmentBottomSheetDialog.setCompleteListener {
             val secondMajor = secondDepartmentBottomSheetDialog.getSelectedData()
             signViewModel.secondMajor.value = secondMajor?.name
-            signUpBasicInfoViewModel.secondDepartmentClick.value = true
 
             if (signViewModel.secondMajor.value.toString() == "미진입") {
-
                 signUpBasicInfoViewModel.secondDepartmentClick.value = true
                 signUpBasicInfoViewModel.secondDepartmentGo.value = true
 
@@ -267,6 +266,7 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoDoubleMajorMintTime.setText("선택")
                 binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
             } else {
+                signUpBasicInfoViewModel.secondDepartmentClick.value = true
                 signUpBasicInfoViewModel.secondDepartmentGo.value = false
                 binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
             }
@@ -336,21 +336,19 @@ class SignUpMajorInfoActivity :
     }
 
 
-    //전공 중복 체크
-    private fun checkMajor() {
-        if (signViewModel.secondMajor.value.toString() == "미진입") {
-
-        } else if (signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString() &&
-            binding.textSignupMajorinfoMajorTime.text != "선택하기" && binding.textSignupMajorinfoDoubleMajorTime.text != "미진입"
-        ) {
-            binding.clSignupMajorInfoMoveNext.isSelected = true
-            binding.textSignupMajorInfoNext.isSelected = true
-        } else {
-            binding.clSignupMajorInfoMoveNext.isSelected = false
-            binding.textSignupMajorInfoNext.isSelected = false
-        }
-
-    }
+//    //전공 중복 체크
+//    private fun checkMajor() {
+//        if (signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString() &&
+//            (binding.textSignupMajorinfoMajorTime.text != "선택하기")
+//        ) {
+//            binding.clSignupMajorInfoMoveNext.isSelected = true
+//            binding.textSignupMajorInfoNext.isSelected = true
+//        } else {
+//            binding.clSignupMajorInfoMoveNext.isSelected = false
+//            binding.textSignupMajorInfoNext.isSelected = false
+//        }
+//
+//    }
 
 
     //다음 버튼 변경
@@ -359,7 +357,7 @@ class SignUpMajorInfoActivity :
             binding.clSignupMajorInfoMoveNext.isSelected = it
             binding.textSignupMajorInfoNext.isSelected = it
 
-            checkMajor()
+            //checkMajor()
 
             if (binding.clSignupMajorInfoMoveNext.isSelected && binding.textSignupMajorInfoNext.isSelected) {
                 nextBtnActivate()
