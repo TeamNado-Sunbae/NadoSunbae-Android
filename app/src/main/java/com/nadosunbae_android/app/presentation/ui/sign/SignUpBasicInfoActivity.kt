@@ -248,21 +248,21 @@ class SignUpBasicInfoActivity :
         binding.clSignupBasicinfoMoveBefore.setOnClickListener {
 
             val firstMajor = intent.getStringExtra("firstMajorName").toString()
-            val firstMajorNum = intent.getIntExtra("firstMajorId", 0)
+            val firstMajorId = intent.getIntExtra("firstMajorId", 0)
             val firstMajorStart = intent.getStringExtra("firstMajorStart").toString()
             val secondMajor = intent.getStringExtra("secondMajorName").toString()
-            val secondMajorNum = intent.getIntExtra("secondMajorId", 0)
+            val secondMajorId = intent.getIntExtra("secondMajorId", 0)
             val secondMajorStart = intent.getStringExtra("secondMajorStart").toString()
 
 
-            Timber.d("이거도 null? : ${firstMajorNum}")
+            Timber.d("이거도 null? : ${firstMajorId}")
 
             val intent = Intent(this, SignUpMajorInfoActivity::class.java)
             intent.putExtra("firstMajorName", firstMajor)
-            intent.putExtra("firstMajorNum", firstMajorNum)
+            intent.putExtra("firstMajorId", firstMajorId)
             intent.putExtra("firstMajorStart", firstMajorStart)
             intent.putExtra("secondMajorName", secondMajor)
-            intent.putExtra("secondMajorNum", secondMajorNum)
+            intent.putExtra("secondMajorId", secondMajorId)
             intent.putExtra("secondMajorStart", secondMajorStart)
 
             startActivity(intent)
@@ -368,9 +368,9 @@ class SignUpBasicInfoActivity :
                         intent.getStringExtra("secondMajorStart").toString()
                     )
                 )
-                Timber.d("LastCheck : ${intent.getStringExtra("firstMajorId").toString()}")
+                Timber.d("LastCheck : ${intent.getIntExtra("firstMajorId",0)}")
                 Timber.d("LastCheck : ${intent.getStringExtra("firstMajorStart").toString()}")
-                Timber.d("LastCheck : ${intent.getStringExtra("secondMajorId").toString()}")
+                Timber.d("LastCheck : ${intent.getIntExtra("secondMajorId",0)}")
                 Timber.d("LastCheck : ${intent.getStringExtra("secondMajorStart").toString()}")
 
                 val intent = Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java)
