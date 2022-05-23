@@ -52,12 +52,16 @@ class SignUpMajorInfoActivity :
 
     //뒤로버튼으로 왔을 시 텍스트 필드 채우기
     private fun initTextfield() = with(binding) {
-        textSignupMajorinfoMajor.setText(intent.getStringExtra("firstMajorName") ?: "선택하기")
+        val firstMajor = intent.getStringExtra("firstMajorName") ?: "선택하기"
+        textSignupMajorinfoMajor.setText(firstMajor)
+        signViewModel.firstMajor.value = firstMajor
         firstMajorId = intent.getIntExtra("firstMajorId", 0)
         textSignupMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart") ?: "선택하기")
 
         //두번째 전공
-        textSignupMajorinfoDoubleMajor.setText(intent.getStringExtra("secondMajorName") ?: "선택하기")
+        val secondMajor = intent.getStringExtra("secondMajorName") ?: "선택하기"
+        textSignupMajorinfoDoubleMajor.setText(secondMajor)
+        signViewModel.secondMajor.value = secondMajor
         secondMajorId = intent.getIntExtra("secondMajorId", 0)
         textSignupMajorinfoDoubleMajorTime.setText(
             intent.getStringExtra("secondMajorStart") ?: "선택하기"
@@ -352,24 +356,16 @@ class SignUpMajorInfoActivity :
         if (signViewModel.firstMajor.value.toString() == signViewModel.secondMajor.value.toString()) {
             binding.clSignupMajorInfoMoveNext.isSelected = false
             binding.textSignupMajorInfoNext.isSelected = false
-        } else if (binding.textSignupMajorinfoMajor.text.toString() == binding.textSignupMajorinfoDoubleMajor.text.toString()) {
-            binding.clSignupMajorInfoMoveNext.isSelected = false
-            binding.textSignupMajorInfoNext.isSelected = false
         }
-
     }
 
 
     //다음 버튼 변경
     private fun changeNext() {
         signUpBasicInfoViewModel.selectedAll.observe(this) {
-
-            checkMajor()
-
             binding.clSignupMajorInfoMoveNext.isSelected = it
             binding.textSignupMajorInfoNext.isSelected = it
-
-
+            checkMajor()
 
             if (binding.clSignupMajorInfoMoveNext.isSelected && binding.textSignupMajorInfoNext.isSelected) {
                 nextBtnActivate()
@@ -378,6 +374,8 @@ class SignUpMajorInfoActivity :
             }
         }
     }
+
+
 
     private fun setupSpinner() {
         val list = listOf("고려대학교", "타 대학은 현재 준비중입니다")
