@@ -5,8 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.util.Patterns
 import android.view.View
 import androidx.core.view.isVisible
 import com.nadosunbae_android.app.R
@@ -248,7 +246,23 @@ class SignUpBasicInfoActivity :
     //이전버튼 클릭 이벤트
     private fun beforeBtnClick() {
         binding.clSignupBasicinfoMoveBefore.setOnClickListener {
-            startActivity(Intent(this, SignUpMajorInfoActivity::class.java))
+
+            val firstMajor = intent.getStringExtra("firstMajorName").toString()
+            val firstMajorId = intent.getIntExtra("firstMajorId", 0)
+            val firstMajorStart = intent.getStringExtra("firstMajorStart").toString()
+            val secondMajor = intent.getStringExtra("secondMajorName").toString()
+            val secondMajorId = intent.getIntExtra("secondMajorId", 0)
+            val secondMajorStart = intent.getStringExtra("secondMajorStart").toString()
+
+            val intent = Intent(this, SignUpMajorInfoActivity::class.java)
+            intent.putExtra("firstMajorName", firstMajor)
+            intent.putExtra("firstMajorId", firstMajorId)
+            intent.putExtra("firstMajorStart", firstMajorStart)
+            intent.putExtra("secondMajorName", secondMajor)
+            intent.putExtra("secondMajorId", secondMajorId)
+            intent.putExtra("secondMajorStart", secondMajorStart)
+
+            startActivity(intent)
             finish()
         }
     }
@@ -351,7 +365,10 @@ class SignUpBasicInfoActivity :
                         intent.getStringExtra("secondMajorStart").toString()
                     )
                 )
-
+                Timber.d("LastCheck : ${intent.getIntExtra("firstMajorId",0)}")
+                Timber.d("LastCheck : ${intent.getStringExtra("firstMajorStart").toString()}")
+                Timber.d("LastCheck : ${intent.getIntExtra("secondMajorId",0)}")
+                Timber.d("LastCheck : ${intent.getStringExtra("secondMajorStart").toString()}")
 
                 val intent = Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java)
                 intent.putExtra("email", etSignupBasicinfoEmail.text.toString())
