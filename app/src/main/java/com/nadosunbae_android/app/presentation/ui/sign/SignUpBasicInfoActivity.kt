@@ -254,9 +254,6 @@ class SignUpBasicInfoActivity :
             val secondMajorId = intent.getIntExtra("secondMajorId", 0)
             val secondMajorStart = intent.getStringExtra("secondMajorStart").toString()
 
-
-            Timber.d("이거도 null? : ${firstMajorId}")
-
             val intent = Intent(this, SignUpMajorInfoActivity::class.java)
             intent.putExtra("firstMajorName", firstMajor)
             intent.putExtra("firstMajorId", firstMajorId)
