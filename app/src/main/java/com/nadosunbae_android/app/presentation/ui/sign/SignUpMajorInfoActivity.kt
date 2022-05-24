@@ -17,6 +17,7 @@ import com.nadosunbae_android.app.util.PixelRatio
 import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class SignUpMajorInfoActivity :
@@ -46,7 +47,6 @@ class SignUpMajorInfoActivity :
         secondMajorPeriod()
         firstMajor()
         secondMajor()
-        //checkMajor()
         changeNext()
 
     }
@@ -72,6 +72,8 @@ class SignUpMajorInfoActivity :
 
         if (textSignupMajorinfoDoubleMajor.text.toString() == "선택하기") {
             textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#94959E"))
+        } else {
+            textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
         }
         signViewModel.secondMajor.value = secondMajor
 
@@ -88,8 +90,8 @@ class SignUpMajorInfoActivity :
             binding.textSignupMajorinfoDoubleMajorTime.text = "미진입"
             binding.textSignupMajorinfoDoubleMajorMintTime.setText("선택")
             binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
-        }
 
+        }
 
         //선택하기 분기처리
         if (textSignupMajorinfoMajor.text.toString() != "선택하기") {
