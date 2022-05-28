@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.sign
 
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -17,7 +18,6 @@ import com.nadosunbae_android.app.util.PixelRatio
 import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 
 class SignUpMajorInfoActivity :
@@ -34,6 +34,10 @@ class SignUpMajorInfoActivity :
     private var firstMajorId = 0
     private var secondMajorId = 0
 
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,6 +52,8 @@ class SignUpMajorInfoActivity :
         firstMajor()
         secondMajor()
         changeNext()
+
+
 
     }
 
@@ -148,7 +154,9 @@ class SignUpMajorInfoActivity :
 
     private fun moveBeforePage() {
         binding.clSignupMajorInfoMoveBefore.setOnClickListener {
-            startActivity(Intent(this, SignUpAgreementActivity::class.java))
+            val intent = Intent(this, SignUpAgreementActivity::class.java)
+            intent.putExtra("agreement", "success")
+            startActivity(intent)
             finish()
         }
     }

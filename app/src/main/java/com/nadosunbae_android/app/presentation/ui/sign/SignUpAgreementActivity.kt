@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.sign
 
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -18,11 +19,13 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
 
     private val mainViewModel: MainViewModel by viewModel()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         closePage()
         onCheckChanged()
         goPage()
+        initCheckedBox()
     }
 
     //X버튼 클릭 리스너
@@ -100,8 +103,21 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
     //회원가입 중 다음 페이지로 이동
     private fun pressNextBtnEvent() {
         binding.clAgreementMoveNext.setOnClickListener {
-            startActivity(Intent(this, SignUpMajorInfoActivity::class.java))
+            val intent = Intent(this, SignUpMajorInfoActivity::class.java)
+
+            startActivity(intent)
             finish()
+        }
+    }
+
+    private fun initCheckedBox() {
+        val checkItem = intent.getStringExtra("agreement") ?: ""
+        if(checkItem != "") {
+            binding.imageAgreementCheckAll.isSelected = true
+            binding.imageAgreementCheckInformation.isSelected = true
+            binding.imageAgreementCheckService.isSelected = true
+            binding.clAgreementMoveNext.isSelected = true
+            pressNextBtnEvent()
         }
     }
 
