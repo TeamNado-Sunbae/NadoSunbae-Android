@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySignUpBasicInfoBinding
@@ -290,7 +291,7 @@ class SignUpBasicInfoActivity :
         binding.textSignupBasicinfoEmailDuplication.isSelected = true
         binding.textSignupBasicinfoEmailDuplication.isEnabled = true
 
-        if (binding.etSignupBasicinfoEmail.text.contains("@korea.ac.kr")) {
+        if (binding.etSignupBasicinfoEmail.text.contains("@")) {
             binding.textSignupBasicinfoEmailDuplication.isSelected = true
             binding.textSignupBasicinfoEmailDuplication.isEnabled = true
         } else {
