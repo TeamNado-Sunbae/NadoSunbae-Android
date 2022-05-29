@@ -291,7 +291,7 @@ class SignUpBasicInfoActivity :
         binding.textSignupBasicinfoEmailDuplication.isSelected = true
         binding.textSignupBasicinfoEmailDuplication.isEnabled = true
 
-        if (binding.etSignupBasicinfoEmail.text.contains("@")) {
+        if (binding.etSignupBasicinfoEmail.text.contains("@korea.ac.kr")) {
             binding.textSignupBasicinfoEmailDuplication.isSelected = true
             binding.textSignupBasicinfoEmailDuplication.isEnabled = true
         } else {
