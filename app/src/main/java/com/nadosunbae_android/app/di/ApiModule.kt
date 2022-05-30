@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 private const val BASE_URL_PROD = "https://asia-northeast3-nadosunbae-server.cloudfunctions.net/api/"
 private const val BASE_URL_DEV = "https://asia-northeast3-nadosunbae-server-dev-90ac3.cloudfunctions.net/api/"
 
-private const val BASE_URL = BASE_URL_DEV
+private const val BASE_URL = BASE_URL_PROD
 
 val apiModule = module {
 
