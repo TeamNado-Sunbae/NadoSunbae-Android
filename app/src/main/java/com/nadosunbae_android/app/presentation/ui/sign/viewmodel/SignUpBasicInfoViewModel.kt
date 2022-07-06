@@ -15,12 +15,15 @@ import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.sign.GetSecondDepartmentUseCase
 import com.nadosunbae_android.domain.usecase.sign.PostCertificationEmailUseCase
 import com.nadosunbae_android.domain.usecase.sign.PostRenewalTokenUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class SignUpBasicInfoViewModel(
+@HiltViewModel
+class SignUpBasicInfoViewModel @Inject constructor(
     private val getFirstDepartmentUseCase: GetFirstDepartmentUseCase,
     private val getSecondDepartmentUseCase: GetSecondDepartmentUseCase,
     private val postSignEmailUseCase: PostSignEmailUseCase,

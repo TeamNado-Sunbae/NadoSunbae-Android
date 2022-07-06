@@ -16,10 +16,13 @@ import com.nadosunbae_android.domain.usecase.classroom.GetClassRoomMainDataUseCa
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetMajorListDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetAppLinkUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     val getClassRoomMainDataUseCase : GetClassRoomMainDataUseCase,
     val getSeniorDataUseCase : GetSeniorDataUseCase,
     val getMajorListDataUseCase: GetMajorListDataUseCase,

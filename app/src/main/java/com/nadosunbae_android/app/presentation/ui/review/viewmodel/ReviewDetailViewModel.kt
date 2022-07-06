@@ -19,11 +19,14 @@ import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.usecase.classroom.PostReportUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class ReviewDetailViewModel(
+@HiltViewModel
+class ReviewDetailViewModel @Inject constructor(
     private val getReviewDetailDataUseCase: GetReviewDetailDataUseCase,
     private val deleteReviewDataUseCase: DeleteReviewDataUseCase,
     private val postLikeDataUseCase: PostLikeDataUseCase,

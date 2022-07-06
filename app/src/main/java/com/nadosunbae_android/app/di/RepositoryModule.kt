@@ -1,6 +1,13 @@
 package com.nadosunbae_android.app.di
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
+import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSource
+import com.nadosunbae_android.data.datasource.remote.like.LikeDataSource
+import com.nadosunbae_android.data.datasource.remote.main.MainDataSource
+import com.nadosunbae_android.data.datasource.remote.mypage.MyPageDataSource
+import com.nadosunbae_android.data.datasource.remote.notification.NotificationDataSource
+import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSource
+import com.nadosunbae_android.data.datasource.remote.sign.SignDataSource
 import com.nadosunbae_android.domain.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.domain.repository.like.LikeRepository
 import com.nadosunbae_android.domain.repository.main.MainRepository
@@ -29,16 +36,55 @@ object RepositoryModule{
     @Singleton
     @Provides
     fun classRoomRepository(
-
+        classRoomDataSource : ClassRoomDataSource
     ) : ClassRoomRepository{
-        return ClassRoomRepositoryImpl()
+        return ClassRoomRepositoryImpl(classRoomDataSource)
     }
-    single<ClassRoomRepository> { ClassRoomRepositoryImpl(get()) }
-    single<LikeRepository> { LikeRepositoryImpl(get()) }
-    single<MainRepository> { MainRepositoryImpl(get()) }
-    single<MyPageRepository> { MyPageRepositoryImpl(get()) }
-    single<SignRepository>{ SignRepositoryImpl(get()) }
-    single<ReviewRepository>{ ReviewRepositoryImpl(get()) }
-    single<NotificationRepository>{NotificationRepositoryImpl(get())}
+    @Singleton
+    @Provides
+    fun likeRepository(
+        likeDataSource: LikeDataSource
+    ) : LikeRepository{
+        return LikeRepositoryImpl(likeDataSource)
+    }
+    @Singleton
+    @Provides
+    fun mainRepository(
+        mainDataSource: MainDataSource
+    ) : MainRepository{
+        return MainRepositoryImpl(mainDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun myPageRepository(
+        myPageDataSource: MyPageDataSource
+    ) : MyPageRepository{
+        return MyPageRepositoryImpl(myPageDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun signRepository(
+        signDataSource : SignDataSource
+    ) : SignRepository{
+        return SignRepositoryImpl(signDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun notificationRepository(
+        notificationDataSource: NotificationDataSource
+    ) : NotificationRepository{
+        return NotificationRepositoryImpl(notificationDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun reviewRepository(
+        reviewDataSource: ReviewDataSource
+    ) : ReviewRepository{
+        return ReviewRepositoryImpl(reviewDataSource)
+    }
 
 }
