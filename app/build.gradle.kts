@@ -1,6 +1,5 @@
-
 plugins {
-    id ("com.android.application")
+    id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
@@ -8,6 +7,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -28,11 +28,17 @@ android {
         getByName("debug") {
             isMinifyEnabled = false
             isDebuggable = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -50,8 +56,8 @@ android {
 }
 
 dependencies {
-    implementation (project(":domain"))
-    implementation (project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
     implementation(KotlinDependencies.kotlin)
     implementation(AndroidXDependencies.appCompat)
     implementation(AndroidXDependencies.coreKtx)
@@ -61,7 +67,9 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     // debugImplementation("com.squareup.leakcanary:leakcanary-android:2.6")
-
+    //Hilt
+    implementation("com.google.dagger:hilt-android:2.37")
+    kapt("com.google.dagger:hilt-android-compiler:2.37")
 // ViewModel
     implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
     implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
@@ -149,7 +157,7 @@ dependencies {
 
 
     //dot indicator
-    implementation ("com.tbuonomo:dotsindicator:4.2")
+    implementation("com.tbuonomo:dotsindicator:4.2")
 
     //Timber
     implementation("com.jakewharton.timber:timber:4.7.1")
