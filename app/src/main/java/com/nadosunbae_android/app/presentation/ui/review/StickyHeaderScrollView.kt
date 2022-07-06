@@ -5,7 +5,9 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.core.widget.NestedScrollView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StickyHeaderScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListener {
 
     constructor(context: Context) : this(context, null, 0)

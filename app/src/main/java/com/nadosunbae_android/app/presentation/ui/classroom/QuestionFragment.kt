@@ -15,10 +15,11 @@ import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment_question) {
     private val mainViewModel: MainViewModel by sharedViewModel()
 

@@ -7,8 +7,9 @@ import android.graphics.drawable.ColorDrawable
 import android.view.WindowManager
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.presentation.ui.sign.SignUpBasicInfoActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_sign_in_custom_dialog.*
-
+@AndroidEntryPoint
 class SignInCustomDialog(context : Context) {
 
     private val dialog = Dialog(context)

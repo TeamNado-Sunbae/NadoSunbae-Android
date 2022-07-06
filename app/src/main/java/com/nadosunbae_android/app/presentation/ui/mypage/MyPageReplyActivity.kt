@@ -17,8 +17,9 @@ import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyInfo
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.domain.model.mypage.MyPagePostData
 import com.nadosunbae_android.domain.model.mypage.MyPageReplyData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
+@AndroidEntryPoint
 class MyPageReplyActivity :
     BaseActivity<ActivityMyPageReplyBinding>(R.layout.activity_my_page_reply) {
 

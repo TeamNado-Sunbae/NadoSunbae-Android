@@ -24,10 +24,11 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.SplashViewModel
 import com.nadosunbae_android.app.presentation.ui.onboarding.OnBoardingActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 
     private val splashViewModel : SplashViewModel by viewModel()

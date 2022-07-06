@@ -19,9 +19,10 @@ import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapt
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.review.ReviewDetailActivity.Companion.TAG
 import com.nadosunbae_android.domain.model.mypage.MyPageVersionData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
+@AndroidEntryPoint
 class AppInfoFragment : BaseFragment<ActivityAppInfoBinding>(R.layout.activity_app_info) {
 
     private val mainViewModel: MainViewModel by sharedViewModel()

@@ -11,9 +11,10 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.domain.model.mypage.MyPageResetPasswordItem
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-
+@AndroidEntryPoint
 class ChangePwFinishActivity :
     BaseActivity<ActivityChangePwFinishBinding>(R.layout.activity_change_pw_finish) {
 

@@ -14,9 +14,10 @@ import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionWr
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteItem
 import com.nadosunbae_android.domain.model.classroom.WriteUpdateItem
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-
+@AndroidEntryPoint
 class QuestionWriteActivity :
     BaseActivity<ActivityQuestionWriteBinding>(R.layout.activity_question_write) {
     private lateinit var dialog: CustomDialog

@@ -10,10 +10,11 @@ import android.util.Log
 import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import com.nadosunbae_android.app.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_quit_alert_custom_dialog.*
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class QuitAlertCustomDialog(val context: Context) {
     private val dialog = Dialog(context)
     private lateinit var onClickedListener: ButtonClickListener

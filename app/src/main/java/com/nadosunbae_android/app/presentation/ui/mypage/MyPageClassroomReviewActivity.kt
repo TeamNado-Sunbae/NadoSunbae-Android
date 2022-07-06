@@ -19,11 +19,12 @@ import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfo
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 import com.nadosunbae_android.domain.model.mypage.MyPageReviewData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReviewBinding>(R.layout.activity_my_page_classroom_review) {
 
     private val myPageViewModel: MyPageViewModel by viewModel()

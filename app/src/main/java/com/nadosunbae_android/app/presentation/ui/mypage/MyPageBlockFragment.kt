@@ -13,9 +13,10 @@ import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewMod
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockData
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
+@AndroidEntryPoint
 class MyPageBlockFragment :
     BaseFragment<FragmentMyPageBlockBinding>(R.layout.fragment_my_page_block) {
 

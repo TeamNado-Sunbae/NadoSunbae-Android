@@ -23,11 +23,12 @@ import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfo
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import com.nadosunbae_android.domain.model.sign.CertificationEmailData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.getScopeId
 import org.koin.core.component.getScopeName
 import timber.log.Timber
-
+@AndroidEntryPoint
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private lateinit var mainActivity: MainActivity
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()

@@ -29,13 +29,14 @@ import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
 import com.nadosunbae_android.domain.model.sign.SignInData
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.item_mypage_block.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.regex.Pattern
 import kotlin.math.sign
 
-
+@AndroidEntryPoint
 class ModifyMyInfoActivity :
     BaseActivity<ActivityModifyMyInfoBinding>(R.layout.activity_modify_my_info) {
 

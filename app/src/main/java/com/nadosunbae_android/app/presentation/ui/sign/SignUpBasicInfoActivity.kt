@@ -16,11 +16,12 @@ import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.sign.EmailDuplicationData
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
 import com.nadosunbae_android.domain.model.sign.SignUpData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.regex.Pattern
 
-
+@AndroidEntryPoint
 class SignUpBasicInfoActivity :
     BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()

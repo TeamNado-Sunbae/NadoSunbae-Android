@@ -18,10 +18,11 @@ import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostInfoA
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.domain.model.mypage.MyPagePostData
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.android.compat.SharedViewModelCompat.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
+@AndroidEntryPoint
 class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.activity_my_page_post) {
 
     private val myPageViewModel: MyPageViewModel by viewModel()

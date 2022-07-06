@@ -15,12 +15,13 @@ import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapt
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.callbackFlow
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
 
     private val myPageViewModel: MyPageViewModel by viewModel()

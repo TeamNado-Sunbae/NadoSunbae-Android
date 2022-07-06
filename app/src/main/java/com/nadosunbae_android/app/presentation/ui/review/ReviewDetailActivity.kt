@@ -19,10 +19,11 @@ import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewDetailV
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.main.SelectableData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class ReviewDetailActivity() :
     BaseActivity<ActivityReviewDetailBinding>(R.layout.activity_review_detail) {
 

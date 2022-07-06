@@ -14,10 +14,11 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.ChangePwFinishActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.domain.model.mypage.MyPageResetPasswordItem
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class FindPwActivity : BaseActivity<ActivityFindPwBinding>(R.layout.activity_find_pw) {
 
     private val myPageViewModel: MyPageViewModel by viewModel()

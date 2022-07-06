@@ -17,11 +17,12 @@ import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.main.SelectableData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fragment_information) {
     private lateinit var classRoomInfoMainAdapter : ClassRoomInfoMainAdapter
     private val mainViewModel: MainViewModel by sharedViewModel()

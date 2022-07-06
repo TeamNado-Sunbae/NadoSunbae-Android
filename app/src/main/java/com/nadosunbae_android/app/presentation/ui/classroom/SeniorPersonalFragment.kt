@@ -25,13 +25,14 @@ import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-
+@AndroidEntryPoint
 class SeniorPersonalFragment :
     BaseFragment<FragmentSeniorPersonalBinding>(R.layout.fragment_senior_personal) {
     private lateinit var classRoomQuestionMainAdapter: ClassRoomQuestionMainAdapter

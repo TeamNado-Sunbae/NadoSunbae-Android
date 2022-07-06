@@ -25,8 +25,9 @@ import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeQuestionData
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 import com.nadosunbae_android.domain.model.mypage.MyPagePostData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
+@AndroidEntryPoint
 class MyPageLikeListActivity :
     BaseActivity<ActivityMyPageLikeListBinding>(R.layout.activity_my_page_like_list) {
     private val myPageViewModel: MyPageViewModel by viewModel()

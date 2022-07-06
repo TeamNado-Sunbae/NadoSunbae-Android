@@ -28,9 +28,10 @@ import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-
+@AndroidEntryPoint
 class InformationDetailActivity :
     BaseActivity<ActivityInformationDetailBinding>(R.layout.activity_information_detail) {
     private val infoDetailViewModel: InfoDetailViewModel by viewModel()

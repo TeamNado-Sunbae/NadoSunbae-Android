@@ -10,10 +10,11 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSen
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_senior) {
     private lateinit var classRoomSeniorOnAdapter : ClassRoomSeniorOnAdapter
     private lateinit var classRoomSeniorOffAdapter : ClassRoomSeniorOffAdapter

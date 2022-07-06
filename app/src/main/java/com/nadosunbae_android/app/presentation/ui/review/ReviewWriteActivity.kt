@@ -22,9 +22,10 @@ import com.nadosunbae_android.domain.model.review.ReviewEditItem
 import com.nadosunbae_android.domain.model.review.ReviewWriteItem
 import com.nadosunbae_android.domain.model.review.SelectBackgroundBoxData
 import com.nadosunbae_android.domain.model.main.MajorSelectData
+import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.w3c.dom.Text
-
+@AndroidEntryPoint
 class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
 
     private lateinit var reviewSelectBackgroundAdapter: ReviewSelectBackgroundAdapter
