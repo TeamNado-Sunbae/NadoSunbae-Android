@@ -10,7 +10,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -22,7 +21,7 @@ private const val BASE_URL = BASE_URL_PROD
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ApiModule{
+object ApiModule {
 
     @Singleton
     @Provides
