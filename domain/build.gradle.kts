@@ -61,7 +61,9 @@ dependencies {
     implementation(platform(ThirdPartyDependencies.okhttpBOM))
     implementation(ThirdPartyDependencies.okhttp)
     implementation(ThirdPartyDependencies.okhttpInterceptor)
-
+//Hilt
+    implementation("com.google.dagger:hilt-android:2.37")
+    kapt("com.google.dagger:hilt-android-compiler:2.37")
 // Retrofit
     implementation(ThirdPartyDependencies.retrofit)
     implementation(ThirdPartyDependencies.retrofitGsonConverter)
