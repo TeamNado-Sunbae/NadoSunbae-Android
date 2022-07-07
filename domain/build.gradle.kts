@@ -61,7 +61,9 @@ dependencies {
     implementation(platform(ThirdPartyDependencies.okhttpBOM))
     implementation(ThirdPartyDependencies.okhttp)
     implementation(ThirdPartyDependencies.okhttpInterceptor)
-
+//Hilt
+    implementation("com.google.dagger:hilt-android:2.37")
+    kapt("com.google.dagger:hilt-android-compiler:2.37")
 // Retrofit
     implementation(ThirdPartyDependencies.retrofit)
     implementation(ThirdPartyDependencies.retrofitGsonConverter)
@@ -72,11 +74,7 @@ dependencies {
     implementation("org.jetbrains:annotations:15.0")
     implementation("androidx.annotation:annotation:1.3.0")
 
-//koin
-    implementation("io.insert-koin:koin-core:3.1.2")
-    implementation("io.insert-koin:koin-android:3.1.2")
-    implementation("io.insert-koin:koin-android-compat:3.1.2")
-    testImplementation("io.insert-koin:koin-test:3.1.2")
+
 
 
     //google

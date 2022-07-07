@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import androidx.core.app.ActivityCompat
+import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySignUpBasicInfoBinding
@@ -16,14 +16,14 @@ import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.sign.EmailDuplicationData
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
 import com.nadosunbae_android.domain.model.sign.SignUpData
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.regex.Pattern
 
-
+@AndroidEntryPoint
 class SignUpBasicInfoActivity :
     BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

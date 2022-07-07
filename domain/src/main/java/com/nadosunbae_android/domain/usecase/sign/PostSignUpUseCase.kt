@@ -3,8 +3,9 @@ package com.nadosunbae_android.domain.usecase.classroom
 import com.nadosunbae_android.domain.model.sign.SignUpData
 import com.nadosunbae_android.domain.model.sign.SignUpItem
 import com.nadosunbae_android.domain.repository.sign.SignRepository
+import javax.inject.Inject
 
-class PostSignUpUseCase(val repository : SignRepository) {
+class PostSignUpUseCase @Inject constructor(val repository : SignRepository) {
     suspend operator fun invoke(signUpData: SignUpData) : SignUpItem{
         return repository.postSignUp(signUpData)
     }

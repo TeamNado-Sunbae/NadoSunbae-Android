@@ -1,10 +1,9 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentQuestionBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -15,12 +14,12 @@ import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class QuestionFragment : BaseFragment<FragmentQuestionBinding>(R.layout.fragment_question) {
-    private val mainViewModel: MainViewModel by sharedViewModel()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
 
     private lateinit var classRoomQuestionMainAdapter : ClassRoomQuestionMainAdapter

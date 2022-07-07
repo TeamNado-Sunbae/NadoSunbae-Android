@@ -1,11 +1,12 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -22,24 +23,23 @@ import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
-import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
+@AndroidEntryPoint
 class SeniorPersonalFragment :
     BaseFragment<FragmentSeniorPersonalBinding>(R.layout.fragment_senior_personal) {
     private lateinit var classRoomQuestionMainAdapter: ClassRoomQuestionMainAdapter
     private lateinit var callback: OnBackPressedCallback
     lateinit var informationDetailActivity : InformationDetailActivity
-    private val mainViewModel: MainViewModel by sharedViewModel()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
-    private val seniorPersonalViewModel: SeniorPersonalViewModel by viewModel()
+    private val seniorPersonalViewModel: SeniorPersonalViewModel by viewModels()
 
     var isActivity = false
 

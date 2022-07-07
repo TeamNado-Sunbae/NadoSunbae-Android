@@ -13,10 +13,13 @@ import com.nadosunbae_android.domain.model.review.ReviewPreviewData
 import com.nadosunbae_android.domain.usecase.review.GetMajorInfoDataUseCase
 import com.nadosunbae_android.domain.usecase.review.GetReviewListDataUseCase
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class ReviewListViewModel(
+@HiltViewModel
+class ReviewListViewModel @Inject constructor(
     val getReviewListDataUseCase: GetReviewListDataUseCase,
     val getMajorInfoDataUseCase: GetMajorInfoDataUseCase
 ) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {

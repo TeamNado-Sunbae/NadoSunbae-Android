@@ -9,8 +9,9 @@ import androidx.core.app.NotificationManagerCompat
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityNotificationSettingBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class NotificationSettingActivity :
     BaseActivity<ActivityNotificationSettingBinding>(R.layout.activity_notification_setting) {
 

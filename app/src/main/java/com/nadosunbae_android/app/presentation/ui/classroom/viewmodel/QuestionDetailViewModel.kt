@@ -19,11 +19,14 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationCheck
 import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class QuestionDetailViewModel(
+@HiltViewModel
+class QuestionDetailViewModel @Inject constructor(
     val getQuestionDetailDataUseCase: GetQuestionDetailDataUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
     val postLikeDataUseCase: PostLikeDataUseCase,

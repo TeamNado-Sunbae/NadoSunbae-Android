@@ -7,28 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.app.databinding.FragmentCustomBottomSheetDialogBinding
 import com.nadosunbae_android.app.presentation.ui.sign.adapter.MajorSelectAdapter
-import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
+import com.nadosunbae_android.domain.model.main.SelectableData
 
 
 class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFragment() {
 
-    private val signViewModel: SignViewModel by activityViewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SignViewModel() as T
-            }
-        }
-    }
+
 
     // 바텀시트 타이틀
     private var _titleData = MutableLiveData<String>()

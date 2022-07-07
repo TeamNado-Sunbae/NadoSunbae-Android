@@ -1,6 +1,5 @@
-
 plugins {
-    id ("com.android.application")
+    id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
@@ -8,6 +7,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -28,11 +28,17 @@ android {
         getByName("debug") {
             isMinifyEnabled = false
             isDebuggable = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -50,8 +56,8 @@ android {
 }
 
 dependencies {
-    implementation (project(":domain"))
-    implementation (project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
     implementation(KotlinDependencies.kotlin)
     implementation(AndroidXDependencies.appCompat)
     implementation(AndroidXDependencies.coreKtx)
@@ -61,11 +67,14 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     // debugImplementation("com.squareup.leakcanary:leakcanary-android:2.6")
+    //Hilt
+    implementation("com.google.dagger:hilt-android:2.37")
+    kapt("com.google.dagger:hilt-android-compiler:2.37")
 
 // ViewModel
-    implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
     implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.5.0-alpha06")
@@ -116,7 +125,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
 
-//CardView
+
 //CardView
     implementation(AndroidXDependencies.cardview)
 
@@ -128,11 +137,6 @@ dependencies {
     implementation("org.jetbrains:annotations:15.0")
     implementation("androidx.annotation:annotation:1.3.0")
 
-//koin
-    implementation("io.insert-koin:koin-core:3.1.2")
-    implementation("io.insert-koin:koin-android:3.1.2")
-    implementation("io.insert-koin:koin-android-compat:3.1.2")
-    testImplementation("io.insert-koin:koin-test:3.1.2")
 
 
     //bottomsheet
@@ -149,7 +153,7 @@ dependencies {
 
 
     //dot indicator
-    implementation ("com.tbuonomo:dotsindicator:4.2")
+    implementation("com.tbuonomo:dotsindicator:4.2")
 
     //Timber
     implementation("com.jakewharton.timber:timber:4.7.1")

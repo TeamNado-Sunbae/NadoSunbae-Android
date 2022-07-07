@@ -1,23 +1,21 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityChangePwFinishBinding
-import com.nadosunbae_android.app.databinding.ActivitySignUpBasicInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.domain.model.mypage.MyPageResetPasswordItem
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class ChangePwFinishActivity :
     BaseActivity<ActivityChangePwFinishBinding>(R.layout.activity_change_pw_finish) {
 
-    private val myPageViewModel: MyPageViewModel by viewModel()
+    private val myPageViewModel: MyPageViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

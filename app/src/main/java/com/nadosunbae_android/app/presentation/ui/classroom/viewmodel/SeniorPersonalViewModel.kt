@@ -14,6 +14,7 @@ import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
 import com.nadosunbae_android.domain.usecase.classroom.GetQuestionSeniorListDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorPersonalDataUseCase
 import com.nadosunbae_android.domain.usecase.mypage.PostMyPageBlockUpdateUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -21,8 +22,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 import timber.log.Timber
+import javax.inject.Inject
 
-class SeniorPersonalViewModel(
+@HiltViewModel
+class SeniorPersonalViewModel @Inject constructor(
     val getSeniorPersonalDataUseCase: GetSeniorPersonalDataUseCase,
     val getQuestionSeniorListDataUseCase : GetQuestionSeniorListDataUseCase,
     val postMyPageBlockUpdateUseCase : PostMyPageBlockUpdateUseCase

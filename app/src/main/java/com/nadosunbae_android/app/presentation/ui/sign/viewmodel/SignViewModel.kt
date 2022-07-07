@@ -2,7 +2,9 @@ package com.nadosunbae_android.app.presentation.ui.sign.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+
 
 class SignViewModel : ViewModel() {
 

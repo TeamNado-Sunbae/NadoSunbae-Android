@@ -11,11 +11,14 @@ import com.nadosunbae_android.domain.model.classroom.WriteUpdateData
 import com.nadosunbae_android.domain.model.classroom.WriteUpdateItem
 import com.nadosunbae_android.domain.usecase.classroom.PostClassRoomWriteUseCase
 import com.nadosunbae_android.domain.usecase.classroom.PutWriteUpdateUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class QuestionWriteViewModel(
+@HiltViewModel
+class QuestionWriteViewModel @Inject constructor(
     val postClassRoomWriteUseCase: PostClassRoomWriteUseCase,
     val putWriteUpdateUseCase: PutWriteUpdateUseCase
 ) : ViewModel() {

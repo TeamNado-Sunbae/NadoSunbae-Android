@@ -2,10 +2,10 @@ package com.nadosunbae_android.app.presentation.ui.notification
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.databinding.FragmentNotificationBinding
-import com.nadosunbae_android.domain.model.notification.NotificationListData
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
@@ -17,16 +17,16 @@ import com.nadosunbae_android.app.presentation.ui.notification.viewmodel.Notific
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.nadosunbae_android.domain.model.notification.NotificationListData
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class NotificationFragment :
     BaseFragment<FragmentNotificationBinding>(com.nadosunbae_android.app.R.layout.fragment_notification) {
-    private val notificationViewModel: NotificationViewModel by viewModel()
+    private val notificationViewModel: NotificationViewModel by viewModels()
 
-    private val mainViewModel: MainViewModel by sharedViewModel()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     var link = DataToFragment()
     var mainActivity = MainActivity()

@@ -16,8 +16,9 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-
+@AndroidEntryPoint
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     private val TAG = "FirebaseService"
 

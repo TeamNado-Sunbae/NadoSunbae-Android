@@ -1,18 +1,13 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
-import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
+import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityInformationDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -28,12 +23,13 @@ import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class InformationDetailActivity :
     BaseActivity<ActivityInformationDetailBinding>(R.layout.activity_information_detail) {
-    private val infoDetailViewModel: InfoDetailViewModel by viewModel()
+    private val infoDetailViewModel: InfoDetailViewModel by viewModels()
     private lateinit var classRoomInfoDetailAdapter: ClassRoomInfoDetailAdapter
 
 
