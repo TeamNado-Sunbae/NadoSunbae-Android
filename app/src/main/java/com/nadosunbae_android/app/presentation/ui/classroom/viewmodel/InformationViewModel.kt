@@ -6,7 +6,7 @@ import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.lifecycle.HiltViewModel
 
-@HiltViewModel
+
 class InformationViewModel : ViewModel(), DropDownSelectableViewModel {
 
     override var dropDownSelected = MutableLiveData<SelectableData>()

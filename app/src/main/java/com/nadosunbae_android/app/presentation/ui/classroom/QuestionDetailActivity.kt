@@ -1,17 +1,12 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityQuestionDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -19,7 +14,6 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQue
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
@@ -31,14 +25,13 @@ import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_sign_up_agreement.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import com.nadosunbae_android.app.databinding.ItemQuestionDetailWriterBinding as ItemQuestionDetailWriterBinding
+
 @AndroidEntryPoint
 class QuestionDetailActivity :
     BaseActivity<ActivityQuestionDetailBinding>(R.layout.activity_question_detail) {
-    private val questionDetailViewModel: QuestionDetailViewModel by viewModel()
-    private val myPageViewModel : MyPageViewModel by viewModel()
+    private val questionDetailViewModel: QuestionDetailViewModel by viewModels()
+    private val myPageViewModel: MyPageViewModel by viewModels()
     private lateinit var dialog: CustomDialog
 
     private lateinit var classRoomQuestionDetailAdapter: ClassRoomQuestionDetailAdapter
@@ -60,20 +53,16 @@ class QuestionDetailActivity :
     }
 
 
-
-
-
-
     //로딩 종료
     private fun observeLoadingEnd() {
-        questionDetailViewModel.onLoadingEnd.observe(this){
+        questionDetailViewModel.onLoadingEnd.observe(this) {
             dismissLoading()
         }
     }
 
 
     //종료 금지
-    private fun onQuestion(){
+    private fun onQuestion() {
         MainGlobals.infoBlock = 0
 
     }
@@ -81,7 +70,7 @@ class QuestionDetailActivity :
 
     override fun onResume() {
         super.onResume()
-        if(MainGlobals.infoBlock == 1){
+        if (MainGlobals.infoBlock == 1) {
             finish()
         }
         questionDetailViewModel.getClassRoomQuestionDetail(
@@ -164,8 +153,8 @@ class QuestionDetailActivity :
     }
 
     //답글 작성 중 종이비행기 색상 변경
-    private fun changeRegisterBtn(){
-        binding.etQuestionComment.addTextChangedListener(object : TextWatcher{
+    private fun changeRegisterBtn() {
+        binding.etQuestionComment.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -178,7 +167,6 @@ class QuestionDetailActivity :
             }
         })
     }
-
 
 
     // 전체 질문 상세 댓글 등록

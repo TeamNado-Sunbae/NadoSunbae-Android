@@ -25,7 +25,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.koin.dsl.module
 import javax.inject.Singleton
 
 @Module

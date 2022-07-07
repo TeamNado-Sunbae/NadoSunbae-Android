@@ -1,35 +1,23 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageClassroomReviewBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.app.presentation.ui.review.ReviewDetailActivity
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
-import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
-import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
-import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 import com.nadosunbae_android.domain.model.mypage.MyPageReviewData
 import dagger.hilt.android.AndroidEntryPoint
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReviewBinding>(R.layout.activity_my_page_classroom_review) {
+class MyPageClassroomReviewActivity :
+    BaseActivity<ActivityMyPageClassroomReviewBinding>(R.layout.activity_my_page_classroom_review) {
 
-    private val myPageViewModel: MyPageViewModel by viewModel()
-    private val mainViewModel: MainViewModel by viewModel()
-    private val signViewModel: SignViewModel by viewModel()
+    private val myPageViewModel: MyPageViewModel by viewModels()
     private lateinit var myPageReviewAdapter: MyPageReviewAdapter
     var userId = 0
 
@@ -51,17 +39,17 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
     }
 
     //정보 엠티뷰
-    private fun initReviewEmpty(size : Int){
-        if(size == 0){
+    private fun initReviewEmpty(size: Int) {
+        if (size == 0) {
             binding.textReviewEmpty.visibility = View.VISIBLE
             binding.rvMypageReview.visibility = View.GONE
-        }else{
+        } else {
             binding.textReviewEmpty.visibility = View.GONE
             binding.rvMypageReview.visibility = View.VISIBLE
         }
     }
 
-    private fun initNickName(){
+    private fun initNickName() {
         binding.textMypageReviewNickname.setText(intent.getStringExtra("userNickName"))
     }
 
@@ -79,7 +67,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
 
     private fun observeMyPagePost() {
         myPageViewModel.myPagePostStatus.observe(this) {
-            if(it == 204) {
+            if (it == 204) {
                 initReviewEmpty(0)
             }
         }
@@ -88,7 +76,7 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
     private fun initReviewListAdapter() {
         Timber.d("mypageUserId ${myPageViewModel.userId.value}")
         myPageViewModel.getMyPageReview(myPageViewModel.userId.value ?: 0)
-        myPageReviewAdapter = MyPageReviewAdapter( myPageViewModel.userId.value ?: 0)
+        myPageReviewAdapter = MyPageReviewAdapter(myPageViewModel.userId.value ?: 0)
         binding.rvMypageReview.adapter = myPageReviewAdapter
         myPageViewModel.reviewList.observe(this) {
             initReviewEmpty(it.data.reviewPostList.size)
@@ -97,8 +85,8 @@ class MyPageClassroomReviewActivity : BaseActivity<ActivityMyPageClassroomReview
     }
 
     //서버 통신
-    private fun getReviewListData(){
-         val userId = intent.getIntExtra("userId", 0)
+    private fun getReviewListData() {
+        val userId = intent.getIntExtra("userId", 0)
         Timber.d("유저 아이디 : $userId")
         Timber.d("현 사용자 아이디 : ${MainGlobals.signInData?.userId}")
         myPageViewModel.userId.value = userId

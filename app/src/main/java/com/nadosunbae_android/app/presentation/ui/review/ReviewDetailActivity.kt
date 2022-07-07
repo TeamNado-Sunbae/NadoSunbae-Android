@@ -1,18 +1,13 @@
 package com.nadosunbae_android.app.presentation.ui.review
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewDetailBinding
-import com.nadosunbae_android.app.di.NadoSunBaeApplication
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.main.MainActivity
-import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Companion.MODE_MODIFY
 import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewTagBoxAdapter
 import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewDetailViewModel
@@ -20,7 +15,6 @@ import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -41,7 +35,7 @@ class ReviewDetailActivity() :
     private var permissionDenied = false
 
 
-    private val reviewDetailViewModel: ReviewDetailViewModel by viewModel()
+    private val reviewDetailViewModel: ReviewDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

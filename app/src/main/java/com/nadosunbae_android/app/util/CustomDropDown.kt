@@ -2,8 +2,6 @@ package com.nadosunbae_android.app.util
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -15,8 +13,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.domain.model.main.SelectableData
-import kotlinx.coroutines.selects.select
-import timber.log.Timber
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityRetainedComponent
 
 
 /*
@@ -36,7 +35,18 @@ fun Activity.showCustomDropDown(
     dataList: MutableList<SelectableData>,
     checkVisibility: Boolean = false
 ) {
-    showCustomDropDown(viewModel, view, width, null, null, null, false, selectedItem, dataList, checkVisibility)
+    showCustomDropDown(
+        viewModel,
+        view,
+        width,
+        null,
+        null,
+        null,
+        false,
+        selectedItem,
+        dataList,
+        checkVisibility
+    )
 }
 
 fun Fragment.showCustomDropDown(
@@ -47,45 +57,84 @@ fun Fragment.showCustomDropDown(
     dataList: MutableList<SelectableData>,
     checkVisibility: Boolean = false
 ) {
-    showCustomDropDown(viewModel, view, width, null, null, null, false, selectedItem, dataList, checkVisibility)
+    showCustomDropDown(
+        viewModel,
+        view,
+        width,
+        null,
+        null,
+        null,
+        false,
+        selectedItem,
+        dataList,
+        checkVisibility
+    )
 }
 
 
-
-
 fun Activity.showCustomDropDown(
-                                viewModel: DropDownSelectableViewModel,
-                                view: View, width: Int?, height: Int?,
-                                xOff: Int?, yOff: Int?,
-                                overlapAnchor: Boolean,
-                                selectedItem: Int,
-                                dataList: MutableList<SelectableData>,
-                                checkVisibility: Boolean = false) = showCustomDropDownByContext(viewModel, this, layoutInflater, view, width, height, xOff, yOff, overlapAnchor, selectedItem, dataList, checkVisibility)
+    viewModel: DropDownSelectableViewModel,
+    view: View, width: Int?, height: Int?,
+    xOff: Int?, yOff: Int?,
+    overlapAnchor: Boolean,
+    selectedItem: Int,
+    dataList: MutableList<SelectableData>,
+    checkVisibility: Boolean = false
+) = showCustomDropDownByContext(
+    viewModel,
+    this,
+    layoutInflater,
+    view,
+    width,
+    height,
+    xOff,
+    yOff,
+    overlapAnchor,
+    selectedItem,
+    dataList,
+    checkVisibility
+)
 
 fun Fragment.showCustomDropDown(
-                                viewModel: DropDownSelectableViewModel,
-                                view: View, width: Int?, height: Int?,
-                                xOff: Int?, yOff: Int?,
-                                overlapAnchor: Boolean,
-                                selectedItem: Int,
-                                dataList: MutableList<SelectableData>,
-                                checkVisibility: Boolean = false) = showCustomDropDownByContext(viewModel, requireContext(), layoutInflater, view, width, height, xOff, yOff, overlapAnchor, selectedItem, dataList, checkVisibility)
+    viewModel: DropDownSelectableViewModel,
+    view: View, width: Int?, height: Int?,
+    xOff: Int?, yOff: Int?,
+    overlapAnchor: Boolean,
+    selectedItem: Int,
+    dataList: MutableList<SelectableData>,
+    checkVisibility: Boolean = false
+) = showCustomDropDownByContext(
+    viewModel,
+    requireContext(),
+    layoutInflater,
+    view,
+    width,
+    height,
+    xOff,
+    yOff,
+    overlapAnchor,
+    selectedItem,
+    dataList,
+    checkVisibility
+)
 
 
 // width, height는 null일 경우 wrap_content로 적용
 
-private fun showCustomDropDownByContext(viewModel: DropDownSelectableViewModel,
-                                         context: Context,
-                                         layoutInflater: LayoutInflater,
-                                         view: View,
-                                         width: Int?,
-                                         height: Int?,
-                                         xOff: Int?,
-                                         yOff: Int?,
-                                         overlapAnchor: Boolean,
-                                         selectedItemId: Int,
-                                         dataList: MutableList<SelectableData>,
-                                         checkVisibility: Boolean) {
+private fun showCustomDropDownByContext(
+    viewModel: DropDownSelectableViewModel,
+    context: Context,
+    layoutInflater: LayoutInflater,
+    view: View,
+    width: Int?,
+    height: Int?,
+    xOff: Int?,
+    yOff: Int?,
+    overlapAnchor: Boolean,
+    selectedItemId: Int,
+    dataList: MutableList<SelectableData>,
+    checkVisibility: Boolean
+) {
 
     val inflater = layoutInflater.inflate(R.layout.view_drop_down, null, false)
 
@@ -123,6 +172,7 @@ private fun showCustomDropDownByContext(viewModel: DropDownSelectableViewModel,
 
     popup.showAsDropDown(view, xOff ?: 0, yOff ?: 0, Gravity.RIGHT)
 }
+
 
 interface DropDownSelectableViewModel {
     var dropDownSelected: MutableLiveData<SelectableData>

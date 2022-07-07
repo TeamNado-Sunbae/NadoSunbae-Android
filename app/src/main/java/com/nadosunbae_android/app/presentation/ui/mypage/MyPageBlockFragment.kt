@@ -1,9 +1,9 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.MutableLiveData
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageBlockBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -14,14 +14,13 @@ import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockData
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
 import dagger.hilt.android.AndroidEntryPoint
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+
 @AndroidEntryPoint
 class MyPageBlockFragment :
     BaseFragment<FragmentMyPageBlockBinding>(R.layout.fragment_my_page_block) {
 
-    private val mainViewModel: MainViewModel by sharedViewModel()
-    private val myPageViewModel: MyPageViewModel by viewModel()
+    private val mainViewModel: MainViewModel by activityViewModels()
+    private val myPageViewModel: MyPageViewModel by viewModels()
     private lateinit var myPageBlockAdapter: MyPageBlockAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

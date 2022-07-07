@@ -5,13 +5,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
+import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityModifyMyInfoBinding
@@ -23,27 +24,22 @@ import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfo
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
-import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
-import com.nadosunbae_android.domain.model.mypage.MyPageModifyData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
-import com.nadosunbae_android.domain.model.sign.SignInData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.item_mypage_block.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.regex.Pattern
-import kotlin.math.sign
 
 @AndroidEntryPoint
 class ModifyMyInfoActivity :
     BaseActivity<ActivityModifyMyInfoBinding>(R.layout.activity_modify_my_info) {
 
-    private val myPageViewModel: MyPageViewModel by viewModel()
-    private val signViewModel: SignViewModel by viewModel()
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
-    private val mainViewModel: MainViewModel by viewModel()
+    private val myPageViewModel: MyPageViewModel by viewModels()
+    private val signViewModel: SignViewModel by viewModels()
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
 
     private val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
     private val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
