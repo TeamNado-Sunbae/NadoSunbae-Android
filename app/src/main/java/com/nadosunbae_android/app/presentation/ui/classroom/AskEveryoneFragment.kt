@@ -5,6 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentAskEveryoneBinding
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
@@ -18,13 +20,13 @@ import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.main.SelectableData
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class AskEveryoneFragment : BaseFragment<FragmentAskEveryoneBinding>(R.layout.fragment_ask_everyone) {
-    private val mainViewModel: MainViewModel by sharedViewModel()
-    private val askEveryOneViewModel : AskEveryOneViewModel by viewModel()
+    private val mainViewModel: MainViewModel by activityViewModels()
+    private val askEveryOneViewModel : AskEveryOneViewModel by viewModels()
     private lateinit var classRoomAskEveryoneAdapter : ClassRoomAskEveryoneAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

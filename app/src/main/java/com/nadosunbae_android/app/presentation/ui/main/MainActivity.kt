@@ -3,14 +3,13 @@ package com.nadosunbae_android.app.presentation.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.*
+import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.AppInfoFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
@@ -22,13 +21,14 @@ import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val mainViewModel: MainViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,7 +125,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.btNvMain.itemIconTintList = null
             binding.btNvMain.setOnItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.navigation_review -> {
+                    R.id.navigation_home -> {
                         changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
                         return@setOnItemSelectedListener true
                     }
@@ -133,6 +133,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         mainViewModel.classRoomNum.value = 1
                         changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
                         return@setOnItemSelectedListener true
+                    }
+                    R.id.navigation_community -> {
+                        changeFragmentNoBackStack(R.id.fragment_container_main, CommunityFragment())
                     }
                     R.id.navigation_notice -> {
                         changeFragmentNoBackStack(

@@ -1,37 +1,33 @@
 package com.nadosunbae_android.app.presentation.ui.sign
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySignInBinding
-import com.nadosunbae_android.domain.model.sign.SignInItem
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
-import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import com.nadosunbae_android.domain.model.sign.CertificationEmailData
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.component.getScopeId
-import org.koin.core.component.getScopeName
+import com.nadosunbae_android.domain.model.sign.SignInItem
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
-    private lateinit var mainActivity: MainActivity
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModel()
-    private val mainViewModel: MainViewModel by viewModel()
+
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
 
     companion object {
         private val TAG = SignInActivity::class.java.simpleName
@@ -58,7 +54,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
         }
     }
-    
+
     //Timber 초기화
     private fun setupTimber() {
         Timber.plant(Timber.DebugTree())
@@ -154,7 +150,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     private fun deviceToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Timber.d( "디바이스 토큰 정보 가저오기 실패: ${task.exception}")
+                Timber.d("디바이스 토큰 정보 가저오기 실패: ${task.exception}")
                 return@OnCompleteListener
             }
 
@@ -215,8 +211,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             }
         }
     }
-
-
 
 
     override fun onResume() {

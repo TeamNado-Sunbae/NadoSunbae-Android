@@ -73,11 +73,7 @@ dependencies {
     implementation("org.jetbrains:annotations:15.0")
     implementation("androidx.annotation:annotation:1.3.0")
 
-//koin
-    implementation("io.insert-koin:koin-core:3.1.2")
-    implementation("io.insert-koin:koin-android:3.1.2")
-    implementation("io.insert-koin:koin-android-compat:3.1.2")
-    testImplementation("io.insert-koin:koin-test:3.1.2")
+
 
     //google
 

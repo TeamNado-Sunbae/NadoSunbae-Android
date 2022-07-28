@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
@@ -24,13 +25,13 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.SplashViewModel
 import com.nadosunbae_android.app.presentation.ui.onboarding.OnBoardingActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 
-    private val splashViewModel : SplashViewModel by viewModel()
+    private val splashViewModel : SplashViewModel by viewModels()
     private var loginSuccess = false
     private var notification = -1
     private lateinit var appUpdateManager: AppUpdateManager

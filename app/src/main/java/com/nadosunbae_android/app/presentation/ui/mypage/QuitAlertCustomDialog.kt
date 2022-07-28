@@ -6,13 +6,11 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import com.nadosunbae_android.app.R
 import kotlinx.android.synthetic.main.activity_quit_alert_custom_dialog.*
 import timber.log.Timber
-
 
 class QuitAlertCustomDialog(val context: Context) {
     private val dialog = Dialog(context)

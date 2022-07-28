@@ -1,11 +1,9 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityQuestionWriteBinding
@@ -14,13 +12,14 @@ import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionWr
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteItem
 import com.nadosunbae_android.domain.model.classroom.WriteUpdateItem
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class QuestionWriteActivity :
     BaseActivity<ActivityQuestionWriteBinding>(R.layout.activity_question_write) {
     private lateinit var dialog: CustomDialog
-    private val questionWriteViewModel: QuestionWriteViewModel by viewModel()
+    private val questionWriteViewModel: QuestionWriteViewModel by viewModels()
     var title = false
     var content = false
 

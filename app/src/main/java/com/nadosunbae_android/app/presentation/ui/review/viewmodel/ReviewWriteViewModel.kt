@@ -19,11 +19,14 @@ import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class ReviewWriteViewModel(
+@HiltViewModel
+class ReviewWriteViewModel @Inject constructor(
     val getBackgroundImageListDataUseCase: GetBackgroundImageListDataUseCase,
     val postReviewDataUseCase: PostReviewDataUseCase,
     val putReviewDataUseCase: PutReviewDataUseCase

@@ -1,31 +1,27 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
-import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.databinding.ActivityMyPagePostBinding
 import com.nadosunbae_android.app.databinding.ActivityMyPageReplyBinding
 import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.domain.model.mypage.MyPagePostData
 import com.nadosunbae_android.domain.model.mypage.MyPageReplyData
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyPageReplyActivity :
     BaseActivity<ActivityMyPageReplyBinding>(R.layout.activity_my_page_reply) {
 
-    private val myPageViewModel: MyPageViewModel by viewModel()
+    private val myPageViewModel: MyPageViewModel by viewModels()
 
     private lateinit var myPageReplyAdapter: MyPageReplyAdapter
-    private lateinit var myPageeReplyInfoAdapter : MyPageReplyInfoAdapter
+    private lateinit var myPageeReplyInfoAdapter: MyPageReplyInfoAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,22 +63,22 @@ class MyPageReplyActivity :
     }
 
     //질문 엠티뷰
-    private fun initQuestionEmpty(size : Int){
-        if(size == 0){
+    private fun initQuestionEmpty(size: Int) {
+        if (size == 0) {
             binding.textQuestionEmpty.visibility = View.VISIBLE
             binding.textInfoEmpty.visibility = View.GONE
-        }else{
+        } else {
             binding.textQuestionEmpty.visibility = View.GONE
             binding.textInfoEmpty.visibility = View.GONE
         }
     }
 
     //정보 엠티뷰
-    private fun initInfoEmpty(size : Int){
-        if(size == 0){
+    private fun initInfoEmpty(size: Int) {
+        if (size == 0) {
             binding.textInfoEmpty.visibility = View.VISIBLE
             binding.textQuestionEmpty.visibility = View.GONE
-        }else{
+        } else {
             binding.textInfoEmpty.visibility = View.GONE
             binding.textQuestionEmpty.visibility = View.GONE
         }
@@ -134,7 +130,7 @@ class MyPageReplyActivity :
 
     override fun onRestart() {
         super.onRestart()
-        if(binding.textMypageReplyQuestionTitle.isSelected) {
+        if (binding.textMypageReplyQuestionTitle.isSelected) {
             questionPosting()
         } else {
             infoPosting()

@@ -1,35 +1,25 @@
 package com.nadosunbae_android.app.presentation.ui.mypage
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageLikeListBinding
-import com.nadosunbae_android.app.di.NadoSunBaeApplication
 import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeReviewAdapter
-import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.app.presentation.ui.review.ReviewDetailActivity
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
-import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewListAdapter
-import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeQuestionData
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
-import com.nadosunbae_android.domain.model.mypage.MyPagePostData
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyPageLikeListActivity :
     BaseActivity<ActivityMyPageLikeListBinding>(R.layout.activity_my_page_like_list) {
-    private val myPageViewModel: MyPageViewModel by viewModel()
+    private val myPageViewModel: MyPageViewModel by viewModels()
     private lateinit var myPageLikeQuestionAdapter: MyPageLikeQuestionAdapter
     private lateinit var myPageLikeReviewAdapter: MyPageLikeReviewAdapter
     private lateinit var myPageLikeQuestionInfoAdapter: MyPageLikeQuestionInfoAdapter
@@ -124,10 +114,9 @@ class MyPageLikeListActivity :
 
     override fun onRestart() {
         super.onRestart()
-        if(binding.textMypageLikeReview.isSelected) {
+        if (binding.textMypageLikeReview.isSelected) {
             initReviewListAdapter()
-        }
-        else if(binding.textMypageLikeQuestion.isSelected) {
+        } else if (binding.textMypageLikeQuestion.isSelected) {
             questionPosting()
         } else {
             infoPosting()
@@ -178,7 +167,8 @@ class MyPageLikeListActivity :
         showLoading()
         intent.getIntExtra("userId", 0)
         myPageViewModel.getMyPageLikeQuestion("question")
-        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1,0)
+        myPageLikeQuestionAdapter =
+            MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 
         myPageViewModel.likeQuestion.observe(this) {
@@ -192,7 +182,8 @@ class MyPageLikeListActivity :
         intent.getIntExtra("userId", 0)
 
         myPageViewModel.getMyPageLikeQuestion("information")
-        myPageLikeQuestionInfoAdapter = MyPageLikeQuestionInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
+        myPageLikeQuestionInfoAdapter =
+            MyPageLikeQuestionInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
         binding.rvMypageLike.adapter = myPageLikeQuestionInfoAdapter
 
         myPageViewModel.likeQuestion.observe(this) {
@@ -200,7 +191,6 @@ class MyPageLikeListActivity :
             myPageLikeQuestionInfoAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
         }
     }
-
 
 
     private fun initReviewListAdapter() {

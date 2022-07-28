@@ -1,8 +1,8 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentSeniorBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -10,16 +10,16 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSen
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_senior) {
     private lateinit var classRoomSeniorOnAdapter : ClassRoomSeniorOnAdapter
     private lateinit var classRoomSeniorOffAdapter : ClassRoomSeniorOffAdapter
     var link = DataToFragment()
 
-    private val mainViewModel: MainViewModel by sharedViewModel()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

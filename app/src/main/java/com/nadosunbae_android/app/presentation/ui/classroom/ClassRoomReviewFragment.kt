@@ -7,9 +7,10 @@ import com.nadosunbae_android.app.databinding.FragmentClassRoomReviewBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.domain.model.review.ReviewPreviewData
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 
-
+@AndroidEntryPoint
 class ClassRoomReviewFragment : BaseFragment<FragmentClassRoomReviewBinding>(R.layout.fragment_class_room_review) {
     private lateinit var reviewListAdapter : ReviewListAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

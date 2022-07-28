@@ -3,10 +3,10 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -15,16 +15,14 @@ import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapt
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
-import kotlinx.coroutines.flow.callbackFlow
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
 
-    private val myPageViewModel: MyPageViewModel by viewModel()
-    private val mainViewModel: MainViewModel by sharedViewModel()
+    private val myPageViewModel: MyPageViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     private lateinit var myPageQuestionAdapter: MyPageMainAdapter
     private lateinit var callback : OnBackPressedCallback

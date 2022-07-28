@@ -1,11 +1,10 @@
 package com.nadosunbae_android.app.presentation.ui.review
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewWriteBinding
@@ -15,17 +14,14 @@ import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewSelectBac
 import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewWriteViewModel
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.showCustomDropDown
-import com.nadosunbae_android.domain.model.main.SelectableData
-import com.nadosunbae_android.domain.model.review.BackgroundImageData
-import com.nadosunbae_android.domain.model.review.ReviewDetailData
-import com.nadosunbae_android.domain.model.review.ReviewEditItem
-import com.nadosunbae_android.domain.model.review.ReviewWriteItem
-import com.nadosunbae_android.domain.model.review.SelectBackgroundBoxData
 import com.nadosunbae_android.domain.model.main.MajorSelectData
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.w3c.dom.Text
+import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.review.*
+import dagger.hilt.android.AndroidEntryPoint
 
-class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
+@AndroidEntryPoint
+class ReviewWriteActivity :
+    BaseActivity<ActivityReviewWriteBinding>(R.layout.activity_review_write) {
 
     private lateinit var reviewSelectBackgroundAdapter: ReviewSelectBackgroundAdapter
     private lateinit var reviewRequireTextWatcher: ReviewRequireTextWatcher
@@ -33,9 +29,9 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     private var mode = MODE_NEW
     private lateinit var modifyData: ReviewDetailData
 
-    private val mainViewModel: MainViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModels()
 
-    private val reviewWriteViewModel: ReviewWriteViewModel by viewModel()
+    private val reviewWriteViewModel: ReviewWriteViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,8 +63,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                 if (confirm.value!!)
                     super.onBackPressed()
             }
-        }
-        else
+        } else
             super.onBackPressed()
     }
 
@@ -78,10 +73,11 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         // 수정하기 일 때 기존 데이터 불러오기
         if (mode == MODE_MODIFY) {
             // 기존 글 정보
-            modifyData = intent.getParcelableExtra<ReviewDetailData>("modifyData") as ReviewDetailData
+            modifyData =
+                intent.getParcelableExtra<ReviewDetailData>("modifyData") as ReviewDetailData
 
             // 불러온 데이터로 텍스트 상자 채워넣기
-            with (binding) {
+            with(binding) {
                 etOneLine.setText(modifyData.oneLineReview)
 
                 // content list -> 해당 되는 edit text의 value로
@@ -89,8 +85,12 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                     when (c.title) {
                         getString(R.string.review_pros_cons) -> etProsCons.editText.setText(c.content)
                         getString(R.string.review_curriculum) -> etCurriculum.editText.setText(c.content)
-                        getString(R.string.review_recommend_lecture) -> etRecommendLecture.editText.setText(c.content)
-                        getString(R.string.review_non_recommend_lecture) -> etNonRecommendLecture.editText.setText(c.content)
+                        getString(R.string.review_recommend_lecture) -> etRecommendLecture.editText.setText(
+                            c.content
+                        )
+                        getString(R.string.review_non_recommend_lecture) -> etNonRecommendLecture.editText.setText(
+                            c.content
+                        )
                         getString(R.string.review_career) -> etCareer.editText.setText(c.content)
                         getString(R.string.review_tip) -> etTip.editText.setText(c.content)
                     }
@@ -165,7 +165,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     private fun setWriteRequireTextWatcher() {
         // 리뷰 작성 입력값을 검사하기 위한 TextWatcher
-        with (binding) {
+        with(binding) {
             etOneLine.addTextChangedListener(reviewRequireTextWatcher)
             etProsCons.editText.addTextChangedListener(reviewRequireTextWatcher)
             etCurriculum.editText.addTextChangedListener(reviewRequireTextWatcher)
@@ -180,7 +180,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     private fun setTextLengthWatcher() {
         val textLengthWatcher = TextLengthWatcher()
         // 글자수 표시를 위한 TextWatcher
-        with (binding) {
+        with(binding) {
             etOneLine.addTextChangedListener(textLengthWatcher)
             etProsCons.editText.addTextChangedListener(textLengthWatcher)
             etCurriculum.editText.addTextChangedListener(textLengthWatcher)
@@ -202,8 +202,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
                     if (confirm.value!!)
                         finish()
                 }
-            }
-            else
+            } else
                 finish()
         }
 
@@ -263,20 +262,20 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             }
 
             CustomDialog(this).genericDialog(
-            CustomDialog.DialogData(
-                dialogTitle,
-                dialogComplete,
-                dialogCancel
-            ),
-            complete = {
-                when (mode) {
-                    MODE_NEW -> completeWriteNewReview()
-                    MODE_MODIFY -> completeModifyReview()
-                }
-            },
-            cancel = {
+                CustomDialog.DialogData(
+                    dialogTitle,
+                    dialogComplete,
+                    dialogCancel
+                ),
+                complete = {
+                    when (mode) {
+                        MODE_NEW -> completeWriteNewReview()
+                        MODE_MODIFY -> completeModifyReview()
+                    }
+                },
+                cancel = {
 
-            }
+                }
             )
 
 
@@ -309,10 +308,9 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             showLoading()
             reviewWriteViewModel.postReview(requestBody)
 
-            }
+        }
 
     }
-
 
 
     // 후기글 수정
@@ -323,7 +321,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         // null check
         if (selectedBackgroundId != null) {
 
-            with (binding) {
+            with(binding) {
 
                 val requestBody = ReviewEditItem(
                     selectedBackgroundId,
@@ -347,7 +345,8 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
     private fun observeBackgroundImageList() {
         reviewWriteViewModel.backgroundImageList.observe(this) {
 
-            val backgroundList: List<BackgroundImageData>? = reviewWriteViewModel.backgroundImageList.value
+            val backgroundList: List<BackgroundImageData>? =
+                reviewWriteViewModel.backgroundImageList.value
 
             // null check
             if (backgroundList != null) {
@@ -362,7 +361,9 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
                 // default 설정
                 when (mode) {
-                    MODE_NEW -> reviewSelectBackgroundAdapter.setSelectedBackground(DEFAULT_BACKGROUND)
+                    MODE_NEW -> reviewSelectBackgroundAdapter.setSelectedBackground(
+                        DEFAULT_BACKGROUND
+                    )
                     MODE_MODIFY -> reviewSelectBackgroundAdapter.setSelectedBackground(modifyData.backgroundImageId)
                 }
 
@@ -385,7 +386,8 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
     private fun observeMajorList() {
         mainViewModel.majorList.observe(this) {
-            val majorList: List<com.nadosunbae_android.domain.model.main.MajorKeyData>? = mainViewModel.majorList.value
+            val majorList: List<com.nadosunbae_android.domain.model.main.MajorKeyData>? =
+                mainViewModel.majorList.value
 
             // null check
             if (majorList != null) {
@@ -438,7 +440,8 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         val validBackground = reviewSelectBackgroundAdapter.getSelectedBackgroundId()
 
         // null check 및 배경 선택 여부 검사
-        val valid = validTextInput != null && validTextInput && validBackground != null && reviewSelectBackgroundAdapter.getSelectedBackgroundId() != null
+        val valid =
+            validTextInput != null && validTextInput && validBackground != null && reviewSelectBackgroundAdapter.getSelectedBackgroundId() != null
         binding.btnWriteComplete.isEnabled =
             if (mode == MODE_MODIFY) valid || (reviewSelectBackgroundAdapter.backgroundSelected.value == true && reviewSelectBackgroundAdapter.getSelectedBackgroundId() != null)
             else valid
@@ -450,7 +453,8 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
         val firstMajor = ReviewGlobals.firstMajor
         if (firstMajor != null)
-           reviewWriteViewModel.dropDownSelected.value = SelectableData(firstMajor.majorId, firstMajor.majorName, true)
+            reviewWriteViewModel.dropDownSelected.value =
+                SelectableData(firstMajor.majorId, firstMajor.majorName, true)
 
     }
 
@@ -485,7 +489,7 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
             || binding.etTip.editText.text.isNotEmpty()
 
     private fun isValidMajor(majorId: Int) =
-            majorId != NOT_ENTERED && majorId != NO_INFORMATION
+        majorId != NOT_ENTERED && majorId != NO_INFORMATION
 
     private fun loadBackgroundImage() {
         /*  api 배포 중단됨
@@ -511,8 +515,8 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
         }
 
         override fun afterTextChanged(s: Editable?) {
-            with (reviewWriteViewModel) {
-                with (binding) {
+            with(reviewWriteViewModel) {
+                with(binding) {
                     oneLineLength.value = etOneLine.text.length
                     prosConsLength.value = etProsCons.editText.text.length
                     curriculumLength.value = etCurriculum.editText.text.length
@@ -530,11 +534,13 @@ class ReviewWriteActivity : BaseActivity<ActivityReviewWriteBinding>(R.layout.ac
 
         // 학과 - 미진입
         const val NOT_ENTERED = 1
+
         // 학과 - 정보없음
         const val NO_INFORMATION = 127
 
         // 새로 작성하기
         const val MODE_NEW = 1
+
         // 기존 후기 수정하기
         const val MODE_MODIFY = 2
 

@@ -1,19 +1,14 @@
 package com.nadosunbae_android.app.presentation.ui.review
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.domain.model.main.SelectableData
-import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.app.databinding.FragmentReviewBinding
-import com.nadosunbae_android.app.di.NadoSunBaeApplication
-import com.nadosunbae_android.domain.model.review.ReviewFilterItem
-import com.nadosunbae_android.domain.model.review.ReviewPreviewData
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
@@ -24,19 +19,21 @@ import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Com
 import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.app.util.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.nadosunbae_android.domain.model.main.MajorSelectData
+import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.review.ReviewFilterItem
+import com.nadosunbae_android.domain.model.review.ReviewPreviewData
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.*
 
+@AndroidEntryPoint
 class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
 
     // main vm
-    private val mainViewModel: MainViewModel by sharedViewModel()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     // reviewList vm
-    private val reviewListViewModel: ReviewListViewModel by viewModel()
+    private val reviewListViewModel: ReviewListViewModel by viewModels()
 
     private lateinit var reviewListAdapter : ReviewListAdapter
 

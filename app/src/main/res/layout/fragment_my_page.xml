@@ -470,7 +470,7 @@
                     android:layout_marginRight="16dp"
                     android:orientation="vertical"
                     android:overScrollMode="never"
-                    android:background="@drawable/rectangle_border_gray_8dp"
+                    android:background="@drawable/rectangle_border_gray0_8dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
