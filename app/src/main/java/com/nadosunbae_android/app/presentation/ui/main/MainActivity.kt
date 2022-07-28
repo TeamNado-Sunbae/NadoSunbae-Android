@@ -17,7 +17,6 @@ import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
-import com.nadosunbae_android.app.presentation.ui.review.ReviewFragment
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
@@ -118,7 +117,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
 
                 else ->{
-                    changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                    changeFragmentNoBackStack(R.id.fragment_container_main, HomeFragment())
                 }
             }
 
