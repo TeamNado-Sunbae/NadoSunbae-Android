@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="241dp"
+        android:layout_height="153dp"
+        android:background="@drawable/rectangle_fill_white_8dp">
+
+        <TextView
+            android:id="@+id/tv_home_question_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:textColor="@color/gray_3"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="질문자 닉네임" />
+
+
+        <TextView
+            android:id="@+id/tv_home_question_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:maxEms="40"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_home_question_nickname"
+            app:layout_constraintTop_toBottomOf="@+id/tv_home_question_nickname"
+            tools:text="난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자" />
+
+        <TextView
+            android:id="@+id/tv_home_question_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_home_question_content"
+            tools:text="21/12/23" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

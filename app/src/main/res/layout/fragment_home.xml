@@ -17,7 +17,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_home_top"
@@ -111,6 +111,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="12dp"
+                    tools:listitem="@layout/item_home_review"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="@+id/tv_home_new_review"
                     app:layout_constraintTop_toBottomOf="@+id/tv_home_new_review" />
@@ -211,6 +212,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="12dp"
+                    tools:listitem="@layout/item_home_question"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="@+id/tv_home_new_question"
                     app:layout_constraintTop_toBottomOf="@+id/tv_home_new_question" />
@@ -266,11 +268,12 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_home_community"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:orientation="vertical"
                     android:layout_marginBottom="108dp"
+                    tools:listitem="@layout/item_home_community_post"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_home_community_sub_title"
