@@ -14,8 +14,9 @@
 
 
     <!-- 메인 navigation menu -->
-    <string name="navigation_review">후기</string>
+    <string name="navigation_home">홈</string>
     <string name="navigation_room">과방</string>
+    <string name="navigation_community">커뮤니티</string>
     <string name="navigation_notice">알림</string>
     <string name="navigation_mypage">마이페이지</string>
 
@@ -444,4 +445,7 @@
 
     <!-- 카카오 문의 -->
     <string name="question_kakao">http://pf.kakao.com/_pxcFib</string>
+
+    <!-- 커뮤니티 -->
+    <string name="major">학과</string>
 </resources>
