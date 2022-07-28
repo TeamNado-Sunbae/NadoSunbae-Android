@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <item
-        android:id="@+id/navigation_review"
-        android:icon="@drawable/selector_ic_review"
-        android:title="@string/navigation_review" />
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/selector_ic_home"
+        android:title="@string/navigation_home" />
     <item
         android:id="@+id/navigation_room"
         android:icon="@drawable/selector_ic_room"
         android:title="@string/navigation_room"/>
+    <item
+        android:id="@+id/navigation_community"
+        android:icon="@drawable/selector_ic_community"
+        android:title="@string/navigation_community"/>
+
     <item
         android:id="@+id/navigation_notice"
         android:icon="@drawable/selector_ic_notice"

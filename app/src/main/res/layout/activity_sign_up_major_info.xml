@@ -145,7 +145,7 @@
             android:id="@+id/cl_signup_majorInfo_univ"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_border_gray_8dp"
+            android:background="@drawable/rectangle_border_gray0_8dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
@@ -208,7 +208,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/rectangle_border_gray_8dp"
+            android:background="@drawable/rectangle_border_gray0_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_major">
@@ -264,7 +264,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/rectangle_border_gray_8dp"
+            android:background="@drawable/rectangle_border_gray0_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_major_time">
@@ -321,7 +321,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/rectangle_border_gray_8dp"
+            android:background="@drawable/rectangle_border_gray0_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_double_major">
@@ -377,7 +377,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/rectangle_border_gray_8dp"
+            android:background="@drawable/rectangle_border_gray0_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_double_major_time">

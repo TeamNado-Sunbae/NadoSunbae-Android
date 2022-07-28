@@ -2,7 +2,9 @@ package com.nadosunbae_android.app.util
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
+import com.nadosunbae_android.app.R
 
 fun AppCompatActivity.addFragment(layoutRes: Int, fragment: Fragment) {
     supportFragmentManager.beginTransaction()
@@ -25,4 +27,10 @@ fun AppCompatActivity.changeFragmentNoBackStack(layoutRes: Int, fragment: Fragme
 
 fun AppCompatActivity.popFragmentBackStack(name: String) {
     supportFragmentManager.popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+}
+
+fun Fragment.changeFragment(layoutRes: Int, fragment:Fragment){
+    childFragmentManager.beginTransaction()
+        .replace(layoutRes, fragment)
+        .commit()
 }
