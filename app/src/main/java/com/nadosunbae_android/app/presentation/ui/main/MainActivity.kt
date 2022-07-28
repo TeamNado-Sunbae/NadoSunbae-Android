@@ -10,13 +10,13 @@ import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.*
 import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
+import com.nadosunbae_android.app.presentation.ui.home.HomeFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.AppInfoFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
-import com.nadosunbae_android.app.presentation.ui.review.ReviewFragment
 import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
@@ -117,7 +117,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
 
                 else ->{
-                    changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                    changeFragmentNoBackStack(R.id.fragment_container_main, HomeFragment())
                 }
             }
 
@@ -126,7 +126,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.btNvMain.setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.navigation_home -> {
-                        changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                        changeFragmentNoBackStack(R.id.fragment_container_main, HomeFragment())
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_room -> {
