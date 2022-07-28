@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.home.HomeActivity">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent">
@@ -88,8 +88,8 @@
                     android:id="@+id/iv_home_review_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/btn_arrow"
                     android:layout_marginEnd="24dp"
+                    android:src="@drawable/btn_arrow"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_home_new_review"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_home_new_review" />
@@ -109,20 +109,20 @@
                     android:id="@+id/rv_home_review"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="12dp"
-                    tools:listitem="@layout/item_home_review"
+                    android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="@+id/tv_home_new_review"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_home_new_review" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_new_review"
+                    tools:listitem="@layout/item_home_review" />
 
                 <TextView
                     android:id="@+id/tv_home_question"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/home_question"
                     android:layout_marginTop="88dp"
                     android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/home_question"
                     android:textColor="@color/main_black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_home_new_review"
@@ -145,8 +145,8 @@
                     android:id="@+id/iv_home_ranking_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/btn_arrow"
                     android:layout_marginEnd="24dp"
+                    android:src="@drawable/btn_arrow"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_home_ranking"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_home_ranking" />
@@ -188,8 +188,8 @@
                     android:id="@+id/iv_home_new_question_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/btn_arrow"
                     android:layout_marginEnd="24dp"
+                    android:src="@drawable/btn_arrow"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_home_new_question"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_home_new_question" />
@@ -210,21 +210,21 @@
                     android:id="@+id/rv_home_question"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="12dp"
-                    tools:listitem="@layout/item_home_question"
+                    android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="@+id/tv_home_new_question"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_home_new_question" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_new_question"
+                    tools:listitem="@layout/item_home_question" />
 
 
                 <TextView
                     android:id="@+id/tv_home_community"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/home_community"
                     android:layout_marginTop="88dp"
                     android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/home_community"
                     android:textColor="@color/main_black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_home_new_question"
@@ -247,8 +247,8 @@
                     android:id="@+id/iv_home_community_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/btn_arrow"
                     android:layout_marginEnd="24dp"
+                    android:src="@drawable/btn_arrow"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_home_community_sub_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_home_community_sub_title" />
@@ -271,18 +271,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:orientation="vertical"
                     android:layout_marginBottom="108dp"
-                    tools:listitem="@layout/item_home_community_post"
+                    android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_home_community_sub_title"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_home_community_sub_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_community_sub_title"
+                    tools:listitem="@layout/item_home_community_post" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
