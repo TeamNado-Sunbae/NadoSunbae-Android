@@ -444,4 +444,13 @@
 
     <!-- 카카오 문의 -->
     <string name="question_kakao">http://pf.kakao.com/_pxcFib</string>
+
+    <!--홈-->
+    <string name="home_recent_review">최근 후기</string>
+    <string name="home_more">더보기</string>
+    <string name="home_question">1:1질문</string>
+    <string name="home_ranking">선배랭킹</string>
+    <string name="home_recent_question">최근 1:1질문</string>
+    <string name="home_community">커뮤니티</string>
+    <string name="home_recent_post">최근 게시물</string>
 </resources>
