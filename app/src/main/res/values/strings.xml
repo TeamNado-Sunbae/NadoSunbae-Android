@@ -445,4 +445,7 @@
 
     <!-- 카카오 문의 -->
     <string name="question_kakao">http://pf.kakao.com/_pxcFib</string>
+
+    <!-- 커뮤니티 -->
+    <string name="major">학과</string>
 </resources>
