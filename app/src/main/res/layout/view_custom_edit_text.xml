@@ -9,7 +9,7 @@
         android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle_border_gray_8dp"
+        android:background="@drawable/rectangle_border_gray0_8dp"
         android:fontFamily="@font/pretendard_regular"
         android:gravity="top"
         android:hint="@string/review_write_hint_content"
