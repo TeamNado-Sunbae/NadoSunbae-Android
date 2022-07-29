@@ -448,4 +448,9 @@
 
     <!-- 커뮤니티 -->
     <string name="major">학과</string>
+
+    <!-- navigation component label -->
+    <string name="classroom_fragment_review_label">review</string>
+    <string name="classroom_fragment_question_label">question</string>
+
 </resources>
