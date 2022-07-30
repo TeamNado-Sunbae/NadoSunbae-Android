@@ -12,12 +12,16 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentCustomBottomSheetDialogBinding
+import com.nadosunbae_android.app.presentation.ui.community.CommunityMainContentFragment
 import com.nadosunbae_android.app.presentation.ui.sign.adapter.MajorSelectAdapter
 import com.nadosunbae_android.domain.model.main.SelectableData
+import timber.log.Timber
 
 
-class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFragment() {
-
+class CustomBottomSheetDialog(
+    private val title: String,
+    private var checkCommunity: Boolean? = false
+) : BottomSheetDialogFragment() {
 
 
     // 바텀시트 타이틀
@@ -52,7 +56,6 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         initAdapter()
         setClickListener()
         observeSelectedData()
-        DataToFragment()
 
         return binding.root
     }
@@ -74,11 +77,18 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         binding.btnBottomsheetComplete.isEnabled = false
     }
 
+    //커뮤니티일때 종료 다르게
     private fun setClickListener() {
         binding.btnBottomsheetCancel.setOnClickListener {
-            activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
+            if (checkCommunity == true) {
+                dismiss()
+            } else {
+                activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
+            }
         }
         binding.fragment = this
+
+
     }
 
     //타이틀 왼쪽에 표시되는 제목
@@ -94,9 +104,9 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         // Recycler view 구분선 추가
         val decoration =
             CustomDecoration(1.dpToPxF, 0.0f, requireContext().getColor(R.color.gray_1))
-        binding.rvBottomsheet.addItemDecoration(decoration)
+        binding.rvBottomSheet.addItemDecoration(decoration)
 
-        binding.rvBottomsheet.adapter = majorSelectAdapter
+        binding.rvBottomSheet.adapter = majorSelectAdapter
     }
 
     private fun observeSelectedData() {
@@ -117,6 +127,10 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
     }
 
     fun setDataList(dataList: MutableList<SelectableData>) {
+        if (checkCommunity == true) {
+            majorSelectAdapter.dataList.add(0, SelectableData(-2, "학과 무관", true))
+        }
+
         majorSelectAdapter.dataList.addAll(dataList)
         majorSelectAdapter.notifyDataSetChanged()
     }
@@ -125,6 +139,7 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
         return majorSelectAdapter.selectedData.value
     }
 
+    //첫 선택된 데이터
     fun setSelectedData(dataId: Int) {
         majorSelectAdapter.setSelectedData(dataId)
     }
@@ -135,4 +150,6 @@ class CustomBottomSheetDialog(private val title: String) : BottomSheetDialogFrag
             binding.btnBottomsheetComplete.isSelected = bool
         }
     }
+
+
 }
