@@ -453,6 +453,11 @@
     <string name="classroom_review_tab">후기</string>
     <string name="classroom_question_tab">1:1 질문</string>
 
+    <!-- 과방 1:1 질문 -->
+    <string name="classroom_find_seniors">우리 과 선배 찾기</string>
+    <string name="classroom_more">더보기</string>
+    <string name="classroom_recent_questions">최근 1:1 질문</string>
+
     <!-- navigation component label -->
     <string name="classroom_fragment_review_label">review</string>
     <string name="classroom_fragment_question_label">question</string>

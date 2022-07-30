@@ -5,6 +5,10 @@
 
     <data>
         <variable
+            name="classRoomViewModel"
+            type="com.nadosunbae_android.app.presentation.ui.classroom.ClassRoomMainContentViewModel" />
+
+        <variable
             name="mainViewModel"
             type="com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel" />
     </data>
@@ -173,7 +177,7 @@
             android:layout_marginEnd="24dp"
             android:paddingTop="14dp"
             android:paddingBottom="10dp"
-
+            setVisible="@{classRoomViewModel.curFragment==0}"
             android:background="@drawable/oval_fill_black"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"

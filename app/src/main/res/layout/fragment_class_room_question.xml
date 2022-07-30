@@ -15,6 +15,105 @@
         android:layout_height="match_parent"
         android:background="@color/gray_background">
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:includeFontPadding="false"
+            android:text="@string/classroom_find_seniors"
+            android:textColor="@color/gray_4"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_classroom_more_senior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="9dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:includeFontPadding="false"
+                android:text="@string/classroom_more"
+                android:textColor="@color/gray_3"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_classroom_more_arrow"
+                app:layout_constraintEnd_toStartOf="@id/iv_classroom_more_arrow"
+                app:layout_constraintTop_toTopOf="@id/iv_classroom_more_arrow" />
+
+            <ImageView
+                android:id="@+id/iv_classroom_more_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_right_arrow_small"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_classroom_recommend_senior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:layout_marginHorizontal="16dp"
+            android:outlineProvider="none"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_classroom_more_senior"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_classroom_recommend_senior"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                android:layout_marginStart="20dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_question_senior_on_question" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_classroom_questions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:includeFontPadding="false"
+            android:text="@string/classroom_recent_questions"
+            android:textColor="@color/gray_4"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_classroom_recommend_senior" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_senior_personal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/tv_classroom_questions"
+            tools:listitem="@layout/item_question_all"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -8,9 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.databinding.FragmentClassRoomBinding
 import com.nadosunbae_android.app.databinding.FragmentClassRoomMainContentBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.review.FilterBottomSheetDialog
@@ -21,7 +19,6 @@ import com.nadosunbae_android.app.presentation.ui.classroom.review.adapter.Revie
 import com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
@@ -37,6 +34,9 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
     // main vm
     private val mainViewModel: MainViewModel by activityViewModels()
 
+    // mainContent vm
+    private val classRoomMainContentViewModel: ClassRoomMainContentViewModel by viewModels()
+
     // reviewList vm
     private val reviewListViewModel: ReviewListViewModel by viewModels()
 
@@ -45,7 +45,6 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
     private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
     private lateinit var filterBottomSheetDialog: FilterBottomSheetDialog
 
-    private var curFragment = 0
 
 
     private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -81,7 +80,7 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
             switchTab = listOf(true, false, false, false)
             switchText = listOf(getString(R.string.classroom_review_tab), getString(R.string.classroom_question_tab))
             itemClickListener = {
-                if (it != curFragment) {
+                if (it != classRoomMainContentViewModel.curFragment.get()) {
                     switchTab = when (it) {
                         1 -> {
                             binding.navHostClassroom.findNavController()
@@ -94,7 +93,7 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
                             listOf(true, false, false, false)
                         }
                     }
-                    curFragment = it
+                    classRoomMainContentViewModel.curFragment.set(it)
                 }
             }
         }
@@ -110,6 +109,7 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
     private fun setBinding() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.mainViewModel = mainViewModel
+        binding.classRoomViewModel = classRoomMainContentViewModel
     }
 
     // NestedScrollView 내부의 recycler 뷰의 minHeight을 동적으로 설정합니다. (구조 상 layout에서 한계 있음)
