@@ -14,15 +14,21 @@
         <action
             android:id="@+id/action_Classroom_Review_to_Question"
             app:destination="@id/classRoomQuestionFragment" />
+        <action
+            android:id="@+id/action_classRoomReviewFragment_self"
+            app:destination="@id/classRoomReviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/classRoomQuestionFragment"
-        android:name="com.nadosunbae_android.app.presentation.ui.classroom.ClassRoomQuestionFragment"
+        android:name="com.nadosunbae_android.app.presentation.ui.classroom.question.ClassRoomQuestionFragment"
         android:label="@string/classroom_fragment_question_label"
         tools:layout="@layout/fragment_class_room_question">
 
         <action
             android:id="@+id/action_Classroom_Question_to_Review"
             app:destination="@id/classRoomReviewFragment" />
+        <action
+            android:id="@+id/action_classRoomQuestionFragment_self"
+            app:destination="@id/classRoomQuestionFragment" />
     </fragment>
 </navigation>

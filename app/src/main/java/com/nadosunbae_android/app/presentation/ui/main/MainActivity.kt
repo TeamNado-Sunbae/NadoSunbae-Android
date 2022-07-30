@@ -16,7 +16,6 @@ import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
-import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
@@ -117,7 +116,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
 
                 else ->{
-                    changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
+                    changeFragmentNoBackStack(R.id.fragment_container_main, CommunityFragment())
                 }
             }
 
@@ -126,7 +125,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.btNvMain.setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.navigation_home -> {
-                        changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
+                        changeFragmentNoBackStack(R.id.fragment_container_main, CommunityFragment())
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_room -> {
@@ -184,7 +183,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                 6 -> changeFragment(R.id.fragment_container_main, MyPageFragment(), "myPage")
 
-                7 -> changeFragmentNoBackStack(R.id.fragment_container_main, SeniorFragment())
+                7 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomMainContentFragment())
             }
         })
     }

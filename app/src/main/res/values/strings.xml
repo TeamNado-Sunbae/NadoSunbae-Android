@@ -437,6 +437,7 @@
     <string name="empty_like_review">좋아요 한 후기글이 없습니다.</string>
     <string name="empty_personal_question">등록된 1:1 질문이 없습니다.</string>
     <string name="empty_block_list">차단한 사용자가 없습니다.</string>
+    <string name="empty_senior">선배가 없습니다.</string>
 
     <!-- 메일 인증 알럿 -->
     <string name="email_certification_title">학교 이메일 인증을 완료해야\n로그인이 가능합니다.</string>

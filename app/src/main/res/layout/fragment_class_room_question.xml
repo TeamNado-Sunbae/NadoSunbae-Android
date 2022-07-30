@@ -13,6 +13,7 @@
         android:id="@+id/cl_review_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="12dp"
         android:background="@color/gray_background">
 
         <TextView
@@ -73,6 +74,22 @@
             app:layout_constraintTop_toBottomOf="@id/btn_classroom_more_senior"
             app:layout_constraintStart_toStartOf="parent">
 
+            <TextView
+                android:id="@+id/tv_classroom_recommend_senior_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:includeFontPadding="false"
+                android:text="@string/empty_senior"
+                android:textColor="@color/gray_3"
+                android:textSize="14sp"
+                android:layout_margin="15dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_classroom_recommend_senior"
                 android:layout_width="match_parent"
@@ -100,20 +117,44 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cv_classroom_recommend_senior" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rc_senior_personal"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_classroom_question_recent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginHorizontal="16dp"
-            android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
-            android:orientation="vertical"
-            android:overScrollMode="never"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/tv_classroom_questions"
-            tools:listitem="@layout/item_question_all"/>
+            android:background="@drawable/rectangle_border_1_gray0_fill_white_16">
+
+            <TextView
+                android:id="@+id/tv_classroom_question_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:includeFontPadding="false"
+                android:text="@string/empty_personal_question"
+                android:textColor="@color/gray_3"
+                android:textSize="14sp"
+                android:layout_margin="15dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_senior_personal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_question_all"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

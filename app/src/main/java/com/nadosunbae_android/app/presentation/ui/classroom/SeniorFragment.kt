@@ -8,6 +8,7 @@ import com.nadosunbae_android.app.databinding.FragmentSeniorBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOffAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
+import com.nadosunbae_android.app.presentation.ui.classroom.question.DataToFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +18,7 @@ import timber.log.Timber
 class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_senior) {
     private lateinit var classRoomSeniorOnAdapter : ClassRoomSeniorOnAdapter
     private lateinit var classRoomSeniorOffAdapter : ClassRoomSeniorOffAdapter
-    var link = DataToFragment()
+    var link = SeniorDataToFragment()
 
     private val mainViewModel: MainViewModel by activityViewModels()
 
@@ -77,11 +78,10 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
             binding.textSeniorTitle.text = it.majorName
         }
     }
-    inner class DataToFragment{
-        fun getSeniorId( seniorId : Int){
+    inner class SeniorDataToFragment : DataToFragment {
+        override fun getSeniorId(seniorId: Int){
             mainViewModel.seniorId.value = seniorId
             goMyPage(seniorId)
-
         }
     }
 }

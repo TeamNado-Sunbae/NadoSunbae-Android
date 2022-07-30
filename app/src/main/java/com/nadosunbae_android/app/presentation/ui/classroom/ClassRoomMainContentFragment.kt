@@ -17,6 +17,8 @@ import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewWriteActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel.ReviewListViewModel
+import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.ClassRoomMainContentViewModel
+import com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
@@ -45,8 +47,6 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
     private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
     private lateinit var filterBottomSheetDialog: FilterBottomSheetDialog
 
-
-
     private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         // 마이페이지로 이동하도록 콜백 받음
         if (it.resultCode == GOTO_MYPAGE) {
@@ -70,33 +70,10 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
         observeSort()
         initBottomSheet()
         initSwitchTab()
+        observeFragmentNum()
         observeLoadingEnd()
+
         submitAnalytics()
-    }
-
-    private fun initSwitchTab() {
-
-        with(binding.viewClassroomSwitch) {
-            switchTab = listOf(true, false, false, false)
-            switchText = listOf(getString(R.string.classroom_review_tab), getString(R.string.classroom_question_tab))
-            itemClickListener = {
-                if (it != classRoomMainContentViewModel.curFragment.get()) {
-                    switchTab = when (it) {
-                        1 -> {
-                            binding.navHostClassroom.findNavController()
-                                .navigate(R.id.action_Classroom_Review_to_Question)
-                            listOf(false, true, true, true)
-                        }
-                        else -> {
-                            binding.navHostClassroom.findNavController()
-                                .navigate(R.id.action_Classroom_Question_to_Review)
-                            listOf(true, false, false, false)
-                        }
-                    }
-                    classRoomMainContentViewModel.curFragment.set(it)
-                }
-            }
-        }
     }
 
     override fun onResume() {
@@ -104,6 +81,37 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
         observeUserMajor()
         updateMajorStatus()
         loadReviewList()
+    }
+
+    private fun initSwitchTab() {
+
+        with(binding.viewClassroomSwitch) {
+            switchTab = CustomSwitchTab.getSwitchTabValue(0)
+            switchText = listOf(getString(R.string.classroom_review_tab), getString(R.string.classroom_question_tab))
+            itemClickListener = {
+                if (it != classRoomMainContentViewModel.curFragmentData.value && !(it == 0 && classRoomMainContentViewModel.curFragmentData.value == -1)) {
+                    switchTab = CustomSwitchTab.getSwitchTabValue(it)
+                    classRoomMainContentViewModel.curFragmentField.set(it)
+                    classRoomMainContentViewModel.curFragmentData.postValue(it)
+                }
+            }
+        }
+    }
+
+    private fun observeFragmentNum() {
+        classRoomMainContentViewModel.curFragmentData.observe(viewLifecycleOwner) {
+            when (it) {
+                0 -> {
+                    binding.navHostClassroom.findNavController()
+                        .navigate(R.id.action_Classroom_Question_to_Review)
+                }
+                1 -> {
+                    binding.navHostClassroom.findNavController()
+                        .navigate(R.id.action_Classroom_Review_to_Question)
+                }
+            }
+            binding.viewClassroomSwitch.switchTab = CustomSwitchTab.getSwitchTabValue(it)
+        }
     }
 
     private fun setBinding() {
@@ -177,25 +185,6 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
 
             }
         )
-
-//        binding.btnMajorPage.setOnClickListener {
-//
-//            val majorInfo = reviewListViewModel.majorInfo.value
-//            if (majorInfo != null) {
-//                val intent = Intent(context, WebViewActivity::class.java)
-//                intent.putExtra("url", majorInfo.homepage)
-//                startActivity(intent)
-//            }
-//        }
-
-//        binding.btnSubjectTable.setOnClickListener {
-//            val majorInfo = reviewListViewModel.majorInfo.value
-//            if (majorInfo != null) {
-//                var intent = Intent(context, WebViewActivity::class.java)
-//                intent.putExtra("url", majorInfo.subjectTable)
-//                startActivity(intent)
-//            }
-//        }
 
 
         binding.btnWriteReview.setOnClickListener {
