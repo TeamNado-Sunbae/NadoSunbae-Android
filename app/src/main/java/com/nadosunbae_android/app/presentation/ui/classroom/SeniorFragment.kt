@@ -9,6 +9,7 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOffAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.question.DataToFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +29,7 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         goQuestionFragment()
         changeTitle()
         observeLoadingEnd()
+        loadServerData()
     }
 
     //로딩 종료
@@ -63,6 +65,13 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         }
     }
 
+    private fun loadServerData() {
+        val majorId = ReviewGlobals.selectedMajor?.majorId
+        if (majorId != null) {
+            mainViewModel.getClassRoomSenior(majorId)
+            Timber.d("asdfasdf")
+        }
+    }
 
 
     //뒤로가기

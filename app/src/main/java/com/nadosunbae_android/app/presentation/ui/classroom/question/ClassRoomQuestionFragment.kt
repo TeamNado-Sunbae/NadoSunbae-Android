@@ -31,6 +31,7 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
 
         initBinding()
         initAdapter()
+        setListener()
         observeLoadingEnd()
         loadServerData()
     }
@@ -43,16 +44,16 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
         // 우리과 선배 목록
         classRoomSeniorAdapter = ClassRoomSeniorOnAdapter(link)
         binding.rvClassroomRecommendSenior.adapter = classRoomSeniorAdapter
-        mainViewModel.seniorData.observe(viewLifecycleOwner) {
-            val userList = it.onQuestionUserList as MutableList<ClassRoomSeniorData.OnQuestionUser>
-            classRoomSeniorAdapter.setOnQuestionUser(userList)
-            Timber.d("asdf ${userList}")
-
-            if (userList.isNullOrEmpty())
-                binding.tvClassroomRecommendSeniorEmpty.visibility = View.VISIBLE
-            else
-                binding.tvClassroomRecommendSeniorEmpty.visibility = View.GONE
-        }
+//        mainViewModel.seniorData.observe(viewLifecycleOwner) {
+//            val userList = it.onQuestionUserList as MutableList<ClassRoomSeniorData.OnQuestionUser>
+//            classRoomSeniorAdapter.setOnQuestionUser(userList)
+//            Timber.d("asdf ${userList}")
+//
+//            if (userList.isNullOrEmpty())
+//                binding.tvClassroomRecommendSeniorEmpty.visibility = View.VISIBLE
+//            else
+//                binding.tvClassroomRecommendSeniorEmpty.visibility = View.GONE
+//        }
 
         // 1:1 질문
         val userId = mainViewModel.userId.value ?: 0
@@ -69,6 +70,12 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
             }
             Timber.d("classRoomInfo empty : ${mainViewModel.classRoomInfoEmpty.value}")
             classRoomInfoMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
+        }
+    }
+
+    private fun setListener() {
+        binding.btnClassroomMoreSenior.setOnClickListener {
+            mainViewModel.classRoomFragmentNum.postValue(3)
         }
     }
 
