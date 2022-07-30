@@ -448,4 +448,5 @@
 
     <!-- 커뮤니티 -->
     <string name="major">학과</string>
+    <string name="write">글쓰기</string>
 </resources>

@@ -37,14 +37,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
+            android:layout_marginTop="21dp"
             android:fontFamily="@font/pretendard_light"
             android:text="@string/major"
             android:textColor="@color/gray_3"
             android:textSize="12sp"
-            android:layout_marginTop="21dp"
             app:layout_constraintStart_toEndOf="@+id/img_community_filter"
             app:layout_constraintTop_toTopOf="parent" />
 
 
+        <android.widget.Button
+            android:id="@+id/btn_write_review"
+            android:layout_width="64dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/oval_fill_black"
+            android:drawableTop="@drawable/ic_write"
+            android:drawablePadding="2dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingTop="14dp"
+            android:paddingBottom="10dp"
+            android:text="@string/write"
+            android:textColor="@color/main_light"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
