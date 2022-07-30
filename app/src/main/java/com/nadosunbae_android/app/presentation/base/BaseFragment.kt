@@ -36,7 +36,7 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
         super.onDestroyView()
         _binding = null
     }
-
+    //데이터 넣기
     fun observeBottomSheet(viewModel: MainViewModel, majorBottomSheetDialog: CustomBottomSheetDialog) {
         viewModel.majorList.observe(viewLifecycleOwner) {
             val responseData = viewModel.majorList.value

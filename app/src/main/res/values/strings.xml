@@ -263,8 +263,7 @@
     <!-- Custom Bottom Sheet -->
     <string name="bottom_sheet_complete">선택 완료</string>
     <string name="bottom_sheet_title_major">학과 선택</string>
-
-
+    <string name="bottom_sheet_hint">학과 이름을 검색해보세요.</string>
     <!-- 알림 -->
     <string name="notification_title">알림</string>
     <string name="notification_content_title">작성하신 글에 옹님이 답글을 남겼습니다.</string>
@@ -448,5 +447,6 @@
 
     <!-- 커뮤니티 -->
     <string name="major">학과</string>
-    <string name="write">글쓰기</string>
+    <string name="write">글쓰기</string>니
+    <string name="community_bottom_sheet_title">특정 학과 글 불러오기</string>
 </resources>
