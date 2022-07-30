@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.presentation.ui.review
+package com.nadosunbae_android.app.presentation.ui.classroom.review
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -8,9 +8,9 @@ import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Companion.MODE_MODIFY
-import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewTagBoxAdapter
-import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewDetailViewModel
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewWriteActivity.Companion.MODE_MODIFY
+import com.nadosunbae_android.app.presentation.ui.classroom.review.adapter.ReviewTagBoxAdapter
+import com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel.ReviewDetailViewModel
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.main.SelectableData

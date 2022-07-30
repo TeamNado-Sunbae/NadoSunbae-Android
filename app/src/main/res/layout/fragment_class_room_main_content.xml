@@ -72,7 +72,7 @@
                     android:id="@+id/cl_review_function_box"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@color/gray_background"
                     app:layout_constraintTop_toBottomOf="@+id/iv_major_graphic">
 
                     <com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
@@ -135,14 +135,6 @@
                         android:layout_marginTop="14dp"
                         android:background="@drawable/shadow_sticky_header"
                         app:layout_constraintTop_toBottomOf="@+id/cl_review_function_box" />
-
-                    <androidx.fragment.app.FragmentContainerView
-                        android:id="@+id/nav_classroom"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:defaultNavHost="true"
-                        app:layout_constraintTop_toBottomOf="@id/cl_review_function_box"
-                        app:navGraph="@navigation/nav_graph_classroom"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
@@ -152,6 +144,16 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/img_review_main"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/nav_host_classroom"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_review_function_box"
+
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/nav_graph_classroom"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -176,7 +178,6 @@
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

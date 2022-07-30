@@ -1,6 +1,5 @@
-package com.nadosunbae_android.app.presentation.ui.review.viewmodel
+package com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

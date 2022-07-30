@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.presentation.ui.review
+package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,17 +7,22 @@ import android.view.ViewTreeObserver
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.databinding.FragmentReviewBinding
+import com.nadosunbae_android.app.databinding.FragmentClassRoomBinding
+import com.nadosunbae_android.app.databinding.FragmentClassRoomMainContentBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.review.FilterBottomSheetDialog
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewDetailActivity
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewWriteActivity
+import com.nadosunbae_android.app.presentation.ui.classroom.review.adapter.ReviewListAdapter
+import com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
-import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Companion.MODE_NEW
-import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewListAdapter
-import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
@@ -27,7 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_review) {
+class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBinding>(R.layout.fragment_class_room_main_content) {
 
     // main vm
     private val mainViewModel: MainViewModel by activityViewModels()
@@ -39,6 +44,8 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
     private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
     private lateinit var filterBottomSheetDialog: FilterBottomSheetDialog
+
+    private var curFragment = 0
 
 
     private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -63,8 +70,34 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         observeFilter()
         observeSort()
         initBottomSheet()
+        initSwitchTab()
         observeLoadingEnd()
         submitAnalytics()
+    }
+
+    private fun initSwitchTab() {
+
+        with(binding.viewClassroomSwitch) {
+            switchTab = listOf(true, false, false, false)
+            switchText = listOf(getString(R.string.classroom_review_tab), getString(R.string.classroom_question_tab))
+            itemClickListener = {
+                if (it != curFragment) {
+                    switchTab = when (it) {
+                        1 -> {
+                            binding.navHostClassroom.findNavController()
+                                .navigate(R.id.action_Classroom_Review_to_Question)
+                            listOf(false, true, true, true)
+                        }
+                        else -> {
+                            binding.navHostClassroom.findNavController()
+                                .navigate(R.id.action_Classroom_Question_to_Review)
+                            listOf(true, false, false, false)
+                        }
+                    }
+                    curFragment = it
+                }
+            }
+        }
     }
 
     override fun onResume() {
@@ -99,18 +132,18 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         reviewListViewModel.reviewListData.observe(viewLifecycleOwner) {
             reviewListAdapter.setReviewListData(it as MutableList<ReviewPreviewData>)
 
-            // empty review list -> 표시
-            if (reviewListAdapter.isEmpty())
-                binding.tvEmptyReview.visibility = View.VISIBLE
-            else
-                binding.tvEmptyReview.visibility = View.INVISIBLE
+//            // empty review list -> 표시
+//            if (reviewListAdapter.isEmpty())
+//                binding.tvEmptyReview.visibility = View.VISIBLE
+//            else
+//                binding.tvEmptyReview.visibility = View.INVISIBLE
         }
 
     }
 
     private fun initReviewListAdapter() {
         reviewListAdapter = ReviewListAdapter()
-        binding.rvReview.adapter = reviewListAdapter
+        //binding.rvReview.adapter = reviewListAdapter
     }
 
     private fun setClickListener() {
@@ -145,24 +178,24 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
             }
         )
 
-        binding.btnMajorPage.setOnClickListener {
+//        binding.btnMajorPage.setOnClickListener {
+//
+//            val majorInfo = reviewListViewModel.majorInfo.value
+//            if (majorInfo != null) {
+//                val intent = Intent(context, WebViewActivity::class.java)
+//                intent.putExtra("url", majorInfo.homepage)
+//                startActivity(intent)
+//            }
+//        }
 
-            val majorInfo = reviewListViewModel.majorInfo.value
-            if (majorInfo != null) {
-                val intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("url", majorInfo.homepage)
-                startActivity(intent)
-            }
-        }
-
-        binding.btnSubjectTable.setOnClickListener {
-            val majorInfo = reviewListViewModel.majorInfo.value
-            if (majorInfo != null) {
-                var intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("url", majorInfo.subjectTable)
-                startActivity(intent)
-            }
-        }
+//        binding.btnSubjectTable.setOnClickListener {
+//            val majorInfo = reviewListViewModel.majorInfo.value
+//            if (majorInfo != null) {
+//                var intent = Intent(context, WebViewActivity::class.java)
+//                intent.putExtra("url", majorInfo.subjectTable)
+//                startActivity(intent)
+//            }
+//        }
 
 
         binding.btnWriteReview.setOnClickListener {
@@ -174,7 +207,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 MainGlobals.signInData!!.message.toString(),
                 behavior = {
                     val intent = Intent(context, ReviewWriteActivity::class.java)
-                    intent.putExtra("mode", MODE_NEW)
+                    intent.putExtra("mode", ReviewWriteActivity.MODE_NEW)
                     startActivity(intent)
                 }
             )
@@ -222,7 +255,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
 
         // 필터 리셋 시
         filterBottomSheetDialog.resetFilterOperation = {
-            mainViewModel.filterData.value = MainViewModel.FilterData(FILTER_ALL, listOf(1, 2, 3, 4, 5))
+            mainViewModel.filterData.value = MainViewModel.FilterData(MainViewModel.FILTER_ALL, listOf(1, 2, 3, 4, 5))
         }
     }
 
@@ -282,7 +315,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                 filterBottomSheetDialog.setFilter(filter)
 
                 // 필터 활성화
-                binding.btnReviewFilter.isSelected = !(filter.writerFilter == FILTER_ALL && (filter.tagFilter == listOf(1, 2, 3, 4, 5) || filter.tagFilter.isEmpty()))
+                binding.btnReviewFilter.isSelected = !(filter.writerFilter == MainViewModel.FILTER_ALL && (filter.tagFilter == listOf(1, 2, 3, 4, 5) || filter.tagFilter.isEmpty()))
                 binding.executePendingBindings()
 
                 // 후기 불러오기
@@ -317,7 +350,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     private fun loadReviewList() {
 
         val filterData = mainViewModel.filterData.value
-        var writerFilter = FILTER_ALL
+        var writerFilter = MainViewModel.FILTER_ALL
         var tagFilter = listOf(1, 2, 3, 4, 5)
 
         // null check
@@ -344,7 +377,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         if (selectedMajorData != null) {
             val request = ReviewFilterItem(selectedMajorData.majorId, writerFilter, tagFilter)
 
-           showLoading() // 로딩 시작
+            showLoading() // 로딩 시작
             reviewListViewModel.getReviewList(request, sort)
         }
 
@@ -391,4 +424,6 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
     companion object {
         const val GOTO_MYPAGE = 1001
     }
+
+
 }

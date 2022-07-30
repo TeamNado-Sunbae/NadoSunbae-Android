@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/classRoomReviewFragment"
-        android:name="com.nadosunbae_android.app.presentation.ui.review.ReviewFragment"
+        android:name="com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewFragment"
         android:label="@string/classroom_fragment_review_label"
         tools:layout="@layout/fragment_review">
 
@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/classRoomQuestionFragment"
-        android:name="com.nadosunbae_android.app.presentation.ui.classroom.QuestionFragment"
+        android:name="com.nadosunbae_android.app.presentation.ui.classroom.ClassRoomQuestionFragment"
         android:label="@string/classroom_fragment_question_label"
-        tools:layout="@layout/fragment_question">
+        tools:layout="@layout/fragment_class_room_question">
 
         <action
             android:id="@+id/action_Classroom_Question_to_Review"

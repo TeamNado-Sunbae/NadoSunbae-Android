@@ -5,9 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.text.Layout
 import android.view.LayoutInflater
-import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.annotation.LayoutRes
@@ -18,7 +16,7 @@ import com.nadosunbae_android.app.databinding.DialogDeletePostBinding
 import com.nadosunbae_android.app.databinding.DialogGenericBinding
 import com.nadosunbae_android.app.databinding.DialogProgressBinding
 import com.nadosunbae_android.app.databinding.DialogReportBinding
-import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewWriteActivity
 import kotlinx.android.synthetic.main.dialog_question_write_cancel.*
 import kotlinx.android.synthetic.main.dialog_question_write_complete.*
 import timber.log.Timber
