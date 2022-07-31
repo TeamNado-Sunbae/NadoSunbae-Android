@@ -41,6 +41,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
             android:maxEms="40"
+            android:maxLength="40"
             android:text="@{Review.content}"
             android:textColor="@color/black"
             android:textSize="14sp"

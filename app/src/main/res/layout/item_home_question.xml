@@ -39,7 +39,7 @@
             android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
-            android:maxEms="40"
+            android:maxLines="3"
             android:text="@{Question.content}"
             android:textColor="@color/black"
             android:textSize="14sp"
