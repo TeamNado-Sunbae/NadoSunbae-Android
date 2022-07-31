@@ -13,7 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="241dp"
         android:layout_height="153dp"
-        android:background="@drawable/rectangle_fill_white_8dp">
+        android:layout_marginStart="12dp"
+        android:background="@drawable/rectangle_border_gray0_8dp">
 
         <TextView
             android:id="@+id/tv_home_question_nickname"
