@@ -5,13 +5,17 @@
 
     <data>
 
+        <variable
+            name="Review"
+            type="com.nadosunbae_android.domain.model.home.HomeReviewData" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="241dp"
         android:layout_height="153dp"
-        android:background="@drawable/rectangle_fill_white_8dp">
+        android:layout_marginStart="12dp"
+        android:background="@drawable/rectangle_border_gray0_8dp">
 
         <TextView
             android:id="@+id/tv_home_review_dept"
@@ -20,6 +24,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"
             android:fontFamily="@font/pretendard_semibold"
+            android:text="@{Review.department}"
             android:textColor="@color/main_default"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +41,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
             android:maxEms="40"
+            android:text="@{Review.content}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +56,7 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/pretendard_regular"
             android:includeFontPadding="false"
+            android:text="@{Review.date}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
