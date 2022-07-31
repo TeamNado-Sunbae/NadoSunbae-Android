@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewWriteViewModel" />
+            type="com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel.ReviewWriteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

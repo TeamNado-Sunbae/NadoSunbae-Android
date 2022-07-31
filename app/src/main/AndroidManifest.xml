@@ -36,7 +36,7 @@
             android:name=".presentation.ui.mypage.QuitActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.ui.review.SeniorPersonalActivity"
+            android:name="com.nadosunbae_android.app.presentation.ui.classroom.review.SeniorPersonalActivity"
             android:exported="false"
             android:label="@string/title_activity_senior_personal"
             android:theme="@style/Theme.NadoSunbaeAndroid.NoActionBar" />
@@ -58,7 +58,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".presentation.ui.review.ReviewDetailActivity"
+            android:name="com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewDetailActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.sign.SignUpFinishActivity"
@@ -105,7 +105,7 @@
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".presentation.ui.review.ReviewWriteActivity"
+            android:name="com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewWriteActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.main.MainActivity"

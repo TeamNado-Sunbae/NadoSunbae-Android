@@ -5,7 +5,7 @@ import android.view.View
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentClassRoomReviewBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
-import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewListAdapter
+import com.nadosunbae_android.app.presentation.ui.classroom.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.domain.model.review.ReviewPreviewData
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat

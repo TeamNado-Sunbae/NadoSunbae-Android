@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.presentation.ui.review
+package com.nadosunbae_android.app.presentation.ui.classroom.review
 
 import android.text.Editable
 import android.text.TextWatcher

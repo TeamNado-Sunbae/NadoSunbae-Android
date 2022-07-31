@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.presentation.ui.review
+package com.nadosunbae_android.app.presentation.ui.classroom.review
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,8 +10,8 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewWriteBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.app.presentation.ui.review.adapter.ReviewSelectBackgroundAdapter
-import com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewWriteViewModel
+import com.nadosunbae_android.app.presentation.ui.classroom.review.adapter.ReviewSelectBackgroundAdapter
+import com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel.ReviewWriteViewModel
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.main.MajorSelectData

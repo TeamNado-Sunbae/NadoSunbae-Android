@@ -252,6 +252,15 @@ object BindingAdapter {
         textView.text = "${length}${NadoSunBaeApplication.context().getString(R.string.review_write_length)}"
     }
 
+    @JvmStatic
+    @BindingAdapter("setVisible")
+    fun setVisible(view: View, visible: Boolean) {
+        if (visible)
+            view.visibility = View.VISIBLE
+        else
+            view.visibility = View.GONE
+    }
+
 }
 
 
