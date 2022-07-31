@@ -9,11 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemMypageLikeReviewBinding
-import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.review.ReviewDetailActivity
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
-import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewDetailActivity
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 

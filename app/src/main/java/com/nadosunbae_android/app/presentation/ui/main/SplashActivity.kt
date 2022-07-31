@@ -70,11 +70,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     }
     //업데이트 구분
     private fun divisionUpdateAvailability(){
-        splashViewModel.updateAvailability.observe(this){
-            if(!it){
-                startLoading()
-            }
-        }
+//        splashViewModel.updateAvailability.observe(this){
+//            if(!it){
+//                startLoading()
+//            }
+//        }
+        startLoading()
     }
 
 

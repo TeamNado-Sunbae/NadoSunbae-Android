@@ -96,4 +96,15 @@ class CustomSwitchTab(context: Context, attrs: AttributeSet? = null) :
         titleThree.isSelected = _switchTab[2]
         titleFour.isSelected = _switchTab[3]
     }
+
+    companion object {
+        fun getSwitchTabValue(fragNum: Int): List<Boolean> {
+            return when (fragNum) {
+                3 -> listOf(false, false, false, true)
+                2 -> listOf(false, false, true, false)
+                1-> listOf(false, true, false, false)
+                else -> listOf(true, false, false, false)
+            }
+        }
+    }
 }

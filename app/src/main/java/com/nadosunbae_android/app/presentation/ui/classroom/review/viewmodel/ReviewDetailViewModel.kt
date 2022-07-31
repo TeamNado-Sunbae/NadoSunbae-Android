@@ -1,13 +1,12 @@
-package com.nadosunbae_android.app.presentation.ui.review.viewmodel
+package com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel
 
 import android.graphics.drawable.Drawable
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.review.ReviewDetailData
@@ -15,12 +14,9 @@ import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import com.nadosunbae_android.domain.usecase.review.DeleteReviewDataUseCase
 import com.nadosunbae_android.domain.usecase.review.GetReviewDetailDataUseCase
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
-import com.nadosunbae_android.app.util.ResultWrapper
-import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.usecase.classroom.PostReportUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject

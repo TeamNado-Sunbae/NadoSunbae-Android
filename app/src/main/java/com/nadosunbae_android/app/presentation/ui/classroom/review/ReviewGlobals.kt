@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.presentation.ui.review
+package com.nadosunbae_android.app.presentation.ui.classroom.review
 
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.domain.model.main.MajorSelectData
