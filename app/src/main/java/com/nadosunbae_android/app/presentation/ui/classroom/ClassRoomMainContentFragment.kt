@@ -89,17 +89,16 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
             switchTab = CustomSwitchTab.getSwitchTabValue(0)
             switchText = listOf(getString(R.string.classroom_review_tab), getString(R.string.classroom_question_tab))
             itemClickListener = {
-                if (it != classRoomMainContentViewModel.curFragmentData.value && !(it == 0 && classRoomMainContentViewModel.curFragmentData.value == -1)) {
+                if (it != classRoomMainContentViewModel.curFragment.value && !(it == 0 && classRoomMainContentViewModel.curFragment.value == -1)) {
                     switchTab = CustomSwitchTab.getSwitchTabValue(it)
-                    classRoomMainContentViewModel.curFragmentField.set(it)
-                    classRoomMainContentViewModel.curFragmentData.postValue(it)
+                    classRoomMainContentViewModel.curFragment.postValue(it)
                 }
             }
         }
     }
 
     private fun observeFragmentNum() {
-        classRoomMainContentViewModel.curFragmentData.observe(viewLifecycleOwner) {
+        classRoomMainContentViewModel.curFragment.observe(viewLifecycleOwner) {
             when (it) {
                 0 -> {
                     binding.navHostClassroom.findNavController()

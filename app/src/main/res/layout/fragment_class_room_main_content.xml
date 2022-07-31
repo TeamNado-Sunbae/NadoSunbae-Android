@@ -106,7 +106,7 @@
                         android:text="@string/review_latest_order"
                         android:textColor="@color/gray_3"
                         android:textSize="12sp"
-                        setVisible="@{classRoomViewModel.curFragmentField==0||classRoomViewModel.curFragmentField==-1}"
+                        setVisible="@{classRoomViewModel.curFragment==0||classRoomViewModel.curFragment==-1}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -129,7 +129,7 @@
                         android:text="@string/review_filter"
                         android:textColor="@drawable/selector_gray_3_to_main_default"
                         android:textSize="12sp"
-                        setVisible="@{classRoomViewModel.curFragmentField==0||classRoomViewModel.curFragmentField==-1}"
+                        setVisible="@{classRoomViewModel.curFragment==0||classRoomViewModel.curFragment==-1}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/btn_sort"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -179,7 +179,7 @@
             android:layout_marginEnd="24dp"
             android:paddingTop="14dp"
             android:paddingBottom="10dp"
-            setVisible="@{classRoomViewModel.curFragmentField==0||classRoomViewModel.curFragmentField==-1}"
+            setVisible="@{classRoomViewModel.curFragment==0||classRoomViewModel.curFragment==-1}"
             android:background="@drawable/oval_fill_black"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
