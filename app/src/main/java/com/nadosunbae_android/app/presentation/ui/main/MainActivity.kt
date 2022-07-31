@@ -9,6 +9,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.*
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
 import com.nadosunbae_android.app.presentation.ui.home.HomeFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
@@ -17,7 +18,6 @@ import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
