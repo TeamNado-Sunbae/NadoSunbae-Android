@@ -5,15 +5,16 @@
 
     <data>
 
-
+        <variable
+            name="Community"
+            type="com.nadosunbae_android.domain.model.home.HomeCommunityData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/rectangle_fill_white_8dp">
+        android:layout_marginRight="16dp">
 
         <TextView
             android:id="@+id/tv_home_community_option"
@@ -22,6 +23,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"
             android:fontFamily="@font/pretendard_regular"
+            android:text="@{Community.option}"
             android:textColor="@color/main_default"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +39,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
             android:maxLines="1"
+            android:text="@{Community.title}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_home_community_option"
@@ -51,6 +54,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_regular"
             android:maxLines="2"
+            android:text="@{Community.content}"
             android:textColor="@color/gray_3"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_home_community_title"
@@ -64,6 +68,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pretendard_semibold"
             android:includeFontPadding="false"
+            android:text="@{Community.who}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_home_community_content"
@@ -78,6 +83,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pretendard_regular"
             android:includeFontPadding="false"
+            android:text="@{Community.date}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_home_community_all"
@@ -101,6 +107,7 @@
             android:fontFamily="@font/pretendard_light"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
+            intToText="@{Community.commentCount}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_home_community_message"
             app:layout_constraintStart_toEndOf="@+id/iv_home_community_message"
             app:layout_constraintTop_toTopOf="@+id/iv_home_community_message"
@@ -122,6 +129,7 @@
             android:fontFamily="@font/pretendard_light"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
+            intToText="@{Community.likeCount}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_home_community_like"
             app:layout_constraintStart_toEndOf="@+id/iv_home_community_like"
             app:layout_constraintTop_toTopOf="@+id/iv_home_community_like"

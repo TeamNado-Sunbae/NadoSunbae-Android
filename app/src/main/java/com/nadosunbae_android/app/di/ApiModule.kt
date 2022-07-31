@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.di
 
 import com.google.gson.GsonBuilder
+import com.nadosunbae_android.app.BuildConfig
 import com.nadosunbae_android.app.util.AuthInterceptor
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import dagger.Module
@@ -14,10 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-private const val BASE_URL_PROD = "https://asia-northeast3-nadosunbae-server.cloudfunctions.net/api/"
-private const val BASE_URL_DEV = "https://asia-northeast3-nadosunbae-server-dev-90ac3.cloudfunctions.net/api/"
-
-private const val BASE_URL = BASE_URL_PROD
+const val BASE_URL = BuildConfig.API_KEY
 
 @Module
 @InstallIn(SingletonComponent::class)

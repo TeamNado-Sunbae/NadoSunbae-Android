@@ -7,6 +7,8 @@
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="8dp">
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_drop_down"
         android:layout_width="match_parent"

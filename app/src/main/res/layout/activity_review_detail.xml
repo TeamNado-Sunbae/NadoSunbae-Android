@@ -6,7 +6,7 @@
     <data>
         <variable
             name="reviewDetailViewModel"
-            type="com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewDetailViewModel" />
+            type="com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel.ReviewDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

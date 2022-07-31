@@ -1,8 +1,7 @@
-package com.nadosunbae_android.app.presentation.ui.review
+package com.nadosunbae_android.app.presentation.ui.classroom.review
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySeniorPersonalBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -48,7 +47,7 @@ class SeniorPersonalActivity :
             when (it) {
                 2 -> changeFragment(R.id.fl_senior, AskEveryoneFragment(), "askEveryOne")
 
-                1 -> changeFragmentNoBackStack(R.id.fl_senior, ClassRoomFragment())
+                1 -> changeFragmentNoBackStack(R.id.fl_senior, ClassRoomMainContentFragment())
 
                 3 -> changeFragment(R.id.fl_senior, SeniorFragment(), "senior")
 

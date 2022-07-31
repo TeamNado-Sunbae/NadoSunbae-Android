@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="classRoomViewModel"
+            type="com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.ClassRoomMainContentViewModel" />
+
+        <variable
+            name="mainViewModel"
+            type="com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_review_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_background">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_review_tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tv_major_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="24dp"
+
+                android:fontFamily="@font/pretendard_medium"
+                android:textColor="@color/black_0"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{mainViewModel.selectedMajor.majorName}"
+                tools:text="@string/review_example_major_selected" />
+
+            <ImageButton
+                android:id="@+id/btn_select_major"
+                android:layout_width="48dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1"
+                android:background="@android:color/transparent"
+
+                app:layout_constraintBottom_toBottomOf="@+id/tv_major_selected"
+                app:layout_constraintStart_toEndOf="@+id/tv_major_selected"
+                app:layout_constraintTop_toTopOf="@+id/tv_major_selected"
+                app:srcCompat="@drawable/btn_bottom_arrow" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.nadosunbae_android.app.presentation.ui.classroom.review.StickyHeaderScrollView
+            android:id="@+id/sv_review"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_review_tool_bar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_review_function_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_background"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_major_graphic">
+
+                    <com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
+                        android:id="@+id/view_classroom_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginVertical="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <android.widget.Button
+                        android:id="@+id/btn_sort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:background="@android:color/transparent"
+                        android:drawableLeft="@drawable/ic_array"
+                        android:drawablePadding="6dp"
+                        android:fontFamily="@font/pretendard_light"
+                        android:includeFontPadding="false"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingHorizontal="9dp"
+                        android:paddingVertical="5dp"
+                        android:text="@string/review_latest_order"
+                        android:textColor="@color/gray_3"
+                        android:textSize="12sp"
+                        setVisible="@{classRoomViewModel.curFragment==0||classRoomViewModel.curFragment==-1}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <android.widget.Button
+                        android:id="@+id/btn_review_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@android:color/transparent"
+                        android:drawableLeft="@drawable/selector_icon_filter"
+                        android:drawablePadding="6dp"
+                        android:fontFamily="@font/pretendard_light"
+                        android:includeFontPadding="false"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingVertical="5dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="7dp"
+                        android:text="@string/review_filter"
+                        android:textColor="@drawable/selector_gray_3_to_main_default"
+                        android:textSize="12sp"
+                        setVisible="@{classRoomViewModel.curFragment==0||classRoomViewModel.curFragment==-1}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_sort"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/view_shadow"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="14dp"
+                        android:background="@drawable/shadow_sticky_header"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_review_function_box" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/iv_major_graphic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_review_main"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/nav_host_classroom"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_review_function_box"
+
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/nav_graph_classroom"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.nadosunbae_android.app.presentation.ui.classroom.review.StickyHeaderScrollView>
+
+        <android.widget.Button
+            android:id="@+id/btn_write_review"
+            android:layout_width="64dp"
+            android:layout_height="0dp"
+            android:text="@string/review_reviews"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="11sp"
+            android:textColor="@color/main_light"
+            android:drawableTop="@drawable/ic_write"
+            android:drawablePadding="2dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="24dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="10dp"
+            setVisible="@{classRoomViewModel.curFragment==0||classRoomViewModel.curFragment==-1}"
+            android:background="@drawable/oval_fill_black"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

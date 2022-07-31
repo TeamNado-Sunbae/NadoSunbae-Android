@@ -5,13 +5,16 @@
 
     <data>
 
-
+        <variable
+            name="Question"
+            type="com.nadosunbae_android.domain.model.home.HomeQuestionData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="241dp"
         android:layout_height="153dp"
-        android:background="@drawable/rectangle_fill_white_8dp">
+        android:layout_marginStart="12dp"
+        android:background="@drawable/rectangle_border_gray0_8dp">
 
         <TextView
             android:id="@+id/tv_home_question_nickname"
@@ -20,6 +23,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"
             android:fontFamily="@font/pretendard_regular"
+            android:text="@{Question.nickname}"
             android:textColor="@color/gray_3"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +39,8 @@
             android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
-            android:maxEms="40"
+            android:maxLines="3"
+            android:text="@{Question.content}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +55,7 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/pretendard_regular"
             android:includeFontPadding="false"
+            android:text="@{Question.date}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
