@@ -454,6 +454,7 @@
     <string name="home_recent_question">최근 1:1질문</string>
     <string name="home_community">커뮤니티</string>
     <string name="home_recent_post">최근 게시물</string>
+    <string name="home_recent_review_warn">특정 학과의 후기만 보고 싶다면 과방탭을 이용하세요.</string>
 
     <!-- 커뮤니티 -->
     <string name="major">학과</string>
