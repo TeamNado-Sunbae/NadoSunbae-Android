@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.community
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,6 +31,7 @@ class CommunityMainContentFragment :
         clickSwipeTab()
         initBottomSheet()
         clickFilter()
+        goCommunityWrite()
     }
 
 
@@ -85,6 +87,13 @@ class CommunityMainContentFragment :
         }
     }
 
+    //커뮤니티 글 작성 이동
+    private fun goCommunityWrite(){
+        binding.btnCommunityWrite.setOnClickListener {
+         val intent = Intent(requireActivity(), CommunityWriteActivity::class.java)
+         startActivity(intent)
+        }
+    }
 
 
 
