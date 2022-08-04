@@ -20,7 +20,7 @@
             android:fontFamily="@font/pretendard_regular"
             android:paddingStart="4dp"
             android:text="@string/category_free"
-            android:textColor="@drawable/selector_gray_3_to_main_black"
+            android:textColor="@drawable/selector_gray_3_to_main_black_checked"
             android:textSize="14sp" />
 
         <RadioButton
@@ -32,7 +32,7 @@
             android:fontFamily="@font/pretendard_regular"
             android:paddingStart="4dp"
             android:text="@string/classroom_question_title"
-            android:textColor="@drawable/selector_gray_3_to_main_black"
+            android:textColor="@drawable/selector_gray_3_to_main_black_checked"
             android:textSize="14sp" />
 
         <RadioButton
@@ -44,7 +44,7 @@
             android:fontFamily="@font/pretendard_regular"
             android:paddingStart="4dp"
             android:text="@string/category_info"
-            android:textColor="@drawable/selector_gray_3_to_main_black"
+            android:textColor="@drawable/selector_gray_3_to_main_black_checked"
             android:textSize="14sp" />
 
     </RadioGroup>
