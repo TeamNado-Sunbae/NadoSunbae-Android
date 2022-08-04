@@ -448,5 +448,6 @@
     <!-- 커뮤니티 -->
     <string name="major">학과</string>
     <string name="write">글쓰기</string>
-    <string name="community_bottom_sheet_title">특정 학과 글 불러오기</string>
+    <string name="community_bottom_sheet_title">특정 학과 글 불러오기</string>뮤
+    <string name="community_write_title">새 게시글 작성</string>
 </resources>
