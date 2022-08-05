@@ -4,8 +4,11 @@ import androidx.lifecycle.ViewModel
 import com.nadosunbae_android.domain.model.home.HomeCommunityData
 import com.nadosunbae_android.domain.model.home.HomeQuestionData
 import com.nadosunbae_android.domain.model.home.HomeReviewData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class homeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor() : ViewModel() {
     //더미데이터 테스트 -> 뷰 깨지는지 확인
     val reviewData = listOf<HomeReviewData>(
         HomeReviewData("경영학과","난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자","21/12/23"),

@@ -6,8 +6,9 @@ import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeReviewBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeReviewFragment : BaseFragment<FragmentHomeReviewBinding>(R.layout.fragment_home_review) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

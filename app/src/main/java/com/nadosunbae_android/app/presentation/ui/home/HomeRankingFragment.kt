@@ -7,8 +7,10 @@ import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeRankingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class HomeRankingFragment :
     BaseFragment<FragmentHomeRankingBinding>(R.layout.fragment_home_ranking) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
