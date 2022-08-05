@@ -1,17 +1,17 @@
 package com.nadosunbae_android.app.presentation.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.home.adpter.CommunityAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
+
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
@@ -22,6 +22,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         setReviewAdapter()
         setQuestionAdapter()
         setCommunityAdapter()
+        naviControl()
     }
 
     //홈 뷰 리뷰 리사이클러뷰 연결
@@ -42,5 +43,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         (binding.rvHomeCommunity.adapter as CommunityAdapter).submitList(homeViewModel.communityData)
     }
 
+    private fun naviControl() {
+        binding.tvHomeReviewMore.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_homeReviewFragment)
+        }
+
+        binding.tvHomeNewQuestionMore.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_homeQuestionFragment)
+        }
+
+        binding.tvHomeRankingMore.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_homeRankingFragment)
+        }
+    }
 
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeQuestionBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -13,5 +14,13 @@ class HomeQuestionFragment : BaseFragment<FragmentHomeQuestionBinding>(R.layout.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        naviControl()
+
+    }
+
+    private fun naviControl() {
+        binding.ivHomeQuestionBack.setOnClickListener {
+            findNavController().navigate(R.id.action_homeQuestionFragment_to_homeFragment)
+        }
     }
 }
