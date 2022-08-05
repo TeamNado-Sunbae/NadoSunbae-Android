@@ -11,7 +11,7 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.*
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
-import com.nadosunbae_android.app.presentation.ui.home.HomeFragment
+import com.nadosunbae_android.app.presentation.ui.home.HomeFrameFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.AppInfoFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
@@ -117,7 +117,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
 
                 else ->{
-                    changeFragmentNoBackStack(R.id.fragment_container_main, HomeFragment())
+                    changeFragmentNoBackStack(R.id.fragment_container_main, HomeFrameFragment())
                 }
             }
 
@@ -126,7 +126,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.btNvMain.setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.navigation_home -> {
-                        changeFragmentNoBackStack(R.id.fragment_container_main, HomeFragment())
+                        changeFragmentNoBackStack(R.id.fragment_container_main, HomeFrameFragment())
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_room -> {

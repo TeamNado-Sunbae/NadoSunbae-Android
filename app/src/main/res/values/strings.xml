@@ -454,6 +454,18 @@
     <string name="home_recent_question">최근 1:1질문</string>
     <string name="home_community">커뮤니티</string>
     <string name="home_recent_post">최근 게시물</string>
+    <string name="home_recent_review_warn">특정 학과의 후기만 보고 싶다면 과방탭을 이용하세요.</string>
+    <string name="home_recent_question_warn">특정 학과 선배에게 1:1 질문을 하고 싶다면 과방탭을 이용하세요.</string>
+    <string name="home_ranking_warn">선배 랭킹은 어떻게 결정되나요?</string>
+
+    <!--선배 랭킹 결정기준 -->
+    <string name="ranking_standard">결정기준</string>
+    <string name="ranking_one">1순위</string>
+    <string name="ranking_two">2순위</string>
+    <string name="ranking_three">3순위</string>
+    <string name="ranking_one_content">1:1 질문 답변율</string>
+    <string name="ranking_two_content">후기 작성여부</string>
+    <string name="ranking_three_content">닉네임 가나다순</string>
 
     <!-- 커뮤니티 -->
     <string name="major">학과</string>
