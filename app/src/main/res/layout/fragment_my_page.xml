@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="myPageInfo"
             type="com.nadosunbae_android.domain.model.mypage.MyPageMyInfo" />
@@ -111,8 +112,8 @@
                     android:id="@+id/cl_my_page_main_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"
                     android:background="@drawable/rectangle_fill_white_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -122,54 +123,95 @@
 
                     <ImageView
                         android:id="@+id/img_my_page_main"
+                        profileImgBig="@{myPageInfo.data.profileImageId}"
                         android:layout_width="72dp"
                         android:layout_height="72dp"
-                        profileImgBig="@{myPageInfo.data.profileImageId}"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                     <TextView
                         android:id="@+id/text_my_page_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/pretendard_medium"
                         android:text="@{myPageInfo.Data.nickname}"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@+id/img_my_page_main"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="닉네임" />
+
+                    <TextView
+                        android:id="@+id/text_my_page_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:textColor="@color/main_default"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_my_page_nickname"
+                        app:layout_constraintStart_toEndOf="@+id/text_my_page_nickname"
+                        app:layout_constraintTop_toTopOf="@+id/text_my_page_nickname"
+                        tools:text="응답률 100%" />
+
+                    <TextView
+                        android:id="@+id/text_my_page_introduction"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:paddingEnd="17dp"
+                        android:textColor="@color/main_text"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/text_my_page_nickname"
+                        app:layout_constraintTop_toBottomOf="@+id/text_my_page_nickname"
+                        tools:text="개인 소개 상태 메시지 최대 40자입니다. 개인 소개 상태 메시지 최대 " />
+
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_my_page_profile_modify"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="20dp"
                         android:background="@drawable/rectangle_fill_gray_0_8"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/text_my_page_nickname">
+                        app:layout_constraintEnd_toEndOf="@+id/img_my_page_main"
+                        app:layout_constraintStart_toStartOf="@+id/img_my_page_main"
+                        app:layout_constraintTop_toBottomOf="@+id/img_my_page_main">
+
+                        <ImageView
+                            android:id="@+id/iv_my_page_edit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/ic_edit"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
 
                         <TextView
                             android:id="@+id/text_my_page_profile_modify"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
                             android:fontFamily="@font/pretendard_medium"
-                            android:paddingLeft="9dp"
-                            android:paddingTop="3dp"
-                            android:paddingRight="8dp"
-                            android:paddingBottom="3dp"
-                            android:text="@string/mypage_modify_profile"
                             android:includeFontPadding="true"
+                            android:text="@string/question_detail_update"
                             android:textColor="@color/gray_4"
                             android:textSize="12sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginEnd="9dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_my_page_edit"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintStart_toEndOf="@+id/iv_my_page_edit"
+                            app:layout_constraintTop_toTopOf="@+id/iv_my_page_edit" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -177,13 +219,13 @@
                         android:id="@+id/text_my_page_first_major"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:fontFamily="@font/pretendard_regular"
                         android:text="@string/mypage_first_major"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="@+id/text_my_page_nickname"
-                        app:layout_constraintTop_toBottomOf="@+id/text_my_page_nickname" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_my_page_introduction" />
 
 
                     <View
@@ -220,19 +262,19 @@
                         android:text="@{myPageInfo.Data.firstMajorStart}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
-                        tools:text="진입시기"
                         app:layout_constraintBottom_toBottomOf="@+id/text_my_page_first_major_name"
                         app:layout_constraintStart_toEndOf="@+id/text_my_page_first_major_name"
-                        app:layout_constraintTop_toTopOf="@+id/text_my_page_first_major_name" />
+                        app:layout_constraintTop_toTopOf="@+id/text_my_page_first_major_name"
+                        tools:text="진입시기" />
 
 
                     <TextView
                         android:id="@+id/text_my_page_second_major"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
                         android:fontFamily="@font/pretendard_regular"
                         android:text="@string/mypage_second_major"
-                        android:layout_marginTop="1dp"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="@+id/text_my_page_first_major"
@@ -273,12 +315,10 @@
                         android:text="@{myPageInfo.Data.secondMajorStart}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
-                        tools:text="진입시기"
                         app:layout_constraintBottom_toBottomOf="@+id/text_my_page_second_major_name"
                         app:layout_constraintStart_toEndOf="@+id/text_my_page_second_major_name"
-                        app:layout_constraintTop_toTopOf="@+id/text_my_page_second_major_name" />
-
-
+                        app:layout_constraintTop_toTopOf="@+id/text_my_page_second_major_name"
+                        tools:text="진입시기" />
 
 
                     <View
@@ -307,9 +347,9 @@
                             android:id="@+id/text_my_page_post_by_me"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="33dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginBottom="15dp"
-                            android:layout_marginLeft="33dp"
                             android:fontFamily="@font/pretendard_regular"
                             android:text="@string/mypage_write_by_me"
                             android:textColor="@color/black"
@@ -449,12 +489,12 @@
                     android:id="@+id/text_question_empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
                     android:fontFamily="@font/pretendard_regular"
                     android:text="@string/empty_personal_question"
                     android:textColor="@color/gray_3"
                     android:textSize="14sp"
                     android:visibility="gone"
-                    android:layout_marginTop="100dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -468,9 +508,9 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="16dp"
+                    android:background="@drawable/rectangle_border_gray0_8dp"
                     android:orientation="vertical"
                     android:overScrollMode="never"
-                    android:background="@drawable/rectangle_border_gray0_8dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -478,4 +518,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/text_my_page_personal_question" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView></androidx.constraintlayout.widget.ConstraintLayout></layout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
