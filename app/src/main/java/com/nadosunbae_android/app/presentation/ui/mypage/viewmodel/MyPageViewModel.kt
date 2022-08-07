@@ -403,11 +403,20 @@ class MyPageViewModel @Inject constructor(
 
     }
 
-    val curFragment: MutableLiveData<Int>
-        get() = ClassRoomMainContentViewModel.curFragment
+
+    val postCurFragment: MutableLiveData<Int>
+        get() = MyPageViewModel.postCurFragment
+
+    val applyCurFragment: MutableLiveData<Int>
+        get() = MyPageViewModel.applyCurFragment
+
+    val likeCurFragment: MutableLiveData<Int>
+        get() = MyPageViewModel.likeCurFragment
 
     companion object {
-        val curFragment = MutableLiveData(-1)
+        val postCurFragment = MutableLiveData(-1)
+        val applyCurFragment = MutableLiveData(-1)
+        val likeCurFragment = MutableLiveData(-1)
     }
 }
 

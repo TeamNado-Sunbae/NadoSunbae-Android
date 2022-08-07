@@ -83,19 +83,19 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
                 )
             )
             itemClickListener = {
-                if (it != myPageViewModel.curFragment.value && !(it == 0 && myPageViewModel.curFragment.value == -1)) {
+                if (it != myPageViewModel.postCurFragment.value && !(it == 0 && myPageViewModel.postCurFragment.value == -1)) {
                     switchTab =
                         com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
                             it
                         )
-                    myPageViewModel.curFragment.postValue(it)
+                    myPageViewModel.postCurFragment.postValue(it)
                 }
             }
         }
     }
 
     private fun observeFragmentNum() {
-        myPageViewModel.curFragment.observe(this) {
+        myPageViewModel.postCurFragment.observe(this) {
             when (it) {
                 0 -> {
                     //1:1질문 서버통신

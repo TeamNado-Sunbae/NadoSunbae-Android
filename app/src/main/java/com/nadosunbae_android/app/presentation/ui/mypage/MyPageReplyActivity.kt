@@ -3,10 +3,8 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.core.content.res.ResourcesCompat
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageReplyBinding
-import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyAdapter
@@ -59,19 +57,19 @@ class MyPageReplyActivity :
                 )
             )
             itemClickListener = {
-                if (it != myPageViewModel.curFragment.value && !(it == 0 && myPageViewModel.curFragment.value == -1)) {
+                if (it != myPageViewModel.applyCurFragment.value && !(it == 0 && myPageViewModel.applyCurFragment.value == -1)) {
                     switchTab =
                         com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
                             it
                         )
-                    myPageViewModel.curFragment.postValue(it)
+                    myPageViewModel.applyCurFragment.postValue(it)
                 }
             }
         }
     }
 
     private fun observeFragmentNum() {
-        myPageViewModel.curFragment.observe(this) {
+        myPageViewModel.applyCurFragment.observe(this) {
             when (it) {
                 0 -> {
                     //1:1질문 서버통신
