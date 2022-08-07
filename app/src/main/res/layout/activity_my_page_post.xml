@@ -59,38 +59,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_mypage_post_title" />
 
-<!--
-        <TextView
-            android:id="@+id/text_mypage_post_question_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:background="@drawable/selector_classroom_title_background"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/classroom_question_title"
-            android:textColor="@drawable/selector_classroom_title_text"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_mypage_post_title" />
-
-        <TextView
-            android:id="@+id/text_mypage_post_info_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/selector_classroom_title_background"
-            android:fontFamily="@font/pretendard_semibold"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:text="@string/classroom_info_title"
-            android:textColor="@drawable/selector_classroom_title_text"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/text_mypage_post_question_title"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_post_question_title" />
--->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_mypage_question"
             android:layout_width="match_parent"

@@ -30,8 +30,6 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
         super.onCreate(savedInstanceState)
         observeLoadingEnd()
         backBtn()
-        selectOption()
-
         initSwitchTab()
         observeFragmentNum()
     }
@@ -108,41 +106,6 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
             }
             binding.viewMypageSwitch.switchTab = CustomSwitchTab.getSwitchTabValue(it)
         }
-    }
-
-
-    private fun selectOption() {
-        /*
-        binding.apply {
-            textMypagePostQuestionTitle.setOnClickListener {
-                showLoading()
-                questionPosting()
-                textMypagePostQuestionTitle.isSelected = true
-                textMypagePostInfoTitle.isSelected = false
-
-                //폰트 설정
-                textMypagePostQuestionTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-                textMypagePostInfoTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-            }
-
-            textMypagePostInfoTitle.setOnClickListener {
-                showLoading()
-                infoPosting()
-                textMypagePostQuestionTitle.isSelected = false
-                textMypagePostInfoTitle.isSelected = true
-
-                //폰트 설정
-                textMypagePostQuestionTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-                textMypagePostInfoTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-            }
-        }
-
-         */
-
     }
 
 
