@@ -454,5 +454,7 @@
     <string name="category_free">자유</string>
     <string name="category_info">정보</string>
     <string name="category_write_content_hint">내용을 입력하세요.</string>
-
+    <string name="community_search_hint">글 제목,내용</string>
+    <string name="community_search_main">커뮤니티의 글을 검색해보세요.</string>
+    <string name="community_no_search">검색 결과가 없습니다.</string>
 </resources>
