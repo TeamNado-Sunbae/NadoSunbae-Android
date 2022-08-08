@@ -15,6 +15,9 @@
         android:theme="@style/Theme.NadoSunbaeAndroid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".CommunitySearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.community.CommunityWriteActivity"
             android:exported="false" />
         <activity
