@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPagePostBinding
 import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
@@ -27,9 +29,9 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observeLoadingEnd()
-        initBtn()
         backBtn()
-        selectOption()
+        initSwitchTab()
+        observeFragmentNum()
     }
 
     private fun observeLoadingEnd() {
@@ -68,52 +70,42 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
         }
     }
 
+    private fun initSwitchTab() {
 
-    private fun initBtn() {
-        binding.apply {
-            showLoading()
-            questionPosting()
-            textMypagePostQuestionTitle.isSelected = true
-            textMypagePostInfoTitle.isSelected = false
-
-            //폰트 설정
-            textMypagePostQuestionTitle.typeface =
-                ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-            textMypagePostInfoTitle.typeface =
-                ResourcesCompat.getFont(context(), R.font.pretendard_regular)
+        with(binding.viewMypageSwitch) {
+            switchTab =
+                com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
+                    0
+                )
+            switchText = listOf(
+                getString(com.nadosunbae_android.app.R.string.question_detail_title), getString(
+                    com.nadosunbae_android.app.R.string.navigation_community
+                )
+            )
+            itemClickListener = {
+                if (it != myPageViewModel.postCurFragment.value && !(it == 0 && myPageViewModel.postCurFragment.value == -1)) {
+                    switchTab =
+                        com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
+                            it
+                        )
+                    myPageViewModel.postCurFragment.postValue(it)
+                }
+            }
         }
-
     }
 
-    private fun selectOption() {
-        binding.apply {
-            textMypagePostQuestionTitle.setOnClickListener {
-                showLoading()
-                questionPosting()
-                textMypagePostQuestionTitle.isSelected = true
-                textMypagePostInfoTitle.isSelected = false
-
-                //폰트 설정
-                textMypagePostQuestionTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-                textMypagePostInfoTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
+    private fun observeFragmentNum() {
+        myPageViewModel.postCurFragment.observe(this) {
+            when (it) {
+                0 -> {
+                    //1:1질문 서버통신
+                }
+                1 -> {
+                    //커뮤니티 서버통신
+                }
             }
-
-            textMypagePostInfoTitle.setOnClickListener {
-                showLoading()
-                infoPosting()
-                textMypagePostQuestionTitle.isSelected = false
-                textMypagePostInfoTitle.isSelected = true
-
-                //폰트 설정
-                textMypagePostQuestionTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-                textMypagePostInfoTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-            }
+            binding.viewMypageSwitch.switchTab = CustomSwitchTab.getSwitchTabValue(it)
         }
-
     }
 
 
@@ -133,11 +125,14 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
     override fun onRestart() {
         super.onRestart()
+        /*
         if (binding.textMypagePostQuestionTitle.isSelected) {
             questionPosting()
         } else {
             infoPosting()
         }
+
+         */
     }
 
 
