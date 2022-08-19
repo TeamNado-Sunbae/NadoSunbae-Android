@@ -15,7 +15,7 @@
         android:theme="@style/Theme.NadoSunbaeAndroid"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".CommunitySearchActivity"
+            android:name=".presentation.ui.community.CommunitySearchActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.community.CommunityWriteActivity"
@@ -25,13 +25,8 @@
             android:exported="true" />
         <activity
             android:name=".presentation.ui.main.SplashActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".presentation.ui.mypage.ChangePwFinishActivity"
             android:exported="false" />
@@ -87,7 +82,13 @@
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
         <activity
             android:name=".presentation.ui.mypage.ServiceInqueryActivity"
             android:exported="false" />

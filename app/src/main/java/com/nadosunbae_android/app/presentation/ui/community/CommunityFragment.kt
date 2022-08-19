@@ -27,7 +27,9 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
 
     //커뮤니티 검색 탭 이동
     private fun goCommunitySearch(){
-        val intent = Intent(requireActivity(), CommunitySearchActivity::class.java)
-        startActivity(intent)
+        binding.imgCommunitySearch.setOnClickListener {
+            val intent = Intent(requireActivity(), CommunitySearchActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
