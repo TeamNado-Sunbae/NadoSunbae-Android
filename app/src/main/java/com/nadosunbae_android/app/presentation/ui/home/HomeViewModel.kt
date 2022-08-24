@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.home
 
 import androidx.lifecycle.ViewModel
+import com.nadosunbae_android.domain.model.home.Banner
 import com.nadosunbae_android.domain.model.home.HomeCommunityData
 import com.nadosunbae_android.domain.model.home.HomeQuestionData
 import com.nadosunbae_android.domain.model.home.HomeReviewData
@@ -36,5 +37,13 @@ class HomeViewModel @Inject constructor() : ViewModel() {
         HomeCommunityData("질문", "커뮤니티 제목", "커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용", "학과전체", "오후 5:42", 1,1),
         HomeCommunityData("질문", "커뮤니티 제목", "커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용", "학과전체", "오후 5:42", 1,1),
         HomeCommunityData("질문", "커뮤니티 제목", "커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용 커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용커뮤니티내용 커뮤니티내용", "학과전체", "오후 5:42", 1,1)
+    )
+
+
+    val BannerData = listOf(
+        Banner("1", "https://upload3.inven.co.kr/upload/2022/01/28/bbs/i13648532370.jpg"),
+        Banner("2", "https://upload3.inven.co.kr/upload/2022/01/28/bbs/i13648532370.jpg"),
+        Banner("3", "https://upload3.inven.co.kr/upload/2022/01/28/bbs/i13648532370.jpg")
+
     )
 }

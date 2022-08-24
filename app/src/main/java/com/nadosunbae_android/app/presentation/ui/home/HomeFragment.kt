@@ -4,18 +4,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.home.adpter.BannerListAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.CommunityAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val homeViewModel : HomeViewModel by viewModels()
+    private lateinit var bannerAdapter : BannerListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,6 +27,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         setQuestionAdapter()
         setCommunityAdapter()
         naviControl()
+        setBanner()
+    }
+
+    private fun setBanner() {
+        bannerAdapter = BannerListAdapter(homeViewModel.BannerData.subList(1, 1))
+        binding.vpHomeBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if (position == 0) {
+                    Timber.d("TEST1")
+                }
+                else if (position == 1) {
+                    Timber.d("TEST2")
+                }
+                else if (position == 2){
+                    Timber.d("TEST3")
+                }
+            }
+        })
     }
 
     //홈 뷰 리뷰 리사이클러뷰 연결
