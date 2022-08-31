@@ -44,12 +44,14 @@ object MypageMapper {
     fun mapperToMyInfo(responseMypageMyInfo: ResponseMypageMyInfo): MyPageMyInfo {
         return MyPageMyInfo(
             data = MyPageMyInfo.Data(
+                bio = responseMypageMyInfo.data.bio,
                 count = responseMypageMyInfo.data.count,
                 firstMajorName = responseMypageMyInfo.data.firstMajorName,
                 firstMajorStart = responseMypageMyInfo.data.firstMajorStart,
                 isOnQuestion = responseMypageMyInfo.data.isOnQuestion,
                 nickname = responseMypageMyInfo.data.nickname,
                 profileImageId = responseMypageMyInfo.data.profileImageId,
+                responseRate = responseMypageMyInfo.data.responseRate,
                 secondMajorName = responseMypageMyInfo.data.secondMajorName,
                 secondMajorStart = responseMypageMyInfo.data.secondMajorStart,
                 userId = responseMypageMyInfo.data.userId
@@ -62,13 +64,14 @@ object MypageMapper {
     fun mapperToModifyData(responseMyPageModify: ResponseMyPageModify): MyPageModifyData {
         return MyPageModifyData(
             data = MyPageModifyData.Data(
+                bio = responseMyPageModify.data.bio,
                 firstMajorId = responseMyPageModify.data.firstMajorId,
                 firstMajorStart = responseMyPageModify.data.firstMajorStart,
                 isOnQuestion = responseMyPageModify.data.isOnQuestion,
                 nickname = responseMyPageModify.data.nickname,
+                profileImageId = responseMyPageModify.data.profileImageId,
                 secondMajorId = responseMyPageModify.data.secondMajorId,
                 secondMajorStart = responseMyPageModify.data.secondMajorStart,
-                updatedAt = responseMyPageModify.data.updatedAt
             ),
             success = responseMyPageModify.success
         )
@@ -76,7 +79,9 @@ object MypageMapper {
 
     fun mapperToModifyItem(myPageModifyItem: MyPageModifyItem): RequestMyPageModify {
         return RequestMyPageModify(
+            profileImageId = myPageModifyItem.profileImageId,
             nickname = myPageModifyItem.nickname,
+            bio = myPageModifyItem.bio,
             firstMajorId = myPageModifyItem.firstMajorId,
             firstMajorStart = myPageModifyItem.firstMajorStart,
             secondMajorId = myPageModifyItem.secondMajorId,

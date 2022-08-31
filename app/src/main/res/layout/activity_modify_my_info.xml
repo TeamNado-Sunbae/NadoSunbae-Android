@@ -111,7 +111,6 @@
                     android:text="@string/mypage_modify_change_img"
                     android:textColor="@color/gray_4"
                     android:textSize="12sp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/img_my_page_modify_main"
                     app:layout_constraintStart_toStartOf="@+id/img_my_page_modify_main"
                     app:layout_constraintTop_toBottomOf="@+id/img_my_page_modify_main" />
@@ -264,6 +263,7 @@
                     android:gravity="top"
                     android:hint="@string/mypage_modify_introduction_hint"
                     android:lines="2"
+                    android:text="@{myPageInfo.Data.bio}"
                     android:maxLength="40"
                     android:paddingVertical="16dp"
                     android:paddingStart="12dp"

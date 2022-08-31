@@ -76,7 +76,7 @@ class ModifyMyInfoActivity :
     override fun onResume() {
         super.onResume()
         initWriteMode()
-//        completeModifyInfo()
+        //completeModifyInfo()
     }
 
     //기존 데이터 불러오기
@@ -489,7 +489,9 @@ class ModifyMyInfoActivity :
     private fun completeModifyInfo() {
         with(binding) {
             val requestBody = MyPageModifyItem(
+                1,
                 etMyPageNickname.text.toString(),
+                etMyPageIntroduction.text.toString(),
                 (
                         if (firstDepartmentBottomSheetDialog.getSelectedData()?.id == null) {
                             ReviewGlobals.firstMajor!!.majorId

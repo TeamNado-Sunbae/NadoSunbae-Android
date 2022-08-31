@@ -38,6 +38,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         Timber.d("실행되는 중")
     }
 
+    //TODO : 응답률 분기처리
+
     private fun observeLoadingEnd() {
         myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
                 dismissLoading()
