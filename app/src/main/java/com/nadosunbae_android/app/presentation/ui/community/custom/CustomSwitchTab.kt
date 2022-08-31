@@ -17,6 +17,9 @@ class CustomSwitchTab(context: Context, attrs: AttributeSet? = null) :
     private var titleTwo: TextView
     private var titleThree: TextView
     private var titleFour: TextView
+    private var _selectedTab: Int = 0
+    val selectedTab: Int
+        get() = _selectedTab
 
     //텍스트 클릭
     var itemClickListener: ((Int) -> Unit)? = null
@@ -56,6 +59,11 @@ class CustomSwitchTab(context: Context, attrs: AttributeSet? = null) :
         titleTwo = binding.switchTabTwo
         titleThree = binding.switchTabThree
         titleFour = binding.switchTabFour
+    }
+
+    fun setTabNum(num: Int) {
+        switchTab = getSwitchTabValue(num)
+        _selectedTab = num
     }
 
     //타이틀 선택
