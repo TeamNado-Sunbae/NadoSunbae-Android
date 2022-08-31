@@ -62,6 +62,7 @@ class ModifyMyInfoActivity :
         backBtnClick()
         observeModifyResult()
         observeEditFinish()
+        introductionTextWatcher()
 
     }
 
@@ -75,7 +76,7 @@ class ModifyMyInfoActivity :
     override fun onResume() {
         super.onResume()
         initWriteMode()
-        completeModifyInfo()
+//        completeModifyInfo()
     }
 
     //기존 데이터 불러오기
@@ -583,6 +584,16 @@ class ModifyMyInfoActivity :
                 finish()
             }
         }
+    }
+
+    private fun introductionTextWatcher() {
+        binding.etMyPageIntroduction.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                binding.textMyPageModifyLength.setText(binding.etMyPageIntroduction.text.length.toString())
+            }
+        })
     }
 
 }

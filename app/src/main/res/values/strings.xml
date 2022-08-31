@@ -342,6 +342,9 @@
     <string name="mypage_modify_change_img">프로필 사진 변경</string>
     <string name="mypage_modify_junior_question">후배들의 1:1 질문</string>
     <string name="mypage_modify_comment">전공 결정을 앞둔 후배들에게 큰 도움이 돼요!</string>
+    <string name="mypage_moidfy_introduction">한줄소개</string>
+    <string name="mypage_modify_introduction_hint">나를 한줄로 소개해보세요.</string>
+    <string name="mypage_modify_max_length">/최대 40자</string>
 
     <!-- 마이페이지 알림 설정 -->
     <string name="mypage_alarm_setting">알림 설정</string>
