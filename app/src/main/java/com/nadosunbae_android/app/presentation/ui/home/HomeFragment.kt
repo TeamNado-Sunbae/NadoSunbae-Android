@@ -8,10 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
-import com.nadosunbae_android.app.presentation.ui.home.adpter.BannerListAdapter
-import com.nadosunbae_android.app.presentation.ui.home.adpter.CommunityAdapter
-import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
-import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
+import com.nadosunbae_android.app.presentation.ui.home.adpter.*
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -20,6 +17,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val homeViewModel : HomeViewModel by viewModels()
     private lateinit var bannerAdapter : BannerListAdapter
+    private lateinit var reviewAdapter: ReviewAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,8 +48,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     //홈 뷰 리뷰 리사이클러뷰 연결
     private fun setReviewAdapter() {
-        binding.rvHomeReview.adapter = ReviewAdapter()
-        (binding.rvHomeReview.adapter as ReviewAdapter).submitList(homeViewModel.reviewData)
+        reviewAdapter = ReviewAdapter()
+        binding.rvHomeReview.adapter = reviewAdapter
+        homeViewModel.getReviewDetail(1)
+        homeViewModel.reviewDetail.observe(viewLifecycleOwner) {
+            (binding.rvHomeReview.adapter as ReviewAdapter).submitList(it)
+        }
     }
 
     //홈 뷰 질문 리사이클러뷰 연결

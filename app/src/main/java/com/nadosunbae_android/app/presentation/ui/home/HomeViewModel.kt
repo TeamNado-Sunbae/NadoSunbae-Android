@@ -23,17 +23,6 @@ class HomeViewModel @Inject constructor(
     val reviewDetail: LiveData<List<HomeUnivReviewData>>
         get() = _reviewDetail
 
-    //더미데이터 테스트 -> 뷰 깨지는지 확인
-    val reviewData = listOf<HomeReviewData>(
-        HomeReviewData("경영학과","난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자","21/12/23"),
-        HomeReviewData("경영학과","난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자","21/12/23"),
-        HomeReviewData("경영학과","난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자","21/12/23"),
-        HomeReviewData("경영학과","난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자","21/12/23"),
-        HomeReviewData("경영학과","난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자","21/12/23"),
-        HomeReviewData("경영학과","난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자","21/12/23"),
-        HomeReviewData("경영학과","난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자","21/12/23")
-    )
-
     val questionData = listOf<HomeQuestionData>(
         HomeQuestionData("질문자닉네임", "209*66 넘으면 ...난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어 싶은 옷입고싶...", "21/12/23"),
         HomeQuestionData("질문자닉네임", "209*66 넘으면 ...난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어 싶은 옷입고싶...", "21/12/23"),
