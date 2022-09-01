@@ -1,15 +1,28 @@
 package com.nadosunbae_android.app.presentation.ui.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nadosunbae_android.domain.model.home.Banner
-import com.nadosunbae_android.domain.model.home.HomeCommunityData
-import com.nadosunbae_android.domain.model.home.HomeQuestionData
-import com.nadosunbae_android.domain.model.home.HomeReviewData
+import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.presentation.base.LoadableViewModel
+import com.nadosunbae_android.domain.model.home.*
+import com.nadosunbae_android.domain.repository.home.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val homeRepository: HomeRepository
+) : ViewModel(), LoadableViewModel {
+
+    override val onLoadingEnd = MutableLiveData<Boolean>(false)
+
+    private val _reviewDetail = MutableLiveData<List<HomeUnivReviewData>>()
+    val reviewDetail: LiveData<List<HomeUnivReviewData>>
+        get() = _reviewDetail
+
     //더미데이터 테스트 -> 뷰 깨지는지 확인
     val reviewData = listOf<HomeReviewData>(
         HomeReviewData("경영학과","난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자난 자유롭고 싶어 지금 전투력 수치 111퍼입고싶은 옷 입고싶어최대 40자","21/12/23"),
@@ -46,4 +59,21 @@ class HomeViewModel @Inject constructor() : ViewModel() {
         Banner("3", "https://upload3.inven.co.kr/upload/2022/01/28/bbs/i13648532370.jpg")
 
     )
+
+    fun getReviewDetail(university: Int) {
+        viewModelScope.launch {
+            kotlin.runCatching { homeRepository.getUnivReview(university) }
+                .onSuccess {
+                    _reviewDetail.value = it
+                    Timber.d("학교별 리뷰 : 서버통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Timber.d("학교별 리뷰 : 서버통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
+                }
+        }
+    }
 }
