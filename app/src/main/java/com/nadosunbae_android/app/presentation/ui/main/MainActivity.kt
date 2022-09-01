@@ -9,6 +9,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.*
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ClassRoomReviewFragment
 import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.AppInfoFragment
@@ -109,8 +110,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
                 CLASSROOM -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_room
-
-                }NOTIFICATION -> {
+                }
+                CLASSROOM_NOBACK -> {
+                    changeFragmentNoBackStack(
+                        R.id.fragment_container_main,
+                        ClassRoomMainContentFragment()
+                    )
+                }
+                NOTIFICATION -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_notice
                 changeFragmentNoBackStack(R.id.fragment_container_main, NotificationFragment())
                 }
@@ -327,5 +334,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         const val MYPAGE = 4
         const val MYPAGEDIVISION = 5
         const val NOTIFICATION = 6
+        const val CLASSROOM_NOBACK = 7
     }
 }
