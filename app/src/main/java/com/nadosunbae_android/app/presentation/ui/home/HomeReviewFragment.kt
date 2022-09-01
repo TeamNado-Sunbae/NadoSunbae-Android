@@ -32,9 +32,9 @@ class HomeReviewFragment : BaseFragment<FragmentHomeReviewBinding>(R.layout.frag
     private fun initNetwork() {
         reviewDetailAdapter = ReviewDetailAdapter()
         binding.rvHomeReview.adapter = reviewDetailAdapter
+        //TODO: university id 고정값 변경
         homeViewModel.getReviewDetail(1)
         homeViewModel.reviewDetail.observe(viewLifecycleOwner) {
-            Timber.e("$it")
             (binding.rvHomeReview.adapter as ReviewDetailAdapter).submitList(it)
         }
     }
