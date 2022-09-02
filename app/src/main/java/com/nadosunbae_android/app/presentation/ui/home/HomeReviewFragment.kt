@@ -35,9 +35,8 @@ class HomeReviewFragment : BaseFragment<FragmentHomeReviewBinding>(R.layout.frag
     private fun initNetwork() {
         Timber.e("UserIdTest2: ${mainViewModel.userId.value}")
         Timber.e("UserUnivIdTest2 : ${mainViewModel.univId.value}")
-        reviewDetailAdapter = ReviewDetailAdapter()
+        reviewDetailAdapter = ReviewDetailAdapter(mainViewModel.univId.value ?: 0)
         binding.rvHomeReview.adapter = reviewDetailAdapter
-        //TODO: university id 고정값 변경
         homeViewModel.getReviewDetail(mainViewModel.univId.value ?: 0)
         homeViewModel.reviewDetail.observe(viewLifecycleOwner) {
             (binding.rvHomeReview.adapter as ReviewDetailAdapter).submitList(it)

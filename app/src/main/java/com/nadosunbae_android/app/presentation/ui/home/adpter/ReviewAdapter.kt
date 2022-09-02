@@ -2,7 +2,6 @@ package com.nadosunbae_android.app.presentation.ui.home.adpter
 
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.library.baseAdapters.BR
