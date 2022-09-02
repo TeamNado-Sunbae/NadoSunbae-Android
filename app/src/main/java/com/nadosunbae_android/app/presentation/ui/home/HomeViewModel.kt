@@ -19,6 +19,8 @@ class HomeViewModel @Inject constructor(
 
     override val onLoadingEnd = MutableLiveData<Boolean>(false)
 
+    var userId = MutableLiveData<Int>()
+
     private val _reviewDetail = MutableLiveData<List<HomeUnivReviewData>>()
     val reviewDetail: LiveData<List<HomeUnivReviewData>>
         get() = _reviewDetail

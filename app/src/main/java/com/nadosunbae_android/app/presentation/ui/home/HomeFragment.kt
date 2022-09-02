@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -9,6 +10,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.home.adpter.*
+import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.domain.model.home.HomeUnivReviewData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -18,11 +20,13 @@ import timber.log.Timber
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private var reviewList = mutableListOf<HomeUnivReviewData>()
     private val homeViewModel : HomeViewModel by viewModels()
+    private val mainViewModel : MainViewModel by activityViewModels()
     private lateinit var bannerAdapter : BannerListAdapter
     private lateinit var reviewAdapter: ReviewAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setReviewAdapter()
         setQuestionAdapter()
         setCommunityAdapter()
@@ -50,7 +54,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     //홈 뷰 리뷰 리사이클러뷰 연결
     private fun setReviewAdapter() {
-        reviewAdapter = ReviewAdapter()
+        Timber.e("UserIdTest: ${mainViewModel.userId.value}")
+        reviewAdapter = ReviewAdapter(mainViewModel.userId.value ?: 0)
         binding.rvHomeReview.adapter = reviewAdapter
         homeViewModel.getReviewDetail(1)
 
