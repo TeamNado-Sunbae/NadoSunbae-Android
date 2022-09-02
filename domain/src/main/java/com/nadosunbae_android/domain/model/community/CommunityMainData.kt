@@ -12,4 +12,21 @@ data class CommunityMainData(
     val likeCount: Int,
     val id: Int,
     val nickname: String
-)
+) {
+    companion object {
+        val DEFAULT = CommunityMainData(
+            0,
+            "",
+            "",
+            "",
+            0,
+            "",
+            "",
+            false,
+            0,
+            0,
+            ""
+        )
+
+    }
+}
