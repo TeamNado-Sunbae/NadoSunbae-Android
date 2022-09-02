@@ -1,11 +1,12 @@
 package com.nadosunbae_android.data.model.response.community
 
 import com.nadosunbae_android.domain.model.community.CommunityMainData
+import java.util.*
 
 data class ResponseCommunityMainData(
     val commentCount: Int,
     val content: String,
-    val createdAt: String,
+    val createdAt: Date?,
     val like: Like,
     val majorName: String,
     val postId: Int,

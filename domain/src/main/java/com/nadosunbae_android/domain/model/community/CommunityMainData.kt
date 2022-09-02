@@ -1,9 +1,11 @@
 package com.nadosunbae_android.domain.model.community
 
+import java.util.*
+
 data class CommunityMainData(
     val commentCount: Int,
     val content: String,
-    val createdAt: String,
+    val createdAt: Date?,
     val majorName: String,
     val postId: Int,
     val title: String,
@@ -17,7 +19,7 @@ data class CommunityMainData(
         val DEFAULT = CommunityMainData(
             0,
             "",
-            "",
+            null,
             "",
             0,
             "",
