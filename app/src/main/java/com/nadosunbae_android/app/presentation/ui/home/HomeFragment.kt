@@ -65,10 +65,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         //홈 뷰에서는 item 5개만 띄우기
         homeViewModel.reviewDetail.observe(viewLifecycleOwner) {
-            for (i in 0 until 5) {
-                reviewList.add(HomeUnivReviewData(it[i].createdAt,it[i].id, it[i].majorName, it[i].oneLineReview, it[i].tagList, it[i].isLiked, it[i].likeCount))
-            }
-            (binding.rvHomeReview.adapter as ReviewAdapter).submitList(reviewList)
+            (binding.rvHomeReview.adapter as ReviewAdapter).submitList(it.subList(0,5))
         }
     }
 
