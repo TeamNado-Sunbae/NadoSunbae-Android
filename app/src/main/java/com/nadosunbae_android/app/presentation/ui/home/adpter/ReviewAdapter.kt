@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.home.adpter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
@@ -20,18 +21,14 @@ class ReviewAdapter : androidx.recyclerview.widget.ListAdapter<HomeUnivReviewDat
             false
         )
         return ReviewViewHolder(binding)
-
     }
 
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
         holder.binding.setVariable(BR.reviewDetailData, getItem(position))
-
     }
-
 
     class ReviewViewHolder(
         val binding: ItemHomeReviewBinding,
     ) : RecyclerView.ViewHolder(binding.root)
-
 
 }
