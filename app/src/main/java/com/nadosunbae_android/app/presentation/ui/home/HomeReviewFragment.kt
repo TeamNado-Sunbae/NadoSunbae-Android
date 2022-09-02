@@ -2,18 +2,21 @@ package com.nadosunbae_android.app.presentation.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeReviewBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewDetailAdapter
+import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeReviewFragment : BaseFragment<FragmentHomeReviewBinding>(R.layout.fragment_home_review) {
 
+    private val mainViewModel : MainViewModel by activityViewModels()
     private val homeViewModel : HomeViewModel by viewModels()
     private lateinit var reviewDetailAdapter : ReviewDetailAdapter
 
@@ -30,10 +33,12 @@ class HomeReviewFragment : BaseFragment<FragmentHomeReviewBinding>(R.layout.frag
     }
 
     private fun initNetwork() {
+        Timber.e("UserIdTest2: ${mainViewModel.userId.value}")
+        Timber.e("UserUnivIdTest2 : ${mainViewModel.univId.value}")
         reviewDetailAdapter = ReviewDetailAdapter()
         binding.rvHomeReview.adapter = reviewDetailAdapter
         //TODO: university id 고정값 변경
-        homeViewModel.getReviewDetail(1)
+        homeViewModel.getReviewDetail(mainViewModel.univId.value ?: 0)
         homeViewModel.reviewDetail.observe(viewLifecycleOwner) {
             (binding.rvHomeReview.adapter as ReviewDetailAdapter).submitList(it)
         }
