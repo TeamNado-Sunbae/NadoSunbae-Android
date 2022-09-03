@@ -5,10 +5,8 @@ import android.view.ViewGroup
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemHomeQuestionBinding
-import com.nadosunbae_android.app.databinding.ItemHomeReviewBinding
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.home.HomeQuestionData
-import com.nadosunbae_android.domain.model.home.HomeReviewData
 
 class QuestionAdapter :  androidx.recyclerview.widget.ListAdapter<HomeQuestionData, QuestionAdapter.QuestionViewHolder>(
     DiffUtilCallback<HomeQuestionData>()

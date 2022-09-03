@@ -53,12 +53,12 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/iv_home_banner"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_home_banner"
                     android:layout_width="match_parent"
                     android:layout_height="104dp"
-                    android:background="@color/main_light"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_home_top" />
+                    app:layout_constraintTop_toBottomOf="@+id/cl_home_top"
+                    tools:background="@color/main_light" />
 
                 <TextView
                     android:id="@+id/tv_home_review"
@@ -71,7 +71,7 @@
                     android:textColor="@color/main_black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_home_banner" />
+                    app:layout_constraintTop_toBottomOf="@+id/vp_home_banner" />
 
                 <TextView
                     android:id="@+id/tv_home_new_review"
@@ -111,12 +111,13 @@
                     android:id="@+id/rv_home_review"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="12dp"
                     android:orientation="horizontal"
-                    android:layout_marginStart="4dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_home_new_review"
+                    tools:itemCount="5"
                     tools:listitem="@layout/item_home_review" />
 
                 <TextView
@@ -213,9 +214,9 @@
                     android:id="@+id/rv_home_question"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="12dp"
                     android:orientation="horizontal"
-                    android:layout_marginStart="4dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_home_new_question"
@@ -274,12 +275,12 @@
                     android:id="@+id/rv_home_community"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="108dp"
-                    android:orientation="vertical"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="108dp"
                     android:background="@drawable/rectangle_border_gray0_8dp"
+                    android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_home_community_sub_title"

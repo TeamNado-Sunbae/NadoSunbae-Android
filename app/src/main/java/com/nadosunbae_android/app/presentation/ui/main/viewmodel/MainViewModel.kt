@@ -60,6 +60,9 @@ class MainViewModel @Inject constructor(
     //유저 아이디
     var userId = MutableLiveData<Int>()
 
+    //유저 학교
+    var univId = MutableLiveData<Int>()
+
     //과방탭 질문글 메인 조회
     private val _classRoomMain = MutableLiveData<List<ClassRoomData>>()
     val classRoomMain : LiveData<List<ClassRoomData>>
@@ -206,6 +209,7 @@ class MainViewModel @Inject constructor(
     fun setSignData(signData: SignInData.User) {
         _signData.value = signData
         userId.value = signData.userId
+        univId.value = signData.universityId
     }
 
     fun clearFilter() {

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="reviewDetailData"
+            type="com.nadosunbae_android.domain.model.home.HomeUnivReviewData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +20,7 @@
 
         <TextView
             android:id="@+id/tv_create_at"
+            dateFormat_yyMMdd="@{reviewDetailData.createdAt}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -31,6 +34,7 @@
 
         <TextView
             android:id="@+id/tv_likes"
+            intToText="@{reviewDetailData.likeCount}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
@@ -51,6 +55,7 @@
             android:fontFamily="@font/pretendard_medium"
             android:maxLength="40"
             android:maxLines="1"
+            android:text="@{reviewDetailData.oneLineReview}"
             android:textColor="@color/black_0"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/view_line_horizontal"
@@ -60,6 +65,7 @@
 
         <ImageView
             android:id="@+id/ic_like"
+            setSelected="@{reviewDetailData.liked}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/tv_likes"
@@ -155,30 +161,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_tags" />
 
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/fl_review_writer_info"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_major"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:alignItems="center"
-            app:flexWrap="wrap"
-            app:layout_constraintEnd_toEndOf="@id/view_line_horizontal"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="@{reviewDetailData.majorName}"
+            android:textColor="@color/gray_4"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/view_line_horizontal"
-            app:layout_constraintTop_toBottomOf="@id/view_line_horizontal">
-
-            <TextView
-                android:id="@+id/tv_major"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:fontFamily="@font/pretendard_semibold"
-                android:textColor="@color/gray_4"
-                android:textSize="14sp"
-                tools:text="영어영문학과" />
-
-
-        </com.google.android.flexbox.FlexboxLayout>
+            app:layout_constraintTop_toBottomOf="@id/view_line_horizontal"
+            tools:text="영어영문학과" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.di
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
+import com.nadosunbae_android.data.api.home.HomeService
 import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.main.MainService
 import com.nadosunbae_android.data.api.mypage.MyPageService
@@ -56,6 +57,12 @@ object NetworkModule{
     @Provides
     fun signService(retrofit : Retrofit) : SignService{
         return retrofit.create(SignService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun homeService(retrofit: Retrofit) : HomeService{
+        return retrofit.create(HomeService::class.java)
     }
 
 

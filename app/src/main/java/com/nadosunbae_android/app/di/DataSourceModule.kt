@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.di
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
+import com.nadosunbae_android.data.api.home.HomeService
 import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.main.MainService
 import com.nadosunbae_android.data.api.mypage.MyPageService
@@ -9,6 +10,8 @@ import com.nadosunbae_android.data.api.review.ReviewService
 import com.nadosunbae_android.data.api.sign.SignService
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSource
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSourceImpl
+import com.nadosunbae_android.data.datasource.remote.home.HomeDataSource
+import com.nadosunbae_android.data.datasource.remote.home.HomeDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.like.LikeDataSource
 import com.nadosunbae_android.data.datasource.remote.like.LikeDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.main.MainDataSource
@@ -87,4 +90,11 @@ object DataSourceModule {
         return SignDataSourceImpl(signService)
     }
 
+    @Provides
+    @Singleton
+    fun homeDataSource(
+        homeService: HomeService
+    ) : HomeDataSource{
+        return HomeDataSourceImpl(homeService)
+    }
 }
