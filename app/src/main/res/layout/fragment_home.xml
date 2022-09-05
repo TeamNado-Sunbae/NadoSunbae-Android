@@ -40,6 +40,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
@@ -50,6 +51,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/iv_home_logo"
                         tools:text="고려대학교" />
+
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -170,17 +173,202 @@
 
                 <ImageView
                     android:id="@+id/iv_home_ranking"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:src="@drawable/img_ranking"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/property_1_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_home_ranking" />
+
+
+                <TextView
+                    android:id="@+id/text_nickname_ranking_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="@color/main_light"
+                    android:textSize="10sp"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_ranking"
+                    android:text="닉네임닉네임임" />
+
+                <TextView
+                    android:id="@+id/text_rate_ranking_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textColor="@color/main_default"
+                    android:textSize="10sp"
+                    android:layout_marginTop="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nickname_ranking_1"
+                    android:text="응답률 88%" />
+
+                <ImageView
+                    android:id="@+id/img_rate_ranking_1"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:src="@drawable/mask_group_1"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_1" />
+
+                <TextView
+                    android:id="@+id/text_nickname_ranking_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="@color/main_light"
+                    android:textSize="8sp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="104dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_ranking"
+                    android:text="닉네임닉네임임" />
+
+
+                <TextView
+                    android:id="@+id/text_rate_ranking_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="응답률 88%"
+                    android:textColor="@color/main_default"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_4"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_4"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nickname_ranking_4" />
+
+                <ImageView
+                    android:id="@+id/img_rate_ranking_4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/mask_group_2"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_rate_ranking_4"
+                    app:layout_constraintStart_toStartOf="@+id/text_rate_ranking_4"
+                    app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_4" />
+
+                <TextView
+                    android:id="@+id/text_nickname_ranking_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="104dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="닉네임닉네임임"
+                    android:textColor="@color/main_light"
+                    android:textSize="8sp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_ranking" />
+
+
+                <TextView
+                    android:id="@+id/text_rate_ranking_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="응답률 88%"
+                    android:textColor="@color/main_default"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_5"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_5"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nickname_ranking_5" />
+
+                <ImageView
+                    android:id="@+id/img_rate_ranking_5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/mask_group_3"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_rate_ranking_5"
+                    app:layout_constraintStart_toStartOf="@+id/text_rate_ranking_5"
+                    app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_5" />
+
+
+                <TextView
+                    android:id="@+id/text_nickname_ranking_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="닉네임닉네임임"
+                    android:textColor="@color/main_light"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toTopOf="@+id/text_nickname_ranking_4"
+                    app:layout_constraintEnd_toStartOf="@+id/text_nickname_ranking_1"
+                    app:layout_constraintStart_toEndOf="@+id/text_nickname_ranking_4"
+                    app:layout_constraintTop_toTopOf="@+id/text_rate_ranking_1" />
+
+
+                <TextView
+                    android:id="@+id/text_rate_ranking_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="응답률 88%"
+                    android:textColor="@color/main_default"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_2"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_2"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nickname_ranking_2" />
+
+                <ImageView
+                    android:id="@+id/img_rate_ranking_2"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/mask_group_4"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_rate_ranking_2"
+                    app:layout_constraintStart_toStartOf="@+id/text_rate_ranking_2"
+                    app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_2" />
+
+                <TextView
+                    android:id="@+id/text_nickname_ranking_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="닉네임닉네임임"
+                    android:textColor="@color/main_light"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toTopOf="@+id/text_nickname_ranking_5"
+                    app:layout_constraintEnd_toStartOf="@+id/text_nickname_ranking_5"
+                    app:layout_constraintStart_toEndOf="@+id/text_nickname_ranking_1"
+                    app:layout_constraintTop_toTopOf="@+id/text_rate_ranking_1" />
+
+
+                <TextView
+                    android:id="@+id/text_rate_ranking_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="응답률 88%"
+                    android:textColor="@color/main_default"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_3"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_3"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nickname_ranking_3" />
+
+                <ImageView
+                    android:id="@+id/img_rate_ranking_3"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/mask_group_5"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_rate_ranking_3"
+                    app:layout_constraintStart_toStartOf="@+id/text_rate_ranking_3"
+                    app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_3" />
 
                 <TextView
                     android:id="@+id/tv_home_new_question"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:fontFamily="@font/pretendard_semibold"
                     android:text="@string/home_recent_question"
                     android:textColor="@color/gray_4"

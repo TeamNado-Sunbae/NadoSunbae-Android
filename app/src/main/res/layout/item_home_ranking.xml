@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="test"
+            type="com.nadosunbae_android.domain.model.home.RankingTest" />
+
     </data>
 
 
@@ -32,6 +36,7 @@
 
         <TextView
             android:id="@+id/tv_ranking"
+            intToText="@{test.ranking}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="23dp"
@@ -52,6 +57,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/pretendard_medium"
             android:maxLength="8"
+            android:text="@{test.nickname}"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/img_main"
@@ -63,12 +69,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="@string/senior_personal_answer_count"
+            android:text="@{test.percent}"
             android:textColor="@color/main_default"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_nickname"
             app:layout_constraintStart_toEndOf="@+id/text_nickname"
-            app:layout_constraintTop_toTopOf="@+id/text_nickname" />
+            app:layout_constraintTop_toTopOf="@+id/text_nickname"
+            tools:text="@string/senior_personal_answer_count" />
 
 
         <TextView
@@ -100,6 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/pretendard_regular"
+            android:text="@{test.firstMajor}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_first_major"
@@ -114,6 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/pretendard_regular"
+            android:text="@{test.firstMajorTime}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_first_major_name"
@@ -151,6 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/pretendard_regular"
+            android:text="@{test.secondMajor}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_second_major"
@@ -165,6 +175,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/pretendard_regular"
+            android:text="@{test.secondMajorTime}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_second_major_name"

@@ -3,21 +3,28 @@ package com.nadosunbae_android.app.presentation.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeRankingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.home.adpter.RankingDetailAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class HomeRankingFragment :
     BaseFragment<FragmentHomeRankingBinding>(R.layout.fragment_home_ranking) {
+
+    private val homeViewModel : HomeViewModel by viewModels()
+    private lateinit var rankingDetailAdapter: RankingDetailAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         naviControl()
         alertListener()
+        initSetting()
 
     }
 
@@ -35,6 +42,13 @@ class HomeRankingFragment :
         binding.ivRankingX.setOnClickListener {
             binding.clDialog.visibility = View.INVISIBLE
         }
+    }
+
+    private fun initSetting() {
+        rankingDetailAdapter = RankingDetailAdapter()
+        binding.rvHomeReview.adapter = rankingDetailAdapter
+        (binding.rvHomeReview.adapter as RankingDetailAdapter).submitList(homeViewModel.rankingData)
+        homeViewModel.rankingData
     }
 
 }
