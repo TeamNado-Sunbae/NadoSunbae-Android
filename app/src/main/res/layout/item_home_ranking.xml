@@ -34,6 +34,16 @@
             app:layout_constraintStart_toEndOf="@+id/tv_ranking"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/iv_medal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_medal3" />
+
 
         <TextView
             android:id="@+id/tv_ranking"
@@ -43,6 +53,7 @@
             android:fontFamily="@font/pretendard_medium"
             android:textColor="@color/main_dark"
             android:textSize="16sp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -65,11 +76,11 @@
             tools:text="nickname" />
 
         <TextView
+            rateText="@{ranking.rate}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/pretendard_medium"
-            rateText="@{ranking.rate}"
             android:textColor="@color/main_default"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_nickname"

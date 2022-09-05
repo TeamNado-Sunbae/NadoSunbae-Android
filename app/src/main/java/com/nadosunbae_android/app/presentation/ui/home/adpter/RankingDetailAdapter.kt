@@ -1,9 +1,12 @@
 package com.nadosunbae_android.app.presentation.ui.home.adpter
 
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
+import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemHomeRankingBinding
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.home.HomeRankingData
@@ -24,7 +27,37 @@ class RankingDetailAdapter() :
     }
 
     override fun onBindViewHolder(holder: RankingDetailViewHolder, position: Int) {
-        holder.binding.setVariable(BR.ranking, getItem(position))
+        holder.binding.apply {
+            setVariable(BR.ranking, getItem(position))
+            tvRanking.setText("${position+1}")
+            when(holder.absoluteAdapterPosition) {
+                0 -> {
+                    ivMedal.setImageResource(R.drawable.ic_medal1)
+                    tvRanking.visibility = View.INVISIBLE
+                    ivMedal.visibility = View.VISIBLE
+                }
+                1-> {
+                    ivMedal.setImageResource(R.drawable.ic_medal2)
+                    tvRanking.visibility = View.INVISIBLE
+                    ivMedal.visibility = View.VISIBLE
+                }
+                2-> {
+                    ivMedal.setImageResource(R.drawable.ic_medal3)
+                    tvRanking.visibility = View.INVISIBLE
+                    ivMedal.visibility = View.VISIBLE
+                }
+                in 3..5 -> {
+                    ivMedal.visibility = View.INVISIBLE
+                    tvRanking.visibility = View.VISIBLE
+                    tvRanking.setTextColor(Color.parseColor("#05A18F"))
+                }
+                else -> {
+                    ivMedal.visibility = View.INVISIBLE
+                    tvRanking.visibility = View.VISIBLE
+                    tvRanking.setTextColor(Color.parseColor("#94959E"))
+                }
+            }
+        }
     }
 
     class RankingDetailViewHolder(

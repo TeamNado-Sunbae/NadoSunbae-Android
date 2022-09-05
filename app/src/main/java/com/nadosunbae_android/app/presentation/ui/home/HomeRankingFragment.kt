@@ -54,7 +54,6 @@ class HomeRankingFragment :
         homeViewModel.rankingData.observe(viewLifecycleOwner) {
             (binding.rvHomeReview.adapter as RankingDetailAdapter).submitList(it)
         }
-
     }
 
 }
