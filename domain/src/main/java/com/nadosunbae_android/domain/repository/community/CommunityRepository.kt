@@ -7,8 +7,10 @@ import kotlinx.coroutines.flow.Flow
 interface CommunityRepository {
 
     fun getCommunityMain(
-        majorId: String,
+        universityId : String,
+        majorId: String?,
         filter: String,
-        sort: String
+        sort: String,
+        search : String?
     ): Flow<List<CommunityMainData>>
 }

@@ -16,12 +16,15 @@ class CommunityRepositoryImpl @Inject constructor(
 ) : CommunityRepository {
 
     override fun getCommunityMain(
-        majorId: String,
+        universityId: String,
+        majorId: String?,
         filter: String,
-        sort: String
+        sort: String,
+        search: String?
     ): Flow<List<CommunityMainData>> = flow {
-        emit(dataSource.getCommunityMain(majorId, filter, sort)
+        emit(dataSource.getCommunityMain(universityId, majorId, filter, sort, search)
             .data
             .map { it.toEntity() })
     }.flowOn(Dispatchers.IO)
 }
+

@@ -9,12 +9,14 @@ class CommunityDataSourceImpl @Inject constructor(
     val service: CommunityService
 ) : CommunityDataSource {
 
-
     override suspend fun getCommunityMain(
-        majorId: String,
+        universityId: String,
+        majorId: String?,
         filter: String,
-        sort: String
+        sort: String,
+        search: String?
     ): Response<List<ResponseCommunityMainData>> {
-        return service.getCommunityMain(majorId, filter, sort)
+        return service.getCommunityMain(universityId, majorId, filter, sort, search)
     }
+
 }

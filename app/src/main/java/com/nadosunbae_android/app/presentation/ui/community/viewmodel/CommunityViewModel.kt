@@ -30,11 +30,13 @@ class CommunityViewModel @Inject constructor(
 
     //커뮤니티 메인 데이터 호출
     fun getCommunityMainData(
-        majorId: String,
+        universityId : String,
+        majorId: String?,
         filter: String,
-        sort: String
+        sort: String,
+        search : String ?= ""
     ) = viewModelScope.launch {
-        communityRepository.getCommunityMain(majorId, filter, sort)
+        communityRepository.getCommunityMain(universityId,majorId,filter,sort,search)
             .onStart {
                 onLoadingEnd.value = false
             }.catch {

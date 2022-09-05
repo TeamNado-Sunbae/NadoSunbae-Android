@@ -6,6 +6,6 @@ import com.nadosunbae_android.data.model.response.community.ResponseCommunityMai
 interface CommunityDataSource {
 
     //커뮤니티 메인 게시글 데이터
-    suspend fun getCommunityMain(majorId: String, filter: String, sort: String)
+    suspend fun getCommunityMain(universityId : String,majorId: String?, filter: String, sort: String, search : String?)
             : Response<List<ResponseCommunityMainData>>
 }
