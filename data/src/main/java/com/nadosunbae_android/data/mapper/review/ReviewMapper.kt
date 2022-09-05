@@ -11,15 +11,6 @@ import java.util.*
 
 object ReviewMapper {
 
-    // 후기목록 불러오기 request
-    fun mapperToReviewFilterItem(reviewFilterItem: ReviewFilterItem): RequestReviewListData {
-        return RequestReviewListData(
-            majorId = reviewFilterItem.majorId,
-            writerFilter = reviewFilterItem.writerFilter,
-            tagFilter = reviewFilterItem.tagFilter
-        )
-    }
-
     // 후기목록 불러오기 response
     fun mapperToReviewPreviewData(responseReviewListData: ResponseReviewListData): List<ReviewPreviewData> {
         return responseReviewListData.data.map {
