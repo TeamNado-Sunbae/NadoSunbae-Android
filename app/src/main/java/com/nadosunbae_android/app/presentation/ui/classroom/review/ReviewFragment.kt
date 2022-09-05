@@ -80,6 +80,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         // reviewListViewModel observe (목록에 표시되도록)
         reviewListViewModel.reviewListData.observe(viewLifecycleOwner) {
             reviewListAdapter.setReviewListData(it as MutableList<ReviewPreviewData>)
+            Timber.d("reviewList: $it")
 
             // empty review list -> 표시
             if (reviewListAdapter.isEmpty())

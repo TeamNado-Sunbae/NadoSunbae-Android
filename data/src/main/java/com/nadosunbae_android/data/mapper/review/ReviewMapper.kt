@@ -4,10 +4,8 @@ import com.nadosunbae_android.data.model.request.review.RequestPutReviewData
 import com.nadosunbae_android.data.model.response.review.ResponseDeleteReview
 import com.nadosunbae_android.data.model.response.review.ResponsePutReviewData
 import com.nadosunbae_android.data.model.request.review.RequestPostReviewData
-import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.*
 import com.nadosunbae_android.domain.model.review.*
-import java.util.*
 
 object ReviewMapper {
 
@@ -19,7 +17,7 @@ object ReviewMapper {
                 likeCount = it.like.likeCount,
                 isLiked = it.like.isLiked,
                 oneLineReview = it.oneLineReview,
-                postId = it.postId,
+                postId = it.id,
                 tagList = it.tagList.map {
                     it.tagName
                 },
