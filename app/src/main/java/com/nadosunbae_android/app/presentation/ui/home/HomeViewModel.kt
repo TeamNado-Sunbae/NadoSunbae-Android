@@ -26,15 +26,9 @@ class HomeViewModel @Inject constructor(
     val reviewDetail: LiveData<List<HomeUnivReviewData>>
         get() = _reviewDetail
 
-    val rankingData = listOf<RankingTest>(
-        RankingTest(1, "", "test", "test", "test", "test", "test", "test"),
-        RankingTest(2, "", "test", "test", "test", "test", "test", "test"),
-        RankingTest(3, "", "test", "test", "test", "test", "test", "test"),
-        RankingTest(4, "", "test", "test", "test", "test", "test", "test"),
-        RankingTest(5, "", "test", "test", "test", "test", "test", "test"),
-        RankingTest(6, "", "test", "test", "test", "test", "test", "test"),
-        RankingTest(7, "", "test", "test", "test", "test", "test", "test")
-    )
+    private val _rankingData = MutableLiveData<List<HomeRankingData>>()
+    val rankingData: LiveData<List<HomeRankingData>>
+        get() = _rankingData
 
     val questionData = listOf<HomeQuestionData>(
         HomeQuestionData(
@@ -144,6 +138,23 @@ class HomeViewModel @Inject constructor(
                 .onFailure {
                     it.printStackTrace()
                     Timber.d("학교별 리뷰 : 서버통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
+                }
+        }
+    }
+
+    fun getHomeRanking(university: Int) {
+        viewModelScope.launch {
+            kotlin.runCatching { homeRepository.getHomeRanking(university) }
+                .onSuccess {
+                    _rankingData.value = it
+                    Timber.d("선배 랭킹 : 서버통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Timber.d("선배 랭킹 : 서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true

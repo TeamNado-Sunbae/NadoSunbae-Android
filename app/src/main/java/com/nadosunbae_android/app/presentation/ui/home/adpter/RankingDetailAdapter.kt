@@ -6,11 +6,12 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemHomeRankingBinding
 import com.nadosunbae_android.app.util.DiffUtilCallback
+import com.nadosunbae_android.domain.model.home.HomeRankingData
 import com.nadosunbae_android.domain.model.home.RankingTest
 
 class RankingDetailAdapter() :
-    androidx.recyclerview.widget.ListAdapter<RankingTest, RankingDetailAdapter.RankingDetailViewHolder>(
-        DiffUtilCallback<RankingTest>()
+    androidx.recyclerview.widget.ListAdapter<HomeRankingData, RankingDetailAdapter.RankingDetailViewHolder>(
+        DiffUtilCallback<HomeRankingData>()
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingDetailViewHolder {
@@ -23,7 +24,7 @@ class RankingDetailAdapter() :
     }
 
     override fun onBindViewHolder(holder: RankingDetailViewHolder, position: Int) {
-        holder.binding.setVariable(BR.test, getItem(position))
+        holder.binding.setVariable(BR.ranking, getItem(position))
     }
 
     class RankingDetailViewHolder(

@@ -3,12 +3,14 @@ package com.nadosunbae_android.app.presentation.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeRankingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.home.adpter.RankingDetailAdapter
+import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -16,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeRankingFragment :
     BaseFragment<FragmentHomeRankingBinding>(R.layout.fragment_home_ranking) {
 
+    private val mainViewModel : MainViewModel by activityViewModels()
     private val homeViewModel : HomeViewModel by viewModels()
     private lateinit var rankingDetailAdapter: RankingDetailAdapter
 
@@ -47,8 +50,11 @@ class HomeRankingFragment :
     private fun initSetting() {
         rankingDetailAdapter = RankingDetailAdapter()
         binding.rvHomeReview.adapter = rankingDetailAdapter
-        (binding.rvHomeReview.adapter as RankingDetailAdapter).submitList(homeViewModel.rankingData)
-        homeViewModel.rankingData
+        homeViewModel.getHomeRanking(mainViewModel.univId.value ?: 0)
+        homeViewModel.rankingData.observe(viewLifecycleOwner) {
+            (binding.rvHomeReview.adapter as RankingDetailAdapter).submitList(it)
+        }
+
     }
 
 }

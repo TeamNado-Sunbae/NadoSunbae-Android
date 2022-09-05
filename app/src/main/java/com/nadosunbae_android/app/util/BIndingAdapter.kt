@@ -25,10 +25,10 @@ object BindingAdapter {
     const val MIN = 60
     const val HOUR = 24
 
-    enum class TimeValue(val value: Int,val maximum : Int, val msg : String) {
-        SEC(60,60,"분 전"),
-        MIN(60,24,"시간 전"),
-        HOUR(24,30,"일 전"),
+    enum class TimeValue(val value: Int, val maximum: Int, val msg: String) {
+        SEC(60, 60, "분 전"),
+        MIN(60, 24, "시간 전"),
+        HOUR(24, 30, "일 전"),
 
     }
 
@@ -41,10 +41,9 @@ object BindingAdapter {
         val currentTime = System.currentTimeMillis()
         var diffTime = (currentTime - date!!.time) / 1000
         Timber.d("시간 $diffTime")
-        if (diffTime < TimeValue.SEC.value){
+        if (diffTime < TimeValue.SEC.value) {
             textView.text = "방금 전"
-        }
-        else {
+        } else {
             for (i in TimeValue.values()) {
                 diffTime /= i.value
                 Timber.d("첫번째 계산 시간 $diffTime")
@@ -60,37 +59,38 @@ object BindingAdapter {
             }
         }
     }
+
     //날짜
     @JvmStatic
     @BindingAdapter("dateToText")
     fun getDateToText(textView: TextView, date: Date?) {
         val format = SimpleDateFormat("yy/MM/dd")
-        if(date == null){
+        if (date == null) {
             textView.text = ""
-        }else{
-            format.format(date).also{textView.text = it}
+        } else {
+            format.format(date).also { textView.text = it }
         }
     }
+
     //정보글 삭제
     @JvmStatic
     @BindingAdapter("infoTextVisible")
-    fun visibleInfo(view: View, isDelete : Boolean){
-        if(!isDelete){
+    fun visibleInfo(view: View, isDelete: Boolean) {
+        if (!isDelete) {
             view.visibility = View.VISIBLE
-        }else{
+        } else {
             view.visibility = View.GONE
         }
     }
 
 
-
     //선배 구성원 페이지 본전공 2중전공 구분
     @JvmStatic
     @BindingAdapter("divisionFirst")
-    fun divisionFirst(textView : TextView, isFirst : Boolean){
-        if(isFirst){
+    fun divisionFirst(textView: TextView, isFirst: Boolean) {
+        if (isFirst) {
             textView.text = "본"
-        }else{
+        } else {
             textView.text = "제2"
         }
 
@@ -161,7 +161,7 @@ object BindingAdapter {
     //작성자 처리
     @JvmStatic
     @BindingAdapter("writerVisible", "isDelete")
-    fun writerVisible(textView: TextView, isPosterWriter: Boolean, isDelete : Boolean) {
+    fun writerVisible(textView: TextView, isPosterWriter: Boolean, isDelete: Boolean) {
         if (isPosterWriter && !isDelete) {
             textView.visibility = View.VISIBLE
         } else {
@@ -235,21 +235,24 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("displayMaxLength")
     fun displayMaxLength(textView: TextView, length: Int) {
-        textView.text = "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_max_40)}"
+        textView.text =
+            "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_max_40)}"
     }
 
     // 현재 글자/최소 글자
     @JvmStatic
     @BindingAdapter("displayMinLength")
     fun displayMinLength(textView: TextView, length: Int) {
-        textView.text = "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_min_100)}"
+        textView.text =
+            "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_min_100)}"
     }
 
     // 글자수 + 자
     @JvmStatic
     @BindingAdapter("displayWriteLength")
     fun displayWriteLength(textView: TextView, length: Int) {
-        textView.text = "${length}${NadoSunBaeApplication.context().getString(R.string.review_write_length)}"
+        textView.text =
+            "${length}${NadoSunBaeApplication.context().getString(R.string.review_write_length)}"
     }
 
     @JvmStatic
@@ -259,6 +262,13 @@ object BindingAdapter {
             view.visibility = View.VISIBLE
         else
             view.visibility = View.GONE
+    }
+
+    @JvmStatic
+    @BindingAdapter("rateText")
+    fun rateText(textView: TextView, int: Int) {
+        val rate = int.toString().also { textView.text = it }
+        textView.text = "${"응답률 "}${rate}${"%"}"
     }
 
 }
