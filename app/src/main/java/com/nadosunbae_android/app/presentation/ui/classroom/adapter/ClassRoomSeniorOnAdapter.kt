@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionSeniorOnQuestionBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.SeniorFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.question.DataToFragment
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 
 class ClassRoomSeniorOnAdapter(
-    var link : SeniorFragment.DataToFragment
+    var link : DataToFragment
 ) : RecyclerView.Adapter<ClassRoomSeniorOnAdapter.ClassRoomSeniorOnViewHolder>() {
     var onQuestionUserList = mutableListOf<ClassRoomSeniorData.OnQuestionUser>()
 

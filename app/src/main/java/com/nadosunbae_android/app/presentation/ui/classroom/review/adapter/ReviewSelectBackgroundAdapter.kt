@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.presentation.ui.review.adapter
+package com.nadosunbae_android.app.presentation.ui.classroom.review.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

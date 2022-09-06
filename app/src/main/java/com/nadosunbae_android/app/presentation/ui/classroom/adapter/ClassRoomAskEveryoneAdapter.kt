@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemQuestionAllBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
-import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 

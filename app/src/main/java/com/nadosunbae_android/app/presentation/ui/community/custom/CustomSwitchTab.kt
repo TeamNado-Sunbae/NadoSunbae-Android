@@ -17,6 +17,9 @@ class CustomSwitchTab(context: Context, attrs: AttributeSet? = null) :
     private var titleTwo: TextView
     private var titleThree: TextView
     private var titleFour: TextView
+    private var _selectedTab: Int = 0
+    val selectedTab: Int
+        get() = _selectedTab
 
     //텍스트 클릭
     var itemClickListener: ((Int) -> Unit)? = null
@@ -58,6 +61,11 @@ class CustomSwitchTab(context: Context, attrs: AttributeSet? = null) :
         titleFour = binding.switchTabFour
     }
 
+    fun setTabNum(num: Int) {
+        switchTab = getSwitchTabValue(num)
+        _selectedTab = num
+    }
+
     //타이틀 선택
     private fun setTitle(list: List<String?>) {
         titleOne.text = list[0]
@@ -95,5 +103,16 @@ class CustomSwitchTab(context: Context, attrs: AttributeSet? = null) :
         titleTwo.isSelected = _switchTab[1]
         titleThree.isSelected = _switchTab[2]
         titleFour.isSelected = _switchTab[3]
+    }
+
+    companion object {
+        fun getSwitchTabValue(fragNum: Int): List<Boolean> {
+            return when (fragNum) {
+                3 -> listOf(false, false, false, true)
+                2 -> listOf(false, false, true, false)
+                1-> listOf(false, true, false, false)
+                else -> listOf(true, false, false, false)
+            }
+        }
     }
 }

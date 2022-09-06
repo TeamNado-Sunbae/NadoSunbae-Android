@@ -9,6 +9,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.*
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ClassRoomReviewFragment
 import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.AppInfoFragment
@@ -16,8 +17,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
-import com.nadosunbae_android.app.presentation.ui.review.ReviewFragment
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
@@ -110,14 +110,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
                 CLASSROOM -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_room
-
-                }NOTIFICATION -> {
+                }
+                CLASSROOM_NOBACK -> {
+                    changeFragmentNoBackStack(
+                        R.id.fragment_container_main,
+                        ClassRoomMainContentFragment()
+                    )
+                }
+                NOTIFICATION -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_notice
                 changeFragmentNoBackStack(R.id.fragment_container_main, NotificationFragment())
                 }
 
                 else ->{
-                    changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                    changeFragmentNoBackStack(R.id.fragment_container_main, CommunityFragment())
                 }
             }
 
@@ -126,12 +132,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.btNvMain.setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.navigation_home -> {
-                        changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                        changeFragmentNoBackStack(R.id.fragment_container_main, CommunityFragment())
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_room -> {
                         mainViewModel.classRoomNum.value = 1
-                        changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
+                        changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomMainContentFragment())
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_community -> {
@@ -166,7 +172,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     "askEveryOne"
                 )
 
-                1 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
+                1 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomMainContentFragment())
 
                 3 -> changeFragment(R.id.fragment_container_main, SeniorFragment(), "senior")
 
@@ -184,7 +190,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                 6 -> changeFragment(R.id.fragment_container_main, MyPageFragment(), "myPage")
 
-                7 -> changeFragmentNoBackStack(R.id.fragment_container_main, SeniorFragment())
+                7 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomMainContentFragment())
             }
         })
     }
@@ -328,5 +334,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         const val MYPAGE = 4
         const val MYPAGEDIVISION = 5
         const val NOTIFICATION = 6
+        const val CLASSROOM_NOBACK = 7
     }
 }

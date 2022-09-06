@@ -1,10 +1,8 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
@@ -15,7 +13,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomAsk
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.AskEveryOneViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown

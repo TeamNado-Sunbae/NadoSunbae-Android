@@ -1,7 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.mypage.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -9,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemMypageLikeQuestionBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
-import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPageLikeQuestionData
 
