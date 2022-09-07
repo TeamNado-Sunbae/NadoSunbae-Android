@@ -1,9 +1,7 @@
-package com.nadosunbae_android.app.presentation.ui.classroom.adapter
+package com.nadosunbae_android.app.presentation.ui.community.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.icu.text.Transliterator
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +13,14 @@ import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.domain.model.classroom.InfoDetailData
 
-class ClassRoomInfoDetailAdapter(private var userId: Int, val context : Context) :
-    RecyclerView.Adapter<ClassRoomInfoDetailAdapter.ClassRoomInfoDetailViewHolder>() {
+class CommunityPostDetailAdapter(private var userId: Int, val context : Context) :
+    RecyclerView.Adapter<CommunityPostDetailAdapter.ClassRoomInfoDetailViewHolder>() {
     var infoDetailData = mutableListOf<InfoDetailData.Comment>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ClassRoomInfoDetailAdapter.ClassRoomInfoDetailViewHolder {
+    ): ClassRoomInfoDetailViewHolder {
         val binding = ItemInformationDetailBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -32,7 +30,7 @@ class ClassRoomInfoDetailAdapter(private var userId: Int, val context : Context)
     }
 
     override fun onBindViewHolder(
-        holder: ClassRoomInfoDetailAdapter.ClassRoomInfoDetailViewHolder,
+        holder: ClassRoomInfoDetailViewHolder,
         position: Int
     ) {
         holder.onBind(infoDetailData[position])

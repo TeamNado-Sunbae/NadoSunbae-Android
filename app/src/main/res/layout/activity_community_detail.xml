@@ -7,16 +7,15 @@
     <data>
 
         <variable
-            name="informationDetail"
-            type="com.nadosunbae_android.domain.model.classroom.InfoDetailData" />
+            name="postDetail"
+            type="com.nadosunbae_android.domain.model.post.PostDetailData" />
 
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".app.presentation.ui.classroom.InformationDetailActivity">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_information_detail"
@@ -100,7 +99,7 @@
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/pretendard_semibold"
                         android:lineHeight="30sp"
-                        android:text="@{informationDetail.title}"
+                        android:text="@{postDetail.title}"
                         android:textColor="@color/main_default"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -113,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/pretendard_semibold"
-                        android:text="@{informationDetail.nickname}"
+                        android:text="@{postDetail.nickname}"
                         android:textColor="@color/gray_4"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/text_information_detail_question_title"
@@ -140,7 +139,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/pretendard_medium"
-                                android:text="@{informationDetail.firstMajorName}"
+                                android:text="@{postDetail.firstMajorName}"
                                 android:textColor="@color/gray_2"
                                 android:textSize="12sp"
                                 tools:text="111" />
@@ -149,9 +148,9 @@
                                 android:id="@+id/text_information_detail_question_major_start"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/pretendard_medium"
                                 android:layout_marginStart="4dp"
-                                android:text="@{informationDetail.firstMajorStart}"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:text="@{postDetail.firstMajorStart}"
                                 android:textColor="@color/gray_2"
                                 android:textSize="12sp"
                                 tools:text="111" />
@@ -162,7 +161,7 @@
                             android:layout_width="1dp"
                             android:layout_height="18dp"
                             android:layout_marginHorizontal="8dp"
-                            android:background="@color/gray_1"/>
+                            android:background="@color/gray_1" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -174,7 +173,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/pretendard_medium"
-                                android:text="@{informationDetail.secondMajorName}"
+                                android:text="@{postDetail.secondMajorName}"
                                 android:textColor="@color/gray_2"
                                 android:textSize="12sp"
                                 tools:text="111" />
@@ -183,9 +182,9 @@
                                 android:id="@+id/text_information_detail_question_second_major_start"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/pretendard_medium"
                                 android:layout_marginStart="4dp"
-                                android:text="@{informationDetail.secondMajorStart}"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:text="@{postDetail.secondMajorStart}"
                                 android:textColor="@color/gray_2"
                                 android:textSize="12sp"
                                 tools:text="111" />
@@ -201,7 +200,7 @@
                         android:fontFamily="@font/pretendard_regular"
                         android:lineSpacingExtra="4sp"
                         android:linksClickable="true"
-                        android:text="@{informationDetail.content}"
+                        android:text="@{postDetail.content}"
                         android:textColor="@color/main_text"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/text_information_detail_question_title"
@@ -210,7 +209,7 @@
 
                     <TextView
                         android:id="@+id/text_information_detail_question_time"
-                        dateToText="@{informationDetail.createdAt}"
+                        dateToText="@{postDetail.createdAt}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="44dp"
@@ -223,8 +222,8 @@
                     <android.widget.Button
                         android:id="@+id/btn_info_like"
                         style="?android:attr/borderlessButtonStyle"
-                        intToString="@{informationDetail.likeCount}"
-                        setSelected="@{informationDetail.liked}"
+                        intToString="@{postDetail.likeCount}"
+                        setSelected="@{postDetail.liked}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="34dp"
@@ -257,7 +256,7 @@
 
                     <TextView
                         android:id="@+id/text_information_detail_question_comment_count"
-                        commentCount="@{informationDetail.commentCount}"
+                        commentCount="@{postDetail.commentCount}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"

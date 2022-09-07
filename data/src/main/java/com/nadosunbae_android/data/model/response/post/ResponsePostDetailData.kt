@@ -1,6 +1,7 @@
 package com.nadosunbae_android.data.model.response.post
 
 import com.nadosunbae_android.domain.model.post.PostDetailData
+import java.util.*
 
 data class ResponsePostDetailData(
     val commentCount: Int,
@@ -11,7 +12,7 @@ data class ResponsePostDetailData(
 ) {
     data class Comment(
         val content: String,
-        val createdAt: String,
+        val createdAt: Date?,
         val id: Int,
         val isDeleted: Boolean,
         val writer: Writer
@@ -35,7 +36,7 @@ data class ResponsePostDetailData(
 
     data class Post(
         val content: String,
-        val createdAt: String,
+        val createdAt: Date?,
         val id: Int,
         val majorName: String,
         val title: String

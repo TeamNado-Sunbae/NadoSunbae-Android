@@ -1,12 +1,14 @@
 package com.nadosunbae_android.domain.model.post
 
+import java.util.*
+
 data class PostDetailData(
     val commentCount: Int,
     val commentList: List<Comment>,
     val isLiked: Boolean,
     val likeCount: Int,
     val content: String,
-    val createdAt: String,
+    val createdAt: Date?,
     val postId: Int,
     val majorName: String,
     val title: String,
@@ -20,7 +22,7 @@ data class PostDetailData(
 ) {
     data class Comment(
         val content: String,
-        val createdAt: String,
+        val createdAt: Date?,
         val commentId: Int,
         val isDeleted: Boolean,
         val firstMajorName: String,
@@ -32,4 +34,30 @@ data class PostDetailData(
         val secondMajorName: String,
         val secondMajorStart: String
     )
+
+    companion object {
+        val DEFAULT = PostDetailData(
+            0,
+            emptyList(),
+            false,
+            0,
+            "",
+            null,
+            0,
+            "",
+            "",
+            "",
+            "",
+            0,
+            "",
+            0,
+            "",
+            ""
+        )
+    }
 }
+
+
+
+
+
