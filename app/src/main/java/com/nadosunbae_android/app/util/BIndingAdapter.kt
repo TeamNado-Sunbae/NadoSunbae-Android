@@ -277,7 +277,11 @@ object BindingAdapter {
     @BindingAdapter("rateText")
     fun rateText(textView: TextView, int: Int) {
         val rate = int.toString().also { textView.text = it }
-        textView.text = "${"응답률 "}${rate}${"%"}"
+        if (rate == null) {
+            textView.text = "-"
+        } else {
+            textView.text = "${"응답률 "}${rate}${"%"}"
+        }
     }
 
 }
