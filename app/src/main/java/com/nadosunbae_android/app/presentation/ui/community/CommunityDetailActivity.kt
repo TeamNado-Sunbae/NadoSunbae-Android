@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
@@ -123,13 +122,14 @@ class CommunityDetailActivity :
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach {
                 binding.postDetail = it
+                communityPostDetailAdapter.submitList(it.commentList)
             }
             .launchIn(lifecycleScope)
     }
 
     //원글 점 세개 메뉴 클릭
     private fun clickInfoPostMenu() {
-        binding.imgInforamtionDetailMenu.setOnClickListener {
+        binding.imgCommunityDetailMenu.setOnClickListener {
             initInfoPostMenu(
                 communityViewModel.userId.value ?: 0,
                 communityViewModel.writerId.value ?: 0
@@ -139,9 +139,9 @@ class CommunityDetailActivity :
 
     //원글 점 세개 메뉴
     private fun initInfoPostMenu(userId: Int, writerId: Int) {
-        val v = binding.imgInforamtionDetailMenu
+        val v = binding.imgCommunityDetailMenu
         communityViewModel.divisionPost.value = post
-        binding.imgInforamtionDetailMenu.setOnClickListener {
+        binding.imgCommunityDetailMenu.setOnClickListener {
             if (userId == writerId) {
                 val dropDown = mutableListOf<SelectableData>(
                     SelectableData(1, resources.getString(R.string.question_detail_update), false),
@@ -184,54 +184,50 @@ class CommunityDetailActivity :
 
     //답글 점 세개 메뉴 클릭시 나오는 다이얼로그
     private fun infoCommentMenu() {
-        communityPostDetailAdapter.setItemClickListener(
-            object : CommunityPostDetailAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int, user: Int, commentId: Int) {
-                    communityViewModel.commentId.value = commentId
-                    communityViewModel.position.value = position
-                    communityViewModel.divisionPost.value = comment
-                    if (user == 1) {
-                        val dropDown = mutableListOf<SelectableData>(
-                            SelectableData(
-                                1,
-                                resources.getString(R.string.question_detail_delete),
-                                false
-                            )
-                        )
-                        showCustomDropDown(
-                            communityViewModel,
-                            v,
-                            160f.dpToPx,
-                            null,
-                            -1 * 16f.dpToPx,
-                            null,
-                            false,
-                            communityViewModel.dropDownSelected.value!!.id,
-                            dropDown
-                        )
-                    } else {
-                        val dropDown = mutableListOf<SelectableData>(
-                            SelectableData(
-                                2,
-                                resources.getString(R.string.question_detail_report),
-                                false
-                            )
-                        )
-                        showCustomDropDown(
-                            communityViewModel,
-                            v,
-                            160f.dpToPx,
-                            null,
-                            -1 * 16f.dpToPx,
-                            null,
-                            false,
-                            communityViewModel.dropDownSelected.value!!.id,
-                            dropDown
-                        )
-                    }
-                }
+        communityPostDetailAdapter.setItemClickListener { v, position, user, commentId ->
+            communityViewModel.commentId.value = commentId
+            communityViewModel.position.value = position
+            communityViewModel.divisionPost.value = comment
+            if (user == 1) {
+                val dropDown = mutableListOf<SelectableData>(
+                    SelectableData(
+                        1,
+                        resources.getString(R.string.question_detail_delete),
+                        false
+                    )
+                )
+                showCustomDropDown(
+                    communityViewModel,
+                    v,
+                    160f.dpToPx,
+                    null,
+                    -1 * 16f.dpToPx,
+                    null,
+                    false,
+                    communityViewModel.dropDownSelected.value!!.id,
+                    dropDown
+                )
+            } else {
+                val dropDown = mutableListOf<SelectableData>(
+                    SelectableData(
+                        2,
+                        resources.getString(R.string.question_detail_report),
+                        false
+                    )
+                )
+                showCustomDropDown(
+                    communityViewModel,
+                    v,
+                    160f.dpToPx,
+                    null,
+                    -1 * 16f.dpToPx,
+                    null,
+                    false,
+                    communityViewModel.dropDownSelected.value!!.id,
+                    dropDown
+                )
             }
-        )
+        }
     }
 
     //답글 메뉴 신고, 삭제 클릭시 이벤트
@@ -266,8 +262,8 @@ class CommunityDetailActivity :
     private fun goUpdate() {
         val intent = Intent(this, QuestionWriteActivity::class.java)
         intent.apply {
-            putExtra("writerUpdateTitle", binding.textInformationDetailQuestionTitle.text)
-            putExtra("writerUpdateContent", binding.textInformationDetailQuestionContent.text)
+            putExtra("writerUpdateTitle", binding.textCommunityDetailQuestionTitle.text)
+            putExtra("writerUpdateContent", binding.textCommunityDetailQuestionContent.text)
             putExtra("division", 1)
             putExtra("postId", communityViewModel.postId.value)
             putExtra("title", "정보글 작성")
@@ -395,7 +391,7 @@ class CommunityDetailActivity :
 
     //정보 뒤로가기
     private fun clickBackBtn() {
-        binding.imgInformationDetailTitleBack.setOnClickListener {
+        binding.imgCommunityDetailTitleBack.setOnClickListener {
             finish()
         }
     }
@@ -403,7 +399,7 @@ class CommunityDetailActivity :
     //클릭시 마이페이지 또는 선배 개인페이지 이동
     private fun clickNickname() {
 
-        binding.textInformationDetailQuestionName.setOnClickListener {
+        binding.textCommunityDetailQuestionName.setOnClickListener {
             val writerId = communityViewModel.writerId.value ?: 0
             val userId = communityViewModel.userId.value ?: 0
             Timber.d("userId : $userId, writerId : $writerId")

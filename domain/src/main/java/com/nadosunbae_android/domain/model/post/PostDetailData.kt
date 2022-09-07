@@ -21,10 +21,10 @@ data class PostDetailData(
     val secondMajorStart: String
 ) {
     data class Comment(
-        val content: String,
+        var content: String,
         val createdAt: Date?,
         val commentId: Int,
-        val isDeleted: Boolean,
+        var isDeleted: Boolean,
         val firstMajorName: String,
         val firstMajorStart: String,
         val commentWriterId: Int,
