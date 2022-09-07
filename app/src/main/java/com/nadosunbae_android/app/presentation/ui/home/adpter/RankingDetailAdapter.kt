@@ -26,6 +26,7 @@ class RankingDetailAdapter() :
         return RankingDetailViewHolder(binding)
     }
 
+    //TODO: 선배 프로필 페이지로 이동
     override fun onBindViewHolder(holder: RankingDetailViewHolder, position: Int) {
         holder.binding.apply {
             setVariable(BR.ranking, getItem(position))

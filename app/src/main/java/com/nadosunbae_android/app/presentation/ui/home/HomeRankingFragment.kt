@@ -11,7 +11,9 @@ import com.nadosunbae_android.app.databinding.FragmentHomeRankingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.home.adpter.RankingDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.domain.model.home.HomeRankingData
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.toImmutableList
 
 
 @AndroidEntryPoint
@@ -52,7 +54,8 @@ class HomeRankingFragment :
         binding.rvHomeReview.adapter = rankingDetailAdapter
         homeViewModel.getHomeRanking(mainViewModel.univId.value ?: 0)
         homeViewModel.rankingData.observe(viewLifecycleOwner) {
-            (binding.rvHomeReview.adapter as RankingDetailAdapter).submitList(it)
+            (binding.rvHomeReview.adapter as RankingDetailAdapter).submitList(it.subList(0,30))
+
         }
     }
 

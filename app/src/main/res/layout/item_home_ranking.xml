@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="ranking"
@@ -186,9 +187,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/pretendard_regular"
-            android:text="@{ranking.secondMajorStart}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
+            secondMajor="@{ranking.secondMajorStart}"
             app:layout_constraintBottom_toBottomOf="@+id/text_second_major_name"
             app:layout_constraintStart_toEndOf="@+id/text_second_major_name"
             app:layout_constraintTop_toTopOf="@+id/text_second_major_name"

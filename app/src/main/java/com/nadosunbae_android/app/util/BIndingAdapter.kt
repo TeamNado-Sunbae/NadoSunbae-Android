@@ -83,7 +83,6 @@ object BindingAdapter {
         }
     }
 
-
     //선배 구성원 페이지 본전공 2중전공 구분
     @JvmStatic
     @BindingAdapter("divisionFirst")
@@ -148,6 +147,16 @@ object BindingAdapter {
             imageView.visibility = View.GONE
         } else {
             imageView.visibility = View.VISIBLE
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("secondMajor")
+    fun secondMajor(textView: TextView, text: String) {
+        if (text == "미진입") {
+            textView.visibility = View.GONE
+        } else {
+            textView.visibility = View.VISIBLE
         }
     }
 
