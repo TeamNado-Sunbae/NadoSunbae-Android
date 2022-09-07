@@ -6,6 +6,7 @@ import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.main.MainService
 import com.nadosunbae_android.data.api.mypage.MyPageService
 import com.nadosunbae_android.data.api.notification.NotificationService
+import com.nadosunbae_android.data.api.post.PostService
 import com.nadosunbae_android.data.api.review.ReviewService
 import com.nadosunbae_android.data.api.sign.SignService
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSource
@@ -20,6 +21,8 @@ import com.nadosunbae_android.data.datasource.remote.mypage.MyPageDataSource
 import com.nadosunbae_android.data.datasource.remote.mypage.MyPageDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.notification.NotificationDataSource
 import com.nadosunbae_android.data.datasource.remote.notification.NotificationDataSourceImpl
+import com.nadosunbae_android.data.datasource.remote.post.PostDataSource
+import com.nadosunbae_android.data.datasource.remote.post.PostDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSource
 import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.sign.SignDataSource
@@ -99,4 +102,11 @@ object DataSourceModule {
         return CommunityDataSourceImpl(communityService)
     }
 
+    @Provides
+    @Reusable
+    fun postDataSource(
+        postService: PostService
+    ) : PostDataSource{
+        return PostDataSourceImpl(postService)
+    }
 }

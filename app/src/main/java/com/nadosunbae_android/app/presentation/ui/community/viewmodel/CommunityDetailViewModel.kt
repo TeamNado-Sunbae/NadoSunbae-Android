@@ -1,6 +1,5 @@
-package com.nadosunbae_android.app.presentation.ui.classroom.viewmodel
+package com.nadosunbae_android.app.presentation.ui.community.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,7 +21,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class InfoDetailViewModel @Inject constructor(
+class CommunityDetailViewModel @Inject constructor(
     val getInformationDetailUseCase: GetInformationDetailUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
     val postLikeDataUseCase: PostLikeDataUseCase,

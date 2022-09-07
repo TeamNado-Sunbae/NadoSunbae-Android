@@ -6,6 +6,7 @@ import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.main.MainService
 import com.nadosunbae_android.data.api.mypage.MyPageService
 import com.nadosunbae_android.data.api.notification.NotificationService
+import com.nadosunbae_android.data.api.post.PostService
 import com.nadosunbae_android.data.api.review.ReviewService
 import com.nadosunbae_android.data.api.sign.SignService
 import dagger.Module
@@ -65,4 +66,9 @@ object NetworkModule{
         return retrofit.create(CommunityService::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun postService(retrofit : Retrofit) : PostService{
+        return retrofit.create(PostService::class.java)
+    }
 }

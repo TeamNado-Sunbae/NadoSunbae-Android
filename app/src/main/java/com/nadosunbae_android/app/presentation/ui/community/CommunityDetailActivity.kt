@@ -13,7 +13,7 @@ import com.nadosunbae_android.app.databinding.ActivityInformationDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInfoDetailAdapter
-import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.InfoDetailViewModel
+import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityDetailViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
@@ -30,7 +30,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class CommunityDetailActivity :
     BaseActivity<ActivityInformationDetailBinding>(R.layout.activity_information_detail) {
-    private val infoDetailViewModel: InfoDetailViewModel by viewModels()
+    private val infoDetailViewModel: CommunityDetailViewModel by viewModels()
     private lateinit var classRoomInfoDetailAdapter: ClassRoomInfoDetailAdapter
 
 
@@ -50,6 +50,7 @@ class CommunityDetailActivity :
         floatBadUserDialog()
         changeRegisterBtn()
     }
+
     //로딩 종료
     private fun observeLoadingEnd() {
         infoDetailViewModel.onLoadingEnd.observe(this) {
@@ -58,8 +59,8 @@ class CommunityDetailActivity :
     }
 
     //부적절 사용자 다이얼로그 띄우기
-    private fun floatBadUserDialog(){
-        if(MainGlobals.signInData!!.isUserReported || MainGlobals.signInData!!.isReviewInappropriate){
+    private fun floatBadUserDialog() {
+        if (MainGlobals.signInData!!.isUserReported || MainGlobals.signInData!!.isReviewInappropriate) {
             CustomDialog(this).genericDialog(
                 CustomDialog.DialogData(
                     MainGlobals.signInData?.message.toString(),
@@ -67,16 +68,17 @@ class CommunityDetailActivity :
                     resources.getString(R.string.email_certification_close)
                 ),
                 complete = {
-                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
+                    var intent =
+                        Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
                     startActivity(intent)
                 },
-                cancel = {finish()}
+                cancel = { finish() }
             )
         }
     }
 
     //답글 작성 중 종이비행기 색상 변경
-    private fun changeRegisterBtn(){
+    private fun changeRegisterBtn() {
         binding.etInformationComment.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -86,32 +88,30 @@ class CommunityDetailActivity :
             }
 
             override fun afterTextChanged(s: Editable?) {
-               binding.imgInformationCommentComplete.isSelected = !s.isNullOrEmpty()
+                binding.imgInformationCommentComplete.isSelected = !s.isNullOrEmpty()
             }
         })
     }
 
 
     //안꺼지게 조절
-    private fun onInfo(){
+    private fun onInfo() {
         MainGlobals.infoBlock = 0
     }
 
 
     override fun onResume() {
         super.onResume()
-        if(MainGlobals.infoBlock == 1){
+        if (MainGlobals.infoBlock == 1) {
             finish()
         }
         infoDetailViewModel.getInfoDetail(infoDetailViewModel.infoPostId.value ?: 0)
     }
 
 
-
     //정보 상세보기 서버 통신
     private fun initInfoDetail() {
         val postId = intent.getIntExtra("postId", 0)
-        Timber.d("infoPostId $postId")
         val userId = intent.getIntExtra("userId", 0)
         infoDetailViewModel.setPostId(postId)
         showLoading()
@@ -139,10 +139,14 @@ class CommunityDetailActivity :
         }
 
     }
+
     //원글 점 세개 메뉴 클릭
-    private fun clickInfoPostMenu(){
+    private fun clickInfoPostMenu() {
         binding.imgInforamtionDetailMenu.setOnClickListener {
-            initInfoPostMenu(infoDetailViewModel.userId.value ?:0, infoDetailViewModel.writerId.value ?: 0)
+            initInfoPostMenu(
+                infoDetailViewModel.userId.value ?: 0,
+                infoDetailViewModel.writerId.value ?: 0
+            )
         }
     }
 
@@ -259,7 +263,7 @@ class CommunityDetailActivity :
                     deleteDialog(
                         divisionPost,
                         setCheckMenu = {
-                            if(divisionPost == 3){
+                            if (divisionPost == 3) {
                                 classRoomInfoDetailAdapter.setCheckMenu(
                                     delete,
                                     position
@@ -267,7 +271,7 @@ class CommunityDetailActivity :
                             }
                         },
                         deleteComment = { infoDetailViewModel.deleteComment(commentId) },
-                        deleteWrite = { infoDetailViewModel.deletePost(postId)},
+                        deleteWrite = { infoDetailViewModel.deletePost(postId) },
                     )
                 resources.getString(R.string.question_detail_report) -> floatReportReasonDialog()
                 resources.getString(R.string.question_detail_update) -> goUpdate()
@@ -350,13 +354,15 @@ class CommunityDetailActivity :
                         ReportItem(
                             commentId,
                             comment,
-                            reportReason)
+                            reportReason
+                        )
                     )
                     post -> infoDetailViewModel.postReport(
                         ReportItem(
                             postId,
                             post,
-                            reportReason)
+                            reportReason
+                        )
                     )
                 }
             },
@@ -412,7 +418,7 @@ class CommunityDetailActivity :
     }
 
     //클릭시 마이페이지 또는 선배 개인페이지 이동
-    private fun clickNickname(){
+    private fun clickNickname() {
 
         binding.textInformationDetailQuestionName.setOnClickListener {
             val writerId = infoDetailViewModel.writerId.value ?: 0
@@ -444,7 +450,6 @@ class CommunityDetailActivity :
     }
 
 
-
     companion object {
         const val update = 1
         const val report = 2
@@ -456,17 +461,4 @@ class CommunityDetailActivity :
         const val comment = 3
     }
 
-
-
-
-    override fun onPause() {
-        super.onPause()
-        Timber.d("인포디테일: onPause")
-
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Timber.d("인포디테일 : onStop")
-    }
 }
