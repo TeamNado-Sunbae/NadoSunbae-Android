@@ -42,7 +42,7 @@
             android:label="@string/title_activity_senior_personal"
             android:theme="@style/Theme.NadoSunbaeAndroid.NoActionBar" />
         <activity
-            android:name=".presentation.ui.classroom.InformationDetailActivity"
+            android:name=".presentation.ui.community.CommunityDetailActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.classroom.QuestionDetailActivity"

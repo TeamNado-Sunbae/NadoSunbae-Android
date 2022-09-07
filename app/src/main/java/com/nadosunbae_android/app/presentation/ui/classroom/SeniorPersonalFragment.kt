@@ -20,6 +20,7 @@ import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageClassroomReviewActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.community.CommunityDetailActivity
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
@@ -36,7 +37,7 @@ class SeniorPersonalFragment :
     BaseFragment<FragmentSeniorPersonalBinding>(R.layout.fragment_senior_personal) {
     private lateinit var classRoomQuestionMainAdapter: ClassRoomQuestionMainAdapter
     private lateinit var callback: OnBackPressedCallback
-    lateinit var informationDetailActivity : InformationDetailActivity
+    lateinit var informationDetailActivity : CommunityDetailActivity
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private val seniorPersonalViewModel: SeniorPersonalViewModel by viewModels()

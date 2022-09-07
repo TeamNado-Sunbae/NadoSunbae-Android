@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.presentation.ui.classroom
+package com.nadosunbae_android.app.presentation.ui.community
 
 import android.content.Intent
 import android.net.Uri
@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityInformationDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInfoDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.InfoDetailViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
@@ -27,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class InformationDetailActivity :
+class CommunityDetailActivity :
     BaseActivity<ActivityInformationDetailBinding>(R.layout.activity_information_detail) {
     private val infoDetailViewModel: InfoDetailViewModel by viewModels()
     private lateinit var classRoomInfoDetailAdapter: ClassRoomInfoDetailAdapter
