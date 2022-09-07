@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
-import com.nadosunbae_android.app.presentation.ui.home.adpter.RankingDetailAdapter
-import com.nadosunbae_android.domain.model.home.*
-import com.nadosunbae_android.domain.repository.community.CommunityRepository
+import com.nadosunbae_android.domain.model.home.Banner
+import com.nadosunbae_android.domain.model.home.HomeQuestionData
+import com.nadosunbae_android.domain.model.home.HomeRankingData
+import com.nadosunbae_android.domain.model.home.HomeUnivReviewData
 import com.nadosunbae_android.domain.repository.home.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

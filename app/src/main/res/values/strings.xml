@@ -468,6 +468,7 @@
     <string name="ranking_three_content">닉네임 가나다순</string>
 
     <!-- 커뮤니티 -->
+    <string name="community_detail_title">게시글</string>
     <string name="major">학과</string>
     <string name="community_write_title">새 게시글 작성</string>
     <string name="community_write_category">카테고리</string>
