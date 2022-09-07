@@ -4,17 +4,16 @@ package com.nadosunbae_android.app.presentation.ui.community.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemCommunityMainBinding
 import com.nadosunbae_android.app.presentation.ui.community.CommunityDetailActivity
 import com.nadosunbae_android.app.util.DiffUtilCallback
-import com.nadosunbae_android.domain.model.community.CommunityMainData
+import com.nadosunbae_android.domain.model.post.PostData
 
 class CommunityMainContentAdapter :
-    ListAdapter<CommunityMainData, CommunityMainContentAdapter.CommunityMainContentViewHolder>(
-        DiffUtilCallback<CommunityMainData>()
+    ListAdapter<PostData, CommunityMainContentAdapter.CommunityMainContentViewHolder>(
+        DiffUtilCallback<PostData>()
     ) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -36,9 +35,9 @@ class CommunityMainContentAdapter :
 
     class CommunityMainContentViewHolder(val binding: ItemCommunityMainBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(communityMain: CommunityMainData) {
+        fun bind(postData: PostData) {
             with(binding) {
-                this.communityMain = communityMain
+                this.postData = postData
                 executePendingBindings()
             }
         }

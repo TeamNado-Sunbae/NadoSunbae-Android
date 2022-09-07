@@ -1,7 +1,6 @@
 package com.nadosunbae_android.app.di
 
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSource
-import com.nadosunbae_android.data.datasource.remote.community.CommunityDataSource
 import com.nadosunbae_android.data.datasource.remote.like.LikeDataSource
 import com.nadosunbae_android.data.datasource.remote.main.MainDataSource
 import com.nadosunbae_android.data.datasource.remote.mypage.MyPageDataSource
@@ -10,7 +9,6 @@ import com.nadosunbae_android.data.datasource.remote.post.PostDataSource
 import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSource
 import com.nadosunbae_android.data.datasource.remote.sign.SignDataSource
 import com.nadosunbae_android.data.repositoryimpl.classroom.ClassRoomRepositoryImpl
-import com.nadosunbae_android.data.repositoryimpl.community.CommunityRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.like.LikeRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.main.MainRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.mypage.MyPageRepositoryImpl
@@ -19,7 +17,6 @@ import com.nadosunbae_android.data.repositoryimpl.post.PostRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.review.ReviewRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.sign.SignRepositoryImpl
 import com.nadosunbae_android.domain.repository.classroom.ClassRoomRepository
-import com.nadosunbae_android.domain.repository.community.CommunityRepository
 import com.nadosunbae_android.domain.repository.like.LikeRepository
 import com.nadosunbae_android.domain.repository.main.MainRepository
 import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
@@ -32,7 +29,6 @@ import dagger.Provides
 import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -90,14 +86,6 @@ object RepositoryModule{
         reviewDataSource: ReviewDataSource
     ) : ReviewRepository{
         return ReviewRepositoryImpl(reviewDataSource)
-    }
-
-    @Reusable
-    @Provides
-    fun communityRepository(
-        communityDataSource: CommunityDataSource
-    ) : CommunityRepository{
-        return CommunityRepositoryImpl(communityDataSource)
     }
 
     @Reusable

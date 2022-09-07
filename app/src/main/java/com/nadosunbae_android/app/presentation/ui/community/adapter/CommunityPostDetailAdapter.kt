@@ -61,7 +61,7 @@ class CommunityPostDetailAdapter(private var userId: Int, val context: Context) 
 
     }
 
-    inner class ClassRoomInfoDetailViewHolder(
+    class ClassRoomInfoDetailViewHolder(
         val binding: ItemCommunityDetailBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(postDetailData: PostDetailData.Comment) {
@@ -73,7 +73,7 @@ class CommunityPostDetailAdapter(private var userId: Int, val context: Context) 
     }
 
     //점세개 메뉴 클릭 이벤트
-    fun setItemClickListener(listener: (View,Int,Int,Int) -> Unit) {
+    fun setItemClickListener(listener: (View, Int, Int, Int) -> Unit) {
         this.onItemCLickListener = listener
     }
 
