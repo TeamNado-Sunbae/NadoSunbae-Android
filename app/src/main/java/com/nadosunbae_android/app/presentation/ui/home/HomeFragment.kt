@@ -4,19 +4,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
-import com.nadosunbae_android.app.presentation.ui.classroom.question.DataToFragment
+import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMainContentAdapter
+import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
 import com.nadosunbae_android.app.presentation.ui.home.adpter.BannerListAdapter
-import com.nadosunbae_android.app.presentation.ui.home.adpter.CommunityAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.imageSelect
 import com.nadosunbae_android.domain.model.home.HomeUnivReviewData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 
@@ -24,9 +28,12 @@ import timber.log.Timber
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private var reviewList = mutableListOf<HomeUnivReviewData>()
     private val homeViewModel: HomeViewModel by viewModels()
+
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var bannerAdapter: BannerListAdapter
     private lateinit var reviewAdapter: ReviewAdapter
+    private val communityViewModel: CommunityViewModel by viewModels()
+    private lateinit var communityMainContentAdapter: CommunityMainContentAdapter
 
     //TODO: 랭킹 클릭 시 선배 프로필로 이동
 
@@ -82,8 +89,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     //홈 뷰 커뮤니티 리사이클러뷰 연결
     private fun setCommunityAdapter() {
-        binding.rvHomeCommunity.adapter = CommunityAdapter()
-        (binding.rvHomeCommunity.adapter as CommunityAdapter).submitList(homeViewModel.communityData)
+        communityViewModel.getCommunityMainData("1", "", "community", "recent")
+        communityMainContentAdapter = CommunityMainContentAdapter()
+        binding.rvHomeCommunity.adapter = communityMainContentAdapter
+        communityViewModel.communityMainData.flowWithLifecycle(
+            viewLifecycleOwner.lifecycle,
+        ).onEach {
+            if(it.size > 3) {
+                communityMainContentAdapter.submitList(it.subList(0,3))
+            } else {
+                communityMainContentAdapter.submitList(it)
+            }
+        }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun naviControl() {
