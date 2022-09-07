@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.di
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
 import com.nadosunbae_android.data.api.home.HomeService
+import com.nadosunbae_android.data.api.community.CommunityService
 import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.main.MainService
 import com.nadosunbae_android.data.api.mypage.MyPageService
@@ -65,5 +66,9 @@ object NetworkModule{
         return retrofit.create(HomeService::class.java)
     }
 
-
+    @Singleton
+    @Provides
+    fun communityService(retrofit : Retrofit) : CommunityService{
+        return retrofit.create(CommunityService::class.java)
+    }
 }

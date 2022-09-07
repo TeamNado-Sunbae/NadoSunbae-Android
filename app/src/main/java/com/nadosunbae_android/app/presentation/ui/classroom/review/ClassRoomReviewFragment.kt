@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.presentation.ui.classroom
+package com.nadosunbae_android.app.presentation.ui.classroom.review
 
 import android.os.Bundle
 import android.view.View

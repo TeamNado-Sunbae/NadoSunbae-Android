@@ -5,6 +5,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="ranking"
+            type="com.nadosunbae_android.domain.model.home.HomeRankingData" />
+
     </data>
 
 
@@ -20,6 +26,7 @@
 
         <ImageView
             android:id="@+id/img_main"
+            profileImgBig="@{ranking.profileImageId}"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginStart="23dp"
@@ -28,6 +35,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_ranking"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_medal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_medal3" />
 
 
         <TextView
@@ -38,6 +55,7 @@
             android:fontFamily="@font/pretendard_medium"
             android:textColor="@color/main_dark"
             android:textSize="16sp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,6 +70,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/pretendard_medium"
             android:maxLength="8"
+            android:text="@{ranking.nickname}"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/img_main"
@@ -59,16 +78,17 @@
             tools:text="nickname" />
 
         <TextView
+            rateText="@{ranking.rate}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="@string/senior_personal_answer_count"
             android:textColor="@color/main_default"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_nickname"
             app:layout_constraintStart_toEndOf="@+id/text_nickname"
-            app:layout_constraintTop_toTopOf="@+id/text_nickname" />
+            app:layout_constraintTop_toTopOf="@+id/text_nickname"
+            tools:text="@string/senior_personal_answer_count" />
 
 
         <TextView
@@ -100,6 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/pretendard_regular"
+            android:text="@{ranking.firstMajorName}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_first_major"
@@ -114,6 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/pretendard_regular"
+            android:text="@{ranking.firstMajorStart}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_first_major_name"
@@ -151,6 +173,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/pretendard_regular"
+            android:text="@{ranking.secondMajorName}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_second_major"
@@ -161,6 +184,7 @@
 
         <TextView
             android:id="@+id/text_second_major_time"
+            secondMajor="@{ranking.secondMajorStart}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"

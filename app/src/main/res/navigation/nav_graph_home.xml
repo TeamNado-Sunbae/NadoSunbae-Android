@@ -22,17 +22,21 @@
             android:id="@+id/action_homeFragment_to_homeReviewFragment"
             app:destination="@id/homeReview" />
 
+        <action
+            android:id="@+id/action_homeFragment_to_communityFragment"
+            app:destination="@+id/homeCommunity" />
+
     </fragment>
 
     <fragment
         android:id="@+id/homeQuestion"
         android:name="com.nadosunbae_android.app.presentation.ui.home.HomeQuestionFragment"
         android:label="homeQuestion"
-        tools:layout="@layout/fragment_home_question" >
+        tools:layout="@layout/fragment_home_question">
 
         <action
             android:id="@+id/action_homeQuestionFragment_to_homeFragment"
-            app:destination="@id/homeFragment"/>
+            app:destination="@id/homeFragment" />
 
     </fragment>
 
@@ -44,7 +48,7 @@
 
         <action
             android:id="@+id/action_homeRankingFragment_to_homeFragment"
-            app:destination="@id/homeFragment"/>
+            app:destination="@id/homeFragment" />
 
     </fragment>
 
@@ -56,8 +60,19 @@
 
         <action
             android:id="@+id/action_homeReviewFragment_to_homeFragment"
-            app:destination="@id/homeFragment"/>
+            app:destination="@id/homeFragment" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/homeCommunity"
+        android:name="com.nadosunbae_android.app.presentation.ui.community.CommunityFragment"
+        android:label="homeCommunity"
+        tools:layout="@layout/fragment_community">
+        <action
+            android:id="@+id/action_CommunityFragment_to_homeFragment"
+            app:destination="@+id/homeFragment" />
+    </fragment>
+
 
 </navigation>

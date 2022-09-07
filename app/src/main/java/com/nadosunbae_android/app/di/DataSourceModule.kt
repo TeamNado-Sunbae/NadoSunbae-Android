@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.di
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
+import com.nadosunbae_android.data.api.community.CommunityService
 import com.nadosunbae_android.data.api.home.HomeService
 import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.main.MainService
@@ -10,6 +11,8 @@ import com.nadosunbae_android.data.api.review.ReviewService
 import com.nadosunbae_android.data.api.sign.SignService
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSource
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSourceImpl
+import com.nadosunbae_android.data.datasource.remote.community.CommunityDataSource
+import com.nadosunbae_android.data.datasource.remote.community.CommunityDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.home.HomeDataSource
 import com.nadosunbae_android.data.datasource.remote.home.HomeDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.like.LikeDataSource
@@ -26,16 +29,16 @@ import com.nadosunbae_android.data.datasource.remote.sign.SignDataSource
 import com.nadosunbae_android.data.datasource.remote.sign.SignDataSourceImpl
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DataSourceModule {
 
     @Provides
-    @Singleton
+    @Reusable
     fun classRoomDataSource(
         classRoomService: ClassRoomService
     ) : ClassRoomDataSource{
@@ -43,7 +46,7 @@ object DataSourceModule {
     }
 
     @Provides
-    @Singleton
+    @Reusable
     fun likeDataSource(
         likeService: LikeService
     ) : LikeDataSource{
@@ -51,7 +54,7 @@ object DataSourceModule {
     }
 
     @Provides
-    @Singleton
+    @Reusable
     fun mainDataSource(
         mainService: MainService
     ) : MainDataSource{
@@ -59,7 +62,7 @@ object DataSourceModule {
     }
 
     @Provides
-    @Singleton
+    @Reusable
     fun myPageDataSource(
         myPageService: MyPageService
     ) : MyPageDataSource{
@@ -67,7 +70,7 @@ object DataSourceModule {
     }
 
     @Provides
-    @Singleton
+    @Reusable
     fun notificationDataSource(
         notificationService: NotificationService
     ) : NotificationDataSource{
@@ -75,7 +78,7 @@ object DataSourceModule {
     }
 
     @Provides
-    @Singleton
+    @Reusable
     fun reviewDataSource(
         reviewService: ReviewService
     ) : ReviewDataSource{
@@ -83,7 +86,7 @@ object DataSourceModule {
     }
 
     @Provides
-    @Singleton
+    @Reusable
     fun signDataSource(
         signService: SignService
     ) : SignDataSource{
@@ -91,10 +94,20 @@ object DataSourceModule {
     }
 
     @Provides
-    @Singleton
+    @Reusable
     fun homeDataSource(
         homeService: HomeService
     ) : HomeDataSource{
         return HomeDataSourceImpl(homeService)
     }
+
+    @Provides
+    @Reusable
+    fun communityDataSource(
+        communityService: CommunityService
+    ) : CommunityDataSource{
+        return CommunityDataSourceImpl(communityService)
+    }
+
+
 }
