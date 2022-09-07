@@ -1,11 +1,11 @@
 package com.nadosunbae_android.app.di
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
-import com.nadosunbae_android.data.api.community.CommunityService
 import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.main.MainService
 import com.nadosunbae_android.data.api.mypage.MyPageService
 import com.nadosunbae_android.data.api.notification.NotificationService
+import com.nadosunbae_android.data.api.post.PostService
 import com.nadosunbae_android.data.api.review.ReviewService
 import com.nadosunbae_android.data.api.sign.SignService
 import dagger.Module
@@ -59,10 +59,10 @@ object NetworkModule{
         return retrofit.create(SignService::class.java)
     }
 
+
     @Singleton
     @Provides
-    fun communityService(retrofit : Retrofit) : CommunityService{
-        return retrofit.create(CommunityService::class.java)
+    fun postService(retrofit : Retrofit) : PostService{
+        return retrofit.create(PostService::class.java)
     }
-
 }

@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="communityMain"
-            type="com.nadosunbae_android.domain.model.community.CommunityMainData" />
+            name="postData"
+            type="com.nadosunbae_android.domain.model.post.PostData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/pretendard_regular"
-            android:text="@{communityMain.type}"
+            android:text="@{postData.type}"
             android:textColor="@color/main_default"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
             android:maxLines="1"
-            android:text="@{communityMain.title}"
+            android:text="@{postData.title}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_community_main_filter"
@@ -52,7 +52,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_regular"
             android:maxLines="2"
-            android:text="@{communityMain.content}"
+            android:text="@{postData.content}"
             android:textColor="@color/gray_3"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_community_main_title"
@@ -66,7 +66,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pretendard_semibold"
             android:includeFontPadding="false"
-            android:text="@{communityMain.majorName}"
+            android:text="@{postData.majorName}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_community_main_content"
@@ -75,7 +75,7 @@
 
         <TextView
             android:id="@+id/tv_community_main_time"
-            dateToText="@{communityMain.createdAt}"
+            dateToText="@{postData.createdAt}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -100,7 +100,7 @@
 
         <TextView
             android:id="@+id/tv_community_main_comment"
-            intToText="@{communityMain.commentCount}"
+            intToText="@{postData.commentCount}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"
@@ -122,7 +122,7 @@
 
         <TextView
             android:id="@+id/tv_community_main_like"
-            intToText="@{communityMain.likeCount}"
+            intToText="@{postData.likeCount}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"

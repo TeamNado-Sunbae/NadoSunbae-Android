@@ -1,8 +1,8 @@
-package com.nadosunbae_android.domain.model.community
+package com.nadosunbae_android.domain.model.post
 
 import java.util.*
 
-data class CommunityMainData(
+data class PostData(
     val commentCount: Int,
     val content: String,
     val createdAt: Date?,
@@ -16,7 +16,7 @@ data class CommunityMainData(
     val nickname: String
 ) {
     companion object {
-        val DEFAULT = CommunityMainData(
+        val DEFAULT = PostData(
             0,
             "",
             null,

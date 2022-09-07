@@ -11,7 +11,6 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInf
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
-import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
