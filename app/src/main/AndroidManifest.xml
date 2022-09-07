@@ -14,7 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".presentation.ui.community.CommunitySearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.community.CommunityWriteActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.ui.onboarding.OnBoardingActivity"
             android:exported="true" />
@@ -27,6 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".presentation.ui.mypage.ChangePwFinishActivity"
             android:exported="false" />
@@ -83,6 +89,7 @@
             android:name=".presentation.ui.sign.SignInActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustNothing" />
+
         <activity
             android:name=".presentation.ui.mypage.ServiceInqueryActivity"
             android:exported="false" />

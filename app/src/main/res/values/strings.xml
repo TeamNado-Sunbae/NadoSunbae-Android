@@ -469,7 +469,17 @@
 
     <!-- 커뮤니티 -->
     <string name="major">학과</string>
-
+    <string name="community_write_title">새 게시글 작성</string>
+    <string name="community_write_category">카테고리</string>
+    <string name="category_free">자유</string>
+    <string name="category_info">정보</string>
+    <string name="category_write_content_hint">내용을 입력하세요.</string>
+    <string name="community_search_hint">글 제목,내용</string>
+    <string name="community_search_main">커뮤니티의 글을 검색해보세요.</string>
+    <string name="community_no_search">검색 결과가 없습니다.</string>
+    <string name="write">글쓰기</string>
+    <string name="community_bottom_sheet_title">특정 학과 글 불러오기</string>
+    
     <!-- 과방 탭 이름 -->
     <string name="classroom_review_tab">후기</string>
     <string name="classroom_question_tab">1:1 질문</string>
@@ -483,8 +493,7 @@
     <string name="classroom_fragment_review_label">review</string>
     <string name="classroom_fragment_question_label">question</string>
 
-    <string name="write">글쓰기</string>
-    <string name="community_bottom_sheet_title">특정 학과 글 불러오기</string>
+    
 
     <string name="navigation_review">후기</string>
 

@@ -89,27 +89,27 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
             switchTab = CustomSwitchTab.getSwitchTabValue(0)
             switchText = listOf(getString(R.string.classroom_review_tab), getString(R.string.classroom_question_tab))
             itemClickListener = {
-                if (it != classRoomMainContentViewModel.curFragment.value && !(it == 0 && classRoomMainContentViewModel.curFragment.value == -1)) {
-                    switchTab = CustomSwitchTab.getSwitchTabValue(it)
+                if (it != classRoomMainContentViewModel.curFragment.value)
                     classRoomMainContentViewModel.curFragment.postValue(it)
-                }
             }
         }
     }
 
     private fun observeFragmentNum() {
         classRoomMainContentViewModel.curFragment.observe(viewLifecycleOwner) {
-            when (it) {
-                0 -> {
-                    binding.navHostClassroom.findNavController()
-                        .navigate(R.id.action_Classroom_Question_to_Review)
-                }
-                1 -> {
-                    binding.navHostClassroom.findNavController()
-                        .navigate(R.id.action_Classroom_Review_to_Question)
+            if (it != null && binding.viewClassroomSwitch.selectedTab != it) {
+                binding.viewClassroomSwitch.setTabNum(it)
+                when (it) {
+                    0 -> {
+                        binding.navHostClassroom.findNavController()
+                            .navigate(R.id.action_Classroom_Question_to_Review)
+                    }
+                    1 -> {
+                        binding.navHostClassroom.findNavController()
+                            .navigate(R.id.action_Classroom_Review_to_Question)
+                    }
                 }
             }
-            binding.viewClassroomSwitch.switchTab = CustomSwitchTab.getSwitchTabValue(it)
         }
     }
 
