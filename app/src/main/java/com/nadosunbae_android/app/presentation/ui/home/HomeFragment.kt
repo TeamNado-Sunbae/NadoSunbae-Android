@@ -28,11 +28,11 @@ import timber.log.Timber
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private var reviewList = mutableListOf<HomeUnivReviewData>()
     private val homeViewModel: HomeViewModel by viewModels()
+    private val communityViewModel: CommunityViewModel by viewModels()
 
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var bannerAdapter: BannerListAdapter
     private lateinit var reviewAdapter: ReviewAdapter
-    private val communityViewModel: CommunityViewModel by viewModels()
     private lateinit var communityMainContentAdapter: CommunityMainContentAdapter
 
     //TODO: 랭킹 클릭 시 선배 프로필로 이동
@@ -104,6 +104,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    //navi control
     private fun naviControl() {
         binding.tvHomeReviewMore.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_homeReviewFragment)
@@ -122,6 +123,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
+    //시상대 data
     private fun setRanking() {
         homeViewModel.getHomeRanking(mainViewModel.univId.value ?: 0)
         homeViewModel.rankingData.observe(viewLifecycleOwner) {
