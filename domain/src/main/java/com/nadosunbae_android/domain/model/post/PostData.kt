@@ -23,7 +23,7 @@ data class PostData(
             "",
             0,
             "",
-            "",
+            null,
             false,
             0,
             0,

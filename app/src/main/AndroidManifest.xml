@@ -25,7 +25,13 @@
             android:exported="true" />
         <activity
             android:name=".presentation.ui.main.SplashActivity"
-            android:exported="true"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".presentation.ui.mypage.ChangePwFinishActivity"
@@ -82,13 +88,8 @@
         <activity
             android:name=".presentation.ui.sign.SignInActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:windowSoftInputMode="adjustNothing" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
         <activity
             android:name=".presentation.ui.mypage.ServiceInqueryActivity"
             android:exported="false" />
