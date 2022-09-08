@@ -3,9 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.community
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.MotionEvent
 import androidx.activity.viewModels
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,14 +16,13 @@ import com.nadosunbae_android.app.util.closeKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CommunitySearchActivity :
     BaseActivity<ActivityCommunitySearchBinding>(R.layout.activity_community_search) {
 
     private val communitySearchViewModel: CommunitySearchViewModel by viewModels()
-    private lateinit var communityMainContentAdapter : CommunityMainContentAdapter
+    private lateinit var communityMainContentAdapter: CommunityMainContentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,24 +33,24 @@ class CommunitySearchActivity :
         clickCancelBtn()
 
     }
+
     //검색 뷰 변경
-    private fun initCommunitySearchView(){
-        communitySearchViewModel.communitySearchView.observe(this){
+    private fun initCommunitySearchView() {
+        communitySearchViewModel.communitySearchView.observe(this) {
             binding.communitySearchViewModel = communitySearchViewModel
         }
     }
 
 
-
     //검색 서버 통신
     private fun searchCommunityData() {
         binding.etCommunitySearch.setOnFocusChangeListener { view, b ->
-            if(b) binding.cancel = true
+            if (b) binding.cancel = true
         }
         binding.etCommunitySearch.setOnKeyListener { view, keyCode, event ->
-            if(event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER){
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
                 val searchWord = binding.etCommunitySearch.text.toString()
-                communitySearchViewModel.getCommunitySearchData(Pair("1",searchWord))
+                communitySearchViewModel.getCommunitySearchData(Pair("1", searchWord))
                 binding.cancel = false
                 view.clearFocus()
                 this.closeKeyboard(view)
@@ -64,19 +61,22 @@ class CommunitySearchActivity :
     }
 
 
-
     //검색 데이터 받기
-    private fun getCommunityData(){
+    private fun getCommunityData() {
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rcCommunitySearch.adapter = communityMainContentAdapter
-        communitySearchViewModel.communitySearchData.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+        communitySearchViewModel.communitySearchData.flowWithLifecycle(
+            lifecycle,
+            Lifecycle.State.STARTED
+        )
             .onEach {
-                   communityMainContentAdapter.submitList(it)
+                communityMainContentAdapter.submitList(it)
             }
             .launchIn(lifecycleScope)
     }
+
     //취소 버튼
-    private fun clickCancelBtn(){
+    private fun clickCancelBtn() {
         binding.imgCommunitySearchCancel.setOnClickListener {
             binding.etCommunitySearch.text.clear()
         }

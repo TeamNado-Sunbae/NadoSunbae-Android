@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
-import com.nadosunbae_android.app.util.debounce
 import com.nadosunbae_android.domain.model.post.PostData
 import com.nadosunbae_android.domain.repository.post.PostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -56,16 +55,10 @@ class CommunitySearchViewModel @Inject constructor(
                         emptyView = it.isEmpty()
                     )
                     _communitySearchData.value = it
-                    Timber.d("커뮤니티 검색 서버 통신 성공")
                 }
         }
     }
 
-    val debounce = debounce<Pair<String, String>>(300L, viewModelScope,
-        block = {
-            getCommunitySearchData(it)
-        }
-    )
 }
 
-data class SearchView(var firstView: Boolean , val contentView: Boolean, val emptyView: Boolean)
+data class SearchView(var firstView: Boolean, val contentView: Boolean, val emptyView: Boolean)
