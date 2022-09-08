@@ -89,7 +89,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     //홈 뷰 커뮤니티 리사이클러뷰 연결
     private fun setCommunityAdapter() {
-        communityViewModel.getCommunityMainData("1", "", "community", "recent")
+        communityViewModel.getCommunityMainData("${mainViewModel.univId}", "", "community", "recent")
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rvHomeCommunity.adapter = communityMainContentAdapter
         communityViewModel.communityMainData.flowWithLifecycle(

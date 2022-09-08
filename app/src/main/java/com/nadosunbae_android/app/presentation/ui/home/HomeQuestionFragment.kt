@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +16,7 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMainContentAdapter
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
 import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionDetailAdapter
+import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -25,7 +27,7 @@ class HomeQuestionFragment :
     BaseFragment<FragmentHomeQuestionBinding>(R.layout.fragment_home_question) {
 
     private lateinit var questionDetailAdapter: QuestionDetailAdapter
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val communityViewModel: CommunityViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,13 +47,12 @@ class HomeQuestionFragment :
     //홈 뷰 커뮤니티 리사이클러뷰 연결
     private fun setCommunityAdapter() {
         //TODO: unviersityId 고정값
-        communityViewModel.getCommunityMainData("1", "0", "questionToPerson", "recent","")
+        communityViewModel.getCommunityMainData("${mainViewModel.univId}", "0", "questionToPerson", "recent","")
         questionDetailAdapter = QuestionDetailAdapter()
         binding.rvHomeQuestion.adapter = questionDetailAdapter
         communityViewModel.communityMainData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
         ).onEach {
-            Timber.e("$it")
             questionDetailAdapter.submitList(it)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
