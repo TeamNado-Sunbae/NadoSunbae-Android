@@ -38,7 +38,7 @@ class CommunityMainContentFragment :
 
     //메인 게시글
     private fun initCommunityMainContent() {
-        communityViewModel.getCommunityMainData("1", "5", "community", "like")
+        communityViewModel.getCommunityMainData("1", "0", "questionToPerson", "like")
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rcCommunityMain.adapter = communityMainContentAdapter
         communityViewModel.communityMainData.flowWithLifecycle(

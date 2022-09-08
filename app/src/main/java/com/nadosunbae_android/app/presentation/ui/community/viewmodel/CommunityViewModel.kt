@@ -40,6 +40,7 @@ class CommunityViewModel @Inject constructor(
             .onStart {
                 onLoadingEnd.value = false
             }.catch {
+                it.printStackTrace()
                 Timber.d("커뮤니티 메인 서버통신 오류 발생")
             }.collectLatest {
                 _communityMainData.value = it

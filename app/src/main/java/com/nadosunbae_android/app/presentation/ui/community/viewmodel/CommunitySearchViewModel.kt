@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.community.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,7 +26,18 @@ class CommunitySearchViewModel @Inject constructor(
     val communitySearchData: StateFlow<List<PostData>>
         get() = _communitySearchData
 
-    fun getCommunitySearchData(searchKeyword : Pair<String,String>) {
+    //커뮤니티 뷰 데이터(검색 결과 보여지기 / 아니기)
+    private var _communitySearchView = MutableLiveData(
+        SearchView(
+            firstView = true,
+            contentView = false,
+            emptyView = false
+        )
+    )
+    val communitySearchView: LiveData<SearchView>
+        get() = _communitySearchView
+
+    fun getCommunitySearchData(searchKeyword: Pair<String, String>) {
         viewModelScope.launch {
             postRepository.getPost(
                 searchKeyword.first,
@@ -38,15 +50,22 @@ class CommunitySearchViewModel @Inject constructor(
                     Timber.d("커뮤니티 검색 서버 통신 실패")
                 }
                 .collectLatest {
+                    _communitySearchView.value = SearchView(
+                        firstView = false,
+                        contentView = it.isNotEmpty(),
+                        emptyView = it.isEmpty()
+                    )
                     _communitySearchData.value = it
                     Timber.d("커뮤니티 검색 서버 통신 성공")
                 }
         }
     }
 
-    val debounce = debounce<Pair<String,String>>(300L, viewModelScope,
+    val debounce = debounce<Pair<String, String>>(300L, viewModelScope,
         block = {
             getCommunitySearchData(it)
         }
     )
 }
+
+data class SearchView(var firstView: Boolean , val contentView: Boolean, val emptyView: Boolean)
