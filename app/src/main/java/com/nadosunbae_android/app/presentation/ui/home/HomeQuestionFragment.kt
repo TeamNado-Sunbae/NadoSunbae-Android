@@ -46,8 +46,7 @@ class HomeQuestionFragment :
 
     //홈 뷰 커뮤니티 리사이클러뷰 연결
     private fun setCommunityAdapter() {
-        //TODO: unviersityId 고정값
-        communityViewModel.getCommunityMainData("${mainViewModel.univId}", "0", "questionToPerson", "recent","")
+        communityViewModel.getCommunityMainData("1", "0", "questionToPerson", "recent", "")
         questionDetailAdapter = QuestionDetailAdapter()
         binding.rvHomeQuestion.adapter = questionDetailAdapter
         communityViewModel.communityMainData.flowWithLifecycle(

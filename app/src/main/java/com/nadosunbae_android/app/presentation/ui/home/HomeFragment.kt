@@ -14,6 +14,7 @@ import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMai
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
 import com.nadosunbae_android.app.presentation.ui.home.adpter.BannerListAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
+import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.imageSelect
@@ -29,8 +30,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private var reviewList = mutableListOf<HomeUnivReviewData>()
     private val homeViewModel: HomeViewModel by viewModels()
     private val communityViewModel: CommunityViewModel by viewModels()
-
     private val mainViewModel: MainViewModel by activityViewModels()
+
+    private lateinit var questionAdapter: QuestionAdapter
     private lateinit var bannerAdapter: BannerListAdapter
     private lateinit var reviewAdapter: ReviewAdapter
     private lateinit var communityMainContentAdapter: CommunityMainContentAdapter
@@ -83,19 +85,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     //홈 뷰 질문 리사이클러뷰 연결
     private fun setQuestionAdapter() {
-        binding.rvHomeQuestion.adapter = QuestionAdapter()
-        (binding.rvHomeQuestion.adapter as QuestionAdapter).submitList(homeViewModel.questionData)
+        communityViewModel.getCommunityMainData("1", "0", "questionToPerson", "recent","")
+        questionAdapter = QuestionAdapter()
+        binding.rvHomeQuestion.adapter = questionAdapter
+        communityViewModel.communityMainData.flowWithLifecycle(
+            viewLifecycleOwner.lifecycle,
+        ).onEach {
+            if(it.size > 4) {
+                questionAdapter.submitList(it.subList(0,5))
+            } else {
+                questionAdapter.submitList(it)
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     //홈 뷰 커뮤니티 리사이클러뷰 연결
     private fun setCommunityAdapter() {
-        communityViewModel.getCommunityMainData("${mainViewModel.univId}", "", "community", "recent")
+        communityViewModel.getCommunityMainData("1", "", "community", "recent")
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rvHomeCommunity.adapter = communityMainContentAdapter
         communityViewModel.communityMainData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
         ).onEach {
-            if(it.size > 3) {
+            if(it.size > 2) {
                 communityMainContentAdapter.submitList(it.subList(0,3))
             } else {
                 communityMainContentAdapter.submitList(it)
