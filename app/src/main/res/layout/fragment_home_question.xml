@@ -54,6 +54,7 @@
             android:background="@drawable/rectangle_border_gray0_8dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_home_question_warn"
