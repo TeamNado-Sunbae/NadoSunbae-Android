@@ -1,36 +1,40 @@
-package com.nadosunbae_android.app.presentation.ui.classroom
+package com.nadosunbae_android.app.presentation.ui.community
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.databinding.ActivityInformationDetailBinding
+import com.nadosunbae_android.app.databinding.ActivityCommunityDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInfoDetailAdapter
-import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.InfoDetailViewModel
+import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
+import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityPostDetailAdapter
+import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityDetailViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
-import com.nadosunbae_android.domain.model.classroom.InfoDetailData
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @AndroidEntryPoint
-class InformationDetailActivity :
-    BaseActivity<ActivityInformationDetailBinding>(R.layout.activity_information_detail) {
-    private val infoDetailViewModel: InfoDetailViewModel by viewModels()
-    private lateinit var classRoomInfoDetailAdapter: ClassRoomInfoDetailAdapter
+class CommunityDetailActivity :
+    BaseActivity<ActivityCommunityDetailBinding>(R.layout.activity_community_detail) {
+    private val communityViewModel: CommunityDetailViewModel by viewModels()
+    private lateinit var communityPostDetailAdapter: CommunityPostDetailAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,16 +53,17 @@ class InformationDetailActivity :
         floatBadUserDialog()
         changeRegisterBtn()
     }
+
     //로딩 종료
     private fun observeLoadingEnd() {
-        infoDetailViewModel.onLoadingEnd.observe(this) {
+        communityViewModel.onLoadingEnd.observe(this) {
             dismissLoading()
         }
     }
 
     //부적절 사용자 다이얼로그 띄우기
-    private fun floatBadUserDialog(){
-        if(MainGlobals.signInData!!.isUserReported || MainGlobals.signInData!!.isReviewInappropriate){
+    private fun floatBadUserDialog() {
+        if (MainGlobals.signInData!!.isUserReported || MainGlobals.signInData!!.isReviewInappropriate) {
             CustomDialog(this).genericDialog(
                 CustomDialog.DialogData(
                     MainGlobals.signInData?.message.toString(),
@@ -66,16 +71,17 @@ class InformationDetailActivity :
                     resources.getString(R.string.email_certification_close)
                 ),
                 complete = {
-                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
+                    var intent =
+                        Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.question_kakao)))
                     startActivity(intent)
                 },
-                cancel = {finish()}
+                cancel = { finish() }
             )
         }
     }
 
     //답글 작성 중 종이비행기 색상 변경
-    private fun changeRegisterBtn(){
+    private fun changeRegisterBtn() {
         binding.etInformationComment.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -85,86 +91,71 @@ class InformationDetailActivity :
             }
 
             override fun afterTextChanged(s: Editable?) {
-               binding.imgInformationCommentComplete.isSelected = !s.isNullOrEmpty()
+                binding.imgInformationCommentComplete.isSelected = !s.isNullOrEmpty()
             }
         })
     }
 
 
     //안꺼지게 조절
-    private fun onInfo(){
+    private fun onInfo() {
         MainGlobals.infoBlock = 0
     }
 
 
     override fun onResume() {
         super.onResume()
-        if(MainGlobals.infoBlock == 1){
+        if (MainGlobals.infoBlock == 1) {
             finish()
         }
-        infoDetailViewModel.getInfoDetail(infoDetailViewModel.infoPostId.value ?: 0)
+        communityViewModel.getPostDetail(communityViewModel.postId.value ?: "")
     }
-
 
 
     //정보 상세보기 서버 통신
     private fun initInfoDetail() {
-        val postId = intent.getIntExtra("postId", 0)
-        Timber.d("infoPostId $postId")
-        val userId = intent.getIntExtra("userId", 0)
-        infoDetailViewModel.setPostId(postId)
-        showLoading()
-        infoDetailViewModel.getInfoDetail(postId)
-        infoDetailViewModel.userId.value = userId
-
-        classRoomInfoDetailAdapter = ClassRoomInfoDetailAdapter(userId, this)
-        binding.rcInformationDetailQuestionComment.adapter = classRoomInfoDetailAdapter
-        infoDetailViewModel.infoDetailData.observe(this) {
-            //작성자 Id
-            infoDetailViewModel.writerId.value = it.writerId
-
-            // 원글 데이터 연결
-            binding.informationDetail = it
-
-            //원글 다이얼로그
-            if (it.secondMajorName == "미진입") {
-                binding.textInformationDetailQuestionSecondMajorStart.visibility = View.GONE
+        communityViewModel.setPostId(intent.getStringExtra("postId") ?: "")
+        communityViewModel.getPostDetail(communityViewModel.postId.value ?: "")
+        //Todo 유저 아이디 넣기
+        communityPostDetailAdapter = CommunityPostDetailAdapter(0, this)
+        communityViewModel.communityDetailData
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .onEach {
+                binding.postDetail = it
+                communityPostDetailAdapter.submitList(it.commentList)
             }
-            classRoomInfoDetailAdapter.setInfoDetail(it.commentList.filter { item -> !item.isDeleted } as MutableList<InfoDetailData.Comment>)
-            binding.imgInformationCommentComplete.setOnClickListener {
-                registerComment(postId)
-                binding.etInformationComment.setText("")
-            }
-        }
-
+            .launchIn(lifecycleScope)
     }
+
     //원글 점 세개 메뉴 클릭
-    private fun clickInfoPostMenu(){
-        binding.imgInforamtionDetailMenu.setOnClickListener {
-            initInfoPostMenu(infoDetailViewModel.userId.value ?:0, infoDetailViewModel.writerId.value ?: 0)
+    private fun clickInfoPostMenu() {
+        binding.imgCommunityDetailMenu.setOnClickListener {
+            initInfoPostMenu(
+                communityViewModel.userId.value ?: 0,
+                communityViewModel.writerId.value ?: 0
+            )
         }
     }
 
     //원글 점 세개 메뉴
     private fun initInfoPostMenu(userId: Int, writerId: Int) {
-        val v = binding.imgInforamtionDetailMenu
-        Timber.d("info 원글 메뉴 클릭")
-        infoDetailViewModel.divisionPost.value = post
-        binding.imgInforamtionDetailMenu.setOnClickListener {
+        val v = binding.imgCommunityDetailMenu
+        communityViewModel.divisionPost.value = post
+        binding.imgCommunityDetailMenu.setOnClickListener {
             if (userId == writerId) {
                 val dropDown = mutableListOf<SelectableData>(
                     SelectableData(1, resources.getString(R.string.question_detail_update), false),
                     SelectableData(2, resources.getString(R.string.question_detail_delete), false),
                 )
                 showCustomDropDown(
-                    infoDetailViewModel,
+                    communityViewModel,
                     v,
                     160f.dpToPx,
                     null,
                     -1 * 16f.dpToPx,
                     null,
                     false,
-                    infoDetailViewModel.dropDownSelected.value!!.id,
+                    communityViewModel.dropDownSelected.value!!.id,
                     dropDown
                 )
             } else {
@@ -172,14 +163,14 @@ class InformationDetailActivity :
                     SelectableData(2, resources.getString(R.string.question_detail_report), false)
                 )
                 showCustomDropDown(
-                    infoDetailViewModel,
+                    communityViewModel,
                     v,
                     160f.dpToPx,
                     null,
                     -1 * 16f.dpToPx,
                     null,
                     false,
-                    infoDetailViewModel.dropDownSelected.value!!.id,
+                    communityViewModel.dropDownSelected.value!!.id,
                     dropDown
                 )
             }
@@ -188,85 +179,78 @@ class InformationDetailActivity :
 
     //점 세개 메뉴 다이얼로그 초기화
     private fun initInfoCommentMenu() {
-        infoDetailViewModel.dropDownSelected.value = SelectableData(3, "테스트", false)
+        communityViewModel.dropDownSelected.value = SelectableData(3, "테스트", false)
     }
 
     //답글 점 세개 메뉴 클릭시 나오는 다이얼로그
     private fun infoCommentMenu() {
-        classRoomInfoDetailAdapter.setItemClickListener(
-            object : ClassRoomInfoDetailAdapter.OnItemClickListener {
-                override fun onClick(v: View, position: Int, user: Int, commentId: Int) {
-                    infoDetailViewModel.commentId.value = commentId
-                    infoDetailViewModel.position.value = position
-                    infoDetailViewModel.divisionPost.value = comment
-                    if (user == 1) {
-                        val dropDown = mutableListOf<SelectableData>(
-                            SelectableData(
-                                1,
-                                resources.getString(R.string.question_detail_delete),
-                                false
-                            )
-                        )
-                        showCustomDropDown(
-                            infoDetailViewModel,
-                            v,
-                            160f.dpToPx,
-                            null,
-                            -1 * 16f.dpToPx,
-                            null,
-                            false,
-                            infoDetailViewModel.dropDownSelected.value!!.id,
-                            dropDown
-                        )
-                    } else {
-                        val dropDown = mutableListOf<SelectableData>(
-                            SelectableData(
-                                2,
-                                resources.getString(R.string.question_detail_report),
-                                false
-                            )
-                        )
-                        showCustomDropDown(
-                            infoDetailViewModel,
-                            v,
-                            160f.dpToPx,
-                            null,
-                            -1 * 16f.dpToPx,
-                            null,
-                            false,
-                            infoDetailViewModel.dropDownSelected.value!!.id,
-                            dropDown
-                        )
-                    }
-                }
+        communityPostDetailAdapter.setItemClickListener { v, position, user, commentId ->
+            communityViewModel.commentId.value = commentId
+            communityViewModel.position.value = position
+            communityViewModel.divisionPost.value = comment
+            if (user == 1) {
+                val dropDown = mutableListOf<SelectableData>(
+                    SelectableData(
+                        1,
+                        resources.getString(R.string.question_detail_delete),
+                        false
+                    )
+                )
+                showCustomDropDown(
+                    communityViewModel,
+                    v,
+                    160f.dpToPx,
+                    null,
+                    -1 * 16f.dpToPx,
+                    null,
+                    false,
+                    communityViewModel.dropDownSelected.value!!.id,
+                    dropDown
+                )
+            } else {
+                val dropDown = mutableListOf<SelectableData>(
+                    SelectableData(
+                        2,
+                        resources.getString(R.string.question_detail_report),
+                        false
+                    )
+                )
+                showCustomDropDown(
+                    communityViewModel,
+                    v,
+                    160f.dpToPx,
+                    null,
+                    -1 * 16f.dpToPx,
+                    null,
+                    false,
+                    communityViewModel.dropDownSelected.value!!.id,
+                    dropDown
+                )
             }
-        )
+        }
     }
 
     //답글 메뉴 신고, 삭제 클릭시 이벤트
     private fun infoCommentMenuClick() {
-        infoDetailViewModel.dropDownSelected.observe(this) {
-            val divisionPost = infoDetailViewModel.divisionPost.value ?: 0
-            val position = infoDetailViewModel.position.value ?: 0
-            val commentId = infoDetailViewModel.commentId.value ?: 0
-            val postId = infoDetailViewModel.infoPostId.value ?: 0
-            Timber.d("infoDeleteDivision : $divisionPost")
-            Timber.d("infoDeleteCommentId : $commentId")
-            Timber.d("infoDeleteName : ${it.name}")
+        communityViewModel.dropDownSelected.observe(this) {
+            val divisionPost = communityViewModel.divisionPost.value ?: 0
+            val position = communityViewModel.position.value ?: 0
+            val commentId = communityViewModel.commentId.value ?: 0
+            val postId = communityViewModel.postId.value ?: ""
             when (it.name) {
                 resources.getString(R.string.question_detail_delete) ->
                     deleteDialog(
                         divisionPost,
                         setCheckMenu = {
-                            if(divisionPost == 3){
-                                classRoomInfoDetailAdapter.setCheckMenu(
+                            if (divisionPost == 3) {
+                                communityPostDetailAdapter.setCheckMenu(
                                     delete,
                                     position
                                 )
                             }
                         },
-                        deleteComment = { infoDetailViewModel.deleteComment(commentId) },
-                        deleteWrite = { infoDetailViewModel.deletePost(postId)},
+                        deleteComment = { communityViewModel.deleteComment(commentId) },
+                        deleteWrite = { communityViewModel.deletePost(0) },
                     )
                 resources.getString(R.string.question_detail_report) -> floatReportReasonDialog()
                 resources.getString(R.string.question_detail_update) -> goUpdate()
@@ -278,10 +262,10 @@ class InformationDetailActivity :
     private fun goUpdate() {
         val intent = Intent(this, QuestionWriteActivity::class.java)
         intent.apply {
-            putExtra("writerUpdateTitle", binding.textInformationDetailQuestionTitle.text)
-            putExtra("writerUpdateContent", binding.textInformationDetailQuestionContent.text)
+            putExtra("writerUpdateTitle", binding.textCommunityDetailQuestionTitle.text)
+            putExtra("writerUpdateContent", binding.textCommunityDetailQuestionContent.text)
             putExtra("division", 1)
-            putExtra("postId", infoDetailViewModel.infoPostId.value)
+            putExtra("postId", communityViewModel.postId.value)
             putExtra("title", "정보글 작성")
         }
         startActivity(intent)
@@ -316,13 +300,13 @@ class InformationDetailActivity :
 
     //신고 사유 다이얼로그 띄우기
     private fun floatReportReasonDialog() {
-        val divisionPost = infoDetailViewModel.divisionPost.value ?: 0
+        val divisionPost = communityViewModel.divisionPost.value ?: 0
         val dialog = CustomDialog(this)
         dialog.reportDialog()
         dialog.setReportClickListener(
             object : CustomDialog.ReportClickListener {
                 override fun reportClick(text: String) {
-                    infoDetailViewModel.reportReasonInfo.value = text
+                    communityViewModel.reportReasonInfo.value = text
                     reportDialog(divisionPost)
                 }
             }
@@ -334,9 +318,9 @@ class InformationDetailActivity :
 
     //신고 다이얼로그 띄우기
     private fun reportDialog(divisionPost: Int) {
-        val commentId = infoDetailViewModel.commentId.value ?: 0
-        val reportReason = infoDetailViewModel.reportReasonInfo.value ?: ""
-        val postId = infoDetailViewModel.infoPostId.value ?: 0
+        val commentId = communityViewModel.commentId.value ?: 0
+        val reportReason = communityViewModel.reportReasonInfo.value ?: ""
+        val postId = communityViewModel.postId.value ?: 0
         CustomDialog(this).genericDialog(
             CustomDialog.DialogData(
                 resources.getString(R.string.request_report),
@@ -345,17 +329,19 @@ class InformationDetailActivity :
             ),
             complete = {
                 when (divisionPost) {
-                    comment -> infoDetailViewModel.postReport(
+                    comment -> communityViewModel.postReport(
                         ReportItem(
                             commentId,
                             comment,
-                            reportReason)
+                            reportReason
+                        )
                     )
-                    post -> infoDetailViewModel.postReport(
+                    post -> communityViewModel.postReport(
                         ReportItem(
-                            postId,
+                            0,
                             post,
-                            reportReason)
+                            reportReason
+                        )
                     )
                 }
             },
@@ -368,7 +354,7 @@ class InformationDetailActivity :
 
     //신고하기 토스트 띄우기
     private fun reportToast() {
-        infoDetailViewModel.reportStatusInfo.observe(this) {
+        communityViewModel.reportStatusInfo.observe(this) {
             if (it == 200) {
                 Toast.makeText(this, "신고가 접수되었습니다", Toast.LENGTH_SHORT).show()
             } else if (it == 409) {
@@ -379,16 +365,16 @@ class InformationDetailActivity :
 
 
     //정보 상세보기 댓글 달기
-    private fun registerComment(postId: Int) {
-        infoDetailViewModel.postInfoCommentWrite(
+    private fun registerComment(postId: String) {
+        communityViewModel.postInfoCommentWrite(
             QuestionCommentWriteItem(
-                postId, binding.etInformationComment.text.toString()
+                0, binding.etInformationComment.text.toString()
             )
         )
 
-        infoDetailViewModel.registerInfoComment.observe(this) {
+        communityViewModel.registerInfoComment.observe(this) {
             if (it.success) {
-                infoDetailViewModel.getInfoDetail(postId)
+                communityViewModel.getPostDetail(postId)
             }
         }
     }
@@ -396,26 +382,26 @@ class InformationDetailActivity :
     //정보 좋아요 서버 통신
     private fun infoLike() {
         binding.btnInfoLike.setOnClickListener {
-            val likePostId = infoDetailViewModel.infoPostId.value ?: 0
-            infoDetailViewModel.postClassRoomInfoLike(LikeItem(likePostId, 2))
+            val likePostId = communityViewModel.postId.value ?: ""
+            communityViewModel.postClassRoomInfoLike(LikeItem(0, 2))
             showLoading()
-            infoDetailViewModel.getInfoDetail(likePostId)
+            communityViewModel.getPostDetail(likePostId)
         }
     }
 
     //정보 뒤로가기
     private fun clickBackBtn() {
-        binding.imgInformationDetailTitleBack.setOnClickListener {
+        binding.imgCommunityDetailTitleBack.setOnClickListener {
             finish()
         }
     }
 
     //클릭시 마이페이지 또는 선배 개인페이지 이동
-    private fun clickNickname(){
+    private fun clickNickname() {
 
-        binding.textInformationDetailQuestionName.setOnClickListener {
-            val writerId = infoDetailViewModel.writerId.value ?: 0
-            val userId = infoDetailViewModel.userId.value ?: 0
+        binding.textCommunityDetailQuestionName.setOnClickListener {
+            val writerId = communityViewModel.writerId.value ?: 0
+            val userId = communityViewModel.userId.value ?: 0
             Timber.d("userId : $userId, writerId : $writerId")
             var fragmentNum = -1
             var bottomNavItem = -1
@@ -443,7 +429,6 @@ class InformationDetailActivity :
     }
 
 
-
     companion object {
         const val update = 1
         const val report = 2
@@ -455,17 +440,4 @@ class InformationDetailActivity :
         const val comment = 3
     }
 
-
-
-
-    override fun onPause() {
-        super.onPause()
-        Timber.d("인포디테일: onPause")
-
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Timber.d("인포디테일 : onStop")
-    }
 }

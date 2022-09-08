@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="infoDetailListData"
-            type="com.nadosunbae_android.domain.model.classroom.InfoDetailData.Comment" />
+            name="PostDetailCommentData"
+            type="com.nadosunbae_android.domain.model.post.PostDetailData.Comment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/img_information_detail_comment_profile"
-            infoTextVisible="@{infoDetailListData.deleted}"
+            infoTextVisible="@{PostDetailCommentData.deleted}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/img_profile_32"
@@ -26,12 +26,12 @@
 
         <TextView
             android:id="@+id/text_information_detail_comment_name"
-            infoTextVisible="@{infoDetailListData.deleted}"
+            infoTextVisible="@{PostDetailCommentData.deleted}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/pretendard_semibold"
-            android:text="@{infoDetailListData.nickname}"
+            android:text="@{PostDetailCommentData.nickname}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/img_information_detail_comment_profile"
@@ -39,8 +39,8 @@
 
         <TextView
             android:id="@+id/text_information_detail_comment_writer"
-            isDelete="@{infoDetailListData.deleted}"
-            writerVisible="@{infoDetailListData.postWriter}"
+            isDelete="@{PostDetailCommentData.deleted}"
+            writerVisible="@{PostDetailCommentData.postWriter}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
@@ -72,29 +72,29 @@
 
                 <TextView
                     android:id="@+id/text_information_detail_comment_major"
-                    infoTextVisible="@{infoDetailListData.deleted}"
+                    infoTextVisible="@{PostDetailCommentData.deleted}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_medium"
-                    android:text="@{infoDetailListData.firstMajorName}"
+                    android:text="@{PostDetailCommentData.firstMajorName}"
                     android:textColor="@color/gray_2"
                     android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/text_information_detail_comment_major_start"
-                    infoTextVisible="@{infoDetailListData.deleted}"
+                    infoTextVisible="@{PostDetailCommentData.deleted}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/pretendard_medium"
-                    android:text="@{infoDetailListData.firstMajorStart}"
+                    android:text="@{PostDetailCommentData.firstMajorStart}"
                     android:textColor="@color/gray_2"
                     android:textSize="12sp"/>
             </LinearLayout>
 
             <View
                 android:id="@+id/line_information_detail_comment"
-                infoTextVisible="@{infoDetailListData.deleted}"
+                infoTextVisible="@{PostDetailCommentData.deleted}"
                 android:layout_width="1dp"
                 android:layout_height="18dp"
                 android:layout_marginHorizontal="8dp"
@@ -108,22 +108,22 @@
 
                 <TextView
                     android:id="@+id/text_information_detail_comment_second_major"
-                    infoTextVisible="@{infoDetailListData.deleted}"
+                    infoTextVisible="@{PostDetailCommentData.deleted}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_medium"
-                    android:text="@{infoDetailListData.secondMajorName}"
+                    android:text="@{PostDetailCommentData.secondMajorName}"
                     android:textColor="@color/gray_2"
                     android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/text_information_detail_content_second_major_start"
-                    infoTextVisible="@{infoDetailListData.deleted}"
+                    infoTextVisible="@{PostDetailCommentData.deleted}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/pretendard_medium"
-                    android:text="@{infoDetailListData.secondMajorStart}"
+                    android:text="@{PostDetailCommentData.secondMajorStart}"
                     android:textColor="@color/gray_2"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -131,7 +131,7 @@
 
         <ImageView
             android:id="@+id/img_information_detail_question_menu"
-            infoTextVisible="@{infoDetailListData.deleted}"
+            infoTextVisible="@{PostDetailCommentData.deleted}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_more_vert"
@@ -148,7 +148,7 @@
             android:fontFamily="@font/pretendard_regular"
             android:lineSpacingExtra="4sp"
             android:linksClickable="true"
-            android:text="@{infoDetailListData.content}"
+            android:text="@{PostDetailCommentData.content}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -157,8 +157,8 @@
 
         <TextView
             android:id="@+id/text_information_detail_content_time"
-            dateToText="@{infoDetailListData.createdAt}"
-            infoTextVisible="@{infoDetailListData.deleted}"
+            dateToText="@{PostDetailCommentData.createdAt}"
+            infoTextVisible="@{PostDetailCommentData.deleted}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

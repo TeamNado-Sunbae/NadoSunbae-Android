@@ -5,25 +5,25 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.app.databinding.ItemHomeQuestionBinding
+import com.nadosunbae_android.app.databinding.ItemHomeQuestionDetailBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.post.PostData
 
-class QuestionAdapter :
-    ListAdapter<PostData, QuestionAdapter.QuestionViewHolder>(
+class QuestionDetailAdapter :
+    ListAdapter<PostData, QuestionDetailAdapter.QuestionDetailViewHolder>(
         DiffUtilCallback<PostData>()
     ) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): QuestionViewHolder {
+    ): QuestionDetailViewHolder {
         val binding =
-            ItemHomeQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return QuestionViewHolder(binding)
+            ItemHomeQuestionDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return QuestionDetailViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: QuestionDetailViewHolder, position: Int) {
         holder.bind(getItem(position))
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
@@ -32,7 +32,7 @@ class QuestionAdapter :
         }
     }
 
-    class QuestionViewHolder(val binding: ItemHomeQuestionBinding) :
+    class QuestionDetailViewHolder(val binding: ItemHomeQuestionDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(postData: PostData) {
             with(binding) {

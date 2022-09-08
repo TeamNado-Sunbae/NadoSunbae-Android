@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionAllBinding
-import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
+import com.nadosunbae_android.app.presentation.ui.community.CommunityDetailActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
@@ -41,7 +41,7 @@ class ClassRoomInfoMainAdapter(private var userId : Int): RecyclerView.Adapter<C
                 MainGlobals.signInData!!.isReviewInappropriate,
                 MainGlobals.signInData?.message.toString(),
                 behavior = {
-                    val intent = Intent(holder.itemView.context, InformationDetailActivity::class.java)
+                    val intent = Intent(holder.itemView.context, CommunityDetailActivity::class.java)
                     intent.apply {
                         putExtra("postId", questionMainData[position].postId)
                         putExtra("userId", userId)

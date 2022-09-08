@@ -2,14 +2,9 @@ package com.nadosunbae_android.app.presentation.ui.community
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.datastore.preferences.protobuf.ListValueOrBuilder
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.nadosunbae_android.app.R
@@ -19,9 +14,7 @@ import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMai
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
-import com.nadosunbae_android.domain.model.main.MajorSelectData
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.item_community_main.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -45,15 +38,14 @@ class CommunityMainContentFragment :
 
     //메인 게시글
     private fun initCommunityMainContent() {
-        communityViewModel.getCommunityMainData("1","5","community","like")
+        communityViewModel.getCommunityMainData("1", "5", "community", "like")
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rcCommunityMain.adapter = communityMainContentAdapter
         communityViewModel.communityMainData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
         ).onEach {
             communityMainContentAdapter.submitList(it)
-        }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     //탭 부분

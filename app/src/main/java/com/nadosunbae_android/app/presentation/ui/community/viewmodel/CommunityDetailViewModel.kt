@@ -1,6 +1,5 @@
-package com.nadosunbae_android.app.presentation.ui.classroom.viewmodel
+package com.nadosunbae_android.app.presentation.ui.community.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,16 +12,20 @@ import com.nadosunbae_android.domain.model.classroom.*
 import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.post.PostDetailData
+import com.nadosunbae_android.domain.repository.post.PostRepository
 import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class InfoDetailViewModel @Inject constructor(
+class CommunityDetailViewModel @Inject constructor(
+    private val postRepository : PostRepository,
     val getInformationDetailUseCase: GetInformationDetailUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
     val postLikeDataUseCase: PostLikeDataUseCase,
@@ -37,17 +40,21 @@ class InfoDetailViewModel @Inject constructor(
 
 
     //정보 상세 조회
-    private val _infoDetailData = MutableLiveData<InfoDetailData>()
-    val infoDetailData: LiveData<InfoDetailData>
-        get() = _infoDetailData
+    private val _communityDetailData = MutableStateFlow(PostDetailData.DEFAULT)
+    val communityDetailData: StateFlow<PostDetailData>
+        get() = _communityDetailData
 
     //정보 댓글 등록
     var registerInfoComment = MutableLiveData<QuestionCommentWriteData>()
 
     //정보 좋아요를 위한 postId
-    private var _infoPostId = MutableLiveData<Int>()
-    val infoPostId: LiveData<Int>
-        get() = _infoPostId
+    private var _postId = MutableLiveData<String>()
+    val postId: LiveData<String>
+        get() = _postId
+
+    fun setPostId(postId: String) {
+        _postId.value = postId
+    }
 
     //정보 댓글 commentId
     var commentId = MutableLiveData<Int>()
@@ -63,9 +70,7 @@ class InfoDetailViewModel @Inject constructor(
     val deleteComment: LiveData<DeleteCommentData>
         get() = _deleteComment
 
-    fun setPostId(postId: Int) {
-        _infoPostId.value = postId
-    }
+
 
     //부적절 사용자 데이터들
     private var _statusCode = MutableLiveData<Int>()
@@ -108,19 +113,19 @@ class InfoDetailViewModel @Inject constructor(
     val deletePostData: LiveData<DeleteCommentData>
         get() = _deletePostData
 
-    //정보 상세 조회 서버통신
-    fun getInfoDetail(postId: Int) {
+    //커뮤니티 상세 서버통신
+    fun getPostDetail(postId: String) {
         viewModelScope.launch {
-            runCatching { getInformationDetailUseCase(postId) }
-                .onSuccess {
-                    _infoDetailData.value = it
-                    Timber.d("InfoDetail : 정보 상세보기 서버 통신 성공")
+            postRepository.getPostDetail(postId)
+                .onStart {
+                    onLoadingEnd.value = false
                 }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("InfoDetail : 정보 상세보기 서버 통신 실패")
-                }.also {
-                    onLoadingEnd.value = true
+                .catch {
+                    Timber.d("CommunityDetail : 정보 상세보기 서버 통신 실패")
+                }
+                .collectLatest {
+                    _communityDetailData.value = it
+                    Timber.d("CommunityDetail 서버 통신 성공")
                 }
         }
     }
