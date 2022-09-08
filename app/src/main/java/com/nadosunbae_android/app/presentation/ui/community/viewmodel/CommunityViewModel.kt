@@ -20,7 +20,6 @@ class CommunityViewModel @Inject constructor(
     override val onLoadingEnd = MutableLiveData<Boolean>()
 
 
-
     var filterMajor = MutableLiveData("학과")
 
     private var _communityMainData = MutableStateFlow(listOf(PostData.DEFAULT))
@@ -30,13 +29,13 @@ class CommunityViewModel @Inject constructor(
 
     //커뮤니티 메인 데이터 호출
     fun getCommunityMainData(
-        universityId : String,
+        universityId: String,
         majorId: String?,
         filter: String,
         sort: String,
-        search : String ?= ""
+        search: String? = ""
     ) = viewModelScope.launch {
-        postRepository.getPost(universityId,majorId,filter,sort,search)
+        postRepository.getPost(universityId, majorId, filter, sort, search)
             .onStart {
                 onLoadingEnd.value = false
             }.catch {

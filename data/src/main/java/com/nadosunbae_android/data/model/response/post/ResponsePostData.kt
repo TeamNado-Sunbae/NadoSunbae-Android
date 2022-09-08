@@ -11,7 +11,7 @@ data class ResponsePostData(
     val majorName: String,
     val postId: Int,
     val title: String,
-    val type: String,
+    val type: String?,
     val writer: Writer
 ) {
     data class Like(
