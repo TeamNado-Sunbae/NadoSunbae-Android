@@ -36,9 +36,8 @@ class MajorRepositoryImpl @Inject constructor(
                     }
                 )
             }
+        } else {
+            emit(majorData.map { it.toEntity() })
         }
-
-        emit(majorData.map { it.toEntity() })
-
-}.flowOn(Dispatchers.IO)
+    }.flowOn(Dispatchers.IO)
 }

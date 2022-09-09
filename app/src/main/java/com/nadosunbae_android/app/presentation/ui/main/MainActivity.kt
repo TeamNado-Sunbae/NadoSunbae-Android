@@ -9,8 +9,8 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.*
-import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ClassRoomReviewFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
 import com.nadosunbae_android.app.presentation.ui.home.HomeFrameFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
@@ -52,7 +52,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
 
-
     //바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
     /* private fun clickBottomNav(){
          mainViewModel.notificationClickNum.observe(this){
@@ -66,28 +65,29 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
      } */
 
     //부적절 후기 일경우 띄우기
-    private fun floatIsReviewInappropriate(){
-        if(MainGlobals.signInData!!.isReviewInappropriate){
-                CustomDialog(this).genericDialog(
-                    CustomDialog.DialogData(
-                        MainGlobals.signInData?.message.toString(),
-                        resources.getString(R.string.sign_in_question),
-                        resources.getString(R.string.email_certification_close)
-                    ),
-                    complete = {
-                        var intent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.question_kakao))
-                        )
-                        startActivity(intent)
-                    },
-                    cancel = {}
-                )
+    private fun floatIsReviewInappropriate() {
+        if (MainGlobals.signInData!!.isReviewInappropriate) {
+            CustomDialog(this).genericDialog(
+                CustomDialog.DialogData(
+                    MainGlobals.signInData?.message.toString(),
+                    resources.getString(R.string.sign_in_question),
+                    resources.getString(R.string.email_certification_close)
+                ),
+                complete = {
+                    var intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(getString(R.string.question_kakao))
+                    )
+                    startActivity(intent)
+                },
+                cancel = {}
+            )
         }
     }
+
     //학과 리스트 가져오기
-    private fun getMajorList(){
-        mainViewModel.getMajorList("1","all","noMajor")
+    private fun getMajorList() {
+        mainViewModel.getMajorList("1", "all", "noMajor")
 
     }
 
@@ -124,10 +124,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
                 NOTIFICATION -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_notice
-                changeFragmentNoBackStack(R.id.fragment_container_main, NotificationFragment())
+                    changeFragmentNoBackStack(R.id.fragment_container_main, NotificationFragment())
                 }
 
-                else ->{
+                else -> {
                     changeFragmentNoBackStack(R.id.fragment_container_main, HomeFrameFragment())
                 }
             }
@@ -248,8 +248,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
 
-
-
     // 본전공이 선택되어 있도록
     private fun setDefaultMajor() {
         mainViewModel.signData.observe(this) {
@@ -312,17 +310,32 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         val now = Calendar.getInstance()
 
-        if (!NadoSunBaeSharedPreference.getUserActive(this, now, ActiveUser.DAU)) {   // dau 없을 때 -> 등록
+        if (!NadoSunBaeSharedPreference.getUserActive(
+                this,
+                now,
+                ActiveUser.DAU
+            )
+        ) {   // dau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.DAU)
             FirebaseAnalyticsUtil.dau()
         }
 
-        if (!NadoSunBaeSharedPreference.getUserActive(this, now, ActiveUser.WAU)) {   // wau 없을 때 -> 등록
+        if (!NadoSunBaeSharedPreference.getUserActive(
+                this,
+                now,
+                ActiveUser.WAU
+            )
+        ) {   // wau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.WAU)
             FirebaseAnalyticsUtil.wau()
         }
 
-        if (!NadoSunBaeSharedPreference.getUserActive(this, now, ActiveUser.MAU)) {     // mau 없을 때 -> 등록
+        if (!NadoSunBaeSharedPreference.getUserActive(
+                this,
+                now,
+                ActiveUser.MAU
+            )
+        ) {     // mau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.MAU)
             FirebaseAnalyticsUtil.mau()
         }
