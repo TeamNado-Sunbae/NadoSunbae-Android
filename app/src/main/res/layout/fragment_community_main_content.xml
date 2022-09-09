@@ -16,7 +16,7 @@
         android:background="@color/background"
         tools:context=".presentation.ui.community.CommunityMainContentFragment">
 
-        <com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
+        <com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
             android:id="@+id/custom_switch_tab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

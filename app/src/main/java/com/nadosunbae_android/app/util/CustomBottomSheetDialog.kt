@@ -12,10 +12,8 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentCustomBottomSheetDialogBinding
-import com.nadosunbae_android.app.presentation.ui.community.CommunityMainContentFragment
 import com.nadosunbae_android.app.presentation.ui.sign.adapter.MajorSelectAdapter
 import com.nadosunbae_android.domain.model.main.SelectableData
-import timber.log.Timber
 
 
 class CustomBottomSheetDialog(

@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.presentation.ui.community.custom
+package com.nadosunbae_android.app.presentation.ui.custom
 
 import android.content.Context
 import android.util.AttributeSet
