@@ -4,6 +4,7 @@ import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSour
 import com.nadosunbae_android.data.datasource.remote.home.HomeDataSource
 import com.nadosunbae_android.data.datasource.remote.like.LikeDataSource
 import com.nadosunbae_android.data.datasource.remote.main.MainDataSource
+import com.nadosunbae_android.data.datasource.remote.major.MajorDataSource
 import com.nadosunbae_android.data.datasource.remote.mypage.MyPageDataSource
 import com.nadosunbae_android.data.datasource.remote.notification.NotificationDataSource
 import com.nadosunbae_android.data.datasource.remote.post.PostDataSource
@@ -13,11 +14,13 @@ import com.nadosunbae_android.data.repositoryimpl.classroom.ClassRoomRepositoryI
 import com.nadosunbae_android.data.repositoryimpl.home.HomeRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.like.LikeRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.main.MainRepositoryImpl
+import com.nadosunbae_android.data.repositoryimpl.major.MajorRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.mypage.MyPageRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.notification.NotificationRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.post.PostRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.review.ReviewRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.sign.SignRepositoryImpl
+import com.nadosunbae_android.domain.repository.major.MajorRepository
 import com.nadosunbae_android.domain.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.domain.repository.home.HomeRepository
 import com.nadosunbae_android.domain.repository.like.LikeRepository
@@ -35,27 +38,29 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule{
+object RepositoryModule {
 
     @Reusable
     @Provides
     fun classRoomRepository(
-        classRoomDataSource : ClassRoomDataSource
-    ) : ClassRoomRepository{
+        classRoomDataSource: ClassRoomDataSource
+    ): ClassRoomRepository {
         return ClassRoomRepositoryImpl(classRoomDataSource)
     }
+
     @Reusable
     @Provides
     fun likeRepository(
         likeDataSource: LikeDataSource
-    ) : LikeRepository{
+    ): LikeRepository {
         return LikeRepositoryImpl(likeDataSource)
     }
+
     @Reusable
     @Provides
     fun mainRepository(
         mainDataSource: MainDataSource
-    ) : MainRepository{
+    ): MainRepository {
         return MainRepositoryImpl(mainDataSource)
     }
 
@@ -63,15 +68,15 @@ object RepositoryModule{
     @Provides
     fun myPageRepository(
         myPageDataSource: MyPageDataSource
-    ) : MyPageRepository{
+    ): MyPageRepository {
         return MyPageRepositoryImpl(myPageDataSource)
     }
 
     @Reusable
     @Provides
     fun signRepository(
-        signDataSource : SignDataSource
-    ) : SignRepository{
+        signDataSource: SignDataSource
+    ): SignRepository {
         return SignRepositoryImpl(signDataSource)
     }
 
@@ -79,7 +84,7 @@ object RepositoryModule{
     @Provides
     fun notificationRepository(
         notificationDataSource: NotificationDataSource
-    ) : NotificationRepository{
+    ): NotificationRepository {
         return NotificationRepositoryImpl(notificationDataSource)
     }
 
@@ -87,7 +92,7 @@ object RepositoryModule{
     @Provides
     fun reviewRepository(
         reviewDataSource: ReviewDataSource
-    ) : ReviewRepository{
+    ): ReviewRepository {
         return ReviewRepositoryImpl(reviewDataSource)
     }
 
@@ -95,7 +100,7 @@ object RepositoryModule{
     @Provides
     fun homeRepository(
         homeDataSource: HomeDataSource
-    ) : HomeRepository {
+    ): HomeRepository {
         return HomeRepositoryImpl(homeDataSource)
     }
 
@@ -103,7 +108,15 @@ object RepositoryModule{
     @Provides
     fun postRepository(
         postDataSource: PostDataSource
-    ) : PostRepository{
+    ): PostRepository {
         return PostRepositoryImpl(postDataSource)
+    }
+
+    @Reusable
+    @Provides
+    fun majorRepository(
+        majorDataSource: MajorDataSource
+    ): MajorRepository {
+        return MajorRepositoryImpl(majorDataSource)
     }
 }

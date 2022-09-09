@@ -1,6 +1,5 @@
 package com.nadosunbae_android.app.presentation.ui.main.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +13,6 @@ import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.usecase.classroom.GetClassRoomMainDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorDataUseCase
-import com.nadosunbae_android.domain.usecase.main.GetMajorListDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetAppLinkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,9 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    val getClassRoomMainDataUseCase : GetClassRoomMainDataUseCase,
-    val getSeniorDataUseCase : GetSeniorDataUseCase,
-    val getMajorListDataUseCase: GetMajorListDataUseCase,
+    val getClassRoomMainDataUseCase: GetClassRoomMainDataUseCase,
+    val getSeniorDataUseCase: GetSeniorDataUseCase,
     val getAppLinkUseCase: GetAppLinkUseCase
 ) : ViewModel(), LoadableViewModel {
 
@@ -49,7 +46,7 @@ class MainViewModel @Inject constructor(
     var classRoomBackFragmentNum = MutableLiveData<Int>()
 
     //과방탭 1:1 선배 Id
-    var seniorId  = MutableLiveData<Int>()
+    var seniorId = MutableLiveData<Int>()
 
     //마이페이지탭 뒤로가기 전환
     var myPageFragmentNum = MutableLiveData<Int>()
@@ -65,14 +62,15 @@ class MainViewModel @Inject constructor(
 
     //과방탭 질문글 메인 조회
     private val _classRoomMain = MutableLiveData<List<ClassRoomData>>()
-    val classRoomMain : LiveData<List<ClassRoomData>>
+    val classRoomMain: LiveData<List<ClassRoomData>>
         get() = _classRoomMain
 
     //과방탭 정보글 등록된 정보글 없는 경우 (0 -> 없는 경우 1-> 있는 경우)
     var classRoomInfoEmpty = MutableLiveData<Int>(1)
 
     // 학과 목록
-    private val _majorList = MutableLiveData<List<com.nadosunbae_android.domain.model.main.MajorKeyData>>()
+    private val _majorList =
+        MutableLiveData<List<com.nadosunbae_android.domain.model.main.MajorKeyData>>()
     val majorList: LiveData<List<com.nadosunbae_android.domain.model.main.MajorKeyData>>
         get() = _majorList
 
@@ -96,7 +94,7 @@ class MainViewModel @Inject constructor(
 
     // 구성원 전체보기
     private val _seniorData = MutableLiveData<ClassRoomSeniorData>()
-    val seniorData : LiveData<ClassRoomSeniorData>
+    val seniorData: LiveData<ClassRoomSeniorData>
         get() = _seniorData
 
     // 본전공
@@ -126,41 +124,25 @@ class MainViewModel @Inject constructor(
     //var notificationClickNum = MutableLiveData<Int>()
 
 
-    // 학과 목록 데이터
-    fun getMajorList(universityId: Int, filter: String = "all") {
+    //과방 메인 데이터
+    fun getClassRoomMain(postTypeId: Int, majorId: Int, sort: String = "recent") {
         viewModelScope.launch {
-            runCatching { getMajorListDataUseCase(universityId, filter) }
+            runCatching { getClassRoomMainDataUseCase(postTypeId, majorId, sort) }
                 .onSuccess {
-                    _majorList.value = it
-                    Timber.d("MainRepository: 서버통신 성공")
+                    _classRoomMain.value = it
+                    Timber.d("classRoomMain: 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Timber.d("MainRepository: 서버통신 실패")
+                    Timber.d("classRoomMain: 서버 통신 실패")
+                }.also {
+                    onLoadingEnd.value = true
                 }
         }
     }
 
-
-    //과방 메인 데이터
-    fun getClassRoomMain(postTypeId : Int, majorId : Int, sort : String = "recent"){
-       viewModelScope.launch {
-           runCatching { getClassRoomMainDataUseCase(postTypeId, majorId, sort) }
-               .onSuccess {
-                   _classRoomMain.value = it
-                   Timber.d("classRoomMain: 서버 통신 성공")
-               }
-               .onFailure {
-                   it.printStackTrace()
-                   Timber.d("classRoomMain: 서버 통신 실패")
-               }.also {
-                   onLoadingEnd.value = true
-               }
-       }
-    }
-
     //과방 구성원 전체
-    fun getClassRoomSenior(majorId : Int){
+    fun getClassRoomSenior(majorId: Int) {
         viewModelScope.launch {
             runCatching { getSeniorDataUseCase(majorId) }
                 .onSuccess {
@@ -177,7 +159,7 @@ class MainViewModel @Inject constructor(
     }
 
     //링크 조회
-    fun getAppLink(){
+    fun getAppLink() {
         viewModelScope.launch {
             kotlin.runCatching { getAppLinkUseCase() }
                 .onSuccess {

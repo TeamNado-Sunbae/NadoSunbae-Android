@@ -8,9 +8,6 @@ import com.nadosunbae_android.domain.repository.main.MainRepository
 
 class MainRepositoryImpl(private val dataSource: MainDataSource) : MainRepository {
 
-    override suspend fun getMajorList(universityId: Int, filter: String): List<MajorKeyData> {
-        return MainMapper.mapperToMajorData(dataSource.getMajorList(universityId, filter))
-    }
 
     override suspend fun getMyPageAppLink(): AppLinkData {
         return MainMapper.mapperToLookUpLinkData(dataSource.getAppLink())

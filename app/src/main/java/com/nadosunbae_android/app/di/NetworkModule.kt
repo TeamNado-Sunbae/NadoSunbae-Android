@@ -4,6 +4,7 @@ import com.nadosunbae_android.data.api.classroom.ClassRoomService
 import com.nadosunbae_android.data.api.home.HomeService
 import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.main.MainService
+import com.nadosunbae_android.data.api.major.MajorService
 import com.nadosunbae_android.data.api.mypage.MyPageService
 import com.nadosunbae_android.data.api.notification.NotificationService
 import com.nadosunbae_android.data.api.post.PostService
@@ -71,5 +72,11 @@ object NetworkModule{
     @Provides
     fun postService(retrofit : Retrofit) : PostService{
         return retrofit.create(PostService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun majorService(retrofit : Retrofit) : MajorService{
+        return retrofit.create(MajorService::class.java)
     }
 }
