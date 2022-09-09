@@ -1,15 +1,21 @@
 package com.nadosunbae_android.data.api.post
 
+import com.nadosunbae_android.data.model.request.post.RequestPostWriteData
 import com.nadosunbae_android.data.model.response.Response
 import com.nadosunbae_android.data.model.response.post.ResponsePostData
 import com.nadosunbae_android.data.model.response.post.ResponsePostDetailData
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.nadosunbae_android.data.model.response.post.ResponsePostWriteData
+import retrofit2.http.*
 
 interface PostService {
+    //게시글 작성
+    @POST("post")
+    suspend fun postWrite(
+        @Body requestPostWriteData: RequestPostWriteData
+    ) : Response<ResponsePostWriteData>
 
-    //게시글 조회 (추후에 변경)
+
+    //게시글 조회
     @GET("post/university/{universityId}")
     suspend fun getPost(
         @Path("universityId") universityId: String,
