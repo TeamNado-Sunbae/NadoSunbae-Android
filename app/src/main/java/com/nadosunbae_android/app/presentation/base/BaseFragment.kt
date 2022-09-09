@@ -9,10 +9,14 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) : Fragment() {
@@ -38,7 +42,8 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
     }
     //데이터 넣기
     fun observeBottomSheet(viewModel: MainViewModel, majorBottomSheetDialog: CustomBottomSheetDialog) {
-        viewModel.majorList.observe(viewLifecycleOwner) {
+        viewModel.majorList.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach{
             val responseData = viewModel.majorList.value
             val dialogInput = mutableListOf<SelectableData>()
 
@@ -50,6 +55,7 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
 
             majorBottomSheetDialog.setDataList(dialogInput)
         }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
 

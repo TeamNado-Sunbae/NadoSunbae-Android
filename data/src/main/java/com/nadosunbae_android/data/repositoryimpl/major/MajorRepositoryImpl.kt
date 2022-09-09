@@ -26,6 +26,7 @@ class MajorRepositoryImpl @Inject constructor(
         if (majorData.isEmpty()) {
             val response = dataSource.getMajorList(universityId, filter, exclude)
             response.data.map { it.toEntity() }.let { data ->
+                emit(data)
                 dao.insert(
                     data.map {
                         MajorList(

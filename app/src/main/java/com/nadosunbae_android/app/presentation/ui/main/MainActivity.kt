@@ -42,6 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setDefaultMajor()
         getSignDataFromIntent()
         classRoomBack()
+        getMajorList()
         // clickBottomNav()
         myPageFragmentChange()
         myPageBack()
@@ -84,7 +85,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 )
         }
     }
+    //학과 리스트 가져오기
+    private fun getMajorList(){
+        mainViewModel.getMajorList("1","all","noMajor")
 
+    }
 
     //바텀네비
     private fun initBottomNav() {

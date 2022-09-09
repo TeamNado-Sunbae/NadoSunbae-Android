@@ -13,6 +13,6 @@ abstract class MajorListDaoImpl : MajorListDao {
     abstract override fun insert(items: List<MajorList>)
 
     @Query("SELECT * FROM MajorList")
-    abstract override suspend fun getItem(): List<MajorList>
+    abstract override fun getItem(): List<MajorList>
 
 }

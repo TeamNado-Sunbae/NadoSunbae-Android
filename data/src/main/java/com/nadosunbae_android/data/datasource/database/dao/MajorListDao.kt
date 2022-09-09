@@ -5,5 +5,5 @@ import com.nadosunbae_android.data.datasource.database.entity.MajorList
 interface MajorListDao {
     fun insert(items : List<MajorList>)
 
-    suspend fun getItem() : List<MajorList>
+    fun getItem() : List<MajorList>
 }

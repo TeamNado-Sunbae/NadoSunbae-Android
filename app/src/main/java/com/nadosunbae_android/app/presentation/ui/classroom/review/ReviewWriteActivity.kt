@@ -5,7 +5,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewWriteBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -18,6 +21,8 @@ import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.review.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class ReviewWriteActivity :
@@ -384,18 +389,19 @@ class ReviewWriteActivity :
     }
 
     private fun observeMajorList() {
-        mainViewModel.majorList.observe(this) {
-            val majorList: List<com.nadosunbae_android.domain.model.main.MajorKeyData>? =
-                mainViewModel.majorList.value
+        mainViewModel.majorList.flowWithLifecycle(lifecycle,Lifecycle.State.STARTED)
+            .onEach {
+                val majorList = it
+                // null check
+                if (majorList != null) {
+                    // 스피너에 적과용
 
-            // null check
-            if (majorList != null) {
-                // 스피너에 적용
-
+                }
             }
-
+            .launchIn(lifecycleScope)
         }
-    }
+
+
 
     private fun observeDropDownSelect() {
         reviewWriteViewModel.dropDownSelected.observe(this) {

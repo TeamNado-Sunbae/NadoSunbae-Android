@@ -156,7 +156,7 @@ class MainViewModel @Inject constructor(
                 }
                 .collectLatest {
                     _majorList.value = it
-                    Timber.d("학과 리스트 가져오기")
+                    Timber.d("학과 리스트 가져오기 성공 $it")
                 }
         }
     }
