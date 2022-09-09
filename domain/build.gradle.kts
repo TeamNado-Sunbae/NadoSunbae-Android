@@ -54,34 +54,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
 
-    // Gson
-    implementation(ThirdPartyDependencies.gson)
-
-// Okhttp
-    implementation(platform(ThirdPartyDependencies.okhttpBOM))
-    implementation(ThirdPartyDependencies.okhttp)
-    implementation(ThirdPartyDependencies.okhttpInterceptor)
-//Hilt
-    implementation("com.google.dagger:hilt-android:2.37")
-    kapt("com.google.dagger:hilt-android-compiler:2.37")
-// Retrofit
-    implementation(ThirdPartyDependencies.retrofit)
-    implementation(ThirdPartyDependencies.retrofitGsonConverter)
-    implementation("com.squareup.retrofit2:retrofit-converters:2.4.0")
-
-
     //annotation
     implementation("org.jetbrains:annotations:15.0")
     implementation("androidx.annotation:annotation:1.3.0")
-
-
-
-
-    //google
-
-    implementation("com.google.firebase:firebase-common-ktx:20.0.0")
-    implementation("com.google.firebase:firebase-analytics-ktx:20.0.2")
-    implementation("com.google.firebase:firebase-messaging-ktx:23.0.0")
 
 
     //coroutine
