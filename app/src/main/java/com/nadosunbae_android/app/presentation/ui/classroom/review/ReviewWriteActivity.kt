@@ -52,7 +52,6 @@ class ReviewWriteActivity :
         observeLoadingEnd()
         observeWriteFinish()
         loadBackgroundImage()
-        loadMajorList()
         setDropDownDefault()
     }
 
@@ -505,7 +504,6 @@ class ReviewWriteActivity :
         reviewWriteViewModel.setBackgroundImageList(imageList)
     }
 
-    private fun loadMajorList() = mainViewModel.getMajorList(1)
 
     inner class TextLengthWatcher : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

@@ -3,8 +3,9 @@ package com.nadosunbae_android.data.datasource.remote.major
 import com.nadosunbae_android.data.api.major.MajorService
 import com.nadosunbae_android.data.model.response.Response
 import com.nadosunbae_android.data.model.response.major.ResponseMajorListData
+import javax.inject.Inject
 
-class MajorDataSourceImpl(private val service : MajorService) : MajorDataSource {
+class MajorDataSourceImpl @Inject constructor(private val service: MajorService) : MajorDataSource {
 
     override suspend fun getMajorList(
         universityId: String,

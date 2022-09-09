@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.di
+package com.nadosunbae_android.data.module
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
 import com.nadosunbae_android.data.api.home.HomeService
@@ -42,82 +42,62 @@ object DataSourceModule {
 
     @Provides
     @Reusable
-    fun classRoomDataSource(
-        classRoomService: ClassRoomService
-    ) : ClassRoomDataSource{
-        return ClassRoomDataSourceImpl(classRoomService)
-    }
+    fun provideClassRoomDataSource(
+        dataSource : ClassRoomDataSourceImpl
+    ) : ClassRoomDataSource = dataSource
 
     @Provides
     @Reusable
-    fun likeDataSource(
-        likeService: LikeService
-    ) : LikeDataSource{
-        return LikeDataSourceImpl(likeService)
-    }
+    fun provideLikeDataSource(
+        dataSource : LikeDataSourceImpl
+    ) : LikeDataSource = dataSource
 
     @Provides
     @Reusable
-    fun mainDataSource(
-        mainService: MainService
-    ) : MainDataSource{
-        return MainDataSourceImpl(mainService)
-    }
+    fun provideMainDataSource(
+        dataSource : MainDataSourceImpl
+    ) : MainDataSource = dataSource
 
     @Provides
     @Reusable
-    fun myPageDataSource(
-        myPageService: MyPageService
-    ) : MyPageDataSource{
-        return MyPageDataSourceImpl(myPageService)
-    }
+    fun provideMyPageDataSource(
+        dataSource : MyPageDataSourceImpl
+    ) : MyPageDataSource = dataSource
 
     @Provides
     @Reusable
-    fun notificationDataSource(
-        notificationService: NotificationService
-    ) : NotificationDataSource{
-        return NotificationDataSourceImpl(notificationService)
-    }
+    fun provideNotificationDataSource(
+        dataSource : NotificationDataSourceImpl
+    ) : NotificationDataSource = dataSource
 
     @Provides
     @Reusable
-    fun reviewDataSource(
-        reviewService: ReviewService
-    ) : ReviewDataSource{
-        return ReviewDataSourceImpl(reviewService)
-    }
+    fun provideReviewDataSource(
+        dataSource : ReviewDataSourceImpl
+    ) : ReviewDataSource = dataSource
 
     @Provides
     @Reusable
-    fun signDataSource(
-        signService: SignService
-    ) : SignDataSource{
-        return SignDataSourceImpl(signService)
-    }
+    fun provideSignDataSource(
+        dataSource : SignDataSourceImpl
+    ) : SignDataSource = dataSource
 
     @Provides
     @Reusable
-    fun homeDataSource(
-        homeService: HomeService
-    ) : HomeDataSource{
-        return HomeDataSourceImpl(homeService)
-    }
+    fun provideHomeDataSource(
+        dataSource : HomeDataSourceImpl
+    ) : HomeDataSource = dataSource
 
 
     @Provides
     @Reusable
-    fun postDataSource(
-        postService: PostService
-    ) : PostDataSource{
-        return PostDataSourceImpl(postService)
-    }
+    fun providePostDataSource(
+        dataSource : PostDataSourceImpl
+    ) : PostDataSource = dataSource
 
     @Provides
     @Reusable
-    fun majorDataSource(
-        majorService : MajorService
-    ) : MajorDataSource{
-        return MajorDataSourceImpl(majorService)
-    }
+    fun provideMajorDataSource(
+        dataSource : MajorDataSourceImpl
+    ) : MajorDataSource = dataSource
 }

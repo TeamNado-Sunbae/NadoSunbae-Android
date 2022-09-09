@@ -39,7 +39,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         initBottomNav()
         classRoomFragmentChange()
-        initMajorList()
         setDefaultMajor()
         getSignDataFromIntent()
         classRoomBack()
@@ -244,10 +243,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
 
-    // 학과 목록 불러오기
-    private fun initMajorList() {
-        mainViewModel.getMajorList(1)
-    }
+
 
     // 본전공이 선택되어 있도록
     private fun setDefaultMajor() {

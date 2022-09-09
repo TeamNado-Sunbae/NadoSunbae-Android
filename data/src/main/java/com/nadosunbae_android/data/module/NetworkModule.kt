@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.di
+package com.nadosunbae_android.data.module
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
 import com.nadosunbae_android.data.api.home.HomeService
