@@ -1,6 +1,8 @@
 package com.nadosunbae_android.data.repositoryimpl.major
 
 import com.nadosunbae_android.data.datasource.database.dao.MajorListDao
+import com.nadosunbae_android.data.datasource.database.entity.MajorList
+import com.nadosunbae_android.data.datasource.database.entity.toEntity
 import com.nadosunbae_android.data.datasource.remote.major.MajorDataSource
 import com.nadosunbae_android.data.model.response.major.toEntity
 import com.nadosunbae_android.domain.model.major.MajorListData
@@ -20,8 +22,22 @@ class MajorRepositoryImpl @Inject constructor(
         filter: String,
         exclude: String
     ): Flow<List<MajorListData>> = flow {
-        emit(dataSource.getMajorList(universityId, filter, exclude)
-            .data
-            .map { it.toEntity() })
-    }.flowOn(Dispatchers.IO)
+        val majorData = dao.getItem()
+        if (majorData.isEmpty()) {
+            val response = dataSource.getMajorList(universityId, filter, exclude)
+            response.data.map { it.toEntity() }.let { data ->
+                dao.insert(
+                    data.map {
+                        MajorList(
+                            majorName = it.majorName,
+                            majorId = it.majorId
+                        )
+                    }
+                )
+            }
+        }
+
+        emit(majorData.map { it.toEntity() })
+
+}.flowOn(Dispatchers.IO)
 }

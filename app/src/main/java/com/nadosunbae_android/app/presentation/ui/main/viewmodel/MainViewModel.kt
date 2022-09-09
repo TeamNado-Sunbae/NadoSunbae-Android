@@ -10,17 +10,21 @@ import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import com.nadosunbae_android.domain.model.main.AppLinkData
 import com.nadosunbae_android.domain.model.main.MajorSelectData
+import com.nadosunbae_android.domain.model.major.MajorListData
 import com.nadosunbae_android.domain.model.sign.SignInData
+import com.nadosunbae_android.domain.repository.major.MajorRepository
 import com.nadosunbae_android.domain.usecase.classroom.GetClassRoomMainDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetAppLinkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+    private val majorRepository : MajorRepository,
     val getClassRoomMainDataUseCase: GetClassRoomMainDataUseCase,
     val getSeniorDataUseCase: GetSeniorDataUseCase,
     val getAppLinkUseCase: GetAppLinkUseCase
@@ -68,11 +72,6 @@ class MainViewModel @Inject constructor(
     //과방탭 정보글 등록된 정보글 없는 경우 (0 -> 없는 경우 1-> 있는 경우)
     var classRoomInfoEmpty = MutableLiveData<Int>(1)
 
-    // 학과 목록
-    private val _majorList =
-        MutableLiveData<List<com.nadosunbae_android.domain.model.main.MajorKeyData>>()
-    val majorList: LiveData<List<com.nadosunbae_android.domain.model.main.MajorKeyData>>
-        get() = _majorList
 
     //차단 구분( 1일때 원글 또는 답글)
     var divisionBlock = MutableLiveData<Int>()
@@ -123,6 +122,10 @@ class MainViewModel @Inject constructor(
     //알림 클릭 이벤트(1->후기, 2->과방, 3->알람, 4->마이페이지)
     //var notificationClickNum = MutableLiveData<Int>()
 
+    //학교별 학과 리스트 데이터
+    private var _majorList = MutableStateFlow(listOf(MajorListData.DEFAULT))
+    val majorList : StateFlow<List<MajorListData>>
+        get() = _majorList
 
     //과방 메인 데이터
     fun getClassRoomMain(postTypeId: Int, majorId: Int, sort: String = "recent") {
@@ -140,6 +143,24 @@ class MainViewModel @Inject constructor(
                 }
         }
     }
+    //TODO 회원가입시에 가져오기? 근데 회원가입 없는 기존에 사람들은? 이건 고민필요
+    //학과 리스트 가져오기
+    fun getMajorList(universityId : String, filter : String, exclude : String){
+        viewModelScope.launch {
+            majorRepository.getMajorList(universityId, filter, exclude)
+                .onStart {
+                    onLoadingEnd.value = false
+                }
+                .catch {
+                    Timber.d("학과 리스트 가져오기 실패")
+                }
+                .collectLatest {
+                    _majorList.value = it
+                    Timber.d("학과 리스트 가져오기")
+                }
+        }
+    }
+
 
     //과방 구성원 전체
     fun getClassRoomSenior(majorId: Int) {
