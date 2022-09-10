@@ -14,7 +14,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class PostRepositoryImpl @Inject constructor(private val dataSource: PostDataSource) : PostRepository {
+class PostRepositoryImpl @Inject constructor(
+    private val dataSource: PostDataSource) : PostRepository {
 
     override fun getPost(
         universityId: String,
@@ -36,6 +37,13 @@ class PostRepositoryImpl @Inject constructor(private val dataSource: PostDataSou
                 dataSource.getPostDetail(postId)
                     .data.toEntity()
             )
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun postWrite(postWriteParam: PostWriteParam): Flow<PostWriteData> {
+        return flow{
+            emit(dataSource.postWrite(postWriteParam.toEntity())
+                .data.toEntity())
         }.flowOn(Dispatchers.IO)
     }
 }

@@ -85,12 +85,12 @@ class CommunityMainContentFragment :
     private fun clickFilter() {
         val showDialog = {
             majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
-            majorBottomSheetDialog.setSelectedData(-2)
         }
         binding.clCommunityMainFilter.setOnClickListener { showDialog() }
         //완료버튼
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
+            //학과 필터에 들어가는 부분
             if (selectedData != null) {
                 communityViewModel.filterMajor.value = selectedData.name
                 binding.imgCommunityFilter.isSelected = true

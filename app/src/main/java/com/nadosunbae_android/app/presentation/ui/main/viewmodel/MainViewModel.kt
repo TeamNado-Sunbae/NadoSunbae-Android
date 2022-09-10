@@ -89,7 +89,7 @@ class MainViewModel @Inject constructor(
         get() = _selectedMajor
 
     // 필터
-    val filterData = MutableLiveData<FilterData>(FilterData(1, listOf(1, 2, 3, 4, 5)))
+    val filterData = MutableLiveData(FilterData(1, listOf(1, 2, 3, 4, 5)))
 
     // 구성원 전체보기
     private val _seniorData = MutableLiveData<ClassRoomSeniorData>()
