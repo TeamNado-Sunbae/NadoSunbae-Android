@@ -132,8 +132,8 @@ class CustomBottomSheetDialog(
         majorSelectAdapter.notifyDataSetChanged()
     }
 
-    fun getSelectedData(): SelectableData? {
-        return majorSelectAdapter.selectedData.value
+    fun getSelectedData(): SelectableData {
+        return majorSelectAdapter.selectedData.value ?: SelectableData.DEFAULT
     }
 
     //첫 선택된 데이터
