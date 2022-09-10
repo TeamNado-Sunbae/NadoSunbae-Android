@@ -8,8 +8,9 @@ import com.nadosunbae_android.data.mapper.classroom.SignMapper.mapperToSignNickn
 import com.nadosunbae_android.data.mapper.classroom.SignMapper.mapperToSignUp
 import com.nadosunbae_android.domain.model.sign.*
 import com.nadosunbae_android.domain.repository.sign.SignRepository
+import javax.inject.Inject
 
-class SignRepositoryImpl(private val signDataSource : SignDataSource) : SignRepository {
+class SignRepositoryImpl @Inject constructor(private val signDataSource : SignDataSource) : SignRepository {
 
     //닉네임 중복확인
     override suspend fun postSignNickname(nicknameDuplicationData: NicknameDuplicationData): NicknameDuplicationCheck {

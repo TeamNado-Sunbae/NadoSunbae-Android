@@ -5,8 +5,9 @@ import com.nadosunbae_android.data.mapper.mypage.MypageMapper
 import com.nadosunbae_android.domain.model.main.AppLinkData
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
+import javax.inject.Inject
 
-class MyPageRepositoryImpl(private val dataSource: MyPageDataSource) : MyPageRepository {
+class MyPageRepositoryImpl @Inject constructor(private val dataSource: MyPageDataSource) : MyPageRepository {
 
     override suspend fun getMyPageQuestion(userId: Int, sort: String) : MyPageQuestionData {
         return MypageMapper.mapperToQuestion(dataSource.getMyPageQuestion(userId, sort))

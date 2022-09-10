@@ -4,9 +4,10 @@ import com.nadosunbae_android.data.api.post.PostService
 import com.nadosunbae_android.data.model.response.Response
 import com.nadosunbae_android.data.model.response.post.ResponsePostData
 import com.nadosunbae_android.data.model.response.post.ResponsePostDetailData
+import javax.inject.Inject
 
 
-class PostDataSourceImpl(private val service : PostService) : PostDataSource {
+class PostDataSourceImpl @Inject constructor(private val service: PostService) : PostDataSource {
 
     override suspend fun getPost(
         universityId: String,

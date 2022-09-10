@@ -1,9 +1,10 @@
-package com.nadosunbae_android.app.di
+package com.nadosunbae_android.data.module
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
 import com.nadosunbae_android.data.api.home.HomeService
 import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.main.MainService
+import com.nadosunbae_android.data.api.major.MajorService
 import com.nadosunbae_android.data.api.mypage.MyPageService
 import com.nadosunbae_android.data.api.notification.NotificationService
 import com.nadosunbae_android.data.api.post.PostService
@@ -17,6 +18,8 @@ import com.nadosunbae_android.data.datasource.remote.like.LikeDataSource
 import com.nadosunbae_android.data.datasource.remote.like.LikeDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.main.MainDataSource
 import com.nadosunbae_android.data.datasource.remote.main.MainDataSourceImpl
+import com.nadosunbae_android.data.datasource.remote.major.MajorDataSource
+import com.nadosunbae_android.data.datasource.remote.major.MajorDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.mypage.MyPageDataSource
 import com.nadosunbae_android.data.datasource.remote.mypage.MyPageDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.notification.NotificationDataSource
@@ -39,74 +42,62 @@ object DataSourceModule {
 
     @Provides
     @Reusable
-    fun classRoomDataSource(
-        classRoomService: ClassRoomService
-    ) : ClassRoomDataSource{
-        return ClassRoomDataSourceImpl(classRoomService)
-    }
+    fun provideClassRoomDataSource(
+        dataSource : ClassRoomDataSourceImpl
+    ) : ClassRoomDataSource = dataSource
 
     @Provides
     @Reusable
-    fun likeDataSource(
-        likeService: LikeService
-    ) : LikeDataSource{
-        return LikeDataSourceImpl(likeService)
-    }
+    fun provideLikeDataSource(
+        dataSource : LikeDataSourceImpl
+    ) : LikeDataSource = dataSource
 
     @Provides
     @Reusable
-    fun mainDataSource(
-        mainService: MainService
-    ) : MainDataSource{
-        return MainDataSourceImpl(mainService)
-    }
+    fun provideMainDataSource(
+        dataSource : MainDataSourceImpl
+    ) : MainDataSource = dataSource
 
     @Provides
     @Reusable
-    fun myPageDataSource(
-        myPageService: MyPageService
-    ) : MyPageDataSource{
-        return MyPageDataSourceImpl(myPageService)
-    }
+    fun provideMyPageDataSource(
+        dataSource : MyPageDataSourceImpl
+    ) : MyPageDataSource = dataSource
 
     @Provides
     @Reusable
-    fun notificationDataSource(
-        notificationService: NotificationService
-    ) : NotificationDataSource{
-        return NotificationDataSourceImpl(notificationService)
-    }
+    fun provideNotificationDataSource(
+        dataSource : NotificationDataSourceImpl
+    ) : NotificationDataSource = dataSource
 
     @Provides
     @Reusable
-    fun reviewDataSource(
-        reviewService: ReviewService
-    ) : ReviewDataSource{
-        return ReviewDataSourceImpl(reviewService)
-    }
+    fun provideReviewDataSource(
+        dataSource : ReviewDataSourceImpl
+    ) : ReviewDataSource = dataSource
 
     @Provides
     @Reusable
-    fun signDataSource(
-        signService: SignService
-    ) : SignDataSource{
-        return SignDataSourceImpl(signService)
-    }
+    fun provideSignDataSource(
+        dataSource : SignDataSourceImpl
+    ) : SignDataSource = dataSource
 
     @Provides
     @Reusable
-    fun homeDataSource(
-        homeService: HomeService
-    ) : HomeDataSource{
-        return HomeDataSourceImpl(homeService)
-    }
+    fun provideHomeDataSource(
+        dataSource : HomeDataSourceImpl
+    ) : HomeDataSource = dataSource
 
 
     @Provides
     @Reusable
-    fun postDataSource(
-        postService: PostService
-    ) : PostDataSource{
-        return PostDataSourceImpl(postService)
-    }
+    fun providePostDataSource(
+        dataSource : PostDataSourceImpl
+    ) : PostDataSource = dataSource
+
+    @Provides
+    @Reusable
+    fun provideMajorDataSource(
+        dataSource : MajorDataSourceImpl
+    ) : MajorDataSource = dataSource
 }

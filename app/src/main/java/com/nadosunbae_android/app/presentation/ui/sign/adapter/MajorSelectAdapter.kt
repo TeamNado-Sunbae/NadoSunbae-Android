@@ -15,7 +15,6 @@ import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.setTextSemiBold
 
 class MajorSelectAdapter(
-    var link: CustomBottomSheetDialog.DataToFragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var dataList = mutableListOf<SelectableData>()
     private var mSelectedPos: Int = -1

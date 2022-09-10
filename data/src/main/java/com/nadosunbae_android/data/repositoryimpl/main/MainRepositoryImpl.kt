@@ -5,12 +5,10 @@ import com.nadosunbae_android.data.mapper.main.MainMapper
 import com.nadosunbae_android.domain.model.main.AppLinkData
 import com.nadosunbae_android.domain.model.main.MajorKeyData
 import com.nadosunbae_android.domain.repository.main.MainRepository
+import javax.inject.Inject
 
-class MainRepositoryImpl(private val dataSource: MainDataSource) : MainRepository {
+class MainRepositoryImpl @Inject constructor(private val dataSource: MainDataSource) : MainRepository {
 
-    override suspend fun getMajorList(universityId: Int, filter: String): List<MajorKeyData> {
-        return MainMapper.mapperToMajorData(dataSource.getMajorList(universityId, filter))
-    }
 
     override suspend fun getMyPageAppLink(): AppLinkData {
         return MainMapper.mapperToLookUpLinkData(dataSource.getAppLink())
