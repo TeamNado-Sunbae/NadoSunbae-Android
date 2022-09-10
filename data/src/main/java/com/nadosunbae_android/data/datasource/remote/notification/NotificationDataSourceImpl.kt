@@ -4,8 +4,10 @@ import com.nadosunbae_android.data.api.notification.NotificationService
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationDeleteData
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationListData
 import com.nadosunbae_android.data.model.response.notification.ResponseNotificationReadData
+import javax.inject.Inject
 
-class NotificationDataSourceImpl(private val service : NotificationService) : NotificationDataSource {
+class NotificationDataSourceImpl @Inject constructor(private val service: NotificationService) :
+    NotificationDataSource {
     override suspend fun getNotification(receiverId: Int): ResponseNotificationListData {
         return service.getNotification(receiverId)
     }

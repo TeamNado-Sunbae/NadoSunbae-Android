@@ -32,10 +32,9 @@ class CustomBottomSheetDialog(
     private var majorSelectAdapter: MajorSelectAdapter
     private lateinit var _binding: FragmentCustomBottomSheetDialogBinding
     val binding get() = _binding!!
-    var link = DataToFragment()
 
     init {
-        majorSelectAdapter = MajorSelectAdapter(link)
+        majorSelectAdapter = MajorSelectAdapter()
     }
 
     override fun onCreateView(

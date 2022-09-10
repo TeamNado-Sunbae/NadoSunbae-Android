@@ -7,9 +7,11 @@ import com.nadosunbae_android.data.model.response.post.ResponsePostData
 import com.nadosunbae_android.data.model.response.post.ResponsePostDetailData
 import com.nadosunbae_android.data.model.response.post.ResponsePostWriteData
 import com.nadosunbae_android.domain.model.post.PostWriteData
+import javax.inject.Inject
 
 
-class PostDataSourceImpl(private val service : PostService) : PostDataSource {
+
+class PostDataSourceImpl @Inject constructor(private val service: PostService) : PostDataSource {
 
     override suspend fun postWrite(requestPostWriteData: RequestPostWriteData): Response<ResponsePostWriteData> {
         return service.postWrite(requestPostWriteData)

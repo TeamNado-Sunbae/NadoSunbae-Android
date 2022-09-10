@@ -12,15 +12,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
-class PostRepositoryImpl(private val dataSource: PostDataSource) : PostRepository {
-    override fun postWrite(postWriteParam: PostWriteParam): Flow<PostWriteData> = flow {
-        emit(
-            dataSource.postWrite(
-                postWriteParam.toEntity()
-            ).data.toEntity()
-        )
-    }.flowOn(Dispatchers.IO)
+class PostRepositoryImpl @Inject constructor(private val dataSource: PostDataSource) : PostRepository {
 
     override fun getPost(
         universityId: String,

@@ -6,8 +6,10 @@ import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
 import com.nadosunbae_android.data.model.request.mypage.RequestQuit
 import com.nadosunbae_android.data.model.request.mypage.RequestResetPassword
 import com.nadosunbae_android.data.model.response.mypage.*
+import javax.inject.Inject
 
-class MyPageDataSourceImpl(private val service : MyPageService) : MyPageDataSource {
+class MyPageDataSourceImpl @Inject constructor(private val service: MyPageService) :
+    MyPageDataSource {
 
 
     override suspend fun getMyPageQuestion(userId: Int, sort: String): ResponseMypageQuestionData {
