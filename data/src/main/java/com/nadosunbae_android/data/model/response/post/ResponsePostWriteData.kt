@@ -1,6 +1,7 @@
 package com.nadosunbae_android.data.model.response.post
 
 import com.nadosunbae_android.domain.model.post.PostWriteData
+import java.util.*
 
 data class ResponsePostWriteData(
     val post: Post,
@@ -9,7 +10,7 @@ data class ResponsePostWriteData(
     data class Post(
         val answererId: Int,
         val content: String,
-        val createdAt: String,
+        val createdAt: Date?,
         val id: Int,
         val majorId: Int,
         val title: String,

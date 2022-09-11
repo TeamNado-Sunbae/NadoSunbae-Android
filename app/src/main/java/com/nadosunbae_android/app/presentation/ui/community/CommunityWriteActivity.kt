@@ -9,6 +9,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityCommunityWriteBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteViewModel
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.data.datasource.database.entity.MajorList
@@ -37,6 +38,7 @@ class CommunityWriteActivity :
         activateCompleteButton()
         clickComplete()
         communityWriteViewModel.setCompleteButton()
+        Timber.d("sign ${MainGlobals.signInData?.userId}")
     }
 
 
@@ -111,7 +113,11 @@ class CommunityWriteActivity :
     //완료 버튼
     private fun clickComplete() {
         binding.btnCommunityWriteOk.setOnClickListener {
-
+            communityWriteViewModel.postWrite(
+                type = {checkCategory()},
+                title = communityWriteViewModel.writeTitle.value,
+                content = communityWriteViewModel.writeContent.value
+            )
         }
     }
 }
