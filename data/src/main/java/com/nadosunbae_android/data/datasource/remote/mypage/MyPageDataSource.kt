@@ -14,8 +14,6 @@ interface MyPageDataSource {
 
     suspend fun putMyPageModify(requestMyPageModify: RequestMyPageModify): ResponseMyPageModify
 
-    suspend fun getMyPagePost(type: String = "question") : ResponseMyPagePostData
-
     suspend fun getMyPageReply(postTypeId: Int) : ResponseMyPageReplyData
 
     suspend fun getMyPageVersion() : ResponseMyPageVersionData

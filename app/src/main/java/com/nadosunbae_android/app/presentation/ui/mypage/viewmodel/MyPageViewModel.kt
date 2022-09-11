@@ -26,7 +26,6 @@ class MyPageViewModel @Inject constructor(
     val getMyPageMyInfoUseCase: GetMyPageMyInfoUseCase,
     val getMyPageQuestionUseCase: GetMyPageQuestionUseCase,
     val putMyPageModifyUseCase: PutMyPageModifyUseCase,
-    val getMyPagePostUseCase: GetMyPagePostUseCase,
     val getMyPageReplyUseCase: GetMyPageReplyUseCase,
     val getMyPageVersionUseCase: GetMyPageVersionUseCase,
     val postMyPageLogOutUseCase : PostMyPageLogOutUseCase,
@@ -59,7 +58,6 @@ class MyPageViewModel @Inject constructor(
     val personalQuestion = MutableLiveData<MyPageQuestionData>()
     val personalInfo = MutableLiveData<MyPageMyInfo>()
     val modifyInfo = MutableLiveData<MyPageModifyData>()
-    val postByMe = MutableLiveData<MyPagePostData>()
     val replyByMe = MutableLiveData<MyPageReplyData>()
     val versionInfo = MutableLiveData<MyPageVersionData>()
     val logOut: MutableLiveData<MyPageLogOutData> = MutableLiveData()
@@ -223,25 +221,6 @@ class MyPageViewModel @Inject constructor(
                 .also {
                     onLoadingEnd.value = true
                 }
-        }
-    }
-
-    //마이페이지 내가 쓴 글
-    fun getMyPagePost(type: String) {
-        viewModelScope.launch {
-            kotlin.runCatching { getMyPagePostUseCase(type) }
-                .onSuccess {
-                    postByMe.value = it
-                    Timber.d("mypagePost : 서버 통신 성공")
-                }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("mypagePost : 서버 통신 실패")
-                }
-                .also {
-                    onLoadingEnd.value = true
-                }
-
         }
     }
 

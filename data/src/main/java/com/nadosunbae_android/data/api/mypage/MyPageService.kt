@@ -27,11 +27,6 @@ interface MyPageService {
         @Body requestMyPageModify: RequestMyPageModify
     ) : ResponseMyPageModify
 
-    //내가 쓴 글
-    @GET("user/mypage/classroom-post/list")
-    suspend fun getPostByMe(
-        @Query("type") type: String = "question"
-    ) : ResponseMyPagePostData
 
     //내가 쓴 답글
     @GET("user/mypage/comment/list/{postTypeId}")

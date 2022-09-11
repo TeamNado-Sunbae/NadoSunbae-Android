@@ -90,29 +90,6 @@ object MypageMapper {
         )
     }
 
-    //내가 쓴 글
-    fun mapperToPost(responseMyPagePostData: ResponseMyPagePostData): MyPagePostData {
-        return MyPagePostData(
-            data = MyPagePostData.Data(
-                classroomPostList = responseMyPagePostData.data.classroomPostList.map {
-                    MyPagePostData.Data.ClassroomPost(
-                        commentCount = it.commentCount,
-                        content = it.content,
-                        createdAt = it.createdAt,
-                        like = MyPagePostData.Data.ClassroomPost.Like(
-                            isLiked = it.like.isLiked,
-                            likeCount = it.like.likeCount
-                        ),
-                        majorName = it.majorName,
-                        postId = it.postId,
-                        title = it.title,
-                        postTypeId = it.postTypeId
-                    )
-                }
-            ),
-            success = responseMyPagePostData.success
-        )
-    }
 
     //내가 쓴 답글
     fun mapperToReply(responseMyPageReplyData: ResponseMyPageReplyData): MyPageReplyData {
