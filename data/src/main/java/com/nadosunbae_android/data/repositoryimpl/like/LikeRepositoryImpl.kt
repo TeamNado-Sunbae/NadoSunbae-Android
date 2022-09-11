@@ -5,8 +5,9 @@ import com.nadosunbae_android.data.mapper.like.LikeMapper
 import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.repository.like.LikeRepository
+import javax.inject.Inject
 
-class LikeRepositoryImpl(
+class LikeRepositoryImpl @Inject constructor(
     private val dataSource: LikeDataSource
 ) : LikeRepository {
 

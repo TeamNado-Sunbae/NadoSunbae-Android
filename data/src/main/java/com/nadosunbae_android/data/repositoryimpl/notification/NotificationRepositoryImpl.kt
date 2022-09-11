@@ -6,8 +6,9 @@ import com.nadosunbae_android.domain.model.notification.NotificationDeleteData
 import com.nadosunbae_android.domain.model.notification.NotificationListData
 import com.nadosunbae_android.domain.model.notification.NotificationReadData
 import com.nadosunbae_android.domain.repository.notification.NotificationRepository
+import javax.inject.Inject
 
-class NotificationRepositoryImpl(private val dataSource : NotificationDataSource) : NotificationRepository {
+class NotificationRepositoryImpl @Inject constructor(private val dataSource : NotificationDataSource) : NotificationRepository {
     override suspend fun getNotification(receiverId: Int): List<NotificationListData> {
         return NotificationMapper.mapperToNotificationListData(dataSource.getNotification(receiverId))
     }

@@ -5,8 +5,9 @@ import com.nadosunbae_android.data.model.request.classroom.*
 import com.nadosunbae_android.data.model.response.classroom.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class ClassRoomDataSourceImpl(private val service : ClassRoomService) : ClassRoomDataSource {
+class ClassRoomDataSourceImpl @Inject constructor(private val service : ClassRoomService) : ClassRoomDataSource {
     override suspend fun getClassRoomMain(
         postTypeId: Int,
         majorId: Int,

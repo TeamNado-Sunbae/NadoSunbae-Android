@@ -14,11 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".presentation.ui.community.CommunitySearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.community.CommunityWriteActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.ui.onboarding.OnBoardingActivity"
             android:exported="true" />
-
         <activity
             android:name=".presentation.ui.main.SplashActivity"
             android:exported="true">
@@ -28,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <activity
             android:name=".presentation.ui.mypage.ChangePwFinishActivity"
@@ -42,7 +45,7 @@
             android:label="@string/title_activity_senior_personal"
             android:theme="@style/Theme.NadoSunbaeAndroid.NoActionBar" />
         <activity
-            android:name=".presentation.ui.classroom.InformationDetailActivity"
+            android:name=".presentation.ui.community.CommunityDetailActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.classroom.QuestionDetailActivity"
@@ -107,6 +110,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name=".MainActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

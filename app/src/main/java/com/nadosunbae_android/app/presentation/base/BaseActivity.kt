@@ -7,6 +7,9 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
@@ -15,6 +18,8 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 abstract class BaseActivity<T : ViewDataBinding>(
     @LayoutRes private val layoutResId: Int
@@ -38,19 +43,22 @@ abstract class BaseActivity<T : ViewDataBinding>(
     }
 
     fun observeBottomSheet(viewModel: MainViewModel, majorBottomSheetDialog: CustomBottomSheetDialog) {
-        viewModel.majorList.observe(this) {
-            val responseData = viewModel.majorList.value
-            val dialogInput = mutableListOf<SelectableData>()
+        viewModel.majorList.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .onEach {
+                val responseData = viewModel.majorList.value
+                val dialogInput = mutableListOf<SelectableData>()
 
-            // null check
-            if (responseData != null) {
-                for (d in responseData)
-                    dialogInput.add(SelectableData(d.majorId, d.majorName, false))
+                // null check
+                if (responseData != null) {
+                    for (d in responseData)
+                        dialogInput.add(SelectableData(d.majorId, d.majorName, false))
+                }
+
+                majorBottomSheetDialog.setDataList(dialogInput)
             }
-
-            majorBottomSheetDialog.setDataList(dialogInput)
+            .launchIn(lifecycleScope)
         }
-    }
+
 
     protected fun showLoading() {
         dismissLoading()

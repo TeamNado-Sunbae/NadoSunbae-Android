@@ -7,7 +7,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.databinding.FragmentNotificationBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
-import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
+import com.nadosunbae_android.app.presentation.ui.community.CommunityDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
@@ -137,7 +137,7 @@ class NotificationFragment :
                         MainGlobals.signInData!!.isReviewInappropriate,
                         MainGlobals.signInData?.message.toString(),
                         behavior = {
-                            val intent = Intent(requireActivity(), InformationDetailActivity::class.java)
+                            val intent = Intent(requireActivity(), CommunityDetailActivity::class.java)
                             intent.apply {
                                 putExtra("postId", postId)
                                 putExtra("userId", userId)
