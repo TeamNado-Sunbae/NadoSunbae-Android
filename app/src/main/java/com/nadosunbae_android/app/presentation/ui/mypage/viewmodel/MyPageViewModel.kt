@@ -10,6 +10,8 @@ import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInData
+import com.nadosunbae_android.domain.model.user.UserPostData
+import com.nadosunbae_android.domain.repository.user.UserRepository
 import com.nadosunbae_android.domain.usecase.mypage.*
 import com.nadosunbae_android.domain.usecase.review.GetMajorInfoDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,7 +37,8 @@ class MyPageViewModel @Inject constructor(
     val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase,
     val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase,
     val deleteMyPageQuitUseCase: DeleteMyPageQuitUseCase,
-    val getMajorInfoDataUseCase: GetMajorInfoDataUseCase
+    val getMajorInfoDataUseCase: GetMajorInfoDataUseCase,
+    private val userRepository: UserRepository
 
     ) : ViewModel(), LoadableViewModel {
 
@@ -67,7 +70,6 @@ class MyPageViewModel @Inject constructor(
     val blockUpdate = MutableLiveData<MyPageBlockUpdateData>()
     val resetPassword : MutableLiveData<MyPageResetPasswordData> = MutableLiveData()
    //val quitInfo : MutableLiveData<MyPageQuitData> = MutableLiveData()
-
 
     //아이템 position
     var itemPosition = MutableLiveData<Int>()
@@ -102,6 +104,30 @@ class MyPageViewModel @Inject constructor(
 
     //토스트
     var reportStatusInfo = MutableLiveData<Int>()
+
+    private val _userPost = MutableLiveData<List<UserPostData>>()
+    val userPost : LiveData<List<UserPostData>>
+    get() = _userPost
+
+
+    //마이페이지 내가 쓴 글 조회
+    fun getMyPost(filter : String) {
+        viewModelScope.launch {
+            kotlin.runCatching { userRepository.getUserPost(filter) }
+                .onSuccess {
+                    _userPost.value = it
+                    Timber.d("내가 쓴 글 조회 : 서버통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Timber.d("내가 쓴 글 조회 : 서버통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
+                }
+        }
+
+    }
 
     //마이페이지 버전정보
     fun getMyPageVersion() {

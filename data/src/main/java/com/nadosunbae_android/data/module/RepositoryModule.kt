@@ -10,6 +10,7 @@ import com.nadosunbae_android.data.repositoryimpl.notification.NotificationRepos
 import com.nadosunbae_android.data.repositoryimpl.post.PostRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.review.ReviewRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.sign.SignRepositoryImpl
+import com.nadosunbae_android.data.repositoryimpl.user.UserRepositoryImpl
 import com.nadosunbae_android.domain.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.domain.repository.home.HomeRepository
 import com.nadosunbae_android.domain.repository.like.LikeRepository
@@ -20,9 +21,10 @@ import com.nadosunbae_android.domain.repository.notification.NotificationReposit
 import com.nadosunbae_android.domain.repository.post.PostRepository
 import com.nadosunbae_android.domain.repository.review.ReviewRepository
 import com.nadosunbae_android.domain.repository.sign.SignRepository
-import dagger.Module
+import com.nadosunbae_android.domain.repository.user.UserRepository
 import dagger.Provides
 import dagger.Reusable
+import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
@@ -89,4 +91,10 @@ object RepositoryModule {
     fun provideMajorRepository(
         repository: MajorRepositoryImpl
     ): MajorRepository = repository
+
+    @Reusable
+    @Provides
+    fun provideUserRepository(
+        repository: UserRepositoryImpl
+    ): UserRepository = repository
 }
