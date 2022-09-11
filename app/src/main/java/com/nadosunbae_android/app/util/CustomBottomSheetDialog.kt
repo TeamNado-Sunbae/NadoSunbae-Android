@@ -132,6 +132,7 @@ class CustomBottomSheetDialog(
         majorSelectAdapter.notifyDataSetChanged()
     }
 
+    //바텀 시트 선택 데이터
     fun getSelectedData(): SelectableData {
         return majorSelectAdapter.selectedData.value ?: SelectableData.DEFAULT
     }

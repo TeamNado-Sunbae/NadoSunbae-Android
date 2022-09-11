@@ -117,7 +117,7 @@ class MajorSelectAdapter(
     }
 
 
-    fun getSelectedData(): SelectableData {
+    private fun getSelectedData(): SelectableData {
         if (mSelectedPos != NOT_SELECTED)
             return dataList[mSelectedPos]
         return SelectableData(-1, "", false)

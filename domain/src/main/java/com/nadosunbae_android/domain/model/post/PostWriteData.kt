@@ -18,9 +18,15 @@ data class PostWriteData(
 )
 
 data class PostWriteParam(
-    val type : String,
-    val majorId : String?,
-    val answerId : String,
-    val title : String,
-    val content : String
-)
+    var type : String,
+    var majorId : String?,
+    var answerId : String,
+    var title : String,
+    var content : String
+){
+    companion object{
+        val DEFAULT = PostWriteParam(
+            "general","","","",""
+        )
+    }
+}

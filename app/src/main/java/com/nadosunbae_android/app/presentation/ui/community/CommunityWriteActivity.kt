@@ -13,7 +13,10 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.data.datasource.database.entity.MajorList
 import com.nadosunbae_android.domain.model.major.MajorListData
+import com.nadosunbae_android.domain.model.post.PostWriteParam
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.layout_category_check_box.view.*
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
@@ -30,11 +33,16 @@ class CommunityWriteActivity :
         clickMajor()
         clickCancelButton()
         completeMajor()
+        checkCategory()
+        activateCompleteButton()
+        clickComplete()
+        communityWriteViewModel.setCompleteButton()
     }
 
 
     //학과 변경 세팅
     private fun initBottomSheetDialog() {
+        binding.communityWriteViewModel = communityWriteViewModel
         communityWriteViewModel.setMajorList(
             intent.getParcelableArrayListExtra<MajorListData>("majorList") as List<MajorListData>
         )
@@ -45,22 +53,23 @@ class CommunityWriteActivity :
         observeBottomSheet(
             communityWriteViewModel.majorList.value ?: emptyList(), majorBottomSheetDialog
         )
-
         //학과 무관 선택
         majorBottomSheetDialog.setSelectedData(-2)
         binding.layoutCommunityWriteCategory.radioBtnCategoryFreedom.isChecked = true
     }
 
     //학과 변경 클릭
-    private fun clickMajor(){
+    private fun clickMajor() {
         val showDialog = {
             majorBottomSheetDialog.show(supportFragmentManager, majorBottomSheetDialog.tag)
         }
-        binding.layoutCommunityWriteMajor.root.setOnClickListener { showDialog() }
+        binding.layoutCommunityWriteMajor.root.setOnClickListener {
+            showDialog()
+        }
     }
 
     //학과 변경 완료
-    private fun completeMajor(){
+    private fun completeMajor() {
         majorBottomSheetDialog.setCompleteListener {
             communityWriteViewModel.setFilter(majorBottomSheetDialog.getSelectedData())
         }
@@ -71,10 +80,38 @@ class CommunityWriteActivity :
             .launchIn(lifecycleScope)
     }
 
+    //카테 고리
+    private fun checkCategory(): String {
+        with(binding.layoutCommunityWriteCategory) {
+            return when (radioGroupCategory.checkedRadioButtonId) {
+                radioBtnCategoryFreedom.id -> "general"
+                radioBtnCategoryQuestion.id -> "questionToEveryone"
+                else -> "information"
+            }
+        }
+    }
+
     // 취소 버튼
-    private fun clickCancelButton(){
+    private fun clickCancelButton() {
         binding.imgCommunityWriteCancel.setOnClickListener {
             finish()
+        }
+    }
+
+    //완료 버튼 활성화
+    private fun activateCompleteButton() {
+        communityWriteViewModel.completeButton.flowWithLifecycle(lifecycle)
+            .onEach {
+                binding.btnCommunityWriteOk.isEnabled = it
+            }.launchIn(lifecycleScope)
+    }
+
+
+
+    //완료 버튼
+    private fun clickComplete() {
+        binding.btnCommunityWriteOk.setOnClickListener {
+
         }
     }
 }

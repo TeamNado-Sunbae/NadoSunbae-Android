@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="communityWriteViewModel"
+            type="com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -134,6 +137,9 @@
                     android:backgroundTint="@color/gray_0"
                     android:fontFamily="@font/pretendard_semibold"
                     android:hint="@string/question_write_hint"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@={communityWriteViewModel.writeTitle}"
                     android:paddingBottom="15dp"
                     android:textColorHint="@color/gray_2"
                     android:textSize="24sp"
@@ -150,6 +156,7 @@
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
                     android:gravity="top"
+                    android:text="@={communityWriteViewModel.writeContent}"
                     android:hint="@string/category_write_content_hint"
                     android:lineHeight="22sp"
                     android:paddingHorizontal="16dp"
