@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
+import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.ClassRoomMainContentViewModel
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.mypage.*
@@ -400,6 +401,22 @@ class MyPageViewModel @Inject constructor(
     fun editFinish() {
         _editFinish.value = true
 
+    }
+
+
+    val postCurFragment: MutableLiveData<Int>
+        get() = MyPageViewModel.postCurFragment
+
+    val applyCurFragment: MutableLiveData<Int>
+        get() = MyPageViewModel.applyCurFragment
+
+    val likeCurFragment: MutableLiveData<Int>
+        get() = MyPageViewModel.likeCurFragment
+
+    companion object {
+        val postCurFragment = MutableLiveData(-1)
+        val applyCurFragment = MutableLiveData(-1)
+        val likeCurFragment = MutableLiveData(-1)
     }
 }
 

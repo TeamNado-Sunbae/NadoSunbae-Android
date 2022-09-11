@@ -3,11 +3,10 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.core.content.res.ResourcesCompat
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageReplyBinding
-import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
@@ -27,9 +26,9 @@ class MyPageReplyActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observeLoadingEnd()
-        initBtn()
         backBtn()
-        selectOption()
+        initSwitchTab()
+        observeFragmentNum()
     }
 
     private fun observeLoadingEnd() {
@@ -45,22 +44,45 @@ class MyPageReplyActivity :
         }
     }
 
+    private fun initSwitchTab() {
 
-    private fun initBtn() {
-        binding.apply {
-            showLoading()
-            questionPosting()
-            textMypageReplyQuestionTitle.isSelected = true
-            textMypageReplyInfoTitle.isSelected = false
-
-            //폰트 설정
-            textMypageReplyQuestionTitle.typeface =
-                ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-            textMypageReplyInfoTitle.typeface =
-                ResourcesCompat.getFont(context(), R.font.pretendard_regular)
+        with(binding.viewMypageSwitch) {
+            switchTab =
+                com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
+                    0
+                )
+            switchText = listOf(
+                getString(com.nadosunbae_android.app.R.string.question_detail_title), getString(
+                    com.nadosunbae_android.app.R.string.navigation_community
+                )
+            )
+            itemClickListener = {
+                if (it != myPageViewModel.applyCurFragment.value && !(it == 0 && myPageViewModel.applyCurFragment.value == -1)) {
+                    switchTab =
+                        com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
+                            it
+                        )
+                    myPageViewModel.applyCurFragment.postValue(it)
+                }
+            }
         }
-
     }
+
+    private fun observeFragmentNum() {
+        myPageViewModel.applyCurFragment.observe(this) {
+            when (it) {
+                0 -> {
+                    //1:1질문 서버통신
+                }
+                1 -> {
+                    //커뮤니티 서버통신
+                }
+            }
+            binding.viewMypageSwitch.switchTab = CustomSwitchTab.getSwitchTabValue(it)
+        }
+    }
+
+
 
     //질문 엠티뷰
     private fun initQuestionEmpty(size: Int) {
@@ -84,36 +106,6 @@ class MyPageReplyActivity :
         }
     }
 
-    private fun selectOption() {
-        binding.apply {
-            textMypageReplyQuestionTitle.setOnClickListener {
-                showLoading()
-                questionPosting()
-                textMypageReplyQuestionTitle.isSelected = true
-                textMypageReplyInfoTitle.isSelected = false
-
-                //폰트 설정
-                textMypageReplyQuestionTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-                textMypageReplyInfoTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-            }
-
-            textMypageReplyInfoTitle.setOnClickListener {
-                showLoading()
-                infoPosting()
-                textMypageReplyQuestionTitle.isSelected = false
-                textMypageReplyInfoTitle.isSelected = true
-
-                //폰트 설정
-                textMypageReplyQuestionTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-                textMypageReplyInfoTitle.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-            }
-
-        }
-    }
 
     private fun questionPosting() {
         showLoading()
@@ -129,12 +121,14 @@ class MyPageReplyActivity :
     }
 
     override fun onRestart() {
+        /*
         super.onRestart()
         if (binding.textMypageReplyQuestionTitle.isSelected) {
             questionPosting()
         } else {
             infoPosting()
         }
+         */
     }
 
     private fun infoPosting() {
