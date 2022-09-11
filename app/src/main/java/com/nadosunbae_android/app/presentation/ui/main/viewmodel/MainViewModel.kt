@@ -89,7 +89,7 @@ class MainViewModel @Inject constructor(
         get() = _selectedMajor
 
     // 필터
-    val filterData = MutableLiveData<FilterData>(FilterData(1, listOf(1, 2, 3, 4, 5)))
+    val filterData = MutableLiveData(FilterData(1, listOf(1, 2, 3, 4, 5)))
 
     // 구성원 전체보기
     private val _seniorData = MutableLiveData<ClassRoomSeniorData>()
@@ -157,7 +157,6 @@ class MainViewModel @Inject constructor(
                 }
                 .collectLatest {
                     _majorList.value = it
-                    Timber.d("학과 리스트 가져오기 성공 $it")
                 }
         }
     }

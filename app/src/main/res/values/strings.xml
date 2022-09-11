@@ -483,6 +483,8 @@
     <string name="community_no_search">검색 결과가 없습니다.</string>
     <string name="write">글쓰기</string>
     <string name="community_bottom_sheet_title">특정 학과 글 불러오기</string>
+    <string name="community_write_bottom_sheet_title">글을 올릴 학과를 선택해보세요.</string>
+    <string name="no_major">학과 무관</string>
     
     <!-- 과방 탭 이름 -->
     <string name="classroom_review_tab">후기</string>

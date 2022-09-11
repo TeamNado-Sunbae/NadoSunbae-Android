@@ -24,7 +24,6 @@ import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_sign_up_agreement.*
 import timber.log.Timber
 
 @AndroidEntryPoint

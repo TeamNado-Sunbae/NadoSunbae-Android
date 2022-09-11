@@ -14,9 +14,12 @@ import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMai
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
+import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
+import java.io.Serializable
 
 @AndroidEntryPoint
 class CommunityMainContentFragment :
@@ -85,12 +88,12 @@ class CommunityMainContentFragment :
     private fun clickFilter() {
         val showDialog = {
             majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
-            majorBottomSheetDialog.setSelectedData(-2)
         }
         binding.clCommunityMainFilter.setOnClickListener { showDialog() }
         //완료버튼
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
+            //학과 필터에 들어가는 부분
             if (selectedData != null) {
                 communityViewModel.filterMajor.value = selectedData.name
                 binding.imgCommunityFilter.isSelected = true
@@ -106,7 +109,9 @@ class CommunityMainContentFragment :
     //커뮤니티 글 작성 이동
     private fun goCommunityWrite() {
         binding.btnCommunityWrite.setOnClickListener {
+            val majorList = mainViewModel.majorList.value
             val intent = Intent(requireActivity(), CommunityWriteActivity::class.java)
+            intent.putExtra("majorList", majorList as ArrayList<MajorListData>)
             startActivity(intent)
         }
     }

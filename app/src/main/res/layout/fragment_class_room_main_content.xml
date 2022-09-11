@@ -79,7 +79,7 @@
                     android:background="@color/gray_background"
                     app:layout_constraintTop_toBottomOf="@+id/iv_major_graphic">
 
-                    <com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
+                    <com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
                         android:id="@+id/view_classroom_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
