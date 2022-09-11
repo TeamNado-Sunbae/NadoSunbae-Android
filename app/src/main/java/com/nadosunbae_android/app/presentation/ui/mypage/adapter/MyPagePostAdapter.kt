@@ -11,10 +11,11 @@ import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.mypage.MyPagePostData
+import com.nadosunbae_android.domain.model.user.UserPostData
 
 class MyPagePostAdapter(private val num: Int, private val userId: Int, private val myPageNum : Int) :
     RecyclerView.Adapter<MyPagePostAdapter.MyPagePostViewHolder>() {
-    var myPagePostData = mutableListOf<MyPagePostData.Data.ClassroomPost>()
+    var myPagePostData = mutableListOf<UserPostData>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -46,7 +47,7 @@ class MyPagePostAdapter(private val num: Int, private val userId: Int, private v
                         putExtra("myPageNum", myPageNum)
                         putExtra("userId", userId)
                         putExtra("postId", myPagePostData[position].postId)
-                        putExtra("postTypeId", myPagePostData[position].postTypeId)
+                        putExtra("postTypeId", myPagePostData[position].postId)
                         putExtra("all", num)
                     }
                     ContextCompat.startActivity(holder.itemView.context, intent, null)
@@ -59,7 +60,7 @@ class MyPagePostAdapter(private val num: Int, private val userId: Int, private v
     inner class MyPagePostViewHolder(
         val binding: ItemMypagePostByMeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(myPagePostData: MyPagePostData.Data.ClassroomPost) {
+        fun onBind(myPagePostData: UserPostData) {
             binding.apply {
                 myPagePost = myPagePostData
                 executePendingBindings()
@@ -67,7 +68,7 @@ class MyPagePostAdapter(private val num: Int, private val userId: Int, private v
         }
     }
 
-    fun setQuestionPost(myPagePostData: MutableList<MyPagePostData.Data.ClassroomPost>) {
+    fun setQuestionPost(myPagePostData: MutableList<UserPostData>) {
         this.myPagePostData = myPagePostData
         notifyDataSetChanged()
 
