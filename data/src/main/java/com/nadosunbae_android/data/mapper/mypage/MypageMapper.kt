@@ -5,6 +5,7 @@ import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
 import com.nadosunbae_android.data.model.request.mypage.RequestQuit
 import com.nadosunbae_android.data.model.request.mypage.RequestResetPassword
 import com.nadosunbae_android.data.model.response.mypage.*
+import com.nadosunbae_android.data.model.response.user.ResponseUserInfo
 import com.nadosunbae_android.domain.model.mypage.*
 
 
@@ -38,26 +39,6 @@ object MypageMapper {
             success = responseMypageQuestionData.success
         )
 
-    }
-
-    // 내 정보
-    fun mapperToMyInfo(responseMypageMyInfo: ResponseMypageMyInfo): MyPageMyInfo {
-        return MyPageMyInfo(
-            data = MyPageMyInfo.Data(
-                bio = responseMypageMyInfo.data.bio,
-                count = responseMypageMyInfo.data.count,
-                firstMajorName = responseMypageMyInfo.data.firstMajorName,
-                firstMajorStart = responseMypageMyInfo.data.firstMajorStart,
-                isOnQuestion = responseMypageMyInfo.data.isOnQuestion,
-                nickname = responseMypageMyInfo.data.nickname,
-                profileImageId = responseMypageMyInfo.data.profileImageId,
-                responseRate = responseMypageMyInfo.data.responseRate,
-                secondMajorName = responseMypageMyInfo.data.secondMajorName,
-                secondMajorStart = responseMypageMyInfo.data.secondMajorStart,
-                userId = responseMypageMyInfo.data.userId
-            ),
-            success = responseMypageMyInfo.success
-        )
     }
 
     // 내 정보 수정

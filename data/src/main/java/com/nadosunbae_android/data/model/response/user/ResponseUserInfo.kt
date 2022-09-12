@@ -1,6 +1,6 @@
-package com.nadosunbae_android.data.model.response.mypage
+package com.nadosunbae_android.data.model.response.user
 
-data class ResponseMypageMyInfo(
+data class ResponseUserInfo(
     val data: Data,
     val message: String,
     val status: Int,
@@ -14,7 +14,7 @@ data class ResponseMypageMyInfo(
         val isOnQuestion: Boolean,
         val nickname: String,
         val profileImageId: Int?,
-        val responseRate: Any?,
+        val responseRate: Int?,
         val secondMajorName: String,
         val secondMajorStart: String,
         val userId: Int

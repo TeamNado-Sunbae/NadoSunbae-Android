@@ -10,8 +10,6 @@ interface MyPageDataSource {
 
     suspend fun getMyPageQuestion(userId: Int, sort: String = "recent") : ResponseMypageQuestionData
 
-    suspend fun getMyPageMyInfo(userId: Int) : ResponseMypageMyInfo
-
     suspend fun putMyPageModify(requestMyPageModify: RequestMyPageModify): ResponseMyPageModify
 
     suspend fun getMyPageReply(postTypeId: Int) : ResponseMyPageReplyData

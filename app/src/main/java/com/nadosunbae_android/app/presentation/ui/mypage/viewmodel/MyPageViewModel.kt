@@ -10,6 +10,7 @@ import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInData
+import com.nadosunbae_android.domain.model.user.UserInfoData
 import com.nadosunbae_android.domain.model.user.UserPostData
 import com.nadosunbae_android.domain.repository.user.UserRepository
 import com.nadosunbae_android.domain.usecase.mypage.*
@@ -23,7 +24,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    val getMyPageMyInfoUseCase: GetMyPageMyInfoUseCase,
     val getMyPageQuestionUseCase: GetMyPageQuestionUseCase,
     val putMyPageModifyUseCase: PutMyPageModifyUseCase,
     val getMyPageReplyUseCase: GetMyPageReplyUseCase,
@@ -55,8 +55,11 @@ class MyPageViewModel @Inject constructor(
     //유저 아이디
     var userId = MutableLiveData<Int>()
 
+    private val _personalInfo = MutableLiveData<UserInfoData>()
+    val personalInfo : LiveData<UserInfoData>
+    get() = _personalInfo
+
     val personalQuestion = MutableLiveData<MyPageQuestionData>()
-    val personalInfo = MutableLiveData<MyPageMyInfo>()
     val modifyInfo = MutableLiveData<MyPageModifyData>()
     val replyByMe = MutableLiveData<MyPageReplyData>()
     val versionInfo = MutableLiveData<MyPageVersionData>()
@@ -72,8 +75,8 @@ class MyPageViewModel @Inject constructor(
     //아이템 position
     var itemPosition = MutableLiveData<Int>()
 
-    private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
-    val myPagePersonal : LiveData<MyPageMyInfo>
+    private var _myPagePersonal = MutableLiveData<UserInfoData>()
+    val myPagePersonal : LiveData<UserInfoData>
     get() = _myPagePersonal
 
     private var _status = MutableLiveData<Int?>()
@@ -246,9 +249,9 @@ class MyPageViewModel @Inject constructor(
     //마이페이지 개인 정보 서버통신
     fun getPersonalInfo(userId: Int){
         viewModelScope.launch {
-            kotlin.runCatching { getMyPageMyInfoUseCase(userId) }
+            kotlin.runCatching { userRepository.getUserInfo(userId) }
                 .onSuccess {
-                    personalInfo.value = it
+                    _personalInfo.value = it
                     Timber.d("myPageInfo : 서버 통신 완료")
                 }
                 .onFailure {
