@@ -16,4 +16,8 @@ class UserRepositoryImpl @Inject constructor(private val userDataSource: UserDat
         return UserMapper.mapperToMyInfo(userDataSource.getUserInfo(userId))
     }
 
+    override suspend fun getUserComment(filter: String): List<UserPostData> {
+        return UserMapper.mapperToUserPostData(userDataSource.getUserComment(filter))
+    }
+
 }

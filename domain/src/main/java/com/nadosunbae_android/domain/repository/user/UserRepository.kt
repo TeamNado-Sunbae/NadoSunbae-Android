@@ -7,4 +7,6 @@ interface UserRepository {
     suspend fun getUserPost(filter : String): List<UserPostData>
 
     suspend fun getUserInfo(userId : Int) : UserInfoData
+
+    suspend fun getUserComment(filter : String) : List<UserPostData>
 }

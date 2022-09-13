@@ -7,4 +7,6 @@ interface UserDataSource {
     suspend fun getUserPost(filter : String) : ResponseUserPost
 
     suspend fun getUserInfo(userId : Int) : ResponseUserInfo
+
+    suspend fun getUserComment(filter : String) : ResponseUserPost
 }

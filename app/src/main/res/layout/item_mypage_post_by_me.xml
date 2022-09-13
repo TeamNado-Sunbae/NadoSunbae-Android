@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,15 +13,28 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="12dp"
-        android:paddingBottom="12dp"
         android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp">
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/text_question_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@{MyPagePost.type}"
+            android:textColor="@color/main_default"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="자유" />
 
         <TextView
             android:id="@+id/text_question_all_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
             android:maxLines="1"
@@ -29,8 +42,8 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="title"/>
+            app:layout_constraintTop_toBottomOf="@id/text_question_type"
+            tools:text="title" />
 
         <TextView
             android:id="@+id/text_question_all_content"
@@ -45,7 +58,7 @@
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/text_question_all_title"
             app:layout_constraintTop_toBottomOf="@+id/text_question_all_title"
-            tools:text="contents"/>
+            tools:text="contents" />
 
         <TextView
             android:id="@+id/text_question_all_nickname"
@@ -59,7 +72,7 @@
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_question_all_content"
-            tools:text="학과명"/>
+            tools:text="학과명" />
 
         <TextView
             android:id="@+id/text_question_all_time"
@@ -97,39 +110,39 @@
             app:layout_constraintBottom_toBottomOf="@+id/img_question_all_comment"
             app:layout_constraintStart_toEndOf="@+id/img_question_all_comment"
             app:layout_constraintTop_toTopOf="@+id/img_question_all_comment"
-            tools:text="1"/>
+            tools:text="1" />
 
         <ImageView
             android:id="@+id/img_question_all_like"
+            likeCheck="@{MyPagePost.liked}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            likeCheck="@{MyPagePost.liked}"
             android:background="@drawable/selector_heart_gray_mint"
             app:layout_constraintStart_toEndOf="@+id/text_question_all_comment"
             app:layout_constraintTop_toTopOf="@+id/img_question_all_comment" />
 
         <TextView
             android:id="@+id/text_question_all_like"
+            intToText="@{MyPagePost.likeCount}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"
-            intToText="@{MyPagePost.likeCount}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_question_all_like"
             app:layout_constraintStart_toEndOf="@+id/img_question_all_like"
             app:layout_constraintTop_toTopOf="@+id/img_question_all_like"
-            tools:text="1"/>
+            tools:text="1" />
 
         <View
             android:id="@+id/line_question_all"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:layout_marginTop="11dp"
             android:background="@color/gray_0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_question_all_like"
-            android:layout_marginTop="11dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_question_all_like" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

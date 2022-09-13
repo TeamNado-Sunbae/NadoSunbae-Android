@@ -16,4 +16,9 @@ interface UserService {
     suspend fun getUserInfo(
         @Path("userId") userId: Int
     ): ResponseUserInfo
+
+    @GET("user/comment")
+    suspend fun getMyComment(
+        @Query("filter") filter: String
+    ): ResponseUserPost
 }

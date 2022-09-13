@@ -14,5 +14,9 @@ class UserDataSourceImpl @Inject constructor(private val service: UserService) :
         return service.getUserInfo(userId)
     }
 
+    override suspend fun getUserComment(filter: String): ResponseUserPost {
+        return service.getMyComment(filter)
+    }
+
 
 }

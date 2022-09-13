@@ -110,6 +110,10 @@ class MyPageViewModel @Inject constructor(
     val userPost : LiveData<List<UserPostData>>
     get() = _userPost
 
+    private val _userComment = MutableLiveData<List<UserPostData>>()
+    val userComment : LiveData<List<UserPostData>>
+    get() = _userComment
+
 
     //마이페이지 내가 쓴 글 조회
     fun getMyPost(filter : String) {
@@ -127,7 +131,6 @@ class MyPageViewModel @Inject constructor(
                     onLoadingEnd.value = true
                 }
         }
-
     }
 
     //마이페이지 버전정보
@@ -228,16 +231,16 @@ class MyPageViewModel @Inject constructor(
     }
 
     //마이페이지 내가 쓴 답글
-    fun getMyPageReply(postTypeId: Int) {
+    fun getMyPageReply(filter : String) {
         viewModelScope.launch {
-            kotlin.runCatching { getMyPageReplyUseCase(postTypeId) }
+            kotlin.runCatching { userRepository.getUserComment(filter) }
                 .onSuccess {
-                    replyByMe.value = it
-                    Timber.d("mypageReply : 서버 통신 성공")
+                    _userComment.value = it
+                    Timber.d("userComment : 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Timber.d("mypageReply : 서버 통신 실패")
+                    Timber.d("userComment : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
