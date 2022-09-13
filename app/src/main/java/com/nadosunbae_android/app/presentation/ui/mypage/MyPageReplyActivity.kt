@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageReplyBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
+import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
@@ -48,7 +48,7 @@ class MyPageReplyActivity :
 
         with(binding.viewMypageSwitch) {
             switchTab =
-                com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
+                CustomSwitchTab.getSwitchTabValue(
                     0
                 )
             switchText = listOf(
@@ -59,7 +59,7 @@ class MyPageReplyActivity :
             itemClickListener = {
                 if (it != myPageViewModel.applyCurFragment.value && !(it == 0 && myPageViewModel.applyCurFragment.value == -1)) {
                     switchTab =
-                        com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
+                        CustomSwitchTab.getSwitchTabValue(
                             it
                         )
                     myPageViewModel.applyCurFragment.postValue(it)

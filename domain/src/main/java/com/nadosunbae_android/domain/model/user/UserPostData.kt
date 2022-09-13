@@ -6,20 +6,12 @@ data class UserPostData(
     val commentCount: Int,
     val content: String,
     val createdAt: Date,
-    val like: Like,
+    val isLiked: Boolean,
+    val likeCount: Int,
     val majorName: String,
     val postId: Int,
     val title: String,
     val type: String?,
-    val writer: Writer
-) {
-    data class Like(
-        val isLiked: Boolean,
-        val likeCount: Int
-    )
-
-    data class Writer(
-        val id: Int,
-        val nickname: String
-    )
-}
+    val writerId: Int,
+    val nickname: String
+)

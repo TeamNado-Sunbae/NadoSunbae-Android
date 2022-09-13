@@ -12,18 +12,14 @@ object UserMapper {
                 commentCount = it.commentCount,
                 content = it.content,
                 createdAt = it.createdAt,
-                like = UserPostData.Like(
-                    isLiked = it.like.isLiked,
-                    likeCount = it.like.likeCount
-                ),
+                isLiked = it.like.isLiked,
+                likeCount = it.like.likeCount,
                 majorName = it.majorName,
                 postId = it.postId,
                 title = it.title,
                 type = it.type,
-                writer = UserPostData.Writer(
-                    id = it.writer.id,
-                    nickname = it.writer.nickname
-                )
+                writerId = it.writer.id,
+                nickname = it.writer.nickname
             )
         }
     }
