@@ -10,6 +10,9 @@ import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInData
+import com.nadosunbae_android.domain.model.user.UserInfoData
+import com.nadosunbae_android.domain.model.user.UserPostData
+import com.nadosunbae_android.domain.repository.user.UserRepository
 import com.nadosunbae_android.domain.usecase.mypage.*
 import com.nadosunbae_android.domain.usecase.review.GetMajorInfoDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,10 +24,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    val getMyPageMyInfoUseCase: GetMyPageMyInfoUseCase,
     val getMyPageQuestionUseCase: GetMyPageQuestionUseCase,
     val putMyPageModifyUseCase: PutMyPageModifyUseCase,
-    val getMyPagePostUseCase: GetMyPagePostUseCase,
     val getMyPageReplyUseCase: GetMyPageReplyUseCase,
     val getMyPageVersionUseCase: GetMyPageVersionUseCase,
     val postMyPageLogOutUseCase : PostMyPageLogOutUseCase,
@@ -35,7 +36,8 @@ class MyPageViewModel @Inject constructor(
     val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase,
     val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase,
     val deleteMyPageQuitUseCase: DeleteMyPageQuitUseCase,
-    val getMajorInfoDataUseCase: GetMajorInfoDataUseCase
+    val getMajorInfoDataUseCase: GetMajorInfoDataUseCase,
+    private val userRepository: UserRepository
 
     ) : ViewModel(), LoadableViewModel {
 
@@ -53,10 +55,12 @@ class MyPageViewModel @Inject constructor(
     //유저 아이디
     var userId = MutableLiveData<Int>()
 
+    private val _personalInfo = MutableLiveData<UserInfoData>()
+    val personalInfo : LiveData<UserInfoData>
+    get() = _personalInfo
+
     val personalQuestion = MutableLiveData<MyPageQuestionData>()
-    val personalInfo = MutableLiveData<MyPageMyInfo>()
     val modifyInfo = MutableLiveData<MyPageModifyData>()
-    val postByMe = MutableLiveData<MyPagePostData>()
     val replyByMe = MutableLiveData<MyPageReplyData>()
     val versionInfo = MutableLiveData<MyPageVersionData>()
     val logOut: MutableLiveData<MyPageLogOutData> = MutableLiveData()
@@ -68,12 +72,11 @@ class MyPageViewModel @Inject constructor(
     val resetPassword : MutableLiveData<MyPageResetPasswordData> = MutableLiveData()
    //val quitInfo : MutableLiveData<MyPageQuitData> = MutableLiveData()
 
-
     //아이템 position
     var itemPosition = MutableLiveData<Int>()
 
-    private var _myPagePersonal = MutableLiveData<MyPageMyInfo>()
-    val myPagePersonal : LiveData<MyPageMyInfo>
+    private var _myPagePersonal = MutableLiveData<UserInfoData>()
+    val myPagePersonal : LiveData<UserInfoData>
     get() = _myPagePersonal
 
     private var _status = MutableLiveData<Int?>()
@@ -102,6 +105,30 @@ class MyPageViewModel @Inject constructor(
 
     //토스트
     var reportStatusInfo = MutableLiveData<Int>()
+
+    private val _userPost = MutableLiveData<List<UserPostData>>()
+    val userPost : LiveData<List<UserPostData>>
+    get() = _userPost
+
+
+    //마이페이지 내가 쓴 글 조회
+    fun getMyPost(filter : String) {
+        viewModelScope.launch {
+            kotlin.runCatching { userRepository.getUserPost(filter) }
+                .onSuccess {
+                    _userPost.value = it
+                    Timber.d("내가 쓴 글 조회 : 서버통신 성공")
+                }
+                .onFailure {
+                    it.printStackTrace()
+                    Timber.d("내가 쓴 글 조회 : 서버통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
+                }
+        }
+
+    }
 
     //마이페이지 버전정보
     fun getMyPageVersion() {
@@ -200,25 +227,6 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    //마이페이지 내가 쓴 글
-    fun getMyPagePost(type: String) {
-        viewModelScope.launch {
-            kotlin.runCatching { getMyPagePostUseCase(type) }
-                .onSuccess {
-                    postByMe.value = it
-                    Timber.d("mypagePost : 서버 통신 성공")
-                }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("mypagePost : 서버 통신 실패")
-                }
-                .also {
-                    onLoadingEnd.value = true
-                }
-
-        }
-    }
-
     //마이페이지 내가 쓴 답글
     fun getMyPageReply(postTypeId: Int) {
         viewModelScope.launch {
@@ -241,9 +249,9 @@ class MyPageViewModel @Inject constructor(
     //마이페이지 개인 정보 서버통신
     fun getPersonalInfo(userId: Int){
         viewModelScope.launch {
-            kotlin.runCatching { getMyPageMyInfoUseCase(userId) }
+            kotlin.runCatching { userRepository.getUserInfo(userId) }
                 .onSuccess {
-                    personalInfo.value = it
+                    _personalInfo.value = it
                     Timber.d("myPageInfo : 서버 통신 완료")
                 }
                 .onFailure {

@@ -4,17 +4,12 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.core.content.res.ResourcesCompat
-import androidx.navigation.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPagePostBinding
-import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
-import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.domain.model.mypage.MyPagePostData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,12 +17,12 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
     private val myPageViewModel: MyPageViewModel by viewModels()
 
-    private lateinit var myPagePostAdapter: MyPagePostAdapter
     private lateinit var myPagePostInfoAdapter: MyPagePostInfoAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        questionPosting()
         observeLoadingEnd()
         backBtn()
         initSwitchTab()
@@ -99,9 +94,11 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
             when (it) {
                 0 -> {
                     //1:1질문 서버통신
+                    questionPosting()
                 }
                 1 -> {
                     //커뮤니티 서버통신
+                    infoPosting()
                 }
             }
             binding.viewMypageSwitch.switchTab = CustomSwitchTab.getSwitchTabValue(it)
@@ -112,13 +109,13 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
     private fun questionPosting() {
         showLoading()
         intent.getIntExtra("userId", 0)
-        myPageViewModel.getMyPagePost("question")
-        myPagePostAdapter = MyPagePostAdapter(2, intent.getIntExtra("userId", 0), 1)
-        binding.rvMypageQuestion.adapter = myPagePostAdapter
+        myPageViewModel.getMyPost("questionToPerson")
+        myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
+        binding.rvMypageQuestion.adapter = myPagePostInfoAdapter
 
-        myPageViewModel.postByMe.observe(this) {
-            initQuestionEmpty(it.data.classroomPostList.size)
-            myPagePostAdapter.setQuestionPost((it.data.classroomPostList) as MutableList<MyPagePostData.Data.ClassroomPost>)
+        myPageViewModel.userPost.observe(this) {
+            initQuestionEmpty(it.size)
+            (binding.rvMypageQuestion.adapter as MyPagePostInfoAdapter).submitList(it)
         }
     }
 
@@ -139,13 +136,13 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
     private fun infoPosting() {
         showLoading()
         intent.getIntExtra("userId", 0)
-        myPageViewModel.getMyPagePost("information")
+        myPageViewModel.getMyPost("community")
         myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
         binding.rvMypageQuestion.adapter = myPagePostInfoAdapter
 
-        myPageViewModel.postByMe.observe(this) {
-            initInfoEmpty(it.data.classroomPostList.size)
-            myPagePostInfoAdapter.setQuestionPost((it.data.classroomPostList) as MutableList<MyPagePostData.Data.ClassroomPost>)
+        myPageViewModel.userPost.observe(this) {
+            initInfoEmpty(it.size)
+            (binding.rvMypageQuestion.adapter as MyPagePostInfoAdapter).submitList(it)
         }
     }
 

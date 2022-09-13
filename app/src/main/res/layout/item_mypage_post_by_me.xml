@@ -7,7 +7,7 @@
 
         <variable
             name="MyPagePost"
-            type="com.nadosunbae_android.domain.model.mypage.MyPagePostData.Data.ClassroomPost" />
+            type="com.nadosunbae_android.domain.model.user.UserPostData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

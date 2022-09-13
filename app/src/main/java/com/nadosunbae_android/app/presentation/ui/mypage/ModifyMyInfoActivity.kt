@@ -76,7 +76,7 @@ class ModifyMyInfoActivity :
     override fun onResume() {
         super.onResume()
         initWriteMode()
-//        completeModifyInfo()
+        //completeModifyInfo()
     }
 
     //기존 데이터 불러오기
@@ -94,11 +94,11 @@ class ModifyMyInfoActivity :
             binding.myPageInfo = it
             Timber.d("서버통신 : 성공")
 
-            signViewModel.firstMajor.value = it.data.firstMajorName
-            signViewModel.secondMajor.value = it.data.secondMajorName
+            signViewModel.firstMajor.value = it.firstMajorName
+            signViewModel.secondMajor.value = it.secondMajorName
 
             binding.apply {
-                if (it.data.secondMajorName == "미진입") {
+                if (it.secondMajorName == "미진입") {
                     binding.textMyPageMajorinfoDoubleMajorTime.setText("미진입")
                     textMyPageMajorinfoDoubleMajorMintTime.isEnabled = false
                     textMyPageMajorinfoDoubleMajorTime.text = "미진입"
@@ -343,7 +343,7 @@ class ModifyMyInfoActivity :
                     imm.hideSoftInputFromWindow(binding.etMyPageNickname.windowToken, 0)
 
                     binding.textMyPageNicknameChange.isVisible = true
-                    if (binding.etMyPageNickname.text.toString() != myPageViewModel.personalInfo.value?.data?.nickname) {
+                    if (binding.etMyPageNickname.text.toString() != myPageViewModel.personalInfo.value?.nickname) {
                         signUpBasicInfoViewModel.nickNameDuplication(NicknameDuplicationData(binding.etMyPageNickname.text.toString()))
                     } else {
                         binding.textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
@@ -489,7 +489,9 @@ class ModifyMyInfoActivity :
     private fun completeModifyInfo() {
         with(binding) {
             val requestBody = MyPageModifyItem(
+                1,
                 etMyPageNickname.text.toString(),
+                etMyPageIntroduction.text.toString(),
                 (
                         if (firstDepartmentBottomSheetDialog.getSelectedData()?.id == null) {
                             ReviewGlobals.firstMajor!!.majorId

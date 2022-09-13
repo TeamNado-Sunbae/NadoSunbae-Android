@@ -6,7 +6,7 @@
     <data>
         <variable
             name="myPageInfo"
-            type="com.nadosunbae_android.domain.model.mypage.MyPageMyInfo" />
+            type="com.nadosunbae_android.domain.model.user.UserInfoData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,7 +88,7 @@
 
                 <ImageView
                     android:id="@+id/img_my_page_modify_main"
-                    profileImgBig="@{myPageInfo.data.profileImageId}"
+                    profileImgBig="@{myPageInfo.profileImageId}"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:layout_marginTop="22dp"
@@ -111,7 +111,6 @@
                     android:text="@string/mypage_modify_change_img"
                     android:textColor="@color/gray_4"
                     android:textSize="12sp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/img_my_page_modify_main"
                     app:layout_constraintStart_toStartOf="@+id/img_my_page_modify_main"
                     app:layout_constraintTop_toBottomOf="@+id/img_my_page_modify_main" />
@@ -171,7 +170,7 @@
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
                         android:singleLine="true"
-                        android:text="@{myPageInfo.Data.nickname}"
+                        android:text="@{myPageInfo.nickname}"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -264,6 +263,7 @@
                     android:gravity="top"
                     android:hint="@string/mypage_modify_introduction_hint"
                     android:lines="2"
+                    android:text="@{myPageInfo.bio}"
                     android:maxLength="40"
                     android:paddingVertical="16dp"
                     android:paddingStart="12dp"
@@ -304,7 +304,7 @@
 
                 <ImageView
                     android:id="@+id/img_my_page_modify_switch"
-                    questionCheck="@{myPageInfo.data.isOnQuestion}"
+                    questionCheck="@{myPageInfo.isOnQuestion}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
@@ -362,7 +362,7 @@
                         android:paddingLeft="16dp"
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
-                        android:text="@{myPageInfo.Data.firstMajorName}"
+                        android:text="@{myPageInfo.firstMajorName}"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -419,7 +419,7 @@
                         android:paddingLeft="16dp"
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
-                        android:text="@{myPageInfo.Data.firstMajorStart}"
+                        android:text="@{myPageInfo.firstMajorStart}"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -477,7 +477,7 @@
                         android:paddingLeft="16dp"
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
-                        android:text="@{myPageInfo.Data.secondMajorName}"
+                        android:text="@{myPageInfo.secondMajorName}"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -536,7 +536,7 @@
                         android:paddingLeft="16dp"
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
-                        android:text="@{myPageInfo.Data.secondMajorStart}"
+                        android:text="@{myPageInfo.secondMajorStart}"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"

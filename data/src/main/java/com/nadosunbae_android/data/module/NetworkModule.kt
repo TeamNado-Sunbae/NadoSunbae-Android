@@ -10,6 +10,7 @@ import com.nadosunbae_android.data.api.notification.NotificationService
 import com.nadosunbae_android.data.api.post.PostService
 import com.nadosunbae_android.data.api.review.ReviewService
 import com.nadosunbae_android.data.api.sign.SignService
+import com.nadosunbae_android.data.api.user.UserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -78,5 +79,11 @@ object NetworkModule{
     @Provides
     fun majorService(retrofit : Retrofit) : MajorService{
         return retrofit.create(MajorService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun userService(retrofit : Retrofit) : UserService{
+        return retrofit.create(UserService::class.java)
     }
 }

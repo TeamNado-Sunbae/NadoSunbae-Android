@@ -38,6 +38,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         Timber.d("실행되는 중")
     }
 
+    //TODO : 응답률 분기처리
+
     private fun observeLoadingEnd() {
         myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
                 dismissLoading()
@@ -85,7 +87,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             val intentMyPageReview =
                 Intent(requireActivity(), MyPageClassroomReviewActivity::class.java)
             intentMyPageReview.putExtra("userId", mainViewModel.userId.value ?: 0)
-            intentMyPageReview.putExtra("userNickName", binding.myPageInfo?.data?.nickname)
+            intentMyPageReview.putExtra("userNickName", binding.myPageInfo?.nickname)
 
             startActivity(intentMyPageReview)
         }
@@ -147,12 +149,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         myPageViewModel.personalInfo.observe(viewLifecycleOwner) {
             binding.myPageInfo = it
 
-            if (it.data.secondMajorName == "미진입")
+            if (it.secondMajorName == "미진입")
                 binding.textMyPageSecondMajorTime.visibility = View.INVISIBLE
             else
                 binding.textMyPageSecondMajorTime.visibility = View.VISIBLE
 
-            if(!it.data.isOnQuestion) {
+            if(!it.isOnQuestion) {
                 binding.clMyPageMainQuestion.visibility = View.VISIBLE
             } else {
                 binding.clMyPageMainQuestion.visibility = View.GONE
