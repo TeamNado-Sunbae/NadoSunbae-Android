@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
+import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.post.PostData
 import com.nadosunbae_android.domain.repository.post.PostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +21,11 @@ class CommunityViewModel @Inject constructor(
     override val onLoadingEnd = MutableLiveData<Boolean>()
 
 
-    var filterMajor = MutableLiveData("학과")
+    private var _filterMajor = MutableStateFlow(SelectableData.DEFAULT)
+    val filterMajor: StateFlow<SelectableData>
+        get() = _filterMajor
 
+    //메인 데이터
     private var _communityMainData = MutableStateFlow(listOf(PostData.DEFAULT))
     val communityMainData: StateFlow<List<PostData>>
         get() = _communityMainData
@@ -44,4 +48,6 @@ class CommunityViewModel @Inject constructor(
                 _communityMainData.value = it
             }
     }
+
+
 }

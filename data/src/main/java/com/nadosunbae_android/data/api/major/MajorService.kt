@@ -12,6 +12,6 @@ interface MajorService {
     suspend fun getMajorList(
         @Path("universityId") universityId : String,
         @Query("filter") filter : String,
-        @Query("exclude") exclude : String
+        @Query("exclude") exclude : String?
     ) : Response<List<ResponseMajorListData>>
 }

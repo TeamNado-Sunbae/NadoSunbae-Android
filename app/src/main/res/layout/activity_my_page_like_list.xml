@@ -49,7 +49,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
+        <com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
             android:id="@+id/view_mypage_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

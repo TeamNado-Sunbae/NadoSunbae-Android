@@ -134,7 +134,7 @@ class MajorSelectAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (dataList[position].id == -2) {
+        return if (dataList[position].id == COMMUNITY) {
             COMMUNITY
         } else {
             ANOTHER

@@ -31,6 +31,7 @@ class CustomBottomSheetDialog(
     var completeOperation: () -> Unit = { }
 
     private var majorSelectAdapter: MajorSelectAdapter
+
     private lateinit var _binding: FragmentCustomBottomSheetDialogBinding
     val binding get() = _binding!!
 
@@ -125,7 +126,7 @@ class CustomBottomSheetDialog(
 
     fun setDataList(dataList: MutableList<SelectableData>) {
         if (checkCommunity == true) {
-            majorSelectAdapter.dataList.add(SelectableData(-2, "학과 무관", false))
+            majorSelectAdapter.dataList.add(SelectableData(0, "학과 무관", false))
         }
 
         majorSelectAdapter.dataList.addAll(dataList)
