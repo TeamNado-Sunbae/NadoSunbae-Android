@@ -20,10 +20,6 @@ class MyPageDataSourceImpl @Inject constructor(private val service: MyPageServic
         return service.putMyPageModify(requestMyPageModify)
     }
 
-    override suspend fun getMyPageReply(postTypeId: Int): ResponseMyPageReplyData {
-        return service.getMyPageReply(postTypeId)
-    }
-
     override suspend fun getMyPageVersion(): ResponseMyPageVersionData {
         return service.getMyPageVersion()
     }

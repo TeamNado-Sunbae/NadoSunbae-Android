@@ -71,36 +71,6 @@ object MypageMapper {
         )
     }
 
-
-    //내가 쓴 답글
-    fun mapperToReply(responseMyPageReplyData: ResponseMyPageReplyData): MyPageReplyData {
-        return MyPageReplyData(
-            data = MyPageReplyData.Data(
-                classroomPostListByMyCommentList = responseMyPageReplyData.data.classroomPostListByMyCommentList.map {
-                    MyPageReplyData.Data.ClassroomPostListByMyComment(
-                        commentCount = it.commentCount,
-                        content = it.content,
-                        createdAt = it.createdAt,
-                        like = MyPageReplyData.Data.ClassroomPostListByMyComment.Like(
-                            isLiked = it.like.isLiked,
-                            likeCount = it.like.likeCount
-                        ),
-                        postTypeId = it.postTypeId,
-                        postId = it.postId,
-                        title = it.title,
-                        writer = MyPageReplyData.Data.ClassroomPostListByMyComment.Writer(
-                            nickname = it.writer.nickname,
-                            profileImageId = it.writer.profileImageId,
-                            writerId = it.writer.writerId
-                        )
-                    )
-                }
-            ),
-            success = responseMyPageReplyData.success
-        )
-    }
-
-
     //버전 정보
     fun mapperToVersion(responseMyPageVersionData: ResponseMyPageVersionData): MyPageVersionData {
         return MyPageVersionData(

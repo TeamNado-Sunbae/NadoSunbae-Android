@@ -28,13 +28,6 @@ interface MyPageService {
         @Body requestMyPageModify: RequestMyPageModify
     ) : ResponseMyPageModify
 
-
-    //내가 쓴 답글
-    @GET("user/mypage/comment/list/{postTypeId}")
-    suspend fun getMyPageReply(
-        @Path("postTypeId") postTypeId: Int
-    ) : ResponseMyPageReplyData
-
     //버전 정보
     @GET("user/mypage/app-version/recent")
     suspend fun getMyPageVersion(): ResponseMyPageVersionData

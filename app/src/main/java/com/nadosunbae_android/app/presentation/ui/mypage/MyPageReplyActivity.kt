@@ -8,10 +8,7 @@ import com.nadosunbae_android.app.databinding.ActivityMyPageReplyBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostInfoAdapter
-import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyAdapter
-import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.domain.model.mypage.MyPageReplyData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

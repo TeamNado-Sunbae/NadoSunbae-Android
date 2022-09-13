@@ -26,7 +26,6 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     val getMyPageQuestionUseCase: GetMyPageQuestionUseCase,
     val putMyPageModifyUseCase: PutMyPageModifyUseCase,
-    val getMyPageReplyUseCase: GetMyPageReplyUseCase,
     val getMyPageVersionUseCase: GetMyPageVersionUseCase,
     val postMyPageLogOutUseCase : PostMyPageLogOutUseCase,
     val getMyPageLikeQuestionUseCase: GetMyPageLikeQuestionUseCase,
@@ -61,7 +60,6 @@ class MyPageViewModel @Inject constructor(
 
     val personalQuestion = MutableLiveData<MyPageQuestionData>()
     val modifyInfo = MutableLiveData<MyPageModifyData>()
-    val replyByMe = MutableLiveData<MyPageReplyData>()
     val versionInfo = MutableLiveData<MyPageVersionData>()
     val logOut: MutableLiveData<MyPageLogOutData> = MutableLiveData()
     val likeQuestion = MutableLiveData<MyPageLikeQuestionData>()
