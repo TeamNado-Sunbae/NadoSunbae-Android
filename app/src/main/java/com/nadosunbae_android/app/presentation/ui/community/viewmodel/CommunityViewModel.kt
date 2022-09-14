@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.community.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -35,8 +36,30 @@ class CommunityViewModel @Inject constructor(
     val communityMainFilterData: StateFlow<List<PostData>>
         get() = _communityMainFilterData
 
-    var communityMainType = MutableLiveData("")
-    var communityMainMajorName = MutableLiveData("")
+    //커뮤니티 카테고리
+    private var _communityMainType = MutableLiveData("")
+    val communityMainType: LiveData<String>
+        get() = _communityMainType
+
+    //커뮤니티 카테고리 데이터
+    fun setCommunityMainType(num: Int) {
+        _communityMainType.value = when (num) {
+            3 -> "정보"
+            2 -> "질문"
+            1 -> "자유"
+            else -> null
+        }
+    }
+
+    //커뮤니티 학과 과목
+    private var _communityMainMajorName = MutableLiveData("")
+    val communityMainMajorName : LiveData<String>
+        get() = _communityMainMajorName
+
+    //커뮤니티 학과 과목
+    fun setCommunityMainMajorName(majorName : String?){
+        _communityMainMajorName.value = majorName
+    }
 
     //커뮤니티 메인 데이터 호출
     fun getCommunityMainData(
@@ -58,18 +81,19 @@ class CommunityViewModel @Inject constructor(
             }
     }
 
-    fun setCommunityMainFilter(type: String?="", majorName: String?="") {
+    // 타입 및 과목을 통한 데이터 변경
+    fun setCommunityMainFilter(type: String? = "", majorName: String? = "") {
         val typeFlow = flow { emit(type) }
         val filterFlow = flow { emit(majorName) }
         viewModelScope.launch {
             typeFlow.combine(filterFlow) { type, majorName ->
                 if (!type.isNullOrEmpty() && !majorName.isNullOrEmpty()) {
                     _communityMainData.value.filter { it.type == type && it.majorName == majorName }
-                }else if(!type.isNullOrEmpty() && majorName.isNullOrEmpty()){
-                    _communityMainData.value.filter {it.type == type}
-                }else if(type.isNullOrEmpty() && !majorName.isNullOrEmpty()){
-                    _communityMainData.value.filter{it.majorName == majorName}
-                }else{
+                } else if (!type.isNullOrEmpty() && majorName.isNullOrEmpty()) {
+                    _communityMainData.value.filter { it.type == type }
+                } else if (type.isNullOrEmpty() && !majorName.isNullOrEmpty()) {
+                    _communityMainData.value.filter { it.majorName == majorName }
+                } else {
                     _communityMainData.value
                 }
             }.collectLatest {
@@ -77,4 +101,5 @@ class CommunityViewModel @Inject constructor(
             }
         }
     }
+
 }

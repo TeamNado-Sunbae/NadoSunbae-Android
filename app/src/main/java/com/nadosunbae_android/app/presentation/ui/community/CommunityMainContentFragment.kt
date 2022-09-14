@@ -19,6 +19,7 @@ import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CommunityMainContentFragment :
@@ -61,6 +62,15 @@ class CommunityMainContentFragment :
             switchTab = getSwitchTabValue(0)
             itemClickListener = {
                 switchTab = getSwitchTabValue(it)
+                with(communityViewModel) {
+                    setCommunityMainType(it)
+                    val type = communityMainType.value
+                    val majorName = communityMainMajorName.value
+                    Timber.d("이거 메이저 $majorName")
+                    setCommunityMainFilter(type,majorName)
+                }
+
+
             }
         }
     }
@@ -88,7 +98,9 @@ class CommunityMainContentFragment :
             if (selectedData != null) {
                 with(binding) {
                     val type = communityViewModel.communityMainType.value
-                    communityViewModel.setCommunityMainFilter(type, selectedData.name)
+                    val majorName = if (selectedData.name == getString(R.string.no_major)) null else selectedData.name
+                    communityViewModel.setCommunityMainMajorName(majorName)
+                    communityViewModel.setCommunityMainFilter(type, majorName)
                     filterTitle = selectedData.name
                     imgCommunityFilter.isSelected = true
                 }
@@ -97,7 +109,6 @@ class CommunityMainContentFragment :
 
     }
 
-    //학과 필터에 따른 서버 통신
 
     //커뮤니티 글 작성 이동
     private fun goCommunityWrite() {
