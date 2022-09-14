@@ -48,12 +48,6 @@ interface MyPageService {
         @Query("type") type: String = "question"
     ) : ResponseMyPageLikeQuestion
 
-    //내가 쓴 학과 후기 글 조회
-    @GET("user/mypage/{userId}/review-post/list")
-    suspend fun getMyPageReview(
-        @Path("userId") userId: Int
-    ) : ResponseMyPageReviewData
-
     //마이페이지 차단목록 조회
     @GET("block/list")
     suspend fun getMyPageBlock() :ResponseMyPageBlock

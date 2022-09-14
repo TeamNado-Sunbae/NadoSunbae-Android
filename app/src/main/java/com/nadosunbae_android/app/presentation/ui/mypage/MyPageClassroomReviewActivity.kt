@@ -9,7 +9,6 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.domain.model.mypage.MyPageReviewData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

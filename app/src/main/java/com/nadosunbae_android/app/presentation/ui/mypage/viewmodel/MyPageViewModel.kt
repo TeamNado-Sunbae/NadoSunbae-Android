@@ -31,7 +31,6 @@ class MyPageViewModel @Inject constructor(
     val postMyPageLogOutUseCase: PostMyPageLogOutUseCase,
     val getMyPageLikeQuestionUseCase: GetMyPageLikeQuestionUseCase,
     val getMyPageLikeReviewUseCase: GetMyPageLikeReviewUseCase,
-    val getMyPageReviewUseCase: GetMyPageReviewUseCase,
     val getMyPageBlockUseCase: GetMyPageBlockUseCase,
     val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase,
     val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase,
@@ -65,7 +64,6 @@ class MyPageViewModel @Inject constructor(
     val logOut: MutableLiveData<MyPageLogOutData> = MutableLiveData()
     val likeQuestion = MutableLiveData<MyPageLikeQuestionData>()
     val likeReview = MutableLiveData<MyPageLikeReviewData>()
-    val reviewList = MutableLiveData<MyPageReviewData>()
     val blockList = MutableLiveData<MyPageBlockData>()
     val blockUpdate = MutableLiveData<MyPageBlockUpdateData>()
     val resetPassword: MutableLiveData<MyPageResetPasswordData> = MutableLiveData()

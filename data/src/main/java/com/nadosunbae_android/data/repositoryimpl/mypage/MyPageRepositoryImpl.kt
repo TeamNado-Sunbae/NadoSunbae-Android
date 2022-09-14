@@ -35,10 +35,6 @@ class MyPageRepositoryImpl @Inject constructor(private val dataSource: MyPageDat
         return MypageMapper.mapperToLikeListQuestion(dataSource.getMyPageLikeQuestion(type))
     }
 
-    override suspend fun getMyPageReview(userId: Int): MyPageReviewData {
-        return MypageMapper.mapperToReview(dataSource.getMyPageReview(userId))
-    }
-
     override suspend fun getMyPageBlock(): MyPageBlockData {
         return MypageMapper.mapperToBlock(dataSource.getMyPageBlock())
     }

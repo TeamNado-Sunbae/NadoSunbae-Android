@@ -36,10 +36,6 @@ class MyPageDataSourceImpl @Inject constructor(private val service: MyPageServic
         return service.getMyPageLikeQuestion(type)
     }
 
-    override suspend fun getMyPageReview(userId: Int): ResponseMyPageReviewData {
-        return service.getMyPageReview(userId)
-    }
-
     override suspend fun getMyPageBlock(): ResponseMyPageBlock {
         return service.getMyPageBlock()
     }
