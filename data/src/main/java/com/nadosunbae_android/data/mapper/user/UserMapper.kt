@@ -2,8 +2,10 @@ package com.nadosunbae_android.data.mapper.user
 
 import com.nadosunbae_android.data.model.response.user.ResponseUserInfo
 import com.nadosunbae_android.data.model.response.user.ResponseUserPost
+import com.nadosunbae_android.data.model.response.user.ResponseUserReview
 import com.nadosunbae_android.domain.model.user.UserInfoData
 import com.nadosunbae_android.domain.model.user.UserPostData
+import com.nadosunbae_android.domain.model.user.UserReviewData
 
 object UserMapper {
     fun mapperToUserPostData(responseUserPost: ResponseUserPost): List<UserPostData> {
@@ -39,5 +41,24 @@ object UserMapper {
             secondMajorStart = responseUserInfo.data.secondMajorStart,
             userId = responseUserInfo.data.userId
         )
+    }
+
+    fun mapperToUserReview(responseUserReview: ResponseUserReview): List<UserReviewData.Review> {
+        return responseUserReview.data.reviewList.map {
+            UserReviewData.Review(
+                createdAt = it.createdAt,
+                id = it.id,
+                majorName = it.majorName,
+                oneLineReview = it.oneLineReview,
+                tagName = it.tagList.map {
+                    it.tagName
+                },
+                isLiked = it.like.isLiked,
+                likeCount = it.like.likeCount,
+                nickname = responseUserReview.data.writer.nickname,
+                writerId = responseUserReview.data.writer.writerId
+            )
+        }
+
     }
 }

@@ -4,6 +4,7 @@ import com.nadosunbae_android.data.datasource.remote.user.UserDataSource
 import com.nadosunbae_android.data.mapper.user.UserMapper
 import com.nadosunbae_android.domain.model.user.UserInfoData
 import com.nadosunbae_android.domain.model.user.UserPostData
+import com.nadosunbae_android.domain.model.user.UserReviewData
 import com.nadosunbae_android.domain.repository.user.UserRepository
 import javax.inject.Inject
 
@@ -18,6 +19,10 @@ class UserRepositoryImpl @Inject constructor(private val userDataSource: UserDat
 
     override suspend fun getUserComment(filter: String): List<UserPostData> {
         return UserMapper.mapperToUserPostData(userDataSource.getUserComment(filter))
+    }
+
+    override suspend fun getUserReview(userId: Int): List<UserReviewData.Review> {
+        return UserMapper.mapperToUserReview(userDataSource.getUserReview(userId))
     }
 
 }
