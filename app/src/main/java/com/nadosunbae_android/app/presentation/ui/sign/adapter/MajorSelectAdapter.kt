@@ -13,8 +13,9 @@ import com.nadosunbae_android.app.util.setTextSemiBold
 import com.nadosunbae_android.domain.model.main.SelectableData
 import timber.log.Timber
 
-class MajorSelectAdapter(
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MajorSelectAdapter(private val noMajor: Int? = -2) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     var dataList = mutableListOf<SelectableData>()
     private var mSelectedPos: Int = -1
 
@@ -134,7 +135,8 @@ class MajorSelectAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (dataList[position].id == COMMUNITY) {
+        Timber.d("noMajor $noMajor")
+        return if (dataList[position].id == noMajor) {
             COMMUNITY
         } else {
             ANOTHER

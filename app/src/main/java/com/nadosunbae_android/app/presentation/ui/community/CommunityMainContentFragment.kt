@@ -17,9 +17,9 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CommunityMainContentFragment :
@@ -66,8 +66,7 @@ class CommunityMainContentFragment :
                     setCommunityMainType(it)
                     val type = communityMainType.value
                     val majorName = communityMainMajorName.value
-                    Timber.d("이거 메이저 $majorName")
-                    setCommunityMainFilter(type,majorName)
+                    setCommunityMainFilter(type, majorName)
                 }
 
 
@@ -80,7 +79,8 @@ class CommunityMainContentFragment :
         binding.filterTitle = getString(R.string.no_major)
         majorBottomSheetDialog = CustomBottomSheetDialog(
             resources.getString(R.string.community_bottom_sheet_title),
-            true
+            true,
+            mainViewModel.majorList.value[0].majorId
         )
         observeBottomSheet(mainViewModel, majorBottomSheetDialog)
     }
@@ -98,7 +98,8 @@ class CommunityMainContentFragment :
             if (selectedData != null) {
                 with(binding) {
                     val type = communityViewModel.communityMainType.value
-                    val majorName = if (selectedData.name == getString(R.string.no_major)) null else selectedData.name
+                    val majorName =
+                        if (selectedData.name == getString(R.string.no_major)) null else selectedData.name
                     communityViewModel.setCommunityMainMajorName(majorName)
                     communityViewModel.setCommunityMainFilter(type, majorName)
                     filterTitle = selectedData.name

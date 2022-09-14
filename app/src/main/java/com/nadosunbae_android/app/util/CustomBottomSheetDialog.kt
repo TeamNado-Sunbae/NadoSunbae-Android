@@ -19,7 +19,8 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 
 class CustomBottomSheetDialog(
     private val title: String,
-    private var checkCommunity: Boolean? = false
+    private var checkCommunity: Boolean? = false,
+    noMajor : Int? = 0
 ) : BottomSheetDialogFragment() {
 
 
@@ -36,7 +37,7 @@ class CustomBottomSheetDialog(
     val binding get() = _binding!!
 
     init {
-        majorSelectAdapter = MajorSelectAdapter()
+        majorSelectAdapter = MajorSelectAdapter(noMajor)
     }
 
     override fun onCreateView(
@@ -125,10 +126,6 @@ class CustomBottomSheetDialog(
     }
 
     fun setDataList(dataList: MutableList<SelectableData>) {
-        if (checkCommunity == true) {
-            majorSelectAdapter.dataList.add(SelectableData(0, "학과 무관", false))
-        }
-
         majorSelectAdapter.dataList.addAll(dataList)
         majorSelectAdapter.notifyDataSetChanged()
     }
