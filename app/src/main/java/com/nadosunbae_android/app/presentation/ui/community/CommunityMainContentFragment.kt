@@ -43,7 +43,7 @@ class CommunityMainContentFragment :
         communityViewModel.getCommunityMainData("1", "0", "community", "like")
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rcCommunityMain.adapter = communityMainContentAdapter
-        communityViewModel.communityMainData.flowWithLifecycle(
+        communityViewModel.communityMainFilterData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
         ).onEach {
             communityMainContentAdapter.submitList(it)
@@ -87,6 +87,8 @@ class CommunityMainContentFragment :
             //학과 필터에 들어가는 부분
             if (selectedData != null) {
                 with(binding) {
+                    val type = communityViewModel.communityMainType.value
+                    communityViewModel.setCommunityMainFilter(type, selectedData.name)
                     filterTitle = selectedData.name
                     imgCommunityFilter.isSelected = true
                 }

@@ -30,6 +30,13 @@ class CommunityViewModel @Inject constructor(
     val communityMainData: StateFlow<List<PostData>>
         get() = _communityMainData
 
+    //커뮤니티 메인 필터 데이터
+    private var _communityMainFilterData = MutableStateFlow(listOf(PostData.DEFAULT))
+    val communityMainFilterData: StateFlow<List<PostData>>
+        get() = _communityMainFilterData
+
+    var communityMainType = MutableLiveData("")
+    var communityMainMajorName = MutableLiveData("")
 
     //커뮤니티 메인 데이터 호출
     fun getCommunityMainData(
@@ -45,9 +52,29 @@ class CommunityViewModel @Inject constructor(
             }.catch {
                 Timber.d("커뮤니티 메인 서버통신 오류 발생")
             }.collectLatest {
+                Timber.d("커뮤니티 메인 서버통신 ")
                 _communityMainData.value = it
+                setCommunityMainFilter()
             }
     }
 
-
+    fun setCommunityMainFilter(type: String?="", majorName: String?="") {
+        val typeFlow = flow { emit(type) }
+        val filterFlow = flow { emit(majorName) }
+        viewModelScope.launch {
+            typeFlow.combine(filterFlow) { type, majorName ->
+                if (!type.isNullOrEmpty() && !majorName.isNullOrEmpty()) {
+                    _communityMainData.value.filter { it.type == type && it.majorName == majorName }
+                }else if(!type.isNullOrEmpty() && majorName.isNullOrEmpty()){
+                    _communityMainData.value.filter {it.type == type}
+                }else if(type.isNullOrEmpty() && !majorName.isNullOrEmpty()){
+                    _communityMainData.value.filter{it.majorName == majorName}
+                }else{
+                    _communityMainData.value
+                }
+            }.collectLatest {
+                _communityMainFilterData.value = it
+            }
+        }
+    }
 }
