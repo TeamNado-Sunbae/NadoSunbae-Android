@@ -58,7 +58,7 @@ class MyPageLikeQuestionInfoAdapter(private val num: Int, private val userId: In
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(myPageLikeQuestionData: MyPageLikeQuestionData.Data.LikePost) {
             binding.apply {
-                myPageLikeQuestion = myPageLikeQuestionData
+               // myPageLikeQuestion = myPageLikeQuestionData
                 executePendingBindings()
             }
         }

@@ -3,73 +3,42 @@ package com.nadosunbae_android.app.presentation.ui.mypage.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemMypageLikeQuestionBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
-import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
-import com.nadosunbae_android.app.util.CustomDialog
-import com.nadosunbae_android.domain.model.mypage.MyPageLikeQuestionData
+import com.nadosunbae_android.app.util.DiffUtilCallback
+import com.nadosunbae_android.domain.model.user.UserLikeData
 
 class MyPageLikeQuestionAdapter (private val num: Int, private val userId: Int, private val myPageNum : Int, private val postTypeId : Int) :
-    RecyclerView.Adapter<MyPageLikeQuestionAdapter.MyPageLikeQuestionViewHolder>() {
-    var myPageLikeQuestionData = mutableListOf<MyPageLikeQuestionData.Data.LikePost>()
-
+    ListAdapter<UserLikeData, MyPageLikeQuestionAdapter.MyPageLikeQuestionViewHolder>(
+        DiffUtilCallback<UserLikeData>()
+    ) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): MyPageLikeQuestionViewHolder {
-        val binding = ItemMypageLikeQuestionBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
+        val binding =
+            ItemMypageLikeQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyPageLikeQuestionViewHolder(binding)
     }
 
-    override fun onBindViewHolder(
-        holder: MyPageLikeQuestionAdapter.MyPageLikeQuestionViewHolder,
-        position: Int
-    ) {
-        holder.onBind(myPageLikeQuestionData[position])
-        holder.binding.root.setOnClickListener {
-            CustomDialog(holder.itemView.context).restrictDialog(
-                holder.itemView.context,
-                ReviewGlobals.isReviewed,
-                MainGlobals.signInData!!.isUserReported,
-                MainGlobals.signInData!!.isReviewInappropriate,
-                MainGlobals.signInData?.message.toString(),
-                behavior = {
-                    val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
-                    intent.apply {
-                        putExtra("myPageNum", myPageNum)
-                        putExtra("userId", userId)
-                        putExtra("postId", myPageLikeQuestionData[position].postId)
-                        putExtra("postTypeId", myPageLikeQuestionData[position].postTypeId)
-                        putExtra("all", num)
-                    }
-                    ContextCompat.startActivity(holder.itemView.context, intent, null)
-                })
+    override fun onBindViewHolder(holder: MyPageLikeQuestionViewHolder, position: Int) {
+        holder.bind(getItem(position))
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+            intent.putExtra("postId",getItem(position).id.toString())
+            holder.itemView.context.startActivity(intent)
         }
     }
 
-    override fun getItemCount(): Int = myPageLikeQuestionData.size
-
-    inner class MyPageLikeQuestionViewHolder(
-        val binding: ItemMypageLikeQuestionBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(myPageLikeQuestionData: MyPageLikeQuestionData.Data.LikePost) {
-            binding.apply {
-                myPageLikeQuestion = myPageLikeQuestionData
+    class MyPageLikeQuestionViewHolder(val binding: ItemMypageLikeQuestionBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(userLikeData: UserLikeData) {
+            with(binding) {
+                this.myPageLikeQuestion = userLikeData
                 executePendingBindings()
             }
         }
-    }
-
-    fun setQuestionPost(myPageLikeQuestionData: MutableList<MyPageLikeQuestionData.Data.LikePost>) {
-        this.myPageLikeQuestionData = myPageLikeQuestionData
-        notifyDataSetChanged()
-
     }
 }

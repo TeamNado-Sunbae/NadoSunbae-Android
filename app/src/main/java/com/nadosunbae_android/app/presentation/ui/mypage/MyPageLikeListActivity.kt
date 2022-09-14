@@ -30,6 +30,7 @@ class MyPageLikeListActivity :
         backBtn()
         initSwitchTab()
         observeFragmentNum()
+        initReviewListAdapter()
     }
 
     private fun observeLoadingEnd() {
@@ -75,15 +76,13 @@ class MyPageLikeListActivity :
         myPageViewModel.likeCurFragment.observe(this) {
             when (it) {
                 0 -> {
-                    //1:1질문 서버통신
-                    Timber.d("1:1")
+                    initReviewListAdapter()
                 }
                 1 -> {
-                    //커뮤니티 서버통신
-                    Timber.d("커뮤니티")
+                    questionPosting()
                 }
                 2 -> {
-
+                    infoPosting()
                 }
             }
             binding.viewMypageSwitch.switchTab = CustomSwitchTab.getSwitchTabValue(it)
@@ -145,46 +144,48 @@ class MyPageLikeListActivity :
         }
     }
 
+    //1:1 질문
     private fun questionPosting() {
         showLoading()
         intent.getIntExtra("userId", 0)
-        myPageViewModel.getMyPageLikeQuestion("question")
+        myPageViewModel.getMyPageLike("questionToPerson")
         myPageLikeQuestionAdapter =
             MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 
-        myPageViewModel.likeQuestion.observe(this) {
-            initQuestionEmpty(it.data.likePostList.size)
-            myPageLikeQuestionAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
+        myPageViewModel.userLike.observe(this) {
+            initQuestionEmpty(it.size)
+            (binding.rvMypageLike.adapter as MyPageLikeQuestionAdapter).submitList(it)
         }
     }
 
+    //커뮤니티
     private fun infoPosting() {
         showLoading()
         intent.getIntExtra("userId", 0)
 
-        myPageViewModel.getMyPageLikeQuestion("information")
-        myPageLikeQuestionInfoAdapter =
-            MyPageLikeQuestionInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
-        binding.rvMypageLike.adapter = myPageLikeQuestionInfoAdapter
+        myPageViewModel.getMyPageLike("community")
+        myPageLikeQuestionAdapter =
+            MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
+        binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 
-        myPageViewModel.likeQuestion.observe(this) {
-            initInfoEmpty(it.data.likePostList.size)
-            myPageLikeQuestionInfoAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
-        }
+        myPageViewModel.userLike.observe(this) {
+            initInfoEmpty(it.size)
+            (binding.rvMypageLike.adapter as MyPageLikeQuestionAdapter).submitList(it)        }
     }
 
 
+    //후기
     private fun initReviewListAdapter() {
         showLoading()
         val userId = intent.getIntExtra("userId", 0)
-        myPageViewModel.getMyPageLikeReview("review")
+        myPageViewModel.getMyPageLike("review")
         myPageLikeReviewAdapter = MyPageLikeReviewAdapter(userId)
         binding.rvMypageLike.adapter = myPageLikeReviewAdapter
 
-        myPageViewModel.likeReview.observe(this) {
-            initReviewEmpty(it.data.likePostList.size)
-            myPageLikeReviewAdapter.setReviewListData((it.data.likePostList) as MutableList<MyPageLikeReviewData.Data.LikePost>)
+        myPageViewModel.userLike.observe(this) {
+            initReviewEmpty(it.size)
+            (binding.rvMypageLike.adapter as MyPageLikeReviewAdapter).submitList(it)
         }
     }
 }

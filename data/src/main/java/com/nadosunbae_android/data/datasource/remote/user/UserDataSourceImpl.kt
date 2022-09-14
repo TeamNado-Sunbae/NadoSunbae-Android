@@ -1,7 +1,9 @@
 package com.nadosunbae_android.data.datasource.remote.user
 
 import com.nadosunbae_android.data.api.user.UserService
+import com.nadosunbae_android.data.model.response.Response
 import com.nadosunbae_android.data.model.response.user.ResponseUserInfo
+import com.nadosunbae_android.data.model.response.user.ResponseUserLike
 import com.nadosunbae_android.data.model.response.user.ResponseUserPost
 import com.nadosunbae_android.data.model.response.user.ResponseUserReview
 import javax.inject.Inject
@@ -21,6 +23,10 @@ class UserDataSourceImpl @Inject constructor(private val service: UserService) :
 
     override suspend fun getUserReview(userId: Int): ResponseUserReview {
         return service.getUserReview(userId)
+    }
+
+    override suspend fun getUserLike(filter: String): ResponseUserLike {
+        return service.getUserLike(filter)
     }
 
 

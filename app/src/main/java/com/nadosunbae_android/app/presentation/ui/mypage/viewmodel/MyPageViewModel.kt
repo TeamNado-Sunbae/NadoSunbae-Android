@@ -11,6 +11,7 @@ import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.model.user.UserInfoData
+import com.nadosunbae_android.domain.model.user.UserLikeData
 import com.nadosunbae_android.domain.model.user.UserPostData
 import com.nadosunbae_android.domain.model.user.UserReviewData
 import com.nadosunbae_android.domain.repository.user.UserRepository
@@ -118,6 +119,10 @@ class MyPageViewModel @Inject constructor(
     val userReview: LiveData<List<UserReviewData.Review>>
         get() = _userReview
 
+    //유저가 좋아요 한 글
+    private val _userLike = MutableLiveData<List<UserLikeData>>()
+    val userLike: LiveData<List<UserLikeData>>
+        get() = _userLike
 
     //마이페이지 내가 쓴 글 조회
     fun getMyPost(filter: String) {
@@ -194,16 +199,16 @@ class MyPageViewModel @Inject constructor(
     }
 
     //마이페이지 좋아요 리스트 (Review)
-    fun getMyPageLikeReview(type: String = "review") {
+    fun getMyPageLike(filter: String) {
         viewModelScope.launch {
-            kotlin.runCatching { getMyPageLikeReviewUseCase(type) }
+            kotlin.runCatching { userRepository.getUserLike(filter) }
                 .onSuccess {
-                    likeReview.value = it
-                    Timber.d("mypageLikeReview : 서버 통신 성공")
+                    _userLike.value = it
+                    Timber.d("mypageLike : 서버 통신 성공")
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Timber.d("mypageLikeReview : 서버 통신 실패")
+                    Timber.d("mypageLike : 서버 통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -211,6 +216,7 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
+    /*
     //마이페이지 좋아요 리스트 (Question)
     fun getMyPageLikeQuestion(type: String = "question") {
         viewModelScope.launch {
@@ -228,7 +234,7 @@ class MyPageViewModel @Inject constructor(
                 }
         }
     }
-
+ */
     //마이페이지 내가 쓴 답글
     fun getMyPageReply(filter: String) {
         viewModelScope.launch {
@@ -247,6 +253,8 @@ class MyPageViewModel @Inject constructor(
 
         }
     }
+
+
 
     //마이페이지 개인 정보 서버통신
     fun getPersonalInfo(userId: Int) {

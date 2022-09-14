@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.repositoryimpl.user
 import com.nadosunbae_android.data.datasource.remote.user.UserDataSource
 import com.nadosunbae_android.data.mapper.user.UserMapper
 import com.nadosunbae_android.domain.model.user.UserInfoData
+import com.nadosunbae_android.domain.model.user.UserLikeData
 import com.nadosunbae_android.domain.model.user.UserPostData
 import com.nadosunbae_android.domain.model.user.UserReviewData
 import com.nadosunbae_android.domain.repository.user.UserRepository
@@ -23,6 +24,10 @@ class UserRepositoryImpl @Inject constructor(private val userDataSource: UserDat
 
     override suspend fun getUserReview(userId: Int): List<UserReviewData.Review> {
         return UserMapper.mapperToUserReview(userDataSource.getUserReview(userId))
+    }
+
+    override suspend fun getUserLike(filter: String): List<UserLikeData> {
+        return UserMapper.mapperToUserLike(userDataSource.getUserLike(filter))
     }
 
 }
