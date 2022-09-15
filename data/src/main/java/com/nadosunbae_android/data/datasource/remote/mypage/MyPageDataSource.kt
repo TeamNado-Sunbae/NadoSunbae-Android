@@ -8,8 +8,6 @@ import com.nadosunbae_android.data.model.response.mypage.*
 
 interface MyPageDataSource {
 
-    suspend fun getMyPageQuestion(userId: Int, sort: String = "recent") : ResponseMypageQuestionData
-
     suspend fun putMyPageModify(requestMyPageModify: RequestMyPageModify): ResponseMyPageModify
 
     suspend fun getMyPageVersion() : ResponseMyPageVersionData

@@ -23,7 +23,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    val getMyPageQuestionUseCase: GetMyPageQuestionUseCase,
     val putMyPageModifyUseCase: PutMyPageModifyUseCase,
     val getMyPageVersionUseCase: GetMyPageVersionUseCase,
     val postMyPageLogOutUseCase: PostMyPageLogOutUseCase,

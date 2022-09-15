@@ -10,12 +10,6 @@ import javax.inject.Inject
 
 class MyPageDataSourceImpl @Inject constructor(private val service: MyPageService) :
     MyPageDataSource {
-
-
-    override suspend fun getMyPageQuestion(userId: Int, sort: String): ResponseMypageQuestionData {
-        return service.getMyPageQuestion(userId, sort)
-    }
-
     override suspend fun putMyPageModify(requestMyPageModify: RequestMyPageModify): ResponseMyPageModify {
         return service.putMyPageModify(requestMyPageModify)
     }

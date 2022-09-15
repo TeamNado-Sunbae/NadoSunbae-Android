@@ -9,13 +9,6 @@ import com.nadosunbae_android.data.model.response.user.ResponseUserInfo
 import retrofit2.http.*
 
 interface MyPageService {
-    //마이페이지 메인 나에게 온 1:1 질문
-    @GET("user/mypage/{userId}/classroom-post/list")
-    suspend fun getMyPageQuestion(
-        @Path("userId") userId: Int,
-        @Query("sort") sort: String = "recent"
-    ) : ResponseMypageQuestionData
-
     //마이페이지 메인 내 정보
     @GET("user/mypage/{userId}")
     suspend fun getMyPageMyInfo(

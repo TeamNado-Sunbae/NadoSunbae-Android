@@ -14,7 +14,6 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
-import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

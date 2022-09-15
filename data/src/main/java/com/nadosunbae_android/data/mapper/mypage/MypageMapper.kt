@@ -10,37 +10,6 @@ import com.nadosunbae_android.domain.model.mypage.*
 
 
 object MypageMapper {
-
-    //일대일 질문
-    fun mapperToQuestion(responseMypageQuestionData: ResponseMypageQuestionData): MyPageQuestionData {
-        return MyPageQuestionData(
-            data = MyPageQuestionData.Data(
-                classroomPostList = responseMypageQuestionData.data.classroomPostList.map {
-                    MyPageQuestionData.Data.ClassroomPost(
-                        commentCount = it.commentCount,
-                        content = it.content,
-                        createdAt = it.createdAt,
-                        like = MyPageQuestionData.Data.ClassroomPost.Like(
-                            isLiked = it.like.isLiked,
-                            likeCount = it.like.likeCount
-                        ),
-                        postId = it.postId,
-                        title = it.title,
-                        writer = MyPageQuestionData.Data.ClassroomPost.Writer(
-                            nickname = it.writer.nickname,
-                            profileImageId = it.writer.profileImageId,
-                            writerId = it.writer.writerId
-                        )
-                    )
-
-                }
-
-            ),
-            success = responseMypageQuestionData.success
-        )
-
-    }
-
     // 내 정보 수정
     fun mapperToModifyData(responseMyPageModify: ResponseMyPageModify): MyPageModifyData {
         return MyPageModifyData(

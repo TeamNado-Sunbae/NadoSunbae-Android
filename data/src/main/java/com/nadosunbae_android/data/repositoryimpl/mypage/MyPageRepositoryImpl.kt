@@ -8,11 +8,6 @@ import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
 import javax.inject.Inject
 
 class MyPageRepositoryImpl @Inject constructor(private val dataSource: MyPageDataSource) : MyPageRepository {
-
-    override suspend fun getMyPageQuestion(userId: Int, sort: String) : MyPageQuestionData {
-        return MypageMapper.mapperToQuestion(dataSource.getMyPageQuestion(userId, sort))
-    }
-
     override suspend fun putMyPageModify(myPageModifyItem: MyPageModifyItem): MyPageModifyData {
         return MypageMapper.mapperToModifyData(dataSource.putMyPageModify(
             MypageMapper.mapperToModifyItem(myPageModifyItem)
