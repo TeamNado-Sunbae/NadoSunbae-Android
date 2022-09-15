@@ -7,7 +7,7 @@
 
         <variable
             name="myPageInfo"
-            type="com.nadosunbae_android.domain.model.mypage.MyPageMyInfo" />
+            type="com.nadosunbae_android.domain.model.user.UserInfoData" />
     </data>
 
 
@@ -123,7 +123,7 @@
 
                     <ImageView
                         android:id="@+id/img_my_page_main"
-                        profileImgBig="@{myPageInfo.data.profileImageId}"
+                        profileImgBig="@{myPageInfo.profileImageId}"
                         android:layout_width="72dp"
                         android:layout_height="72dp"
                         android:layout_marginStart="16dp"
@@ -139,7 +139,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:fontFamily="@font/pretendard_medium"
-                        android:text="@{myPageInfo.Data.nickname}"
+                        android:text="@{myPageInfo.nickname}"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@+id/img_my_page_main"
@@ -154,6 +154,7 @@
                         android:fontFamily="@font/pretendard_medium"
                         android:textColor="@color/main_default"
                         android:textSize="12sp"
+                        rateText="@{myPageInfo.responseRate}"
                         app:layout_constraintBottom_toBottomOf="@+id/text_my_page_nickname"
                         app:layout_constraintStart_toEndOf="@+id/text_my_page_nickname"
                         app:layout_constraintTop_toTopOf="@+id/text_my_page_nickname"
@@ -244,7 +245,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:fontFamily="@font/pretendard_regular"
-                        android:text="@{myPageInfo.Data.firstMajorName}"
+                        android:text="@{myPageInfo.firstMajorName}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/text_my_page_first_major"
@@ -259,7 +260,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:fontFamily="@font/pretendard_regular"
-                        android:text="@{myPageInfo.Data.firstMajorStart}"
+                        android:text="@{myPageInfo.firstMajorStart}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/text_my_page_first_major_name"
@@ -297,7 +298,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:fontFamily="@font/pretendard_regular"
-                        android:text="@{myPageInfo.Data.secondMajorName}"
+                        android:text="@{myPageInfo.secondMajorName}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/text_my_page_second_major"
@@ -312,7 +313,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:fontFamily="@font/pretendard_regular"
-                        android:text="@{myPageInfo.Data.secondMajorStart}"
+                        android:text="@{myPageInfo.secondMajorStart}"
                         android:textColor="@color/gray_2"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/text_my_page_second_major_name"
@@ -453,7 +454,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/pretendard_regular"
-                        android:text="@{Integer.toString(myPageInfo.Data.count)}"
+                        android:text="@{Integer.toString(myPageInfo.count)}"
                         android:textColor="@color/main_default"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/text_my_page_like_list"

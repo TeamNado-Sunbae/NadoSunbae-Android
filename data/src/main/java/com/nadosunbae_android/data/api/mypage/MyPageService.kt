@@ -5,6 +5,7 @@ import com.nadosunbae_android.data.model.request.mypage.RequestMyPageModify
 import com.nadosunbae_android.data.model.request.mypage.RequestQuit
 import com.nadosunbae_android.data.model.request.mypage.RequestResetPassword
 import com.nadosunbae_android.data.model.response.mypage.*
+import com.nadosunbae_android.data.model.response.user.ResponseUserInfo
 import retrofit2.http.*
 
 interface MyPageService {
@@ -19,7 +20,7 @@ interface MyPageService {
     @GET("user/mypage/{userId}")
     suspend fun getMyPageMyInfo(
         @Path("userId") userId: Int
-    ) : ResponseMypageMyInfo
+    ) : ResponseUserInfo
 
     //내 정보 수정
     @PUT("user/mypage")
@@ -27,11 +28,6 @@ interface MyPageService {
         @Body requestMyPageModify: RequestMyPageModify
     ) : ResponseMyPageModify
 
-    //내가 쓴 글
-    @GET("user/mypage/classroom-post/list")
-    suspend fun getPostByMe(
-        @Query("type") type: String = "question"
-    ) : ResponseMyPagePostData
 
     //내가 쓴 답글
     @GET("user/mypage/comment/list/{postTypeId}")

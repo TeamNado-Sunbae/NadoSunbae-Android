@@ -13,18 +13,10 @@ class MyPageRepositoryImpl @Inject constructor(private val dataSource: MyPageDat
         return MypageMapper.mapperToQuestion(dataSource.getMyPageQuestion(userId, sort))
     }
 
-    override suspend fun getMyPageMyInfo(userId: Int) : MyPageMyInfo {
-        return MypageMapper.mapperToMyInfo(dataSource.getMyPageMyInfo(userId))
-    }
-
     override suspend fun putMyPageModify(myPageModifyItem: MyPageModifyItem): MyPageModifyData {
         return MypageMapper.mapperToModifyData(dataSource.putMyPageModify(
             MypageMapper.mapperToModifyItem(myPageModifyItem)
         ))
-    }
-
-    override suspend fun getMyPagePost(type: String): MyPagePostData {
-        return MypageMapper.mapperToPost(dataSource.getMyPagePost(type))
     }
 
     override suspend fun getMyPageReply(postTypeId: Int): MyPageReplyData {

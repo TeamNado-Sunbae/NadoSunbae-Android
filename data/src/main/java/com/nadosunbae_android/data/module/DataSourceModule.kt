@@ -20,9 +20,11 @@ import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSource
 import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.sign.SignDataSource
 import com.nadosunbae_android.data.datasource.remote.sign.SignDataSourceImpl
-import dagger.Module
+import com.nadosunbae_android.data.datasource.remote.user.UserDataSource
+import com.nadosunbae_android.data.datasource.remote.user.UserDataSourceImpl
 import dagger.Provides
 import dagger.Reusable
+import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
@@ -90,4 +92,10 @@ object DataSourceModule {
     fun provideMajorDataSource(
         dataSource : MajorDataSourceImpl
     ) : MajorDataSource = dataSource
+
+    @Provides
+    @Reusable
+    fun provideUserDataSource(
+        dataSource : UserDataSourceImpl
+    ) : UserDataSource = dataSource
 }
