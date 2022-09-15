@@ -10,7 +10,7 @@ class MajorDataSourceImpl @Inject constructor(private val service: MajorService)
     override suspend fun getMajorList(
         universityId: String,
         filter: String,
-        exclude: String
+        exclude: String?
     ): Response<List<ResponseMajorListData>> {
         return service.getMajorList(universityId, filter, exclude)
     }

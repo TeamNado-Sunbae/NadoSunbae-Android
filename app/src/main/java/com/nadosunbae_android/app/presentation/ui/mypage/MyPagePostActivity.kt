@@ -68,10 +68,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
     private fun initSwitchTab() {
 
         with(binding.viewMypageSwitch) {
-            switchTab =
-               CustomSwitchTab.getSwitchTabValue(
-                    0
-                )
+            switchTab = CustomSwitchTab.getSwitchTabValue(0)
             switchText = listOf(
                 getString(com.nadosunbae_android.app.R.string.question_detail_title), getString(
                     com.nadosunbae_android.app.R.string.navigation_community

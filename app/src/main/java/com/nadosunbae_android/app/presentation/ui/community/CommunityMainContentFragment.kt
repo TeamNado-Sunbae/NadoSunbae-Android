@@ -12,14 +12,14 @@ import com.nadosunbae_android.app.databinding.FragmentCommunityMainContentBindin
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMainContentAdapter
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
+import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab.Companion.getSwitchTabValue
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
-import java.io.Serializable
 
 @AndroidEntryPoint
 class CommunityMainContentFragment :
@@ -41,10 +41,10 @@ class CommunityMainContentFragment :
 
     //메인 게시글
     private fun initCommunityMainContent() {
-        communityViewModel.getCommunityMainData("1", "5", "community", "like")
+        communityViewModel.getCommunityMainData("1", "0", "community", "like")
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rcCommunityMain.adapter = communityMainContentAdapter
-        communityViewModel.communityMainData.flowWithLifecycle(
+        communityViewModel.communityMainFilterData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
         ).onEach {
             communityMainContentAdapter.submitList(it)
@@ -58,28 +58,29 @@ class CommunityMainContentFragment :
 
     //탭 클릭
     private fun clickSwipeTab() {
-
         with(binding.customSwitchTab) {
-            switchTab = listOf(true, false, false, false)
+            switchTab = getSwitchTabValue(0)
             itemClickListener = {
-                switchTab = when (it) {
-                    0 -> listOf(true, false, false, false)
-
-                    1 -> listOf(false, true, false, false)
-
-                    2 -> listOf(false, false, true, false)
-
-                    else -> listOf(false, false, false, true)
+                switchTab = getSwitchTabValue(it)
+                with(communityViewModel) {
+                    setCommunityMainType(it)
+                    val type = communityMainType.value
+                    val majorName = communityMainMajorName.value
+                    setCommunityMainFilter(type, majorName)
                 }
+
+
             }
         }
     }
 
     //필터 바텀 시트
     private fun initBottomSheet() {
+        binding.filterTitle = getString(R.string.no_major)
         majorBottomSheetDialog = CustomBottomSheetDialog(
             resources.getString(R.string.community_bottom_sheet_title),
-            true
+            true,
+            mainViewModel.majorList.value[0].majorId
         )
         observeBottomSheet(mainViewModel, majorBottomSheetDialog)
     }
@@ -95,16 +96,20 @@ class CommunityMainContentFragment :
             val selectedData = majorBottomSheetDialog.getSelectedData()
             //학과 필터에 들어가는 부분
             if (selectedData != null) {
-                communityViewModel.filterMajor.value = selectedData.name
-                binding.imgCommunityFilter.isSelected = true
+                with(binding) {
+                    val type = communityViewModel.communityMainType.value
+                    val majorName =
+                        if (selectedData.name == getString(R.string.no_major)) null else selectedData.name
+                    communityViewModel.setCommunityMainMajorName(majorName)
+                    communityViewModel.setCommunityMainFilter(type, majorName)
+                    filterTitle = selectedData.name
+                    imgCommunityFilter.isSelected = true
+                }
             }
         }
 
-        //필터 이름 변경
-        communityViewModel.filterMajor.observe(viewLifecycleOwner) {
-            binding.filterTitle = it
-        }
     }
+
 
     //커뮤니티 글 작성 이동
     private fun goCommunityWrite() {

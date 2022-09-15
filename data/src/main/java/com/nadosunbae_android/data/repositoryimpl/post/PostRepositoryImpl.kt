@@ -17,6 +17,7 @@ import javax.inject.Inject
 class PostRepositoryImpl @Inject constructor(
     private val dataSource: PostDataSource) : PostRepository {
 
+    //게시글 조회
     override fun getPost(
         universityId: String,
         majorId: String?,

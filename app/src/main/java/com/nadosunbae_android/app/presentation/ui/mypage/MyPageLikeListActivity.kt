@@ -47,7 +47,7 @@ class MyPageLikeListActivity :
 
         with(binding.viewMypageSwitch) {
             switchTab =
-                com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab.getSwitchTabValue(
+                CustomSwitchTab.getSwitchTabValue(
                     0
                 )
             switchText = listOf(
@@ -60,7 +60,7 @@ class MyPageLikeListActivity :
             itemClickListener = {
                 if (it != myPageViewModel.likeCurFragment.value && !(it == 0 && myPageViewModel.likeCurFragment.value == -1)) {
                     switchTab =
-                        com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab.getSwitchTabValue(
+                        CustomSwitchTab.getSwitchTabValue(
                             it
                         )
                     myPageViewModel.likeCurFragment.postValue(it)

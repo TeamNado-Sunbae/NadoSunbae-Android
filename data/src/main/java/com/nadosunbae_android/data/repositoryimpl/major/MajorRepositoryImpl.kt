@@ -20,7 +20,7 @@ class MajorRepositoryImpl @Inject constructor(
     override fun getMajorList(
         universityId: String,
         filter: String,
-        exclude: String
+        exclude: String?
     ): Flow<List<MajorListData>> = flow {
         val majorData = dao.getItem()
         if (majorData.isEmpty()) {
