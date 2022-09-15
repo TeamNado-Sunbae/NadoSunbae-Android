@@ -10,10 +10,7 @@ import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInData
-import com.nadosunbae_android.domain.model.user.UserInfoData
-import com.nadosunbae_android.domain.model.user.UserLikeData
-import com.nadosunbae_android.domain.model.user.UserPostData
-import com.nadosunbae_android.domain.model.user.UserReviewData
+import com.nadosunbae_android.domain.model.user.*
 import com.nadosunbae_android.domain.repository.user.UserRepository
 import com.nadosunbae_android.domain.usecase.mypage.*
 import com.nadosunbae_android.domain.usecase.review.GetMajorInfoDataUseCase
@@ -57,7 +54,6 @@ class MyPageViewModel @Inject constructor(
     val personalInfo: LiveData<UserInfoData>
         get() = _personalInfo
 
-    val personalQuestion = MutableLiveData<MyPageQuestionData>()
     val modifyInfo = MutableLiveData<MyPageModifyData>()
     val versionInfo = MutableLiveData<MyPageVersionData>()
     val logOut: MutableLiveData<MyPageLogOutData> = MutableLiveData()
@@ -115,6 +111,11 @@ class MyPageViewModel @Inject constructor(
     val userLike: LiveData<List<UserLikeData>>
         get() = _userLike
 
+    //유저 1:1질문
+    private val _userQuestion = MutableLiveData<List<UserQuestionData>>()
+    val userQuestion : LiveData<List<UserQuestionData>>
+    get() = _userQuestion
+
     //마이페이지 내가 쓴 글 조회
     fun getMyPost(filter: String) {
         viewModelScope.launch {
@@ -155,9 +156,9 @@ class MyPageViewModel @Inject constructor(
     //마이페이지 1:1 질문
     fun getMyPageQuestion(userId: Int, sort: String = "recent") {
         viewModelScope.launch {
-            kotlin.runCatching { getMyPageQuestionUseCase(userId, sort) }
+            kotlin.runCatching { userRepository.getUserQuestion(userId, sort) }
                 .onSuccess {
-                    personalQuestion.value = it
+                    _userQuestion.value = it
                     Timber.d("mypageQuestion : 서버 통신 성공")
                 }
                 .onFailure {

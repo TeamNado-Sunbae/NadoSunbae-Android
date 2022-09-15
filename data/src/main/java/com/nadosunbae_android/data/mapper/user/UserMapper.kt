@@ -1,13 +1,7 @@
 package com.nadosunbae_android.data.mapper.user
 
-import com.nadosunbae_android.data.model.response.user.ResponseUserInfo
-import com.nadosunbae_android.data.model.response.user.ResponseUserLike
-import com.nadosunbae_android.data.model.response.user.ResponseUserPost
-import com.nadosunbae_android.data.model.response.user.ResponseUserReview
-import com.nadosunbae_android.domain.model.user.UserInfoData
-import com.nadosunbae_android.domain.model.user.UserLikeData
-import com.nadosunbae_android.domain.model.user.UserPostData
-import com.nadosunbae_android.domain.model.user.UserReviewData
+import com.nadosunbae_android.data.model.response.user.*
+import com.nadosunbae_android.domain.model.user.*
 
 object UserMapper {
     fun mapperToUserPostData(responseUserPost: ResponseUserPost): List<UserPostData> {
@@ -82,6 +76,22 @@ object UserMapper {
                 }
             )
 
+        }
+    }
+
+    fun mapperToUserQuestion(responseUserQuestion: ResponseUserQuestion) : List<UserQuestionData> {
+        return responseUserQuestion.data.postList.map {
+            UserQuestionData(
+                commentCount = it.commentCount,
+                content = it.content,
+                createdAt = it.createdAt,
+                postId = it.postId,
+                title = it.title,
+                isLiked = it.like.isLiked,
+                likeCount = it.like.likeCount,
+                id = it.writer.id,
+                nickname = it.writer.nickname
+            )
         }
     }
 }

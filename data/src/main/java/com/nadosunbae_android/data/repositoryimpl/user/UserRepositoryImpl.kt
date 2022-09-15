@@ -2,10 +2,7 @@ package com.nadosunbae_android.data.repositoryimpl.user
 
 import com.nadosunbae_android.data.datasource.remote.user.UserDataSource
 import com.nadosunbae_android.data.mapper.user.UserMapper
-import com.nadosunbae_android.domain.model.user.UserInfoData
-import com.nadosunbae_android.domain.model.user.UserLikeData
-import com.nadosunbae_android.domain.model.user.UserPostData
-import com.nadosunbae_android.domain.model.user.UserReviewData
+import com.nadosunbae_android.domain.model.user.*
 import com.nadosunbae_android.domain.repository.user.UserRepository
 import javax.inject.Inject
 
@@ -28,6 +25,10 @@ class UserRepositoryImpl @Inject constructor(private val userDataSource: UserDat
 
     override suspend fun getUserLike(filter: String): List<UserLikeData> {
         return UserMapper.mapperToUserLike(userDataSource.getUserLike(filter))
+    }
+
+    override suspend fun getUserQuestion(userId: Int, sort: String): List<UserQuestionData> {
+        return UserMapper.mapperToUserQuestion(userDataSource.getUserQuestion(userId, sort))
     }
 
 }

@@ -1,10 +1,6 @@
 package com.nadosunbae_android.data.datasource.remote.user
 
-import com.nadosunbae_android.data.model.response.Response
-import com.nadosunbae_android.data.model.response.user.ResponseUserInfo
-import com.nadosunbae_android.data.model.response.user.ResponseUserLike
-import com.nadosunbae_android.data.model.response.user.ResponseUserPost
-import com.nadosunbae_android.data.model.response.user.ResponseUserReview
+import com.nadosunbae_android.data.model.response.user.*
 
 interface UserDataSource {
     suspend fun getUserPost(filter : String) : ResponseUserPost
@@ -16,4 +12,6 @@ interface UserDataSource {
     suspend fun getUserReview(userId : Int) : ResponseUserReview
 
     suspend fun getUserLike(filter : String) : ResponseUserLike
+
+    suspend fun getUserQuestion(userId: Int, sort: String) : ResponseUserQuestion
 }

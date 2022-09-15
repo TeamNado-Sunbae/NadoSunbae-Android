@@ -1,9 +1,6 @@
 package com.nadosunbae_android.data.api.user
 
-import com.nadosunbae_android.data.model.response.user.ResponseUserInfo
-import com.nadosunbae_android.data.model.response.user.ResponseUserLike
-import com.nadosunbae_android.data.model.response.user.ResponseUserPost
-import com.nadosunbae_android.data.model.response.user.ResponseUserReview
+import com.nadosunbae_android.data.model.response.user.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -34,4 +31,10 @@ interface UserService {
     suspend fun getUserLike(
         @Query("filter") filter : String
     ) : ResponseUserLike
+
+    @GET("user/{userId}/post/question")
+    suspend fun getUserQuestion(
+        @Path("userId") userId : Int,
+        @Query("sort") sort : String
+    ) : ResponseUserQuestion
 }
