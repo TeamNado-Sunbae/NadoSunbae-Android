@@ -73,7 +73,7 @@ class MyPageLikeListActivity :
         myPageViewModel.likeCurFragment.observe(this) {
             when (it) {
                 0 -> {
-                    initReviewListAdapter()
+                    //initReviewListAdapter()
                 }
                 1 -> {
                     questionPosting()
@@ -160,8 +160,7 @@ class MyPageLikeListActivity :
         intent.getIntExtra("userId", 0)
 
         myPageViewModel.getMyPageLike("community")
-        myPageLikeQuestionAdapter =
-            MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
+        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 
         myPageViewModel.userLike.observe(this) {
@@ -181,7 +180,6 @@ class MyPageLikeListActivity :
         myPageViewModel.userLike.observe(this)
         {
             initReviewEmpty(it.size)
-            // (binding.rvMypageLike.adapter as MyPageLikeQuestionAdapter).submitList(it)
             //(binding.rvMypageLike.adapter as MyPageLikeReviewAdapter).submitList(it)
         }
     }
