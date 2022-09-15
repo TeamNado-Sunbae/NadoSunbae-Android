@@ -146,9 +146,9 @@ class MainViewModel @Inject constructor(
 
     //TODO 회원가입시에 가져오기? 근데 회원가입 없는 기존에 사람들은? 이건 고민필요
     //학과 리스트 가져오기
-    fun getMajorList(universityId: String, filter: String, exclude: String) {
+    fun getMajorList(universityId: String, filter: String, exclude: String?) {
         viewModelScope.launch {
-            majorRepository.getMajorList(universityId, filter, exclude)
+            majorRepository.getMajorList(universityId, filter,exclude)
                 .onStart {
                     onLoadingEnd.value = false
                 }

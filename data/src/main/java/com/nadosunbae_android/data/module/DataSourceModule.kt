@@ -1,15 +1,5 @@
 package com.nadosunbae_android.data.module
 
-import com.nadosunbae_android.data.api.classroom.ClassRoomService
-import com.nadosunbae_android.data.api.home.HomeService
-import com.nadosunbae_android.data.api.like.LikeService
-import com.nadosunbae_android.data.api.main.MainService
-import com.nadosunbae_android.data.api.major.MajorService
-import com.nadosunbae_android.data.api.mypage.MyPageService
-import com.nadosunbae_android.data.api.notification.NotificationService
-import com.nadosunbae_android.data.api.post.PostService
-import com.nadosunbae_android.data.api.review.ReviewService
-import com.nadosunbae_android.data.api.sign.SignService
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSource
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.home.HomeDataSource

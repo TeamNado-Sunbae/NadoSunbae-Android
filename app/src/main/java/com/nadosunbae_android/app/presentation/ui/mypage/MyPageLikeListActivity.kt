@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageLikeListBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
+import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeReviewAdapter
@@ -49,7 +49,7 @@ class MyPageLikeListActivity :
 
         with(binding.viewMypageSwitch) {
             switchTab =
-                com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
+                CustomSwitchTab.getSwitchTabValue(
                     0
                 )
             switchText = listOf(
@@ -62,7 +62,7 @@ class MyPageLikeListActivity :
             itemClickListener = {
                 if (it != myPageViewModel.likeCurFragment.value && !(it == 0 && myPageViewModel.likeCurFragment.value == -1)) {
                     switchTab =
-                        com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
+                        CustomSwitchTab.getSwitchTabValue(
                             it
                         )
                     myPageViewModel.likeCurFragment.postValue(it)

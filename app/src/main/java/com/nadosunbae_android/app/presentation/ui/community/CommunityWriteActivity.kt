@@ -2,25 +2,17 @@ package com.nadosunbae_android.app.presentation.ui.community
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityCommunityWriteBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteViewModel
-import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
-import com.nadosunbae_android.data.datasource.database.entity.MajorList
 import com.nadosunbae_android.domain.model.major.MajorListData
-import com.nadosunbae_android.domain.model.post.PostWriteParam
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.layout_category_check_box.view.*
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CommunityWriteActivity :
@@ -38,7 +30,6 @@ class CommunityWriteActivity :
         activateCompleteButton()
         clickComplete()
         communityWriteViewModel.setCompleteButton()
-        Timber.d("sign ${MainGlobals.signInData?.userId}")
     }
 
 
@@ -56,7 +47,7 @@ class CommunityWriteActivity :
             communityWriteViewModel.majorList.value ?: emptyList(), majorBottomSheetDialog
         )
         //학과 무관 선택
-        majorBottomSheetDialog.setSelectedData(-2)
+        majorBottomSheetDialog.setSelectedData(0)
         binding.layoutCommunityWriteCategory.radioBtnCategoryFreedom.isChecked = true
     }
 
@@ -109,12 +100,11 @@ class CommunityWriteActivity :
     }
 
 
-
     //완료 버튼
     private fun clickComplete() {
         binding.btnCommunityWriteOk.setOnClickListener {
             communityWriteViewModel.postWrite(
-                type = {checkCategory()},
+                type = { checkCategory() },
                 title = communityWriteViewModel.writeTitle.value,
                 content = communityWriteViewModel.writeContent.value
             )

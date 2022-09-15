@@ -7,7 +7,8 @@ import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPagePostBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
+import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
+import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,7 +70,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
         with(binding.viewMypageSwitch) {
             switchTab =
-                com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
+                CustomSwitchTab.getSwitchTabValue(
                     0
                 )
             switchText = listOf(
@@ -80,7 +81,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
             itemClickListener = {
                 if (it != myPageViewModel.postCurFragment.value && !(it == 0 && myPageViewModel.postCurFragment.value == -1)) {
                     switchTab =
-                        com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab.getSwitchTabValue(
+                        CustomSwitchTab.getSwitchTabValue(
                             it
                         )
                     myPageViewModel.postCurFragment.postValue(it)
