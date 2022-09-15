@@ -36,18 +36,6 @@ interface MyPageService {
     @POST("auth/logout")
     suspend fun postMyPageLogOut(): ResponseMyPageLogOut
 
-    //좋아요 목록 조회 -> review
-    @GET("user/mypage/like/list")
-    suspend fun getMyPageLikePost(
-        @Query("type") type: String = "review"
-    ) : ResponseMyPageLikeReview
-
-    //좋아요 목록 조회 -> question, information
-    @GET("user/mypage/like/list")
-    suspend fun getMyPageLikeQuestion(
-        @Query("type") type: String = "question"
-    ) : ResponseMyPageLikeQuestion
-
     //마이페이지 차단목록 조회
     @GET("block/list")
     suspend fun getMyPageBlock() :ResponseMyPageBlock

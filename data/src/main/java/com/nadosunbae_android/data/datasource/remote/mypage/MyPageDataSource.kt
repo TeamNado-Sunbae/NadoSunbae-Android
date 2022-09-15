@@ -16,10 +16,6 @@ interface MyPageDataSource {
 
     suspend fun postMyPageLogOut() : ResponseMyPageLogOut
 
-    suspend fun getMyPageLikeReview(type: String = "review") : ResponseMyPageLikeReview
-
-    suspend fun getMyPageLikeQuestion(type: String = "question") : ResponseMyPageLikeQuestion
-
     suspend fun getMyPageBlock(): ResponseMyPageBlock
 
     suspend fun postMyPageBlockUpdate(requestMyPageBlockUpdate: RequestMyPageBlockUpdate) : ResponseMyPageBlockUpdate

@@ -8,13 +8,11 @@ import com.nadosunbae_android.app.databinding.ActivityMyPageLikeListBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionAdapter
-import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeReviewAdapter
+import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.domain.model.mypage.MyPageLikeQuestionData
-import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class MyPageLikeListActivity :
@@ -22,7 +20,6 @@ class MyPageLikeListActivity :
     private val myPageViewModel: MyPageViewModel by viewModels()
     private lateinit var myPageLikeQuestionAdapter: MyPageLikeQuestionAdapter
     private lateinit var myPageLikeReviewAdapter: MyPageLikeReviewAdapter
-    private lateinit var myPageLikeQuestionInfoAdapter: MyPageLikeQuestionInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +27,7 @@ class MyPageLikeListActivity :
         backBtn()
         initSwitchTab()
         observeFragmentNum()
-        initReviewListAdapter()
+        //initReviewListAdapter()
     }
 
     private fun observeLoadingEnd() {
@@ -146,8 +143,6 @@ class MyPageLikeListActivity :
 
     //1:1 질문
     private fun questionPosting() {
-        showLoading()
-        intent.getIntExtra("userId", 0)
         myPageViewModel.getMyPageLike("questionToPerson")
         myPageLikeQuestionAdapter =
             MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
@@ -171,7 +166,8 @@ class MyPageLikeListActivity :
 
         myPageViewModel.userLike.observe(this) {
             initInfoEmpty(it.size)
-            (binding.rvMypageLike.adapter as MyPageLikeQuestionAdapter).submitList(it)        }
+            (binding.rvMypageLike.adapter as MyPageLikeQuestionAdapter).submitList(it)
+        }
     }
 
 
@@ -182,10 +178,11 @@ class MyPageLikeListActivity :
         myPageViewModel.getMyPageLike("review")
         myPageLikeReviewAdapter = MyPageLikeReviewAdapter(userId)
         binding.rvMypageLike.adapter = myPageLikeReviewAdapter
-
-        myPageViewModel.userLike.observe(this) {
+        myPageViewModel.userLike.observe(this)
+        {
             initReviewEmpty(it.size)
-            (binding.rvMypageLike.adapter as MyPageLikeReviewAdapter).submitList(it)
+            // (binding.rvMypageLike.adapter as MyPageLikeQuestionAdapter).submitList(it)
+            //(binding.rvMypageLike.adapter as MyPageLikeReviewAdapter).submitList(it)
         }
     }
 }

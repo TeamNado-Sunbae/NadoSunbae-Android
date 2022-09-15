@@ -88,58 +88,6 @@ object MypageMapper {
         )
     }
 
-    //좋아요 목록 조회(리뷰)
-    fun mapperToLikeListReview(responseMyPageLikeReview: ResponseMyPageLikeReview): MyPageLikeReviewData {
-        return MyPageLikeReviewData(
-            data = MyPageLikeReviewData.Data(
-                likePostList = responseMyPageLikeReview.data.likePostList.map {
-                    MyPageLikeReviewData.Data.LikePost(
-                        createdAt = it.createdAt,
-                        like = MyPageLikeReviewData.Data.LikePost.Like(
-                            isLiked = it.like.isLiked,
-                            likeCount = it.like.likeCount
-                        ),
-                        postId = it.postId,
-                        tagList = it.tagList.map { MyPageLikeReviewData.Data.LikePost.Tag(it.tagName) },
-                        title = it.title,
-                        writer = MyPageLikeReviewData.Data.LikePost.Writer(
-                            nickname = it.writer.nickname,
-                            writerId = it.writer.writerId
-                        )
-                    )
-                }
-            ),
-            success = responseMyPageLikeReview.success
-        )
-    }
-
-    //좋아요 목록 조회(질문)
-    fun mapperToLikeListQuestion(responseMyPageLikeQuestion: ResponseMyPageLikeQuestion): MyPageLikeQuestionData {
-        return MyPageLikeQuestionData(
-            data = MyPageLikeQuestionData.Data(
-                likePostList = responseMyPageLikeQuestion.data.likePostList.map {
-                    MyPageLikeQuestionData.Data.LikePost(
-                        commentCount = it.commentCount,
-                        content = it.content,
-                        createdAt = it.createdAt,
-                        like = MyPageLikeQuestionData.Data.LikePost.Like(
-                            isLiked = it.like.isLiked,
-                            likeCount = it.like.likeCount
-                        ),
-                        postId = it.postId,
-                        postTypeId = it.postTypeId,
-                        title = it.title,
-                        writer = MyPageLikeQuestionData.Data.LikePost.Writer(
-                            nickname = it.writer.nickname,
-                            writerId = it.writer.writerId
-                        )
-                    )
-                }
-            ),
-            success = responseMyPageLikeQuestion.success
-        )
-    }
-
     //마이페이지 차단된 목록 조회
     fun mapperToBlock(responseMyPageBlock: ResponseMyPageBlock): MyPageBlockData {
         return MyPageBlockData(

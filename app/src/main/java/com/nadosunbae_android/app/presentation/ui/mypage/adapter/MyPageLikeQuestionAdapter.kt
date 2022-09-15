@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.mypage.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemMypageLikeQuestionBinding
@@ -24,7 +25,7 @@ class MyPageLikeQuestionAdapter (private val num: Int, private val userId: Int, 
     }
 
     override fun onBindViewHolder(holder: MyPageLikeQuestionViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.binding.setVariable(BR.MyPageLikeQuestion, getItem(position))
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
             intent.putExtra("postId",getItem(position).id.toString())
@@ -33,12 +34,5 @@ class MyPageLikeQuestionAdapter (private val num: Int, private val userId: Int, 
     }
 
     class MyPageLikeQuestionViewHolder(val binding: ItemMypageLikeQuestionBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(userLikeData: UserLikeData) {
-            with(binding) {
-                this.myPageLikeQuestion = userLikeData
-                executePendingBindings()
-            }
-        }
-    }
+        RecyclerView.ViewHolder(binding.root)
 }

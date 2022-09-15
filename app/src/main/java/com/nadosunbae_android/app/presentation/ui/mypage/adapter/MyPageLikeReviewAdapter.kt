@@ -9,16 +9,13 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.databinding.ItemMypageLikeReviewBinding
 import com.nadosunbae_android.app.databinding.ItemMypageReviewBinding
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.DiffUtilCallback
-import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 import com.nadosunbae_android.domain.model.user.UserLikeData
-import com.nadosunbae_android.domain.model.user.UserReviewData
 
 class MyPageLikeReviewAdapter(var userId : Int):
     androidx.recyclerview.widget.ListAdapter<UserLikeData, MyPageLikeReviewAdapter.MyPageLikeReviewViewHolder>(
