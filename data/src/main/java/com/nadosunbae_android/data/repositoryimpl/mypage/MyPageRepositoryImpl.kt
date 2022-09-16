@@ -8,19 +8,10 @@ import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
 import javax.inject.Inject
 
 class MyPageRepositoryImpl @Inject constructor(private val dataSource: MyPageDataSource) : MyPageRepository {
-
-    override suspend fun getMyPageQuestion(userId: Int, sort: String) : MyPageQuestionData {
-        return MypageMapper.mapperToQuestion(dataSource.getMyPageQuestion(userId, sort))
-    }
-
     override suspend fun putMyPageModify(myPageModifyItem: MyPageModifyItem): MyPageModifyData {
         return MypageMapper.mapperToModifyData(dataSource.putMyPageModify(
             MypageMapper.mapperToModifyItem(myPageModifyItem)
         ))
-    }
-
-    override suspend fun getMyPageReply(postTypeId: Int): MyPageReplyData {
-        return MypageMapper.mapperToReply(dataSource.getMyPageReply(postTypeId))
     }
 
     override suspend fun getMyPageVersion(): MyPageVersionData {
@@ -29,18 +20,6 @@ class MyPageRepositoryImpl @Inject constructor(private val dataSource: MyPageDat
 
     override suspend fun postMyPageLogOut(): MyPageLogOutData {
         return MypageMapper.mapperToLogOut(dataSource.postMyPageLogOut())
-    }
-
-    override suspend fun getMyPageLikeReview(type: String): MyPageLikeReviewData {
-        return MypageMapper.mapperToLikeListReview(dataSource.getMyPageLikeReview(type))
-    }
-
-    override suspend fun getMyPageLikeQuestion(type: String): MyPageLikeQuestionData {
-        return MypageMapper.mapperToLikeListQuestion(dataSource.getMyPageLikeQuestion(type))
-    }
-
-    override suspend fun getMyPageReview(userId: Int): MyPageReviewData {
-        return MypageMapper.mapperToReview(dataSource.getMyPageReview(userId))
     }
 
     override suspend fun getMyPageBlock(): MyPageBlockData {

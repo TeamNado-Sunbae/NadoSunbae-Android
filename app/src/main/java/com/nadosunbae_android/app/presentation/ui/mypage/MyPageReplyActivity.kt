@@ -7,10 +7,8 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageReplyBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
-import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyAdapter
-import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReplyInfoAdapter
+import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPagePostInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.domain.model.mypage.MyPageReplyData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,9 +17,7 @@ class MyPageReplyActivity :
 
     private val myPageViewModel: MyPageViewModel by viewModels()
 
-    private lateinit var myPageReplyAdapter: MyPageReplyAdapter
-    private lateinit var myPageeReplyInfoAdapter: MyPageReplyInfoAdapter
-
+    private lateinit var myPagePostInfoAdapter: MyPagePostInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +25,7 @@ class MyPageReplyActivity :
         backBtn()
         initSwitchTab()
         observeFragmentNum()
+        questionPosting()
     }
 
     private fun observeLoadingEnd() {
@@ -73,9 +70,11 @@ class MyPageReplyActivity :
             when (it) {
                 0 -> {
                     //1:1질문 서버통신
+                    questionPosting()
                 }
                 1 -> {
                     //커뮤니티 서버통신
+                    infoPosting()
                 }
             }
             binding.viewMypageSwitch.switchTab = CustomSwitchTab.getSwitchTabValue(it)
@@ -108,15 +107,13 @@ class MyPageReplyActivity :
 
 
     private fun questionPosting() {
-        showLoading()
-        intent.getIntExtra("userId", 0)
-        myPageViewModel.getMyPageReply(3)
-        myPageReplyAdapter = MyPageReplyAdapter(2, intent.getIntExtra("userId", 0), 1)
-        binding.rvMypageQuestion.adapter = myPageReplyAdapter
+        myPageViewModel.getMyPageReply("questionToPerson")
+        myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
+        binding.rvMypageQuestion.adapter = myPagePostInfoAdapter
 
-        myPageViewModel.replyByMe.observe(this) {
-            initQuestionEmpty(it.data.classroomPostListByMyCommentList.size)
-            myPageReplyAdapter.setQuestionReply((it.data.classroomPostListByMyCommentList) as MutableList<MyPageReplyData.Data.ClassroomPostListByMyComment>)
+        myPageViewModel.userComment.observe(this) {
+            initQuestionEmpty(it.size)
+            (binding.rvMypageQuestion.adapter as MyPagePostInfoAdapter).submitList(it)
         }
     }
 
@@ -132,15 +129,13 @@ class MyPageReplyActivity :
     }
 
     private fun infoPosting() {
-        showLoading()
-        intent.getIntExtra("userId", 0)
-        myPageViewModel.getMyPageReply(2)
-        myPageeReplyInfoAdapter = MyPageReplyInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
-        binding.rvMypageQuestion.adapter = myPageeReplyInfoAdapter
+        myPageViewModel.getMyPageReply("community")
+        myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
+        binding.rvMypageQuestion.adapter = myPagePostInfoAdapter
 
-        myPageViewModel.replyByMe.observe(this) {
-            initInfoEmpty(it.data.classroomPostListByMyCommentList.size)
-            myPageeReplyInfoAdapter.setQuestionReply((it.data.classroomPostListByMyCommentList) as MutableList<MyPageReplyData.Data.ClassroomPostListByMyComment>)
+        myPageViewModel.userComment.observe(this) {
+            initInfoEmpty(it.size)
+            (binding.rvMypageQuestion.adapter as MyPagePostInfoAdapter).submitList(it)
         }
     }
 

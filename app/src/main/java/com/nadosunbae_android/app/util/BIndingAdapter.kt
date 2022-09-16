@@ -283,7 +283,6 @@ object BindingAdapter {
             textView.text = "${"응답률 "}${rate}${"%"}"
         }
     }
-
 }
 
 

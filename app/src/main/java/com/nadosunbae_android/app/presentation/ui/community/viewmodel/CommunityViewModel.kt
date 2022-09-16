@@ -67,7 +67,9 @@ class CommunityViewModel @Inject constructor(
         majorId: String?,
         filter: String,
         sort: String,
-        search: String? = ""
+        search: String? = "",
+        type : String? = "",
+        majorName : String? = ""
     ) = viewModelScope.launch {
         postRepository.getPost(universityId, majorId, filter, sort, search)
             .onStart {
@@ -77,7 +79,9 @@ class CommunityViewModel @Inject constructor(
             }.collectLatest {
                 Timber.d("커뮤니티 메인 서버통신 ")
                 _communityMainData.value = it
-                setCommunityMainFilter()
+                setCommunityMainFilter(type,majorName)
+            }.also {
+                onLoadingEnd.value = true
             }
     }
 

@@ -1,9 +1,7 @@
 package com.nadosunbae_android.data.mapper.user
 
-import com.nadosunbae_android.data.model.response.user.ResponseUserInfo
-import com.nadosunbae_android.data.model.response.user.ResponseUserPost
-import com.nadosunbae_android.domain.model.user.UserInfoData
-import com.nadosunbae_android.domain.model.user.UserPostData
+import com.nadosunbae_android.data.model.response.user.*
+import com.nadosunbae_android.domain.model.user.*
 
 object UserMapper {
     fun mapperToUserPostData(responseUserPost: ResponseUserPost): List<UserPostData> {
@@ -12,18 +10,14 @@ object UserMapper {
                 commentCount = it.commentCount,
                 content = it.content,
                 createdAt = it.createdAt,
-                like = UserPostData.Like(
-                    isLiked = it.like.isLiked,
-                    likeCount = it.like.likeCount
-                ),
+                isLiked = it.like.isLiked,
+                likeCount = it.like.likeCount,
                 majorName = it.majorName,
                 postId = it.postId,
                 title = it.title,
                 type = it.type,
-                writer = UserPostData.Writer(
-                    id = it.writer.id,
-                    nickname = it.writer.nickname
-                )
+                writerId = it.writer.id,
+                nickname = it.writer.nickname
             )
         }
     }
@@ -43,5 +37,61 @@ object UserMapper {
             secondMajorStart = responseUserInfo.data.secondMajorStart,
             userId = responseUserInfo.data.userId
         )
+    }
+
+    fun mapperToUserReview(responseUserReview: ResponseUserReview): List<UserReviewData.Review> {
+        return responseUserReview.data.reviewList.map {
+            UserReviewData.Review(
+                createdAt = it.createdAt,
+                id = it.id,
+                majorName = it.majorName,
+                oneLineReview = it.oneLineReview,
+                tagName = it.tagList.map {
+                    it.tagName
+                },
+                isLiked = it.like.isLiked,
+                likeCount = it.like.likeCount,
+                nickname = responseUserReview.data.writer.nickname,
+                writerId = responseUserReview.data.writer.writerId
+            )
+        }
+    }
+
+    fun mapperToUserLike(responseUserLike: ResponseUserLike) : List<UserLikeData> {
+        return responseUserLike.data.likeList.map {
+            UserLikeData(
+                commentCount = it.commentCount,
+                content = it.content,
+                createdAt = it.createdAt,
+                id = it.id,
+                majorName = it.majorName,
+                title = it.title,
+                type = it.type,
+                isLiked = it.like?.isLiked,
+                likeCount = it.like?.likeCount,
+                writerId = it.writer?.id,
+                nickname = it.writer?.nickname,
+                tagName = it.tagList?.map {
+                    it.tagName
+                }
+            )
+
+        }
+    }
+
+    fun mapperToUserQuestion(responseUserQuestion: ResponseUserQuestion) : List<UserQuestionData> {
+        return responseUserQuestion.data.postList.map {
+            UserQuestionData(
+                commentCount = it.commentCount,
+                content = it.content,
+                createdAt = it.createdAt,
+                postId = it.postId,
+                title = it.title,
+                isLiked = it.like.isLiked,
+                likeCount = it.like.likeCount,
+                id = it.writer.id,
+                nickname = it.writer.nickname
+            )
+        }
     }
 }

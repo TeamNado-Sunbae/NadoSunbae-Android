@@ -1,21 +1,22 @@
-package com.nadosunbae_android.domain.model.mypage
+package com.nadosunbae_android.data.model.response.user
 
 import java.util.*
 
-data class MyPageLikeQuestionData(
+data class ResponseUserQuestion(
     val data: Data,
+    val message: String,
+    val status: Int,
     val success: Boolean
 ) {
     data class Data(
-        val likePostList: List<LikePost>
+        val postList: List<Post>
     ) {
-        data class LikePost(
+        data class Post(
             val commentCount: Int,
             val content: String,
-            val createdAt: Date?,
+            val createdAt: Date,
             val like: Like,
             val postId: Int,
-            val postTypeId : Int,
             val title: String,
             val writer: Writer
         ) {
@@ -25,8 +26,8 @@ data class MyPageLikeQuestionData(
             )
 
             data class Writer(
-                val nickname: String,
-                val writerId: Int
+                val id: Int,
+                val nickname: String
             )
         }
     }
