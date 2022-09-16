@@ -115,12 +115,21 @@ class CommunityWriteActivity :
     //완료 버튼
     private fun clickComplete() {
         binding.btnCommunityWriteOk.setOnClickListener {
-            communityWriteViewModel.postWrite(
-                type = { checkCategory() },
-                title = communityWriteViewModel.writeTitle.value,
-                content = communityWriteViewModel.writeContent.value
+            CustomDialog(this).genericDialog(
+                dialogText = CustomDialog.DialogData(
+                    getString(R.string.question_write_complete),
+                    getString(R.string.alert_write_review_complete),
+                    getString(R.string.question_write_complete_no)
+                ),
+                complete = {
+                    communityWriteViewModel.postWrite(
+                        type = { checkCategory() },
+                        title = communityWriteViewModel.writeTitle.value,
+                        content = communityWriteViewModel.writeContent.value
+                    )
+                },
+             cancel = {}
             )
-
         }
     }
 
