@@ -17,7 +17,6 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -68,8 +67,6 @@ class CommunityMainContentFragment :
                     val majorName = communityMainMajorName.value
                     setCommunityMainFilter(type, majorName)
                 }
-
-
             }
         }
     }
@@ -116,7 +113,10 @@ class CommunityMainContentFragment :
         binding.btnCommunityWrite.setOnClickListener {
             val majorList = mainViewModel.majorList.value
             val intent = Intent(requireActivity(), CommunityWriteActivity::class.java)
-            intent.putExtra("majorList", majorList as ArrayList<MajorListData>)
+            intent.apply {
+                putExtra("majorList", majorList as ArrayList<MajorListData>)
+                putExtra("noMajor",mainViewModel.majorList.value[0].majorId)
+            }
             startActivity(intent)
         }
     }

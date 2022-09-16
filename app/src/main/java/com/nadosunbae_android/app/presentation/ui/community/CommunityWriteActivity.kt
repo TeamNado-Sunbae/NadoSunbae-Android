@@ -35,13 +35,15 @@ class CommunityWriteActivity :
 
     //학과 변경 세팅
     private fun initBottomSheetDialog() {
+        val noMajor = intent.getIntExtra("noMajor", 0)
         binding.communityWriteViewModel = communityWriteViewModel
         communityWriteViewModel.setMajorList(
             intent.getParcelableArrayListExtra<MajorListData>("majorList") as List<MajorListData>
         )
         majorBottomSheetDialog = CustomBottomSheetDialog(
             getString(R.string.community_write_bottom_sheet_title),
-            true
+            true,
+            noMajor
         )
         observeBottomSheet(
             communityWriteViewModel.majorList.value ?: emptyList(), majorBottomSheetDialog
