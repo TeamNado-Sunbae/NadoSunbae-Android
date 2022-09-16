@@ -15,9 +15,10 @@ import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityV
 import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab.Companion.getSwitchTabValue
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
+import com.nadosunbae_android.app.util.CustomDecoration
+import com.nadosunbae_android.app.util.dpToPxF
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -37,16 +38,22 @@ class CommunityMainContentFragment :
         initBottomSheet()
         clickFilter()
         goCommunityWrite()
+        setRefreshData()
+        setLoading()
     }
 
     //메인 게시글
     private fun initCommunityMainContent() {
+        showLoading()
         communityViewModel.getCommunityMainData("1", "0", "community", "like")
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rcCommunityMain.adapter = communityMainContentAdapter
+        val decoration = CustomDecoration(1.dpToPxF, 16.dpToPxF, requireContext().getColor(R.color.gray_0))
+        binding.rcCommunityMain.addItemDecoration(decoration)
         communityViewModel.communityMainFilterData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
         ).onEach {
+            binding.size = it.isEmpty()
             communityMainContentAdapter.submitList(it)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
@@ -107,7 +114,27 @@ class CommunityMainContentFragment :
                 }
             }
         }
+    }
 
+    //새로고침시 받아오는 새로운 데이터
+    private fun setRefreshData() {
+        binding.swipeCommunityMain.setOnRefreshListener {
+            val type = communityViewModel.communityMainType.value
+            val majorName = communityViewModel.communityMainMajorName.value
+            communityViewModel.getCommunityMainData(
+                "1", "0", "community", "like", "", type, majorName
+            )
+        }
+    }
+
+    //로딩시에
+    private fun setLoading() {
+        communityViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+            if (it) {
+                dismissLoading()
+                binding.swipeCommunityMain.isRefreshing = false
+            }
+        }
     }
 
 
