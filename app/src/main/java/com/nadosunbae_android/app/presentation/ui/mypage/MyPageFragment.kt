@@ -14,7 +14,6 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
-import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -124,16 +123,13 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private fun initAskPersonal() {
         //마이페이지 선배 1:1
-        //showLoading()
-        mainViewModel.signData.observe(viewLifecycleOwner) {
-            myPageViewModel.getMyPageQuestion(it.userId)
-        }
-
         myPageQuestionAdapter = MyPageMainAdapter(2, mainViewModel.userId.value ?: 0, 1)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
-        myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
-            initReviewEmpty(it.data.classroomPostList.size)
-            myPageQuestionAdapter.setQuestionMain((it.data.classroomPostList) as MutableList<MyPageQuestionData.Data.ClassroomPost>)
+        val userId = mainViewModel.userId.value
+        myPageViewModel.getMyPageQuestion(userId ?: 2 , "recent")
+        myPageViewModel.userQuestion.observe(viewLifecycleOwner) {
+            initReviewEmpty(it.size)
+            (binding.rcMyPageQuestion.adapter as MyPageMainAdapter).submitList(it)
 
         }
     }

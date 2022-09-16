@@ -6,7 +6,7 @@
     <data>
         <variable
             name="reviewData"
-            type="com.nadosunbae_android.domain.model.mypage.MyPageReviewData.Data.ReviewPost" />
+            type="com.nadosunbae_android.domain.model.user.UserReviewData.Review" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/pretendard_light"
-            intToText ="@{reviewData.Like.likeCount}"
+            intToText ="@{reviewData.likeCount}"
             android:textColor="@color/gray_3"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +66,7 @@
             android:id="@+id/ic_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            likeCheck="@{reviewData.Like.liked}"
+            likeCheck="@{reviewData.liked}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_likes"
             app:layout_constraintEnd_toStartOf="@+id/tv_likes"
             app:layout_constraintTop_toTopOf="@+id/tv_likes"

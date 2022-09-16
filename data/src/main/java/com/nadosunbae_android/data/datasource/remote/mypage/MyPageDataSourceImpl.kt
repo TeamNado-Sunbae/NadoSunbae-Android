@@ -10,18 +10,8 @@ import javax.inject.Inject
 
 class MyPageDataSourceImpl @Inject constructor(private val service: MyPageService) :
     MyPageDataSource {
-
-
-    override suspend fun getMyPageQuestion(userId: Int, sort: String): ResponseMypageQuestionData {
-        return service.getMyPageQuestion(userId, sort)
-    }
-
     override suspend fun putMyPageModify(requestMyPageModify: RequestMyPageModify): ResponseMyPageModify {
         return service.putMyPageModify(requestMyPageModify)
-    }
-
-    override suspend fun getMyPageReply(postTypeId: Int): ResponseMyPageReplyData {
-        return service.getMyPageReply(postTypeId)
     }
 
     override suspend fun getMyPageVersion(): ResponseMyPageVersionData {
@@ -30,18 +20,6 @@ class MyPageDataSourceImpl @Inject constructor(private val service: MyPageServic
 
     override suspend fun postMyPageLogOut(): ResponseMyPageLogOut {
         return service.postMyPageLogOut()
-    }
-
-    override suspend fun getMyPageLikeReview(type: String): ResponseMyPageLikeReview {
-        return service.getMyPageLikePost(type)
-    }
-
-    override suspend fun getMyPageLikeQuestion(type: String): ResponseMyPageLikeQuestion {
-        return service.getMyPageLikeQuestion(type)
-    }
-
-    override suspend fun getMyPageReview(userId: Int): ResponseMyPageReviewData {
-        return service.getMyPageReview(userId)
     }
 
     override suspend fun getMyPageBlock(): ResponseMyPageBlock {

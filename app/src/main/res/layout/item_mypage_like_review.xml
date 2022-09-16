@@ -6,7 +6,7 @@
     <data>
         <variable
             name="MyPageLikeReview"
-            type="com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData.Data.LikePost" />
+            type="com.nadosunbae_android.domain.model.user.UserLikeData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/pretendard_light"
-            intToText ="@{MyPageLikeReview.Like.likeCount}"
+            intToText ="@{MyPageLikeReview.likeCount}"
             android:textColor="@color/gray_3"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +66,7 @@
             android:id="@+id/ic_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            likeCheck="@{MyPageLikeReview.Like.liked}"
+            likeCheck="@{MyPageLikeReview.liked}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_likes"
             app:layout_constraintEnd_toStartOf="@+id/tv_likes"
             app:layout_constraintTop_toTopOf="@+id/tv_likes"
@@ -168,7 +168,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="9dp"
             android:fontFamily="@font/pretendard_semibold"
-            android:text="@{MyPageLikeReview.writer.nickname}"
+            android:text="@{MyPageLikeReview.nickname}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"

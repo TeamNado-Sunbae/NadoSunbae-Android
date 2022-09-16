@@ -10,37 +10,6 @@ import com.nadosunbae_android.domain.model.mypage.*
 
 
 object MypageMapper {
-
-    //일대일 질문
-    fun mapperToQuestion(responseMypageQuestionData: ResponseMypageQuestionData): MyPageQuestionData {
-        return MyPageQuestionData(
-            data = MyPageQuestionData.Data(
-                classroomPostList = responseMypageQuestionData.data.classroomPostList.map {
-                    MyPageQuestionData.Data.ClassroomPost(
-                        commentCount = it.commentCount,
-                        content = it.content,
-                        createdAt = it.createdAt,
-                        like = MyPageQuestionData.Data.ClassroomPost.Like(
-                            isLiked = it.like.isLiked,
-                            likeCount = it.like.likeCount
-                        ),
-                        postId = it.postId,
-                        title = it.title,
-                        writer = MyPageQuestionData.Data.ClassroomPost.Writer(
-                            nickname = it.writer.nickname,
-                            profileImageId = it.writer.profileImageId,
-                            writerId = it.writer.writerId
-                        )
-                    )
-
-                }
-
-            ),
-            success = responseMypageQuestionData.success
-        )
-
-    }
-
     // 내 정보 수정
     fun mapperToModifyData(responseMyPageModify: ResponseMyPageModify): MyPageModifyData {
         return MyPageModifyData(
@@ -71,36 +40,6 @@ object MypageMapper {
         )
     }
 
-
-    //내가 쓴 답글
-    fun mapperToReply(responseMyPageReplyData: ResponseMyPageReplyData): MyPageReplyData {
-        return MyPageReplyData(
-            data = MyPageReplyData.Data(
-                classroomPostListByMyCommentList = responseMyPageReplyData.data.classroomPostListByMyCommentList.map {
-                    MyPageReplyData.Data.ClassroomPostListByMyComment(
-                        commentCount = it.commentCount,
-                        content = it.content,
-                        createdAt = it.createdAt,
-                        like = MyPageReplyData.Data.ClassroomPostListByMyComment.Like(
-                            isLiked = it.like.isLiked,
-                            likeCount = it.like.likeCount
-                        ),
-                        postTypeId = it.postTypeId,
-                        postId = it.postId,
-                        title = it.title,
-                        writer = MyPageReplyData.Data.ClassroomPostListByMyComment.Writer(
-                            nickname = it.writer.nickname,
-                            profileImageId = it.writer.profileImageId,
-                            writerId = it.writer.writerId
-                        )
-                    )
-                }
-            ),
-            success = responseMyPageReplyData.success
-        )
-    }
-
-
     //버전 정보
     fun mapperToVersion(responseMyPageVersionData: ResponseMyPageVersionData): MyPageVersionData {
         return MyPageVersionData(
@@ -115,84 +54,6 @@ object MypageMapper {
     fun mapperToLogOut(responseMyPageLogOut: ResponseMyPageLogOut): MyPageLogOutData {
         return MyPageLogOutData(
             success = responseMyPageLogOut.success
-        )
-    }
-
-    //좋아요 목록 조회(리뷰)
-    fun mapperToLikeListReview(responseMyPageLikeReview: ResponseMyPageLikeReview): MyPageLikeReviewData {
-        return MyPageLikeReviewData(
-            data = MyPageLikeReviewData.Data(
-                likePostList = responseMyPageLikeReview.data.likePostList.map {
-                    MyPageLikeReviewData.Data.LikePost(
-                        createdAt = it.createdAt,
-                        like = MyPageLikeReviewData.Data.LikePost.Like(
-                            isLiked = it.like.isLiked,
-                            likeCount = it.like.likeCount
-                        ),
-                        postId = it.postId,
-                        tagList = it.tagList.map { MyPageLikeReviewData.Data.LikePost.Tag(it.tagName) },
-                        title = it.title,
-                        writer = MyPageLikeReviewData.Data.LikePost.Writer(
-                            nickname = it.writer.nickname,
-                            writerId = it.writer.writerId
-                        )
-                    )
-                }
-            ),
-            success = responseMyPageLikeReview.success
-        )
-    }
-
-    //좋아요 목록 조회(질문)
-    fun mapperToLikeListQuestion(responseMyPageLikeQuestion: ResponseMyPageLikeQuestion): MyPageLikeQuestionData {
-        return MyPageLikeQuestionData(
-            data = MyPageLikeQuestionData.Data(
-                likePostList = responseMyPageLikeQuestion.data.likePostList.map {
-                    MyPageLikeQuestionData.Data.LikePost(
-                        commentCount = it.commentCount,
-                        content = it.content,
-                        createdAt = it.createdAt,
-                        like = MyPageLikeQuestionData.Data.LikePost.Like(
-                            isLiked = it.like.isLiked,
-                            likeCount = it.like.likeCount
-                        ),
-                        postId = it.postId,
-                        postTypeId = it.postTypeId,
-                        title = it.title,
-                        writer = MyPageLikeQuestionData.Data.LikePost.Writer(
-                            nickname = it.writer.nickname,
-                            writerId = it.writer.writerId
-                        )
-                    )
-                }
-            ),
-            success = responseMyPageLikeQuestion.success
-        )
-    }
-
-    //마이페이지 내가 쓴 학과 후기글 조회
-    fun mapperToReview(responseMyPageReviewData: ResponseMyPageReviewData): MyPageReviewData {
-        return MyPageReviewData(
-            data = MyPageReviewData.Data(
-                reviewPostList = responseMyPageReviewData.data.reviewPostList.map {
-                    MyPageReviewData.Data.ReviewPost(
-                        createdAt = it.createdAt,
-                        like = MyPageReviewData.Data.ReviewPost.Like(
-                            isLiked = it.like.isLiked,
-                            likeCount = it.like.likeCount
-                        ),
-                        majorName = it.majorName,
-                        oneLineReview = it.oneLineReview,
-                        postId = it.postId,
-                        tagList = it.tagList.map { MyPageReviewData.Data.ReviewPost.Tag(it.tagName) }
-                    )
-                },
-                writer = MyPageReviewData.Data.Writer(
-                    nickname = responseMyPageReviewData.data.writer.nickname,
-                    writerId = responseMyPageReviewData.data.writer.writerId
-                )
-            ),
-            success = responseMyPageReviewData.success
         )
     }
 

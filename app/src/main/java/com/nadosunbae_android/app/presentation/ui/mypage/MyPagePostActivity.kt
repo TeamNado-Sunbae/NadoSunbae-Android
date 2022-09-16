@@ -68,10 +68,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
     private fun initSwitchTab() {
 
         with(binding.viewMypageSwitch) {
-            switchTab =
-                CustomSwitchTab.getSwitchTabValue(
-                    0
-                )
+            switchTab = CustomSwitchTab.getSwitchTabValue(0)
             switchText = listOf(
                 getString(com.nadosunbae_android.app.R.string.question_detail_title), getString(
                     com.nadosunbae_android.app.R.string.navigation_community
@@ -107,8 +104,6 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
 
     private fun questionPosting() {
-        showLoading()
-        intent.getIntExtra("userId", 0)
         myPageViewModel.getMyPost("questionToPerson")
         myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
         binding.rvMypageQuestion.adapter = myPagePostInfoAdapter
@@ -134,8 +129,6 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
 
     private fun infoPosting() {
-        showLoading()
-        intent.getIntExtra("userId", 0)
         myPageViewModel.getMyPost("community")
         myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
         binding.rvMypageQuestion.adapter = myPagePostInfoAdapter
