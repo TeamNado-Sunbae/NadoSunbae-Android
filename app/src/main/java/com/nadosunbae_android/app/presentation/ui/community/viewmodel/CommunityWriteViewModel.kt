@@ -80,6 +80,8 @@ class CommunityWriteViewModel @Inject constructor(
             }.collectLatest {
                 Timber.d("작성 성공")
                 _postWrite.value = it
+            }.also {
+                onLoadingEnd.value = true
             }
         }
 

@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.community
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -30,6 +31,7 @@ class CommunityWriteActivity :
         activateCompleteButton()
         clickComplete()
         communityWriteViewModel.setCompleteButton()
+        goDetail()
     }
 
 
@@ -110,6 +112,18 @@ class CommunityWriteActivity :
                 title = communityWriteViewModel.writeTitle.value,
                 content = communityWriteViewModel.writeContent.value
             )
+
+        }
+    }
+
+    //완료 후 게시글 상세로 이동
+    private fun goDetail() {
+        communityWriteViewModel.onLoadingEnd.observe(this) {
+            if (it) {
+                val intent = Intent(this, CommunityDetailActivity::class.java)
+                intent.putExtra("postId", communityWriteViewModel.postWrite.value.postId)
+                startActivity(intent)
+            }
         }
     }
 }
