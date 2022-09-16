@@ -42,13 +42,18 @@ class CommunityMainContentFragment :
         setLoading()
     }
 
+    override fun onResume() {
+        super.onResume()
+        communityViewModel.getCommunityMainData("1", "0", "community", "recent")
+    }
+
     //메인 게시글
     private fun initCommunityMainContent() {
         showLoading()
-        communityViewModel.getCommunityMainData("1", "0", "community", "like")
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rcCommunityMain.adapter = communityMainContentAdapter
-        val decoration = CustomDecoration(1.dpToPxF, 16.dpToPxF, requireContext().getColor(R.color.gray_0))
+        val decoration =
+            CustomDecoration(1.dpToPxF, 16.dpToPxF, requireContext().getColor(R.color.gray_0))
         binding.rcCommunityMain.addItemDecoration(decoration)
         communityViewModel.communityMainFilterData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
@@ -120,7 +125,7 @@ class CommunityMainContentFragment :
             val type = communityViewModel.communityMainType.value
             val majorName = communityViewModel.communityMainMajorName.value
             communityViewModel.getCommunityMainData(
-                "1", "0", "community", "like", "", type, majorName
+                "1", "0", "community", "recent", "", type, majorName
             )
         }
     }
@@ -143,7 +148,7 @@ class CommunityMainContentFragment :
             val intent = Intent(requireActivity(), CommunityWriteActivity::class.java)
             intent.apply {
                 putExtra("majorList", majorList as ArrayList<MajorListData>)
-                putExtra("noMajor",mainViewModel.majorList.value[0].majorId)
+                putExtra("noMajor", mainViewModel.majorList.value[0].majorId)
             }
             startActivity(intent)
         }

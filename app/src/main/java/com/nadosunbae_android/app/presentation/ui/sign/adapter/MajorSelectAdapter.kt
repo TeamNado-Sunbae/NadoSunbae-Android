@@ -13,7 +13,7 @@ import com.nadosunbae_android.app.util.setTextSemiBold
 import com.nadosunbae_android.domain.model.main.SelectableData
 import timber.log.Timber
 
-class MajorSelectAdapter(private val noMajor: Int? = -2) :
+class MajorSelectAdapter(val noMajor: Int? = -2) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var dataList = mutableListOf<SelectableData>()

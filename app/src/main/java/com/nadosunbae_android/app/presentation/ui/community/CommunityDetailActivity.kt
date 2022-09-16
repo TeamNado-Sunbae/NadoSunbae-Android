@@ -3,10 +3,9 @@ package com.nadosunbae_android.app.presentation.ui.community
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -82,20 +81,10 @@ class CommunityDetailActivity :
 
     //답글 작성 중 종이비행기 색상 변경
     private fun changeRegisterBtn() {
-        binding.etInformationComment.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                binding.imgInformationCommentComplete.isSelected = !s.isNullOrEmpty()
-            }
-        })
+        binding.etInformationComment.addTextChangedListener {
+            binding.imgInformationCommentComplete.isSelected = !it.isNullOrEmpty()
+        }
     }
-
 
     //안꺼지게 조절
     private fun onInfo() {
@@ -112,7 +101,7 @@ class CommunityDetailActivity :
     }
 
 
-    //정보 상세보기 서버 통신
+    //상세보기 서버 통신
     private fun initInfoDetail() {
         communityViewModel.setPostId(intent.getStringExtra("postId") ?: "")
         communityViewModel.getPostDetail()

@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.community
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -14,6 +15,7 @@ import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CommunityWriteActivity :
@@ -51,7 +53,6 @@ class CommunityWriteActivity :
             communityWriteViewModel.majorList.value ?: emptyList(), majorBottomSheetDialog
         )
         //학과 무관 선택
-        majorBottomSheetDialog.setSelectedData(0)
         binding.layoutCommunityWriteCategory.radioBtnCategoryFreedom.isChecked = true
     }
 
@@ -72,6 +73,9 @@ class CommunityWriteActivity :
         }
         communityWriteViewModel.filter.flowWithLifecycle(lifecycle)
             .onEach {
+                if(it.id == 0){
+                    it.id = communityWriteViewModel.majorList.value?.get(0)?.majorId ?: 0
+                }
                 binding.layoutCommunityWriteMajor.bottomSheetMajor = it.name
             }
             .launchIn(lifecycleScope)
@@ -137,6 +141,9 @@ class CommunityWriteActivity :
     private fun goDetail() {
         communityWriteViewModel.onLoadingEnd.observe(this) {
             if (it) {
+                val intent = Intent(this, CommunityDetailActivity::class.java)
+                intent.putExtra("postId", communityWriteViewModel.postWrite.value.postId.toString())
+                startActivity(intent)
                 finish()
             }
         }
