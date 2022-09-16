@@ -108,14 +108,14 @@ class CommunityDetailActivity :
         if (MainGlobals.infoBlock == 1) {
             finish()
         }
-        communityViewModel.getPostDetail(communityViewModel.postId.value ?: "")
+        communityViewModel.getPostDetail()
     }
 
 
     //정보 상세보기 서버 통신
     private fun initInfoDetail() {
         communityViewModel.setPostId(intent.getStringExtra("postId") ?: "")
-        communityViewModel.getPostDetail(communityViewModel.postId.value ?: "")
+        communityViewModel.getPostDetail()
         //Todo 유저 아이디 넣기
         communityPostDetailAdapter = CommunityPostDetailAdapter(0, this)
         communityViewModel.communityDetailData
@@ -374,7 +374,7 @@ class CommunityDetailActivity :
 
         communityViewModel.registerInfoComment.observe(this) {
             if (it.success) {
-                communityViewModel.getPostDetail(postId)
+                communityViewModel.getPostDetail()
             }
         }
     }
@@ -382,10 +382,9 @@ class CommunityDetailActivity :
     //정보 좋아요 서버 통신
     private fun infoLike() {
         binding.btnInfoLike.setOnClickListener {
-            val likePostId = communityViewModel.postId.value ?: ""
             communityViewModel.postClassRoomInfoLike(LikeItem(0, 2))
             showLoading()
-            communityViewModel.getPostDetail(likePostId)
+            communityViewModel.getPostDetail()
         }
     }
 

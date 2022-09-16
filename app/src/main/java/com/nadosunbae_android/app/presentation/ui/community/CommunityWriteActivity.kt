@@ -1,6 +1,5 @@
 package com.nadosunbae_android.app.presentation.ui.community
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -10,6 +9,7 @@ import com.nadosunbae_android.app.databinding.ActivityCommunityWriteBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -91,7 +91,15 @@ class CommunityWriteActivity :
     // 취소 버튼
     private fun clickCancelButton() {
         binding.imgCommunityWriteCancel.setOnClickListener {
-            finish()
+            CustomDialog(this).genericDialog(
+                dialogText = CustomDialog.DialogData(
+                    getString(R.string.question_update_cancel),
+                    getString(R.string.mypage_modify_alert_back_continue),
+                    getString(R.string.signup_alert_out)
+                ),
+                complete = {},
+                cancel = { finish() }
+            )
         }
     }
 
@@ -120,9 +128,7 @@ class CommunityWriteActivity :
     private fun goDetail() {
         communityWriteViewModel.onLoadingEnd.observe(this) {
             if (it) {
-                val intent = Intent(this, CommunityDetailActivity::class.java)
-                intent.putExtra("postId", communityWriteViewModel.postWrite.value.postId)
-                startActivity(intent)
+                finish()
             }
         }
     }
