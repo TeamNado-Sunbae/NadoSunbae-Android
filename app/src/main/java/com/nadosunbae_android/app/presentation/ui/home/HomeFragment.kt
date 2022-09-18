@@ -2,14 +2,13 @@ package com.nadosunbae_android.app.presentation.ui.home
 
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -17,11 +16,9 @@ import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMai
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
 import com.nadosunbae_android.app.presentation.ui.home.adpter.BannerListAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
-import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.imageSelect
-import com.nadosunbae_android.domain.model.app.AppBannerData
 import com.nadosunbae_android.domain.model.home.HomeUnivReviewData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -41,7 +38,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private lateinit var reviewAdapter: ReviewAdapter
     private lateinit var communityMainContentAdapter: CommunityMainContentAdapter
 
-
     //TODO: 랭킹 클릭 시 선배 프로필로 이동
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,33 +53,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun setBanner() {
         homeViewModel.getAppBanner("AOS")
         homeViewModel.bannerData.observe(viewLifecycleOwner) {
-            bannerAdapter = BannerListAdapter(getActivity()!!.getApplicationContext())
-            //binding.vpHomeBanner.adapter = BannerListAdapter(getActivity()!!.getApplicationContext())
-            bannerAdapter.Image = it.data as ArrayList<String>
-            bannerAdapter.notifyDataSetChanged()
-        /*
-            bannerAdapter = BannerListAdapter(it)
-            binding.vpHomeBanner.adapter = bannerAdapter
-            bannerAdapter.data = it
-            bannerAdapter.notifyDataSetChanged()
-            /*
-            binding.vpHomeBanner.registerOnPageChangeCallback(object :
-                ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    if (position == 0) {
-                        Timber.d("TEST1")
-                    } else if (position == 1) {
-                        Timber.d("TEST2")
-                    } else if (position == 2) {
-                        Timber.d("TEST3")
-                    }
-                }
-            })
-
-             */
-
-             */
+            val images = (it.data)
+            binding.vpHomeBanner.adapter = BannerListAdapter(requireContext(), images)
+            Timber.e("test: $it")
         }
     }
 
