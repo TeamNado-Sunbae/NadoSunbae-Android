@@ -38,18 +38,6 @@ class BannerListAdapter(private val context: Context, private val sliderImage: L
             val into = Glide.with(context)
                 .load(imageURL)
                 .into(mImageView)
-
-            //클릭 시 이동. 근데 api 변경되면.. 수정필요..
-            mImageView.setOnClickListener(View.OnClickListener {
-                if (position == 0) {
-                    initIntent("https://www.naver.com/")
-                    Toast.makeText(context, "One", Toast.LENGTH_SHORT).show()
-                } else if (position == 1) {
-                    Toast.makeText(context, "Two", Toast.LENGTH_SHORT).show()
-                } else if (position == 2) {
-                    Toast.makeText(context, "Three", Toast.LENGTH_SHORT).show()
-                }
-            })
         }
 
         init {
@@ -57,7 +45,7 @@ class BannerListAdapter(private val context: Context, private val sliderImage: L
         }
     }
 
-    //intent webview
+    //intent webview -> api 수정된다 해서 우선 냅두기
     fun initIntent(url: String) {
         val intent = Intent(context, WebViewActivity::class.java)
         intent.putExtra("url", url)

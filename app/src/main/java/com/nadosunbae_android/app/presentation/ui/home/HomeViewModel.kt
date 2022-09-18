@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.domain.model.app.AppBannerData
-import com.nadosunbae_android.domain.model.home.Banner
 import com.nadosunbae_android.domain.model.home.HomeRankingData
 import com.nadosunbae_android.domain.model.home.HomeUnivReviewData
 import com.nadosunbae_android.domain.repository.app.AppRepository
