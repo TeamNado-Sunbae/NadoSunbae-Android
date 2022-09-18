@@ -1,6 +1,7 @@
 package com.nadosunbae_android.data.module
 
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
+import com.nadosunbae_android.data.api.comment.CommentService
 import com.nadosunbae_android.data.api.home.HomeService
 import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.main.MainService
@@ -85,5 +86,11 @@ object NetworkModule{
     @Provides
     fun userService(retrofit : Retrofit) : UserService{
         return retrofit.create(UserService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun commentService(retrofit : Retrofit) : CommentService{
+        return retrofit.create(CommentService::class.java)
     }
 }
