@@ -8,14 +8,20 @@ import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
-import com.nadosunbae_android.domain.model.classroom.*
-import com.nadosunbae_android.domain.model.like.LikeData
+import com.nadosunbae_android.domain.model.classroom.DeleteCommentData
+import com.nadosunbae_android.domain.model.classroom.ReportData
+import com.nadosunbae_android.domain.model.classroom.ReportItem
+import com.nadosunbae_android.domain.model.comment.CommentData
+import com.nadosunbae_android.domain.model.comment.CommentParam
 import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.post.PostDetailData
+import com.nadosunbae_android.domain.repository.comment.CommentRepository
 import com.nadosunbae_android.domain.repository.like.LikeRepository
 import com.nadosunbae_android.domain.repository.post.PostRepository
-import com.nadosunbae_android.domain.usecase.classroom.*
+import com.nadosunbae_android.domain.usecase.classroom.DeleteCommentDataUseCase
+import com.nadosunbae_android.domain.usecase.classroom.DeletePostDataUseCase
+import com.nadosunbae_android.domain.usecase.classroom.PostReportUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -26,8 +32,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CommunityDetailViewModel @Inject constructor(
     private val postRepository: PostRepository,
-    val getInformationDetailUseCase: GetInformationDetailUseCase,
-    val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
+    private val commentRepository: CommentRepository,
     private val likeRepository: LikeRepository,
     val deleteCommentDataUseCase: DeleteCommentDataUseCase,
     val postReportUseCase: PostReportUseCase,
@@ -39,15 +44,21 @@ class CommunityDetailViewModel @Inject constructor(
     override var dropDownSelected = MutableLiveData<SelectableData>()
 
 
-    //정보 상세 조회
-    private val _communityDetailData = MutableStateFlow(PostDetailData.DEFAULT)
+    //커뮤니티 상세 조회
+    private var _communityDetailData = MutableStateFlow(PostDetailData.DEFAULT)
     val communityDetailData: StateFlow<PostDetailData>
         get() = _communityDetailData
 
-    //정보 댓글 등록
-    var registerInfoComment = MutableLiveData<QuestionCommentWriteData>()
+    //커뮤니티 댓글
+    val commentContent = MutableLiveData<String>()
 
-    //정보 좋아요를 위한 postId
+    //커뮤니티 댓글 데이터
+    private var _commentData = MutableStateFlow(CommentData.DEFAULT)
+    val commentData : StateFlow<CommentData>
+        get() = _commentData
+
+
+    //좋아요를 위한 postId
     private var _postId = MutableLiveData<String>()
     val postId: LiveData<String>
         get() = _postId
@@ -81,21 +92,8 @@ class CommunityDetailViewModel @Inject constructor(
     val message: LiveData<String>
         get() = _message
 
-    // 좋아요 데이터
-    private var _postLike = MutableLiveData<LikeData>()
-    val postLike: LiveData<LikeData>
-        get() = _postLike
-
-    //좋아요 데이터 저장
-    private fun setPostLike(likeData: LikeData) {
-        _postLike.value = likeData
-    }
-
     //작성자 Id
     var writerId = MutableLiveData<Int>()
-
-    //유저 Id
-    var userId = MutableLiveData<Int>()
 
     //신고 데이터
     private var _reportData = MutableLiveData<ReportData?>()
@@ -131,7 +129,7 @@ class CommunityDetailViewModel @Inject constructor(
     }
 
     //커뮤니티 상세 좋아요
-    fun postLike(){
+    fun postLike() {
         viewModelScope.launch {
             likeRepository.postLike(LikeParam(postId.value ?: "", "post"))
                 .onStart {
@@ -150,25 +148,31 @@ class CommunityDetailViewModel @Inject constructor(
 
     }
 
-    //정보 상세 댓글 등록
-    fun postInfoCommentWrite(
-        questionCommentWriteItem: QuestionCommentWriteItem
-    ) {
+    //커뮤니티 상세 댓글 등록
+    fun postCommentWrite() {
         viewModelScope.launch {
-            runCatching { postQuestionCommentWriteUseCase(questionCommentWriteItem) }
-                .onSuccess {
-                    registerInfoComment.value = it
-                    Timber.d("InfoComment : 댓글 통신 성공")
+            commentRepository.postComment(
+                CommentParam(
+                    postId.value ?: "",
+                    commentContent.value ?: ""
+                )
+            )
+                .onStart {
+                    onLoadingEnd.value = false
                 }
-                .onFailure {
+                .catch {
                     it.printStackTrace()
-                    Timber.d("InfoComment : 댓글 통신 실패")
-                }.also {
+                    Timber.d("커뮤니티 댓글 등록 실패")
+                }
+                .collectLatest {
+                    getPostDetail()
+                    _commentData.value = it
+                }
+                .also {
                     onLoadingEnd.value = true
                 }
         }
     }
-
 
 
     //정보 댓글 삭제

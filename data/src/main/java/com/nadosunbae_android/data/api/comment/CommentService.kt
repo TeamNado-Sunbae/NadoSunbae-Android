@@ -8,7 +8,7 @@ import retrofit2.http.POST
 
 interface CommentService {
 
-    @POST
+    @POST("comment")
     suspend fun postComment(
         @Body requestCommentData: RequestCommentData
     ): Response<ResponseCommentData>

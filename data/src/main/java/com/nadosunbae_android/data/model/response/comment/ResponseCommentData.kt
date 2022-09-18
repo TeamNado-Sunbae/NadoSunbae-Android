@@ -1,11 +1,12 @@
 package com.nadosunbae_android.data.model.response.comment
 
 import com.nadosunbae_android.domain.model.comment.CommentData
+import java.util.*
 
 data class ResponseCommentData(
     val commentId: Int,
     val content: String,
-    val createdAt: String,
+    val createdAt: Date?,
     val isDeleted: Boolean,
     val postId: Int,
     val writer: Writer

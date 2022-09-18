@@ -18,6 +18,7 @@ import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityD
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.closeKeyboard
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.ReportItem
@@ -47,8 +48,9 @@ class CommunityDetailActivity :
         observeLoadingEnd()
         clickInfoPostMenu()
         floatBadUserDialog()
-        changeRegisterBtn()
+        clickCommentRegisterButton()
         clickDetailLike()
+        setCommentObserve()
     }
 
     //로딩 종료
@@ -77,12 +79,7 @@ class CommunityDetailActivity :
         }
     }
 
-    //답글 작성 중 종이비행기 색상 변경
-    private fun changeRegisterBtn() {
-        binding.etInformationComment.addTextChangedListener {
-            binding.imgInformationCommentComplete.isSelected = !it.isNullOrEmpty()
-        }
-    }
+
 
     //안꺼지게 조절
     private fun onInfo() {
@@ -122,12 +119,40 @@ class CommunityDetailActivity :
             communityViewModel.postLike()
         }
     }
+    //댓글 등록 부분 변경
+    private fun clickCommentRegisterButton() {
+        binding.communityDetailViewModel = communityViewModel
+
+        //등록 부분 색 변경
+        communityViewModel.commentContent.observe(this){
+            binding.imgInformationCommentComplete.isSelected = it.isNotEmpty()
+        }
+
+        binding.imgInformationCommentComplete.setOnClickListener {
+            communityViewModel.postCommentWrite()
+        }
+    }
+
+    //댓글 등록 완료시에
+    private fun setCommentObserve(){
+        communityViewModel.commentData.flowWithLifecycle(lifecycle)
+            .onEach {
+                with(binding.etInformationComment){
+                    text.clear()
+                    clearFocus()
+                }
+                this.closeKeyboard(binding.etInformationComment)
+
+            }.launchIn(lifecycleScope)
+
+    }
+
 
     //원글 점 세개 메뉴 클릭
     private fun clickInfoPostMenu() {
         binding.imgCommunityDetailMenu.setOnClickListener {
             initInfoPostMenu(
-                communityViewModel.userId.value ?: 0,
+                MainGlobals.signInData?.userId ?: 0,
                 communityViewModel.writerId.value ?: 0
             )
         }
@@ -371,7 +396,7 @@ class CommunityDetailActivity :
 
         binding.textCommunityDetailQuestionName.setOnClickListener {
             val writerId = communityViewModel.writerId.value ?: 0
-            val userId = communityViewModel.userId.value ?: 0
+            val userId = MainGlobals.signInData?.userId ?: 0
             Timber.d("userId : $userId, writerId : $writerId")
             var fragmentNum = -1
             var bottomNavItem = -1
