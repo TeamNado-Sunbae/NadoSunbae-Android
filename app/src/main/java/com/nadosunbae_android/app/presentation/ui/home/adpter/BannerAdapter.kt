@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
+import kotlinx.android.synthetic.main.item_home_banner.view.*
 
 
 class BannerAdapter(private val context: Context, private val sliderImage: List<String>) :
@@ -28,17 +29,17 @@ class BannerAdapter(private val context: Context, private val sliderImage: List<
 
     override fun getItemCount(): Int = Int.MAX_VALUE
 
-    inner class BannerListHolder(itemView: View) :
+     class BannerListHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private val mImageView: ImageView
         fun bindSliderImage(imageURL: String?) {
-            Glide.with(context)
+            Glide.with(itemView.context)
                 .load(imageURL)
                 .into(mImageView)
         }
 
         init {
-            mImageView = itemView.findViewById(R.id.iv_banner_background)
+            mImageView = itemView.iv_banner_background
         }
     }
 

@@ -45,7 +45,6 @@ class HomeViewModel @Inject constructor(
                     Timber.d("학교별 리뷰 : 서버통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("학교별 리뷰 : 서버통신 실패")
                 }
                 .also {
@@ -62,7 +61,6 @@ class HomeViewModel @Inject constructor(
                     Timber.d("선배 랭킹 : 서버통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("선배 랭킹 : 서버통신 실패")
                 }
                 .also {
@@ -79,7 +77,6 @@ class HomeViewModel @Inject constructor(
                     Timber.d("앱 배너 리스트 : 서버통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("앱 배너 리스트 : 서버통신 실패")
                 }
                 .also {
