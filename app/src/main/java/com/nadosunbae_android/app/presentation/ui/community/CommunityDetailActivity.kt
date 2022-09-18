@@ -20,9 +20,7 @@ import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
-import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.ReportItem
-import com.nadosunbae_android.domain.model.like.LikeItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -40,7 +38,6 @@ class CommunityDetailActivity :
         super.onCreate(savedInstanceState)
         onInfo()
         initInfoDetail()
-        infoLike()
         clickBackBtn()
         initInfoCommentMenu()
         infoCommentMenu()
@@ -51,6 +48,7 @@ class CommunityDetailActivity :
         clickInfoPostMenu()
         floatBadUserDialog()
         changeRegisterBtn()
+        clickDetailLike()
     }
 
     //로딩 종료
@@ -104,16 +102,25 @@ class CommunityDetailActivity :
     //상세보기 서버 통신
     private fun initInfoDetail() {
         communityViewModel.setPostId(intent.getStringExtra("postId") ?: "")
-        communityViewModel.getPostDetail()
-        //Todo 유저 아이디 넣기
-        communityPostDetailAdapter = CommunityPostDetailAdapter(0, this)
+        communityPostDetailAdapter = CommunityPostDetailAdapter(
+            MainGlobals.signInData?.userId ?: 0, this
+        )
+        binding.rcInformationDetailQuestionComment.adapter = communityPostDetailAdapter
         communityViewModel.communityDetailData
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach {
+                Timber.d("postDetail ${it.commentList}")
                 binding.postDetail = it
                 communityPostDetailAdapter.submitList(it.commentList)
             }
             .launchIn(lifecycleScope)
+    }
+
+    //상세보기 좋아요
+    private fun clickDetailLike() {
+        binding.btnInfoLike.setOnClickListener {
+            communityViewModel.postLike()
+        }
     }
 
     //원글 점 세개 메뉴 클릭
@@ -349,31 +356,6 @@ class CommunityDetailActivity :
             } else if (it == 409) {
                 Toast.makeText(this, "이미 신고한 글입니다.", Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-
-    //정보 상세보기 댓글 달기
-    private fun registerComment(postId: String) {
-        communityViewModel.postInfoCommentWrite(
-            QuestionCommentWriteItem(
-                0, binding.etInformationComment.text.toString()
-            )
-        )
-
-        communityViewModel.registerInfoComment.observe(this) {
-            if (it.success) {
-                communityViewModel.getPostDetail()
-            }
-        }
-    }
-
-    //정보 좋아요 서버 통신
-    private fun infoLike() {
-        binding.btnInfoLike.setOnClickListener {
-            communityViewModel.postClassRoomInfoLike(LikeItem(0, 2))
-            showLoading()
-            communityViewModel.getPostDetail()
         }
     }
 
