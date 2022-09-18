@@ -24,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
+import java.lang.Math.ceil
 
 
 @AndroidEntryPoint
@@ -34,13 +35,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private lateinit var questionAdapter: QuestionAdapter
-    private lateinit var bannerAdapter: BannerListAdapter
     private lateinit var reviewAdapter: ReviewAdapter
     private lateinit var communityMainContentAdapter: CommunityMainContentAdapter
 
     //TODO: 랭킹 클릭 시 선배 프로필로 이동
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
         super.onViewCreated(view, savedInstanceState)
         setReviewAdapter()
         setQuestionAdapter()
@@ -55,9 +57,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         homeViewModel.bannerData.observe(viewLifecycleOwner) {
             val images = (it.data)
             binding.vpHomeBanner.adapter = BannerListAdapter(requireContext(), images)
-            Timber.e("test: $it")
+            val bannerPosition = Int.MAX_VALUE / 4 - ceil(it.data.size.toDouble() / 4).toInt()
+
+            binding.vpHomeBanner.setCurrentItem(bannerPosition, false)
         }
     }
+
 
     //홈 뷰 리뷰 리사이클러뷰 연결
     private fun setReviewAdapter() {
