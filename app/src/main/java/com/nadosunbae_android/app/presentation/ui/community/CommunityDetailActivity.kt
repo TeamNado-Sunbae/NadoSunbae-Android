@@ -20,9 +20,7 @@ import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
-import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.ReportItem
-import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -105,22 +103,24 @@ class CommunityDetailActivity :
     private fun initInfoDetail() {
         communityViewModel.setPostId(intent.getStringExtra("postId") ?: "")
         communityPostDetailAdapter = CommunityPostDetailAdapter(
-            MainGlobals.signInData?.userId ?: 0, this)
+            MainGlobals.signInData?.userId ?: 0, this
+        )
+        binding.rcInformationDetailQuestionComment.adapter = communityPostDetailAdapter
         communityViewModel.communityDetailData
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach {
-                Timber.d("postDetail ${it.postId}")
+                Timber.d("postDetail ${it.commentList}")
                 binding.postDetail = it
                 communityPostDetailAdapter.submitList(it.commentList)
             }
             .launchIn(lifecycleScope)
     }
+
     //상세보기 좋아요
-    private fun clickDetailLike(){
+    private fun clickDetailLike() {
         binding.btnInfoLike.setOnClickListener {
             communityViewModel.postLike()
         }
-
     }
 
     //원글 점 세개 메뉴 클릭
