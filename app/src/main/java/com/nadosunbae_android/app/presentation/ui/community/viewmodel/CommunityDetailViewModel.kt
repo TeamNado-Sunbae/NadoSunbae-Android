@@ -10,12 +10,12 @@ import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.classroom.*
 import com.nadosunbae_android.domain.model.like.LikeData
-import com.nadosunbae_android.domain.model.like.LikeItem
+import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.post.PostDetailData
+import com.nadosunbae_android.domain.repository.like.LikeRepository
 import com.nadosunbae_android.domain.repository.post.PostRepository
 import com.nadosunbae_android.domain.usecase.classroom.*
-import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -25,10 +25,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CommunityDetailViewModel @Inject constructor(
-    private val postRepository : PostRepository,
+    private val postRepository: PostRepository,
     val getInformationDetailUseCase: GetInformationDetailUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
-    val postLikeDataUseCase: PostLikeDataUseCase,
+    private val likeRepository: LikeRepository,
     val deleteCommentDataUseCase: DeleteCommentDataUseCase,
     val postReportUseCase: PostReportUseCase,
     val deletePostDataUseCase: DeletePostDataUseCase,
@@ -70,7 +70,6 @@ class CommunityDetailViewModel @Inject constructor(
     private var _deleteComment = MutableLiveData<DeleteCommentData>()
     val deleteComment: LiveData<DeleteCommentData>
         get() = _deleteComment
-
 
 
     //부적절 사용자 데이터들
@@ -153,16 +152,14 @@ class CommunityDetailViewModel @Inject constructor(
     }
 
     // 정보 상세 좋아요
-    fun postClassRoomInfoLike(likeItem: LikeItem) {
+    fun postClassRoomInfoLike(likeItem: LikeParam) {
         viewModelScope.launch {
-            runCatching { postLikeDataUseCase(likeItem) }
-                .onSuccess {
-                    setPostLike(it)
-                    Timber.d("InformationPostLike : 좋아요 서버 통신 성공!")
-                }
-                .onFailure {
-                    it.printStackTrace()
+            likeRepository.postLike(likeItem)
+                .catch {
                     Timber.d("InformationPostLike : 좋아요 서버 통신 실패!")
+                }
+                .collectLatest {
+                    setPostLike(it)
                 }.also {
                     onLoadingEnd.value = true
                 }

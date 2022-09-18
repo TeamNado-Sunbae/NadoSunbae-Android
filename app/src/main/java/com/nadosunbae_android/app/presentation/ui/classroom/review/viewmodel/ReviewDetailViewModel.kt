@@ -7,16 +7,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
-import com.nadosunbae_android.domain.model.like.LikeItem
-import com.nadosunbae_android.domain.model.main.SelectableData
-import com.nadosunbae_android.domain.model.review.ReviewDetailData
-import com.nadosunbae_android.domain.usecase.like.PostLikeDataUseCase
-import com.nadosunbae_android.domain.usecase.review.DeleteReviewDataUseCase
-import com.nadosunbae_android.domain.usecase.review.GetReviewDetailDataUseCase
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.domain.model.classroom.ReportItem
+import com.nadosunbae_android.domain.model.like.LikeParam
+import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.review.ReviewDetailData
+import com.nadosunbae_android.domain.repository.like.LikeRepository
 import com.nadosunbae_android.domain.usecase.classroom.PostReportUseCase
+import com.nadosunbae_android.domain.usecase.review.DeleteReviewDataUseCase
+import com.nadosunbae_android.domain.usecase.review.GetReviewDetailDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,7 +27,7 @@ import javax.inject.Inject
 class ReviewDetailViewModel @Inject constructor(
     private val getReviewDetailDataUseCase: GetReviewDetailDataUseCase,
     private val deleteReviewDataUseCase: DeleteReviewDataUseCase,
-    private val postLikeDataUseCase: PostLikeDataUseCase,
+    private val likeRepository: LikeRepository,
     private val postReportUseCase: PostReportUseCase
 ) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
 
@@ -67,7 +69,7 @@ class ReviewDetailViewModel @Inject constructor(
                 }
                 .onFailure {
                     it.printStackTrace()
-                    Timber.d( "서버통신 실패")
+                    Timber.d("서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true
@@ -75,20 +77,15 @@ class ReviewDetailViewModel @Inject constructor(
         }
     }
 
-    // 좋아요
+    // 좋아요 TODO 수정 필요
     fun postLikeReview(postId: Int) {
-        val likeItem = LikeItem(postId, POST_TYPE_REVIEW)
-
         viewModelScope.launch {
-            runCatching { postLikeDataUseCase(likeItem) }
-                .onSuccess {
-                    Timber.d("서버통신 성공")
-
-                    getReviewDetail(postId)
-                }
-                .onFailure {
-                    it.printStackTrace()
+            likeRepository.postLike(LikeParam("", ""))
+                .catch {
                     Timber.d("서버통신 실패")
+                }
+                .collectLatest {
+                    getReviewDetail(postId)
                 }
                 .also {
                     onLoadingEnd.value = true

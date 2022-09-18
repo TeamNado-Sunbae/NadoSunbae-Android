@@ -22,7 +22,7 @@ import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.ReportItem
-import com.nadosunbae_android.domain.model.like.LikeItem
+import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -106,10 +106,12 @@ class CommunityDetailActivity :
         communityViewModel.setPostId(intent.getStringExtra("postId") ?: "")
         communityViewModel.getPostDetail()
         //Todo 유저 아이디 넣기
-        communityPostDetailAdapter = CommunityPostDetailAdapter(0, this)
+        communityPostDetailAdapter = CommunityPostDetailAdapter(
+            MainGlobals.signInData?.userId ?: 0, this)
         communityViewModel.communityDetailData
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach {
+                Timber.d("postDetail ${it.postId}")
                 binding.postDetail = it
                 communityPostDetailAdapter.submitList(it.commentList)
             }
@@ -371,7 +373,7 @@ class CommunityDetailActivity :
     //정보 좋아요 서버 통신
     private fun infoLike() {
         binding.btnInfoLike.setOnClickListener {
-            communityViewModel.postClassRoomInfoLike(LikeItem(0, 2))
+            //communityViewModel.postClassRoomInfoLike(LikeParam(0, 2))
             showLoading()
             communityViewModel.getPostDetail()
         }

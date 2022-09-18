@@ -4,3 +4,8 @@ data class LikeData(
     val isLiked: Boolean,
     val postId: Int
 )
+
+data class LikeParam(
+    val targetId : String,
+    val type : String
+)
