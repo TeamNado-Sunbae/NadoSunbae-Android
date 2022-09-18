@@ -17,7 +17,7 @@ object ReviewMapper {
                 likeCount = it.like.likeCount,
                 isLiked = it.like.isLiked,
                 oneLineReview = it.oneLineReview,
-                postId = it.id,
+                id = it.id,
                 tagList = it.tagList.map {
                     it.tagName
                 },
@@ -39,15 +39,15 @@ object ReviewMapper {
             backgroundImageId = responseReviewDetailData.data.backgroundImage.imageId,
             isLiked = responseReviewDetailData.data.like.isLiked,
             likeCount = responseReviewDetailData.data.like.likeCount,
-            contentList = responseReviewDetailData.data.post.contentList.map {
+            contentList = responseReviewDetailData.data.review.contentList.map {
                 ReviewDetailData.Content(
                     title = it.title,
                     content = it.content
                 )
             },
-            createdAt = responseReviewDetailData.data.post.createdAt,
-            oneLineReview = responseReviewDetailData.data.post.oneLineReview,
-            postId = responseReviewDetailData.data.post.postId,
+            createdAt = responseReviewDetailData.data.review.createdAt,
+            oneLineReview = responseReviewDetailData.data.review.oneLineReview,
+            postId = responseReviewDetailData.data.review.postId,
             firstMajorStart = responseReviewDetailData.data.writer.firstMajorStart,
             firstMajorName = responseReviewDetailData.data.writer.firstMajorName,
             isOnQuestion = responseReviewDetailData.data.writer.isOnQuestion,
