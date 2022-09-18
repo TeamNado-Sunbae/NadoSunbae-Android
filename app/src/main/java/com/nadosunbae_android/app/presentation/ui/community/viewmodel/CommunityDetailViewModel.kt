@@ -121,7 +121,6 @@ class CommunityDetailViewModel @Inject constructor(
                     onLoadingEnd.value = false
                 }
                 .catch {
-                    it.printStackTrace()
                     Timber.d("CommunityDetail : 정보 상세보기 서버 통신 실패")
                 }
                 .collectLatest {
@@ -131,6 +130,25 @@ class CommunityDetailViewModel @Inject constructor(
         }
     }
 
+    //커뮤니티 상세 좋아요
+    fun postLike(){
+        viewModelScope.launch {
+            likeRepository.postLike(LikeParam(postId.value ?: "", "post"))
+                .onStart {
+                    onLoadingEnd.value = false
+                }
+                .catch {
+                    Timber.d("CommunityDetail : 상세 좋아요 서버 통신 실패")
+                }
+                .collectLatest {
+                    getPostDetail()
+                }
+                .also {
+                    onLoadingEnd.value = true
+                }
+        }
+
+    }
 
     //정보 상세 댓글 등록
     fun postInfoCommentWrite(
@@ -151,21 +169,7 @@ class CommunityDetailViewModel @Inject constructor(
         }
     }
 
-    // 정보 상세 좋아요
-    fun postClassRoomInfoLike(likeItem: LikeParam) {
-        viewModelScope.launch {
-            likeRepository.postLike(likeItem)
-                .catch {
-                    Timber.d("InformationPostLike : 좋아요 서버 통신 실패!")
-                }
-                .collectLatest {
-                    setPostLike(it)
-                }.also {
-                    onLoadingEnd.value = true
-                }
-        }
 
-    }
 
     //정보 댓글 삭제
     //댓글 삭제 서버통신

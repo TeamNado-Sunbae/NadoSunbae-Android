@@ -40,7 +40,6 @@ class CommunityDetailActivity :
         super.onCreate(savedInstanceState)
         onInfo()
         initInfoDetail()
-        infoLike()
         clickBackBtn()
         initInfoCommentMenu()
         infoCommentMenu()
@@ -51,6 +50,7 @@ class CommunityDetailActivity :
         clickInfoPostMenu()
         floatBadUserDialog()
         changeRegisterBtn()
+        clickDetailLike()
     }
 
     //로딩 종료
@@ -104,8 +104,6 @@ class CommunityDetailActivity :
     //상세보기 서버 통신
     private fun initInfoDetail() {
         communityViewModel.setPostId(intent.getStringExtra("postId") ?: "")
-        communityViewModel.getPostDetail()
-        //Todo 유저 아이디 넣기
         communityPostDetailAdapter = CommunityPostDetailAdapter(
             MainGlobals.signInData?.userId ?: 0, this)
         communityViewModel.communityDetailData
@@ -116,6 +114,13 @@ class CommunityDetailActivity :
                 communityPostDetailAdapter.submitList(it.commentList)
             }
             .launchIn(lifecycleScope)
+    }
+    //상세보기 좋아요
+    private fun clickDetailLike(){
+        binding.btnInfoLike.setOnClickListener {
+            communityViewModel.postLike()
+        }
+
     }
 
     //원글 점 세개 메뉴 클릭
@@ -351,31 +356,6 @@ class CommunityDetailActivity :
             } else if (it == 409) {
                 Toast.makeText(this, "이미 신고한 글입니다.", Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-
-    //정보 상세보기 댓글 달기
-    private fun registerComment(postId: String) {
-        communityViewModel.postInfoCommentWrite(
-            QuestionCommentWriteItem(
-                0, binding.etInformationComment.text.toString()
-            )
-        )
-
-        communityViewModel.registerInfoComment.observe(this) {
-            if (it.success) {
-                communityViewModel.getPostDetail()
-            }
-        }
-    }
-
-    //정보 좋아요 서버 통신
-    private fun infoLike() {
-        binding.btnInfoLike.setOnClickListener {
-            //communityViewModel.postClassRoomInfoLike(LikeParam(0, 2))
-            showLoading()
-            communityViewModel.getPostDetail()
         }
     }
 
