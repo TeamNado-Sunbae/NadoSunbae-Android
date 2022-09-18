@@ -12,9 +12,8 @@ import com.nadosunbae_android.app.databinding.FragmentHomeBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMainContentAdapter
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
-import com.nadosunbae_android.app.presentation.ui.home.adpter.BannerListAdapter
+import com.nadosunbae_android.app.presentation.ui.home.adpter.BannerAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
-import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.imageSelect
@@ -23,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
+import java.lang.Math.ceil
 
 
 @AndroidEntryPoint
@@ -33,15 +33,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private lateinit var questionAdapter: QuestionAdapter
-    private lateinit var bannerAdapter: BannerListAdapter
     private lateinit var reviewAdapter: ReviewAdapter
     private lateinit var communityMainContentAdapter: CommunityMainContentAdapter
 
     //TODO: 랭킹 클릭 시 선배 프로필로 이동
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+
+        super.onViewCreated(view, savedInstanceState)
         setReviewAdapter()
         setQuestionAdapter()
         setCommunityAdapter()
@@ -51,22 +51,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun setBanner() {
-//        bannerAdapter = BannerListAdapter(homeViewModel.BannerData.subList(1, 1))
-//        binding.vpHomeBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//                if (position == 0) {
-//                    Timber.d("TEST1")
-//                }
-//                else if (position == 1) {
-//                    Timber.d("TEST2")
-//                }
-//                else if (position == 2){
-//                    Timber.d("TEST3")
-//                }
-//            }
-//        })
+        homeViewModel.getAppBanner("AOS")
+        homeViewModel.bannerData.observe(viewLifecycleOwner) {
+            val images = (it.data)
+            binding.vpHomeBanner.adapter = BannerAdapter(requireContext(), images)
+            val bannerPosition = Int.MAX_VALUE / 4 - ceil(it.data.size.toDouble() / 4).toInt()
+
+            binding.vpHomeBanner.setCurrentItem(bannerPosition, false)
+        }
     }
+
 
     //홈 뷰 리뷰 리사이클러뷰 연결
     private fun setReviewAdapter() {

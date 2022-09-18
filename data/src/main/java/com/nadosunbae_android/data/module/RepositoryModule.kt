@@ -1,5 +1,6 @@
 package com.nadosunbae_android.data.module
 
+import com.nadosunbae_android.data.repositoryimpl.app.AppRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.classroom.ClassRoomRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.home.HomeRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.like.LikeRepositoryImpl
@@ -11,6 +12,7 @@ import com.nadosunbae_android.data.repositoryimpl.post.PostRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.review.ReviewRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.sign.SignRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.user.UserRepositoryImpl
+import com.nadosunbae_android.domain.repository.app.AppRepository
 import com.nadosunbae_android.domain.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.domain.repository.home.HomeRepository
 import com.nadosunbae_android.domain.repository.like.LikeRepository
@@ -97,4 +99,10 @@ object RepositoryModule {
     fun provideUserRepository(
         repository: UserRepositoryImpl
     ): UserRepository = repository
+
+    @Reusable
+    @Provides
+    fun provideAppRepository(
+        repository: AppRepositoryImpl
+    ): AppRepository = repository
 }

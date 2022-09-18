@@ -1,5 +1,7 @@
 package com.nadosunbae_android.data.module
 
+import com.nadosunbae_android.data.datasource.remote.app.AppDataSource
+import com.nadosunbae_android.data.datasource.remote.app.AppDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSource
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.home.HomeDataSource
@@ -98,4 +100,10 @@ object DataSourceModule {
     fun provideUserDataSource(
         dataSource : UserDataSourceImpl
     ) : UserDataSource = dataSource
+
+    @Provides
+    @Reusable
+    fun provideAppDataSource(
+        dataSource: AppDataSourceImpl
+    ) : AppDataSource = dataSource
 }
