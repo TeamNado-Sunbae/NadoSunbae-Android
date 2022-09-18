@@ -4,6 +4,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
+import com.nadosunbae_android.app.BuildConfig
 import com.nadosunbae_android.domain.model.sign.SignInData
 
 object FirebaseAnalyticsUtil {
@@ -53,54 +54,54 @@ object FirebaseAnalyticsUtil {
         const val QUESTION_REPLY = "question_reply"
     }
 
+    private val firebaseAnalytics: FirebaseAnalytics?
+        get() = if (BuildConfig.DEBUG) null else Firebase.analytics
 
-    private val firebaseAnalytics: FirebaseAnalytics = Firebase.analytics
-
-    fun signup() = firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP) {
+    fun signup() = firebaseAnalytics?.logEvent(FirebaseAnalytics.Event.SIGN_UP) {
         param(FirebaseAnalytics.Param.METHOD, "email")
     }
 
-    fun login() = firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN) {
+    fun login() = firebaseAnalytics?.logEvent(FirebaseAnalytics.Event.LOGIN) {
             param(FirebaseAnalytics.Param.METHOD, "manual")
         }
 
 
-    fun autoLogin() = firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN) {
+    fun autoLogin() = firebaseAnalytics?.logEvent(FirebaseAnalytics.Event.LOGIN) {
         param(FirebaseAnalytics.Param.METHOD, "auto")
     }
 
-    fun selectTab(tab: String) = firebaseAnalytics.logEvent(TAB_SELECT) {
+    fun selectTab(tab: String) = firebaseAnalytics?.logEvent(TAB_SELECT) {
         param(TAB_NAME, tab)
     }
 
     fun dau() {
-        firebaseAnalytics.logEvent(ACTIVE_USER) {
+        firebaseAnalytics?.logEvent(ACTIVE_USER) {
             param(AU_DIVISION, "DAU")
         }
     }
 
     fun wau() {
-        firebaseAnalytics.logEvent(ACTIVE_USER) {
+        firebaseAnalytics?.logEvent(ACTIVE_USER) {
             param(AU_DIVISION, "WAU")
         }
     }
 
     fun mau() {
-        firebaseAnalytics.logEvent(ACTIVE_USER) {
+        firebaseAnalytics?.logEvent(ACTIVE_USER) {
             param(AU_DIVISION, "MAU")
         }
     }
 
-    fun userPost(value: String = "other") = firebaseAnalytics.logEvent(USER_PERSONAL) {
+    fun userPost(value: String = "other") = firebaseAnalytics?.logEvent(USER_PERSONAL) {
         param(POST_TYPE, value)
     }
 
-    fun question(value: String = "other") = firebaseAnalytics.logEvent(QUESTION) {
+    fun question(value: String = "other") = firebaseAnalytics?.logEvent(QUESTION) {
         param(QUESTION_TYPE, value)
     }
 
     fun setUserProperty(user: SignInData.User) {
-        firebaseAnalytics.run {
+        firebaseAnalytics?.run {
             setUserProperty(UNIVERSITY_ID, "${user.universityId}")
             setUserProperty(FIRST_MAJOR, user.firstMajorName)
             setUserProperty(SECOND_MAJOR,user.secondMajorName)
@@ -112,11 +113,11 @@ object FirebaseAnalyticsUtil {
         }
     }
 
-    fun setSelectedMajor(majorName: String) = firebaseAnalytics.setUserProperty(SELECTED_MAJOR, majorName)
+    fun setSelectedMajor(majorName: String) = firebaseAnalytics?.setUserProperty(SELECTED_MAJOR, majorName)
 
     // 커스텀 이벤트 로그 (단일 파라미터)
     fun firebaseLog(event: String, paramKey: String, paramVal: String) {
-        firebaseAnalytics.logEvent(event) {
+        firebaseAnalytics?.logEvent(event) {
             param(paramKey, paramVal)
         }
     }
