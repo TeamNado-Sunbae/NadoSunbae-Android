@@ -13,8 +13,8 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 
 
-class BannerListAdapter(private val context: Context, private val sliderImage: List<String>) :
-    RecyclerView.Adapter<BannerListAdapter.BannerListHolder>() {
+class BannerAdapter(private val context: Context, private val sliderImage: List<String>) :
+    RecyclerView.Adapter<BannerAdapter.BannerListHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerListHolder {
         val view: View = LayoutInflater.from(parent.context)
@@ -23,9 +23,7 @@ class BannerListAdapter(private val context: Context, private val sliderImage: L
     }
 
     override fun onBindViewHolder(holder: BannerListHolder, position: Int) {
-        //holder.bindSliderImage(sliderImage[position])
         holder.bindSliderImage(sliderImage[position % sliderImage.size])
-
     }
 
     override fun getItemCount(): Int = Int.MAX_VALUE

@@ -2,19 +2,17 @@ package com.nadosunbae_android.app.presentation.ui.home
 
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMainContentAdapter
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
-import com.nadosunbae_android.app.presentation.ui.home.adpter.BannerListAdapter
+import com.nadosunbae_android.app.presentation.ui.home.adpter.BannerAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
@@ -56,7 +54,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         homeViewModel.getAppBanner("AOS")
         homeViewModel.bannerData.observe(viewLifecycleOwner) {
             val images = (it.data)
-            binding.vpHomeBanner.adapter = BannerListAdapter(requireContext(), images)
+            binding.vpHomeBanner.adapter = BannerAdapter(requireContext(), images)
             val bannerPosition = Int.MAX_VALUE / 4 - ceil(it.data.size.toDouble() / 4).toInt()
 
             binding.vpHomeBanner.setCurrentItem(bannerPosition, false)
