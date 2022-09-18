@@ -7,20 +7,19 @@
 
         <variable
             name="Banner"
-            type="com.nadosunbae_android.domain.model.home.Banner" />
+            type="com.nadosunbae_android.domain.model.app.AppBannerData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_banner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingHorizontal="5dp">
 
         <ImageView
             android:id="@+id/iv_banner_background"
             android:layout_width="match_parent"
             android:layout_height="104dp"
-            loadImageFromUrl="@{Banner.image}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

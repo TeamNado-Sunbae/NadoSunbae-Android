@@ -1,5 +1,6 @@
 package com.nadosunbae_android.data.module
 
+import com.nadosunbae_android.data.api.app.AppService
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
 import com.nadosunbae_android.data.api.home.HomeService
 import com.nadosunbae_android.data.api.like.LikeService
@@ -16,6 +17,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import retrofit2.create
+import javax.annotation.Signed
 import javax.inject.Singleton
 
 @Module
@@ -85,5 +88,11 @@ object NetworkModule{
     @Provides
     fun userService(retrofit : Retrofit) : UserService{
         return retrofit.create(UserService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun appService(retrofit: Retrofit) : AppService {
+        return retrofit.create(AppService::class.java)
     }
 }
