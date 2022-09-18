@@ -53,6 +53,7 @@ class CommunityDetailViewModel @Inject constructor(
         get() = _postId
 
     fun setPostId(postId: String) {
+        Timber.d("postId $postId")
         _postId.value = postId
     }
 
@@ -114,13 +115,14 @@ class CommunityDetailViewModel @Inject constructor(
         get() = _deletePostData
 
     //커뮤니티 상세 서버통신
-    fun getPostDetail(postId: String) {
+    fun getPostDetail() {
         viewModelScope.launch {
-            postRepository.getPostDetail(postId)
+            postRepository.getPostDetail(_postId.value ?: "")
                 .onStart {
                     onLoadingEnd.value = false
                 }
                 .catch {
+                    it.printStackTrace()
                     Timber.d("CommunityDetail : 정보 상세보기 서버 통신 실패")
                 }
                 .collectLatest {
