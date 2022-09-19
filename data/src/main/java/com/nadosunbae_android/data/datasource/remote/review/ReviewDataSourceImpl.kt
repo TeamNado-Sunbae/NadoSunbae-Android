@@ -9,7 +9,7 @@ import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.*
 import javax.inject.Inject
 
-class ReviewDataSourceImpl @Inject construcor(private val service : ReviewService) : 
+class ReviewDataSourceImpl @Inject constructor(private val service : ReviewService) :
     ReviewDataSource {
     override suspend fun getReviewListByMajor(
         majorId: Int,
