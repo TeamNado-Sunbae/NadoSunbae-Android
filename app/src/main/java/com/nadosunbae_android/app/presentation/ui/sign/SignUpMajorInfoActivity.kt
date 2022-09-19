@@ -5,9 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySignUpMajorInfoBinding
@@ -15,7 +13,6 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
-import com.nadosunbae_android.app.util.PixelRatio
 import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,6 +48,11 @@ class SignUpMajorInfoActivity :
         firstMajor()
         secondMajor()
         changeNext()
+        spinnerClickListener()
+
+        with(binding) {
+            makeUnivSpinner(rbUnivKorea, rbUnivSwu, rbUnivCau)
+        }
 
 
     }
@@ -398,31 +400,69 @@ class SignUpMajorInfoActivity :
 
 
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list)
-        //adapter.setDropDownViewResource(com.nadosunbae_android.app.R.layout.spinner_item)
-        binding.spinnerSignupMajorinfoUniv.setAdapter(adapter)
-        binding.spinnerSignupMajorinfoUniv.dropDownVerticalOffset = PixelRatio().dpToPx(52)
-
-
-
+        //  adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
+        //adapter.setDropDownViewResource(R.layout.list_id_select)
+//        binding.spinnerSignupMajorinfoUniv.setAdapter(adapter)
+//        binding.spinnerSignupMajorinfoUniv.dropDownVerticalOffset = PixelRatio().dpToPx(52)
     }
 
 
     private fun setupSpinnerHandler() {
-        binding.spinnerSignupMajorinfoUniv.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-//                    (parent!!.getChildAt(0) as TextView).setTextColor(Color.BLUE)
-//                    (parent!!.getChildAt(0) as TextView).textSize = 5f
-
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                }
-            }
+//        binding.spinnerSignupMajorinfoUniv.onItemSelectedListener =
+//            object : AdapterView.OnItemSelectedListener {
+//                override fun onItemSelected(
+//                    parent: AdapterView<*>?,
+//                    view: View?,
+//                    position: Int,
+//                    id: Long
+//                ) {
+////                    (parent!!.getChildAt(0) as TextView).setTextColor(Color.BLUE)
+////                    (parent!!.getChildAt(0) as TextView).textSize = 5f
+//
+//                }
+//
+//                override fun onNothingSelected(p0: AdapterView<*>?) {
+//                }
+//            }
     }
+
+    private fun makeUnivSpinner(view1: View, view2: View, view3: View) {
+        view1.setOnClickListener {
+            if (!view1.isSelected) {
+                view1.isSelected = true
+                view2.isSelected = false
+                view3.isSelected = false
+            }
+            binding.textSignupMajorinfoUniv.setText("고려대학교")
+            binding.textSignupMajorinfoUniv.setTextColor(Color.parseColor("#001D19"))
+            binding.clRbUniv.visibility = View.GONE
+        }
+        view2.setOnClickListener {
+            if (!view2.isSelected) {
+                view1.isSelected = false
+                view2.isSelected = true
+                view3.isSelected = false
+            }
+            binding.textSignupMajorinfoUniv.setText("서울여자대학교")
+            binding.textSignupMajorinfoUniv.setTextColor(Color.parseColor("#001D19"))
+            binding.clRbUniv.visibility = View.GONE
+        }
+        view3.setOnClickListener {
+            if (!view3.isSelected) {
+                view1.isSelected = false
+                view2.isSelected = false
+                view3.isSelected = true
+            }
+            binding.textSignupMajorinfoUniv.setText("중앙대학교")
+            binding.textSignupMajorinfoUniv.setTextColor(Color.parseColor("#001D19"))
+            binding.clRbUniv.visibility = View.GONE
+        }
+    }
+
+    private fun spinnerClickListener() {
+        binding.clSignupMajorInfoUniv.setOnClickListener {
+            binding.clRbUniv.visibility = View.VISIBLE
+        }
+    }
+
 }

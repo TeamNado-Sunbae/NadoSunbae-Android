@@ -50,14 +50,12 @@ class SpinnerAdapter(
         )
 
         binding.textSpinner.text = values[position]
-//
-//        if (binding.textSpinner.text == "타 대학은 현재 준비중입니다") {
-//            binding.textSpinner.isSelected = true
-//            binding.imgSpinnerCheck.isSelected = false
-//        } else {
-//            binding.textSpinner.isSelected = false
-//            binding.imgSpinnerCheck.isSelected = true
-//        }
+
+        if (binding.textSpinner.text == "타 대학은 현재 준비중입니다") {
+            binding.textSpinner.setTextColor(Color.parseColor("#94959E"))
+            binding.textSpinner.isClickable = false
+            //binding.imgSpinnerCheck.isSelected = false
+        }
 
 
         return binding.root

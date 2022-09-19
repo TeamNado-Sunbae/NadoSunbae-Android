@@ -12,122 +12,123 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_signup_majorInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/white">
-
-
-        <TextView
-            android:id="@+id/text_signup_majorinfo_title"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_signup_majorInfo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="54dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:text="@string/signup_agreement_title"
-            android:textColor="@color/main_default"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/img_signup_majorinfo_delete"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/btn_x_gray"
-            app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_title"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_title" />
-
-        <View
-            android:id="@+id/view_signup_majorinfo_line1"
-            android:layout_width="84dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:background="@color/gray_1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_majorinfo_title" />
-
-        <View
-            android:id="@+id/view_signup_majorinfo_line2"
-            android:layout_width="84dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="8dp"
-            android:background="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/view_signup_majorinfo_line1"
-            app:layout_constraintStart_toEndOf="@+id/view_signup_majorinfo_line1"
-            app:layout_constraintTop_toTopOf="@+id/view_signup_majorinfo_line1" />
-
-        <View
-            android:id="@+id/view_signup_majorinfo_line3"
-            android:layout_width="84dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="8dp"
-            android:background="@color/gray_1"
-            app:layout_constraintBottom_toBottomOf="@+id/view_signup_majorinfo_line2"
-            app:layout_constraintStart_toEndOf="@+id/view_signup_majorinfo_line2"
-            app:layout_constraintTop_toTopOf="@+id/view_signup_majorinfo_line2" />
-
-        <TextView
-            android:id="@+id/text_signup_majorinfo_bar_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="15dp"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/signup_agreement_process1"
-            android:textColor="@color/gray_2"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_signup_majorinfo_line1" />
-
-        <TextView
-            android:id="@+id/text_signup_majorinfo_bar_text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="57dp"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/signup_agreement_process2"
-            android:textColor="@color/main_black"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_bar_text"
-            app:layout_constraintStart_toEndOf="@+id/text_signup_majorinfo_bar_text"
-            app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_bar_text" />
-
-        <TextView
-            android:id="@+id/text_signup_majorinfo_bar_text3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="57dp"
-            android:fontFamily="@font/pretendard_medium"
-            android:text="@string/signup_agreement_process3"
-            android:textColor="@color/gray_2"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_bar_text2"
-            app:layout_constraintStart_toEndOf="@+id/text_signup_majorinfo_bar_text2"
-            app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_bar_text2" />
-
-        <ImageView
-            android:id="@+id/image_signup_majorinfo_diamond"
-            android:layout_width="12dp"
-            android:layout_height="11dp"
-            android:layout_marginStart="57dp"
-            android:background="@drawable/ic_diamond_mini"
-            app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_bar_text3"
-            app:layout_constraintStart_toEndOf="@+id/text_signup_majorinfo_bar_text3"
-            app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_bar_text3" />
+            app:layout_constraintTop_toTopOf="parent">
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/text_signup_majorinfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="54dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="@string/signup_agreement_title"
+                android:textColor="@color/main_default"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_signup_majorinfo_delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/btn_x_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_title" />
+
+            <View
+                android:id="@+id/view_signup_majorinfo_line1"
+                android:layout_width="84dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_signup_majorinfo_title" />
+
+            <View
+                android:id="@+id/view_signup_majorinfo_line2"
+                android:layout_width="84dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/view_signup_majorinfo_line1"
+                app:layout_constraintStart_toEndOf="@+id/view_signup_majorinfo_line1"
+                app:layout_constraintTop_toTopOf="@+id/view_signup_majorinfo_line1" />
+
+            <View
+                android:id="@+id/view_signup_majorinfo_line3"
+                android:layout_width="84dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/gray_1"
+                app:layout_constraintBottom_toBottomOf="@+id/view_signup_majorinfo_line2"
+                app:layout_constraintStart_toEndOf="@+id/view_signup_majorinfo_line2"
+                app:layout_constraintTop_toTopOf="@+id/view_signup_majorinfo_line2" />
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_bar_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/signup_agreement_process1"
+                android:textColor="@color/gray_2"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_signup_majorinfo_line1" />
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_bar_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="57dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/signup_agreement_process2"
+                android:textColor="@color/main_black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_bar_text"
+                app:layout_constraintStart_toEndOf="@+id/text_signup_majorinfo_bar_text"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_bar_text" />
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_bar_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="57dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/signup_agreement_process3"
+                android:textColor="@color/gray_2"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_bar_text2"
+                app:layout_constraintStart_toEndOf="@+id/text_signup_majorinfo_bar_text2"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_bar_text2" />
+
+            <ImageView
+                android:id="@+id/image_signup_majorinfo_diamond"
+                android:layout_width="12dp"
+                android:layout_height="11dp"
+                android:layout_marginStart="57dp"
+                android:background="@drawable/ic_diamond_mini"
+                app:layout_constraintBottom_toBottomOf="@+id/text_signup_majorinfo_bar_text3"
+                app:layout_constraintStart_toEndOf="@+id/text_signup_majorinfo_bar_text3"
+                app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_bar_text3" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
             android:id="@+id/text_signup_majorInfo_univ"
             android:layout_width="wrap_content"
@@ -145,47 +146,158 @@
             android:id="@+id/cl_signup_majorInfo_univ"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_border_gray0_8dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_border_gray0_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_univ">
 
-            <Spinner
-                android:id="@+id/spinner_signup_majorinfo_univ"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/text_signup_majorInfo_univ_mint"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
-                android:theme="@style/SpinnerTheme"
-                android:fontFamily="@font/pretendard_medium"
-                android:text="선택하기"
-                android:popupBackground="@drawable/rectangle_fill_white_8dp"
-                android:popupElevation="0dp"
-                android:textColor="@color/black"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/signup_majorInfo_selection"
+                android:textColor="@color/main_default"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cl_signup_majorInfo_univ" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/text_signup_majorinfo_univ"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/pretendard_regular"-->
-<!--                android:paddingLeft="16dp"-->
-<!--                android:paddingTop="13dp"-->
-<!--                android:paddingBottom="13dp"-->
-<!--                android:text="@string/signup_majorInfo_select"-->
-<!--                android:textColor="@color/gray_3"-->
-<!--                android:textSize="15sp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintVertical_bias="1.0" />-->
+            <!--            <Spinner-->
+            <!--                android:id="@+id/spinner_signup_majorinfo_univ"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:spinnerMode="dropdown"-->
+            <!--                android:theme="@style/SpinnerTheme"-->
+            <!--                android:fontFamily="@font/pretendard_medium"-->
+            <!--                android:text="선택하기"-->
+            <!--                android:popupBackground="@drawable/rectangle_fill_white_8dp"-->
+            <!--                android:popupElevation="0dp"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:textSize="12sp"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+
+            <TextView
+                android:id="@+id/text_signup_majorinfo_univ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="@string/signup_majorInfo_select"
+                android:textColor="@color/gray_3"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_rb_univ"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/rectangle_fill_white_8dp"
+            android:elevation="2dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/cl_signup_majorInfo_univ"
+            app:layout_constraintStart_toStartOf="@+id/cl_signup_majorInfo_univ"
+            app:layout_constraintTop_toBottomOf="@+id/cl_signup_majorInfo_univ">
+
+            <RadioGroup
+                android:id="@+id/rg_univ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/rb_univ_korea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_weight="1"
+                    android:button="@drawable/selector_ic_check"
+                    android:buttonTint="@color/main_text"
+                    android:layoutDirection="rtl"
+                    android:text="고려대학교"
+                    android:textAlignment="textStart"
+                    android:textColor="@drawable/selector_text_black_to_mint" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/gray_spinner_line" />
+
+                <RadioButton
+                    android:id="@+id/rb_univ_swu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_weight="1"
+                    android:button="@drawable/selector_ic_check"
+                    android:buttonTint="@color/main_text"
+                    android:layoutDirection="rtl"
+                    android:text="서울여자대학교"
+                    android:textAlignment="textStart"
+                    android:textColor="@drawable/selector_text_black_to_mint" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/gray_spinner_line" />
+
+                <RadioButton
+                    android:id="@+id/rb_univ_cau"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_weight="1"
+                    android:button="@drawable/selector_ic_check"
+                    android:buttonTint="@color/main_text"
+                    android:layoutDirection="rtl"
+                    android:text="중앙대학교"
+                    android:textAlignment="textStart"
+                    android:textColor="@drawable/selector_text_black_to_mint" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/gray_spinner_line" />
+
+                <TextView
+                    android:id="@+id/text_univ_ready"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:clickable="true"
+                    android:paddingVertical="15dp"
+                    android:text="타 대학은 현재 준비중입니다"
+                    android:textColor="@color/gray_3"
+                    android:focusable="true" />
+            </RadioGroup>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
             android:id="@+id/text_signup_majorInfo_major"
@@ -411,7 +523,7 @@
                 app:layout_constraintTop_toTopOf="@+id/text_signup_majorinfo_double_major_time" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+        -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_signup_majorInfo_move_before"
