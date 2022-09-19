@@ -6,11 +6,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.activity.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySignUpMajorInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.sign.adapter.SpinnerAdapter
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
@@ -18,6 +19,7 @@ import com.nadosunbae_android.app.util.PixelRatio
 import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class SignUpMajorInfoActivity :
@@ -33,9 +35,6 @@ class SignUpMajorInfoActivity :
 
     private var firstMajorId = 0
     private var secondMajorId = 0
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +53,6 @@ class SignUpMajorInfoActivity :
         changeNext()
 
 
-
     }
 
     //뒤로버튼으로 왔을 시 텍스트 필드 채우기
@@ -69,7 +67,6 @@ class SignUpMajorInfoActivity :
         signViewModel.firstMajor.value = firstMajor
         firstMajorId = intent.getIntExtra("firstMajorId", 0)
         textSignupMajorinfoMajorTime.setText(intent.getStringExtra("firstMajorStart") ?: "선택하기")
-
 
 
         //두번째 전공
@@ -232,22 +229,23 @@ class SignUpMajorInfoActivity :
     private fun firstMajorPeriod() {
         // local data
         var firstMajorSelectionPeriodData = mutableListOf(
-            SelectableData(1, "22-1", false),
-            SelectableData(2, "21-2", false),
-            SelectableData(3, "21-1", false),
-            SelectableData(4, "20-2", false),
-            SelectableData(5, "20-1", false),
-            SelectableData(6, "19-2", false),
-            SelectableData(7, "19-1", false),
-            SelectableData(8, "18-2", false),
-            SelectableData(9, "18-1", false),
-            SelectableData(10, "17-2", false),
-            SelectableData(11, "17-1", false),
-            SelectableData(12, "16-2", false),
-            SelectableData(13, "16-1", false),
-            SelectableData(14, "15-2", false),
-            SelectableData(15, "15-1", false),
-            SelectableData(16, "15년 이전", false)
+            SelectableData(1, "22-2", false),
+            SelectableData(2, "22-1", false),
+            SelectableData(3, "21-2", false),
+            SelectableData(4, "21-1", false),
+            SelectableData(5, "20-2", false),
+            SelectableData(6, "20-1", false),
+            SelectableData(7, "19-2", false),
+            SelectableData(8, "19-1", false),
+            SelectableData(9, "18-2", false),
+            SelectableData(10, "18-1", false),
+            SelectableData(11, "17-2", false),
+            SelectableData(12, "17-1", false),
+            SelectableData(13, "16-2", false),
+            SelectableData(14, "16-1", false),
+            SelectableData(15, "15-2", false),
+            SelectableData(16, "15-1", false),
+            SelectableData(17, "15년 이전", false)
         )
         firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
 
@@ -310,7 +308,7 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoDoubleMajorMintTime.setText("선택")
                 binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
             }
-            if (signViewModel.secondMajor.value.toString() != "미진입"){
+            if (signViewModel.secondMajor.value.toString() != "미진입") {
                 signUpBasicInfoViewModel.secondDepartmentClick.value = true
                 signUpBasicInfoViewModel.secondDepartmentGo.value = false
                 binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
@@ -323,22 +321,23 @@ class SignUpMajorInfoActivity :
     private fun secondMajorPeriod() {
         // test data
         var secondMajorSelectionPeriodData = mutableListOf(
-            SelectableData(1, "22-1", false),
-            SelectableData(2, "21-2", false),
-            SelectableData(3, "21-1", false),
-            SelectableData(4, "20-2", false),
-            SelectableData(5, "20-1", false),
-            SelectableData(6, "19-2", false),
-            SelectableData(7, "19-1", false),
-            SelectableData(8, "18-2", false),
-            SelectableData(9, "18-1", false),
-            SelectableData(10, "17-2", false),
-            SelectableData(11, "17-1", false),
-            SelectableData(12, "16-2", false),
-            SelectableData(13, "16-1", false),
-            SelectableData(14, "15-2", false),
-            SelectableData(15, "15-1", false),
-            SelectableData(16, "15년 이전", false)
+            SelectableData(1, "22-2", false),
+            SelectableData(2, "22-1", false),
+            SelectableData(3, "21-2", false),
+            SelectableData(4, "21-1", false),
+            SelectableData(5, "20-2", false),
+            SelectableData(6, "20-1", false),
+            SelectableData(7, "19-2", false),
+            SelectableData(8, "19-1", false),
+            SelectableData(9, "18-2", false),
+            SelectableData(10, "18-1", false),
+            SelectableData(11, "17-2", false),
+            SelectableData(12, "17-1", false),
+            SelectableData(13, "16-2", false),
+            SelectableData(14, "16-1", false),
+            SelectableData(15, "15-2", false),
+            SelectableData(16, "15-1", false),
+            SelectableData(17, "15년 이전", false)
         )
 
         binding.clSignupMajorInfoDoubleMajorTime.setOnClickListener {
@@ -392,10 +391,19 @@ class SignUpMajorInfoActivity :
 
 
     private fun setupSpinner() {
-        val list = listOf("고려대학교", "타 대학은 현재 준비중입니다")
-        val spinnerAdapter = SpinnerAdapter(this, R.layout.spinner_item, list)
-        binding.spinnerSignupMajorinfoUniv.adapter = spinnerAdapter
+        val list = listOf("고려대학교", "서울여자대학교", "중앙대학교", "타 대학은 현재 준비중입니다")
+
+        //val spinnerAdapter = SpinnerAdapter(this, R.layout.spinner_item, list)
+        //binding.spinnerSignupMajorinfoUniv.adapter = spinnerAdapter
+
+
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list)
+        //adapter.setDropDownViewResource(com.nadosunbae_android.app.R.layout.spinner_item)
+        binding.spinnerSignupMajorinfoUniv.setAdapter(adapter)
         binding.spinnerSignupMajorinfoUniv.dropDownVerticalOffset = PixelRatio().dpToPx(52)
+
+
+
     }
 
 
@@ -408,6 +416,9 @@ class SignUpMajorInfoActivity :
                     position: Int,
                     id: Long
                 ) {
+//                    (parent!!.getChildAt(0) as TextView).setTextColor(Color.BLUE)
+//                    (parent!!.getChildAt(0) as TextView).textSize = 5f
+
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
