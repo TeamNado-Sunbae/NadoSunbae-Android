@@ -463,10 +463,15 @@ class SignUpMajorInfoActivity :
         binding.textSignupMajorInfoUnivMint.text = "변경"
     }
 
-    //대학 선택하는 레이아웃 클릭 시 나오는 뷰 설정
     private fun spinnerClickListener() {
+        //대학 선택하는 레이아웃 클릭 시 나오는 뷰 설정
         binding.clSignupMajorInfoUniv.setOnClickListener {
             binding.clRbUniv.visibility = View.VISIBLE
+        }
+
+        //외부 영역 클릭시 스피너 안 보이게
+        binding.clSign.setOnClickListener {
+            binding.clRbUniv.visibility = View.GONE
         }
     }
 
