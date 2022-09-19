@@ -89,7 +89,7 @@ class MainViewModel @Inject constructor(
         get() = _selectedMajor
 
     // 필터
-    val filterData = MutableLiveData(FilterData(1, listOf(1, 2, 3, 4, 5)))
+    val filterData = MutableLiveData(FilterData("1", listOf(1, 2, 3, 4, 5)))
 
     // 구성원 전체보기
     private val _seniorData = MutableLiveData<ClassRoomSeniorData>()
@@ -216,17 +216,17 @@ class MainViewModel @Inject constructor(
     }
 
     fun clearFilter() {
-        filterData.value = FilterData(1, listOf(1, 2, 3, 4, 5))
+        filterData.value = FilterData(FILTER_ALL, listOf(1, 2, 3, 4, 5))
     }
 
     companion object {
-        const val FILTER_ALL = 1
-        const val FILTER_FIRST_MAJOR = 2
-        const val FILTER_SECOND_MAJOR = 3
+        const val FILTER_ALL = "all"
+        const val FILTER_FIRST_MAJOR = "firstMajor"
+        const val FILTER_SECOND_MAJOR = "secondMajor"
     }
 
     data class FilterData(
-        val writerFilter: Int,
+        val writerFilter: String,
         val tagFilter: List<Int>
     )
 

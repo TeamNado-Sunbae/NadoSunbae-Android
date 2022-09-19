@@ -142,7 +142,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                     R.id.navigation_room -> {
                         mainViewModel.classRoomNum.value = 1
-                        changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
+                        changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomMainContentFragment())
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_community -> {
@@ -177,7 +177,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     "askEveryOne"
                 )
 
-                1 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
+                1 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomMainContentFragment())
 
                 3 -> changeFragment(R.id.fragment_container_main, SeniorFragment(), "senior")
 

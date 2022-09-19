@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetReviewListDataUseCase @Inject constructor(private val repository: ReviewRepository) {
 
     suspend operator fun invoke(reviewFilterItem: ReviewFilterItem, sort: String): List<ReviewPreviewData> {
-        return repository.getReviewList(reviewFilterItem, sort)
+        return repository.getReviewListByMajor(reviewFilterItem, sort)
     }
 
 }

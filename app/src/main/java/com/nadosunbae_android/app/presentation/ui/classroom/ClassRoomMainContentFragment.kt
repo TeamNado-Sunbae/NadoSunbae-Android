@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.result.contract.ActivityResultContracts
@@ -170,7 +171,8 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
                             // null check
                             if (reviewListData != null) {
                                 // postId Intent로 전달 (후기 상세보기 이동)
-                                val postId = reviewListData[position].postId
+                                val postId = reviewListData[position].id
+
                                 val intent = Intent(context, ReviewDetailActivity::class.java).apply {
                                     putExtra("postId", postId)
                                     putExtra("userId", mainViewModel.userId.value)

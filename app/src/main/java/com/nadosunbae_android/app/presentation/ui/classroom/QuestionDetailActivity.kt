@@ -6,14 +6,12 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityQuestionDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQuestionDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
@@ -21,7 +19,7 @@ import com.nadosunbae_android.domain.model.classroom.CommentUpdateItem
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 import com.nadosunbae_android.domain.model.classroom.ReportItem
-import com.nadosunbae_android.domain.model.like.LikeItem
+import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -30,8 +28,6 @@ import timber.log.Timber
 class QuestionDetailActivity :
     BaseActivity<ActivityQuestionDetailBinding>(R.layout.activity_question_detail) {
     private val questionDetailViewModel: QuestionDetailViewModel by viewModels()
-    private val myPageViewModel: MyPageViewModel by viewModels()
-    private lateinit var dialog: CustomDialog
 
     private lateinit var classRoomQuestionDetailAdapter: ClassRoomQuestionDetailAdapter
 
@@ -137,12 +133,12 @@ class QuestionDetailActivity :
 
                     if (divisionNum == 1 || myPageDivisionNum == 3) {
                         Timber.d("전체 질문 좋아요: 서버 통신 하는 중")
-                        questionDetailViewModel.postClassRoomLike(LikeItem(postId, 3))
+                        // questionDetailViewModel.postClassRoomLike(LikeParam(postId, 3))
                         showLoading()
                         questionDetailViewModel.getClassRoomQuestionDetail(postId)
                     } else {
                         Timber.d("1:1 질문 좋아요: 서버 통신 하는 중")
-                        questionDetailViewModel.postClassRoomLike(LikeItem(postId, 4))
+                        // questionDetailViewModel.postClassRoomLike(LikeParam(postId, 4))
                         showLoading()
                         questionDetailViewModel.getClassRoomQuestionDetail(postId)
                     }

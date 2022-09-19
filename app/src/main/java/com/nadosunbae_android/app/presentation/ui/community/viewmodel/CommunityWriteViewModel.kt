@@ -62,7 +62,7 @@ class CommunityWriteViewModel @Inject constructor(
 
     //게시글 작성 서버
     private var _postWrite = MutableStateFlow(PostWriteData.DEFAULT)
-    val postWrite : StateFlow<PostWriteData>
+    val postWrite: StateFlow<PostWriteData>
         get() = _postWrite
 
     fun postWrite(type: () -> String, title: String, content: String) {
@@ -80,9 +80,11 @@ class CommunityWriteViewModel @Inject constructor(
             }.collectLatest {
                 Timber.d("작성 성공")
                 _postWrite.value = it
+            }.also {
+                onLoadingEnd.value = true
             }
         }
-
     }
+
 
 }

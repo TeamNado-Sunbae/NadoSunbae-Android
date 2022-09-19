@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.community
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -9,10 +10,12 @@ import com.nadosunbae_android.app.databinding.ActivityCommunityWriteBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CommunityWriteActivity :
@@ -30,24 +33,26 @@ class CommunityWriteActivity :
         activateCompleteButton()
         clickComplete()
         communityWriteViewModel.setCompleteButton()
+        goDetail()
     }
 
 
     //학과 변경 세팅
     private fun initBottomSheetDialog() {
+        val noMajor = intent.getIntExtra("noMajor", 0)
         binding.communityWriteViewModel = communityWriteViewModel
         communityWriteViewModel.setMajorList(
             intent.getParcelableArrayListExtra<MajorListData>("majorList") as List<MajorListData>
         )
         majorBottomSheetDialog = CustomBottomSheetDialog(
             getString(R.string.community_write_bottom_sheet_title),
-            true
+            true,
+            noMajor
         )
         observeBottomSheet(
             communityWriteViewModel.majorList.value ?: emptyList(), majorBottomSheetDialog
         )
         //학과 무관 선택
-        majorBottomSheetDialog.setSelectedData(0)
         binding.layoutCommunityWriteCategory.radioBtnCategoryFreedom.isChecked = true
     }
 
@@ -68,6 +73,9 @@ class CommunityWriteActivity :
         }
         communityWriteViewModel.filter.flowWithLifecycle(lifecycle)
             .onEach {
+                if(it.id == 0){
+                    it.id = communityWriteViewModel.majorList.value?.get(0)?.majorId ?: 0
+                }
                 binding.layoutCommunityWriteMajor.bottomSheetMajor = it.name
             }
             .launchIn(lifecycleScope)
@@ -87,7 +95,15 @@ class CommunityWriteActivity :
     // 취소 버튼
     private fun clickCancelButton() {
         binding.imgCommunityWriteCancel.setOnClickListener {
-            finish()
+            CustomDialog(this).genericDialog(
+                dialogText = CustomDialog.DialogData(
+                    getString(R.string.question_update_cancel),
+                    getString(R.string.mypage_modify_alert_back_continue),
+                    getString(R.string.signup_alert_out)
+                ),
+                complete = {},
+                cancel = { finish() }
+            )
         }
     }
 
@@ -103,11 +119,33 @@ class CommunityWriteActivity :
     //완료 버튼
     private fun clickComplete() {
         binding.btnCommunityWriteOk.setOnClickListener {
-            communityWriteViewModel.postWrite(
-                type = { checkCategory() },
-                title = communityWriteViewModel.writeTitle.value,
-                content = communityWriteViewModel.writeContent.value
+            CustomDialog(this).genericDialog(
+                dialogText = CustomDialog.DialogData(
+                    getString(R.string.question_write_complete),
+                    getString(R.string.alert_write_review_complete),
+                    getString(R.string.question_write_complete_no)
+                ),
+                complete = {
+                    communityWriteViewModel.postWrite(
+                        type = { checkCategory() },
+                        title = communityWriteViewModel.writeTitle.value,
+                        content = communityWriteViewModel.writeContent.value
+                    )
+                },
+             cancel = {}
             )
+        }
+    }
+
+    //완료 후 게시글 상세로 이동
+    private fun goDetail() {
+        communityWriteViewModel.onLoadingEnd.observe(this) {
+            if (it) {
+                val intent = Intent(this, CommunityDetailActivity::class.java)
+                intent.putExtra("postId", communityWriteViewModel.postWrite.value.postId.toString())
+                startActivity(intent)
+                finish()
+            }
         }
     }
 }

@@ -66,7 +66,7 @@ class CommunityPostDetailAdapter(private var userId: Int, val context: Context) 
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(postDetailData: PostDetailData.Comment) {
             binding.apply {
-                postDetailCommentData = postDetailData
+                this.postDetailCommentData = postDetailData
                 executePendingBindings()
             }
         }

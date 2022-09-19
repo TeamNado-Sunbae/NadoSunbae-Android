@@ -156,7 +156,7 @@ class CustomDialog(val context: Context) {
 
         return dialog
     }
-
+    //리뷰 신고 다이얼로그
     fun reviewAlertDialog(context: Context, message: String?) {
         CustomDialog(context).genericDialog(
             DialogData(
