@@ -5,9 +5,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="filterTitle"
             type="String" />
+
+        <variable
+            name="size"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +22,7 @@
         android:background="@color/background"
         tools:context=".presentation.ui.community.CommunityMainContentFragment">
 
-        <com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
+        <com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
             android:id="@+id/custom_switch_tab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -57,7 +63,52 @@
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/img_community_filter"
                 app:layout_constraintTop_toTopOf="@+id/img_community_filter" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_community_no_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="163dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/no_post"
+            android:textColor="@color/gray_3"
+            android:textSize="14sp"
+            android:visibility="@{size ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_switch_tab" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_community_main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="22dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_switch_tab">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="80dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rc_community_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
+                    android:visibility="@{size ? View.GONE : View.VISIBLE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
         <android.widget.Button
             android:id="@+id/btn_community_write"

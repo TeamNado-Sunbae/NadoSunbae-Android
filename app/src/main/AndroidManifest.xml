@@ -14,11 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NadoSunbaeAndroid"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".presentation.ui.community.CommunitySearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.community.CommunityWriteActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.ui.onboarding.OnBoardingActivity"
             android:exported="true" />
-
         <activity
             android:name=".presentation.ui.main.SplashActivity"
             android:exported="true">
@@ -29,7 +33,6 @@
             </intent-filter>
         </activity>
 
-
         <activity
             android:name=".presentation.ui.mypage.ChangePwFinishActivity"
             android:exported="false" />
@@ -37,15 +40,12 @@
             android:name=".presentation.ui.main.WebViewActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.mypage.QuitActivity"
-            android:exported="true" />
-        <activity
             android:name="com.nadosunbae_android.app.presentation.ui.classroom.review.SeniorPersonalActivity"
             android:exported="false"
             android:label="@string/title_activity_senior_personal"
             android:theme="@style/Theme.NadoSunbaeAndroid.NoActionBar" />
         <activity
-            android:name=".presentation.ui.classroom.InformationDetailActivity"
+            android:name=".presentation.ui.community.CommunityDetailActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.classroom.QuestionDetailActivity"
@@ -86,18 +86,11 @@
             android:name=".presentation.ui.sign.SignInActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustNothing" />
-
-        <activity
-            android:name=".presentation.ui.mypage.ServiceInqueryActivity"
-            android:exported="false" />
         <activity
             android:name=".presentation.ui.mypage.NotificationSettingActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.ui.mypage.ChangePasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.mypage.SearchIdActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.mypage.ModifyMyInfoActivity"
@@ -117,6 +110,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name=".MainActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

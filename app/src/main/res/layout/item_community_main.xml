@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="postData"
+            type="com.nadosunbae_android.domain.model.post.PostData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/tv_community_main_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@{postData.type}"
+            android:textColor="@color/main_default"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="자유" />
+
+        <TextView
+            android:id="@+id/tv_community_main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/pretendard_semibold"
+            android:maxLines="1"
+            android:text="@{postData.title}"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_community_main_filter"
+            app:layout_constraintTop_toBottomOf="@+id/tv_community_main_filter"
+            tools:text="title" />
+
+        <TextView
+            android:id="@+id/tv_community_main_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/pretendard_regular"
+            android:maxLines="2"
+            android:text="@{postData.content}"
+            android:textColor="@color/gray_3"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_community_main_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_community_main_title"
+            tools:text="contents" />
+
+        <TextView
+            android:id="@+id/tv_community_main_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:includeFontPadding="false"
+            android:text="@{postData.majorName}"
+            android:textColor="@color/gray_4"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_community_main_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_community_main_content"
+            tools:text="학과무관" />
+
+        <TextView
+            android:id="@+id/tv_community_main_time"
+            dateToText="@{postData.createdAt}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_community_main_major"
+            app:layout_constraintStart_toEndOf="@+id/tv_community_main_major"
+            app:layout_constraintTop_toTopOf="@+id/tv_community_main_major"
+            tools:text="createdAt" />
+
+        <ImageView
+            android:id="@+id/img_community_main_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="70dp"
+            android:background="@drawable/ic_comment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_community_main_content" />
+
+        <TextView
+            android:id="@+id/tv_community_main_comment"
+            intToText="@{postData.commentCount}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_light"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_community_main_comment"
+            app:layout_constraintStart_toEndOf="@+id/img_community_main_comment"
+            app:layout_constraintTop_toTopOf="@+id/img_community_main_comment"
+            tools:text="1" />
+
+        <ImageView
+            android:id="@+id/img_community_main_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/selector_heart_gray_mint"
+            app:layout_constraintStart_toEndOf="@+id/tv_community_main_comment"
+            app:layout_constraintTop_toTopOf="@+id/img_community_main_comment" />
+
+        <TextView
+            android:id="@+id/tv_community_main_like"
+            intToText="@{postData.likeCount}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_light"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_community_main_like"
+            app:layout_constraintStart_toEndOf="@+id/img_community_main_like"
+            app:layout_constraintTop_toTopOf="@+id/img_community_main_like"
+            tools:text="1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

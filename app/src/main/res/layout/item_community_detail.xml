@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="PostDetailCommentData"
+            type="com.nadosunbae_android.domain.model.post.PostDetailData.Comment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:paddingBottom="24dp">
+
+        <ImageView
+            android:id="@+id/img_information_detail_comment_profile"
+            infoTextVisible="@{PostDetailCommentData.deleted}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_profile_32"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_information_detail_comment_name"
+            infoTextVisible="@{PostDetailCommentData.deleted}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="@{PostDetailCommentData.nickname}"
+            android:textColor="@color/gray_4"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/img_information_detail_comment_profile"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_information_detail_comment_writer"
+            isDelete="@{PostDetailCommentData.deleted}"
+            writerVisible="@{PostDetailCommentData.postWriter}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:background="@drawable/rectangle_fill_main_light_6"
+            android:fontFamily="@font/pretendard_medium"
+            android:paddingHorizontal="3dp"
+            android:paddingVertical="2dp"
+            android:text="@string/filter_writer"
+            android:textColor="@color/main_default"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@id/text_information_detail_comment_name"
+            app:layout_constraintTop_toTopOf="@+id/text_information_detail_comment_name" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/fl_information_detail_comment_major"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            app:flexWrap="wrap"
+            app:layout_constraintEnd_toStartOf="@+id/img_information_detail_question_menu"
+            app:layout_constraintStart_toStartOf="@+id/text_information_detail_comment_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_information_detail_comment_name">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_information_detail_comment_major"
+                    infoTextVisible="@{PostDetailCommentData.deleted}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@{PostDetailCommentData.firstMajorName}"
+                    android:textColor="@color/gray_2"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/text_information_detail_comment_major_start"
+                    infoTextVisible="@{PostDetailCommentData.deleted}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@{PostDetailCommentData.firstMajorStart}"
+                    android:textColor="@color/gray_2"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line_information_detail_comment"
+                infoTextVisible="@{PostDetailCommentData.deleted}"
+                android:layout_width="1dp"
+                android:layout_height="18dp"
+                android:layout_marginHorizontal="8dp"
+                android:background="@color/gray_2"
+                 />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_information_detail_comment_second_major"
+                    infoTextVisible="@{PostDetailCommentData.deleted}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@{PostDetailCommentData.secondMajorName}"
+                    android:textColor="@color/gray_2"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/text_information_detail_content_second_major_start"
+                    infoTextVisible="@{PostDetailCommentData.deleted}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@{PostDetailCommentData.secondMajorStart}"
+                    android:textColor="@color/gray_2"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <ImageView
+            android:id="@+id/img_information_detail_question_menu"
+            infoTextVisible="@{PostDetailCommentData.deleted}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_more_vert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_information_detail_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:autoLink="web"
+            android:fontFamily="@font/pretendard_regular"
+            android:lineSpacingExtra="4sp"
+            android:linksClickable="true"
+            android:text="@{PostDetailCommentData.content}"
+            android:textColor="@color/gray_4"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/fl_information_detail_comment_major"
+            app:layout_constraintTop_toBottomOf="@+id/fl_information_detail_comment_major" />
+
+        <TextView
+            android:id="@+id/text_information_detail_content_time"
+            dateToText="@{PostDetailCommentData.createdAt}"
+            infoTextVisible="@{PostDetailCommentData.deleted}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:lineHeight="18sp"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/text_information_detail_content"
+            app:layout_constraintTop_toBottomOf="@+id/text_information_detail_content" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/gray_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_information_detail_content_time" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

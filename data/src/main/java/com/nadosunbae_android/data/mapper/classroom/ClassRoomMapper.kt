@@ -2,7 +2,6 @@ package com.nadosunbae_android.data.mapper.classroom
 
 import com.nadosunbae_android.data.model.request.classroom.*
 import com.nadosunbae_android.domain.model.classroom.*
-import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
 import com.nadosunbae_android.data.model.response.classroom.*
 
 object ClassRoomMapper {

@@ -15,6 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+//TODO Data 계층으로 옮기기
 const val BASE_URL = BuildConfig.API_KEY
 
 @Module

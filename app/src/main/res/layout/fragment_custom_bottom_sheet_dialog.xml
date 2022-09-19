@@ -16,10 +16,13 @@
 
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_custom_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="30dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
             android:id="@+id/tv_bottomsheeet_title"
@@ -98,7 +101,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
-            android:layout_marginVertical="16dp"
             android:background="@drawable/selector_rectangle_enabled_gray_to_black_14dp"
             android:fontFamily="@font/pretendard_semibold"
             android:onClick="@{fragment::completeBtnListener}"
@@ -111,4 +113,5 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

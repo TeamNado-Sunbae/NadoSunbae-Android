@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background">
+
+    <data>
+
+        <variable
+            name="postDetail"
+            type="com.nadosunbae_android.domain.model.post.PostDetailData" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_community_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/text_community_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="58dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/community_detail_title"
+                android:textColor="@color/origin_black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{postDetail.firstMajorName}"
+                android:textSize="12sp"
+                android:textColor="@color/gray_3"
+                android:fontFamily="@font/pretendard_regular"
+                app:layout_constraintTop_toBottomOf="@+id/text_community_detail_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageView
+                android:id="@+id/img_community_detail_title_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:background="@drawable/btn_left_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/img_community_detail_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_more_vert"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@+id/cl_information_detail_comment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_community_detail">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_community_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_information_detail">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_community_detail_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/text_community_detail_question_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:lineHeight="30sp"
+                        android:text="@{postDetail.title}"
+                        android:textColor="@color/main_default"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_community_detail_question_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="@{postDetail.nickname}"
+                        android:textColor="@color/gray_4"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/text_community_detail_question_title"
+                        app:layout_constraintTop_toBottomOf="@+id/text_community_detail_question_title"
+                        tools:text="111" />
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/fl_community_detail_question_major"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        app:flexWrap="wrap"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/text_community_detail_question_name"
+                        app:layout_constraintTop_toTopOf="@+id/text_community_detail_question_name">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_community_detail_question_major"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:text="@{postDetail.firstMajorName}"
+                                android:textColor="@color/gray_2"
+                                android:textSize="12sp"
+                                tools:text="111" />
+
+                            <TextView
+                                android:id="@+id/text_community_detail_question_major_start"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:text="@{postDetail.firstMajorStart}"
+                                android:textColor="@color/gray_2"
+                                android:textSize="12sp"
+                                tools:text="111" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/line_community_detail_question"
+                            android:layout_width="1dp"
+                            android:layout_height="18dp"
+                            android:layout_marginHorizontal="8dp"
+                            android:background="@color/gray_1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_community_detail_question_second_major"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:text="@{postDetail.secondMajorName}"
+                                android:textColor="@color/gray_2"
+                                android:textSize="12sp"
+                                tools:text="111" />
+
+                            <TextView
+                                android:id="@+id/text_community_detail_question_second_major_start"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:text="@{postDetail.secondMajorStart}"
+                                android:textColor="@color/gray_2"
+                                android:textSize="12sp"
+                                tools:text="111" />
+                        </LinearLayout>
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                    <TextView
+                        android:id="@+id/text_community_detail_question_content"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:autoLink="web"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:lineSpacingExtra="4sp"
+                        android:linksClickable="true"
+                        android:text="@{postDetail.content}"
+                        android:textColor="@color/main_text"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/text_community_detail_question_title"
+                        app:layout_constraintStart_toStartOf="@+id/text_community_detail_question_title"
+                        app:layout_constraintTop_toBottomOf="@+id/fl_community_detail_question_major" />
+
+                    <TextView
+                        android:id="@+id/text_information_detail_question_time"
+                        dateToText="@{postDetail.createdAt}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="44dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:textColor="@color/gray_2"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@+id/text_community_detail_question_content"
+                        app:layout_constraintTop_toBottomOf="@+id/text_community_detail_question_content" />
+
+                    <android.widget.Button
+                        android:id="@+id/btn_info_like"
+                        style="?android:attr/borderlessButtonStyle"
+                        intToString="@{postDetail.likeCount}"
+                        setSelected="@{postDetail.liked}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="34dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/selector_ic_btn_like"
+                        android:drawableStart="@drawable/selector_icon_like"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="4dp"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="4dp"
+                        android:textColor="@drawable/selector_gray_2_to_main_default"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_community_detail_question_content"
+                        tools:text="1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_information_detail_question_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_community_detail_question">
+
+                    <TextView
+                        android:id="@+id/text_information_detail_question_comment_count"
+                        commentCount="@{postDetail.commentCount}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:textColor="@color/gray_2"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rc_information_detail_question_comment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_information_detail_question_comment_count" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_information_detail_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/et_information_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="48dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/rectangle_fill_gray_0_64"
+                android:fontFamily="@font/pretendard_regular"
+                android:hint="@string/question_detail_comment"
+                android:maxLines="1"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:scrollbars="vertical"
+                android:textColorHint="@color/gray_2"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_information_comment_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/selector_send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

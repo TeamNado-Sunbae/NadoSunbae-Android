@@ -19,7 +19,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewWriteAc
 import com.nadosunbae_android.app.presentation.ui.classroom.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.ClassRoomMainContentViewModel
-import com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
+import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel

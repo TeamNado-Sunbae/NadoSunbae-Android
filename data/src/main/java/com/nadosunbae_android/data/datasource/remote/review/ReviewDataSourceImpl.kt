@@ -7,8 +7,10 @@ import com.nadosunbae_android.data.model.response.review.ResponsePutReviewData
 import com.nadosunbae_android.data.model.request.review.RequestPostReviewData
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.*
+import javax.inject.Inject
 
-class ReviewDataSourceImpl(private val service : ReviewService) : ReviewDataSource {
+class ReviewDataSourceImpl @Inject construcor(private val service : ReviewService) : 
+    ReviewDataSource {
     override suspend fun getReviewListByMajor(
         majorId: Int,
         sort: String,
@@ -34,7 +36,10 @@ class ReviewDataSourceImpl(private val service : ReviewService) : ReviewDataSour
         return service.deleteReview(postId)
     }
 
-    override suspend fun putReview(postId: Int, requestBody: RequestPutReviewData): ResponsePutReviewData {
+    override suspend fun putReview(
+        postId: Int,
+        requestBody: RequestPutReviewData
+    ): ResponsePutReviewData {
         return service.putReview(postId, requestBody)
     }
 

@@ -3,18 +3,16 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.core.content.res.ResourcesCompat
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMyPageLikeListBinding
-import com.nadosunbae_android.app.di.NadoSunBaeApplication.Companion.context
 import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionAdapter
-import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeQuestionInfoAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageLikeReviewAdapter
+import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.domain.model.mypage.MyPageLikeQuestionData
-import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class MyPageLikeListActivity :
@@ -22,14 +20,14 @@ class MyPageLikeListActivity :
     private val myPageViewModel: MyPageViewModel by viewModels()
     private lateinit var myPageLikeQuestionAdapter: MyPageLikeQuestionAdapter
     private lateinit var myPageLikeReviewAdapter: MyPageLikeReviewAdapter
-    private lateinit var myPageLikeQuestionInfoAdapter: MyPageLikeQuestionInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observeLoadingEnd()
         backBtn()
-        initBtn()
-        selectOption()
+        initSwitchTab()
+        observeFragmentNum()
+        //initReviewListAdapter()
     }
 
     private fun observeLoadingEnd() {
@@ -45,74 +43,52 @@ class MyPageLikeListActivity :
         }
     }
 
-    private fun initBtn() {
-        initReviewListAdapter()
-        binding.textMypageLikeReview.isSelected = true
-        binding.textMypageLikeQuestion.isSelected = false
-        binding.textMypageLikeInfo.isSelected = false
+    private fun initSwitchTab() {
 
-        //폰트 설정
-        binding.textMypageLikeReview.typeface =
-            ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-        binding.textMypageLikeQuestion.typeface =
-            ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-        binding.textMypageLikeInfo.typeface =
-            ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-    }
-
-    private fun selectOption() {
-        binding.apply {
-            textMypageLikeReview.setOnClickListener {
-                showLoading()
-                initReviewListAdapter()
-                textMypageLikeReview.isSelected = true
-                textMypageLikeQuestion.isSelected = false
-                textMypageLikeInfo.isSelected = false
-
-                //폰트 설정
-                textMypageLikeReview.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-                textMypageLikeQuestion.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-                textMypageLikeInfo.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-            }
-
-            textMypageLikeQuestion.setOnClickListener {
-                showLoading()
-                questionPosting()
-                textMypageLikeReview.isSelected = false
-                textMypageLikeQuestion.isSelected = true
-                textMypageLikeInfo.isSelected = false
-
-                //폰트 설정
-                textMypageLikeReview.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-                textMypageLikeQuestion.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
-                textMypageLikeInfo.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-            }
-
-            textMypageLikeInfo.setOnClickListener {
-                showLoading()
-                infoPosting()
-                textMypageLikeReview.isSelected = false
-                textMypageLikeQuestion.isSelected = false
-                textMypageLikeInfo.isSelected = true
-
-                //폰트 설정
-                textMypageLikeReview.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-                textMypageLikeQuestion.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_regular)
-                textMypageLikeInfo.typeface =
-                    ResourcesCompat.getFont(context(), R.font.pretendard_semibold)
+        with(binding.viewMypageSwitch) {
+            switchTab =
+                CustomSwitchTab.getSwitchTabValue(
+                    0
+                )
+            switchText = listOf(
+                getString(com.nadosunbae_android.app.R.string.review_reviews), getString(
+                    com.nadosunbae_android.app.R.string.question_detail_title
+                ), getString(
+                    com.nadosunbae_android.app.R.string.navigation_community
+                )
+            )
+            itemClickListener = {
+                if (it != myPageViewModel.likeCurFragment.value && !(it == 0 && myPageViewModel.likeCurFragment.value == -1)) {
+                    switchTab =
+                        CustomSwitchTab.getSwitchTabValue(
+                            it
+                        )
+                    myPageViewModel.likeCurFragment.postValue(it)
+                }
             }
         }
     }
 
+    private fun observeFragmentNum() {
+        myPageViewModel.likeCurFragment.observe(this) {
+            when (it) {
+                0 -> {
+                    //initReviewListAdapter()
+                }
+                1 -> {
+                    questionPosting()
+                }
+                2 -> {
+                    infoPosting()
+                }
+            }
+            binding.viewMypageSwitch.switchTab = CustomSwitchTab.getSwitchTabValue(it)
+        }
+    }
+
+
     override fun onRestart() {
+        /*
         super.onRestart()
         if (binding.textMypageLikeReview.isSelected) {
             initReviewListAdapter()
@@ -121,6 +97,8 @@ class MyPageLikeListActivity :
         } else {
             infoPosting()
         }
+
+         */
     }
 
 
@@ -163,46 +141,46 @@ class MyPageLikeListActivity :
         }
     }
 
+    //1:1 질문
     private fun questionPosting() {
-        showLoading()
-        intent.getIntExtra("userId", 0)
-        myPageViewModel.getMyPageLikeQuestion("question")
+        myPageViewModel.getMyPageLike("questionToPerson")
         myPageLikeQuestionAdapter =
             MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 
-        myPageViewModel.likeQuestion.observe(this) {
-            initQuestionEmpty(it.data.likePostList.size)
-            myPageLikeQuestionAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
+        myPageViewModel.userLike.observe(this) {
+            initQuestionEmpty(it.size)
+            (binding.rvMypageLike.adapter as MyPageLikeQuestionAdapter).submitList(it)
         }
     }
 
+    //커뮤니티
     private fun infoPosting() {
         showLoading()
         intent.getIntExtra("userId", 0)
 
-        myPageViewModel.getMyPageLikeQuestion("information")
-        myPageLikeQuestionInfoAdapter =
-            MyPageLikeQuestionInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
-        binding.rvMypageLike.adapter = myPageLikeQuestionInfoAdapter
+        myPageViewModel.getMyPageLike("community")
+        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
+        binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
 
-        myPageViewModel.likeQuestion.observe(this) {
-            initInfoEmpty(it.data.likePostList.size)
-            myPageLikeQuestionInfoAdapter.setQuestionPost((it.data.likePostList) as MutableList<MyPageLikeQuestionData.Data.LikePost>)
+        myPageViewModel.userLike.observe(this) {
+            initInfoEmpty(it.size)
+            (binding.rvMypageLike.adapter as MyPageLikeQuestionAdapter).submitList(it)
         }
     }
 
 
+    //후기
     private fun initReviewListAdapter() {
         showLoading()
         val userId = intent.getIntExtra("userId", 0)
-        myPageViewModel.getMyPageLikeReview("review")
+        myPageViewModel.getMyPageLike("review")
         myPageLikeReviewAdapter = MyPageLikeReviewAdapter(userId)
         binding.rvMypageLike.adapter = myPageLikeReviewAdapter
-
-        myPageViewModel.likeReview.observe(this) {
-            initReviewEmpty(it.data.likePostList.size)
-            myPageLikeReviewAdapter.setReviewListData((it.data.likePostList) as MutableList<MyPageLikeReviewData.Data.LikePost>)
+        myPageViewModel.userLike.observe(this)
+        {
+            initReviewEmpty(it.size)
+            //(binding.rvMypageLike.adapter as MyPageLikeReviewAdapter).submitList(it)
         }
     }
 }

@@ -1,3 +1,5 @@
+import Versions.room_version
+
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -54,6 +56,11 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
+    //room
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+
 
     // Gson
     implementation(ThirdPartyDependencies.gson)
@@ -73,7 +80,9 @@ dependencies {
     implementation("org.jetbrains:annotations:15.0")
     implementation("androidx.annotation:annotation:1.3.0")
 
-
+    //Hilt
+    implementation("com.google.dagger:hilt-android:2.37")
+    kapt("com.google.dagger:hilt-android-compiler:2.37")
 
     //google
 

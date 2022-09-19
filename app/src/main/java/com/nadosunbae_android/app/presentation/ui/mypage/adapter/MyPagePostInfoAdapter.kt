@@ -4,17 +4,25 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemMypagePostByMeBinding
-import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
-import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.community.CommunityDetailActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
-import com.nadosunbae_android.domain.model.mypage.MyPagePostData
+import com.nadosunbae_android.app.util.DiffUtilCallback
+import com.nadosunbae_android.domain.model.user.UserPostData
 
-class MyPagePostInfoAdapter (private val num: Int, private val userId: Int, private val myPageNum : Int) :
-    RecyclerView.Adapter<MyPagePostInfoAdapter.MyPagePostViewHolder>() {
-    var myPagePostData = mutableListOf<MyPagePostData.Data.ClassroomPost>()
+class MyPagePostInfoAdapter(
+    private val num: Int,
+    private val userId: Int,
+    private val myPageNum: Int
+) :
+    ListAdapter<UserPostData, MyPagePostInfoAdapter.MyPagePostViewHolder>(
+        DiffUtilCallback<UserPostData>()
+    ) {
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -32,7 +40,7 @@ class MyPagePostInfoAdapter (private val num: Int, private val userId: Int, priv
         holder: MyPagePostViewHolder,
         position: Int
     ) {
-        holder.onBind(myPagePostData[position])
+        holder.onBind(getItem(position))
         holder.binding.root.setOnClickListener {
             CustomDialog(holder.itemView.context).restrictDialog(
                 holder.itemView.context,
@@ -41,9 +49,10 @@ class MyPagePostInfoAdapter (private val num: Int, private val userId: Int, priv
                 MainGlobals.signInData!!.isReviewInappropriate,
                 MainGlobals.signInData?.message.toString(),
                 behavior = {
-                    val intent = Intent(holder.itemView.context, InformationDetailActivity::class.java)
+                    val intent =
+                        Intent(holder.itemView.context, CommunityDetailActivity::class.java)
                     intent.apply {
-                        putExtra("postId", myPagePostData[position].postId)
+                        putExtra("postId", getItem(position).postId)
                         putExtra("userId", userId)
                     }
                     ContextCompat.startActivity(holder.itemView.context, intent, null)
@@ -51,22 +60,14 @@ class MyPagePostInfoAdapter (private val num: Int, private val userId: Int, priv
         }
     }
 
-    override fun getItemCount(): Int = myPagePostData.size
-
-    inner class MyPagePostViewHolder(
+    class MyPagePostViewHolder(
         val binding: ItemMypagePostByMeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(myPagePostData: MyPagePostData.Data.ClassroomPost) {
+        fun onBind(myPagePostData: UserPostData) {
             binding.apply {
                 myPagePost = myPagePostData
                 executePendingBindings()
             }
         }
-    }
-
-    fun setQuestionPost(myPagePostData: MutableList<MyPagePostData.Data.ClassroomPost>) {
-        this.myPagePostData = myPagePostData
-        notifyDataSetChanged()
-
     }
 }

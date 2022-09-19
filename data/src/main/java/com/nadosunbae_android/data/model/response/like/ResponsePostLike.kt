@@ -1,13 +1,14 @@
 package com.nadosunbae_android.data.model.response.like
+import com.nadosunbae_android.domain.model.like.LikeData
 
 data class ResponsePostLike(
-    val data: Data,
-    val message: String,
-    val status: Int,
-    val success: Boolean
-) {
-    data class Data(
-        val isLiked: Boolean,
-        val postId: Int
+    val isLiked: Boolean,
+    val postId: Int
+)
+
+fun ResponsePostLike.toEntity(): LikeData {
+    return LikeData(
+        isLiked = this.isLiked,
+        postId = this.postId
     )
 }

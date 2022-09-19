@@ -4,4 +4,12 @@ data class SelectableData(
     var id: Int,
     val name: String,
     var isSelected: Boolean
-)
+){
+    companion object{
+        val DEFAULT = SelectableData(
+            id = 0,
+            name = "학과 무관",
+            isSelected = true
+        )
+    }
+}

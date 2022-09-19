@@ -7,16 +7,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.app.databinding.ItemBottomsheetListBinding
 import com.nadosunbae_android.app.databinding.ItemBottomshhetCommunityListBinding
-import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.setTextSemiBold
+import com.nadosunbae_android.domain.model.main.SelectableData
+import timber.log.Timber
 
-class MajorSelectAdapter(
-    var link: CustomBottomSheetDialog.DataToFragment
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MajorSelectAdapter(val noMajor: Int? = -2) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     var dataList = mutableListOf<SelectableData>()
     private var mSelectedPos: Int = -1
 
@@ -52,6 +51,7 @@ class MajorSelectAdapter(
         @SuppressLint("RecyclerView") position: Int
     ) {
         if (holder is SignSelectionViewHolder) {
+            Timber.d("data $dataList")
             holder.onBind(dataList[position])
         } else if (holder is BottomSheetSelectionViewHolder) {
             holder.onBind(dataList[position])
@@ -90,11 +90,9 @@ class MajorSelectAdapter(
             binding.data = bottomSheetData
             binding.tvBottomsheeetContent.isSelected = bottomSheetData.isSelected
             if (bottomSheetData.isSelected) {
-                binding.btnMajorStar.isSelected = true
                 binding.ivBottomsheetCheck.visibility = View.VISIBLE
                 binding.tvBottomsheeetContent.setTextSemiBold(true)
             } else {
-                binding.btnMajorStar.isSelected = false
                 binding.ivBottomsheetCheck.visibility = View.INVISIBLE
                 binding.tvBottomsheeetContent.setTextSemiBold(false)
             }
@@ -103,27 +101,24 @@ class MajorSelectAdapter(
         }
     }
 
+    //커뮤니티 버전
     class BottomSheetSelectionViewHolder(val binding: ItemBottomshhetCommunityListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(bottomSheetData: SelectableData) {
-            binding.data = bottomSheetData
-            binding.tvBottomsheeetContent.isSelected = bottomSheetData.isSelected
-            if (bottomSheetData.isSelected) {
-                binding.ivBottomsheetCheck.visibility = View.VISIBLE
-                binding.tvBottomsheeetContent.setTextSemiBold(true)
-            } else {
-                binding.ivBottomsheetCheck.visibility = View.INVISIBLE
-                binding.tvBottomsheeetContent.setTextSemiBold(false)
+            with(binding) {
+                data = bottomSheetData
+                bottomSheetData.isSelected.apply {
+                    tvBottomsheeetContent.isSelected = this
+                    check = this
+                    tvBottomsheeetContent.setTextSemiBold(this)
+                }
+                executePendingBindings()
             }
-
-            binding.executePendingBindings()
         }
-
-
     }
 
 
-    fun getSelectedData(): SelectableData {
+    private fun getSelectedData(): SelectableData {
         if (mSelectedPos != NOT_SELECTED)
             return dataList[mSelectedPos]
         return SelectableData(-1, "", false)
@@ -140,7 +135,8 @@ class MajorSelectAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (dataList[position].id == -2) {
+        Timber.d("noMajor $noMajor")
+        return if (dataList[position].id == noMajor) {
             COMMUNITY
         } else {
             ANOTHER

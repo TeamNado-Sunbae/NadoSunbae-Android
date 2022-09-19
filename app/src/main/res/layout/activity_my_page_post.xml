@@ -49,52 +49,31 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <TextView
-            android:id="@+id/text_mypage_post_question_title"
+        <com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
+            android:id="@+id/view_mypage_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
             android:layout_marginStart="16dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:background="@drawable/selector_classroom_title_background"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/classroom_question_title"
-            android:textColor="@drawable/selector_classroom_title_text"
-            android:textSize="14sp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_mypage_post_title" />
-
-        <TextView
-            android:id="@+id/text_mypage_post_info_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/selector_classroom_title_background"
-            android:fontFamily="@font/pretendard_semibold"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:text="@string/classroom_info_title"
-            android:textColor="@drawable/selector_classroom_title_text"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/text_mypage_post_question_title"
-            app:layout_constraintTop_toTopOf="@+id/text_mypage_post_question_title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_mypage_question"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
             android:orientation="vertical"
             android:overScrollMode="never"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="18dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_post_question_title" />
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_switch" />
 
 
         <TextView
@@ -108,7 +87,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_post_question_title"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_switch"
             android:visibility="gone"/>
 
 
@@ -123,7 +102,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_mypage_post_question_title"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_switch"
             android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

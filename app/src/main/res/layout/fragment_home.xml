@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="true"
+        tools:context=".presentation.ui.home.HomeActivity">
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_home_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <ImageView
+                        android:id="@+id/iv_home_logo"
+                        android:layout_width="82dp"
+                        android:layout_height="28dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="56dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/logo_login"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:textColor="@color/gray_4"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_home_logo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/iv_home_logo"
+                        tools:text="고려대학교" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_home_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="104dp"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_home_top"
+                    tools:background="@color/main_light" />
+
+                <TextView
+                    android:id="@+id/tv_home_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/navigation_review"
+                    android:textColor="@color/main_black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vp_home_banner" />
+
+                <TextView
+                    android:id="@+id/tv_home_new_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/home_recent_review"
+                    android:textColor="@color/gray_4"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_home_review"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_review" />
+
+                <ImageView
+                    android:id="@+id/iv_home_review_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:src="@drawable/btn_arrow"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_home_new_review"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_home_new_review" />
+
+                <TextView
+                    android:id="@+id/tv_home_review_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/home_more"
+                    android:textColor="@color/gray_3"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_home_review_more"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_home_review_more"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_review_more" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_home_review"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_new_review"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_home_review" />
+
+                <TextView
+                    android:id="@+id/tv_home_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="88dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/home_question"
+                    android:textColor="@color/main_black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_home_new_review"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_home_review" />
+
+
+                <TextView
+                    android:id="@+id/tv_home_ranking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/home_ranking"
+                    android:textColor="@color/gray_4"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_home_question"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_question" />
+
+                <ImageView
+                    android:id="@+id/iv_home_ranking_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:src="@drawable/btn_arrow"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_home_ranking"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_home_ranking" />
+
+                <TextView
+                    android:id="@+id/tv_home_ranking_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/home_more"
+                    android:textColor="@color/gray_3"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_home_ranking_more"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_home_ranking_more"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_ranking_more" />
+
+
+                <ImageView
+                    android:id="@+id/iv_home_ranking"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/property_1_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_ranking" />
+
+
+                <TextView
+                    android:id="@+id/text_nickname_ranking_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="@color/main_light"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_ranking" />
+
+                <TextView
+                    android:id="@+id/text_rate_ranking_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textColor="@color/main_default"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nickname_ranking_1" />
+
+                <ImageView
+                    android:id="@+id/img_rate_ranking_1"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/mask_group_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_1" />
+
+                <TextView
+                    android:id="@+id/text_nickname_ranking_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="104dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="@color/main_light"
+                    android:textSize="8sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_ranking" />
+
+
+                <TextView
+                    android:id="@+id/text_rate_ranking_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textColor="@color/main_default"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_4"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_4"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nickname_ranking_4" />
+
+
+                <ImageView
+                    android:id="@+id/img_rate_ranking_4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:adjustViewBounds="true"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/mask_group_3"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_4"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_4"
+                    app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_4" />
+
+
+                <TextView
+                    android:id="@+id/text_nickname_ranking_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="104dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="@color/main_light"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_ranking" />
+
+
+                <TextView
+                    android:id="@+id/text_rate_ranking_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textColor="@color/main_default"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_5"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_5"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nickname_ranking_5" />
+
+                <ImageView
+                    android:id="@+id/img_rate_ranking_5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:adjustViewBounds="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/mask_group_3"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_5"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_5"
+                    app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_5" />
+
+
+                <TextView
+                    android:id="@+id/text_nickname_ranking_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="@color/main_light"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toTopOf="@+id/text_nickname_ranking_4"
+                    app:layout_constraintEnd_toStartOf="@+id/text_rate_ranking_1"
+                    app:layout_constraintStart_toEndOf="@+id/text_nickname_ranking_4"
+                    app:layout_constraintTop_toTopOf="@+id/text_rate_ranking_1" />
+
+
+                <TextView
+                    android:id="@+id/text_rate_ranking_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textColor="@color/main_default"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_2"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_2"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nickname_ranking_2" />
+
+                <ImageView
+                    android:id="@+id/img_rate_ranking_2"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/mask_group_4"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_2"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_2"
+                    app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_2" />
+
+                <TextView
+                    android:id="@+id/text_nickname_ranking_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="@color/main_light"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toTopOf="@+id/text_nickname_ranking_5"
+                    app:layout_constraintEnd_toStartOf="@+id/text_nickname_ranking_5"
+                    app:layout_constraintStart_toEndOf="@+id/text_nickname_ranking_1"
+                    app:layout_constraintTop_toTopOf="@+id/text_rate_ranking_1" />
+
+
+                <TextView
+                    android:id="@+id/text_rate_ranking_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textColor="@color/main_default"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_3"
+                    app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_3"
+                    app:layout_constraintTop_toBottomOf="@+id/text_nickname_ranking_3" />
+
+                <ImageView
+                    android:id="@+id/img_rate_ranking_3"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/mask_group_5"
+                    app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_3"
+                    app:layout_constraintStart_toStartOf="@+id/text_rate_ranking_3"
+                    app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_3" />
+
+                <TextView
+                    android:id="@+id/tv_home_new_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/home_recent_question"
+                    android:textColor="@color/gray_4"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_home_ranking"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_home_ranking" />
+
+                <ImageView
+                    android:id="@+id/iv_home_new_question_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:src="@drawable/btn_arrow"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_home_new_question"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_home_new_question" />
+
+                <TextView
+                    android:id="@+id/tv_home_new_question_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/home_more"
+                    android:textColor="@color/gray_3"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_home_new_question_more"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_home_new_question_more"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_new_question_more" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_home_question"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_new_question"
+                    tools:listitem="@layout/item_home_question" />
+
+
+                <TextView
+                    android:id="@+id/tv_home_community"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="88dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/home_community"
+                    android:textColor="@color/main_black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_home_new_question"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_home_question" />
+
+
+                <TextView
+                    android:id="@+id/tv_home_community_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/home_recent_post"
+                    android:textColor="@color/gray_4"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_home_community"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_community" />
+
+                <ImageView
+                    android:id="@+id/iv_home_community_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:src="@drawable/btn_arrow"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_home_community_sub_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_home_community_sub_title" />
+
+                <TextView
+                    android:id="@+id/tv_home_community_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/home_more"
+                    android:textColor="@color/gray_3"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_home_community_more"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_home_community_more"
+                    app:layout_constraintTop_toTopOf="@+id/iv_home_community_more" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_home_community"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="108dp"
+                    android:background="@drawable/rectangle_border_gray0_8dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_home_community_sub_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_community_sub_title"
+                    tools:listitem="@layout/item_home_community_post" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

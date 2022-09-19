@@ -10,12 +10,13 @@ data class MyPageModifyData(
 ): Parcelable {
     @Parcelize
     data class Data(
+        val bio: String,
         val firstMajorId: Int,
         val firstMajorStart: String,
         val isOnQuestion: Boolean,
         val nickname: String,
+        val profileImageId: Int,
         val secondMajorId: Int,
-        val secondMajorStart: String,
-        val updatedAt: String
+        val secondMajorStart: String
     ) : Parcelable
 }
