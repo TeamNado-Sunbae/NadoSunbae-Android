@@ -5,6 +5,7 @@ import com.nadosunbae_android.data.model.request.comment.toEntity
 import com.nadosunbae_android.data.model.response.comment.toEntity
 import com.nadosunbae_android.domain.model.comment.CommentData
 import com.nadosunbae_android.domain.model.comment.CommentParam
+import com.nadosunbae_android.domain.model.comment.DeleteCommentData
 import com.nadosunbae_android.domain.repository.comment.CommentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +20,12 @@ class CommentRepositoryImpl @Inject constructor(private val dataSource : Comment
             emit(dataSource.postComment(
                 commentParam.toEntity()
             ).data.toEntity())
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun deleteComment(commentId: String): Flow<DeleteCommentData> {
+        return flow {
+            emit(dataSource.deleteComment(commentId).toEntity())
         }.flowOn(Dispatchers.IO)
     }
 }

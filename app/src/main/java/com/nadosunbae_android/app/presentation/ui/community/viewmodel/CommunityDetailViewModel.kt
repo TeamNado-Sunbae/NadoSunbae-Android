@@ -5,14 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
-import com.nadosunbae_android.domain.model.classroom.DeleteCommentData
 import com.nadosunbae_android.domain.model.classroom.ReportData
 import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.comment.CommentData
 import com.nadosunbae_android.domain.model.comment.CommentParam
+import com.nadosunbae_android.domain.model.comment.DeleteCommentData
 import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.post.PostDetailData
@@ -41,7 +42,7 @@ class CommunityDetailViewModel @Inject constructor(
 
     override val onLoadingEnd = MutableLiveData<Boolean>()
 
-    override var dropDownSelected = MutableLiveData<SelectableData>()
+    override var dropDownSelected = MutableLiveData(SelectableData.DEFAULT)
 
 
     //커뮤니티 상세 조회
@@ -54,7 +55,7 @@ class CommunityDetailViewModel @Inject constructor(
 
     //커뮤니티 댓글 데이터
     private var _commentData = MutableStateFlow(CommentData.DEFAULT)
-    val commentData : StateFlow<CommentData>
+    val commentData: StateFlow<CommentData>
         get() = _commentData
 
 
@@ -68,7 +69,7 @@ class CommunityDetailViewModel @Inject constructor(
         _postId.value = postId
     }
 
-    //정보 댓글 commentId
+    //댓글 commentId
     var commentId = MutableLiveData<Int>()
 
     //정보 댓글 및 원글 분류
@@ -78,22 +79,36 @@ class CommunityDetailViewModel @Inject constructor(
     var position = MutableLiveData<Int>()
 
     //댓글 삭제 데이터
-    private var _deleteComment = MutableLiveData<DeleteCommentData>()
-    val deleteComment: LiveData<DeleteCommentData>
+    private var _deleteComment = MutableStateFlow(DeleteCommentData.DEFAULT)
+    val deleteComment: StateFlow<DeleteCommentData>
         get() = _deleteComment
 
+    // 메뉴 리스트
+    private var _dropDownMenu = MutableLiveData<List<SelectableData>>()
+    val dropDownMenu: LiveData<List<SelectableData>>
+        get() = _dropDownMenu
 
-    //부적절 사용자 데이터들
-    private var _statusCode = MutableLiveData<Int>()
-    val statusCode: LiveData<Int>
-        get() = _statusCode
+    // whatUser 작성자 -> 1, 제 3자 -> 2
+    fun setDropDownMenu(whatUser: Int? = 0) {
+        _dropDownMenu.value =
+            if (whatUser == 1) { //답글
+                mutableListOf(SelectableData(1, "삭제", false))
+            } else if (whatUser == 2) {
+                mutableListOf(SelectableData(2, "신고", false))
+            } else {
+                //원글
+                if (MainGlobals.signInData?.userId == communityDetailData.value.writerId) {
+                    mutableListOf(
+                        SelectableData(1, "수정", false),
+                        SelectableData(2, "삭제", false)
+                    )
+                } else {
+                    mutableListOf(SelectableData(2, "신고", false))
+                }
+            }
+    }
 
-    private var _message = MutableLiveData<String>()
-    val message: LiveData<String>
-        get() = _message
 
-    //작성자 Id
-    var writerId = MutableLiveData<Int>()
 
     //신고 데이터
     private var _reportData = MutableLiveData<ReportData?>()
@@ -161,7 +176,6 @@ class CommunityDetailViewModel @Inject constructor(
                     onLoadingEnd.value = false
                 }
                 .catch {
-                    it.printStackTrace()
                     Timber.d("커뮤니티 댓글 등록 실패")
                 }
                 .collectLatest {
@@ -174,20 +188,17 @@ class CommunityDetailViewModel @Inject constructor(
         }
     }
 
-
-    //정보 댓글 삭제
     //댓글 삭제 서버통신
-    fun deleteComment(commentId: Int) {
+    fun deleteComment(commentId: String) {
         viewModelScope.launch {
-            runCatching { deleteCommentDataUseCase(commentId) }
-                .onSuccess {
-                    _deleteComment.value = it
-                    Timber.d("deleteComment : 댓글 삭제 성공")
+            commentRepository.deleteComment(commentId)
+                .catch {
+                    Timber.d("댓글 삭제 실패")
                 }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("deleteComment : 댓글 삭제 실패")
-                }.also {
+                .collectLatest {
+                    _deleteComment.value = it
+                }
+                .also {
                     onLoadingEnd.value = true
                 }
         }
@@ -218,7 +229,7 @@ class CommunityDetailViewModel @Inject constructor(
     }
 
 
-    // 원글 삭제 서버통신
+    /* 원글 삭제 서버통신
     fun deletePost(postId: Int) {
         viewModelScope.launch {
             runCatching { deletePostDataUseCase(postId) }
@@ -233,6 +244,6 @@ class CommunityDetailViewModel @Inject constructor(
                     onLoadingEnd.value = true
                 }
         }
-    }
+    }*/
 }
 
