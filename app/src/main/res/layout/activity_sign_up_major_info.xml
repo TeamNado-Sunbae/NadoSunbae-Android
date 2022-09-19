@@ -232,7 +232,7 @@
                     android:button="@drawable/selector_ic_check"
                     android:buttonTint="@color/main_text"
                     android:layoutDirection="rtl"
-                    android:text="고려대학교"
+                    android:text="@string/sign_univ_korea"
                     android:textAlignment="textStart"
                     android:textColor="@drawable/selector_text_black_to_mint" />
 
@@ -253,7 +253,7 @@
                     android:button="@drawable/selector_ic_check"
                     android:buttonTint="@color/main_text"
                     android:layoutDirection="rtl"
-                    android:text="서울여자대학교"
+                    android:text="@string/sign_univ_swu"
                     android:textAlignment="textStart"
                     android:textColor="@drawable/selector_text_black_to_mint" />
 
@@ -274,7 +274,7 @@
                     android:button="@drawable/selector_ic_check"
                     android:buttonTint="@color/main_text"
                     android:layoutDirection="rtl"
-                    android:text="중앙대학교"
+                    android:text="@string/sign_univ_cau"
                     android:textAlignment="textStart"
                     android:textColor="@drawable/selector_text_black_to_mint" />
 
@@ -292,7 +292,7 @@
                     android:paddingStart="16dp"
                     android:clickable="true"
                     android:paddingVertical="15dp"
-                    android:text="타 대학은 현재 준비중입니다"
+                    android:text="@string/sign_univ_ready"
                     android:textColor="@color/gray_3"
                     android:focusable="true" />
             </RadioGroup>
