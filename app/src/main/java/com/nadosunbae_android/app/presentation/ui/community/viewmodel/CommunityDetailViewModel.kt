@@ -16,6 +16,7 @@ import com.nadosunbae_android.domain.model.comment.CommentParam
 import com.nadosunbae_android.domain.model.comment.DeleteCommentData
 import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.post.PostDeleteData
 import com.nadosunbae_android.domain.model.post.PostDetailData
 import com.nadosunbae_android.domain.repository.comment.CommentRepository
 import com.nadosunbae_android.domain.repository.like.LikeRepository
@@ -35,9 +36,7 @@ class CommunityDetailViewModel @Inject constructor(
     private val postRepository: PostRepository,
     private val commentRepository: CommentRepository,
     private val likeRepository: LikeRepository,
-    val deleteCommentDataUseCase: DeleteCommentDataUseCase,
     val postReportUseCase: PostReportUseCase,
-    val deletePostDataUseCase: DeletePostDataUseCase,
 ) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
 
     override val onLoadingEnd = MutableLiveData<Boolean>()
@@ -77,6 +76,28 @@ class CommunityDetailViewModel @Inject constructor(
 
     //댓글 position
     var position = MutableLiveData<Int>()
+
+    //원글 삭제 데이터
+    private var _deletePostData = MutableStateFlow(PostDeleteData.DEFAULT)
+    val deletePostData : StateFlow<PostDeleteData>
+        get() = _deletePostData
+
+    fun deletePost(){
+        viewModelScope.launch {
+            postRepository.deletePost(postId.value ?: "")
+                .catch {
+                    Timber.d("원글 삭제 실패")
+                }
+                .collectLatest {
+                    _deletePostData.value = it
+                    Timber.d("원글 삭제 성공")
+                }
+        }.also {
+            onLoadingEnd.value = true
+        }
+
+    }
+
 
     //댓글 삭제 데이터
     private var _deleteComment = MutableStateFlow(DeleteCommentData.DEFAULT)
@@ -121,10 +142,6 @@ class CommunityDetailViewModel @Inject constructor(
     //신고 토스트위한
     var reportStatusInfo = MutableLiveData<Int>()
 
-    //원글 삭제 데이터
-    private var _deletePostData = MutableLiveData<DeleteCommentData>()
-    val deletePostData: LiveData<DeleteCommentData>
-        get() = _deletePostData
 
     //커뮤니티 상세 서버통신
     fun getPostDetail() {
@@ -137,6 +154,7 @@ class CommunityDetailViewModel @Inject constructor(
                     Timber.d("CommunityDetail : 정보 상세보기 서버 통신 실패")
                 }
                 .collectLatest {
+                    Timber.d("community ${_postId.value}")
                     _communityDetailData.value = it
                     Timber.d("CommunityDetail 서버 통신 성공")
                 }
@@ -203,7 +221,7 @@ class CommunityDetailViewModel @Inject constructor(
                 }
         }
     }
-
+    //원글 삭제 서버통신
 
     //신고하기 서버통신
     fun postReport(reportItem: ReportItem) {
@@ -229,21 +247,5 @@ class CommunityDetailViewModel @Inject constructor(
     }
 
 
-    /* 원글 삭제 서버통신
-    fun deletePost(postId: Int) {
-        viewModelScope.launch {
-            runCatching { deletePostDataUseCase(postId) }
-                .onSuccess {
-                    _deletePostData.value = it
-                    Timber.d("deletePost : 원글 삭제 성공")
-                }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("deletePost : 원글 삭제 실패")
-                }.also {
-                    onLoadingEnd.value = true
-                }
-        }
-    }*/
 }
 

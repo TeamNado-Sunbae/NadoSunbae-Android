@@ -50,6 +50,7 @@ class CommunityDetailActivity :
         clickCommentRegisterButton()
         clickDetailLike()
         setCommentObserve()
+        completeDeletePost()
     }
 
     //로딩 종료
@@ -223,7 +224,9 @@ class CommunityDetailActivity :
                             }
                         },
                         deleteComment = { },
-                        deleteWrite = { },
+                        deleteWrite = {
+                                      communityViewModel.deletePost()
+                        },
                     )
                 resources.getString(R.string.question_detail_report) -> floatReportReasonDialog()
                 resources.getString(R.string.question_detail_update) -> goUpdate()
@@ -234,7 +237,7 @@ class CommunityDetailActivity :
 
 
 
-    //답글 삭제
+    // 게시글 or 답글 삭제
     private fun deleteDialog(
         divisionPost: Int,
         setCheckMenu: () -> Unit,
@@ -258,6 +261,14 @@ class CommunityDetailActivity :
             },
             cancel = {}
         )
+    }
+    //원글 삭제시 상세 화면 종료
+    private fun completeDeletePost(){
+        communityViewModel.deletePostData.flowWithLifecycle(lifecycle)
+            .onEach {
+                if(it.isDeleted) finish()
+            }
+            .launchIn(lifecycleScope)
     }
 
     //신고 사유 다이얼로그 띄우기
