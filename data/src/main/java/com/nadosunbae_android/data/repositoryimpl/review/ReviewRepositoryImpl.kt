@@ -8,12 +8,15 @@ import javax.inject.Inject
 
 class ReviewRepositoryImpl @Inject constructor(private val dataSource: ReviewDataSource) : ReviewRepository {
 
-    override suspend fun getReviewList(
+    override suspend fun getReviewListByMajor(
         reviewFilterItem: ReviewFilterItem,
         sort: String
     ): List<ReviewPreviewData> {
-        return ReviewMapper.mapperToReviewPreviewData(dataSource.getReviewList(sort,
-            ReviewMapper.mapperToReviewFilterItem(reviewFilterItem)
+        return ReviewMapper.mapperToReviewPreviewData(dataSource.getReviewListByMajor(
+            reviewFilterItem.majorId,
+            sort,
+            reviewFilterItem.tagFilter,
+            reviewFilterItem.writerFilter
         ))
     }
 
@@ -40,9 +43,4 @@ class ReviewRepositoryImpl @Inject constructor(private val dataSource: ReviewDat
     override suspend fun deleteReview(postId: Int): ReviewDeleteData {
         return ReviewMapper.mapperToReviewDeleteData(dataSource.deleteReview(postId))
     }
-
-    override suspend fun getBackgroundImageList(): List<BackgroundImageData> {
-        return ReviewMapper.mapperToBackgroundImageData(dataSource.getBackgroundImageList())
-    }
-
 }

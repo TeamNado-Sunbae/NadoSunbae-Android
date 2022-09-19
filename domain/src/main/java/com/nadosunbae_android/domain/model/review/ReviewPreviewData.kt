@@ -7,7 +7,7 @@ data class ReviewPreviewData(
     val likeCount: Int,
     val isLiked: Boolean,
     val oneLineReview: String,
-    val postId: Int,
+    val id: Int,
     val tagList: List<String>,
     val firstMajorName: String,
     val firstMajorStart: String,

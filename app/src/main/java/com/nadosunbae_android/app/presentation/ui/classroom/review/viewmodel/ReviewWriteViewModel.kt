@@ -11,7 +11,6 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.review.BackgroundImageData
 import com.nadosunbae_android.domain.model.review.ReviewEditItem
 import com.nadosunbae_android.domain.model.review.ReviewWriteItem
-import com.nadosunbae_android.domain.usecase.review.GetBackgroundImageListDataUseCase
 import com.nadosunbae_android.domain.usecase.review.PostReviewDataUseCase
 import com.nadosunbae_android.domain.usecase.review.PutReviewDataUseCase
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
@@ -23,7 +22,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReviewWriteViewModel @Inject constructor(
-    val getBackgroundImageListDataUseCase: GetBackgroundImageListDataUseCase,
     val postReviewDataUseCase: PostReviewDataUseCase,
     val putReviewDataUseCase: PutReviewDataUseCase
 ) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
@@ -49,23 +47,23 @@ class ReviewWriteViewModel @Inject constructor(
     val writeFinish: LiveData<Boolean>
         get() = _writeFinish
   
-    // 후기 배경 목록 불러오기 -> 사용x 변경됨
-    fun getBackgroundImageList() {
-        viewModelScope.launch {
-            runCatching { getBackgroundImageListDataUseCase() }
-                .onSuccess {
-                    _backgroundImageList.value = it
-                    Timber.d("서버통신 성공")
-                }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("서버통신 실패")
-                }
-                .also {
-                    onLoadingEnd.value = true
-                }
-        }
-    }
+//    // 후기 배경 목록 불러오기 -> 사용x 변경됨
+//    fun getBackgroundImageList() {
+//        viewModelScope.launch {
+//            runCatching { getBackgroundImageListDataUseCase() }
+//                .onSuccess {
+//                    _backgroundImageList.value = it
+//                    Timber.d("서버통신 성공")
+//                }
+//                .onFailure {
+//                    it.printStackTrace()
+//                    Timber.d("서버통신 실패")
+//                }
+//                .also {
+//                    onLoadingEnd.value = true
+//                }
+//        }
+//    }
 
     // 후기 작성
     fun postReview(reviewWriteItem: ReviewWriteItem) {

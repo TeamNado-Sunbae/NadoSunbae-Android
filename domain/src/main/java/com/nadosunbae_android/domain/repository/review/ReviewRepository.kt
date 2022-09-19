@@ -5,7 +5,10 @@ import com.nadosunbae_android.domain.model.review.*
 interface ReviewRepository {
 
     // 리뷰 목록 불러오기
-    suspend fun getReviewList(reviewFilterItem: ReviewFilterItem, sort: String = "recent"): List<ReviewPreviewData>
+    suspend fun getReviewListByMajor(
+        reviewFilterItem: ReviewFilterItem,
+        sort: String = "recent"
+    ): List<ReviewPreviewData>
 
     // 학과정보 불러오기
     suspend fun getMajorInfo(majorId: Int): MajorInfoData
@@ -21,8 +24,5 @@ interface ReviewRepository {
 
     // 후기 삭제
     suspend fun deleteReview(postId: Int): ReviewDeleteData
-
-    // 후기 배경목록 불러오기
-    suspend fun getBackgroundImageList(): List<BackgroundImageData>
 
 }

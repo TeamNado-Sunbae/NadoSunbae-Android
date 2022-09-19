@@ -11,7 +11,7 @@ data class ResponseReviewDetailData(
     data class Data(
         val backgroundImage: BackgroundImage,
         val like: Like,
-        val post: Post,
+        val review: Review,
         val writer: Writer
     ) {
         data class BackgroundImage(
@@ -23,7 +23,7 @@ data class ResponseReviewDetailData(
             val likeCount: Int
         )
 
-        data class Post(
+        data class Review(
             val contentList: List<Content>,
             val createdAt: Date,
             val oneLineReview: String,
