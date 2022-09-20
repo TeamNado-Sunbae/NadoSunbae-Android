@@ -31,4 +31,8 @@ class UserRepositoryImpl @Inject constructor(private val userDataSource: UserDat
         return UserMapper.mapperToUserQuestion(userDataSource.getUserQuestion(userId, sort))
     }
 
+    override suspend fun getSeniorList(majorId: Int, exclude: String): SeniorListData {
+        return UserMapper.mapperToSeniorInfoList(userDataSource.getSeniorList(majorId, exclude))
+    }
+
 }

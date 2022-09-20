@@ -28,24 +28,26 @@ object ClassRoomMapper {
     //구성원 전체보기 선배 데이터
     fun mapperToSeniorData(responseClassRoomSeniorData: ResponseClassRoomSeniorData): ClassRoomSeniorData {
         return ClassRoomSeniorData(
-            offQuestionUserList = responseClassRoomSeniorData.data.offQuestionUserList.map {
-                ClassRoomSeniorData.OffQuestionUser(
+            userSummaryDataList = responseClassRoomSeniorData.data.offQuestionUserList.map {
+                ClassRoomSeniorData.UserSummaryData(
                     it.profileImageId,
                     it.isFirstMajor,
                     it.isOnQuestion,
                     it.majorStart,
                     it.nickname,
-                    it.userId
+                    it.userId,
+                    it.rate
                 )
             },
             onQuestionUserList = responseClassRoomSeniorData.data.onQuestionUserList.map {
-                ClassRoomSeniorData.OnQuestionUser(
+                ClassRoomSeniorData.UserSummaryData(
                     it.profileImageId,
                     it.isFirstMajor,
                     it.isOnQuestion,
                     it.majorStart,
                     it.nickname,
-                    it.userId
+                    it.userId,
+                    it.rate
                 )
             }
         )

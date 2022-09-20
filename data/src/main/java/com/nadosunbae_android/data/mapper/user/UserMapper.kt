@@ -94,4 +94,35 @@ object UserMapper {
             )
         }
     }
+
+    fun mapperToSeniorInfoList(responseSeniorList: ResponseSeniorList): SeniorListData {
+        val onQuestionUsers = responseSeniorList.data.onQuestionUser.map {
+            SeniorListData.UserUnitData(
+                id = it.id,
+                profileImageId = it.profileImageId,
+                isFirstMajor = it.isFirstMajor,
+                isOnQuestion = it.isOnQuestion,
+                majorStart = it.majorStart,
+                nickname = it.nickname,
+                rate = it.rate
+            )
+        }
+
+        val offQuestionUsers = responseSeniorList.data.offQuestionUser.map {
+            SeniorListData.UserUnitData(
+                id = it.id,
+                profileImageId = it.profileImageId,
+                isFirstMajor = it.isFirstMajor,
+                isOnQuestion = it.isOnQuestion,
+                majorStart = it.majorStart,
+                nickname = it.nickname,
+                rate = it.rate
+            )
+        }
+
+        return SeniorListData(
+            onQuestionList = onQuestionUsers,
+            offQuestionList = offQuestionUsers
+        )
+    }
 }

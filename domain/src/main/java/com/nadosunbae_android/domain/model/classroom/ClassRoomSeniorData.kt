@@ -1,25 +1,17 @@
 package com.nadosunbae_android.domain.model.classroom
 
 data class ClassRoomSeniorData(
-    val offQuestionUserList: List<OffQuestionUser>,
-    val onQuestionUserList: List<OnQuestionUser>
+    val userSummaryDataList: List<UserSummaryData>,
+    val onQuestionUserList: List<UserSummaryData>
 ) {
-    data class OffQuestionUser(
+    data class UserSummaryData(
         val profileImageId: Int,
         val isFirstMajor: Boolean,
         val isOnQuestion: Boolean,
         val majorStart: String,
         val nickname: String,
-        val userId: Int
-    )
-
-    data class OnQuestionUser(
-        val profileImageId: Int,
-        val isFirstMajor: Boolean,
-        val isOnQuestion: Boolean,
-        val majorStart: String,
-        val nickname: String,
-        val userId: Int
+        val rate: Int,
+        val id: Int
     )
 }
 

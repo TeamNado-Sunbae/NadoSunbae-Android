@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionSeniorOffQuestionBinding
-import com.nadosunbae_android.app.presentation.ui.classroom.SeniorFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.question.DataToFragment
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 
 class ClassRoomSeniorOffAdapter(
     var link : DataToFragment
 ) : RecyclerView.Adapter<ClassRoomSeniorOffAdapter.ClassRoomSeniorOffViewHolder>() {
-    var offQuestionUserList = mutableListOf<ClassRoomSeniorData.OffQuestionUser>()
+    var offQuestionUserList = mutableListOf<ClassRoomSeniorData.UserSummaryData>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -31,7 +30,7 @@ class ClassRoomSeniorOffAdapter(
     ) {
         holder.onBind(offQuestionUserList[position])
         holder.itemView.setOnClickListener {
-            link.getSeniorId(offQuestionUserList[position].userId)
+            link.getSeniorId(offQuestionUserList[position].id)
         }
     }
 
@@ -42,17 +41,17 @@ class ClassRoomSeniorOffAdapter(
     inner class ClassRoomSeniorOffViewHolder(
         val binding : ItemQuestionSeniorOffQuestionBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(offQuestionUserList :ClassRoomSeniorData.OffQuestionUser ){
+        fun onBind(userSummaryDataList :ClassRoomSeniorData.UserSummaryData ){
             binding.apply {
-                seniorOff = offQuestionUserList
+                seniorOff = userSummaryDataList
                 executePendingBindings()
             }
 
         }
     }
 
-    fun setOffQuestionUser(offQuestionUserList: MutableList<ClassRoomSeniorData.OffQuestionUser>){
-        this.offQuestionUserList = offQuestionUserList
+    fun setOffQuestionUser(userSummaryDataList: MutableList<ClassRoomSeniorData.UserSummaryData>){
+        this.offQuestionUserList = userSummaryDataList
         notifyDataSetChanged()
     }
 }

@@ -14,4 +14,6 @@ interface UserRepository {
     suspend fun getUserLike(filter: String): List<UserLikeData>
 
     suspend fun getUserQuestion(userId: Int, sort: String): List<UserQuestionData>
+
+    suspend fun getSeniorList(majorId: Int, exclude: String): SeniorListData
 }

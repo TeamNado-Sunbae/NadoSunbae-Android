@@ -30,5 +30,9 @@ class UserDataSourceImpl @Inject constructor(private val service: UserService) :
         return service.getUserQuestion(userId, sort)
     }
 
+    override suspend fun getSeniorList(majorId: Int, exclude: String): ResponseSeniorList {
+        return service.getSeniorList(majorId, exclude)
+    }
+
 
 }
