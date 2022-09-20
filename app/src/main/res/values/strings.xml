@@ -500,8 +500,11 @@
     <string name="classroom_fragment_review_label">review</string>
     <string name="classroom_fragment_question_label">question</string>
 
-    
-
     <string name="navigation_review">후기</string>
+
+    <string name="sign_univ_swu">서울여자대학교</string>
+    <string name="sign_univ_korea">고려대학교</string>
+    <string name="sign_univ_cau">중앙대학교</string>
+    <string name="sign_univ_ready">타 대학은 현재 준비중입니다</string>
 
 </resources>
