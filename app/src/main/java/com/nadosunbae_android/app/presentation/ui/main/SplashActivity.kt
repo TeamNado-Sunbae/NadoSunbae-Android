@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.main
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -18,6 +19,7 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.nadosunbae_android.app.BuildConfig
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySplashBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -89,20 +91,27 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
 
-            when (appUpdateInfo.updateAvailability()) {
-                UpdateAvailability.UPDATE_AVAILABLE -> {
-                    appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
-                    splashViewModel.updateAvailability.value = true
-                    requestUpdate(appUpdateInfo)
-                }
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
 
-                else -> {
+                val nowVersionCode = BuildConfig.VERSION_NAME
+                val newVersionCode = "1.1.2"
+                //TODO 이부분 변경
+                 if(nowVersionCode == newVersionCode){
+                     appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+                     splashViewModel.updateAvailability.value = true
+                     requestUpdate(appUpdateInfo)
+                 }
+                else{
                     splashViewModel.updateAvailability.value = false
                 }
             }
         }
     }
-
+    //버전 가져오기
+    private fun setNewVersion(): String{
+        return ""
+    }
 
     override fun onResume() {
         super.onResume()
@@ -137,7 +146,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         try{
             appUpdateManager?.startUpdateFlowForResult (
                 appUpdateInfo,
-                AppUpdateType.FLEXIBLE, // or AppUpdateType.IMMEDIATE
+                AppUpdateType.IMMEDIATE, // or AppUpdateType.IMMEDIATE
                 this,
                 UPDATE)
         }catch (e: IntentSender.SendIntentException){
