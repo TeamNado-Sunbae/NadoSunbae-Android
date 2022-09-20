@@ -64,7 +64,6 @@ class CommunityDetailViewModel @Inject constructor(
         get() = _postId
 
     fun setPostId(postId: String) {
-        Timber.d("postId $postId")
         _postId.value = postId
     }
 
@@ -154,7 +153,7 @@ class CommunityDetailViewModel @Inject constructor(
                     Timber.d("CommunityDetail : 정보 상세보기 서버 통신 실패")
                 }
                 .collectLatest {
-                    Timber.d("community ${_postId.value}")
+                    Timber.d("community $it")
                     _communityDetailData.value = it
                     Timber.d("CommunityDetail 서버 통신 성공")
                 }

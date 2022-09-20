@@ -179,13 +179,12 @@ class CommunityDetailActivity :
     }
     //원글 수정 이동
     private fun goUpdate() {
-        val intent = Intent(this, QuestionWriteActivity::class.java)
+        val intent = Intent(this, CommunityWriteActivity::class.java)
         intent.apply {
             putExtra("writerUpdateTitle", binding.textCommunityDetailQuestionTitle.text)
             putExtra("writerUpdateContent", binding.textCommunityDetailQuestionContent.text)
             putExtra("division", 1)
             putExtra("postId", communityViewModel.postId.value)
-            putExtra("title", "정보글 작성")
         }
         startActivity(intent)
     }
@@ -223,7 +222,9 @@ class CommunityDetailActivity :
                                 )
                             }
                         },
-                        deleteComment = { },
+                        deleteComment = {
+                                        communityViewModel.deleteComment(commentId.toString())
+                        },
                         deleteWrite = {
                                       communityViewModel.deletePost()
                         },
