@@ -1,6 +1,8 @@
 package com.nadosunbae_android.domain.repository.user
 
+import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import com.nadosunbae_android.domain.model.user.*
+import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     suspend fun getUserPost(filter: String): List<UserPostData>
@@ -15,5 +17,5 @@ interface UserRepository {
 
     suspend fun getUserQuestion(userId: Int, sort: String): List<UserQuestionData>
 
-    suspend fun getSeniorList(majorId: Int, exclude: String): SeniorListData
+    suspend fun getSeniorList(majorId: Int, exclude: String): Flow<SeniorListData>
 }
