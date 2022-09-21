@@ -55,6 +55,9 @@ class SignUpBasicInfoViewModel @Inject constructor(
     //로그인 status 체크
     var signInStatus = MutableLiveData<Int>()
 
+    //약관 동의 상태
+    var isAgreementChecked = MutableLiveData<Boolean>()
+
     //로그인 상태
     private var _status = MutableLiveData<Int?>()
     val status: LiveData<Int?> = _status

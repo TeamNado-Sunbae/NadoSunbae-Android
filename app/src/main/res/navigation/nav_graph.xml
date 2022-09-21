@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.nadosunbae_android.app.presentation.ui.FirstFragment"
+        android:name="com.nadosunbae_android.app.presentation.ui.sign.SignUpAgreementFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_sign_up_agreement2">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -17,12 +17,28 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.nadosunbae_android.app.presentation.ui.SecondFragment"
+        android:name="com.nadosunbae_android.app.presentation.ui.sign.SignUpBasicInfoFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_sign_up_basic_info">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_ThirdFragment"
+            app:destination="@id/ThirdFragment" />
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ThirdFragment"
+        android:name="com.nadosunbae_android.app.presentation.ui.sign.SignUpMajorInfoFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_sign_up_major_info">
+        <action
+            android:id="@+id/action_ThirdFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+
+
     </fragment>
 </navigation>

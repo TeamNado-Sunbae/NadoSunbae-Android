@@ -19,6 +19,7 @@ import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
+import com.nadosunbae_android.app.presentation.ui.sign.SignUpAgreementFragment
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
@@ -338,6 +339,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         ) {     // mau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.MAU)
             FirebaseAnalyticsUtil.mau()
+        }
+    }
+
+    //회원가입 프래그먼트
+    private fun SignFragmentChange() {
+        mainViewModel.signFragmentNum.observe(this) {
+            when (it) {
+                1 -> changeFragment(
+                    R.id.fragment_container_main,
+                    SignUpAgreementFragment(),
+                    "Agreement"
+                )
+            }
         }
     }
 

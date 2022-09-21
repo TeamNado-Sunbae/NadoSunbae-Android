@@ -1,15 +1,19 @@
 package com.nadosunbae_android.app.presentation.ui.sign
 
-
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.databinding.ActivitySignUpMajorInfoBinding
-import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.databinding.FragmentSignUpMajorInfoBinding
+import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
@@ -17,10 +21,8 @@ import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-class SignUpMajorInfoActivity :
-    BaseActivity<ActivitySignUpMajorInfoBinding>(R.layout.activity_sign_up_major_info) {
+class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.layout.fragment_sign_up_major_info) {
     private val signViewModel: SignViewModel by viewModels()
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
 
@@ -33,9 +35,7 @@ class SignUpMajorInfoActivity :
     private var firstMajorId = 0
     private var secondMajorId = 0
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         initTextfield()
         closePage()
@@ -59,6 +59,7 @@ class SignUpMajorInfoActivity :
 
     //뒤로버튼으로 왔을 시 텍스트 필드 채우기
     private fun initTextfield() = with(binding) {
+        /*
         val firstMajor = intent.getStringExtra("firstMajorName") ?: "선택하기"
         textSignupMajorinfoMajor.text = firstMajor
 
@@ -133,17 +134,18 @@ class SignUpMajorInfoActivity :
             textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#94959E"))
             binding.textSignupMajorinfoDoubleMajorMintTime.text = "변경"
         }
+         */
     }
 
     //X버튼 클릭 리스너
     private fun closePage() {
         binding.imgSignupMajorinfoDelete.setOnClickListener {
-            val dialog = SignInCustomDialog(this)
+            val dialog = SignInCustomDialog(requireActivity())
             dialog.showDialog()
 
             dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener {
                 override fun onClicked(num: () -> Unit) {
-                    startActivity(Intent(this@SignUpMajorInfoActivity, SignInActivity::class.java))
+                    startActivity(Intent(requireActivity(), SignInActivity::class.java))
                 }
             })
         }
@@ -151,17 +153,23 @@ class SignUpMajorInfoActivity :
 
     private fun moveBeforePage() {
         binding.clSignupMajorInfoMoveBefore.setOnClickListener {
-            val intent = Intent(this, SignUpAgreementActivity::class.java)
+            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            /*
+            val intent = Intent(requireActivity(), SignUpAgreementActivity::class.java)
             intent.putExtra("agreement", "success")
             startActivity(intent)
-            finish()
+
+             */
+            //finish()
         }
     }
 
 
     private fun nextBtnActivate() {
         binding.clSignupMajorInfoMoveNext.setOnClickListener {
-            val intent = Intent(this, SignUpBasicInfoActivity::class.java)
+            findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
+            /*
+            val intent = Intent(requireActivity(), SignUpBasicInfoActivity::class.java)
 
             intent.putExtra(
                 "firstMajorId",
@@ -182,14 +190,15 @@ class SignUpMajorInfoActivity :
                 binding.textSignupMajorinfoDoubleMajor.text.toString()
             )
             startActivity(intent)
-            finish()
+            //finish()
+             */
         }
     }
 
 
     private fun onClickbottomSheetUniv() {
         binding.clSignupMajorInfoUniv.setOnClickListener {
-            bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog.tag)
+            bottomSheetDialog.show(parentFragmentManager, bottomSheetDialog.tag)
             bottomSheetDialog.binding.tvBottomsheeetTitle.text = "본 전공 진입시기"
         }
     }
@@ -198,12 +207,12 @@ class SignUpMajorInfoActivity :
     private fun firstMajor() {
         binding.clSignupMajorInfoMajor.setOnClickListener {
             firstDepartmentBottomSheetDialog.show(
-                supportFragmentManager,
+                parentFragmentManager,
                 firstDepartmentBottomSheetDialog.tag
             )
         }
         signUpBasicInfoViewModel.getFirstDepartment(1, "firstMajor")
-        signUpBasicInfoViewModel.firstDepartment.observe(this) {
+        signUpBasicInfoViewModel.firstDepartment.observe(viewLifecycleOwner) {
 
             firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
                 .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
@@ -214,7 +223,7 @@ class SignUpMajorInfoActivity :
             val firstMajor = firstDepartmentBottomSheetDialog.getSelectedData()
             signViewModel.firstMajor.value = firstMajor.name
             signViewModel.firstMajor
-                .observe(this) {
+                .observe(viewLifecycleOwner) {
                     binding.textSignupMajorinfoMajor.text = it
                     binding.textSignupMajorinfoMajor.text = it
 
@@ -251,7 +260,7 @@ class SignUpMajorInfoActivity :
 
         binding.clSignupMajorInfoMajorTime.setOnClickListener {
             firstDepartmentPeriodBottomSheetDialog.show(
-                supportFragmentManager,
+                parentFragmentManager,
                 firstDepartmentPeriodBottomSheetDialog.tag
             )
 
@@ -260,7 +269,7 @@ class SignUpMajorInfoActivity :
                 signViewModel.firstMajorPeriod.value = firstMajorPeriod.name
                 signUpBasicInfoViewModel.firstDepartmentGo.value = true
             }
-            signViewModel.firstMajorPeriod.observe(this) {
+            signViewModel.firstMajorPeriod.observe(viewLifecycleOwner) {
                 binding.textSignupMajorinfoMajorTime.text = it
                 binding.textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
                 binding.textSignupMajorinfoMajorTimeMint.text = "변경"
@@ -273,13 +282,13 @@ class SignUpMajorInfoActivity :
     private fun secondMajor() {
         binding.clSignupMajorInfoDoubleMajor.setOnClickListener {
             secondDepartmentBottomSheetDialog.show(
-                supportFragmentManager,
+                parentFragmentManager,
                 secondDepartmentBottomSheetDialog.tag
             )
             signUpBasicInfoViewModel.getSecondDepartment(1, "secondMajor")
         }
 
-        signUpBasicInfoViewModel.secondDepartment.observe(this) {
+        signUpBasicInfoViewModel.secondDepartment.observe(viewLifecycleOwner) {
 
             secondDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isSecondMajor }
                 .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
@@ -290,7 +299,7 @@ class SignUpMajorInfoActivity :
             signViewModel.secondMajor.value = secondMajor.name
 
             signViewModel.secondMajor
-                .observe(this) {
+                .observe(viewLifecycleOwner) {
                     binding.textSignupMajorinfoDoubleMajor.text = it
                     binding.textSignupMajorinfoDoubleMajor.text = it
                     binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
@@ -343,7 +352,7 @@ class SignUpMajorInfoActivity :
         binding.clSignupMajorInfoDoubleMajorTime.setOnClickListener {
 
             secondDepartmentPeriodBottomSheetDialog.show(
-                supportFragmentManager,
+                parentFragmentManager,
                 secondDepartmentPeriodBottomSheetDialog.tag
             )
 
@@ -355,7 +364,7 @@ class SignUpMajorInfoActivity :
                 signUpBasicInfoViewModel.secondDepartmentGo.value = true
             }
 
-            signViewModel.secondMajorPeriod.observe(this) {
+            signViewModel.secondMajorPeriod.observe(viewLifecycleOwner) {
                 binding.textSignupMajorinfoDoubleMajorTime.text = it
                 binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
                 binding.textSignupMajorinfoDoubleMajorMintTime.text = "변경"
@@ -376,7 +385,7 @@ class SignUpMajorInfoActivity :
 
     //다음 버튼 변경
     private fun changeNext() {
-        signUpBasicInfoViewModel.selectedAll.observe(this) {
+        signUpBasicInfoViewModel.selectedAll.observe(viewLifecycleOwner) {
             binding.clSignupMajorInfoMoveNext.isSelected = it
             binding.textSignupMajorInfoNext.isSelected = it
             checkMajor()
@@ -397,7 +406,7 @@ class SignUpMajorInfoActivity :
         //binding.spinnerSignupMajorinfoUniv.adapter = spinnerAdapter
 
 
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list)
+        // val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list)
         //  adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
         //adapter.setDropDownViewResource(R.layout.list_id_select)
 //        binding.spinnerSignupMajorinfoUniv.setAdapter(adapter)
@@ -474,5 +483,6 @@ class SignUpMajorInfoActivity :
             binding.clRbUniv.visibility = View.GONE
         }
     }
+
 
 }
