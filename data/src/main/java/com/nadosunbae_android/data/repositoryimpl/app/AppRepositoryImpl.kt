@@ -9,7 +9,7 @@ import javax.inject.Inject
 class AppRepositoryImpl @Inject constructor(
     private val dataSource: AppDataSource
 ): AppRepository {
-    override suspend fun getAppBanner(type: String): AppBannerData {
+    override suspend fun getAppBanner(type: String): List<AppBannerData> {
         return AppMapper.mapperToAppBanner(dataSource.getAppBanner(type))
     }
 

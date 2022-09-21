@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
+import com.nadosunbae_android.domain.model.app.AppBannerData
 import kotlinx.android.synthetic.main.item_home_banner.view.*
 
 

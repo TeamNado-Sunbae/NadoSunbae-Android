@@ -17,6 +17,7 @@ import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.imageSelect
+import com.nadosunbae_android.domain.model.app.AppBannerData
 import com.nadosunbae_android.domain.model.home.HomeUnivReviewData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -53,11 +54,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun setBanner() {
         homeViewModel.getAppBanner("AOS")
         homeViewModel.bannerData.observe(viewLifecycleOwner) {
-            val images = (it.data)
+            val images = it.map { it.imageUrl }
             binding.vpHomeBanner.adapter = BannerAdapter(requireContext(), images)
-            val bannerPosition = Int.MAX_VALUE / 4 - ceil(it.data.size.toDouble() / 4).toInt()
+            val bannerPosition = Int.MAX_VALUE / 4 - ceil(it.size.toDouble() / 4).toInt()
 
             binding.vpHomeBanner.setCurrentItem(bannerPosition, false)
+
         }
     }
 
