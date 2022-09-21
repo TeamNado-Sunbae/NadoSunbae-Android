@@ -13,9 +13,10 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.domain.model.app.AppBannerData
 import kotlinx.android.synthetic.main.item_home_banner.view.*
+import timber.log.Timber
 
 
-class BannerAdapter(private val context: Context, private val sliderImage: List<String>) :
+class BannerAdapter(private val context: Context, private val sliderImage: List<String>, private val url : List<String>) :
     RecyclerView.Adapter<BannerAdapter.BannerListHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerListHolder {
@@ -26,6 +27,10 @@ class BannerAdapter(private val context: Context, private val sliderImage: List<
 
     override fun onBindViewHolder(holder: BannerListHolder, position: Int) {
         holder.bindSliderImage(sliderImage[position % sliderImage.size])
+        holder.itemView.setOnClickListener {
+            initIntent(url[position % url.size])
+        }
+
     }
 
     override fun getItemCount(): Int = Int.MAX_VALUE
