@@ -49,7 +49,6 @@ class BannerAdapter(private val context: Context, private val sliderImage: List<
         }
     }
 
-    //intent webview -> api 수정된다 해서 우선 냅두기
     fun initIntent(url: String) {
         val intent = Intent(context, WebViewActivity::class.java)
         intent.putExtra("url", url)

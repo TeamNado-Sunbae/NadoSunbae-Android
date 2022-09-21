@@ -17,7 +17,6 @@ import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.imageSelect
-import com.nadosunbae_android.domain.model.app.AppBannerData
 import com.nadosunbae_android.domain.model.home.HomeUnivReviewData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -58,9 +57,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             val url = it.map { it.redirectUrl }
             binding.vpHomeBanner.adapter = BannerAdapter(requireContext(), images, url)
             val bannerPosition = Int.MAX_VALUE / 4 - ceil(it.size.toDouble() / 4).toInt()
-
             binding.vpHomeBanner.setCurrentItem(bannerPosition, false)
-
         }
     }
 
