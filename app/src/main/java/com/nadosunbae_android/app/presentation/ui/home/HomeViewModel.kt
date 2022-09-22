@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
-import com.nadosunbae_android.domain.model.home.Banner
+import com.nadosunbae_android.domain.model.app.AppBannerData
 import com.nadosunbae_android.domain.model.home.HomeRankingData
 import com.nadosunbae_android.domain.model.home.HomeUnivReviewData
+import com.nadosunbae_android.domain.repository.app.AppRepository
 import com.nadosunbae_android.domain.repository.home.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeRepository: HomeRepository
+    private val homeRepository: HomeRepository,
+    private val appRepository: AppRepository
 ) : ViewModel(), LoadableViewModel {
 
     override val onLoadingEnd = MutableLiveData<Boolean>(false)
@@ -31,12 +33,9 @@ class HomeViewModel @Inject constructor(
     val rankingData: LiveData<List<HomeRankingData>>
         get() = _rankingData
 
-    val BannerData = listOf(
-        Banner("1", "https://upload3.inven.co.kr/upload/2022/01/28/bbs/i13648532370.jpg"),
-        Banner("2", "https://upload3.inven.co.kr/upload/2022/01/28/bbs/i13648532370.jpg"),
-        Banner("3", "https://upload3.inven.co.kr/upload/2022/01/28/bbs/i13648532370.jpg")
-
-    )
+    private val _bannerData = MutableLiveData<AppBannerData>()
+    val bannerData: LiveData<AppBannerData>
+        get() = _bannerData
 
     fun getReviewDetail(university: Int) {
         viewModelScope.launch {
@@ -46,7 +45,6 @@ class HomeViewModel @Inject constructor(
                     Timber.d("학교별 리뷰 : 서버통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("학교별 리뷰 : 서버통신 실패")
                 }
                 .also {
@@ -63,8 +61,23 @@ class HomeViewModel @Inject constructor(
                     Timber.d("선배 랭킹 : 서버통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("선배 랭킹 : 서버통신 실패")
+                }
+                .also {
+                    onLoadingEnd.value = true
+                }
+        }
+    }
+
+    fun getAppBanner(type : String) {
+        viewModelScope.launch {
+            kotlin.runCatching { appRepository.getAppBanner(type) }
+                .onSuccess {
+                    _bannerData.value = it
+                    Timber.d("앱 배너 리스트 : 서버통신 성공")
+                }
+                .onFailure {
+                    Timber.d("앱 배너 리스트 : 서버통신 실패")
                 }
                 .also {
                     onLoadingEnd.value = true

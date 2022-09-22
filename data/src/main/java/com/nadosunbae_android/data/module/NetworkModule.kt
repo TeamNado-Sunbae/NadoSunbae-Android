@@ -1,5 +1,6 @@
 package com.nadosunbae_android.data.module
 
+import com.nadosunbae_android.data.api.app.AppService
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
 import com.nadosunbae_android.data.api.comment.CommentService
 import com.nadosunbae_android.data.api.home.HomeService
@@ -17,6 +18,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import retrofit2.create
+import javax.annotation.Signed
 import javax.inject.Singleton
 
 @Module
@@ -92,5 +95,10 @@ object NetworkModule{
     @Provides
     fun commentService(retrofit : Retrofit) : CommentService{
         return retrofit.create(CommentService::class.java)
+        
+    @Singleton
+    @Provides
+    fun appService(retrofit: Retrofit) : AppService {
+        return retrofit.create(AppService::class.java)
     }
 }

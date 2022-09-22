@@ -21,8 +21,6 @@ import com.nadosunbae_android.domain.model.post.PostDetailData
 import com.nadosunbae_android.domain.repository.comment.CommentRepository
 import com.nadosunbae_android.domain.repository.like.LikeRepository
 import com.nadosunbae_android.domain.repository.post.PostRepository
-import com.nadosunbae_android.domain.usecase.classroom.DeleteCommentDataUseCase
-import com.nadosunbae_android.domain.usecase.classroom.DeletePostDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.PostReportUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -160,8 +158,30 @@ class CommunityDetailViewModel @Inject constructor(
         }
     }
 
-    //커뮤니티 상세 좋아요
+   //커뮤니티 상세 좋아요
     fun postLike() {
+        viewModelScope.launch {
+            likeRepository.postLike(LikeParam(postId.value ?: "", "post"))
+                .onStart {
+                    onLoadingEnd.value = false
+                }
+                .catch {
+                    Timber.d("CommunityDetail : 상세 좋아요 서버 통신 실패")
+                }
+                .collectLatest {
+                    getPostDetail()
+                }
+                .also {
+                    onLoadingEnd.value = true
+                }
+        }
+
+    }
+
+    //정보 상세 댓글 등록
+    fun postInfoCommentWrite(
+        questionCommentWriteItem: QuestionCommentWriteItem
+    ) {
         viewModelScope.launch {
             likeRepository.postLike(LikeParam(postId.value ?: "", "post"))
                 .onStart {

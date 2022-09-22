@@ -5,7 +5,6 @@ import retrofit2.http.GET
 
 interface MainService {
 
-
     //각종 링크 조회
     @GET("app/link")
     suspend fun getAppLink() : ResponseAppLinkData

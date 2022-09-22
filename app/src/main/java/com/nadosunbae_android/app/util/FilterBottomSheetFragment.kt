@@ -52,7 +52,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         }
     }
 
-    fun getWriterFilter(): Int {
+    fun getWriterFilter(): String {
         if (binding.btnFilterFirstMajor.isSelected && binding.btnFilterSecondMajor.isSelected)
             return FILTER_ALL
         if (binding.btnFilterFirstMajor.isSelected)

@@ -98,7 +98,6 @@ class CommunityDetailActivity :
     //상세보기 서버 통신
     private fun initInfoDetail() {
         communityViewModel.setPostId(intent.getStringExtra("postId") ?: "")
-        Timber.d("postId get ${communityViewModel.postId.value}")
         communityPostDetailAdapter = CommunityPostDetailAdapter(
             MainGlobals.signInData?.userId ?: 0, this
         )

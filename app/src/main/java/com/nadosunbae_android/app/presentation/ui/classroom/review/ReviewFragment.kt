@@ -80,6 +80,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
         // reviewListViewModel observe (목록에 표시되도록)
         reviewListViewModel.reviewListData.observe(viewLifecycleOwner) {
             reviewListAdapter.setReviewListData(it as MutableList<ReviewPreviewData>)
+            Timber.d("reviewList: $it")
 
             // empty review list -> 표시
             if (reviewListAdapter.isEmpty())
@@ -112,7 +113,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding>(R.layout.fragment_rev
                             // null check
                             if (reviewListData != null) {
                                 // postId Intent로 전달 (후기 상세보기 이동)
-                                val postId = reviewListData[position].postId
+                                val postId = reviewListData[position].id
                                 val intent = Intent(context, ReviewDetailActivity::class.java).apply {
                                     putExtra("postId", postId)
                                     putExtra("userId", mainViewModel.userId.value)

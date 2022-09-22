@@ -20,15 +20,6 @@
         <item name="android:scrollbarTrackVertical">@drawable/scrollbar_track_vertical</item>
     </style>
 
-    <style name="SpinnerDivideStyle" parent="android:style/Widget.ListView.DropDown">
-<!--        <item name="android:divider">#000000</item> &lt;!&ndash; divider 색 &ndash;&gt;-->
-<!--        <item name="android:dividerHeight">10dp</item> &lt;!&ndash; divider 높이 &ndash;&gt;-->
-    </style>
-
-<!--    <style parent="@android:style/Widget.Spinner" name="SpinnerwithNoArrow">-->
-<!--        <item name="android:background">@android:drawable/edit_text</item>-->
-<!--    </style>-->
-
     <style name="ButtonFilterStyle" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:background">@drawable/selector_rectangle_filter</item>
         <item name="android:textColor">@drawable/selector_gray_3_to_main_default</item>
@@ -42,4 +33,17 @@
         <item name="android:paddingEnd">12dp</item>
     </style>
 
+    <style name="SpinnerDivideStyle">
+        <item name="android:divider">@color/gray_spinner_line</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+
+    <style name="SpinnerTheme" parent="Theme.AppCompat">
+        <item name="android:dropDownListViewStyle">@style/SpinnerDivideStyle</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>
