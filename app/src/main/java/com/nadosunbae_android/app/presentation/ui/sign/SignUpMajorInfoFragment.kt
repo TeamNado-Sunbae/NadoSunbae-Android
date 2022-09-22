@@ -18,7 +18,8 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.layout.fragment_sign_up_major_info) {
+class SignUpMajorInfoFragment :
+    BaseFragment<FragmentSignUpMajorInfoBinding>(R.layout.fragment_sign_up_major_info) {
     private val signViewModel: SignViewModel by viewModels()
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by activityViewModels()
 
@@ -37,20 +38,15 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
         closePage()
         moveBeforePage()
         onClickbottomSheetUniv()
-        firstMajorPeriod()
         setupSpinner()
         setupSpinnerHandler()
-        secondMajorPeriod()
-        firstMajor()
-        secondMajor()
         changeNext()
         spinnerClickListener()
+        initSelectUniv()
 
         with(binding) {
             makeUnivSpinner(rbUnivKorea, rbUnivSwu, rbUnivCau)
         }
-
-
     }
 
     //뒤로버튼으로 왔을 시 텍스트 필드 채우기
@@ -70,8 +66,8 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
         }
 
-       // signViewModel.firstMajor.value = firstMajor
-       // firstMajorId = signUpBasicInfoViewModel.firstMajorId.value ?: 0
+        // signViewModel.firstMajor.value = firstMajor
+        // firstMajorId = signUpBasicInfoViewModel.firstMajorId.value ?: 0
         textSignupMajorinfoMajorTime.text = signUpBasicInfoViewModel.firstMajorStart.value ?: "선택하기"
 
 
@@ -87,7 +83,8 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
         //signViewModel.secondMajor.value = secondMajor
         //secondMajorId = signUpBasicInfoViewModel.secondMajorId.value ?: 0
 
-        textSignupMajorinfoDoubleMajorTime.text = signUpBasicInfoViewModel.secondMajorStart.value ?: "선택하기"
+        textSignupMajorinfoDoubleMajorTime.text =
+            signUpBasicInfoViewModel.secondMajorStart.value ?: "선택하기"
 
         if (signViewModel.secondMajor.value.toString() == "미진입") {
 
@@ -161,9 +158,9 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
     }
 
 
-    private fun nextBtnActivate() = with(binding){
+    private fun nextBtnActivate() = with(binding) {
         clSignupMajorInfoMoveNext.setOnClickListener {
-            when(textSignupMajorinfoUniv.text.toString()){
+            when (textSignupMajorinfoUniv.text.toString()) {
                 "고려대학교" -> signUpBasicInfoViewModel.univId.value = 1
                 "서울여자대학교" -> signUpBasicInfoViewModel.univId.value = 2
                 "중앙대학교" -> signUpBasicInfoViewModel.univId.value = 3
@@ -179,7 +176,7 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
                 secondMajorStart.value = textSignupMajorinfoDoubleMajorTime.text.toString()
                 textSignupMajorinfoDoubleMajorTime.text.toString()
             }
-                findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
+            findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
         }
     }
 
@@ -434,6 +431,8 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
             }
             binding.textSignupMajorinfoUniv.text = "고려대학교"
             initUnivSetting()
+            initSelectUniv()
+            deleteAll()
         }
         view2.setOnClickListener {
             if (!view2.isSelected) {
@@ -443,6 +442,8 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
             }
             binding.textSignupMajorinfoUniv.text = "서울여자대학교"
             initUnivSetting()
+            initSelectUniv()
+            deleteAll()
         }
         view3.setOnClickListener {
             if (!view3.isSelected) {
@@ -452,6 +453,8 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
             }
             binding.textSignupMajorinfoUniv.text = "중앙대학교"
             initUnivSetting()
+            initSelectUniv()
+            deleteAll()
         }
     }
 
@@ -474,7 +477,38 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
         }
     }
 
+    //학교 선택 후에만 전공, 전공 진입시기 고를 수 있음
+    private fun initSelectUniv() = with(binding) {
+        if (textSignupMajorinfoUniv.text.toString() != "선택하기") {
+            firstMajor()
+            firstMajorPeriod()
+            secondMajor()
+            secondMajorPeriod()
 
+            textSignupMajorinfoMajorMint.isSelected = true
+            textSignupMajorinfoMajorTimeMint.isSelected = true
+            textSignupMajorinfoDoubleMajorMint.isSelected = true
+            textSignupMajorinfoDoubleMajorMintTime.isSelected = true
+        }
+    }
 
+    //대학 선택 바꾸면 전공, 전공 진입시기 모두 초기화
+    private fun deleteAll() = with(binding) {
+        textSignupMajorinfoMajor.text = "선택하기"
+        textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
 
+        textSignupMajorinfoMajorTime.text = "선택하기"
+        textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#94959E"))
+
+        textSignupMajorinfoDoubleMajor.text = "선택하기"
+        textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#94959E"))
+
+        textSignupMajorinfoDoubleMajorTime.text = "선택하기"
+        textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#94959E"))
+
+        textSignupMajorinfoMajorMint.text = "선택"
+        textSignupMajorinfoMajorTimeMint.text = "선택"
+        textSignupMajorinfoDoubleMajorMint.text = "선택"
+        textSignupMajorinfoDoubleMajorMintTime.text = "선택"
+    }
 }

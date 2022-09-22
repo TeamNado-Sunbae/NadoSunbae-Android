@@ -27,6 +27,9 @@ class SignUpBasicInfoViewModel @Inject constructor(
     private val postCertificationEmailUseCase: PostCertificationEmailUseCase
 ) : ViewModel() {
 
+    //현재 대학 뭐로 골랐는지
+    var univSelect = MutableLiveData<Int>()
+
     val onLoadingEnd = MutableLiveData<Boolean>(false)
 
     //닉네임 중복 체크 변수
@@ -61,11 +64,6 @@ class SignUpBasicInfoViewModel @Inject constructor(
     var secondMajorId = MutableLiveData<Int>()
     var secondMajorName = MutableLiveData<String>()
     var secondMajorStart = MutableLiveData<String>()
-
-    //학교 선택 완료
-    var isSelectUniv = MutableLiveData<Boolean>()
-
-
 
     //로그인 상태
     private var _status = MutableLiveData<Int?>()
