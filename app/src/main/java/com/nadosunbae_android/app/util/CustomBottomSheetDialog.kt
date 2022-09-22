@@ -84,7 +84,12 @@ class CustomBottomSheetDialog(
             if (checkCommunity == true) {
                 dismiss()
             } else {
-                activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
+                try{
+                    activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
+                } catch(e : Exception) {
+                    dismiss()
+                }
+
             }
         }
         binding.fragment = this

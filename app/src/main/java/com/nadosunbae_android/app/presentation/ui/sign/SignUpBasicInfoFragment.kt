@@ -6,11 +6,12 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.databinding.ActivitySignUpBasicInfoBinding
-import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.databinding.FragmentSignUpBasicInfoBinding
+import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.sign.EmailDuplicationData
@@ -21,12 +22,12 @@ import timber.log.Timber
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
-class SignUpBasicInfoActivity :
-    BaseActivity<ActivitySignUpBasicInfoBinding>(R.layout.activity_sign_up_basic_info) {
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.layout.fragment_sign_up_basic_info) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by activityViewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         nicknameTextWatcher()
         emailTextWatcher()
         pwTextWatcher()
@@ -39,7 +40,7 @@ class SignUpBasicInfoActivity :
     //닉네임 중복 체크 서버 통신
     private fun nicknameDuplication() {
         Timber.d("NicknameDuplication: 서버 통신 성공")
-        signUpBasicInfoViewModel.nicknameDuplicationCheck.observe(this) {
+        signUpBasicInfoViewModel.nicknameDuplicationCheck.observe(viewLifecycleOwner) {
             if (!it.success) {
                 Timber.d("닉네임 중복확인: 실패")
                 binding.textSignupBasicinfoNicknameDuplicationOk.visibility = View.INVISIBLE
@@ -247,24 +248,7 @@ class SignUpBasicInfoActivity :
     //이전버튼 클릭 이벤트
     private fun beforeBtnClick() {
         binding.clSignupBasicinfoMoveBefore.setOnClickListener {
-
-            val firstMajor = intent.getStringExtra("firstMajorName").toString()
-            val firstMajorId = intent.getIntExtra("firstMajorId", 0)
-            val firstMajorStart = intent.getStringExtra("firstMajorStart").toString()
-            val secondMajor = intent.getStringExtra("secondMajorName").toString()
-            val secondMajorId = intent.getIntExtra("secondMajorId", 0)
-            val secondMajorStart = intent.getStringExtra("secondMajorStart").toString()
-
-            val intent = Intent(this, SignUpMajorInfoActivity::class.java)
-            intent.putExtra("firstMajorName", firstMajor)
-            intent.putExtra("firstMajorId", firstMajorId)
-            intent.putExtra("firstMajorStart", firstMajorStart)
-            intent.putExtra("secondMajorName", secondMajor)
-            intent.putExtra("secondMajorId", secondMajorId)
-            intent.putExtra("secondMajorStart", secondMajorStart)
-
-            startActivity(intent)
-            finish()
+            findNavController().navigate(R.id.action_ThirdFragment_to_SecondFragment)
         }
     }
 
@@ -287,7 +271,6 @@ class SignUpBasicInfoActivity :
 
     //이메일 정규식
     private fun isEmailPattern() {
-
         binding.textSignupBasicinfoEmailDuplication.isSelected = true
         binding.textSignupBasicinfoEmailDuplication.isEnabled = true
 
@@ -322,13 +305,13 @@ class SignUpBasicInfoActivity :
     //상단 x눌렀을 시 알럿
     fun closePage() {
         binding.imgSignupBasicinfoDelete.setOnClickListener {
-            val dialog = SignInCustomDialog(this)
+            val dialog = SignInCustomDialog(requireActivity())
             dialog.showDialog()
 
             dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener {
                 override fun onClicked(num: () -> Unit) {
-                    startActivity(Intent(this@SignUpBasicInfoActivity, SignInActivity::class.java))
-                    finish()
+                    startActivity(Intent(requireActivity(), SignInActivity::class.java))
+                    //finish()
                 }
             })
         }
@@ -359,24 +342,20 @@ class SignUpBasicInfoActivity :
                         signUpBasicInfoViewModel.requestSignUp.email,
                         signUpBasicInfoViewModel.requestSignUp.nickname,
                         signUpBasicInfoViewModel.requestSignUp.password,
-                        1,
-                        intent.getIntExtra("firstMajorId", 0),
-                        intent.getStringExtra("firstMajorStart").toString(),
-                        intent.getIntExtra("secondMajorId", 0),
-                        intent.getStringExtra("secondMajorStart").toString()
+                        signUpBasicInfoViewModel.univId.value ?: 0,
+                        signUpBasicInfoViewModel.firstMajorId.value ?:0,
+                        signUpBasicInfoViewModel.firstMajorStart.value ?: "",
+                        signUpBasicInfoViewModel.secondMajorId.value ?:0,
+                        signUpBasicInfoViewModel.secondMajorStart.value ?: "",
                     )
                 )
-                Timber.d("LastCheck : ${intent.getIntExtra("firstMajorId",0)}")
-                Timber.d("LastCheck : ${intent.getStringExtra("firstMajorStart").toString()}")
-                Timber.d("LastCheck : ${intent.getIntExtra("secondMajorId",0)}")
-                Timber.d("LastCheck : ${intent.getStringExtra("secondMajorStart").toString()}")
 
-                val intent = Intent(this@SignUpBasicInfoActivity, SignUpFinishActivity::class.java)
+                val intent = Intent(requireActivity(), SignUpFinishActivity::class.java)
                 intent.putExtra("email", etSignupBasicinfoEmail.text.toString())
                 intent.putExtra("password", etSignupBasicinfoPw.text.toString())
 
                 startActivity(intent)
-                finish()
+                //finish()
             }
         }
     }
@@ -397,4 +376,5 @@ class SignUpBasicInfoActivity :
         binding.clSignupBasicinfoMoveNext.isSelected = false
         binding.textSignupBasicinfoNext.isSelected = false
     }
+
 }

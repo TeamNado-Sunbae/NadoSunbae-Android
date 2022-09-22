@@ -117,6 +117,9 @@ class MainViewModel @Inject constructor(
     //마이페이지 프래그먼트 전환
     var mypageFragmentNum = MutableLiveData<Int>()
 
+    //회원가입 프래그먼트 전환
+    var signFragmentNum = MutableLiveData<Int>()
+
 
     //알림
     //알림 클릭 이벤트(1->후기, 2->과방, 3->알람, 4->마이페이지)
