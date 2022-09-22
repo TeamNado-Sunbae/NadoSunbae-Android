@@ -380,14 +380,11 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
             checkMajor()
 
             nextBtnActivate()
-            /*
             if (binding.clSignupMajorInfoMoveNext.isSelected && binding.textSignupMajorInfoNext.isSelected) {
                 nextBtnActivate()
             } else {
                 binding.clSignupMajorInfoMoveNext.isClickable = false
             }
-
-             */
         }
     }
 
