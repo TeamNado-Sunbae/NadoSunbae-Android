@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.api.post
 import com.nadosunbae_android.data.model.request.post.RequestPostWriteData
 import com.nadosunbae_android.data.model.response.Response
 import com.nadosunbae_android.data.model.response.post.ResponsePostData
+import com.nadosunbae_android.data.model.response.post.ResponsePostDeleteData
 import com.nadosunbae_android.data.model.response.post.ResponsePostDetailData
 import com.nadosunbae_android.data.model.response.post.ResponsePostWriteData
 import retrofit2.http.*
@@ -14,6 +15,11 @@ interface PostService {
         @Body requestPostWriteData: RequestPostWriteData
     ) : Response<ResponsePostWriteData>
 
+    //게시글 삭제
+    @DELETE("post/{postId}")
+    suspend fun deletePost(
+        @Path("postId") postId: String
+    ) : Response<ResponsePostDeleteData>
 
     //게시글 조회
     @GET("post/university/{universityId}")

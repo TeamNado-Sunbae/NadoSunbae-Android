@@ -52,7 +52,7 @@ class CommunityWriteActivity :
         observeBottomSheet(
             communityWriteViewModel.majorList.value ?: emptyList(), majorBottomSheetDialog
         )
-        //학과 무관 선택
+        //기본 카테고리
         binding.layoutCommunityWriteCategory.radioBtnCategoryFreedom.isChecked = true
     }
 
