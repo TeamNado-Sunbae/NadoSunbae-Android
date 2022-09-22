@@ -59,8 +59,7 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
 
     //뒤로버튼으로 왔을 시 텍스트 필드 채우기
     private fun initTextfield() = with(binding) {
-        /*
-        val firstMajor = intent.getStringExtra("firstMajorName") ?: "선택하기"
+        val firstMajor = signUpBasicInfoViewModel.firstMajorName.value ?: "선택하기"
         textSignupMajorinfoMajor.text = firstMajor
 
         if (textSignupMajorinfoMajor.text.toString() == "선택하기") {
@@ -68,12 +67,12 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
         }
 
         signViewModel.firstMajor.value = firstMajor
-        firstMajorId = intent.getIntExtra("firstMajorId", 0)
-        textSignupMajorinfoMajorTime.text = intent.getStringExtra("firstMajorStart") ?: "선택하기"
+        firstMajorId = signUpBasicInfoViewModel.firstMajorId.value ?: 0
+        textSignupMajorinfoMajorTime.text = signUpBasicInfoViewModel.firstMajorStart.value ?: "선택하기"
 
 
         //두번째 전공
-        val secondMajor = intent.getStringExtra("secondMajorName") ?: "선택하기"
+        val secondMajor = signUpBasicInfoViewModel.secondMajorName.value ?: "선택하기"
         textSignupMajorinfoDoubleMajor.text = secondMajor
 
         if (textSignupMajorinfoDoubleMajor.text.toString() == "선택하기") {
@@ -83,17 +82,17 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
         }
         signViewModel.secondMajor.value = secondMajor
 
-        secondMajorId = intent.getIntExtra("secondMajorId", 0)
-        textSignupMajorinfoDoubleMajorTime.text = intent.getStringExtra("secondMajorStart") ?: "선택하기"
+        secondMajorId = signUpBasicInfoViewModel.secondMajorId.value ?: 0
+        textSignupMajorinfoDoubleMajorTime.text = signUpBasicInfoViewModel.secondMajorStart.value ?: "선택하기"
         if (signViewModel.secondMajor.value.toString() == "미진입") {
 
             signUpBasicInfoViewModel.secondDepartmentClick.value = true
             signUpBasicInfoViewModel.secondDepartmentGo.value = true
 
-            binding.clSignupMajorInfoDoubleMajorTime.isClickable = false
-            binding.textSignupMajorinfoDoubleMajorTime.text = "미진입"
-            binding.textSignupMajorinfoDoubleMajorMintTime.text = "선택"
-            binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+            clSignupMajorInfoDoubleMajorTime.isClickable = false
+            textSignupMajorinfoDoubleMajorTime.text = "미진입"
+            textSignupMajorinfoDoubleMajorMintTime.text = "선택"
+            textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
 
         }
 
@@ -134,7 +133,6 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
             textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#94959E"))
             binding.textSignupMajorinfoDoubleMajorMintTime.text = "변경"
         }
-         */
     }
 
     //X버튼 클릭 리스너
@@ -154,44 +152,27 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
     private fun moveBeforePage() {
         binding.clSignupMajorInfoMoveBefore.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-            /*
-            val intent = Intent(requireActivity(), SignUpAgreementActivity::class.java)
-            intent.putExtra("agreement", "success")
-            startActivity(intent)
-
-             */
-            //finish()
         }
     }
 
 
-    private fun nextBtnActivate() {
-        binding.clSignupMajorInfoMoveNext.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
-            /*
-            val intent = Intent(requireActivity(), SignUpBasicInfoActivity::class.java)
-
-            intent.putExtra(
-                "firstMajorId",
-                firstDepartmentBottomSheetDialog.getSelectedData().id
-            )
-            intent.putExtra("firstMajorStart", binding.textSignupMajorinfoMajorTime.text.toString())
-            intent.putExtra(
-                "secondMajorId",
-                secondDepartmentBottomSheetDialog.getSelectedData().id
-            )
-            intent.putExtra(
-                "secondMajorStart",
-                binding.textSignupMajorinfoDoubleMajorTime.text.toString()
-            )
-            intent.putExtra("firstMajorName", binding.textSignupMajorinfoMajor.text.toString())
-            intent.putExtra(
-                "secondMajorName",
-                binding.textSignupMajorinfoDoubleMajor.text.toString()
-            )
-            startActivity(intent)
-            //finish()
-             */
+    private fun nextBtnActivate() = with(binding){
+        clSignupMajorInfoMoveNext.setOnClickListener {
+            when(textSignupMajorinfoUniv.text){
+                "고려대학교" -> signUpBasicInfoViewModel.univId.value = 1
+                "서울여자대학교" -> signUpBasicInfoViewModel.univId.value = 2
+                "중앙대학교" -> signUpBasicInfoViewModel.univId.value = 3
+                else -> signUpBasicInfoViewModel.univId.value = null
+            }
+            signUpBasicInfoViewModel.apply {
+                firstMajorId.value = firstDepartmentBottomSheetDialog.getSelectedData().id
+                firstMajorName.value = textSignupMajorinfoMajor.text.toString()
+                firstMajorStart.value = textSignupMajorinfoMajorTime.text.toString()
+                secondMajorId.value = secondDepartmentBottomSheetDialog.getSelectedData().id
+                secondMajorName.value = textSignupMajorinfoDoubleMajor.text.toString()
+                textSignupMajorinfoDoubleMajorTime.text.toString()
+            }
+                findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
         }
     }
 
@@ -230,6 +211,7 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
                     binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
                     binding.textSignupMajorinfoMajorMint.text = "변경"
                 }
+
             signUpBasicInfoViewModel.firstDepartmentClick.value = true
         }
     }

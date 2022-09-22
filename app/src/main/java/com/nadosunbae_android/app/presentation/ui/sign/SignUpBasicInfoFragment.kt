@@ -250,25 +250,6 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
     private fun beforeBtnClick() {
         binding.clSignupBasicinfoMoveBefore.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-/*
-            val firstMajor = intent.getStringExtra("firstMajorName").toString()
-            val firstMajorId = intent.getIntExtra("firstMajorId", 0)
-            val firstMajorStart = intent.getStringExtra("firstMajorStart").toString()
-            val secondMajor = intent.getStringExtra("secondMajorName").toString()
-            val secondMajorId = intent.getIntExtra("secondMajorId", 0)
-            val secondMajorStart = intent.getStringExtra("secondMajorStart").toString()
- */
- //           val intent = Intent(requireActivity(), SignUpMajorInfoActivity::class.java)
-            /*
-            intent.putExtra("firstMajorName", firstMajor)
-            intent.putExtra("firstMajorId", firstMajorId)
-            intent.putExtra("firstMajorStart", firstMajorStart)
-            intent.putExtra("secondMajorName", secondMajor)
-            intent.putExtra("secondMajorId", secondMajorId)
-            intent.putExtra("secondMajorStart", secondMajorStart)
-             */
-//            startActivity(intent)
-            //finish()
         }
     }
 
@@ -362,21 +343,12 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
                         signUpBasicInfoViewModel.requestSignUp.email,
                         signUpBasicInfoViewModel.requestSignUp.nickname,
                         signUpBasicInfoViewModel.requestSignUp.password,
-                        1,
-                        0,
-                        "20-2",
-                        2,
-                        "20-2"
-                        /*
-                        intent.getIntExtra("firstMajorId", 0),
-                        intent.getStringExtra("firstMajorStart").toString(),
-                        intent.getIntExtra("secondMajorId", 0),
-                        intent.getStringExtra("secondMajorStart").toString()
-
-                         */
+                        signUpBasicInfoViewModel.univId.value ?: 0,
+                        signUpBasicInfoViewModel.firstMajorId.value ?:0,
+                        signUpBasicInfoViewModel.firstMajorStart.value ?: "",
+                        signUpBasicInfoViewModel.secondMajorId.value ?:0,
+                        signUpBasicInfoViewModel.secondMajorStart.value ?: "",
                     )
-
-
                 )
 
                 val intent = Intent(requireActivity(), SignUpFinishActivity::class.java)

@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.nadosunbae_android.app.presentation.ui.sign.SignUpBasicInfoFragment"
+        android:name="com.nadosunbae_android.app.presentation.ui.sign.SignUpMajorInfoFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_sign_up_basic_info">
 
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/ThirdFragment"
-        android:name="com.nadosunbae_android.app.presentation.ui.sign.SignUpMajorInfoFragment"
+        android:name="com.nadosunbae_android.app.presentation.ui.sign.SignUpBasicInfoFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_sign_up_major_info">
         <action

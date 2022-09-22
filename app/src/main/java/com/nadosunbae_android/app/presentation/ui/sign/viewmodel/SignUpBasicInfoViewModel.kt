@@ -58,6 +58,15 @@ class SignUpBasicInfoViewModel @Inject constructor(
     //약관 동의 상태
     var isAgreementChecked = MutableLiveData<Boolean>()
 
+    // 학과 정보에서 작성하는 정보
+    var univId = MutableLiveData<Int>()
+    var firstMajorId = MutableLiveData<Int>()
+    var firstMajorName = MutableLiveData<String>()
+    var firstMajorStart = MutableLiveData<String>()
+    var secondMajorId = MutableLiveData<Int>()
+    var secondMajorName = MutableLiveData<String>()
+    var secondMajorStart = MutableLiveData<String>()
+
     //로그인 상태
     private var _status = MutableLiveData<Int?>()
     val status: LiveData<Int?> = _status
