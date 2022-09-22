@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentSignUpBasicInfoBinding
@@ -249,7 +248,7 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
     //이전버튼 클릭 이벤트
     private fun beforeBtnClick() {
         binding.clSignupBasicinfoMoveBefore.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            findNavController().navigate(R.id.action_ThirdFragment_to_SecondFragment)
         }
     }
 

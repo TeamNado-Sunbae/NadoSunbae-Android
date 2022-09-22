@@ -5,6 +5,9 @@
     android:background="@color/background">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel" />
 
     </data>
 
@@ -194,7 +197,7 @@
                 android:paddingTop="13dp"
                 android:paddingBottom="13dp"
                 android:text="@string/signup_majorInfo_select"
-                android:textColor="@color/gray_3"
+                android:textColor="@drawable/selector_text_gray_to_black_sign"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -335,7 +338,7 @@
                 android:paddingTop="13dp"
                 android:paddingBottom="13dp"
                 android:text="@string/signup_majorInfo_select"
-                android:textColor="@color/gray_3"
+                android:textColor="@drawable/selector_text_gray_to_black_sign"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -348,7 +351,7 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:text="@string/signup_majorInfo_selection"
-                android:textColor="@color/main_default"
+                android:textColor="@drawable/selector_text_gray_to_mint"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -391,7 +394,7 @@
                 android:paddingTop="13dp"
                 android:paddingBottom="13dp"
                 android:text="@string/signup_majorInfo_select"
-                android:textColor="@color/gray_3"
+                android:textColor="@drawable/selector_text_gray_to_black_sign"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -404,7 +407,7 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:text="@string/signup_majorInfo_selection"
-                android:textColor="@color/main_default"
+                android:textColor="@drawable/selector_text_gray_to_mint"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -448,7 +451,7 @@
                 android:paddingTop="13dp"
                 android:paddingBottom="13dp"
                 android:text="@string/signup_majorInfo_select"
-                android:textColor="@color/gray_3"
+                android:textColor="@drawable/selector_text_gray_to_black_sign"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -461,7 +464,7 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:text="@string/signup_majorInfo_selection"
-                android:textColor="@color/main_default"
+                android:textColor="@drawable/selector_text_gray_to_mint"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -504,7 +507,7 @@
                 android:paddingTop="13dp"
                 android:paddingBottom="13dp"
                 android:text="@string/signup_majorInfo_select"
-                android:textColor="@color/gray_3"
+                android:textColor="@drawable/selector_text_gray_to_black_sign"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -517,7 +520,7 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:text="@string/signup_majorInfo_selection"
-                android:textColor="@color/main_default"
+                android:textColor="@drawable/selector_text_gray_to_mint"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

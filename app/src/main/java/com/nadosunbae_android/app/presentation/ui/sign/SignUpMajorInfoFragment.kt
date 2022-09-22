@@ -3,12 +3,8 @@ package com.nadosunbae_android.app.presentation.ui.sign
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
@@ -24,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.layout.fragment_sign_up_major_info) {
     private val signViewModel: SignViewModel by viewModels()
-    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
+    private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by activityViewModels()
 
     val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
     val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
@@ -59,6 +55,14 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
 
     //뒤로버튼으로 왔을 시 텍스트 필드 채우기
     private fun initTextfield() = with(binding) {
+        val univ = signUpBasicInfoViewModel.univName.value ?: "선택하기"
+        textSignupMajorinfoUniv.text = univ
+
+        if (textSignupMajorinfoUniv.text.toString() != "선택하기") {
+            textSignupMajorinfoUniv.isSelected = true
+        }
+
+        //첫번째 전공
         val firstMajor = signUpBasicInfoViewModel.firstMajorName.value ?: "선택하기"
         textSignupMajorinfoMajor.text = firstMajor
 
@@ -66,8 +70,8 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
         }
 
-        signViewModel.firstMajor.value = firstMajor
-        firstMajorId = signUpBasicInfoViewModel.firstMajorId.value ?: 0
+       // signViewModel.firstMajor.value = firstMajor
+       // firstMajorId = signUpBasicInfoViewModel.firstMajorId.value ?: 0
         textSignupMajorinfoMajorTime.text = signUpBasicInfoViewModel.firstMajorStart.value ?: "선택하기"
 
 
@@ -80,10 +84,11 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
         } else {
             textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
         }
-        signViewModel.secondMajor.value = secondMajor
+        //signViewModel.secondMajor.value = secondMajor
+        //secondMajorId = signUpBasicInfoViewModel.secondMajorId.value ?: 0
 
-        secondMajorId = signUpBasicInfoViewModel.secondMajorId.value ?: 0
         textSignupMajorinfoDoubleMajorTime.text = signUpBasicInfoViewModel.secondMajorStart.value ?: "선택하기"
+
         if (signViewModel.secondMajor.value.toString() == "미진입") {
 
             signUpBasicInfoViewModel.secondDepartmentClick.value = true
@@ -158,18 +163,20 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
 
     private fun nextBtnActivate() = with(binding){
         clSignupMajorInfoMoveNext.setOnClickListener {
-            when(textSignupMajorinfoUniv.text){
+            when(textSignupMajorinfoUniv.text.toString()){
                 "고려대학교" -> signUpBasicInfoViewModel.univId.value = 1
                 "서울여자대학교" -> signUpBasicInfoViewModel.univId.value = 2
                 "중앙대학교" -> signUpBasicInfoViewModel.univId.value = 3
                 else -> signUpBasicInfoViewModel.univId.value = null
             }
             signUpBasicInfoViewModel.apply {
+                univName.value = textSignupMajorinfoUniv.text.toString()
                 firstMajorId.value = firstDepartmentBottomSheetDialog.getSelectedData().id
                 firstMajorName.value = textSignupMajorinfoMajor.text.toString()
                 firstMajorStart.value = textSignupMajorinfoMajorTime.text.toString()
                 secondMajorId.value = secondDepartmentBottomSheetDialog.getSelectedData().id
                 secondMajorName.value = textSignupMajorinfoDoubleMajor.text.toString()
+                secondMajorStart.value = textSignupMajorinfoDoubleMajorTime.text.toString()
                 textSignupMajorinfoDoubleMajorTime.text.toString()
             }
                 findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
@@ -372,11 +379,15 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
             binding.textSignupMajorInfoNext.isSelected = it
             checkMajor()
 
+            nextBtnActivate()
+            /*
             if (binding.clSignupMajorInfoMoveNext.isSelected && binding.textSignupMajorInfoNext.isSelected) {
                 nextBtnActivate()
             } else {
                 binding.clSignupMajorInfoMoveNext.isClickable = false
             }
+
+             */
         }
     }
 
@@ -465,6 +476,8 @@ class SignUpMajorInfoFragment : BaseFragment<FragmentSignUpMajorInfoBinding>(R.l
             binding.clRbUniv.visibility = View.GONE
         }
     }
+
+
 
 
 }
