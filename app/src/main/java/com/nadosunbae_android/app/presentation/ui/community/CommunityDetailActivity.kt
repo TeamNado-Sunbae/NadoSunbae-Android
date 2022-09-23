@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityCommunityDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityPostDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityDetailViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
@@ -21,7 +20,6 @@ import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.closeKeyboard
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
-import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -148,7 +146,7 @@ class CommunityDetailActivity :
     }
 
     //메뉴 펼치기
-    private fun showDropDownMenu(v : View) {
+    private fun showDropDownMenu(v: View) {
         showCustomDropDown(
             communityViewModel,
             v,
@@ -173,10 +171,12 @@ class CommunityDetailActivity :
     private fun initInfoPostMenu() {
         val v = binding.imgCommunityDetailMenu
         binding.imgCommunityDetailMenu.setOnClickListener {
+            communityViewModel.divisionPost.value = post
             communityViewModel.setDropDownMenu(0)
             showDropDownMenu(v)
         }
     }
+
     //원글 수정 이동
     private fun goUpdate() {
         val intent = Intent(this, CommunityWriteActivity::class.java)
@@ -193,7 +193,7 @@ class CommunityDetailActivity :
     //답글 점 세개 메뉴 클릭시 나오는 다이얼로그
     private fun infoCommentMenu() {
         communityPostDetailAdapter.setItemClickListener { v, position, user, commentId ->
-            with(communityViewModel){
+            with(communityViewModel) {
                 setDropDownMenu(user)
                 this.commentId.value = commentId
                 this.position.value = position
@@ -207,7 +207,7 @@ class CommunityDetailActivity :
     //답글 메뉴 신고, 삭제 클릭시 이벤트
     private fun infoCommentMenuClick() {
         communityViewModel.dropDownSelected.observe(this) {
-            val divisionPost = communityViewModel.divisionPost.value ?: 0
+            val divisionPost = communityViewModel.divisionPost.value ?: false
             val position = communityViewModel.position.value ?: 0
             val commentId = communityViewModel.commentId.value ?: 0
             when (it.name) {
@@ -215,7 +215,7 @@ class CommunityDetailActivity :
                     deleteDialog(
                         divisionPost,
                         setCheckMenu = {
-                            if (divisionPost == 3) {
+                            if (divisionPost == comment) {
                                 communityPostDetailAdapter.setCheckMenu(
                                     delete,
                                     position
@@ -223,10 +223,10 @@ class CommunityDetailActivity :
                             }
                         },
                         deleteComment = {
-                                        communityViewModel.deleteComment(commentId.toString())
+                            communityViewModel.deleteComment(commentId.toString())
                         },
                         deleteWrite = {
-                                      communityViewModel.deletePost()
+                            communityViewModel.deletePost()
                         },
                     )
                 resources.getString(R.string.question_detail_report) -> floatReportReasonDialog()
@@ -236,11 +236,9 @@ class CommunityDetailActivity :
     }
 
 
-
-
     // 게시글 or 답글 삭제
     private fun deleteDialog(
-        divisionPost: Int,
+        divisionPost: Boolean,
         setCheckMenu: () -> Unit,
         deleteComment: () -> Unit,
         deleteWrite: () -> Unit
@@ -252,7 +250,7 @@ class CommunityDetailActivity :
                 resources.getString(R.string.alert_delete_review_cancel)
             ),
             complete = {
-                if (divisionPost == 3) {
+                if (divisionPost == comment) {
                     deleteComment()
                 } else {
                     deleteWrite()
@@ -263,25 +261,25 @@ class CommunityDetailActivity :
             cancel = {}
         )
     }
+
     //원글 삭제시 상세 화면 종료
-    private fun completeDeletePost(){
+    private fun completeDeletePost() {
         communityViewModel.deletePostData.flowWithLifecycle(lifecycle)
             .onEach {
-                if(it.isDeleted) finish()
+                if (it.isDeleted) finish()
             }
             .launchIn(lifecycleScope)
     }
 
     //신고 사유 다이얼로그 띄우기
     private fun floatReportReasonDialog() {
-        val divisionPost = communityViewModel.divisionPost.value ?: 0
         val dialog = CustomDialog(this)
         dialog.reportDialog()
         dialog.setReportClickListener(
             object : CustomDialog.ReportClickListener {
                 override fun reportClick(text: String) {
                     communityViewModel.reportReasonInfo.value = text
-                    reportDialog(divisionPost)
+                    reportDialog()
                 }
             }
         )
@@ -289,9 +287,7 @@ class CommunityDetailActivity :
 
 
     //신고 다이얼로그 띄우기
-    private fun reportDialog(divisionPost: Int) {
-        val commentId = communityViewModel.commentId.value ?: 0
-        val reportReason = communityViewModel.reportReasonInfo.value ?: ""
+    private fun reportDialog() {
         CustomDialog(this).genericDialog(
             CustomDialog.DialogData(
                 resources.getString(R.string.request_report),
@@ -299,22 +295,7 @@ class CommunityDetailActivity :
                 resources.getString(R.string.disagree_report)
             ),
             complete = {
-                when (divisionPost) {
-                    comment -> communityViewModel.postReport(
-                        ReportItem(
-                            commentId,
-                            comment,
-                            reportReason
-                        )
-                    )
-                    post -> communityViewModel.postReport(
-                        ReportItem(
-                            0,
-                            post,
-                            reportReason
-                        )
-                    )
-                }
+                communityViewModel.postReport()
             },
             cancel = {
 
@@ -325,8 +306,8 @@ class CommunityDetailActivity :
 
     //신고하기 토스트 띄우기
     private fun reportToast() {
-        communityViewModel.reportStatusInfo.observe(this) {
-            if (it == 200) {
+        communityViewModel.reportStatus.observe(this) {
+            if (it == 201) {
                 Toast.makeText(this, "신고가 접수되었습니다", Toast.LENGTH_SHORT).show()
             } else if (it == 409) {
                 Toast.makeText(this, "이미 신고한 글입니다.", Toast.LENGTH_SHORT).show()
@@ -381,8 +362,8 @@ class CommunityDetailActivity :
 
 
         //원글 댓글 분류
-        const val post = 2
-        const val comment = 3
+        const val post = true
+        const val comment = false
     }
 
 }

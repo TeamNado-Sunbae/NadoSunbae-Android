@@ -16,6 +16,7 @@ data class ResponseReportData(
 
 fun ResponseReportData.toEntity() : ReportData{
     return ReportData(
+        status = this.status,
         createdAt = this.data.createdAt,
         reportId = this.data.reportId
     )
