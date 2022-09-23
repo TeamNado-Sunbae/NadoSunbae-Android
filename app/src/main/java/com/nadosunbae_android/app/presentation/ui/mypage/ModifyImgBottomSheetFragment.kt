@@ -16,7 +16,9 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
+
     private lateinit var _binding: FragmentModifyImgBottomSheetBinding
+    private var callbackButtonClickListener: (() -> Unit?)? = null
     val binding get() = _binding!!
 
     private var selectImgId = 0
@@ -38,7 +40,6 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.e("TEST ; ${myPageViewModel.selectImgId.value}")
         with(binding) {
             makeRadioButton2(
                 imgBottomsheet1,
@@ -51,6 +52,11 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
         }
         initSetting()
         cancelListener()
+        finishBtnListener()
+    }
+
+    fun setCallbackButtonClickListener(listener: () -> Unit) {
+        this.callbackButtonClickListener = listener
     }
 
     //X버튼 클릭 리스너
@@ -154,6 +160,15 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
                 ivChecked4.visibility = View.INVISIBLE
                 ivChecked5.visibility = View.VISIBLE
             }
+        }
+    }
+
+    //완료버튼 클릭 리스너
+    private fun finishBtnListener() {
+        binding.btnFilterApply.setOnClickListener {
+            myPageViewModel.selectImgId.value = selectImgId
+            callbackButtonClickListener?.invoke()
+            dismiss()
         }
     }
 

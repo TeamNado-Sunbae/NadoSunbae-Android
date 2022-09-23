@@ -9,10 +9,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView.OnEditorActionListener
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.Glide
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityModifyMyInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -21,8 +23,10 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
+import com.nadosunbae_android.app.util.BindingAdapter
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
@@ -94,7 +98,6 @@ class ModifyMyInfoActivity :
         myPageViewModel.personalInfo.observe(this) {
             binding.myPageInfo = it
             Timber.d("서버통신 : 성공")
-            Timber.e("${it.profileImageId}")
             myPageViewModel.selectImgId.value = it.profileImageId
             signViewModel.firstMajor.value = it.firstMajorName
             signViewModel.secondMajor.value = it.secondMajorName
@@ -244,8 +247,8 @@ class ModifyMyInfoActivity :
     }
 
     private fun initBtnActive() {
-        if(binding.textMyPageMajorinfoDoubleMajor.text.toString() != "미진입") {
-            if(binding.textMyPageMajorinfoDoubleMajorTime.text.toString() == "미진입") {
+        if (binding.textMyPageMajorinfoDoubleMajor.text.toString() != "미진입") {
+            if (binding.textMyPageMajorinfoDoubleMajorTime.text.toString() == "미진입") {
                 binding.textMyPageSave.isSelected = false
                 binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
                 binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
@@ -602,12 +605,35 @@ class ModifyMyInfoActivity :
 
     //프로필 이미지 수정 누르면 바텀시트 올라옴
     private fun modifyImgListener() {
+        val dialog = ModifyImgBottomSheetFragment()
         binding.textMyPageModifyImg.setOnClickListener {
-            val dialog = ModifyImgBottomSheetFragment()
             dialog.show(
                 supportFragmentManager,
                 dialog.tag
             )
         }
+        dialog.setCallbackButtonClickListener {
+            Timber.e("{$myPageViewModel.changedImgId.value}")
+            Timber.e("적용되나 볼라구")
+            applyModifyImg()
+        }
+    }
+
+    //바텀시트에서 수정한 이미지 적용
+    private fun applyModifyImg() {
+        when (myPageViewModel.selectImgId.value) {
+            1 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_2_64)
+            2 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_4_64)
+            3 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_5_64)
+            4 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_3_64)
+            5 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_1_64)
+        }
+    }
+
+    fun imageSelect(imageView: ImageView, image: Int) {
+        Glide.with(imageView.context)
+            .load(image)
+            .override(72.dpToPx, 72.dpToPx)
+            .into(imageView)
     }
 }
