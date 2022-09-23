@@ -29,7 +29,6 @@ class CommunityWriteActivity :
         clickMajor()
         clickCancelButton()
         completeMajor()
-        checkCategory()
         activateCompleteButton()
         clickComplete()
         communityWriteViewModel.setCompleteButton()

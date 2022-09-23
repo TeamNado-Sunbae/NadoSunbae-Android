@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="communityWriteUpdateViewModel"
+            name="viewModel"
             type="com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteUpdateViewModel"/>
     </data>
 
@@ -94,7 +94,7 @@
                     android:fontFamily="@font/pretendard_regular"
                     android:paddingVertical="13dp"
                     android:paddingStart="16dp"
-                    android:text="@string/no_post"
+                    android:text="@{viewModel.initUpdateData.major}"
                     android:textColor="@color/gray_3"
                     android:textSize="15sp"
                     android:layout_marginTop="16dp"
@@ -146,8 +146,9 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingBottom="15dp"
-                    android:text="@={communityWriteUpdateViewModel.updateTitle}"
+                    android:text="@={viewModel.updateTitle}"
                     android:textColorHint="@color/gray_2"
+                    android:textColor="@color/mint"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +170,7 @@
                     android:scrollbarThumbVertical="@color/green_scroll_thumb"
                     android:scrollbarTrackVertical="@color/gray_0"
                     android:scrollbars="vertical"
-                    android:text="@={communityWriteUpdateViewModel.updateContent}"
+                    android:text="@={viewModel.updateContent}"
                     android:textColorHint="@color/gray_2"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
