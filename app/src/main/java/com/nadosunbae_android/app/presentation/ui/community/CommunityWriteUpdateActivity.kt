@@ -21,6 +21,7 @@ class CommunityWriteUpdateActivity :
         initUpdateView()
         initCategory()
         clickCancelButton()
+        setCompleteButton()
     }
 
 
@@ -53,6 +54,19 @@ class CommunityWriteUpdateActivity :
                 complete = {},
                 cancel = { finish() }
             )
+        }
+    }
+    //완료 버튼
+    private fun setCompleteButton(){
+        communityWriteUpdateViewModel.checkComplete.observe(this){
+            binding.btnCommunityWriteUpdateOk.isEnabled = it
+        }
+    }
+
+    //완료 버튼 클릭
+    private fun clickCompleteButton(){
+        binding.btnCommunityWriteUpdateOk.setOnClickListener {
+
         }
     }
 }
