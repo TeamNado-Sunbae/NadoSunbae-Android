@@ -10,6 +10,7 @@ import com.nadosunbae_android.data.repositoryimpl.major.MajorRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.mypage.MyPageRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.notification.NotificationRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.post.PostRepositoryImpl
+import com.nadosunbae_android.data.repositoryimpl.report.ReportRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.review.ReviewRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.sign.SignRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.user.UserRepositoryImpl
@@ -23,6 +24,7 @@ import com.nadosunbae_android.domain.repository.major.MajorRepository
 import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
 import com.nadosunbae_android.domain.repository.notification.NotificationRepository
 import com.nadosunbae_android.domain.repository.post.PostRepository
+import com.nadosunbae_android.domain.repository.report.ReportRepository
 import com.nadosunbae_android.domain.repository.review.ReviewRepository
 import com.nadosunbae_android.domain.repository.sign.SignRepository
 import com.nadosunbae_android.domain.repository.user.UserRepository
@@ -113,4 +115,10 @@ object RepositoryModule {
     fun provideAppRepository(
         repository: AppRepositoryImpl
     ): AppRepository = repository
+
+    @Reusable
+    @Provides
+    fun provideReportRepository(
+        repository : ReportRepositoryImpl
+    ) : ReportRepository = repository
 }

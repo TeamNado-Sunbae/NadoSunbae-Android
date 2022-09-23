@@ -20,6 +20,8 @@ import com.nadosunbae_android.data.datasource.remote.notification.NotificationDa
 import com.nadosunbae_android.data.datasource.remote.notification.NotificationDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.post.PostDataSource
 import com.nadosunbae_android.data.datasource.remote.post.PostDataSourceImpl
+import com.nadosunbae_android.data.datasource.remote.report.ReportDataSource
+import com.nadosunbae_android.data.datasource.remote.report.ReportDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSource
 import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.sign.SignDataSource
@@ -114,4 +116,10 @@ object DataSourceModule {
     fun provideAppDataSource(
         dataSource: AppDataSourceImpl
     ) : AppDataSource = dataSource
+
+    @Provides
+    @Reusable
+    fun provideReportDataSource(
+        dataSource : ReportDataSourceImpl
+    ) : ReportDataSource = dataSource
 }

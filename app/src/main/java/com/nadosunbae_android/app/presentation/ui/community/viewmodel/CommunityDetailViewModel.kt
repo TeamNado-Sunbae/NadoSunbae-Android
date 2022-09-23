@@ -178,27 +178,6 @@ class CommunityDetailViewModel @Inject constructor(
 
     }
 
-    //정보 상세 댓글 등록
-    fun postInfoCommentWrite(
-        questionCommentWriteItem: QuestionCommentWriteItem
-    ) {
-        viewModelScope.launch {
-            likeRepository.postLike(LikeParam(postId.value ?: "", "post"))
-                .onStart {
-                    onLoadingEnd.value = false
-                }
-                .catch {
-                    Timber.d("CommunityDetail : 상세 좋아요 서버 통신 실패")
-                }
-                .collectLatest {
-                    getPostDetail()
-                }
-                .also {
-                    onLoadingEnd.value = true
-                }
-        }
-
-    }
 
     //커뮤니티 상세 댓글 등록
     fun postCommentWrite() {
