@@ -12,7 +12,9 @@ import com.nadosunbae_android.app.databinding.ActivityCommunitySearchBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMainContentAdapter
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunitySearchViewModel
+import com.nadosunbae_android.app.util.CustomDecoration
 import com.nadosunbae_android.app.util.closeKeyboard
+import com.nadosunbae_android.app.util.dpToPxF
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -64,6 +66,8 @@ class CommunitySearchActivity :
     //검색 데이터 받기
     private fun getCommunityData() {
         communityMainContentAdapter = CommunityMainContentAdapter()
+        val decoration = CustomDecoration(1.dpToPxF, 16.dpToPxF, this.getColor(R.color.gray_0))
+        binding.rcCommunitySearch.addItemDecoration(decoration)
         binding.rcCommunitySearch.adapter = communityMainContentAdapter
         communitySearchViewModel.communitySearchData.flowWithLifecycle(
             lifecycle,
