@@ -116,7 +116,7 @@
 
                 <include
                     android:id="@+id/layout_community_write_update_category"
-                    layout="@layout/layout_category_check_box"
+                    layout="@layout/layout_category_update_check_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"

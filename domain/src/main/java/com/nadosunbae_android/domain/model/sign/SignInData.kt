@@ -2,7 +2,6 @@ package com.nadosunbae_android.domain.model.sign
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.io.Serializable
 
 data class SignInData(
     val status : Int,

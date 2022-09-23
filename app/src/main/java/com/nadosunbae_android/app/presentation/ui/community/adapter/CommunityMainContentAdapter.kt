@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemCommunityMainBinding
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.community.CommunityDetailActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.post.PostData
-import timber.log.Timber
 
 class CommunityMainContentAdapter :
     ListAdapter<PostData, CommunityMainContentAdapter.CommunityMainContentViewHolder>(
@@ -27,11 +29,24 @@ class CommunityMainContentAdapter :
 
     override fun onBindViewHolder(holder: CommunityMainContentViewHolder, position: Int) {
         holder.bind(getItem(position))
+        val context = holder.itemView.context
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, CommunityDetailActivity::class.java)
-            intent.putExtra("postId",getItem(holder.absoluteAdapterPosition).postId.toString())
-            Timber.d("postId send ${getItem(position)}")
-            holder.itemView.context.startActivity(intent)
+            CustomDialog(context).restrictDialog(
+                context,
+                ReviewGlobals.isReviewed,
+                MainGlobals.signInData?.isUserReported ?: false,
+                MainGlobals.signInData?.isReviewInappropriate ?: false,
+                MainGlobals.signInData?.message.toString(),
+                behavior = {
+                    val intent =
+                        Intent(holder.itemView.context, CommunityDetailActivity::class.java)
+                    intent.putExtra(
+                        "postId",
+                        getItem(holder.absoluteAdapterPosition).postId.toString()
+                    )
+                    holder.itemView.context.startActivity(intent)
+                }
+            )
         }
     }
 
