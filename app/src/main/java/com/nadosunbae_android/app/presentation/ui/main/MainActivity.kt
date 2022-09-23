@@ -49,8 +49,28 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         initClickProfile()
         trackActiveUser()
         floatIsReviewInappropriate()
+        floatAppUpdateDialog()
+
     }
 
+    //앱 업데이트 알럿 띄우기
+    private fun floatAppUpdateDialog(){
+        if(intent.getBooleanExtra("updateCondition", false)){
+            CustomDialog(this).genericDialog(
+                dialogText = CustomDialog.DialogData(
+                    getString(R.string.app_update),
+                    getString(R.string.update),
+                    getString(R.string.nex_update)
+                ),
+                complete = {
+                    val uri = Uri.parse(getString(R.string.google_app))
+                    startActivity(Intent(Intent.ACTION_VIEW, uri ))
+                },
+                cancel = {}
+            )
+        }
+
+    }
 
     //바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
     /* private fun clickBottomNav(){

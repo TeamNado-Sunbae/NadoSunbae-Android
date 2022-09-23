@@ -84,9 +84,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     //버전 업데이트
     private fun updateVersion() {
-        appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-        appUpdateManager.registerListener(installStateUpdatedListener)
 
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
 
@@ -111,6 +109,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     //버전 가져오기
     private fun setNewVersion() {
+        appUpdateManager = AppUpdateManagerFactory.create(this)
+        appUpdateManager.registerListener(installStateUpdatedListener)
         splashViewModel.appVersion.flowWithLifecycle(lifecycle)
             .onEach {
                 if (it.AOS.isNotEmpty()) {
@@ -229,6 +229,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
                     Intent(this, MainActivity::class.java).apply {
                         putExtra("signData", splashViewModel.signIn.value?.user)
                         putExtra("bottomNavItem", notification)
+                        putExtra("updateCondition", splashViewModel.updateAvailability.value)
                     }
                 } else {
                     Intent(this, SignInActivity::class.java)

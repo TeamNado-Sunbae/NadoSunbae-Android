@@ -507,4 +507,9 @@
     <string name="sign_univ_cau">중앙대학교</string>
     <string name="sign_univ_ready">타 대학은 현재 준비중입니다</string>
 
+    <!-- 앱 업데이트 -->
+    <string name="app_update">유저들의 의견을 반영하여\n사용성을 개선했어요.\n지금 바로 업데이트하세요!</string>
+    <string name="nex_update">다음에 하기</string>
+    <string name="update">업데이트</string>
+    <string name="google_app">https://play.google.com/store/apps/details?id=com.nadosunbae_android.app&amp;hl=ko</string>
 </resources>

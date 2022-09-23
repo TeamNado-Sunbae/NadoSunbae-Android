@@ -29,7 +29,7 @@ class SplashViewModel @Inject constructor(
         get() = _signIn
 
     //업데이트 확인
-    val updateAvailability = MutableLiveData<Boolean>(false)
+    val updateAvailability = MutableLiveData(false)
 
     //앱 버전 데이터
     private var _appVersion = MutableStateFlow(AppVersionData.DEFAULT)
