@@ -29,7 +29,6 @@ class CommunityWriteActivity :
         clickMajor()
         clickCancelButton()
         completeMajor()
-        checkCategory()
         activateCompleteButton()
         clickComplete()
         communityWriteViewModel.setCompleteButton()
@@ -81,7 +80,7 @@ class CommunityWriteActivity :
             .launchIn(lifecycleScope)
     }
 
-    //카테 고리
+    //카테 고리 entity 변형
     private fun checkCategory(): String {
         with(binding.layoutCommunityWriteCategory) {
             return when (radioGroupCategory.checkedRadioButtonId) {

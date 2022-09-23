@@ -17,12 +17,11 @@
             android:id="@+id/radio_btn_category_freedom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/selector_radio_btn"
+            android:button="@drawable/ic_radio_btn_gray"
             android:fontFamily="@font/pretendard_regular"
-            android:enabled="false"
             android:paddingStart="4dp"
             android:text="@string/category_free"
-            android:textColor="@drawable/selector_gray_3_to_main_black_checked"
+            android:textColor="@color/gray_3"
             android:textSize="14sp" />
 
         <RadioButton
@@ -30,12 +29,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:button="@drawable/selector_radio_btn"
+            android:button="@drawable/ic_radio_btn_gray"
             android:fontFamily="@font/pretendard_regular"
-            android:enabled="false"
             android:paddingStart="4dp"
             android:text="@string/classroom_question_title"
-            android:textColor="@drawable/selector_gray_3_to_main_black_checked"
+            android:textColor="@color/gray_3"
             android:textSize="14sp" />
 
         <RadioButton
@@ -43,12 +41,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:button="@drawable/selector_radio_btn"
+            android:button="@drawable/ic_radio_btn_gray"
             android:fontFamily="@font/pretendard_regular"
-            android:enabled="false"
             android:paddingStart="4dp"
             android:text="@string/category_info"
-            android:textColor="@drawable/selector_gray_3_to_main_black_checked"
+            android:textColor="@color/gray_3"
             android:textSize="14sp" />
 
     </RadioGroup>

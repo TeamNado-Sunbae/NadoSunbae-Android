@@ -14,6 +14,7 @@ import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.comment.CommentData
 import com.nadosunbae_android.domain.model.comment.CommentParam
 import com.nadosunbae_android.domain.model.comment.DeleteCommentData
+import com.nadosunbae_android.domain.model.community.CommunityWriteUpdateData
 import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.post.PostDeleteData
@@ -95,6 +96,14 @@ class CommunityDetailViewModel @Inject constructor(
 
     }
 
+    //수정시 필요한 데이터
+    private var _updateData = MutableStateFlow(CommunityWriteUpdateData.DEFAULT)
+    val updateData : StateFlow<CommunityWriteUpdateData>
+        get() = _updateData
+
+    fun setUpdateData(data : CommunityWriteUpdateData){
+        _updateData.value = data
+    }
 
     //댓글 삭제 데이터
     private var _deleteComment = MutableStateFlow(DeleteCommentData.DEFAULT)
@@ -151,7 +160,15 @@ class CommunityDetailViewModel @Inject constructor(
                     Timber.d("CommunityDetail : 정보 상세보기 서버 통신 실패")
                 }
                 .collectLatest {
-                    Timber.d("community $it")
+                    setUpdateData(
+                        data = CommunityWriteUpdateData(
+                            content = it.content,
+                            title = it.title,
+                            major = it.majorName,
+                            category = it.type,
+                            postId = it.postId.toString()
+                        )
+                    )
                     _communityDetailData.value = it
                     Timber.d("CommunityDetail 서버 통신 성공")
                 }
@@ -160,28 +177,6 @@ class CommunityDetailViewModel @Inject constructor(
 
    //커뮤니티 상세 좋아요
     fun postLike() {
-        viewModelScope.launch {
-            likeRepository.postLike(LikeParam(postId.value ?: "", "post"))
-                .onStart {
-                    onLoadingEnd.value = false
-                }
-                .catch {
-                    Timber.d("CommunityDetail : 상세 좋아요 서버 통신 실패")
-                }
-                .collectLatest {
-                    getPostDetail()
-                }
-                .also {
-                    onLoadingEnd.value = true
-                }
-        }
-
-    }
-
-    //정보 상세 댓글 등록
-    fun postInfoCommentWrite(
-        questionCommentWriteItem: QuestionCommentWriteItem
-    ) {
         viewModelScope.launch {
             likeRepository.postLike(LikeParam(postId.value ?: "", "post"))
                 .onStart {
