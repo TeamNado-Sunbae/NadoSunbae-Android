@@ -10,6 +10,7 @@ import com.nadosunbae_android.data.api.major.MajorService
 import com.nadosunbae_android.data.api.mypage.MyPageService
 import com.nadosunbae_android.data.api.notification.NotificationService
 import com.nadosunbae_android.data.api.post.PostService
+import com.nadosunbae_android.data.api.report.ReportService
 import com.nadosunbae_android.data.api.review.ReviewService
 import com.nadosunbae_android.data.api.sign.SignService
 import com.nadosunbae_android.data.api.user.UserService
@@ -97,7 +98,6 @@ object NetworkModule {
     @Provides
     fun commentService(retrofit: Retrofit): CommentService {
         return retrofit.create(CommentService::class.java)
-
     }
 
     @Singleton
@@ -106,4 +106,10 @@ object NetworkModule {
         return retrofit.create(AppService::class.java)
     }
 
+
+    @Singleton
+    @Provides
+    fun reportService(retrofit: Retrofit): ReportService {
+        return retrofit.create(ReportService::class.java)
+    }
 }

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.NadoSunbaeAndroid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".presentation.ui.community.CommunityWriteUpdateActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.sign.SignUpMainActivity"
             android:exported="false" />
         <activity
