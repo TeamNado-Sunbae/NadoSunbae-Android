@@ -613,8 +613,6 @@ class ModifyMyInfoActivity :
             )
         }
         dialog.setCallbackButtonClickListener {
-            Timber.e("{$myPageViewModel.changedImgId.value}")
-            Timber.e("적용되나 볼라구")
             applyModifyImg()
         }
     }
