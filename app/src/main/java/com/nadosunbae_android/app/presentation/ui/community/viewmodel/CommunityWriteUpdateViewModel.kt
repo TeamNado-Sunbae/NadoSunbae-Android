@@ -1,14 +1,16 @@
 package com.nadosunbae_android.app.presentation.ui.community.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.nadosunbae_android.domain.model.community.CommunityWriteUpdateData
+import com.nadosunbae_android.domain.model.post.PostUpdateParam
 import com.nadosunbae_android.domain.repository.post.PostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,9 +41,31 @@ class CommunityWriteUpdateViewModel @Inject constructor(
         }
     }
 
+    //수정 성공 데이터
+    private var _updateSuccess = MutableStateFlow(false)
+    val updateSuccess: StateFlow<Boolean>
+        get() = _updateSuccess
+
 
     private fun setCheckComplete(): Boolean {
         return updateTitle.value != initUpdateData.value.title || updateContent.value != initUpdateData.value.content
     }
 
+    fun putPostUpdate() {
+        viewModelScope.launch {
+            postRepository.putPostUpdate(
+                initUpdateData.value.postId,
+                PostUpdateParam(
+                    updateTitle.value ?: "",
+                    content = updateContent.value
+                )
+            )
+                .catch {
+                    Timber.d("수정 실패")
+                }
+                .collectLatest {
+                    _updateSuccess.value = it.success
+                }
+        }
+    }
 }

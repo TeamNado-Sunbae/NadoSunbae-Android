@@ -22,4 +22,7 @@ interface PostRepository {
 
     //게시글 상세 조회
     fun getPostDetail(postId: String): Flow<PostDetailData>
+
+    //게시글 수정
+    fun putPostUpdate(postId : String, postUpdateParam: PostUpdateParam) : Flow<PostUpdateData>
 }

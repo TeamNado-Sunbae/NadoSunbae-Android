@@ -2,6 +2,8 @@ package com.nadosunbae_android.app.presentation.ui.community
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityCommunityWriteUpdateBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -9,6 +11,8 @@ import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityW
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.community.CommunityWriteUpdateData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -22,6 +26,8 @@ class CommunityWriteUpdateActivity :
         initCategory()
         clickCancelButton()
         setCompleteButton()
+        clickCompleteButton()
+        completeUpdate()
     }
 
 
@@ -66,7 +72,25 @@ class CommunityWriteUpdateActivity :
     //완료 버튼 클릭
     private fun clickCompleteButton(){
         binding.btnCommunityWriteUpdateOk.setOnClickListener {
-
+            CustomDialog(this).genericDialog(
+                dialogText = CustomDialog.DialogData(
+                    getString(R.string.question_write_complete),
+                    getString(R.string.alert_write_review_complete),
+                    getString(R.string.question_write_complete_no)
+                ),
+                complete = {
+                    communityWriteUpdateViewModel.putPostUpdate()
+                },
+                cancel = {}
+            )
         }
+    }
+
+    //완료시 닫기
+    private fun completeUpdate(){
+        communityWriteUpdateViewModel.updateSuccess.flowWithLifecycle(lifecycle)
+            .onEach {
+                if(it) finish()
+            }.launchIn(lifecycleScope)
     }
 }
