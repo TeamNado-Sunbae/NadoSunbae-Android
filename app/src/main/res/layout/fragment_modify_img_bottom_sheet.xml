@@ -99,12 +99,56 @@
             app:layout_constraintTop_toTopOf="@+id/img_bottomsheet_4" />
 
         <ImageView
+            android:id="@+id/iv_checked_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/group_878"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/img_bottomsheet_1"
             app:layout_constraintStart_toStartOf="@+id/img_bottomsheet_1"
             app:layout_constraintTop_toTopOf="@+id/img_bottomsheet_1" />
+
+        <ImageView
+            android:id="@+id/iv_checked_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/group_878"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/img_bottomsheet_2"
+            app:layout_constraintStart_toStartOf="@+id/img_bottomsheet_2"
+            app:layout_constraintTop_toTopOf="@+id/img_bottomsheet_2" />
+
+
+
+        <ImageView
+            android:id="@+id/iv_checked_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/group_878"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/img_bottomsheet_3"
+            app:layout_constraintStart_toStartOf="@+id/img_bottomsheet_3"
+            app:layout_constraintTop_toTopOf="@+id/img_bottomsheet_3" />
+
+        <ImageView
+            android:id="@+id/iv_checked_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/group_878"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/img_bottomsheet_4"
+            app:layout_constraintStart_toStartOf="@+id/img_bottomsheet_4"
+            app:layout_constraintTop_toTopOf="@+id/img_bottomsheet_4" />
+
+        <ImageView
+            android:id="@+id/iv_checked_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/group_878"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/img_bottomsheet_5"
+            app:layout_constraintStart_toStartOf="@+id/img_bottomsheet_5"
+            app:layout_constraintTop_toTopOf="@+id/img_bottomsheet_5" />
 
         <android.widget.Button
             android:id="@+id/btn_filter_apply"

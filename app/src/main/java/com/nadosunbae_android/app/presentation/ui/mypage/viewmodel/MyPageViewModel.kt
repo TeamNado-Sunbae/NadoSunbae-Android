@@ -42,6 +42,8 @@ class MyPageViewModel @Inject constructor(
 
     override val onLoadingEnd = MutableLiveData<Boolean>(false)
 
+    //이미지 수정 int
+    var selectImgId = MutableLiveData<Int>()
 
     //로그인 status 체크
     var myPagePostStatus = MutableLiveData<Int>()

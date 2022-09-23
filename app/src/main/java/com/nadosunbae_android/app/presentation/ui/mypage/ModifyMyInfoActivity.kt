@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityModifyMyInfoBinding
@@ -27,6 +28,7 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_modify_img_bottom_sheet.*
 import timber.log.Timber
 import java.util.regex.Pattern
 
@@ -603,8 +605,10 @@ class ModifyMyInfoActivity :
     private fun modifyImgListener() {
         binding.textMyPageModifyImg.setOnClickListener {
             val dialog = ModifyImgBottomSheetFragment()
-            dialog.showsDialog
+            dialog.show(
+                supportFragmentManager,
+                dialog.tag
+            )
         }
     }
-
 }
