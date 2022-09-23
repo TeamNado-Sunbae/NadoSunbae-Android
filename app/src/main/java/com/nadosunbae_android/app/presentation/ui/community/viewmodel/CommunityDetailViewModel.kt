@@ -9,8 +9,6 @@ import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
-import com.nadosunbae_android.domain.model.classroom.ReportData
-import com.nadosunbae_android.domain.model.classroom.ReportItem
 import com.nadosunbae_android.domain.model.comment.CommentData
 import com.nadosunbae_android.domain.model.comment.CommentParam
 import com.nadosunbae_android.domain.model.comment.DeleteCommentData
@@ -19,10 +17,11 @@ import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.post.PostDeleteData
 import com.nadosunbae_android.domain.model.post.PostDetailData
+import com.nadosunbae_android.domain.model.report.ReportParam
 import com.nadosunbae_android.domain.repository.comment.CommentRepository
 import com.nadosunbae_android.domain.repository.like.LikeRepository
 import com.nadosunbae_android.domain.repository.post.PostRepository
-import com.nadosunbae_android.domain.usecase.classroom.PostReportUseCase
+import com.nadosunbae_android.domain.repository.report.ReportRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -35,7 +34,7 @@ class CommunityDetailViewModel @Inject constructor(
     private val postRepository: PostRepository,
     private val commentRepository: CommentRepository,
     private val likeRepository: LikeRepository,
-    val postReportUseCase: PostReportUseCase,
+    private val reportRepository: ReportRepository
 ) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
 
     override val onLoadingEnd = MutableLiveData<Boolean>()
@@ -70,17 +69,17 @@ class CommunityDetailViewModel @Inject constructor(
     var commentId = MutableLiveData<Int>()
 
     //정보 댓글 및 원글 분류
-    var divisionPost = MutableLiveData<Int>()
+    var divisionPost = MutableLiveData<Boolean>()
 
     //댓글 position
     var position = MutableLiveData<Int>()
 
     //원글 삭제 데이터
     private var _deletePostData = MutableStateFlow(PostDeleteData.DEFAULT)
-    val deletePostData : StateFlow<PostDeleteData>
+    val deletePostData: StateFlow<PostDeleteData>
         get() = _deletePostData
 
-    fun deletePost(){
+    fun deletePost() {
         viewModelScope.launch {
             postRepository.deletePost(postId.value ?: "")
                 .catch {
@@ -136,17 +135,13 @@ class CommunityDetailViewModel @Inject constructor(
     }
 
 
-
     //신고 데이터
-    private var _reportData = MutableLiveData<ReportData?>()
-    val reportData: LiveData<ReportData?>
-        get() = _reportData
+    private var _reportStatus = MutableLiveData<Int>()
+    val reportStatus: LiveData<Int>
+        get() = _reportStatus
 
     //신고 사유
     var reportReasonInfo = MutableLiveData<String>()
-
-    //신고 토스트위한
-    var reportStatusInfo = MutableLiveData<Int>()
 
 
     //커뮤니티 상세 서버통신
@@ -175,7 +170,7 @@ class CommunityDetailViewModel @Inject constructor(
         }
     }
 
-   //커뮤니티 상세 좋아요
+    //커뮤니티 상세 좋아요
     fun postLike() {
         viewModelScope.launch {
             likeRepository.postLike(LikeParam(postId.value ?: "", "post"))
@@ -238,28 +233,38 @@ class CommunityDetailViewModel @Inject constructor(
     //원글 삭제 서버통신
 
     //신고하기 서버통신
-    fun postReport(reportItem: ReportItem) {
+    fun postReport() {
         viewModelScope.launch {
-            when (val reportData =
-                safeApiCall(Dispatchers.IO) { postReportUseCase(reportItem) }) {
+            val targetId =
+                if (divisionPost.value == true) postId.value?.toInt() else commentId.value?.toInt()
+            val type = if (divisionPost.value == true) "post" else "comment"
+
+            when (val reportData = safeApiCall(Dispatchers.IO) {
+                reportRepository.postReport(
+                    ReportParam(
+                        targetId = targetId ?: 0,
+                        type = type,
+                        reason = reportReasonInfo.value ?: ""
+                    )
+                )
+            }) {
                 is ResultWrapper.Success -> {
-                    _reportData.value = reportData.data
-                    reportStatusInfo.value = 200
+                    _reportStatus.value = 201
                     Timber.d("postReport : 신고 성공!")
 
                 }
                 is ResultWrapper.NetworkError -> {
                     Timber.d("postReport : 네트워크 실패")
-
                 }
                 is ResultWrapper.GenericError -> {
                     Timber.d("postReport : 사용자 에러")
-                    reportStatusInfo.value = reportData.code ?: 0
+                    _reportStatus.value = reportData.code ?: 0
                 }
             }
+
+
         }
     }
-
-
 }
+
 
