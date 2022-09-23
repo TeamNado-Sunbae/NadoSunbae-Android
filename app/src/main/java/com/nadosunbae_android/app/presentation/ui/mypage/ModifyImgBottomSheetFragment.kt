@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R
@@ -18,7 +19,7 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var _binding: FragmentModifyImgBottomSheetBinding
     val binding get() = _binding!!
 
-    private val myPageViewModel: MyPageViewModel by viewModels()
+    private val myPageViewModel: MyPageViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +37,7 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.e("TEST ; ${myPageViewModel.selectImgId}")
         with(binding) {
             makeRadioButton2(
                 imgBottomsheet1,
@@ -45,6 +47,7 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
                 imgBottomsheet5
             )
         }
+        initSetting()
         cancelListener()
     }
 
@@ -108,5 +111,44 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
 
         }
 
-
+    //처음에 이미지 선택되어 나오게
+    private fun initSetting() = with(binding) {
+        when(myPageViewModel.selectImgId.value) {
+            1 -> {
+                ivChecked1.visibility = View.VISIBLE
+                ivChecked2.visibility = View.INVISIBLE
+                ivChecked3.visibility = View.INVISIBLE
+                ivChecked4.visibility = View.INVISIBLE
+                ivChecked5.visibility = View.INVISIBLE
+            }
+            2-> {
+                ivChecked1.visibility = View.INVISIBLE
+                ivChecked2.visibility = View.VISIBLE
+                ivChecked3.visibility = View.INVISIBLE
+                ivChecked4.visibility = View.INVISIBLE
+                ivChecked5.visibility = View.INVISIBLE
+            }
+            3-> {
+                ivChecked1.visibility = View.INVISIBLE
+                ivChecked2.visibility = View.INVISIBLE
+                ivChecked3.visibility = View.VISIBLE
+                ivChecked4.visibility = View.INVISIBLE
+                ivChecked5.visibility = View.INVISIBLE
+            }
+            4-> {
+                ivChecked1.visibility = View.INVISIBLE
+                ivChecked2.visibility = View.INVISIBLE
+                ivChecked3.visibility = View.INVISIBLE
+                ivChecked4.visibility = View.VISIBLE
+                ivChecked5.visibility = View.INVISIBLE
+            }
+            5 -> {
+                ivChecked1.visibility = View.INVISIBLE
+                ivChecked2.visibility = View.INVISIBLE
+                ivChecked3.visibility = View.INVISIBLE
+                ivChecked4.visibility = View.INVISIBLE
+                ivChecked5.visibility = View.VISIBLE
+            }
+        }
+    }
 }
