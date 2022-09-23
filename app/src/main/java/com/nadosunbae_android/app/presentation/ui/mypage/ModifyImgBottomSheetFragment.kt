@@ -19,6 +19,7 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var _binding: FragmentModifyImgBottomSheetBinding
     val binding get() = _binding!!
 
+    private var selectImgId = 0
     private val myPageViewModel: MyPageViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -37,7 +38,7 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.e("TEST ; ${myPageViewModel.selectImgId}")
+        Timber.e("TEST ; ${myPageViewModel.selectImgId.value}")
         with(binding) {
             makeRadioButton2(
                 imgBottomsheet1,
@@ -46,6 +47,7 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
                 imgBottomsheet4,
                 imgBottomsheet5
             )
+            btnFilterApply.isEnabled = false
         }
         initSetting()
         cancelListener()
@@ -60,56 +62,59 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
     private fun makeRadioButton2(view1: View, view2: View, view3: View, view4: View, view5: View) =
         with(binding) {
             view1.setOnClickListener {
-                myPageViewModel.selectImgId.value = 1
-
+                selectImgId = 1
                 ivChecked1.visibility = View.VISIBLE
                 ivChecked2.visibility = View.INVISIBLE
                 ivChecked3.visibility = View.INVISIBLE
                 ivChecked4.visibility = View.INVISIBLE
                 ivChecked5.visibility = View.INVISIBLE
-
-                Timber.e("클릭 ?")
+                sameImg()
             }
             view2.setOnClickListener {
-                myPageViewModel.selectImgId.value = 2
-
+                selectImgId = 2
                 ivChecked1.visibility = View.INVISIBLE
                 ivChecked2.visibility = View.VISIBLE
                 ivChecked3.visibility = View.INVISIBLE
                 ivChecked4.visibility = View.INVISIBLE
                 ivChecked5.visibility = View.INVISIBLE
-
+                sameImg()
             }
             view3.setOnClickListener {
-                myPageViewModel.selectImgId.value = 3
-
+                selectImgId = 3
                 ivChecked1.visibility = View.INVISIBLE
                 ivChecked2.visibility = View.INVISIBLE
                 ivChecked3.visibility = View.VISIBLE
                 ivChecked4.visibility = View.INVISIBLE
                 ivChecked5.visibility = View.INVISIBLE
-
+                sameImg()
             }
             view4.setOnClickListener {
-                myPageViewModel.selectImgId.value = 4
+                selectImgId = 4
                 ivChecked1.visibility = View.INVISIBLE
                 ivChecked2.visibility = View.INVISIBLE
                 ivChecked3.visibility = View.INVISIBLE
                 ivChecked4.visibility = View.VISIBLE
                 ivChecked5.visibility = View.INVISIBLE
-
+                sameImg()
             }
             view5.setOnClickListener {
-                myPageViewModel.selectImgId.value = 5
+                selectImgId = 5
                 ivChecked1.visibility = View.INVISIBLE
                 ivChecked2.visibility = View.INVISIBLE
                 ivChecked3.visibility = View.INVISIBLE
                 ivChecked4.visibility = View.INVISIBLE
                 ivChecked5.visibility = View.VISIBLE
-
+                sameImg()
             }
 
+
+
         }
+
+    //처음과 같은 이미지 선택 시 버튼 비활성화
+    private fun sameImg() {
+        binding.btnFilterApply.isEnabled = myPageViewModel.selectImgId.value != selectImgId
+    }
 
     //처음에 이미지 선택되어 나오게
     private fun initSetting() = with(binding) {
@@ -151,4 +156,6 @@ class ModifyImgBottomSheetFragment : BottomSheetDialogFragment() {
             }
         }
     }
+
+
 }
