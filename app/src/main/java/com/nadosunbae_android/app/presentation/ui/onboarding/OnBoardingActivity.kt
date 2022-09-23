@@ -9,7 +9,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityOnboardingBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
-import com.nadosunbae_android.app.presentation.ui.sign.SignUpAgreementActivity
+import com.nadosunbae_android.app.presentation.ui.sign.SignUpMainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,7 +41,7 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding>(R.layout.acti
 
     private fun initPageMove() {
         binding.textSignup.setOnClickListener {
-            val intentSignUp = Intent(this, SignUpAgreementActivity::class.java)
+            val intentSignUp = Intent(this, SignUpMainActivity::class.java)
             startActivity(intentSignUp)
             finish()
         }

@@ -10,6 +10,7 @@ import com.nadosunbae_android.app.databinding.ItemCommunityMainBinding
 import com.nadosunbae_android.app.presentation.ui.community.CommunityDetailActivity
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.post.PostData
+import timber.log.Timber
 
 class CommunityMainContentAdapter :
     ListAdapter<PostData, CommunityMainContentAdapter.CommunityMainContentViewHolder>(
@@ -28,7 +29,8 @@ class CommunityMainContentAdapter :
         holder.bind(getItem(position))
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, CommunityDetailActivity::class.java)
-            intent.putExtra("postId",getItem(position).postId.toString())
+            intent.putExtra("postId",getItem(holder.absoluteAdapterPosition).postId.toString())
+            Timber.d("postId send ${getItem(position)}")
             holder.itemView.context.startActivity(intent)
         }
     }

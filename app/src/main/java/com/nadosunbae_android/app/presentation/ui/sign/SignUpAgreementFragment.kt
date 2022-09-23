@@ -1,26 +1,29 @@
 package com.nadosunbae_android.app.presentation.ui.sign
 
-
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.databinding.ActivitySignUpAgreementBinding
-import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.databinding.FragmentSignUpAgreement2Binding
+import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.SignInCustomDialog
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
-class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.layout.activity_sign_up_agreement) {
+class SignUpAgreementFragment : BaseFragment<FragmentSignUpAgreement2Binding>(R.layout.fragment_sign_up_agreement2) {
 
+    private val signUpBasicInfoViewModel : SignUpBasicInfoViewModel by activityViewModels()
     private val mainViewModel: MainViewModel by viewModels()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         closePage()
         onCheckChanged()
         goPage()
@@ -30,13 +33,13 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
     //X버튼 클릭 리스너
     private fun closePage() {
         binding.imgAgreementDelete.setOnClickListener {
-            val dialog = SignInCustomDialog(this)
+            val dialog = SignInCustomDialog(requireActivity())
             dialog.showDialog()
 
             dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener{
                 override fun onClicked(num: () -> Unit) {
-                    startActivity(Intent(this@SignUpAgreementActivity, SignInActivity::class.java))
-                    finish()
+                    startActivity(Intent(requireActivity(), SignInActivity::class.java))
+                    //finish()
                 }
             })
         }
@@ -102,16 +105,14 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
     //회원가입 중 다음 페이지로 이동
     private fun pressNextBtnEvent() {
         binding.clAgreementMoveNext.setOnClickListener {
-            val intent = Intent(this, SignUpMajorInfoActivity::class.java)
-
-            startActivity(intent)
-            finish()
+            signUpBasicInfoViewModel.isAgreementChecked.value = true
+            Timber.e("${signUpBasicInfoViewModel.isAgreementChecked.value}")
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
     }
 
     private fun initCheckedBox() {
-        val checkItem = intent.getStringExtra("agreement") ?: ""
-        if(checkItem != "") {
+        if(signUpBasicInfoViewModel.isAgreementChecked.value == true) {
             binding.imageAgreementCheckAll.isSelected = true
             binding.imageAgreementCheckInformation.isSelected = true
             binding.imageAgreementCheckService.isSelected = true
@@ -123,7 +124,7 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
 
     //페이지 이동 intent 함수
     private fun initIntent(url: String) {
-        val intent = Intent(this, WebViewActivity::class.java)
+        val intent = Intent(requireActivity(), WebViewActivity::class.java)
         intent.putExtra("url", url)
         startActivity(intent)
     }
@@ -132,7 +133,7 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
     //외부 링크로 연결
     private fun goPage() {
         mainViewModel.getAppLink()
-        mainViewModel.appLink.observe(this) {
+        mainViewModel.appLink.observe(viewLifecycleOwner) {
             val privacyPolicy = it.data.personalInformationPolicy
             val termsOfService = it.data.termsOfService
 
@@ -147,5 +148,4 @@ class SignUpAgreementActivity : BaseActivity<ActivitySignUpAgreementBinding>(R.l
             }
         }
     }
-
 }

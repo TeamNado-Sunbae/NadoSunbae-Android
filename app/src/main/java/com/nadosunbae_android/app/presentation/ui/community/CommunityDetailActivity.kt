@@ -3,9 +3,9 @@ package com.nadosunbae_android.app.presentation.ui.community
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +18,7 @@ import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityD
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.closeKeyboard
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.ReportItem
@@ -39,7 +40,6 @@ class CommunityDetailActivity :
         onInfo()
         initInfoDetail()
         clickBackBtn()
-        initInfoCommentMenu()
         infoCommentMenu()
         infoCommentMenuClick()
         reportToast()
@@ -47,8 +47,10 @@ class CommunityDetailActivity :
         observeLoadingEnd()
         clickInfoPostMenu()
         floatBadUserDialog()
-        changeRegisterBtn()
+        clickCommentRegisterButton()
         clickDetailLike()
+        setCommentObserve()
+        completeDeletePost()
     }
 
     //로딩 종료
@@ -77,12 +79,6 @@ class CommunityDetailActivity :
         }
     }
 
-    //답글 작성 중 종이비행기 색상 변경
-    private fun changeRegisterBtn() {
-        binding.etInformationComment.addTextChangedListener {
-            binding.imgInformationCommentComplete.isSelected = !it.isNullOrEmpty()
-        }
-    }
 
     //안꺼지게 조절
     private fun onInfo() {
@@ -123,108 +119,90 @@ class CommunityDetailActivity :
         }
     }
 
+    //댓글 등록 부분 변경
+    private fun clickCommentRegisterButton() {
+        binding.communityDetailViewModel = communityViewModel
+
+        //등록 부분 색 변경
+        communityViewModel.commentContent.observe(this) {
+            binding.imgInformationCommentComplete.isSelected = it.isNotEmpty()
+        }
+
+        binding.imgInformationCommentComplete.setOnClickListener {
+            communityViewModel.postCommentWrite()
+        }
+    }
+
+    //댓글 등록 완료시에
+    private fun setCommentObserve() {
+        communityViewModel.commentData.flowWithLifecycle(lifecycle)
+            .onEach {
+                with(binding.etInformationComment) {
+                    text.clear()
+                    clearFocus()
+                }
+                this.closeKeyboard(binding.etInformationComment)
+
+            }.launchIn(lifecycleScope)
+
+    }
+
+    //메뉴 펼치기
+    private fun showDropDownMenu(v : View) {
+        showCustomDropDown(
+            communityViewModel,
+            v,
+            160f.dpToPx,
+            null,
+            -1 * 16f.dpToPx,
+            null,
+            false,
+            communityViewModel.dropDownSelected.value!!.id,
+            communityViewModel.dropDownMenu.value as MutableList<SelectableData>
+        )
+    }
+
     //원글 점 세개 메뉴 클릭
     private fun clickInfoPostMenu() {
         binding.imgCommunityDetailMenu.setOnClickListener {
-            initInfoPostMenu(
-                communityViewModel.userId.value ?: 0,
-                communityViewModel.writerId.value ?: 0
-            )
+            initInfoPostMenu()
         }
     }
 
     //원글 점 세개 메뉴
-    private fun initInfoPostMenu(userId: Int, writerId: Int) {
+    private fun initInfoPostMenu() {
         val v = binding.imgCommunityDetailMenu
-        communityViewModel.divisionPost.value = post
         binding.imgCommunityDetailMenu.setOnClickListener {
-            if (userId == writerId) {
-                val dropDown = mutableListOf<SelectableData>(
-                    SelectableData(1, resources.getString(R.string.question_detail_update), false),
-                    SelectableData(2, resources.getString(R.string.question_detail_delete), false),
-                )
-                showCustomDropDown(
-                    communityViewModel,
-                    v,
-                    160f.dpToPx,
-                    null,
-                    -1 * 16f.dpToPx,
-                    null,
-                    false,
-                    communityViewModel.dropDownSelected.value!!.id,
-                    dropDown
-                )
-            } else {
-                val dropDown = mutableListOf<SelectableData>(
-                    SelectableData(2, resources.getString(R.string.question_detail_report), false)
-                )
-                showCustomDropDown(
-                    communityViewModel,
-                    v,
-                    160f.dpToPx,
-                    null,
-                    -1 * 16f.dpToPx,
-                    null,
-                    false,
-                    communityViewModel.dropDownSelected.value!!.id,
-                    dropDown
-                )
-            }
+            communityViewModel.setDropDownMenu(0)
+            showDropDownMenu(v)
         }
     }
-
-    //점 세개 메뉴 다이얼로그 초기화
-    private fun initInfoCommentMenu() {
-        communityViewModel.dropDownSelected.value = SelectableData(3, "테스트", false)
+    //원글 수정 이동
+    private fun goUpdate() {
+        val intent = Intent(this, CommunityWriteActivity::class.java)
+        intent.apply {
+            putExtra("writerUpdateTitle", binding.textCommunityDetailQuestionTitle.text)
+            putExtra("writerUpdateContent", binding.textCommunityDetailQuestionContent.text)
+            putExtra("division", 1)
+            putExtra("postId", communityViewModel.postId.value)
+        }
+        startActivity(intent)
     }
+
 
     //답글 점 세개 메뉴 클릭시 나오는 다이얼로그
     private fun infoCommentMenu() {
         communityPostDetailAdapter.setItemClickListener { v, position, user, commentId ->
-            communityViewModel.commentId.value = commentId
-            communityViewModel.position.value = position
-            communityViewModel.divisionPost.value = comment
-            if (user == 1) {
-                val dropDown = mutableListOf<SelectableData>(
-                    SelectableData(
-                        1,
-                        resources.getString(R.string.question_detail_delete),
-                        false
-                    )
-                )
-                showCustomDropDown(
-                    communityViewModel,
-                    v,
-                    160f.dpToPx,
-                    null,
-                    -1 * 16f.dpToPx,
-                    null,
-                    false,
-                    communityViewModel.dropDownSelected.value!!.id,
-                    dropDown
-                )
-            } else {
-                val dropDown = mutableListOf<SelectableData>(
-                    SelectableData(
-                        2,
-                        resources.getString(R.string.question_detail_report),
-                        false
-                    )
-                )
-                showCustomDropDown(
-                    communityViewModel,
-                    v,
-                    160f.dpToPx,
-                    null,
-                    -1 * 16f.dpToPx,
-                    null,
-                    false,
-                    communityViewModel.dropDownSelected.value!!.id,
-                    dropDown
-                )
+            with(communityViewModel){
+                setDropDownMenu(user)
+                this.commentId.value = commentId
+                this.position.value = position
+                divisionPost.value = comment
             }
+            showDropDownMenu(v)
         }
     }
+
 
     //답글 메뉴 신고, 삭제 클릭시 이벤트
     private fun infoCommentMenuClick() {
@@ -232,7 +210,6 @@ class CommunityDetailActivity :
             val divisionPost = communityViewModel.divisionPost.value ?: 0
             val position = communityViewModel.position.value ?: 0
             val commentId = communityViewModel.commentId.value ?: 0
-            val postId = communityViewModel.postId.value ?: ""
             when (it.name) {
                 resources.getString(R.string.question_detail_delete) ->
                     deleteDialog(
@@ -245,8 +222,12 @@ class CommunityDetailActivity :
                                 )
                             }
                         },
-                        deleteComment = { communityViewModel.deleteComment(commentId) },
-                        deleteWrite = { communityViewModel.deletePost(0) },
+                        deleteComment = {
+                                        communityViewModel.deleteComment(commentId.toString())
+                        },
+                        deleteWrite = {
+                                      communityViewModel.deletePost()
+                        },
                     )
                 resources.getString(R.string.question_detail_report) -> floatReportReasonDialog()
                 resources.getString(R.string.question_detail_update) -> goUpdate()
@@ -254,21 +235,10 @@ class CommunityDetailActivity :
         }
     }
 
-    //원글 수정 이동
-    private fun goUpdate() {
-        val intent = Intent(this, QuestionWriteActivity::class.java)
-        intent.apply {
-            putExtra("writerUpdateTitle", binding.textCommunityDetailQuestionTitle.text)
-            putExtra("writerUpdateContent", binding.textCommunityDetailQuestionContent.text)
-            putExtra("division", 1)
-            putExtra("postId", communityViewModel.postId.value)
-            putExtra("title", "정보글 작성")
-        }
-        startActivity(intent)
-    }
 
 
-    //정보 답글 삭제
+
+    // 게시글 or 답글 삭제
     private fun deleteDialog(
         divisionPost: Int,
         setCheckMenu: () -> Unit,
@@ -293,6 +263,14 @@ class CommunityDetailActivity :
             cancel = {}
         )
     }
+    //원글 삭제시 상세 화면 종료
+    private fun completeDeletePost(){
+        communityViewModel.deletePostData.flowWithLifecycle(lifecycle)
+            .onEach {
+                if(it.isDeleted) finish()
+            }
+            .launchIn(lifecycleScope)
+    }
 
     //신고 사유 다이얼로그 띄우기
     private fun floatReportReasonDialog() {
@@ -307,8 +285,6 @@ class CommunityDetailActivity :
                 }
             }
         )
-
-
     }
 
 
@@ -316,7 +292,6 @@ class CommunityDetailActivity :
     private fun reportDialog(divisionPost: Int) {
         val commentId = communityViewModel.commentId.value ?: 0
         val reportReason = communityViewModel.reportReasonInfo.value ?: ""
-        val postId = communityViewModel.postId.value ?: 0
         CustomDialog(this).genericDialog(
             CustomDialog.DialogData(
                 resources.getString(R.string.request_report),
@@ -370,8 +345,8 @@ class CommunityDetailActivity :
     private fun clickNickname() {
 
         binding.textCommunityDetailQuestionName.setOnClickListener {
-            val writerId = communityViewModel.writerId.value ?: 0
-            val userId = communityViewModel.userId.value ?: 0
+            val writerId = communityViewModel.communityDetailData.value.writerId
+            val userId = MainGlobals.signInData?.userId ?: 0
             Timber.d("userId : $userId, writerId : $writerId")
             var fragmentNum = -1
             var bottomNavItem = -1

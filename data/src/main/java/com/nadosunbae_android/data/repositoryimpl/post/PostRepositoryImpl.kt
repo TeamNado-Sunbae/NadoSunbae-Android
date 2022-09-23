@@ -3,10 +3,7 @@ package com.nadosunbae_android.data.repositoryimpl.post
 import com.nadosunbae_android.data.datasource.remote.post.PostDataSource
 import com.nadosunbae_android.data.model.request.post.toEntity
 import com.nadosunbae_android.data.model.response.post.toEntity
-import com.nadosunbae_android.domain.model.post.PostData
-import com.nadosunbae_android.domain.model.post.PostDetailData
-import com.nadosunbae_android.domain.model.post.PostWriteData
-import com.nadosunbae_android.domain.model.post.PostWriteParam
+import com.nadosunbae_android.domain.model.post.*
 import com.nadosunbae_android.domain.repository.post.PostRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -30,6 +27,9 @@ class PostRepositoryImpl @Inject constructor(
             .map { it.toEntity() })
     }.flowOn(Dispatchers.IO)
 
+    override fun deletePost(postId: String): Flow<PostDeleteData> = flow {
+        emit(dataSource.deletePost(postId).data.toEntity())
+    }.flowOn(Dispatchers.IO)
 
     //게시글 상세 조회
     override fun getPostDetail(postId: String): Flow<PostDetailData> {

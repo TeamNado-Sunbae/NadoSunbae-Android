@@ -4,6 +4,8 @@ import com.nadosunbae_android.data.datasource.remote.app.AppDataSource
 import com.nadosunbae_android.data.datasource.remote.app.AppDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSource
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSourceImpl
+import com.nadosunbae_android.data.datasource.remote.comment.CommentDataSource
+import com.nadosunbae_android.data.datasource.remote.comment.CommentDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.home.HomeDataSource
 import com.nadosunbae_android.data.datasource.remote.home.HomeDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.like.LikeDataSource
@@ -100,6 +102,12 @@ object DataSourceModule {
     fun provideUserDataSource(
         dataSource : UserDataSourceImpl
     ) : UserDataSource = dataSource
+
+    @Provides
+    @Reusable
+    fun provideCommentDataSource(
+        dataSource : CommentDataSourceImpl
+    ) : CommentDataSource = dataSource
 
     @Provides
     @Reusable

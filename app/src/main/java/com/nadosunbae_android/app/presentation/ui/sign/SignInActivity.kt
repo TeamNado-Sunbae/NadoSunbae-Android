@@ -123,7 +123,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     //회원가입 페이지로 이동
     private fun moveSignUp() {
         binding.textSignInSignup.setOnClickListener {
-            startActivity(Intent(this, SignUpAgreementActivity::class.java))
+            startActivity(Intent(this, SignUpMainActivity::class.java))
         }
     }
 

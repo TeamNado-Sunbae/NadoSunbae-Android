@@ -2,15 +2,14 @@ package com.nadosunbae_android.app.presentation.ui.sign
 
 import android.os.Bundle
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.databinding.ActivitySignInBinding
+import com.nadosunbae_android.app.databinding.ActivitySignUpMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CheckPwMailActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_check_pw_mail) {
+class SignUpMainActivity : BaseActivity<ActivitySignUpMainBinding>(R.layout.activity_sign_up_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
-
 }

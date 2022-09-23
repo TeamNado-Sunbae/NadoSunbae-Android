@@ -4,6 +4,7 @@ import com.nadosunbae_android.data.api.post.PostService
 import com.nadosunbae_android.data.model.request.post.RequestPostWriteData
 import com.nadosunbae_android.data.model.response.Response
 import com.nadosunbae_android.data.model.response.post.ResponsePostData
+import com.nadosunbae_android.data.model.response.post.ResponsePostDeleteData
 import com.nadosunbae_android.data.model.response.post.ResponsePostDetailData
 import com.nadosunbae_android.data.model.response.post.ResponsePostWriteData
 import com.nadosunbae_android.domain.model.post.PostWriteData
@@ -15,6 +16,10 @@ class PostDataSourceImpl @Inject constructor(private val service: PostService) :
 
     override suspend fun postWrite(requestPostWriteData: RequestPostWriteData): Response<ResponsePostWriteData> {
         return service.postWrite(requestPostWriteData)
+    }
+
+    override suspend fun deletePost(postId: String): Response<ResponsePostDeleteData> {
+        return service.deletePost(postId)
     }
 
     override suspend fun getPost(

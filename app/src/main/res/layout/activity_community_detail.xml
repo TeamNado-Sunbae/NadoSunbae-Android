@@ -9,7 +9,9 @@
         <variable
             name="postDetail"
             type="com.nadosunbae_android.domain.model.post.PostDetailData" />
-
+        <variable
+            name="communityDetailViewModel"
+            type="com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityDetailViewModel" />
 
     </data>
 
@@ -317,6 +319,7 @@
                 android:background="@drawable/rectangle_fill_gray_0_64"
                 android:fontFamily="@font/pretendard_regular"
                 android:hint="@string/question_detail_comment"
+                android:text="@={communityDetailViewModel.commentContent}"
                 android:maxLines="1"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"

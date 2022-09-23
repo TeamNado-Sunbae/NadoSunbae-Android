@@ -77,7 +77,7 @@ class CommunityViewModel @Inject constructor(
             }.catch {
                 Timber.d("커뮤니티 메인 서버통신 오류 발생")
             }.collectLatest {
-                Timber.d("커뮤니티 메인 서버통신 ")
+                Timber.d("커뮤니티 메인 서버통신 $it")
                 _communityMainData.value = it
                 setCommunityMainFilter(type,majorName)
             }.also {

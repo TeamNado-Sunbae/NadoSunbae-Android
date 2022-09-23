@@ -33,8 +33,8 @@ class HomeViewModel @Inject constructor(
     val rankingData: LiveData<List<HomeRankingData>>
         get() = _rankingData
 
-    private val _bannerData = MutableLiveData<AppBannerData>()
-    val bannerData: LiveData<AppBannerData>
+    private val _bannerData = MutableLiveData<List<AppBannerData>>()
+    val bannerData: LiveData<List<AppBannerData>>
         get() = _bannerData
 
     fun getReviewDetail(university: Int) {

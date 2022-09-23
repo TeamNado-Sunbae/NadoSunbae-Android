@@ -4,6 +4,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="third_fragment_label">Third Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -486,7 +487,7 @@
     <string name="community_write_bottom_sheet_title">글을 올릴 학과를 선택해보세요.</string>
     <string name="no_major">학과 무관</string>
     <string name="no_post">등록된 게시글이 없습니다.</string>
-    
+
     <!-- 과방 탭 이름 -->
     <string name="classroom_review_tab">후기</string>
     <string name="classroom_question_tab">1:1 질문</string>

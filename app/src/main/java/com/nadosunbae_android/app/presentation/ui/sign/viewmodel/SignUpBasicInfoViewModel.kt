@@ -1,11 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.sign.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.ktx.Firebase
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
@@ -14,7 +9,6 @@ import com.nadosunbae_android.domain.model.sign.*
 import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.sign.GetSecondDepartmentUseCase
 import com.nadosunbae_android.domain.usecase.sign.PostCertificationEmailUseCase
-import com.nadosunbae_android.domain.usecase.sign.PostRenewalTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +26,9 @@ class SignUpBasicInfoViewModel @Inject constructor(
     private val postSignUpUseCase: PostSignUpUseCase,
     private val postCertificationEmailUseCase: PostCertificationEmailUseCase
 ) : ViewModel() {
+
+    //현재 대학 뭐로 골랐는지
+    var univSelect = MutableLiveData<Int>()
 
     val onLoadingEnd = MutableLiveData<Boolean>(false)
 
@@ -54,6 +51,19 @@ class SignUpBasicInfoViewModel @Inject constructor(
 
     //로그인 status 체크
     var signInStatus = MutableLiveData<Int>()
+
+    //약관 동의 상태
+    var isAgreementChecked = MutableLiveData<Boolean>()
+
+    // 학과 정보에서 작성하는 정보
+    var univId = MutableLiveData<Int>()
+    var univName = MutableLiveData<String>()
+    var firstMajorId = MutableLiveData<Int>()
+    var firstMajorName = MutableLiveData<String>()
+    var firstMajorStart = MutableLiveData<String>()
+    var secondMajorId = MutableLiveData<Int>()
+    var secondMajorName = MutableLiveData<String>()
+    var secondMajorStart = MutableLiveData<String>()
 
     //로그인 상태
     private var _status = MutableLiveData<Int?>()

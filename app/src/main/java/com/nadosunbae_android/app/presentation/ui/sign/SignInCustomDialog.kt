@@ -6,7 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.WindowManager
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.presentation.ui.sign.SignUpBasicInfoActivity
+import com.nadosunbae_android.app.presentation.ui.sign.SignUpMainActivity
 import kotlinx.android.synthetic.main.activity_sign_in_custom_dialog.*
 
 class SignInCustomDialog(context : Context) {
@@ -35,7 +35,7 @@ class SignInCustomDialog(context : Context) {
 
         dialog.text_signup_dialog_out.setOnClickListener {
             onClickedListener.onClicked{
-                SignUpBasicInfoActivity().closePage()
+                SignUpMainActivity().finish()
             }
             dialog.dismiss()
         }
