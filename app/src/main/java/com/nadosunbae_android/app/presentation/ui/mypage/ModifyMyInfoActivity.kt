@@ -63,6 +63,7 @@ class ModifyMyInfoActivity :
         observeModifyResult()
         observeEditFinish()
         introductionTextWatcher()
+        modifyImgListener()
 
     }
 
@@ -596,6 +597,14 @@ class ModifyMyInfoActivity :
                 binding.textMyPageModifyLength.setText(binding.etMyPageIntroduction.text.length.toString())
             }
         })
+    }
+
+    //프로필 이미지 수정 누르면 바텀시트 올라옴
+    private fun modifyImgListener() {
+        binding.textMyPageModifyImg.setOnClickListener {
+            val dialog = ModifyImgBottomSheetFragment()
+            dialog.showsDialog
+        }
     }
 
 }

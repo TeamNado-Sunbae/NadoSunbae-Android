@@ -98,10 +98,12 @@ object NetworkModule {
     fun commentService(retrofit: Retrofit): CommentService {
         return retrofit.create(CommentService::class.java)
 
-        @Singleton
-        @Provides
-        fun appService(retrofit: Retrofit): AppService {
-            return retrofit.create(AppService::class.java)
-        }
     }
+
+    @Singleton
+    @Provides
+    fun appService(retrofit: Retrofit): AppService {
+        return retrofit.create(AppService::class.java)
+    }
+
 }
