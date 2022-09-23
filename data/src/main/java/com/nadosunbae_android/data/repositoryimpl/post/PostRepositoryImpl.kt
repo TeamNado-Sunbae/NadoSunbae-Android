@@ -47,4 +47,13 @@ class PostRepositoryImpl @Inject constructor(
                 .data.toEntity())
         }.flowOn(Dispatchers.IO)
     }
+
+    override fun putPostUpdate(
+        postId: String,
+        postUpdateParam: PostUpdateParam
+    ): Flow<PostUpdateData> {
+        return flow<PostUpdateData> {
+            emit(dataSource.putPostUpdate(postId, postUpdateParam.toEntity()).toEntity())
+        }.flowOn(Dispatchers.IO)
+    }
 }
