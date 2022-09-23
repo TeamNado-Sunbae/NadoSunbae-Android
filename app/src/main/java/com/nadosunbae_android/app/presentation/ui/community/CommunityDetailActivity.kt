@@ -179,12 +179,9 @@ class CommunityDetailActivity :
     }
     //원글 수정 이동
     private fun goUpdate() {
-        val intent = Intent(this, CommunityWriteActivity::class.java)
+        val intent = Intent(this, CommunityWriteUpdateActivity::class.java)
         intent.apply {
-            putExtra("writerUpdateTitle", binding.textCommunityDetailQuestionTitle.text)
-            putExtra("writerUpdateContent", binding.textCommunityDetailQuestionContent.text)
-            putExtra("division", 1)
-            putExtra("postId", communityViewModel.postId.value)
+            putExtra("updateData", communityViewModel.updateData.value)
         }
         startActivity(intent)
     }

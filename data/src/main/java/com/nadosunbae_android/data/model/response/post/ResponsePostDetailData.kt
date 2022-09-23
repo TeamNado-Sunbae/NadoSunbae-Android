@@ -37,6 +37,7 @@ data class ResponsePostDetailData(
     data class Post(
         val content: String,
         val createdAt: Date?,
+        val type: String?,
         val id: Int,
         val majorName: String,
         val title: String
@@ -73,6 +74,7 @@ fun ResponsePostDetailData.toEntity(): PostDetailData {
             )
         },
         isLiked = this.like.isLiked,
+        type = this.post.type,
         likeCount = this.like.likeCount,
         content = this.post.content,
         createdAt = this.post.createdAt,
