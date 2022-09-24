@@ -161,8 +161,8 @@ class CustomDialog(val context: Context) {
         CustomDialog(context).genericDialog(
             DialogData(
                 message,
-                context.resources.getString(R.string.alert_no_review_complete),
-                context.resources.getString(R.string.alert_no_review_cancel)
+                context.getString(R.string.alert_no_review_complete),
+                context.getString(R.string.alert_no_review_cancel)
             ),
             complete = {
                 val intent = Intent(context, ReviewWriteActivity::class.java)
@@ -181,8 +181,6 @@ class CustomDialog(val context: Context) {
 
     fun reportDialog(): CustomDialog {
         val binding = DialogReportBinding.inflate(LayoutInflater.from(context))
-
-
         dialog.setContentView(binding.root)
         dialog.window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -246,9 +244,10 @@ class CustomDialog(val context: Context) {
         message: String,
         behavior : () -> Unit
     ) {
+        //유저 신고
         if (isUserReported) {
             CustomDialog(context).genericDialog(
-                CustomDialog.DialogData(
+                DialogData(
                     message,
                     context.getString(R.string.sign_in_question),
                     context.getString(R.string.email_certification_close)

@@ -10,12 +10,15 @@ import androidx.lifecycle.lifecycleScope
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentCommunityMainContentBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMainContentAdapter
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
 import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab.Companion.getSwitchTabValue
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDecoration
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPxF
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
@@ -144,15 +147,21 @@ class CommunityMainContentFragment :
     //커뮤니티 글 작성 이동
     private fun goCommunityWrite() {
         binding.btnCommunityWrite.setOnClickListener {
-            val majorList = mainViewModel.majorList.value
-            val intent = Intent(requireActivity(), CommunityWriteActivity::class.java)
-            intent.apply {
-                putExtra("majorList", majorList as ArrayList<MajorListData>)
-                putExtra("noMajor", mainViewModel.majorList.value[0].majorId)
-            }
-            startActivity(intent)
+            CustomDialog(requireActivity()).restrictDialog(
+                requireActivity(),
+                ReviewGlobals.isReviewed,
+                MainGlobals.signInData?.isUserReported ?: false,
+                MainGlobals.signInData?.isReviewInappropriate ?: false,
+                MainGlobals.signInData?.message.toString(),
+                behavior = {
+                    val majorList = mainViewModel.majorList.value
+                    val intent = Intent(requireActivity(), CommunityWriteActivity::class.java)
+                    intent.apply {
+                        putExtra("majorList", majorList as ArrayList<MajorListData>)
+                        putExtra("noMajor", mainViewModel.majorList.value[0].majorId)
+                    }
+                    startActivity(intent)
+                })
         }
     }
-
-
 }
