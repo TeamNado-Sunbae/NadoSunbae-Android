@@ -16,7 +16,7 @@ interface MyPageService {
     ) : ResponseUserInfo
 
     //내 정보 수정
-    @PUT("user/mypage")
+    @PUT("user")
     suspend fun putMyPageModify(
         @Body requestMyPageModify: RequestMyPageModify
     ) : ResponseMyPageModify
