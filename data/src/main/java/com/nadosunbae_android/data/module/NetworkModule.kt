@@ -106,6 +106,7 @@ object NetworkModule {
         return retrofit.create(AppService::class.java)
     }
 
+
     @Singleton
     @Provides
     fun reportService(retrofit: Retrofit): ReportService {

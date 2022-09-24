@@ -217,6 +217,7 @@
     <string name="mypage_like_list_num">nn</string>
     <string name="mypage_personal_question">나에게 온 1:1 질문</string>
     <string name="mypage_item_no">등록된 1:1 질문이 없습니다.</string>
+    <string name="mypage_modify_img">프로필 사진 변경</string>
 
     <!-- 전체에게 질문 작성 -->
     <string name="question_write_all">전체에게 질문 작성</string>
@@ -513,4 +514,5 @@
     <string name="nex_update">다음에 하기</string>
     <string name="update">업데이트</string>
     <string name="google_app">https://play.google.com/store/apps/details?id=com.nadosunbae_android.app&amp;hl=ko</string>
+
 </resources>
