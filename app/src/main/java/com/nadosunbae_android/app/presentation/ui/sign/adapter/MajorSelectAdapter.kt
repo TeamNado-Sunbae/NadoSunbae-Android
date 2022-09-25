@@ -6,17 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemBottomsheetListBinding
 import com.nadosunbae_android.app.databinding.ItemBottomshhetCommunityListBinding
+import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.app.util.setTextSemiBold
 import com.nadosunbae_android.domain.model.main.SelectableData
-import timber.log.Timber
 
-class MajorSelectAdapter(val noMajor: Int? = -2, val communityWrite: Boolean?= false) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MajorSelectAdapter(val noMajor: Int? = -2, val communityWrite: Boolean? = false) :
+    ListAdapter<SelectableData, RecyclerView.ViewHolder>(
+        DiffUtilCallback<SelectableData>()
+    ) {
 
-    var dataList = mutableListOf<SelectableData>()
     private var mSelectedPos: Int = -1
 
     private val _selectedData = MutableLiveData<SelectableData>()
@@ -51,40 +53,37 @@ class MajorSelectAdapter(val noMajor: Int? = -2, val communityWrite: Boolean?= f
         @SuppressLint("RecyclerView") position: Int
     ) {
         if (holder is SignSelectionViewHolder) {
-            Timber.d("data $dataList")
-            holder.onBind(dataList[position])
+            holder.onBind(getItem(position))
         } else if (holder is BottomSheetSelectionViewHolder) {
-            holder.onBind(dataList[position])
+            holder.onBind(getItem(position))
         }
         holder.itemView.setOnClickListener {
             when (mSelectedPos) {
                 // 새로 선택
                 NOT_SELECTED -> {
                     mSelectedPos = position
-                    dataList[position].isSelected = true
+                    getItem(position).isSelected = true
                 }
                 // 선택 해제
                 position -> {
-                    if(communityWrite == false){
+                    if (communityWrite == false) {
                         mSelectedPos = NOT_SELECTED
-                        dataList[position].isSelected = false
+                        getItem(position).isSelected = false
                     }
                 }
                 // 선택 변경
                 else -> {
-                    dataList[mSelectedPos].isSelected = false
+                    getItem(position).isSelected = false
                     mSelectedPos = position
-                    dataList[position].isSelected = true
+                    getItem(position).isSelected = true
                 }
 
             }
             _selectedData.value = getSelectedData()
-            notifyDataSetChanged()
         }
     }
 
 
-    override fun getItemCount(): Int = dataList.size
 
     class SignSelectionViewHolder(val binding: ItemBottomsheetListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -122,14 +121,14 @@ class MajorSelectAdapter(val noMajor: Int? = -2, val communityWrite: Boolean?= f
 
     private fun getSelectedData(): SelectableData {
         if (mSelectedPos != NOT_SELECTED)
-            return dataList[mSelectedPos]
+            return currentList[mSelectedPos]
         return SelectableData(-1, "", false)
     }
 
     fun setSelectedData(dataId: Int) {
-        for (d in dataList) {
+        for (d in currentList) {
             if (d.id == dataId) {
-                mSelectedPos = dataList.indexOf(d)
+                mSelectedPos = currentList.indexOf(d)
                 d.isSelected = true
                 break
             }
@@ -137,7 +136,7 @@ class MajorSelectAdapter(val noMajor: Int? = -2, val communityWrite: Boolean?= f
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (dataList[position].id == noMajor) {
+        return if (getItem(position).id == noMajor) {
             COMMUNITY
         } else {
             ANOTHER
@@ -146,7 +145,7 @@ class MajorSelectAdapter(val noMajor: Int? = -2, val communityWrite: Boolean?= f
     }
 
     fun clearSelect() {
-        for (d in dataList)
+        for (d in currentList)
             d.isSelected = false
         mSelectedPos = NOT_SELECTED
     }

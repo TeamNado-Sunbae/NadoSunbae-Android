@@ -116,17 +116,18 @@
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="@+id/text_community_write_category"
                     app:layout_constraintTop_toBottomOf="@+id/text_community_write_category" />
+
                 <TextView
                     android:id="@+id/text_category_notice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/community_write_category_notice"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_community_write_category"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="24dp"
                     android:fontFamily="@font/pretendard_regular"
-                    android:textSize="12sp"
+                    android:text="@string/community_write_category_notice"
                     android:textColor="@color/main_default"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_community_write_category"/>
 
 
                 <View
@@ -150,8 +151,8 @@
                     android:hint="@string/question_write_hint"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:text="@={communityWriteViewModel.writeTitle}"
                     android:paddingBottom="15dp"
+                    android:text="@={communityWriteViewModel.writeTitle}"
                     android:textColorHint="@color/gray_2"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -167,7 +168,6 @@
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
                     android:gravity="top"
-                    android:text="@={communityWriteViewModel.writeContent}"
                     android:hint="@string/category_write_content_hint"
                     android:lineHeight="22sp"
                     android:paddingHorizontal="16dp"
@@ -175,6 +175,7 @@
                     android:scrollbarThumbVertical="@color/green_scroll_thumb"
                     android:scrollbarTrackVertical="@color/gray_0"
                     android:scrollbars="vertical"
+                    android:text="@={communityWriteViewModel.writeContent}"
                     android:textColorHint="@color/gray_2"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"

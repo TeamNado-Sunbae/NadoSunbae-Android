@@ -101,6 +101,7 @@ class CommunityMainContentFragment :
         observeBottomSheet(mainViewModel, majorBottomSheetDialog)
     }
 
+
     //필터 선택
     private fun clickFilter() {
         val showDialog = {

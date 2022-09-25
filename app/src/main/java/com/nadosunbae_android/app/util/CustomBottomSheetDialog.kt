@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,6 +15,9 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentCustomBottomSheetDialogBinding
 import com.nadosunbae_android.app.presentation.ui.sign.adapter.MajorSelectAdapter
 import com.nadosunbae_android.domain.model.main.SelectableData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import timber.log.Timber
 
 
 class CustomBottomSheetDialog(
@@ -33,6 +37,15 @@ class CustomBottomSheetDialog(
 
     private var majorSelectAdapter: MajorSelectAdapter
 
+    //학과 데이터
+    private var majorData = mutableListOf<SelectableData>()
+
+    private val debounceAction =  debounce<String>(200,
+        CoroutineScope(Dispatchers.Main),
+        block = {
+            setFilterData(it)
+        }
+    )
     private lateinit var _binding: FragmentCustomBottomSheetDialogBinding
     val binding get() = _binding!!
 
@@ -64,6 +77,7 @@ class CustomBottomSheetDialog(
         binding.clCustomBottomSheet.layoutParams.height =
             resources.displayMetrics.heightPixels * 72 / 100
         binding.tvBottomsheeetTitle.text = title
+        searchFilterMajor()
         binding.executePendingBindings()
     }
 
@@ -101,7 +115,24 @@ class CustomBottomSheetDialog(
         }
         _titleData.value = title
     }
+    //필터 학과 검색시
+    private fun searchFilterMajor(){
+        binding.etBottomSheetSearch.addTextChangedListener {
+           debounceAction(
+               it.toString())
+        }
+    }
 
+    //필터 데이터 변경
+    private fun setFilterData(filter : String){
+        if (filter.isEmpty()){
+            majorSelectAdapter.submitList(majorData)
+        }else{
+            Timber.d("debounce 호출 됨")
+            val filterData = majorData.filter { it.name.contains(filter) }
+            majorSelectAdapter.submitList(filterData)
+        }
+    }
 
     private fun initAdapter() {
         // Recycler view 구분선 추가
@@ -135,9 +166,11 @@ class CustomBottomSheetDialog(
     }
 
     fun setDataList(dataList: MutableList<SelectableData>) {
-        majorSelectAdapter.dataList.addAll(dataList)
-        majorSelectAdapter.notifyDataSetChanged()
+        majorData = dataList
+        majorSelectAdapter.submitList(dataList)
     }
+
+
 
     //바텀 시트 선택 데이터
     fun getSelectedData(): SelectableData {
