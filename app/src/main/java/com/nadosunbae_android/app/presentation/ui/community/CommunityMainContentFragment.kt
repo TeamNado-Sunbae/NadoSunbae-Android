@@ -47,7 +47,9 @@ class CommunityMainContentFragment :
 
     override fun onResume() {
         super.onResume()
-        communityViewModel.getCommunityMainData("1", "0", "community", "recent")
+        val type = communityViewModel.communityMainType.value
+        val majorName = communityViewModel.communityMainMajorName.value
+        communityViewModel.getCommunityMainData("1", "0", "community", "recent", "",type,majorName)
     }
 
     //메인 게시글
