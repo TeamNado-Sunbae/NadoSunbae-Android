@@ -116,6 +116,17 @@
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="@+id/text_community_write_category"
                     app:layout_constraintTop_toBottomOf="@+id/text_community_write_category" />
+                <TextView
+                    android:id="@+id/text_category_notice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/community_write_category_notice"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_community_write_category"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/main_default"
 
 
                 <View
