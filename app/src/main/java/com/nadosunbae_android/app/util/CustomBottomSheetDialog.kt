@@ -18,8 +18,9 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 
 class CustomBottomSheetDialog(
     private val title: String,
-    private var checkCommunity: Boolean? = false,
-    noMajor: Int? = 0
+    private val checkCommunity: Boolean? = false,
+    noMajor: Int? = 0,
+    checkCommunityWrite : Boolean? = false
 ) : BottomSheetDialogFragment() {
 
 
@@ -36,7 +37,7 @@ class CustomBottomSheetDialog(
     val binding get() = _binding!!
 
     init {
-        majorSelectAdapter = MajorSelectAdapter(noMajor)
+        majorSelectAdapter = MajorSelectAdapter(noMajor,checkCommunityWrite)
     }
 
     override fun onCreateView(
@@ -111,7 +112,7 @@ class CustomBottomSheetDialog(
         binding.rvBottomSheet.adapter = majorSelectAdapter
     }
 
-    //선택 데이터 체크
+    //선택 데이터 체관
     private fun observeSelectedData() {
         majorSelectAdapter.selectedData.observe(viewLifecycleOwner) {
             if (checkCommunity == true) {

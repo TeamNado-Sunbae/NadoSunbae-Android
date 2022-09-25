@@ -46,14 +46,21 @@ class CommunityWriteActivity :
         majorBottomSheetDialog = CustomBottomSheetDialog(
             getString(R.string.community_write_bottom_sheet_title),
             true,
-            noMajor
+            noMajor,
+            true
         )
         observeBottomSheet(
             communityWriteViewModel.majorList.value ?: emptyList(), majorBottomSheetDialog
         )
+        //학과 선택 학과 무관 default
+        majorBottomSheetDialog.setSelectedData(
+            communityWriteViewModel.majorList.value?.get(0)?.majorId
+            ?: 0 )
         //기본 카테고리
         binding.layoutCommunityWriteCategory.radioBtnCategoryFreedom.isChecked = true
     }
+
+
 
     //학과 변경 클릭
     private fun clickMajor() {

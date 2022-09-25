@@ -13,7 +13,7 @@ import com.nadosunbae_android.app.util.setTextSemiBold
 import com.nadosunbae_android.domain.model.main.SelectableData
 import timber.log.Timber
 
-class MajorSelectAdapter(val noMajor: Int? = -2) :
+class MajorSelectAdapter(val noMajor: Int? = -2, val communityWrite: Boolean?= false) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var dataList = mutableListOf<SelectableData>()
@@ -65,8 +65,10 @@ class MajorSelectAdapter(val noMajor: Int? = -2) :
                 }
                 // 선택 해제
                 position -> {
-                    mSelectedPos = NOT_SELECTED
-                    dataList[position].isSelected = false
+                    if(communityWrite == false){
+                        mSelectedPos = NOT_SELECTED
+                        dataList[position].isSelected = false
+                    }
                 }
                 // 선택 변경
                 else -> {
@@ -135,7 +137,6 @@ class MajorSelectAdapter(val noMajor: Int? = -2) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        Timber.d("noMajor $noMajor")
         return if (dataList[position].id == noMajor) {
             COMMUNITY
         } else {
