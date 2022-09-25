@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentCustomBottomSheetDialogBinding
@@ -20,7 +19,7 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 class CustomBottomSheetDialog(
     private val title: String,
     private var checkCommunity: Boolean? = false,
-    noMajor : Int? = 0
+    noMajor: Int? = 0
 ) : BottomSheetDialogFragment() {
 
 
@@ -68,7 +67,6 @@ class CustomBottomSheetDialog(
     }
 
 
-
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         majorSelectAdapter.clearSelect()
@@ -84,9 +82,9 @@ class CustomBottomSheetDialog(
             if (checkCommunity == true) {
                 dismiss()
             } else {
-                try{
+                try {
                     activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
-                } catch(e : Exception) {
+                } catch (e: Exception) {
                     dismiss()
                 }
 
@@ -113,10 +111,15 @@ class CustomBottomSheetDialog(
         binding.rvBottomSheet.adapter = majorSelectAdapter
     }
 
+    //선택 데이터 체크
     private fun observeSelectedData() {
         majorSelectAdapter.selectedData.observe(viewLifecycleOwner) {
-            binding.btnBottomsheetComplete.isEnabled =
-                majorSelectAdapter.selectedData.value!!.isSelected
+            if (checkCommunity == true) {
+                binding.btnBottomsheetComplete.isEnabled = true
+            } else {
+                binding.btnBottomsheetComplete.isEnabled =
+                    majorSelectAdapter.selectedData.value!!.isSelected
+            }
         }
     }
 
@@ -125,7 +128,7 @@ class CustomBottomSheetDialog(
         completeOperation = operation
     }
 
-    fun completeBtnListener(view : View) {
+    fun completeBtnListener(view: View) {
         completeOperation()
         dismiss()
     }
@@ -144,9 +147,6 @@ class CustomBottomSheetDialog(
     fun setSelectedData(dataId: Int) {
         majorSelectAdapter.setSelectedData(dataId)
     }
-
-
-
 
 
 }

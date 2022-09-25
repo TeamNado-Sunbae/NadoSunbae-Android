@@ -24,6 +24,7 @@ import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CommunityMainContentFragment :
@@ -110,16 +111,15 @@ class CommunityMainContentFragment :
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
             //학과 필터에 들어가는 부분
-            if (selectedData != null) {
-                with(binding) {
-                    val type = communityViewModel.communityMainType.value
-                    val majorName =
-                        if (selectedData.name == getString(R.string.no_major)) null else selectedData.name
-                    communityViewModel.setCommunityMainMajorName(majorName)
-                    communityViewModel.setCommunityMainFilter(type, majorName)
-                    filterTitle = selectedData.name
-                    imgCommunityFilter.isSelected = true
-                }
+            with(binding) {
+                val type = communityViewModel.communityMainType.value
+                val majorName =
+                    if (selectedData.name == getString(R.string.no_major)) null else selectedData.name
+                Timber.d("선택 학과 ${selectedData.name}")
+                communityViewModel.setCommunityMainMajorName(majorName)
+                communityViewModel.setCommunityMainFilter(type, majorName)
+                filterTitle = if(selectedData.name == "") getString(R.string.no_major) else selectedData.name
+                imgCommunityFilter.isSelected = true
             }
         }
     }
