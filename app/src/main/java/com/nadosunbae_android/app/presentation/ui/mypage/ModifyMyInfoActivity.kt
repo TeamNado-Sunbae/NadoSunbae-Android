@@ -27,6 +27,7 @@ import com.nadosunbae_android.app.util.BindingAdapter
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
@@ -136,6 +137,25 @@ class ModifyMyInfoActivity :
     }
 
 
+    /*
+    //바텀시트 선택
+    private fun initBottomSheet(){
+        firstDepartmentBottomSheetDialog = CustomBottomSheetDialog(resources.getString(R.string.bottom_sheet_title_major))
+        observeBottomSheet(mainViewModel, firstDepartmentBottomSheetDialog)
+
+        firstDepartmentBottomSheetDialog.setCompleteListener {
+            val selectedData = firstDepartmentBottomSheetDialog.getSelectedData()
+            if (selectedData != null) {
+                val majorData = MajorSelectData(selectedData.id, selectedData.name)
+                mainViewModel.setSelectedMajor(majorData)
+            }
+
+        }
+    }
+
+     */
+
+
     //제 1전공 학과 선택 바텀시트
     private fun firstMajor() {
 
@@ -154,6 +174,7 @@ class ModifyMyInfoActivity :
 
         //데이터 넣기
         firstDepartmentBottomSheetDialog.setCompleteListener {
+
             val firstMajor = firstDepartmentBottomSheetDialog.getSelectedData()
             signViewModel.firstMajor.value = firstMajor?.name
             initActiveSaveBtn()
@@ -493,6 +514,8 @@ class ModifyMyInfoActivity :
     // 회원정보 수정 put 서버통신
     private fun completeModifyInfo() {
         with(binding) {
+            //val requestBody = MyPageModifyItem(1, "혜빈테스트즁임", "모가 빠졌냐 진짜", 1,"19-1", 3, "20-2", true)
+
             val requestBody = MyPageModifyItem(
                 1,
                 etMyPageNickname.text.toString(),
@@ -516,6 +539,10 @@ class ModifyMyInfoActivity :
                 textMyPageMajorinfoDoubleMajorTime.text.toString(),
                 binding.imgMyPageModifySwitch.isSelected
             )
+
+            Timber.e("${requestBody}")
+
+
             myPageViewModel.putMyPageModify(requestBody)
         }
     }
