@@ -37,6 +37,7 @@ class ClassRoomQuestionViewModel @Inject constructor(
         majorId: Int,
         exclude: String?
     ) {
+        onLoadingEnd.value = false
         viewModelScope.launch {
             kotlin.runCatching {
                 userRepository.getSeniorList(majorId, exclude)

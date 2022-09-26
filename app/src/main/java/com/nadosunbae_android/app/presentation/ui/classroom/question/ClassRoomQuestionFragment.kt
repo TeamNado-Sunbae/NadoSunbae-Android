@@ -85,19 +85,16 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
     }
 
     private fun loadServerData(){
-//        mainViewModel.selectedMajor.observe(viewLifecycleOwner){
-//            showLoading()
-//            mainViewModel.getClassRoomMain(2,it.majorId, "recent")
-//        }
-        classRoomQuestionViewModel.onLoadingEnd.value = false
+        showLoading()
         classRoomQuestionViewModel.getSeniorList(ReviewGlobals.selectedMajor!!.majorId, null)
         classRoomQuestionViewModel.getQuestionList(mainViewModel.univId.value!!, ReviewGlobals.selectedMajor!!.majorId)
     }
 
     //로딩 종료
     private fun observeLoadingEnd() {
-        mainViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
-            dismissLoading()
+        classRoomQuestionViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
+            if (it == true)
+                dismissLoading()
         }
     }
 
