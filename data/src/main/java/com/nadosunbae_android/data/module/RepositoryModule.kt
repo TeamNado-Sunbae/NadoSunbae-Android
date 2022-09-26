@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.module
 import com.nadosunbae_android.data.repositoryimpl.app.AppRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.classroom.ClassRoomRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.comment.CommentRepositoryImpl
+import com.nadosunbae_android.data.repositoryimpl.favorites.FavoritesRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.home.HomeRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.like.LikeRepositoryImpl
 import com.nadosunbae_android.data.repositoryimpl.main.MainRepositoryImpl
@@ -17,6 +18,7 @@ import com.nadosunbae_android.data.repositoryimpl.user.UserRepositoryImpl
 import com.nadosunbae_android.domain.repository.app.AppRepository
 import com.nadosunbae_android.domain.repository.classroom.ClassRoomRepository
 import com.nadosunbae_android.domain.repository.comment.CommentRepository
+import com.nadosunbae_android.domain.repository.favorites.FavoritesRepository
 import com.nadosunbae_android.domain.repository.home.HomeRepository
 import com.nadosunbae_android.domain.repository.like.LikeRepository
 import com.nadosunbae_android.domain.repository.main.MainRepository
@@ -28,9 +30,9 @@ import com.nadosunbae_android.domain.repository.report.ReportRepository
 import com.nadosunbae_android.domain.repository.review.ReviewRepository
 import com.nadosunbae_android.domain.repository.sign.SignRepository
 import com.nadosunbae_android.domain.repository.user.UserRepository
+import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
@@ -107,8 +109,8 @@ object RepositoryModule {
     @Reusable
     @Provides
     fun provideCommentRepository(
-        repository : CommentRepositoryImpl
-    ) : CommentRepository = repository
+        repository: CommentRepositoryImpl
+    ): CommentRepository = repository
 
     @Reusable
     @Provides
@@ -119,6 +121,12 @@ object RepositoryModule {
     @Reusable
     @Provides
     fun provideReportRepository(
-        repository : ReportRepositoryImpl
-    ) : ReportRepository = repository
+        repository: ReportRepositoryImpl
+    ): ReportRepository = repository
+
+    @Reusable
+    @Provides
+    fun provideFavoritesRepository(
+        repository: FavoritesRepositoryImpl
+    ): FavoritesRepository = repository
 }

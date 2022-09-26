@@ -3,6 +3,7 @@ package com.nadosunbae_android.data.module
 import com.nadosunbae_android.data.api.app.AppService
 import com.nadosunbae_android.data.api.classroom.ClassRoomService
 import com.nadosunbae_android.data.api.comment.CommentService
+import com.nadosunbae_android.data.api.favorites.FavoritesService
 import com.nadosunbae_android.data.api.home.HomeService
 import com.nadosunbae_android.data.api.like.LikeService
 import com.nadosunbae_android.data.api.main.MainService
@@ -19,8 +20,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import retrofit2.create
-import javax.annotation.Signed
 import javax.inject.Singleton
 
 @Module
@@ -110,5 +109,11 @@ object NetworkModule {
     @Provides
     fun reportService(retrofit: Retrofit): ReportService {
         return retrofit.create(ReportService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun favoritesService(retrofit: Retrofit): FavoritesService {
+        return retrofit.create(FavoritesService::class.java)
     }
 }

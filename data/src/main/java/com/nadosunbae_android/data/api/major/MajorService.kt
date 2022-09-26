@@ -10,8 +10,9 @@ interface MajorService {
     //학과 리스트 조회
     @GET("major/university/{universityId}")
     suspend fun getMajorList(
-        @Path("universityId") universityId : String,
+        @Path("universityId") universityId : Int,
         @Query("filter") filter : String,
-        @Query("exclude") exclude : String?
+        @Query("exclude") exclude : String?,
+        @Query("userId") userId : Int
     ) : Response<List<ResponseMajorListData>>
 }

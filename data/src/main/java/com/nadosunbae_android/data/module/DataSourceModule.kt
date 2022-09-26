@@ -6,6 +6,8 @@ import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSour
 import com.nadosunbae_android.data.datasource.remote.classroom.ClassRoomDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.comment.CommentDataSource
 import com.nadosunbae_android.data.datasource.remote.comment.CommentDataSourceImpl
+import com.nadosunbae_android.data.datasource.remote.favorites.FavoritesDataSource
+import com.nadosunbae_android.data.datasource.remote.favorites.FavoritesDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.home.HomeDataSource
 import com.nadosunbae_android.data.datasource.remote.home.HomeDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.like.LikeDataSource
@@ -28,9 +30,9 @@ import com.nadosunbae_android.data.datasource.remote.sign.SignDataSource
 import com.nadosunbae_android.data.datasource.remote.sign.SignDataSourceImpl
 import com.nadosunbae_android.data.datasource.remote.user.UserDataSource
 import com.nadosunbae_android.data.datasource.remote.user.UserDataSourceImpl
+import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
@@ -41,85 +43,91 @@ object DataSourceModule {
     @Provides
     @Reusable
     fun provideClassRoomDataSource(
-        dataSource : ClassRoomDataSourceImpl
-    ) : ClassRoomDataSource = dataSource
+        dataSource: ClassRoomDataSourceImpl
+    ): ClassRoomDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideLikeDataSource(
-        dataSource : LikeDataSourceImpl
-    ) : LikeDataSource = dataSource
+        dataSource: LikeDataSourceImpl
+    ): LikeDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideMainDataSource(
-        dataSource : MainDataSourceImpl
-    ) : MainDataSource = dataSource
+        dataSource: MainDataSourceImpl
+    ): MainDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideMyPageDataSource(
-        dataSource : MyPageDataSourceImpl
-    ) : MyPageDataSource = dataSource
+        dataSource: MyPageDataSourceImpl
+    ): MyPageDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideNotificationDataSource(
-        dataSource : NotificationDataSourceImpl
-    ) : NotificationDataSource = dataSource
+        dataSource: NotificationDataSourceImpl
+    ): NotificationDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideReviewDataSource(
-        dataSource : ReviewDataSourceImpl
-    ) : ReviewDataSource = dataSource
+        dataSource: ReviewDataSourceImpl
+    ): ReviewDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideSignDataSource(
-        dataSource : SignDataSourceImpl
-    ) : SignDataSource = dataSource
+        dataSource: SignDataSourceImpl
+    ): SignDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideHomeDataSource(
-        dataSource : HomeDataSourceImpl
-    ) : HomeDataSource = dataSource
+        dataSource: HomeDataSourceImpl
+    ): HomeDataSource = dataSource
 
 
     @Provides
     @Reusable
     fun providePostDataSource(
-        dataSource : PostDataSourceImpl
-    ) : PostDataSource = dataSource
+        dataSource: PostDataSourceImpl
+    ): PostDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideMajorDataSource(
-        dataSource : MajorDataSourceImpl
-    ) : MajorDataSource = dataSource
+        dataSource: MajorDataSourceImpl
+    ): MajorDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideUserDataSource(
-        dataSource : UserDataSourceImpl
-    ) : UserDataSource = dataSource
+        dataSource: UserDataSourceImpl
+    ): UserDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideCommentDataSource(
-        dataSource : CommentDataSourceImpl
-    ) : CommentDataSource = dataSource
+        dataSource: CommentDataSourceImpl
+    ): CommentDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideAppDataSource(
         dataSource: AppDataSourceImpl
-    ) : AppDataSource = dataSource
+    ): AppDataSource = dataSource
 
     @Provides
     @Reusable
     fun provideReportDataSource(
-        dataSource : ReportDataSourceImpl
-    ) : ReportDataSource = dataSource
+        dataSource: ReportDataSourceImpl
+    ): ReportDataSource = dataSource
+
+    @Provides
+    @Reusable
+    fun provideFavoritesDataSource(
+        dataSource: FavoritesDataSourceImpl
+    ): FavoritesDataSource = dataSource
 }

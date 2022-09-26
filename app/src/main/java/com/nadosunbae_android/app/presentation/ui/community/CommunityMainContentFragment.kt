@@ -44,13 +44,22 @@ class CommunityMainContentFragment :
         goCommunityWrite()
         setRefreshData()
         setLoading()
+        clickMajorFavorites()
     }
 
     override fun onResume() {
         super.onResume()
         val type = communityViewModel.communityMainType.value
         val majorName = communityViewModel.communityMainMajorName.value
-        communityViewModel.getCommunityMainData("1", "0", "community", "recent", "",type,majorName)
+        communityViewModel.getCommunityMainData(
+            "1",
+            "0",
+            "community",
+            "recent",
+            "",
+            type,
+            majorName
+        )
     }
 
     //메인 게시글
@@ -119,7 +128,8 @@ class CommunityMainContentFragment :
                 Timber.d("선택 학과 ${selectedData.name}")
                 communityViewModel.setCommunityMainMajorName(majorName)
                 communityViewModel.setCommunityMainFilter(type, majorName)
-                filterTitle = if(selectedData.name == "") getString(R.string.no_major) else selectedData.name
+                filterTitle =
+                    if (selectedData.name == "") getString(R.string.no_major) else selectedData.name
                 imgCommunityFilter.isSelected = true
             }
         }
@@ -144,6 +154,23 @@ class CommunityMainContentFragment :
                 binding.swipeCommunityMain.isRefreshing = false
             }
         }
+    }
+
+    //즐겨찾기 클릭시
+    private fun clickMajorFavorites() {
+        majorBottomSheetDialog.setCompleteFavoritesListener {
+            Timber.d("즐겨찾기 $it")
+            communityViewModel.postCommunityFavorite(it)
+        }
+        communityViewModel.communityFavorites.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach {
+                if (it.success) {
+                    Timber.d("즐겨찾기 성공")
+                    mainViewModel.getMajorList(1, "all",null,
+                    MainGlobals.signInData?.userId ?: 0)
+                }
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
 
