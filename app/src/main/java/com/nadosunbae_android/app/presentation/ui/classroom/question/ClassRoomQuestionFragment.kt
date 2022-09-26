@@ -7,15 +7,14 @@ import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentClassRoomQuestionBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
-import com.nadosunbae_android.app.presentation.ui.classroom.InformationFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInfoMainAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.question.viewmodel.ClassRoomQuestionViewModel
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.data.model.response.user.ResponseSeniorList
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
+import com.nadosunbae_android.domain.model.post.PostData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -91,7 +90,8 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
 //            mainViewModel.getClassRoomMain(2,it.majorId, "recent")
 //        }
         classRoomQuestionViewModel.onLoadingEnd.value = false
-        classRoomQuestionViewModel.getSeniorList(ReviewGlobals.secondMajor!!.majorId, null)
+        classRoomQuestionViewModel.getSeniorList(ReviewGlobals.selectedMajor!!.majorId, null)
+        classRoomQuestionViewModel.getQuestionList(mainViewModel.univId.value!!, ReviewGlobals.selectedMajor!!.majorId)
     }
 
     //로딩 종료
@@ -107,6 +107,13 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
                 classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>
             )
         }
+        classRoomQuestionViewModel.questionList.observe(requireActivity()) {
+            if (classRoomQuestionViewModel.questionList.value != null) {
+                classRoomInfoMainAdapter.setQuestionMain(
+                    mapToPostData(classRoomQuestionViewModel.questionList.value!!) as MutableList<ClassRoomData>
+                )
+            }
+        }
     }
 
     //선배 Id = userId가 같을 경우 마이페이지로 이동
@@ -120,6 +127,24 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
             mainViewModel.classRoomFragmentNum.value = 4
             mainViewModel.initLoading.value = true
         }
+    }
+
+    private fun mapToPostData(postData: List<PostData>): List<ClassRoomData> =
+        postData.map {
+            ClassRoomData(
+                postId = it.postId,
+                title = it.title,
+                content = it.content,
+                createdAt = it.createdAt,
+                writer = ClassRoomData.Writer(
+                    nickname = it.nickname,
+                    writerId = it.id,
+                    profileImageId = 4
+                ),
+                likeCount = it.likeCount,
+                isLiked = it.isLiked,
+                commentCount = it.commentCount
+            )
     }
 
     inner class QuestionDataToFragment : DataToFragment {
