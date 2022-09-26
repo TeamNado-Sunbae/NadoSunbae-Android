@@ -28,7 +28,7 @@ object ClassRoomMapper {
     //구성원 전체보기 선배 데이터
     fun mapperToSeniorData(responseClassRoomSeniorData: ResponseClassRoomSeniorData): ClassRoomSeniorData {
         return ClassRoomSeniorData(
-            userSummaryDataList = responseClassRoomSeniorData.data.offQuestionUserList.map {
+            offQuestionUserList = responseClassRoomSeniorData.data.offQuestionUserList.map {
                 ClassRoomSeniorData.UserSummaryData(
                     it.profileImageId,
                     it.isFirstMajor,

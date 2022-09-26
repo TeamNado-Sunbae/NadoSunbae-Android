@@ -17,5 +17,5 @@ interface UserRepository {
 
     suspend fun getUserQuestion(userId: Int, sort: String): List<UserQuestionData>
 
-    suspend fun getSeniorList(majorId: Int, exclude: String): Flow<SeniorListData>
+    suspend fun getSeniorList(majorId: Int, exclude: String?): ClassRoomSeniorData
 }

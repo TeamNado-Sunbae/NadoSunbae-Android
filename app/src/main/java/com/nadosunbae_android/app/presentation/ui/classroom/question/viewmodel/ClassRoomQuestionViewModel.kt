@@ -22,27 +22,25 @@ class ClassRoomQuestionViewModel @Inject constructor(
 
     override val onLoadingEnd = MutableLiveData<Boolean>()
 
-    private val _seniorList = MutableLiveData<SeniorListData>()
-    val seniorList: LiveData<SeniorListData>
+    private val _seniorList = MutableLiveData<ClassRoomSeniorData>()
+    val seniorList: LiveData<ClassRoomSeniorData>
         get() = _seniorList
 
     fun getSeniorList(
         majorId: Int,
-        exclude: String
-    ) = viewModelScope.launch {
-        userRepository.getSeniorList(majorId, exclude)
-            .onStart {
-                onLoadingEnd.value = false
-            }
-            .catch {
-                Timber.d("CLASSROOM: start getSeniorList")
-            }
-            .collectLatest {
-                Timber.d("CLASSROOM: end getSeniorList")
+        exclude: String?
+    ) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                userRepository.getSeniorList(majorId, exclude)
+            }.onSuccess {
                 _seniorList.value = it
-            }
-            .also {
+                Timber.d("CLASSROOM: success getSeniorList = $it")
+            }.onFailure {
+                Timber.d("CLASSROOM: fail getSeniorList")
+            }.also {
                 onLoadingEnd.value = true
             }
+        }
     }
 }

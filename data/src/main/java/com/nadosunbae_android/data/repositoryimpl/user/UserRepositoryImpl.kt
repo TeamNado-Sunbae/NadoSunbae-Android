@@ -1,5 +1,6 @@
 package com.nadosunbae_android.data.repositoryimpl.user
 
+import android.util.Log
 import com.nadosunbae_android.data.datasource.remote.user.UserDataSource
 import com.nadosunbae_android.data.mapper.user.UserMapper
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
@@ -34,9 +35,8 @@ class UserRepositoryImpl @Inject constructor(private val userDataSource: UserDat
         return UserMapper.mapperToUserQuestion(userDataSource.getUserQuestion(userId, sort))
     }
 
-    override suspend fun getSeniorList(majorId: Int, exclude: String): Flow<SeniorListData> =
-        flow {
-           UserMapper.mapperToSeniorInfoList(userDataSource.getSeniorList(majorId, exclude))
-        }
+    override suspend fun getSeniorList(majorId: Int, exclude: String?): ClassRoomSeniorData {
+        return UserMapper.mapperToSeniorInfoList(userDataSource.getSeniorList(majorId, exclude))
+    }
 
 }

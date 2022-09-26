@@ -15,5 +15,5 @@ interface UserDataSource {
 
     suspend fun getUserQuestion(userId: Int, sort: String) : ResponseUserQuestion
 
-    suspend fun getSeniorList(majorId: Int, exclude: String): ResponseSeniorList
+    suspend fun getSeniorList(majorId: Int, exclude: String?): ResponseSeniorList
 }

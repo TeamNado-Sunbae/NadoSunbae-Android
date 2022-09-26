@@ -1,7 +1,7 @@
 package com.nadosunbae_android.domain.model.classroom
 
 data class ClassRoomSeniorData(
-    val userSummaryDataList: List<UserSummaryData>,
+    val offQuestionUserList: List<UserSummaryData>,
     val onQuestionUserList: List<UserSummaryData>
 ) {
     data class UserSummaryData(

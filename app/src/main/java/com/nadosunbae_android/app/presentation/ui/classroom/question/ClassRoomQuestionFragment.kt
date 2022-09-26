@@ -3,14 +3,19 @@ package com.nadosunbae_android.app.presentation.ui.classroom.question
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentClassRoomQuestionBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.InformationFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInfoMainAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
+import com.nadosunbae_android.app.presentation.ui.classroom.question.viewmodel.ClassRoomQuestionViewModel
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.data.model.response.user.ResponseSeniorList
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
+import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -19,6 +24,7 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
 
     // main view model 초기화
     private val mainViewModel: MainViewModel by activityViewModels()
+    private val classRoomQuestionViewModel: ClassRoomQuestionViewModel by viewModels()
 
     private lateinit var classRoomInfoMainAdapter: ClassRoomInfoMainAdapter
     private lateinit var classRoomSeniorAdapter: ClassRoomSeniorOnAdapter
@@ -32,6 +38,7 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
         initAdapter()
         setListener()
         observeLoadingEnd()
+        observeData()
         loadServerData()
     }
 
@@ -58,18 +65,18 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
         val userId = mainViewModel.userId.value ?: 0
         classRoomInfoMainAdapter = ClassRoomInfoMainAdapter(userId)
         binding.rvSeniorPersonal.adapter = classRoomInfoMainAdapter
-        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
-            Timber.d("classRoomInfo: $it")
-            if(it.isEmpty()){
-                mainViewModel.classRoomInfoEmpty.value = InformationFragment.EMPTY
-                binding.tvClassroomQuestionEmpty.visibility = View.VISIBLE
-            }else{
-                mainViewModel.classRoomInfoEmpty.value = InformationFragment.NOTEMPTY
-                binding.tvClassroomQuestionEmpty.visibility = View.GONE
-            }
-            Timber.d("classRoomInfo empty : ${mainViewModel.classRoomInfoEmpty.value}")
-            classRoomInfoMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
-        }
+//        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
+//            Timber.d("classRoomInfo: $it")
+//            if(it.isEmpty()){
+//                mainViewModel.classRoomInfoEmpty.value = InformationFragment.EMPTY
+//                binding.tvClassroomQuestionEmpty.visibility = View.VISIBLE
+//            }else{
+//                mainViewModel.classRoomInfoEmpty.value = InformationFragment.NOTEMPTY
+//                binding.tvClassroomQuestionEmpty.visibility = View.GONE
+//            }
+//            Timber.d("classRoomInfo empty : ${mainViewModel.classRoomInfoEmpty.value}")
+//            classRoomInfoMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
+//        }
     }
 
     private fun setListener() {
@@ -79,16 +86,26 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
     }
 
     private fun loadServerData(){
-        mainViewModel.selectedMajor.observe(viewLifecycleOwner){
-            showLoading()
-            mainViewModel.getClassRoomMain(2,it.majorId, "recent")
-        }
+//        mainViewModel.selectedMajor.observe(viewLifecycleOwner){
+//            showLoading()
+//            mainViewModel.getClassRoomMain(2,it.majorId, "recent")
+//        }
+        classRoomQuestionViewModel.onLoadingEnd.value = false
+        classRoomQuestionViewModel.getSeniorList(ReviewGlobals.secondMajor!!.majorId, null)
     }
 
     //로딩 종료
     private fun observeLoadingEnd() {
         mainViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
             dismissLoading()
+        }
+    }
+
+    private fun observeData() {
+        classRoomQuestionViewModel.seniorList.observe(requireActivity()) {
+            classRoomSeniorAdapter.setOnQuestionUser(
+                classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>
+            )
         }
     }
 
