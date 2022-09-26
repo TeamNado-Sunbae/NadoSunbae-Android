@@ -41,7 +41,7 @@ abstract class BaseActivity<T : ViewDataBinding>(
         // null check
         if (majorList != null) {
             for (d in majorList)
-                dialogInput.add(SelectableData(d.majorId, d.majorName, false))
+                dialogInput.add(SelectableData(d.majorId, d.majorName, false, d.isFavorites))
         }
         majorBottomSheetDialog.setDataList(dialogInput)
     }

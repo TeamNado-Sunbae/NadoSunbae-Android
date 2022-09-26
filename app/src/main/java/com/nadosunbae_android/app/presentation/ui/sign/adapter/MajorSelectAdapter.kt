@@ -58,7 +58,6 @@ class MajorSelectAdapter(val noMajor: Int? = -2, val communityWrite: Boolean? = 
             holder.onBind(getItem(position))
             holder.binding.btnMajorStar.setOnClickListener {
                 favoriteCompleteListener.let {
-                    Timber.d("즐겨찾기 ${getItem(position).id}")
                     it(getItem(position).id)
                 }
             }

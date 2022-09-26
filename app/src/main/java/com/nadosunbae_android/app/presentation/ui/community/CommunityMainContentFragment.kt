@@ -159,13 +159,11 @@ class CommunityMainContentFragment :
     //즐겨찾기 클릭시
     private fun clickMajorFavorites() {
         majorBottomSheetDialog.setCompleteFavoritesListener {
-            Timber.d("즐겨찾기 $it")
             communityViewModel.postCommunityFavorite(it)
         }
         communityViewModel.communityFavorites.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach {
                 if (it.success) {
-                    Timber.d("즐겨찾기 성공")
                     mainViewModel.getMajorList(1, "all",null,
                     MainGlobals.signInData?.userId ?: 0)
                 }
