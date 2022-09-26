@@ -9,12 +9,14 @@ data class MajorList(
     @PrimaryKey(autoGenerate = true)
     val id : Long = 0,
     val majorId : Int,
-    val majorName : String
+    val majorName : String,
+    val isFavorites : Boolean?= false
 )
 
 fun MajorList.toEntity() : MajorListData {
     return MajorListData(
         majorName = this.majorName,
-        majorId = this.majorId
+        majorId = this.majorId,
+        isFavorites = isFavorites
     )
 }

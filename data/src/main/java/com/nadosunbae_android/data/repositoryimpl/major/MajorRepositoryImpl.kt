@@ -1,5 +1,6 @@
 package com.nadosunbae_android.data.repositoryimpl.major
 
+import android.util.Log
 import com.nadosunbae_android.data.datasource.database.dao.MajorListDao
 import com.nadosunbae_android.data.datasource.database.entity.MajorList
 import com.nadosunbae_android.data.datasource.database.entity.toEntity
@@ -18,26 +19,32 @@ class MajorRepositoryImpl @Inject constructor(
     private val dao: MajorListDao
 ) : MajorRepository {
     override fun getMajorList(
-        universityId: String,
+        universityId: Int,
         filter: String,
-        exclude: String?
+        exclude: String?,
+        userId : Int
     ): Flow<List<MajorListData>> = flow {
         val majorData = dao.getItem()
         if (majorData.isEmpty()) {
-            val response = dataSource.getMajorList(universityId, filter, exclude)
+            val response = dataSource.getMajorList(universityId, filter, exclude,userId)
             response.data.map { it.toEntity() }.let { data ->
+                Log.d("major list tag"," 이거 호출")
                 emit(data)
                 dao.insert(
                     data.map {
                         MajorList(
                             majorName = it.majorName,
-                            majorId = it.majorId
+                            majorId = it.majorId,
+                            isFavorites = it.isFavorites
                         )
                     }
                 )
             }
         } else {
+            Log.d("major list tag"," 이거 호출")
             emit(majorData.map { it.toEntity() })
         }
     }.flowOn(Dispatchers.IO)
+
+    override suspend fun deleteMajorList() = dao.deleteItem()
 }

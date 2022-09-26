@@ -6,4 +6,6 @@ interface MajorListDao {
     fun insert(items : List<MajorList>)
 
     fun getItem() : List<MajorList>
+
+    suspend fun deleteItem()
 }

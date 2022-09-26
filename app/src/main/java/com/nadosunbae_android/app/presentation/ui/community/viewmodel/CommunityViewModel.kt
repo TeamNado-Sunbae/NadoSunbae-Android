@@ -5,8 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
+import com.nadosunbae_android.domain.model.favorites.FavoritesData
+import com.nadosunbae_android.domain.model.favorites.FavoritesParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.post.PostData
+import com.nadosunbae_android.domain.repository.favorites.FavoritesRepository
+import com.nadosunbae_android.domain.repository.major.MajorRepository
 import com.nadosunbae_android.domain.repository.post.PostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -16,7 +20,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CommunityViewModel @Inject constructor(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
+    private val favoritesRepository: FavoritesRepository,
+    private val majorRepository: MajorRepository
 ) : ViewModel(), LoadableViewModel {
 
     override val onLoadingEnd = MutableLiveData<Boolean>()
@@ -41,6 +47,12 @@ class CommunityViewModel @Inject constructor(
     val communityMainType: LiveData<String>
         get() = _communityMainType
 
+    //커뮤니티 학과 즐겨찾기
+    private var _communityFavorites = MutableStateFlow(FavoritesData.DEFAULT)
+    val communityFavorites: StateFlow<FavoritesData>
+        get() = _communityFavorites
+
+
     //커뮤니티 카테고리 데이터
     fun setCommunityMainType(num: Int) {
         _communityMainType.value = when (num) {
@@ -53,11 +65,11 @@ class CommunityViewModel @Inject constructor(
 
     //커뮤니티 학과 과목
     private var _communityMainMajorName = MutableLiveData("")
-    val communityMainMajorName : LiveData<String>
+    val communityMainMajorName: LiveData<String>
         get() = _communityMainMajorName
 
     //커뮤니티 학과 과목
-    fun setCommunityMainMajorName(majorName : String?){
+    fun setCommunityMainMajorName(majorName: String?) {
         _communityMainMajorName.value = majorName
     }
 
@@ -68,8 +80,8 @@ class CommunityViewModel @Inject constructor(
         filter: String,
         sort: String,
         search: String? = "",
-        type : String? = "",
-        majorName : String? = ""
+        type: String? = "",
+        majorName: String? = ""
     ) = viewModelScope.launch {
         postRepository.getPost(universityId, majorId, filter, sort, search)
             .onStart {
@@ -79,7 +91,7 @@ class CommunityViewModel @Inject constructor(
             }.collectLatest {
                 Timber.d("커뮤니티 메인 서버통신 $it")
                 _communityMainData.value = it
-                setCommunityMainFilter(type,majorName)
+                setCommunityMainFilter(type, majorName)
             }.also {
                 onLoadingEnd.value = true
             }
@@ -103,6 +115,21 @@ class CommunityViewModel @Inject constructor(
             }.collectLatest {
                 _communityMainFilterData.value = it
             }
+        }
+    }
+
+    //커뮤니티 메인 학과 즐겨 찾기
+    fun postCommunityFavorite(majorId: Int) {
+        viewModelScope.launch {
+            majorRepository.deleteMajorList()
+            favoritesRepository.postFavorites(
+                FavoritesParam(majorId)
+            ).catch {
+                Timber.d("즐겨찾기 실패")
+            }
+                .collectLatest {
+                    _communityFavorites.value = it
+                }
         }
     }
 

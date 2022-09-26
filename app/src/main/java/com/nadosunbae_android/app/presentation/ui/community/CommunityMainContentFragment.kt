@@ -24,6 +24,7 @@ import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CommunityMainContentFragment :
@@ -43,11 +44,22 @@ class CommunityMainContentFragment :
         goCommunityWrite()
         setRefreshData()
         setLoading()
+        clickMajorFavorites()
     }
 
     override fun onResume() {
         super.onResume()
-        communityViewModel.getCommunityMainData("1", "0", "community", "recent")
+        val type = communityViewModel.communityMainType.value
+        val majorName = communityViewModel.communityMainMajorName.value
+        communityViewModel.getCommunityMainData(
+            "1",
+            "0",
+            "community",
+            "recent",
+            "",
+            type,
+            majorName
+        )
     }
 
     //메인 게시글
@@ -98,6 +110,7 @@ class CommunityMainContentFragment :
         observeBottomSheet(mainViewModel, majorBottomSheetDialog)
     }
 
+
     //필터 선택
     private fun clickFilter() {
         val showDialog = {
@@ -108,16 +121,16 @@ class CommunityMainContentFragment :
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
             //학과 필터에 들어가는 부분
-            if (selectedData != null) {
-                with(binding) {
-                    val type = communityViewModel.communityMainType.value
-                    val majorName =
-                        if (selectedData.name == getString(R.string.no_major)) null else selectedData.name
-                    communityViewModel.setCommunityMainMajorName(majorName)
-                    communityViewModel.setCommunityMainFilter(type, majorName)
-                    filterTitle = selectedData.name
-                    imgCommunityFilter.isSelected = true
-                }
+            with(binding) {
+                val type = communityViewModel.communityMainType.value
+                val majorName =
+                    if (selectedData.name == getString(R.string.no_major)) null else selectedData.name
+                Timber.d("선택 학과 ${selectedData.name}")
+                communityViewModel.setCommunityMainMajorName(majorName)
+                communityViewModel.setCommunityMainFilter(type, majorName)
+                filterTitle =
+                    if (selectedData.name == "") getString(R.string.no_major) else selectedData.name
+                imgCommunityFilter.isSelected = true
             }
         }
     }
@@ -141,6 +154,21 @@ class CommunityMainContentFragment :
                 binding.swipeCommunityMain.isRefreshing = false
             }
         }
+    }
+
+    //즐겨찾기 클릭시
+    private fun clickMajorFavorites() {
+        majorBottomSheetDialog.setCompleteFavoritesListener {
+            communityViewModel.postCommunityFavorite(it)
+        }
+        communityViewModel.communityFavorites.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach {
+                if (it.success) {
+                    mainViewModel.getMajorList(1, "all",null,
+                    MainGlobals.signInData?.userId ?: 0)
+                }
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
 
