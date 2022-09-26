@@ -108,7 +108,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     //학과 리스트 가져오기
     private fun getMajorList() {
-        mainViewModel.getMajorList("1", "all", null)
+        mainViewModel.getMajorList(1, "all", null,
+        MainGlobals.signInData?.userId ?: 0)
 
     }
 

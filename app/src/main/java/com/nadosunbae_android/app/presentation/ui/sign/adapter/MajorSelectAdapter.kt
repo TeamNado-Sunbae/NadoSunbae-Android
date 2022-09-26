@@ -6,23 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemBottomsheetListBinding
 import com.nadosunbae_android.app.databinding.ItemBottomshhetCommunityListBinding
+import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.app.util.setTextSemiBold
 import com.nadosunbae_android.domain.model.main.SelectableData
 import timber.log.Timber
 
-class MajorSelectAdapter(val noMajor: Int? = -2) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MajorSelectAdapter(val noMajor: Int? = -2, val communityWrite: Boolean? = false) :
+    ListAdapter<SelectableData, RecyclerView.ViewHolder>(
+        DiffUtilCallback<SelectableData>()
+    ) {
 
-    var dataList = mutableListOf<SelectableData>()
-    private var mSelectedPos: Int = -1
+    private var mSelectedPos: Int = NOT_SELECTED
 
     private val _selectedData = MutableLiveData<SelectableData>()
     val selectedData: LiveData<SelectableData>
         get() = _selectedData
 
+    private var favoriteCompleteListener: (Int) -> Unit = {}
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -51,30 +55,36 @@ class MajorSelectAdapter(val noMajor: Int? = -2) :
         @SuppressLint("RecyclerView") position: Int
     ) {
         if (holder is SignSelectionViewHolder) {
-            Timber.d("data $dataList")
-            holder.onBind(dataList[position])
+            holder.onBind(getItem(position))
+            holder.binding.btnMajorStar.setOnClickListener {
+                favoriteCompleteListener.let {
+                    it(getItem(position).id)
+                }
+            }
         } else if (holder is BottomSheetSelectionViewHolder) {
-            holder.onBind(dataList[position])
+            holder.onBind(getItem(position))
         }
         holder.itemView.setOnClickListener {
             when (mSelectedPos) {
                 // 새로 선택
                 NOT_SELECTED -> {
                     mSelectedPos = position
-                    dataList[position].isSelected = true
+                    getItem(position).isSelected = true
                 }
                 // 선택 해제
                 position -> {
-                    mSelectedPos = NOT_SELECTED
-                    dataList[position].isSelected = false
+                    if (communityWrite == false) {
+                        mSelectedPos = NOT_SELECTED
+                        getItem(position).isSelected = false
+                    }
                 }
                 // 선택 변경
                 else -> {
-                    dataList[mSelectedPos].isSelected = false
+                    Timber.d("변경")
+                    getItem(mSelectedPos).isSelected = false
                     mSelectedPos = position
-                    dataList[position].isSelected = true
+                    getItem(position).isSelected = true
                 }
-
             }
             _selectedData.value = getSelectedData()
             notifyDataSetChanged()
@@ -82,12 +92,11 @@ class MajorSelectAdapter(val noMajor: Int? = -2) :
     }
 
 
-    override fun getItemCount(): Int = dataList.size
-
     class SignSelectionViewHolder(val binding: ItemBottomsheetListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(bottomSheetData: SelectableData) {
             binding.data = bottomSheetData
+            binding.btnMajorStar.isSelected = bottomSheetData.isFavorites ?: false
             binding.tvBottomsheeetContent.isSelected = bottomSheetData.isSelected
             if (bottomSheetData.isSelected) {
                 binding.ivBottomsheetCheck.visibility = View.VISIBLE
@@ -120,14 +129,14 @@ class MajorSelectAdapter(val noMajor: Int? = -2) :
 
     private fun getSelectedData(): SelectableData {
         if (mSelectedPos != NOT_SELECTED)
-            return dataList[mSelectedPos]
+            return currentList[mSelectedPos]
         return SelectableData(-1, "", false)
     }
 
     fun setSelectedData(dataId: Int) {
-        for (d in dataList) {
+        for (d in currentList) {
             if (d.id == dataId) {
-                mSelectedPos = dataList.indexOf(d)
+                mSelectedPos = currentList.indexOf(d)
                 d.isSelected = true
                 break
             }
@@ -135,8 +144,7 @@ class MajorSelectAdapter(val noMajor: Int? = -2) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        Timber.d("noMajor $noMajor")
-        return if (dataList[position].id == noMajor) {
+        return if (getItem(position).id == noMajor) {
             COMMUNITY
         } else {
             ANOTHER
@@ -145,9 +153,14 @@ class MajorSelectAdapter(val noMajor: Int? = -2) :
     }
 
     fun clearSelect() {
-        for (d in dataList)
+        for (d in currentList)
             d.isSelected = false
         mSelectedPos = NOT_SELECTED
+    }
+
+    //즐겨찾기 클릭
+    fun setFavoritesClickListener(listener: (Int) -> Unit) {
+        this.favoriteCompleteListener = listener
     }
 
     companion object {

@@ -6,12 +6,14 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class MajorListData(
     val majorId: Int,
-    val majorName: String
+    val majorName: String,
+    val isFavorites : Boolean ?= false
 ) : Parcelable{
     companion object{
         val DEFAULT = MajorListData(
             majorId = 0,
-            majorName = ""
+            majorName = "",
+            isFavorites = false
         )
     }
 }

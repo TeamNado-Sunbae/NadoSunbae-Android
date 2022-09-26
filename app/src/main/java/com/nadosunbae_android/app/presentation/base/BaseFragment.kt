@@ -44,15 +44,15 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
     fun observeBottomSheet(viewModel: MainViewModel, majorBottomSheetDialog: CustomBottomSheetDialog) {
         viewModel.majorList.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach{
-            val responseData = viewModel.majorList.value
+            val responseData = it
             val dialogInput = mutableListOf<SelectableData>()
 
             // null check
             if (responseData != null) {
                 for (d in responseData)
-                    dialogInput.add(SelectableData(d.majorId, d.majorName, false))
+                    dialogInput.add(SelectableData(d.majorId, d.majorName,false, d.isFavorites))
             }
-
+                Timber.d("dialog $dialogInput")
             majorBottomSheetDialog.setDataList(dialogInput)
         }
             .launchIn(viewLifecycleOwner.lifecycleScope)

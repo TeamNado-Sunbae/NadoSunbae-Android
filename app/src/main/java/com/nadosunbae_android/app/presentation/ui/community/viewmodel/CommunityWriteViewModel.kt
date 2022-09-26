@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
+import com.nadosunbae_android.domain.model.favorites.FavoritesData
+import com.nadosunbae_android.domain.model.favorites.FavoritesParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import com.nadosunbae_android.domain.model.post.PostWriteData
 import com.nadosunbae_android.domain.model.post.PostWriteParam
+import com.nadosunbae_android.domain.repository.favorites.FavoritesRepository
 import com.nadosunbae_android.domain.repository.major.MajorRepository
 import com.nadosunbae_android.domain.repository.post.PostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +23,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CommunityWriteViewModel @Inject constructor(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
+    private val favoritesRepository: FavoritesRepository,
+    private val majorRepository: MajorRepository
 ) : ViewModel(), LoadableViewModel {
     override val onLoadingEnd = MutableLiveData<Boolean>()
 
@@ -85,6 +90,46 @@ class CommunityWriteViewModel @Inject constructor(
             }
         }
     }
+    //커뮤니티 학과 즐겨찾기
+    private var _communityFavorites = MutableStateFlow(FavoritesData.DEFAULT)
+    val communityFavorites: StateFlow<FavoritesData>
+        get() = _communityFavorites
 
 
+    //커뮤니티 메인 학과 즐겨 찾기
+    fun postCommunityFavorite(majorId: Int) {
+        viewModelScope.launch {
+            majorRepository.deleteMajorList()
+            favoritesRepository.postFavorites(
+                FavoritesParam(majorId)
+            ).catch {
+                Timber.d("즐겨찾기 실패")
+            }
+                .collectLatest {
+                    _communityFavorites.value = it
+                }
+        }
+    }
+
+    //TODO 회원가입시에 가져오기? 근데 회원가입 없는 기존에 사람들은? 이건 고민필요
+    //학과 리스트 가져오기
+    fun getMajorList(
+        universityId: Int, filter: String, exclude: String?,
+        userId: Int
+    ) {
+        viewModelScope.launch {
+            majorRepository.getMajorList(universityId, filter, exclude, userId)
+                .onStart {
+                    onLoadingEnd.value = false
+                }
+                .catch {
+                    Timber.d("학과 리스트 가져오기 실패 ${it.printStackTrace()}")
+
+                }
+                .collectLatest {
+                    _majorList.value = it
+                    Timber.d("학과 리스트 $it")
+                }
+        }
+    }
 }

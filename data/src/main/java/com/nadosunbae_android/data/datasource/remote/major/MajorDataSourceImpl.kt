@@ -8,10 +8,11 @@ import javax.inject.Inject
 class MajorDataSourceImpl @Inject constructor(private val service: MajorService) : MajorDataSource {
 
     override suspend fun getMajorList(
-        universityId: String,
+        universityId: Int,
         filter: String,
-        exclude: String?
+        exclude: String?,
+        userId : Int
     ): Response<List<ResponseMajorListData>> {
-        return service.getMajorList(universityId, filter, exclude)
+        return service.getMajorList(universityId, filter, exclude,userId)
     }
 }

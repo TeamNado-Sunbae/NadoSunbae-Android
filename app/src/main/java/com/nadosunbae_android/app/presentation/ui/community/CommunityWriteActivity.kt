@@ -9,6 +9,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityCommunityWriteBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteViewModel
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.major.MajorListData
@@ -33,6 +34,7 @@ class CommunityWriteActivity :
         clickComplete()
         communityWriteViewModel.setCompleteButton()
         goDetail()
+        clickMajorFavorites()
     }
 
 
@@ -46,14 +48,26 @@ class CommunityWriteActivity :
         majorBottomSheetDialog = CustomBottomSheetDialog(
             getString(R.string.community_write_bottom_sheet_title),
             true,
-            noMajor
+            noMajor,
+            true
         )
-        observeBottomSheet(
-            communityWriteViewModel.majorList.value ?: emptyList(), majorBottomSheetDialog
-        )
+
+        communityWriteViewModel.majorList.observe(this){
+            Timber.d("즐겨찾기 클릭시 $it")
+            observeBottomSheet(
+                it ?: emptyList(), majorBottomSheetDialog
+            )
+        }
+
+        //학과 선택 학과 무관 default
+        majorBottomSheetDialog.setSelectedData(
+            communityWriteViewModel.majorList.value?.get(0)?.majorId
+            ?: 0 )
         //기본 카테고리
         binding.layoutCommunityWriteCategory.radioBtnCategoryFreedom.isChecked = true
     }
+
+
 
     //학과 변경 클릭
     private fun clickMajor() {
@@ -113,7 +127,20 @@ class CommunityWriteActivity :
                 binding.btnCommunityWriteOk.isEnabled = it
             }.launchIn(lifecycleScope)
     }
-
+    //즐겨찾기 클릭시
+    private fun clickMajorFavorites() {
+        majorBottomSheetDialog.setCompleteFavoritesListener {
+            communityWriteViewModel.postCommunityFavorite(it)
+        }
+        communityWriteViewModel.communityFavorites.flowWithLifecycle(lifecycle)
+            .onEach {
+                if (it.success) {
+                    communityWriteViewModel.getMajorList(1, "all",null,
+                        MainGlobals.signInData?.userId ?: 0)
+                }
+            }
+            .launchIn(lifecycleScope)
+    }
 
     //완료 버튼
     private fun clickComplete() {
