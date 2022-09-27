@@ -148,6 +148,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     binding.btNvMain.selectedItemId = R.id.navigation_notice
                     changeFragmentNoBackStack(R.id.fragment_container_main, NotificationFragment())
                 }
+                COMMUNITY -> {
+                    binding.btNvMain.selectedItemId = R.id.navigation_community
+                    changeFragmentNoBackStack(
+                        R.id.fragment_container_main,
+                        CommunityFragment()
+                    )
+                }
 
                 else -> {
                     changeFragmentNoBackStack(R.id.fragment_container_main, HomeFrameFragment())
@@ -385,5 +392,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         const val MYPAGEDIVISION = 5
         const val NOTIFICATION = 6
         const val CLASSROOM_NOBACK = 7
+        const val COMMUNITY = 8
     }
 }
