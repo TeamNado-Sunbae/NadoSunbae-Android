@@ -66,14 +66,14 @@ class MyPagePostInfoAdapter(
                     else {
                         val intent =
                             Intent(holder.itemView.context, CommunityDetailActivity::class.java)
-                        intent.putExtra(
-                            "postId",
-                            getItem(holder.absoluteAdapterPosition).postId.toString()
-                        )
+                        var postId = getItem(holder.absoluteAdapterPosition)?.postId?.toString() ?: "0"
+                        if(postId == "0") {
+                            postId = getItem(holder.absoluteAdapterPosition).id.toString()
+                        }
+                        Timber.e("$postId")
+                        intent.putExtra("postId", postId)
                         holder.itemView.context.startActivity(intent)
                     }
-
-
                 })
         }
     }

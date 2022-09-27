@@ -16,6 +16,7 @@ object UserMapper {
                 likeCount = it.like.likeCount,
                 majorName = it.majorName,
                 postId = it.postId,
+                id = it.id,
                 title = it.title,
                 type = it.type,
                 writerId = it.writer.id,
