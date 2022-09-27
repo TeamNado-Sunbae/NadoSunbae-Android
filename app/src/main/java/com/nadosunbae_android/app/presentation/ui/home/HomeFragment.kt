@@ -80,7 +80,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     //홈 뷰 질문 리사이클러뷰 연결
     private fun setQuestionAdapter() {
         communityViewModel.getCommunityMainData("1", "0", "questionToPerson", "recent","")
-        questionAdapter = QuestionAdapter()
+        questionAdapter = QuestionAdapter(mainViewModel.userId.value ?: 0)
         binding.rvHomeQuestion.adapter = questionAdapter
         communityViewModel.communityMainData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,

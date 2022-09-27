@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.home.adpter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemHomeQuestionBinding
@@ -14,7 +15,7 @@ import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.post.PostData
 
-class QuestionAdapter :
+class QuestionAdapter(private val userId: Int) :
     ListAdapter<PostData, QuestionAdapter.QuestionViewHolder>(
         DiffUtilCallback<PostData>()
     ) {
@@ -39,12 +40,12 @@ class QuestionAdapter :
                 MainGlobals.signInData?.message.toString(),
                 behavior = {
                     val intent =
-                        Intent(holder.itemView.context, CommunityDetailActivity::class.java)
-                    intent.putExtra(
-                        "postId",
-                        getItem(holder.absoluteAdapterPosition).postId.toString()
-                    )
-                    holder.itemView.context.startActivity(intent)
+                        Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+                    intent.apply {
+                        putExtra("postId", getItem(holder.absoluteAdapterPosition).postId.toString())
+                        putExtra("userId", userId)
+                    }
+                    ContextCompat.startActivity(holder.itemView.context, intent, null)
                 }
             )
         }
