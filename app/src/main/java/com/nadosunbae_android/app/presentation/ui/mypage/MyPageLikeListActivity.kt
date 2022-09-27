@@ -27,7 +27,7 @@ class MyPageLikeListActivity :
         backBtn()
         initSwitchTab()
         observeFragmentNum()
-        //initReviewListAdapter()
+        initReviewListAdapter()
     }
 
     private fun observeLoadingEnd() {
@@ -73,7 +73,7 @@ class MyPageLikeListActivity :
         myPageViewModel.likeCurFragment.observe(this) {
             when (it) {
                 0 -> {
-                    //initReviewListAdapter()
+                    initReviewListAdapter()
                 }
                 1 -> {
                     questionPosting()
@@ -84,21 +84,6 @@ class MyPageLikeListActivity :
             }
             binding.viewMypageSwitch.switchTab = CustomSwitchTab.getSwitchTabValue(it)
         }
-    }
-
-
-    override fun onRestart() {
-        /*
-        super.onRestart()
-        if (binding.textMypageLikeReview.isSelected) {
-            initReviewListAdapter()
-        } else if (binding.textMypageLikeQuestion.isSelected) {
-            questionPosting()
-        } else {
-            infoPosting()
-        }
-
-         */
     }
 
 
@@ -147,7 +132,8 @@ class MyPageLikeListActivity :
         myPageLikeQuestionAdapter =
             MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
-
+        binding.rvMypageLike.visibility = View.VISIBLE
+        binding.rvMypageReviewLike.visibility = View.GONE
         myPageViewModel.userLike.observe(this) {
             initQuestionEmpty(it.size)
             (binding.rvMypageLike.adapter as MyPageLikeQuestionAdapter).submitList(it)
@@ -160,9 +146,10 @@ class MyPageLikeListActivity :
         intent.getIntExtra("userId", 0)
 
         myPageViewModel.getMyPageLike("community")
-        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 0)
+        myPageLikeQuestionAdapter = MyPageLikeQuestionAdapter(2, intent.getIntExtra("userId", 0), 1, 1)
         binding.rvMypageLike.adapter = myPageLikeQuestionAdapter
-
+        binding.rvMypageLike.visibility = View.VISIBLE
+        binding.rvMypageReviewLike.visibility = View.GONE
         myPageViewModel.userLike.observe(this) {
             initInfoEmpty(it.size)
             (binding.rvMypageLike.adapter as MyPageLikeQuestionAdapter).submitList(it)
@@ -176,11 +163,13 @@ class MyPageLikeListActivity :
         val userId = intent.getIntExtra("userId", 0)
         myPageViewModel.getMyPageLike("review")
         myPageLikeReviewAdapter = MyPageLikeReviewAdapter(userId)
-        binding.rvMypageLike.adapter = myPageLikeReviewAdapter
+        binding.rvMypageReviewLike.adapter = myPageLikeReviewAdapter
+        binding.rvMypageLike.visibility = View.GONE
+        binding.rvMypageReviewLike.visibility = View.VISIBLE
         myPageViewModel.userLike.observe(this)
         {
             initReviewEmpty(it.size)
-            //(binding.rvMypageLike.adapter as MyPageLikeReviewAdapter).submitList(it)
+            (binding.rvMypageReviewLike.adapter as MyPageLikeReviewAdapter).submitList(it)
         }
     }
 }

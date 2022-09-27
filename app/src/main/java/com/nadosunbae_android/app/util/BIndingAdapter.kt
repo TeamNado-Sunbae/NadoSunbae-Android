@@ -274,6 +274,15 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("isCommunity")
+    fun isCommunity(textView: TextView, type: String?) {
+        if (type == "자유" || type == "정보")
+            textView.visibility = View.VISIBLE
+        else
+            textView.visibility = View.GONE
+    }
+
+    @JvmStatic
     @BindingAdapter("rateText")
     fun rateText(textView: TextView, int: Int) {
         val rate = int.toString().also { textView.text = it }

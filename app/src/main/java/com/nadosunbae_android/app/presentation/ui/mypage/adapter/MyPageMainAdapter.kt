@@ -8,6 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemMypagePersonalQuestionBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.community.CommunityDetailActivity
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
+import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.user.UserQuestionData
 
@@ -27,15 +31,25 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
 
     override fun onBindViewHolder(holder: MyPageMainViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.binding.root.setOnClickListener {
-            val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
-            intent.apply {
-                putExtra("myPageNum",myPageNum)
-                putExtra("userId", userId)
-                putExtra("postId", getItem(position).id)
-                putExtra("all", num)
-            }
-            ContextCompat.startActivity(holder.itemView.context, intent, null)
+        val context = holder.itemView.context
+        holder.itemView.setOnClickListener {
+            CustomDialog(context).restrictDialog(
+                context,
+                ReviewGlobals.isReviewed,
+                MainGlobals.signInData?.isUserReported ?: false,
+                MainGlobals.signInData?.isReviewInappropriate ?: false,
+                MainGlobals.signInData?.message.toString(),
+                behavior = {
+                    val intent =
+                        Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+                    intent.putExtra(
+                        "postId",
+                        getItem(holder.absoluteAdapterPosition).postId.toString()
+                    )
+                    intent.putExtra("userId", userId)
+                    holder.itemView.context.startActivity(intent)
+                }
+            )
         }
     }
 

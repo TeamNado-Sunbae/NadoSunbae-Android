@@ -153,7 +153,6 @@ class CustomDialog(val context: Context) {
         dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))     // 다이얼로그 투명한 배경 적용
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)                       // 다이얼로그 외부 영역 투명
         dialog.show()
-
         return dialog
     }
     //리뷰 신고 다이얼로그

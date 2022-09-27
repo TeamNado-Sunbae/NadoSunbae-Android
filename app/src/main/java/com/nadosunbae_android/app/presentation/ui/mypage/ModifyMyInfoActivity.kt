@@ -19,6 +19,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityModifyMyInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
@@ -27,6 +28,7 @@ import com.nadosunbae_android.app.util.BindingAdapter
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
@@ -42,8 +44,9 @@ class ModifyMyInfoActivity :
     private val signViewModel: SignViewModel by viewModels()
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
     private val mainViewModel: MainViewModel by viewModels()
+    private val communityWriteViewModel: CommunityWriteViewModel by viewModels()
 
-    private val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
+    private lateinit var firstDepartmentBottomSheetDialog : CustomBottomSheetDialog
     private val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
     private val secondDepartmentBottomSheetDialog = CustomBottomSheetDialog("제2전공")
     private val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("제2전공 진입시기")
@@ -68,6 +71,8 @@ class ModifyMyInfoActivity :
         observeEditFinish()
         introductionTextWatcher()
         modifyImgListener()
+
+        initBottomSheet()
 
     }
 
@@ -135,17 +140,41 @@ class ModifyMyInfoActivity :
         }
     }
 
+    //바텀시트 선택
+    private fun initBottomSheet(){
+        firstDepartmentBottomSheetDialog = CustomBottomSheetDialog(resources.getString(R.string.bottom_sheet_title_major))
+        observeBottomSheet(
+            communityWriteViewModel.majorList.value ?: emptyList(), firstDepartmentBottomSheetDialog
+        )
+
+        firstDepartmentBottomSheetDialog.setCompleteListener {
+            val selectedData = firstDepartmentBottomSheetDialog.getSelectedData()
+            if (selectedData != null) {
+                val majorData = MajorSelectData(selectedData.id, selectedData.name)
+                mainViewModel.setSelectedMajor(majorData)
+            }
+
+        }
+    }
+
 
     //제 1전공 학과 선택 바텀시트
     private fun firstMajor() {
-
+        val showDialog = {
+            firstDepartmentBottomSheetDialog.show(supportFragmentManager, firstDepartmentBottomSheetDialog.tag)
+        }
         binding.textMyPageMajorinfoMajorMint.setOnClickListener {
+            /*
             firstDepartmentBottomSheetDialog.show(
                 supportFragmentManager,
                 firstDepartmentBottomSheetDialog.tag
             )
+
+             */
+            showDialog
         }
 
+        /*
         signUpBasicInfoViewModel.getFirstDepartment(1, "firstMajor")
         signUpBasicInfoViewModel.firstDepartment.observe(this) {
             firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
@@ -154,6 +183,7 @@ class ModifyMyInfoActivity :
 
         //데이터 넣기
         firstDepartmentBottomSheetDialog.setCompleteListener {
+
             val firstMajor = firstDepartmentBottomSheetDialog.getSelectedData()
             signViewModel.firstMajor.value = firstMajor?.name
             initActiveSaveBtn()
@@ -164,6 +194,8 @@ class ModifyMyInfoActivity :
                 binding.textMyPageMajorinfoMajor.setText(it)
                 binding.textMyPageMajorinfoMajor.text = it
             }
+
+         */
     }
 
     //제 1전공 진입시기 선택 바텀시트
@@ -493,6 +525,8 @@ class ModifyMyInfoActivity :
     // 회원정보 수정 put 서버통신
     private fun completeModifyInfo() {
         with(binding) {
+            //val requestBody = MyPageModifyItem(1, "혜빈테스트즁임", "모가 빠졌냐 진짜", 1,"19-1", 3, "20-2", true)
+
             val requestBody = MyPageModifyItem(
                 1,
                 etMyPageNickname.text.toString(),
@@ -516,6 +550,10 @@ class ModifyMyInfoActivity :
                 textMyPageMajorinfoDoubleMajorTime.text.toString(),
                 binding.imgMyPageModifySwitch.isSelected
             )
+
+            Timber.e("${requestBody}")
+
+
             myPageViewModel.putMyPageModify(requestBody)
         }
     }

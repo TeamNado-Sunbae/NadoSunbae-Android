@@ -47,7 +47,7 @@ class HomeQuestionFragment :
     //홈 뷰 커뮤니티 리사이클러뷰 연결
     private fun setCommunityAdapter() {
         communityViewModel.getCommunityMainData("1", "0", "questionToPerson", "recent", "")
-        questionDetailAdapter = QuestionDetailAdapter()
+        questionDetailAdapter = QuestionDetailAdapter(mainViewModel.userId.value ?: 0)
         binding.rvHomeQuestion.adapter = questionDetailAdapter
         communityViewModel.communityMainData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,

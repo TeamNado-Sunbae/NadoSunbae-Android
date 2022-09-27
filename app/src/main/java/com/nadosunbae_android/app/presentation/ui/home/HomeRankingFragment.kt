@@ -10,6 +10,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeRankingBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.home.adpter.RankingDetailAdapter
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.domain.model.home.HomeRankingData
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,7 +51,7 @@ class HomeRankingFragment :
     }
 
     private fun initSetting() {
-        rankingDetailAdapter = RankingDetailAdapter()
+        rankingDetailAdapter = RankingDetailAdapter(MainGlobals.signInData?.userId ?: 0)
         binding.rvHomeReview.adapter = rankingDetailAdapter
         homeViewModel.getHomeRanking(mainViewModel.univId.value ?: 0)
         homeViewModel.rankingData.observe(viewLifecycleOwner) {

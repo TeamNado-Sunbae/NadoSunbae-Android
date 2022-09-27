@@ -17,7 +17,8 @@ data class ResponseUserPost(
             val createdAt: Date,
             val like: Like,
             val majorName: String,
-            val postId: Int,
+            val postId: Int?,
+            val id: Int?,
             val title: String,
             val type: String?,
             val writer: Writer
