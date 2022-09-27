@@ -17,7 +17,7 @@
             android:id="@+id/radio_btn_category_freedom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/ic_radio_btn_gray"
+            android:button="@drawable/ic_radio_btn_gray_select"
             android:enabled="false"
             android:fontFamily="@font/pretendard_regular"
             android:paddingStart="4dp"

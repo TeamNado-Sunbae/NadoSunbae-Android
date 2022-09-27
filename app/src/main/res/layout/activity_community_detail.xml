@@ -9,6 +9,7 @@
         <variable
             name="postDetail"
             type="com.nadosunbae_android.domain.model.post.PostDetailData" />
+
         <variable
             name="communityDetailViewModel"
             type="com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityDetailViewModel" />
@@ -47,13 +48,13 @@
                 android:id="@+id/text_"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{postDetail.firstMajorName}"
-                android:textSize="12sp"
-                android:textColor="@color/gray_3"
                 android:fontFamily="@font/pretendard_regular"
-                app:layout_constraintTop_toBottomOf="@+id/text_community_detail_title"
+                android:text="@{postDetail.firstMajorName}"
+                android:textColor="@color/gray_3"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/text_community_detail_title" />
 
             <ImageView
                 android:id="@+id/img_community_detail_title_back"
@@ -105,11 +106,27 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/text_community_detail_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/rectangle_fill_gray_0_8"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp"
+                        android:text="@{postDetail.type}"
+                        android:textColor="@color/main_default"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
                         android:id="@+id/text_community_detail_question_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/pretendard_semibold"
                         android:lineHeight="30sp"
@@ -117,8 +134,8 @@
                         android:textColor="@color/main_default"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toStartOf="@+id/text_community_detail_category"
+                        app:layout_constraintTop_toBottomOf="@+id/text_community_detail_category" />
 
                     <TextView
                         android:id="@+id/text_community_detail_question_name"
@@ -319,11 +336,11 @@
                 android:background="@drawable/rectangle_fill_gray_0_64"
                 android:fontFamily="@font/pretendard_regular"
                 android:hint="@string/question_detail_comment"
-                android:text="@={communityDetailViewModel.commentContent}"
                 android:maxLines="1"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:scrollbars="vertical"
+                android:text="@={communityDetailViewModel.commentContent}"
                 android:textColorHint="@color/gray_2"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
