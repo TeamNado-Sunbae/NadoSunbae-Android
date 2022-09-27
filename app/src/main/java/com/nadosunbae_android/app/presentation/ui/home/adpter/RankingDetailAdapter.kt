@@ -8,11 +8,12 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemHomeRankingBinding
+import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityPostDetailAdapter
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.home.HomeRankingData
 import com.nadosunbae_android.domain.model.home.RankingTest
 
-class RankingDetailAdapter() :
+class RankingDetailAdapter(private var userId: Int) :
     androidx.recyclerview.widget.ListAdapter<HomeRankingData, RankingDetailAdapter.RankingDetailViewHolder>(
         DiffUtilCallback<HomeRankingData>()
     ) {
@@ -26,10 +27,30 @@ class RankingDetailAdapter() :
         return RankingDetailViewHolder(binding)
     }
 
+    private var onItemCLickListener: ((View, Int, Int, Int) -> Unit)? = null
+
+    // 삭제, 신고를 위한 user 구분 (작성자 -> 1, 제3자 -> 2)
+    private fun lookForWriter(writerId: Int): Int {
+        return if (userId == writerId) {
+            CommunityPostDetailAdapter.writer
+        } else {
+            CommunityPostDetailAdapter.thirdParty
+        }
+
+    }
+
     //TODO: 선배 프로필 페이지로 이동
     override fun onBindViewHolder(holder: RankingDetailViewHolder, position: Int) {
         holder.binding.apply {
             setVariable(BR.ranking, getItem(position))
+            holder.itemView.setOnClickListener { view ->
+                onItemCLickListener?.let {
+                    it(
+                        view, position, lookForWriter(getItem(position).id),
+                        getItem(position).id
+                    )
+                }
+            }
             tvRanking.setText("${position+1}")
             when(holder.absoluteAdapterPosition) {
                 0 -> {

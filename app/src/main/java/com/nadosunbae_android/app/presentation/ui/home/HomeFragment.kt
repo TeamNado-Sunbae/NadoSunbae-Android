@@ -126,6 +126,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         binding.tvHomeCommunityMore.setOnClickListener {
             //TODO : 커뮤니티 탭으로 이동
+            findNavController().navigate(R.id.action_homeFragment_to_communityFragment)
         }
     }
 
