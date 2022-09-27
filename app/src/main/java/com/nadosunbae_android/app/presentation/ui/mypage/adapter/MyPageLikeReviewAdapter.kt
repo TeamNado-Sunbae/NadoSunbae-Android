@@ -9,10 +9,10 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.databinding.ItemMypageReviewBinding
-import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
+import com.nadosunbae_android.app.databinding.ItemMypageLikeReviewBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewDetailActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.user.UserLikeData
@@ -23,7 +23,7 @@ class MyPageLikeReviewAdapter(var userId : Int):
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageLikeReviewViewHolder {
-        val binding = ItemMypageReviewBinding.inflate(
+        val binding = ItemMypageLikeReviewBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -60,7 +60,7 @@ class MyPageLikeReviewAdapter(var userId : Int):
     }
 
     class MyPageLikeReviewViewHolder(
-        val binding: ItemMypageReviewBinding, private val context: Context
+        val binding: ItemMypageLikeReviewBinding, private val context: Context
     ) : RecyclerView.ViewHolder(binding.root) {
         private val tagLink = listOf(
             Pair(context.getString(R.string.review_curriculum), binding.tvTagCurriculum),
