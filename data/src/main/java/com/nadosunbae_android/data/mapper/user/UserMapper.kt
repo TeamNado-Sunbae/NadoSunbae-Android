@@ -1,6 +1,8 @@
 package com.nadosunbae_android.data.mapper.user
 
+import android.util.Log
 import com.nadosunbae_android.data.model.response.user.*
+import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import com.nadosunbae_android.domain.model.user.*
 
 object UserMapper {
@@ -93,5 +95,36 @@ object UserMapper {
                 nickname = it.writer.nickname
             )
         }
+    }
+
+    fun mapperToSeniorInfoList(responseSeniorList: ResponseSeniorList): ClassRoomSeniorData {
+        val onQuestionUsers = responseSeniorList.data.onQuestionUserList.map {
+            ClassRoomSeniorData.UserSummaryData(
+                id = it.id,
+                profileImageId = it.profileImageId,
+                isFirstMajor = it.isFirstMajor,
+                isOnQuestion = it.isOnQuestion,
+                majorStart = it.majorStart,
+                nickname = it.nickname,
+                rate = it.rate
+            )
+        }
+
+        val offQuestionUsers = responseSeniorList.data.offQuestionUserList.map {
+            ClassRoomSeniorData.UserSummaryData(
+                id = it.id,
+                profileImageId = it.profileImageId,
+                isFirstMajor = it.isFirstMajor,
+                isOnQuestion = it.isOnQuestion,
+                majorStart = it.majorStart,
+                nickname = it.nickname,
+                rate = it.rate
+            )
+        }
+
+        return ClassRoomSeniorData(
+             onQuestionUserList = onQuestionUsers,
+            offQuestionUserList = offQuestionUsers
+        )
     }
 }

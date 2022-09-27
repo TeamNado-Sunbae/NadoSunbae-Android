@@ -16,7 +16,8 @@ data class ResponseClassRoomSeniorData(
             val isOnQuestion: Boolean,
             val majorStart: String,
             val nickname: String,
-            val userId: Int
+            val userId: Int,
+            val rate: Int
         )
 
         data class OnQuestionUser(
@@ -25,7 +26,8 @@ data class ResponseClassRoomSeniorData(
             val isOnQuestion: Boolean,
             val majorStart: String,
             val nickname: String,
-            val userId: Int
+            val userId: Int,
+            val rate: Int
         )
     }
 }

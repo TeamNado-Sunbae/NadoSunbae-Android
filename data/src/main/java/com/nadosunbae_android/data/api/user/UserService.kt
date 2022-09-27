@@ -37,4 +37,10 @@ interface UserService {
         @Path("userId") userId : Int,
         @Query("sort") sort : String
     ) : ResponseUserQuestion
+
+    @GET("user/major/{majorId}")
+    suspend fun getSeniorList(
+        @Path("majorId") majorId: Int,
+        @Query("exclude") exclude: String?
+    ) : ResponseSeniorList
 }

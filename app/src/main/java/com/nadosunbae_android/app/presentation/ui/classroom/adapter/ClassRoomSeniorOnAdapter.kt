@@ -11,7 +11,7 @@ import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 class ClassRoomSeniorOnAdapter(
     var link : DataToFragment
 ) : RecyclerView.Adapter<ClassRoomSeniorOnAdapter.ClassRoomSeniorOnViewHolder>() {
-    var onQuestionUserList = mutableListOf<ClassRoomSeniorData.OnQuestionUser>()
+    var onQuestionUserList = mutableListOf<ClassRoomSeniorData.UserSummaryData>()
 
 
     override fun onCreateViewHolder(
@@ -32,7 +32,7 @@ class ClassRoomSeniorOnAdapter(
     ) {
         holder.onBind(onQuestionUserList[position])
         holder.itemView.setOnClickListener {
-            link.getSeniorId(onQuestionUserList[position].userId)
+            link.getSeniorId(onQuestionUserList[position].id)
 
         }
     }
@@ -44,13 +44,13 @@ class ClassRoomSeniorOnAdapter(
     inner class ClassRoomSeniorOnViewHolder(
         val binding : ItemQuestionSeniorOnQuestionBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(onQuestionUserList : ClassRoomSeniorData.OnQuestionUser){
+        fun onBind(onQuestionUserList : ClassRoomSeniorData.UserSummaryData){
             binding.seniorOn = onQuestionUserList
             binding.executePendingBindings()
         }
     }
 
-    fun setOnQuestionUser(onQuestionUserList: MutableList<ClassRoomSeniorData.OnQuestionUser>){
+    fun setOnQuestionUser(onQuestionUserList: MutableList<ClassRoomSeniorData.UserSummaryData>){
         this.onQuestionUserList = onQuestionUserList
         notifyDataSetChanged()
     }

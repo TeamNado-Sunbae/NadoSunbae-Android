@@ -66,8 +66,8 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         binding.rcSeniorQuestionOff.adapter = classRoomSeniorOffAdapter
         binding.rcSeniorQuestionOn.adapter = classRoomSeniorOnAdapter
         mainViewModel.seniorData.observe(viewLifecycleOwner) {
-            classRoomSeniorOnAdapter.setOnQuestionUser(it.onQuestionUserList as MutableList<ClassRoomSeniorData.OnQuestionUser>)
-            classRoomSeniorOffAdapter.setOffQuestionUser(it.offQuestionUserList as MutableList<ClassRoomSeniorData.OffQuestionUser>)
+            classRoomSeniorOnAdapter.setOnQuestionUser(it.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>)
+            classRoomSeniorOffAdapter.setOffQuestionUser(it.offQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>)
         }
 
     }
