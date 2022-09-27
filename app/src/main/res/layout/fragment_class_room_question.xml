@@ -98,6 +98,7 @@
                 android:layout_marginStart="20dp"
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_question_senior_on_question" />
 
