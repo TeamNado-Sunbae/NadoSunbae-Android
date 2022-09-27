@@ -29,13 +29,6 @@ class QuestionDetailAdapter :
 
     override fun onBindViewHolder(holder: QuestionDetailViewHolder, position: Int) {
         holder.bind(getItem(position))
-        /*
-        holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, QuestionDetailActivity::class.java)
-            intent.putExtra("postId",getItem(position).postId.toString())
-            holder.itemView.context.startActivity(intent)
-        }
-         */
         val context = holder.itemView.context
         holder.itemView.setOnClickListener {
             CustomDialog(context).restrictDialog(
