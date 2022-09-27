@@ -108,24 +108,13 @@ class MyPageReplyActivity :
 
     private fun questionPosting() {
         myPageViewModel.getMyPageReply("questionToPerson")
-        myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
+        myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 0)
         binding.rvMypageQuestion.adapter = myPagePostInfoAdapter
 
         myPageViewModel.userComment.observe(this) {
             initQuestionEmpty(it.size)
             (binding.rvMypageQuestion.adapter as MyPagePostInfoAdapter).submitList(it)
         }
-    }
-
-    override fun onRestart() {
-        /*
-        super.onRestart()
-        if (binding.textMypageReplyQuestionTitle.isSelected) {
-            questionPosting()
-        } else {
-            infoPosting()
-        }
-         */
     }
 
     private fun infoPosting() {

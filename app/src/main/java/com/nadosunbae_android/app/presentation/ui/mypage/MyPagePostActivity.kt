@@ -105,7 +105,7 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
 
     private fun questionPosting() {
         myPageViewModel.getMyPost("questionToPerson")
-        myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 1)
+        myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 0)
         binding.rvMypageQuestion.adapter = myPagePostInfoAdapter
 
         myPageViewModel.userPost.observe(this) {

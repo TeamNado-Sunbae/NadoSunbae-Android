@@ -41,11 +41,12 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
                 MainGlobals.signInData?.message.toString(),
                 behavior = {
                     val intent =
-                        Intent(holder.itemView.context, CommunityDetailActivity::class.java)
+                        Intent(holder.itemView.context, QuestionDetailActivity::class.java)
                     intent.putExtra(
                         "postId",
                         getItem(holder.absoluteAdapterPosition).postId.toString()
                     )
+                    intent.putExtra("userId", userId)
                     holder.itemView.context.startActivity(intent)
                 }
             )
