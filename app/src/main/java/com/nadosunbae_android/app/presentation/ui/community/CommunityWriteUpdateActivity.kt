@@ -36,17 +36,19 @@ class CommunityWriteUpdateActivity :
         communityWriteUpdateViewModel.setUpdateData(
             intent.getParcelableExtra("updateData") ?: CommunityWriteUpdateData.DEFAULT
         )
-        Timber.d("update ${communityWriteUpdateViewModel.initUpdateData.value}")
         binding.viewModel = communityWriteUpdateViewModel
     }
 
     //카테고리
     private fun initCategory(){
-        when(communityWriteUpdateViewModel.initUpdateData.value.category){
-            "자유" -> binding.layoutCommunityWriteUpdateCategory.radioBtnCategoryFreedom.isChecked = true
-            "정보" ->binding.layoutCommunityWriteUpdateCategory.radioBtnCategoryInfo.isChecked = true
-            else -> binding.layoutCommunityWriteUpdateCategory.radioBtnCategoryInfo.isChecked = true
-        }
+        communityWriteUpdateViewModel.initUpdateData.flowWithLifecycle(lifecycle)
+            .onEach {
+                when(it.category){
+                    "자유" -> binding.layoutCommunityWriteUpdateCategory.radioBtnCategoryFreedom.isChecked = true
+                    "정보" ->binding.layoutCommunityWriteUpdateCategory.radioBtnCategoryInfo.isChecked = true
+                    else -> binding.layoutCommunityWriteUpdateCategory.radioBtnCategoryInfo.isChecked = true
+                }
+            }.launchIn(lifecycleScope)
     }
     //취소 버튼
     private fun clickCancelButton() {
