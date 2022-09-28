@@ -14,5 +14,11 @@ data class NotificationData(
     val senderNickname: String,
     val profileImageId: Int,
     val senderId: Int
-)
+){
+    companion object{
+        val DEFAULT = NotificationData(
+            0,"",null,false,0,0,0,"",0,0
+        )
+    }
+}
 

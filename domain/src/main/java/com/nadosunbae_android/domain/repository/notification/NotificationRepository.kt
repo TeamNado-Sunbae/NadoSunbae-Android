@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface NotificationRepository {
 
     // 전체 알림 리스트 조회
-    fun getNotification(receiverId: Int): Flow<List<NotificationData>>
+    fun getNotification(): Flow<List<NotificationData>>
 
 
     //알림 삭제

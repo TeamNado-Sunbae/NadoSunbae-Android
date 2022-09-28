@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class NotificationRepositoryImpl @Inject constructor(private val dataSource: NotificationDataSource) :
     NotificationRepository {
-    override fun getNotification(receiverId: Int): Flow<List<NotificationData>> {
+    override fun getNotification(): Flow<List<NotificationData>> {
         return flow {
             emit(dataSource.getNotification().data.toEntity())
         }.flowOn(Dispatchers.IO)

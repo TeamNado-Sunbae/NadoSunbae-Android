@@ -7,7 +7,7 @@
 
         <variable
             name="notification"
-            type="com.nadosunbae_android.domain.model.notification.NotificationListData" />
+            type="com.nadosunbae_android.domain.model.notification.NotificationData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,7 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 int="@{notification.notificationTypeId}"
-                nickname="@{notification.nickname}"
+                nickname="@{notification.senderNickname}"
                 android:lineHeight="22sp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="9dp"

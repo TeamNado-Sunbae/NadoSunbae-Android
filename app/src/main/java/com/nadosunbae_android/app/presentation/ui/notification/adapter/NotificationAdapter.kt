@@ -2,22 +2,25 @@ package com.nadosunbae_android.app.presentation.ui.notification.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemNotificationBinding
-import com.nadosunbae_android.domain.model.notification.NotificationListData
-import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.DiffUtilCallback
+import com.nadosunbae_android.domain.model.notification.NotificationData
 
 class NotificationAdapter(
-    var link: NotificationFragment.DataToFragment
-) : RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
-    var notifiCationList = mutableListOf<NotificationListData>()
+) : ListAdapter<NotificationData, NotificationAdapter.NotificationViewHolder>(
+    DiffUtilCallback<NotificationData>()
+) {
+
+    private var onItemCLickListener: (Int) -> Unit? = {}
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): NotificationAdapter.NotificationViewHolder {
+    ): NotificationViewHolder {
         val binding = ItemNotificationBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -27,37 +30,29 @@ class NotificationAdapter(
     }
 
     override fun onBindViewHolder(
-        holder: NotificationAdapter.NotificationViewHolder,
+        holder: NotificationViewHolder,
         position: Int
     ) {
-        holder.onBind(notifiCationList[position])
+        holder.onBind(getItem(position))
         val context = holder.itemView.context
         holder.itemView.setOnClickListener {
-            if (notifiCationList[position].content == context.getString(R.string.classroom_content_delete)
-                || notifiCationList[position].content == context.getString(R.string.classroom_post_delete)) {
-                CustomDialog(holder.itemView.context).deleteNotificationDialog()
+            if (getItem(position).content == context.getString(R.string.classroom_content_delete)
+                || getItem(position).content == context.getString(R.string.classroom_post_delete)
+            ) {
+                CustomDialog(context).deleteNotificationDialog()
             } else {
-                link.getReadNotification(notifiCationList[position].notificationId)
-                link.getNotificationMove(
-                    notifiCationList[position].postId,
-                    notifiCationList[position].notificationTypeId
-                )
+                onItemCLickListener.let {
+                    it(getItem(position).notificationId)
+                }
             }
-
-
         }
-        holder.binding.imgNotificationDelete.setOnClickListener {
-            link.getNotificationId(notifiCationList[position].notificationId)
-        }
-
     }
 
-    override fun getItemCount(): Int = notifiCationList.size
 
-    inner class NotificationViewHolder(
+    class NotificationViewHolder(
         val binding: ItemNotificationBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(notificationList: NotificationListData) {
+        fun onBind(notificationList: NotificationData) {
             binding.apply {
                 notification = notificationList
                 executePendingBindings()
@@ -65,9 +60,7 @@ class NotificationAdapter(
         }
     }
 
-    fun setNotification(notificationList: MutableList<NotificationListData>) {
-        this.notifiCationList = notificationList
-        notifyDataSetChanged()
-
+    fun setItemClickListener(listener: (Int) -> Unit) {
+        this.onItemCLickListener = listener
     }
 }
