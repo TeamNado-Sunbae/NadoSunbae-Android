@@ -41,7 +41,7 @@ object BindingAdapter {
         val currentTime = System.currentTimeMillis()
         var diffTime = (currentTime - (date?.time ?: 0)) / 1000
         Timber.d("시간 $diffTime")
-        if(date != null){
+        if (date != null) {
             if (diffTime < TimeValue.SEC.value) {
                 textView.text = "방금 전"
             } else {
@@ -121,19 +121,27 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("int", "nickname", requireAll = false)
     fun notification(textView: TextView, int: Int, nickname: String): SpannableStringBuilder {
-        val param = listOf("", "1:1질문", "작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글")
-        val text = listOf(
-            "", "마이페이지에 ${nickname}이 1:1질문을 남겼습니다.",
-            "작성하신 질문글에 ${nickname}이 답글을 남겼습니다",
-            "작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
-            "답글을 작성하신 질문글에 ${nickname}이 답글을 남겼습니다.",
-            "답글을 작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
-
-            )
-        var content = param[int]
-        var start = text[int].indexOf(content)
-        var end = start + content.length
-        var spannable = SpannableStringBuilder(text[int])
+        val param = hashMapOf(
+            1 to "마이페이지에", 2 to "1:1 질문글에", 3 to "작성하신 정보글에",
+            4 to "답글을 작성하신 1:1 질문글에", 5 to "답글을 작성하신 정보글에",
+            6 to "1:1 질문글에", 7 to "작성하신 1:1 질문글에",
+            8 to "답글을 작성하신 커뮤니티 글에", 9 to "답글을 작성하신 커뮤니티 글에"
+        )
+        val text = hashMapOf(
+            1 to "마이페이지에 ${nickname}님이 1:1질문을 남겼습니다.",
+            2 to "${nickname}님이 1:1 질문글에 답글을 남겼습니다",
+            3 to "작성하신 정보글에 ${nickname}님이 답글을 남겼습니다.",
+            4 to "답글을 작성하신 1:1 질문글에 ${nickname}님이 답글을 남겼습니다.",
+            5 to "답글을 작성하신 정보글에 ${nickname}님이 답글을 남겼습니다.",
+            6 to "${nickname}님이 1:1 질문글에 답글을 남겼습니다",
+            7 to "작성하신 1:1 질문글에 ${nickname}님이 답글을 남겼습니다.",
+            8 to "작성하신 커뮤니티 글에 ${nickname}님이 답글을 남겼습니다.",
+            9 to "답글을 작성하신 커뮤니티 글에 ${nickname}님이 답글을 남겼습니다."
+        )
+        val content = param[int].toString()
+        val start = text[int].toString().indexOf(content)
+        val end = start + content.length
+        val spannable = SpannableStringBuilder(text[int].toString())
         spannable.setSpan(
             ForegroundColorSpan(Color.parseColor("#00C8B0")), start, end,
             Spannable.SPAN_INCLUSIVE_INCLUSIVE

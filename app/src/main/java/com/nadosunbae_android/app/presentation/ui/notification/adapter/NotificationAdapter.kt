@@ -37,20 +37,20 @@ class NotificationAdapter(
         holder.onBind(getItem(position))
         val context = holder.itemView.context
         holder.itemView.setOnClickListener {
-            if (getItem(position).content == context.getString(R.string.classroom_content_delete)
+            if (getItem(holder.absoluteAdapterPosition).content == context.getString(R.string.classroom_content_delete)
                 || getItem(position).content == context.getString(R.string.classroom_post_delete)
             ) {
                 CustomDialog(context).deleteNotificationDialog()
             } else {
                 onItemCLickListener.let {
-                    it(getItem(position).notificationId)
+                    it(getItem(holder.absoluteAdapterPosition).notificationId)
                 }
             }
         }
 
         holder.binding.imgNotificationDelete.setOnClickListener {
             onDeleteClickListener.let {
-                it(getItem(position).notificationId)
+                it(getItem(holder.absoluteAdapterPosition).notificationId)
             }
         }
     }
