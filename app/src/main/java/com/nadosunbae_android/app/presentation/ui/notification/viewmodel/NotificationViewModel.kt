@@ -46,7 +46,7 @@ class NotificationViewModel @Inject constructor(
         viewModelScope.launch {
             notificationRepository.getNotification()
                 .catch {
-                    Timber.d("알림 리스트 받아오기 실패")
+                    Timber.d("알림 리스트 받아오기 실패림 ${it.printStackTrace()}")
                 }
                 .collectLatest {
                     _notificationList.value = it

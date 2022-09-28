@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.nadosunbae_android.app.databinding.FragmentNotificationBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.QuestionDetailActivity
@@ -19,6 +20,7 @@ import com.nadosunbae_android.app.presentation.ui.notification.viewmodel.Notific
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
@@ -61,7 +63,7 @@ class NotificationFragment :
             .onEach {
                 initNotificationEmpty(it.size)
                 notificationAdapter.submitList(it)
-            }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
 

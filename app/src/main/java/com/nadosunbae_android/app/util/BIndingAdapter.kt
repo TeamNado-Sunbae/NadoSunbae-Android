@@ -39,23 +39,25 @@ object BindingAdapter {
     fun getDateToTextMinute(textView: TextView, date: Date?) {
         val format = SimpleDateFormat("yy/MM/dd")
         val currentTime = System.currentTimeMillis()
-        var diffTime = (currentTime - date!!.time) / 1000
+        var diffTime = (currentTime - (date?.time ?: 0)) / 1000
         Timber.d("시간 $diffTime")
-        if (diffTime < TimeValue.SEC.value) {
-            textView.text = "방금 전"
-        } else {
-            for (i in TimeValue.values()) {
-                diffTime /= i.value
-                Timber.d("첫번째 계산 시간 $diffTime")
-                if (i.value == 24) {
-                    format.format(date).also { textView.text = it }
-                    break
-                }
-                if (diffTime < i.maximum) {
-                    textView.text = "$diffTime${i.msg}"
-                    break
-                }
+        if(date != null){
+            if (diffTime < TimeValue.SEC.value) {
+                textView.text = "방금 전"
+            } else {
+                for (i in TimeValue.values()) {
+                    diffTime /= i.value
+                    Timber.d("첫번째 계산 시간 $diffTime")
+                    if (i.value == 24) {
+                        format.format(date).also { textView.text = it }
+                        break
+                    }
+                    if (diffTime < i.maximum) {
+                        textView.text = "$diffTime${i.msg}"
+                        break
+                    }
 
+                }
             }
         }
     }
