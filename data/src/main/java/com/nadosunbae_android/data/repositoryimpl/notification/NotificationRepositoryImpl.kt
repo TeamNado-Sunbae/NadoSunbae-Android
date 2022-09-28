@@ -20,12 +20,12 @@ class NotificationRepositoryImpl @Inject constructor(private val dataSource: Not
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun deleteNotification(notificationId: Int): NotificationDeleteData {
-        return NotificationMapper.mapperToNotificationDeleteData(
-            dataSource.deleteNotification(
-                notificationId
+    override fun deleteNotification(notificationId: Int): Flow<NotificationDeleteData> {
+        return flow {
+            emit(
+                dataSource.deleteNotification(notificationId).toEntity()
             )
-        )
+        }.flowOn(Dispatchers.IO)
     }
 
     override fun putReadNotification(notificationId: Int): Flow<List<NotificationReadData>> {
