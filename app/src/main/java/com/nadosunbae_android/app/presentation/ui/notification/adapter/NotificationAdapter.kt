@@ -14,8 +14,9 @@ class NotificationAdapter(
 ) : ListAdapter<NotificationData, NotificationAdapter.NotificationViewHolder>(
     DiffUtilCallback<NotificationData>()
 ) {
-
+    //알림 읽기
     private var onItemCLickListener: (Int) -> Unit? = {}
+    private var onDeleteClickListener: (Int) -> Unit? = {}
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -46,6 +47,12 @@ class NotificationAdapter(
                 }
             }
         }
+
+        holder.binding.imgNotificationDelete.setOnClickListener {
+            onDeleteClickListener.let {
+                it(getItem(position).notificationId)
+            }
+        }
     }
 
 
@@ -59,8 +66,12 @@ class NotificationAdapter(
             }
         }
     }
-
+    //알림 읽기
     fun setItemClickListener(listener: (Int) -> Unit) {
         this.onItemCLickListener = listener
+    }
+    //알림 삭제
+    fun setDeleteClickListener(listener: (Int) -> Unit){
+        this.onDeleteClickListener = listener
     }
 }

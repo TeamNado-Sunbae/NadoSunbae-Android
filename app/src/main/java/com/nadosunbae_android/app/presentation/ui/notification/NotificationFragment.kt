@@ -39,7 +39,8 @@ class NotificationFragment :
         initNotificationList()
         observeLoadingEnd()
         submitAnalytics()
-
+        getReadNotification()
+        deleteNotification()
     }
 
     override fun onResume() {
@@ -61,7 +62,7 @@ class NotificationFragment :
         binding.rcNotification.adapter = notificationAdapter
         notificationViewModel.notificationList.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach {
-                initNotificationEmpty(it.size)
+                binding.sizeCheck = it.isEmpty()
                 notificationAdapter.submitList(it)
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
@@ -134,20 +135,21 @@ class NotificationFragment :
     }
 
     //알림 읽기
-    fun getReadNotification(notificationId: Int) {
+    private fun getReadNotification() {
         showLoading()
-        notificationViewModel.putReadNotification(notificationId)
-    }
-
-
-    //알림 엠티뷰
-    private fun initNotificationEmpty(size: Int) {
-        if (size == 0) {
-            binding.textNotificationEmpty.visibility = View.VISIBLE
-        } else {
-            binding.textNotificationEmpty.visibility = View.GONE
+        notificationAdapter.setItemClickListener {
+            notificationViewModel.putReadNotification(it)
         }
     }
+
+    //알림 삭제
+    private fun deleteNotification(){
+        notificationAdapter.setDeleteClickListener {
+            notificationViewModel.deleteNotification(it)
+        }
+    }
+
+
 
     private fun submitAnalytics() {
         FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.NOTIFICATION)

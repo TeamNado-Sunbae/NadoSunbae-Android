@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.domain.model.notification.NotificationData
-import com.nadosunbae_android.domain.model.notification.NotificationDeleteData
-import com.nadosunbae_android.domain.model.notification.NotificationReadData
 import com.nadosunbae_android.domain.repository.notification.NotificationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,22 +29,13 @@ class NotificationViewModel @Inject constructor(
     val notificationList: StateFlow<List<NotificationData>>
         get() = _notificationList
 
-    //알림 삭제 데이터
-    private var _deleteNotification = MutableStateFlow(NotificationDeleteData.DEFAULT)
-    val deleteNotification: StateFlow<NotificationDeleteData>
-        get() = _deleteNotification
-    //알림 읽기
-
-    private var _notificationRead = MutableStateFlow(listOf(NotificationReadData.DEFAULT))
-    val notificationRead: StateFlow<List<NotificationReadData>>
-        get() = _notificationRead
 
     //전체 알림 리스트 보기
     fun getNotification() {
         viewModelScope.launch {
             notificationRepository.getNotification()
                 .catch {
-                    Timber.d("알림 리스트 받아오기 실패림 ${it.printStackTrace()}")
+                    Timber.d("알림 리스트 받아오기 실패")
                 }
                 .collectLatest {
                     _notificationList.value = it
@@ -64,7 +53,7 @@ class NotificationViewModel @Inject constructor(
                     Timber.d("알림 삭제 실패")
                 }
                 .collectLatest {
-                    _deleteNotification.value = it
+                    getNotification()
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -80,7 +69,7 @@ class NotificationViewModel @Inject constructor(
                     Timber.d("알림 읽기 실패")
                 }
                 .collectLatest {
-                    _notificationRead.value = it
+                    getNotification()
                 }.also {
                     onLoadingEnd.value = true
                 }
