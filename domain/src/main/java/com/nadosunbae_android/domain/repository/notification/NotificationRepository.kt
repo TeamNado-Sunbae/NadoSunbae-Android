@@ -16,6 +16,6 @@ interface NotificationRepository {
 
 
     //알림 읽기
-    suspend fun putReadNotification(notificationId : Int) : NotificationReadData
+    fun putReadNotification(notificationId : Int) : Flow<List<NotificationReadData>>
 
 }

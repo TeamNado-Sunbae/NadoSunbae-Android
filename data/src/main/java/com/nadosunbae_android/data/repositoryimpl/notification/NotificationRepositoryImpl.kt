@@ -28,11 +28,9 @@ class NotificationRepositoryImpl @Inject constructor(private val dataSource: Not
         )
     }
 
-    override suspend fun putReadNotification(notificationId: Int): NotificationReadData {
-        return NotificationMapper.mapperToNotificationReadData(
-            dataSource.putReadNotification(
-                notificationId
-            )
-        )
+    override fun putReadNotification(notificationId: Int): Flow<List<NotificationReadData>> {
+        return flow {
+            emit(dataSource.putReadNotification(notificationId).toEntity())
+        }.flowOn(Dispatchers.IO)
     }
 }

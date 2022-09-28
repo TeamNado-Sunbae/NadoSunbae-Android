@@ -23,7 +23,7 @@ interface NotificationService {
     ) : ResponseNotificationDeleteData
 
     //알림 읽음 처리
-    @PUT("notification/read/{notificationId}")
+    @PUT("notification/{notificationId}/read")
     suspend fun putReadNotification(
         @Path("notificationId") notificationId : Int
     )  : ResponseNotificationReadData

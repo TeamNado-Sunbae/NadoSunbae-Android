@@ -1,17 +1,24 @@
 package com.nadosunbae_android.data.model.response.notification
 
+import com.nadosunbae_android.domain.model.notification.NotificationReadData
+
 data class ResponseNotificationReadData(
-    val data: Data,
+    val data: List<Data>,
     val message: String,
     val status: Int,
     val success: Boolean
 ) {
     data class Data(
-        val createdAt: String,
-        val isDeleted: Boolean,
-        val isRead: Boolean,
-        val notificationId: Int,
-        val receiverId: Int,
-        val updatedAt: String
+        val id: Int,
+        val isRead: Boolean
     )
+}
+
+fun ResponseNotificationReadData.toEntity() : List<NotificationReadData>{
+    return this.data.map {
+        NotificationReadData(
+            id = it.id,
+            isRead = it.isRead
+        )
+    }
 }
