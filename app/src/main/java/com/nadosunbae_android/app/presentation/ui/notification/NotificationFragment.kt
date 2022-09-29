@@ -22,7 +22,6 @@ import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class NotificationFragment :
@@ -63,7 +62,9 @@ class NotificationFragment :
         notificationViewModel.notificationList.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach {
                 binding.sizeCheck = it.isEmpty()
-                notificationAdapter.submitList(it)
+                if (it[0].commentId != 0) {
+                    notificationAdapter.submitList(it)
+                }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
@@ -73,82 +74,76 @@ class NotificationFragment :
         postId: Int,
         notificationType: Int
     ) {
-        val userId = mainViewModel.signData.value?.userId
-        // 2,4 -> 질문글, 3,5 -> 정보글, 1 -> 1:1질문글
+        // 2,4 -> 질문글, 3,5 -> 정보글, 1,6,7 -> 1:1질문글 8,9 -> 커뮤니티
         when (notificationType) {
             2, 4 -> {
-                Timber.d("알림 : 후기 작성여부 ${ReviewGlobals.isReviewed}")
-                CustomDialog(requireActivity()).restrictDialog(
-                    requireActivity(),
-                    ReviewGlobals.isReviewed,
-                    MainGlobals.signInData!!.isUserReported,
-                    MainGlobals.signInData!!.isReviewInappropriate,
-                    MainGlobals.signInData?.message.toString(),
-                    behavior = {
-                        val intent =
-                            Intent(requireActivity(), QuestionDetailActivity::class.java)
-                        intent.apply {
-                            putExtra("postId", postId)
-                            putExtra("all", 1)
-                            putExtra("userId", userId)
-                        }
-                        startActivity(intent)
-                    })
+                setRestrictDialog {
+                    val intent =
+                        Intent(requireActivity(), QuestionDetailActivity::class.java)
+                    intent.apply {
+                        putExtra("postId", postId)
+                        putExtra("all", 1)
+                        putExtra("userId", MainGlobals.signInData?.userId)
+                    }
+                    startActivity(intent)
+                }
+
+
             }
-            1 -> {
-                CustomDialog(requireActivity()).restrictDialog(
-                    requireActivity(),
-                    true,
-                    false,
-                    false,
-                    MainGlobals.signInData?.message.toString(),
-                    behavior = {
-                        val intent =
-                            Intent(requireActivity(), QuestionDetailActivity::class.java)
-                        intent.apply {
-                            putExtra("myPageNum", 1)
-                            putExtra("postId", postId)
-                            putExtra("all", 2)
-                            putExtra("userId", userId)
-                        }
-                        startActivity(intent)
-                    })
+            1, 6, 7 -> {
+                setRestrictDialog {
+                    val intent =
+                        Intent(requireActivity(), QuestionDetailActivity::class.java)
+                    intent.apply {
+                        putExtra("myPageNum", 1)
+                        putExtra("postId", postId)
+                        putExtra("all", 2)
+                        putExtra("userId", MainGlobals.signInData?.userId)
+                    }
+                }
             }
             else -> {
-                CustomDialog(requireActivity()).restrictDialog(
-                    requireActivity(),
-                    ReviewGlobals.isReviewed,
-                    MainGlobals.signInData!!.isUserReported,
-                    MainGlobals.signInData!!.isReviewInappropriate,
-                    MainGlobals.signInData?.message.toString(),
-                    behavior = {
-                        val intent =
-                            Intent(requireActivity(), CommunityDetailActivity::class.java)
-                        intent.apply {
-                            putExtra("postId", postId)
-                            putExtra("userId", userId)
-                        }
-                        startActivity(intent)
-                    })
+                setRestrictDialog {
+                    val intent =
+                        Intent(requireActivity(), CommunityDetailActivity::class.java)
+                    intent.apply {
+                        putExtra("postId", postId.toString())
+                    }
+                    startActivity(intent)
+                }
             }
         }
     }
+
+    //다이얼로그 띄우는 공통 부분
+    private fun setRestrictDialog(behaviorAction: () -> Unit) {
+        CustomDialog(requireActivity()).restrictDialog(
+            requireActivity(),
+            ReviewGlobals.isReviewed,
+            MainGlobals.signInData!!.isUserReported,
+            MainGlobals.signInData!!.isReviewInappropriate,
+            MainGlobals.signInData?.message.toString(),
+            behavior = {
+                behaviorAction()
+            })
+    }
+
 
     //알림 읽기
     private fun getReadNotification() {
         showLoading()
-        notificationAdapter.setItemClickListener {
-            notificationViewModel.putReadNotification(it)
+        notificationAdapter.setItemClickListener { notificationId, postId, notificationTypeId ->
+            notificationViewModel.putReadNotification(notificationId)
+            getNotificationMove(postId,notificationTypeId)
         }
     }
 
     //알림 삭제
-    private fun deleteNotification(){
+    private fun deleteNotification() {
         notificationAdapter.setDeleteClickListener {
             notificationViewModel.deleteNotification(it)
         }
     }
-
 
 
     private fun submitAnalytics() {

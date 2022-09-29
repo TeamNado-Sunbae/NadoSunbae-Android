@@ -15,7 +15,7 @@ class NotificationAdapter(
     DiffUtilCallback<NotificationData>()
 ) {
     //알림 읽기
-    private var onItemCLickListener: (Int) -> Unit? = {}
+    private var onItemCLickListener: ((Int, Int, Int) -> Unit)? =null
     private var onDeleteClickListener: (Int) -> Unit? = {}
 
     override fun onCreateViewHolder(
@@ -42,8 +42,10 @@ class NotificationAdapter(
             ) {
                 CustomDialog(context).deleteNotificationDialog()
             } else {
-                onItemCLickListener.let {
-                    it(getItem(holder.absoluteAdapterPosition).notificationId)
+                onItemCLickListener?.let {
+                    it(getItem(holder.absoluteAdapterPosition).notificationId,
+                    getItem(holder.absoluteAdapterPosition).postId,
+                    getItem(holder.absoluteAdapterPosition).notificationTypeId)
                 }
             }
         }
@@ -66,12 +68,14 @@ class NotificationAdapter(
             }
         }
     }
+
     //알림 읽기
-    fun setItemClickListener(listener: (Int) -> Unit) {
+    fun setItemClickListener(listener: (Int, Int, Int) -> Unit) {
         this.onItemCLickListener = listener
     }
+
     //알림 삭제
-    fun setDeleteClickListener(listener: (Int) -> Unit){
+    fun setDeleteClickListener(listener: (Int) -> Unit) {
         this.onDeleteClickListener = listener
     }
 }
