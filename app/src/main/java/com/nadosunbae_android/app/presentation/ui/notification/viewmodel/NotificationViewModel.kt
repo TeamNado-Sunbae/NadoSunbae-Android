@@ -4,22 +4,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
-import com.nadosunbae_android.domain.model.notification.NotificationDeleteData
-import com.nadosunbae_android.domain.model.notification.NotificationListData
-import com.nadosunbae_android.domain.model.notification.NotificationReadData
-import com.nadosunbae_android.domain.usecase.notification.DeleteNotificationUseCase
-import com.nadosunbae_android.domain.usecase.notification.GetNotificationListDataUseCase
-import com.nadosunbae_android.domain.usecase.notification.ReadNotificationUseCase
+import com.nadosunbae_android.domain.model.notification.NotificationData
+import com.nadosunbae_android.domain.repository.notification.NotificationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class NotificationViewModel @Inject constructor(
-    private val getNotificationListDataUseCase: GetNotificationListDataUseCase,
-    private val deleteNotificationUseCase: DeleteNotificationUseCase,
-    private val readNotificationUseCase: ReadNotificationUseCase
+    private val notificationRepository: NotificationRepository
 ) : ViewModel(), LoadableViewModel {
 
     override val onLoadingEnd = MutableLiveData<Boolean>()
@@ -27,25 +25,20 @@ class NotificationViewModel @Inject constructor(
 
     //알림탭
     //전체 알림 리스트
-    var notificationList: MutableLiveData<List<NotificationListData>> = MutableLiveData()
+    private var _notificationList = MutableStateFlow(listOf(NotificationData.DEFAULT))
+    val notificationList: StateFlow<List<NotificationData>>
+        get() = _notificationList
 
-    //알림 삭제 데이터
-    var deleteNotification: MutableLiveData<NotificationDeleteData> = MutableLiveData()
-
-    //알림 읽기
-    var notificationRead: MutableLiveData<NotificationReadData> = MutableLiveData()
 
     //전체 알림 리스트 보기
-    fun getNotification(receiverId: Int) {
+    fun getNotification() {
         viewModelScope.launch {
-            runCatching { getNotificationListDataUseCase(receiverId) }
-                .onSuccess {
-                    notificationList.value = it
-                    Timber.d("notificationList: 전체 알림 리스트 통신 성공")
+            notificationRepository.getNotification()
+                .catch {
+                    Timber.d("알림 리스트 받아오기 실패")
                 }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("notificationList: 전체 알림 리스트 통신 실패")
+                .collectLatest {
+                    _notificationList.value = it
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -55,14 +48,12 @@ class NotificationViewModel @Inject constructor(
     //알림 삭제
     fun deleteNotification(notificationId: Int) {
         viewModelScope.launch {
-            runCatching { deleteNotificationUseCase(notificationId) }
-                .onSuccess {
-                    deleteNotification.value = it
-                    Timber.d("deleteNotification: 알림 삭제 성공")
+            notificationRepository.deleteNotification(notificationId)
+                .catch {
+                    Timber.d("알림 삭제 실패")
                 }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("deleteNotification: 알림 삭제 실패")
+                .collectLatest {
+                    getNotification()
                 }.also {
                     onLoadingEnd.value = true
                 }
@@ -73,18 +64,15 @@ class NotificationViewModel @Inject constructor(
     //알림 읽기
     fun putReadNotification(notificationId: Int) {
         viewModelScope.launch {
-            runCatching { readNotificationUseCase(notificationId) }
-                .onSuccess {
-                    notificationRead.value = it
-                    Timber.d("putNotificationRead: 알림 읽기 성공")
+            notificationRepository.putReadNotification(notificationId)
+                .catch {
+                    Timber.d("알림 읽기 실패")
                 }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("putNotificationRead: 알림 읽기 실패")
+                .collectLatest {
+                    getNotification()
                 }.also {
                     onLoadingEnd.value = true
                 }
         }
     }
-
 }
