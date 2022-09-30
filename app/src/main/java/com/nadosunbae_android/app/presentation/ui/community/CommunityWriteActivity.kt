@@ -35,6 +35,7 @@ class CommunityWriteActivity :
         communityWriteViewModel.setCompleteButton()
         goDetail()
         clickMajorFavorites()
+        clickCategory()
     }
 
 
@@ -65,6 +66,20 @@ class CommunityWriteActivity :
             ?: 0 )
         //기본 카테고리
         binding.layoutCommunityWriteCategory.radioBtnCategoryFreedom.isChecked = true
+    }
+    //카테고리 클릭 이벤트
+    private fun clickCategory(){
+        var categoryCheck = false
+        with(binding.layoutCommunityWriteCategory){
+            radioGroupCategory.setOnCheckedChangeListener { radioGroup, id ->
+                categoryCheck = when(id){
+                    radioBtnCategoryFreedom.id -> false
+                    radioBtnCategoryQuestion.id -> true
+                    else -> false
+                }
+                binding.category = categoryCheck
+            }
+        }
     }
 
 
