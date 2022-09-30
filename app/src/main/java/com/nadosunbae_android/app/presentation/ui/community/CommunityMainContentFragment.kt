@@ -125,11 +125,11 @@ class CommunityMainContentFragment :
                 val type = communityViewModel.communityMainType.value
                 val majorName =
                     if (selectedData.name == getString(R.string.no_major)) null else selectedData.name
-                Timber.d("선택 학과 ${selectedData.name}")
+
                 communityViewModel.setCommunityMainMajorName(majorName)
                 communityViewModel.setCommunityMainFilter(type, majorName)
                 filterTitle =
-                    if (selectedData.name == "") getString(R.string.no_major) else selectedData.name
+                    if (selectedData.name == getString(R.string.no_major)) getString(R.string.no_major) else getString(R.string.major)
                 imgCommunityFilter.isSelected = true
             }
         }
