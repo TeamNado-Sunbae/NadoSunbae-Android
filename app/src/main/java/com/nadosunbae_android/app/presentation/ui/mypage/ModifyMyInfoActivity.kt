@@ -278,7 +278,7 @@ class ModifyMyInfoActivity :
         }
     }
 
-    //학과 변경 완료
+    //학과 변경 완료 - 제 2전공
     private fun completeSecondMajor() {
         secondMajorBottomSheetDialog.setCompleteListener {
             myPageViewModel.setSecondFilter(secondMajorBottomSheetDialog.getSelectedData())
@@ -289,14 +289,29 @@ class ModifyMyInfoActivity :
                     it.id = myPageViewModel.majorList.value?.get(0)?.majorId ?: 0
                 }
                 binding.layoutModifyProfileSecondMajor.bottomSheetMajor = it.name
+
+                if (it.name == "미진입") {
+                    binding.textMyPageMajorinfoDoubleMajorTime.setText("미진입")
+                    binding.textMyPageMajorinfoDoubleMajorMintTime.isEnabled = false
+                    binding.textMyPageMajorinfoDoubleMajorTime.text = "미진입"
+                    binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+                    binding.textMyPageMajorinfoDoubleMajorMintTime.setText("선택")
+                    binding.textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#C0C0CB"))
+                } else {
+                    binding.textMyPageMajorinfoDoubleMajorMintTime.isEnabled = true
+                    binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
+                    binding.textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#00C8B0"))
+                }
+
                 if (it.name != myPageViewModel.personalInfo.value?.secondMajorName) {
                     initActiveSaveBtn()
                 }
             }
             .launchIn(lifecycleScope)
+
     }
 
-    //즐겨찾기 클릭시
+    //즐겨찾기 클릭시 - 제 2전공
     private fun clickSecondMajorFavorites() {
         secondMajorBottomSheetDialog.setCompleteFavoritesListener {
             myPageViewModel.postCommunityFavorite(it)
@@ -364,7 +379,7 @@ class ModifyMyInfoActivity :
                 val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
                 signViewModel.secondMajorPeriod.value = secondMajorPeriod?.name
                 initActiveSaveBtn()
-                initBtnActive()
+                //initBtnActive()
             }
             signViewModel.secondMajorPeriod.observe(this) {
                 binding.textMyPageMajorinfoDoubleMajorTime.setText(it)
@@ -525,7 +540,7 @@ class ModifyMyInfoActivity :
 
     // 저장 버튼 활성화
     private fun initActiveSaveBtn() {
-        if (!binding.textMyPageModifyNicknameDuplicaitionNo.isVisible && !binding.textMyPageNicknameTitle.isSelected && signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString()) {
+        if (!binding.textMyPageModifyNicknameDuplicaitionNo.isVisible && !binding.textMyPageNicknameTitle.isSelected && binding.layoutCommunityWriteMajor.bottomSheetMajor != binding.layoutModifyProfileSecondMajor.bottomSheetMajor) {
             binding.textMyPageSave.isSelected = true
             binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_main_black_8)
             binding.textMyPageSave.setTextColor(Color.parseColor("#DFF6F4"))
