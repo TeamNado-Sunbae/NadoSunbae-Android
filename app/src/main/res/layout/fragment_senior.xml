@@ -67,6 +67,31 @@
                 android:paddingBottom="80dp">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/main_default"
+                    android:textSize="12sp"
+                    android:text="@string/senior_only_question"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:includeFontPadding="false"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_switch_question"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_switch_question"
+                    app:layout_constraintTop_toTopOf="@+id/btn_switch_question" />
+
+                <Switch
+                    android:id="@+id/btn_switch_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="16dp"
+                    android:track="@drawable/selector_switch_track"
+                    android:thumb="@drawable/switch_thumb"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
                     android:id="@+id/text_senior_question_can"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
