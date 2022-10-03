@@ -12,6 +12,7 @@ import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
+import timber.log.Timber
 
 class ClassRoomInfoMainAdapter(private var userId : Int): RecyclerView.Adapter<ClassRoomInfoMainAdapter.ClassRoomInfoMainViewHolder>() {
     var questionMainData = mutableListOf<ClassRoomData>()
@@ -43,8 +44,8 @@ class ClassRoomInfoMainAdapter(private var userId : Int): RecyclerView.Adapter<C
                 behavior = {
                     val intent = Intent(holder.itemView.context, CommunityDetailActivity::class.java)
                     intent.apply {
-                        putExtra("postId", questionMainData[position].postId)
-                        putExtra("userId", userId)
+                        putExtra("postId", questionMainData[position].postId.toString())
+                        putExtra("userId", userId.toString())
                     }
                     ContextCompat.startActivity(holder.itemView.context, intent, null)
                 })
