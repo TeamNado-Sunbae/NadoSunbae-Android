@@ -107,6 +107,8 @@ class MainViewModel @Inject constructor(
     val secondMajor: LiveData<MajorSelectData>
         get() = _secondMajor
 
+    val viewReviewedSeniors = MutableLiveData<Boolean>(false)
+
     //앱링크 조회
     val appLink = MutableLiveData<AppLinkData>()
 
@@ -175,7 +177,11 @@ class MainViewModel @Inject constructor(
     fun getClassRoomSenior(majorId: Int) {
         viewModelScope.launch {
             runCatching {
-                userRepository.getSeniorList(majorId, null) }
+                var exclude: String? = null
+                if (viewReviewedSeniors.value == true)
+                    exclude = "noReview"
+
+                userRepository.getSeniorList(majorId, exclude) }
                 .onSuccess {
                     _seniorData.value = it
                     Timber.d("classRoomSenior: 구성원 서버 통신 성공")

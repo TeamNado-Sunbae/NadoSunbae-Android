@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,6 +89,7 @@
                     android:layout_marginTop="16dp"
                     android:track="@drawable/selector_switch_track"
                     android:thumb="@drawable/switch_thumb"
+                    android:checked="@{viewModel.viewReviewedSeniors}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     />
