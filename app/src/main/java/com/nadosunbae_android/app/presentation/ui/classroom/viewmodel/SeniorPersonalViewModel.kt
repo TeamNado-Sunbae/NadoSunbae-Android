@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
+import com.nadosunbae_android.data.mapper.user.UserMapper
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.SeniorPersonalData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateData
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
+import com.nadosunbae_android.domain.repository.user.UserRepository
 import com.nadosunbae_android.domain.usecase.classroom.GetQuestionSeniorListDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorPersonalDataUseCase
 import com.nadosunbae_android.domain.usecase.mypage.PostMyPageBlockUpdateUseCase
@@ -26,8 +28,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SeniorPersonalViewModel @Inject constructor(
-    val getSeniorPersonalDataUseCase: GetSeniorPersonalDataUseCase,
-    val getQuestionSeniorListDataUseCase : GetQuestionSeniorListDataUseCase,
+    private val userRepository: UserRepository,
     val postMyPageBlockUpdateUseCase : PostMyPageBlockUpdateUseCase
 ) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
 
@@ -36,7 +37,7 @@ class SeniorPersonalViewModel @Inject constructor(
 
     //선배 개인페이지
     private val _seniorPersonal = MutableStateFlow(
-        SeniorPersonalData("","",false,"",0,"","",0,0)
+        SeniorPersonalData("","",false,"",0,"","",0,0, null, null)
     )
     val seniorPersonal : StateFlow<SeniorPersonalData>
         get() = _seniorPersonal
@@ -59,11 +60,21 @@ class SeniorPersonalViewModel @Inject constructor(
     //선배 개인페이지 정보 서버통신
     fun getSeniorPersonal(userId : Int){
         viewModelScope.launch {
-            runCatching { getSeniorPersonalDataUseCase(userId) }
+            runCatching { userRepository.getUserInfo(userId) }
                 .onSuccess {
-                    it.collectLatest { its ->
-                        _seniorPersonal.value = its
-                    }
+                    _seniorPersonal.value = SeniorPersonalData(
+                        firstMajorName = it.firstMajorName,
+                        firstMajorStart = it.firstMajorStart,
+                        isOnQuestion = it.isOnQuestion,
+                        nickname = it.nickname,
+                        profileImageId = it.profileImageId ?: 0,
+                        secondMajorName = it.secondMajorName,
+                        secondMajorStart = it.secondMajorStart,
+                        userId = it.userId,
+                        count = it.count,
+                        bio = it.bio,
+                        rate = it.responseRate
+                    )
                     Timber.d("seniorPersonal : 선배 개인페이지 서버 통신 완료")
                 }
                 .onFailure {
@@ -77,10 +88,23 @@ class SeniorPersonalViewModel @Inject constructor(
     //선배 1:1 질문 리스트
     fun getSeniorQuestionList(userId : Int, sort : String){
         viewModelScope.launch {
-            runCatching { getQuestionSeniorListDataUseCase(userId, sort) }
+            runCatching { userRepository.getUserQuestion(userId, sort) }
                 .onSuccess {
-                    it.collectLatest {its ->
-                        _seniorQuestion.value = its
+                    _seniorQuestion.value = it.map {
+                        ClassRoomData(
+                            postId = it.postId,
+                            title = it.title,
+                            content = it.content,
+                            createdAt = it.createdAt,
+                            writer = ClassRoomData.Writer(
+                                nickname = it.nickname,
+                                profileImageId = 0,
+                                writerId = it.id
+                            ),
+                            likeCount = it.likeCount,
+                            isLiked = it.isLiked,
+                            commentCount = it.commentCount
+                        )
                     }
                     Timber.d("seniorQuestion : 선배 1:1질문 서버 통신 완료")
                 }

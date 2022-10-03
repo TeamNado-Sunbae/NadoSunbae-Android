@@ -9,5 +9,7 @@ data class SeniorPersonalData(
     val secondMajorName: String,
     val secondMajorStart: String,
     val userId: Int,
-    val count : Int
+    val count : Int,
+    val bio: String?,
+    val rate: Int?
 )

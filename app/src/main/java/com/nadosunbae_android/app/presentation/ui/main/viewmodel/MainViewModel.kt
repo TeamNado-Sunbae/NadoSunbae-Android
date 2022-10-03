@@ -13,6 +13,7 @@ import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.repository.major.MajorRepository
+import com.nadosunbae_android.domain.repository.user.UserRepository
 import com.nadosunbae_android.domain.usecase.classroom.GetClassRoomMainDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetAppLinkUseCase
@@ -25,8 +26,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val majorRepository: MajorRepository,
+    private val userRepository: UserRepository,
     val getClassRoomMainDataUseCase: GetClassRoomMainDataUseCase,
-    val getSeniorDataUseCase: GetSeniorDataUseCase,
     val getAppLinkUseCase: GetAppLinkUseCase
 ) : ViewModel(), LoadableViewModel {
 
@@ -106,6 +107,8 @@ class MainViewModel @Inject constructor(
     val secondMajor: LiveData<MajorSelectData>
         get() = _secondMajor
 
+    val viewReviewedSeniors = MutableLiveData<Boolean>(false)
+
     //앱링크 조회
     val appLink = MutableLiveData<AppLinkData>()
 
@@ -173,7 +176,12 @@ class MainViewModel @Inject constructor(
     //과방 구성원 전체
     fun getClassRoomSenior(majorId: Int) {
         viewModelScope.launch {
-            runCatching { getSeniorDataUseCase(majorId) }
+            runCatching {
+                var exclude: String? = null
+                if (viewReviewedSeniors.value == true)
+                    exclude = "noReview"
+
+                userRepository.getSeniorList(majorId, exclude) }
                 .onSuccess {
                     _seniorData.value = it
                     Timber.d("classRoomSenior: 구성원 서버 통신 성공")
