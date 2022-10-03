@@ -8,15 +8,19 @@ import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.ClassRoomMainContentViewModel
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
+import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.major.MajorListData
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.model.user.*
+import com.nadosunbae_android.domain.repository.major.MajorRepository
 import com.nadosunbae_android.domain.repository.user.UserRepository
 import com.nadosunbae_android.domain.usecase.mypage.*
 import com.nadosunbae_android.domain.usecase.review.GetMajorInfoDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,9 +35,38 @@ class MyPageViewModel @Inject constructor(
     val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase,
     val deleteMyPageQuitUseCase: DeleteMyPageQuitUseCase,
     val getMajorInfoDataUseCase: GetMajorInfoDataUseCase,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val majorRepository: MajorRepository
 
 ) : ViewModel(), LoadableViewModel {
+
+    //학과 변경 리스트
+    private var _majorList = MutableLiveData<List<MajorListData>>()
+    val majorList: LiveData<List<MajorListData>>
+        get() = _majorList
+
+    fun setMajorList(data: List<MajorListData>) {
+        _majorList.value = data
+    }
+
+    //학과 선택 내용
+    private var _firstFilter = MutableStateFlow(SelectableData.DEFAULT)
+    val firstFilter: StateFlow<SelectableData>
+        get() = _firstFilter
+
+    fun setFilter(filter: SelectableData) {
+        _firstFilter.value = filter
+    }
+
+    //학과 선택 내용
+    private var _secondFilter = MutableStateFlow(SelectableData.DEFAULT)
+    val secondFilter: StateFlow<SelectableData>
+        get() = _secondFilter
+
+    fun setSecondFilter(filter: SelectableData) {
+        _secondFilter.value = filter
+    }
+
 
     // 로그인 response 데이터
     private val _signData = MutableLiveData<SignInData.User>()
@@ -368,6 +401,28 @@ class MyPageViewModel @Inject constructor(
 
         }
     }
+
+    //학과 리스트 가져오기
+    fun getMajorList(
+        universityId: Int, filter: String, exclude: String?,
+        userId: Int
+    ) {
+        viewModelScope.launch {
+            majorRepository.getMajorList(universityId, filter, exclude, userId)
+                .onStart {
+                    onLoadingEnd.value = false
+                }
+                .catch {
+                    Timber.d("학과 리스트 가져오기 실패 ${it.printStackTrace()}")
+
+                }
+                .collectLatest {
+                    _majorList.value = it
+                    Timber.d("학과 리스트 $it")
+                }
+        }
+    }
+
 
     // 학과 이름
     fun getMajorName(isFirstMajor: Boolean, majorId: Int) {
