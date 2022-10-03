@@ -112,6 +112,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         //내 정보 수정
         binding.clMyPageProfileModify.setOnClickListener {
             showLoading()
+           // myPageViewModel.getMajorList(1,"firstMajor", "noMajor", mainViewModel.userId.value ?: 1)
+           // val majorList = myPageViewModel.majorList.value
             val majorList = mainViewModel.majorList.value
             val intentMyPageModify = Intent(requireActivity(), ModifyMyInfoActivity::class.java)
             intentMyPageModify.putExtra("id", mainViewModel.userId.value)

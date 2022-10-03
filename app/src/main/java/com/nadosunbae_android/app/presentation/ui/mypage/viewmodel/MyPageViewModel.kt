@@ -8,11 +8,14 @@ import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.ClassRoomMainContentViewModel
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
+import com.nadosunbae_android.domain.model.favorites.FavoritesData
+import com.nadosunbae_android.domain.model.favorites.FavoritesParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.model.user.*
+import com.nadosunbae_android.domain.repository.favorites.FavoritesRepository
 import com.nadosunbae_android.domain.repository.major.MajorRepository
 import com.nadosunbae_android.domain.repository.user.UserRepository
 import com.nadosunbae_android.domain.usecase.mypage.*
@@ -36,9 +39,15 @@ class MyPageViewModel @Inject constructor(
     val deleteMyPageQuitUseCase: DeleteMyPageQuitUseCase,
     val getMajorInfoDataUseCase: GetMajorInfoDataUseCase,
     private val userRepository: UserRepository,
+    private val favoritesRepository: FavoritesRepository,
     private val majorRepository: MajorRepository
 
 ) : ViewModel(), LoadableViewModel {
+
+    //커뮤니티 학과 즐겨찾기
+    private var _communityFavorites = MutableStateFlow(FavoritesData.DEFAULT)
+    val communityFavorites: StateFlow<FavoritesData>
+        get() = _communityFavorites
 
     //학과 변경 리스트
     private var _majorList = MutableLiveData<List<MajorListData>>()
@@ -185,6 +194,21 @@ class MyPageViewModel @Inject constructor(
                 }
                 .also {
                     onLoadingEnd.value = true
+                }
+        }
+    }
+
+    //커뮤니티 메인 학과 즐겨 찾기
+    fun postCommunityFavorite(majorId: Int) {
+        viewModelScope.launch {
+            majorRepository.deleteMajorList()
+            favoritesRepository.postFavorites(
+                FavoritesParam(majorId)
+            ).catch {
+                Timber.d("즐겨찾기 실패")
+            }
+                .collectLatest {
+                    _communityFavorites.value = it
                 }
         }
     }
