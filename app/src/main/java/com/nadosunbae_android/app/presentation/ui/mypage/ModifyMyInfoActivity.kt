@@ -102,8 +102,6 @@ class ModifyMyInfoActivity :
 
         mainViewModel.signData.observe(this) {
             myPageViewModel.getPersonalInfo(it.userId)
-            binding.layoutCommunityWriteMajor.bottomSheetMajor = it.firstMajorName
-            binding.layoutModifyProfileSecondMajor.bottomSheetMajor = it.secondMajorName
         }
 
         myPageViewModel.getPersonalInfo(intent.getIntExtra("id", 0))
@@ -113,6 +111,8 @@ class ModifyMyInfoActivity :
             myPageViewModel.selectImgId.value = it.profileImageId
             signViewModel.firstMajor.value = it.firstMajorName
             signViewModel.secondMajor.value = it.secondMajorName
+            binding.layoutCommunityWriteMajor.bottomSheetMajor = it.firstMajorName
+            binding.layoutModifyProfileSecondMajor.bottomSheetMajor = it.secondMajorName
 
             binding.apply {
                 if (it.secondMajorName == "미진입") {
