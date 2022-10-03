@@ -182,6 +182,10 @@ class ModifyMyInfoActivity :
                     it.id = myPageViewModel.majorList.value?.get(0)?.majorId ?: 0
                 }
                 binding.layoutCommunityWriteMajor.bottomSheetMajor = it.name
+
+                if (it.name != myPageViewModel.personalInfo.value?.firstMajorName) {
+                    initActiveSaveBtn()
+                }
             }
             .launchIn(lifecycleScope)
     }
@@ -194,8 +198,10 @@ class ModifyMyInfoActivity :
         myPageViewModel.communityFavorites.flowWithLifecycle(lifecycle)
             .onEach {
                 if (it.success) {
-                    myPageViewModel.getMajorList(1, "firstMajor",null,
-                        MainGlobals.signInData?.userId ?: 0)
+                    myPageViewModel.getMajorList(
+                        1, "firstMajor", null,
+                        MainGlobals.signInData?.userId ?: 0
+                    )
                 }
             }
             .launchIn(lifecycleScope)
@@ -250,8 +256,6 @@ class ModifyMyInfoActivity :
         secondMajorBottomSheetDialog = CustomBottomSheetDialog(
             getString(R.string.second_major)
         )
-
-        //myPageViewModel.getMajorList(1,"secondMajor", "noMajor", mainViewModel.userId.value ?: 1)
         myPageViewModel.majorList.observe(this) {
             Timber.d("즐겨찾기 클릭시 $it")
             observeBottomSheet(
@@ -285,6 +289,9 @@ class ModifyMyInfoActivity :
                     it.id = myPageViewModel.majorList.value?.get(0)?.majorId ?: 0
                 }
                 binding.layoutModifyProfileSecondMajor.bottomSheetMajor = it.name
+                if (it.name != myPageViewModel.personalInfo.value?.secondMajorName) {
+                    initActiveSaveBtn()
+                }
             }
             .launchIn(lifecycleScope)
     }
@@ -552,39 +559,33 @@ class ModifyMyInfoActivity :
 
     // 회원정보 수정 put 서버통신
     private fun completeModifyInfo() {
-        /*
         with(binding) {
             val requestBody = MyPageModifyItem(
-                1,
+                myPageViewModel.selectImgId.value ?: 1,
                 etMyPageNickname.text.toString(),
                 etMyPageIntroduction.text.toString(),
                 (
-                        if (layoutCommunityWriteMajor.getSelectedData()?.id == null) {
+                        if (majorBottomSheetDialog.getSelectedData()?.id == null) {
                             ReviewGlobals.firstMajor!!.majorId
                         } else {
-                            firstDepartmentBottomSheetDialog.getSelectedData()?.id!!
+                            majorBottomSheetDialog.getSelectedData()?.id!!
                         }),
 
                 textMyPageMajorinfoMajorTime.text.toString(),
                 (
-                        if (secondDepartmentBottomSheetDialog.getSelectedData()?.id == null) {
+                        if (secondMajorBottomSheetDialog.getSelectedData()?.id == null) {
                             ReviewGlobals.secondMajor!!.majorId
                         } else {
-                            secondDepartmentBottomSheetDialog.getSelectedData()?.id!!
+                            secondMajorBottomSheetDialog.getSelectedData()?.id!!
                         }
                         ),
 
                 textMyPageMajorinfoDoubleMajorTime.text.toString(),
                 binding.imgMyPageModifySwitch.isSelected
             )
-
-            Timber.e("${requestBody}")
-
-
             myPageViewModel.putMyPageModify(requestBody)
+            finish()
         }
-
-         */
     }
 
 
@@ -692,6 +693,9 @@ class ModifyMyInfoActivity :
             3 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_5_64)
             4 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_3_64)
             5 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_1_64)
+        }
+        if (myPageViewModel.selectImgId.value != myPageViewModel.personalInfo.value?.profileImageId) {
+            initActiveSaveBtn()
         }
     }
 
