@@ -74,7 +74,9 @@ class CommunityMainContentFragment :
             viewLifecycleOwner.lifecycle,
         ).onEach {
             binding.size = it.isEmpty()
-            communityMainContentAdapter.submitList(it)
+            communityMainContentAdapter.submitList(it){
+                binding.rcCommunityMain.scrollToPosition(0)
+            }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
@@ -95,6 +97,7 @@ class CommunityMainContentFragment :
                     val majorName = communityMainMajorName.value
                     setCommunityMainFilter(type, majorName)
                 }
+
             }
         }
     }
