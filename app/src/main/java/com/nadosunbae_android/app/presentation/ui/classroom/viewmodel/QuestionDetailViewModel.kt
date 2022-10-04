@@ -14,11 +14,13 @@ import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.repository.like.LikeRepository
+import com.nadosunbae_android.domain.repository.post.PostRepository
 import com.nadosunbae_android.domain.usecase.classroom.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -28,6 +30,7 @@ class QuestionDetailViewModel @Inject constructor(
     val getQuestionDetailDataUseCase: GetQuestionDetailDataUseCase,
     val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
     val likeRepository: LikeRepository,
+    private val postRepository: PostRepository,
     val putCommentUpdateUseCase: PutCommentUpdateUseCase,
     val deleteCommentDataUseCase: DeleteCommentDataUseCase,
     val deletePostDataUseCase: DeletePostDataUseCase,
@@ -130,16 +133,40 @@ class QuestionDetailViewModel @Inject constructor(
     //전체 질문 상세보기 서버 통신
     fun getClassRoomQuestionDetail(postId: Int) {
         viewModelScope.launch {
-            runCatching { getQuestionDetailDataUseCase(postId) }
-                .onSuccess {
-                    _questionDetailData.value = it
-                    Timber.d("classRoomDetail : 메인 서버 통신 성공!")
-
+            postRepository.getPostDetail(postId.toString())
+                .onStart {
+                    onLoadingEnd.value = false
                 }
-                .onFailure {
-                    it.printStackTrace()
+                .catch {
                     Timber.d("classRoomDetail : 메인 서버 통신 실패!")
-                }.also {
+                }
+                .collectLatest {
+                    _questionDetailData.value = QuestionDetailData(
+                        answererId = it.writerId,
+                        isLiked = it.isLiked,
+                        likeCount = it.likeCount,
+                        questionerId = 0,
+                        messageList = it.commentList.map { msg ->
+                            QuestionDetailData.Message(
+                                content = msg.content,
+                                createdAt = msg.createdAt,
+                                isDeleted = msg.isDeleted,
+                                messageId = msg.commentId,
+                                title = msg.content,
+                                firstMajorStart = msg.firstMajorStart,
+                                firstMajorName = msg.firstMajorName,
+                                isQuestioner = msg.isPostWriter,
+                                nickname = msg.nickname,
+                                profileImageId = msg.profileImageId,
+                                secondMajorStart = msg.secondMajorStart,
+                                secondMajorName = msg.secondMajorName,
+                                writerId = msg.commentWriterId
+                            )
+                        }
+                    )
+                    Timber.d("classRoomDetail : 메인 서버 통신 성공! ${_questionDetailData.value}")
+                }
+                .also {
                     onLoadingEnd.value = true
                 }
         }
