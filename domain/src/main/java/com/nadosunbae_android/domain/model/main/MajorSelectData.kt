@@ -7,4 +7,11 @@ import kotlinx.android.parcel.Parcelize
 data class MajorSelectData(
     var majorId: Int,
     var majorName: String
-) : Parcelable
+) : Parcelable{
+    companion object{
+        val DEFAULT = MajorSelectData(
+            majorId = -1,
+            majorName = ""
+        )
+    }
+}

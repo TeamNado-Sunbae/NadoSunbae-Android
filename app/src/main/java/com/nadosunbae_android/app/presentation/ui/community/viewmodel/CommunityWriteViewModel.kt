@@ -8,6 +8,7 @@ import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.domain.model.favorites.FavoritesData
 import com.nadosunbae_android.domain.model.favorites.FavoritesParam
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import com.nadosunbae_android.domain.model.post.PostWriteData
@@ -63,6 +64,15 @@ class CommunityWriteViewModel @Inject constructor(
                 _completeButton.value = it
             }
         }
+    }
+
+    // 선택 학과
+    private var _selectedMajor = MutableLiveData(MajorSelectData.DEFAULT)
+    val selectedMajor: LiveData<MajorSelectData>
+        get() = _selectedMajor
+
+    fun setSelectedMajor(data : MajorSelectData){
+        _selectedMajor.value = data
     }
 
     //게시글 작성 서버
