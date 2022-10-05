@@ -143,7 +143,7 @@ class CommunityMainContentFragment :
                         R.string.major
                     )
                 Timber.d("selectedData, $selectedData")
-                val filterSelect = selectedData.id != 0
+                val filterSelect = selectedData.id != -1
                 imgCommunityFilter.isSelected = filterSelect
             }
         }

@@ -157,10 +157,10 @@ class CustomDialog(val context: Context) {
     }
 
     //리뷰 신고 다이얼로그
-    fun reviewAlertDialog(context: Context, message: String?) {
+    private fun reviewAlertDialog(context: Context) {
         CustomDialog(context).genericDialog(
             DialogData(
-                message,
+                context.getString(R.string.alert_no_review_title),
                 context.getString(R.string.alert_no_review_complete),
                 context.getString(R.string.alert_no_review_cancel)
             ),
@@ -267,12 +267,11 @@ class CustomDialog(val context: Context) {
                     cancel = {}
                 )
             } else {
-                CustomDialog(context).reviewAlertDialog(context, message)
+                CustomDialog(context).reviewAlertDialog(context)
             }
         } else if (!isReviewed) {
             CustomDialog(context).reviewAlertDialog(
                 context,
-                context.getString(R.string.alert_no_review_title)
             )
             Timber.d("제한 다이얼로그 후기 미작성 유저")
         } else {
