@@ -189,6 +189,7 @@
     <string name="second_major">제2</string>
     <string name="major_start">18-1 진입</string>
     <string name="senior_rest">쉬고 있어요</string>
+    <string name="senior_only_question">후기 작성한 선배만 보기</string>
 
 
     <!-- 스피너 목록 -->
