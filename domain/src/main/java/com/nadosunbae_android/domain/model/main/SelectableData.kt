@@ -9,7 +9,7 @@ data class SelectableData(
     companion object{
         val DEFAULT = SelectableData(
             id = 0,
-            name = "학과 무관",
+            name = "",
             isSelected = true,
             isFavorites = false
         )
