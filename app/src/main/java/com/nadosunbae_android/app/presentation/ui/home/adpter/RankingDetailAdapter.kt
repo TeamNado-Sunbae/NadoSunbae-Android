@@ -45,12 +45,16 @@ class RankingDetailAdapter(private var userId: Int, var link : DataToFragment) :
         holder.binding.apply {
             setVariable(BR.ranking, getItem(position))
             holder.itemView.setOnClickListener { view ->
+                link.getSeniorId(getItem(position).id)
                 onItemCLickListener?.let {
-                    link.getSeniorId(getItem(position).id)
+                    //link.getSeniorId(getItem(position).id)
+                    /*
                     it(
                         view, position, lookForWriter(getItem(position).id),
                         getItem(position).id
                     )
+
+                     */
                 }
             }
             tvRanking.setText("${position+1}")
