@@ -139,6 +139,9 @@ class SeniorPersonalFragment :
             else if(mainViewModel.seniorBack.value == 3) {
                 mainViewModel.seniorDetailNum.value = 3
             }
+            else if(mainViewModel.seniorBack.value == 4) {
+                mainViewModel.seniorDetailNum.value = 4
+            }
             else
                 mainViewModel.classRoomFragmentNum.value = 7
         }
