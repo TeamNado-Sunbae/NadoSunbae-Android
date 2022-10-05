@@ -91,7 +91,6 @@ class ModifyMyInfoActivity :
     override fun onResume() {
         super.onResume()
         initWriteMode()
-        //completeModifyInfo()
     }
 
     //기존 데이터 불러오기
@@ -111,6 +110,9 @@ class ModifyMyInfoActivity :
             myPageViewModel.selectImgId.value = it.profileImageId
             signViewModel.firstMajor.value = it.firstMajorName
             signViewModel.secondMajor.value = it.secondMajorName
+
+
+
             binding.layoutCommunityWriteMajor.bottomSheetMajor = it.firstMajorName
             binding.layoutModifyProfileSecondMajor.bottomSheetMajor = it.secondMajorName
 
@@ -327,24 +329,6 @@ class ModifyMyInfoActivity :
             }
             .launchIn(lifecycleScope)
     }
-
-    private fun initBtnActive() {
-        if (binding.layoutModifyProfileSecondMajor.toString() != "미진입") {
-            if (binding.textMyPageMajorinfoDoubleMajorTime.text.toString() == "미진입") {
-                binding.textMyPageSave.isSelected = false
-                binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
-                binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
-                binding.textMyPageSave.isClickable = false
-            } else {
-                binding.textMyPageSave.isClickable = true
-                binding.textMyPageSave.isSelected = true
-                binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_main_black_8)
-                binding.textMyPageSave.setTextColor(Color.parseColor("#DFF6F4"))
-
-            }
-        }
-    }
-
 
     //제 2전공 진입시기 바텀시트
     private fun secondMajorPeriod() {
@@ -574,31 +558,37 @@ class ModifyMyInfoActivity :
 
     // 회원정보 수정 put 서버통신
     private fun completeModifyInfo() {
+        Timber.e("firstMajor: ${intent.getIntExtra("firstMajorId", 2)}")
+        Timber.e("secondMajor: ${intent.getIntExtra("secondMajorId", 2)}")
         with(binding) {
             val requestBody = MyPageModifyItem(
                 myPageViewModel.selectImgId.value ?: 1,
                 etMyPageNickname.text.toString(),
                 etMyPageIntroduction.text.toString(),
                 (
-                        if (majorBottomSheetDialog.getSelectedData()?.id == null) {
-                            ReviewGlobals.firstMajor!!.majorId
+                        if (majorBottomSheetDialog.getSelectedData().id == 1) {
+                            intent.getIntExtra("firstMajorId", 1)
+
                         } else {
-                            majorBottomSheetDialog.getSelectedData()?.id!!
+                            majorBottomSheetDialog.getSelectedData()?.id
                         }),
+
 
                 textMyPageMajorinfoMajorTime.text.toString(),
                 (
-                        if (secondMajorBottomSheetDialog.getSelectedData()?.id == null) {
-                            ReviewGlobals.secondMajor!!.majorId
+                        if (secondMajorBottomSheetDialog.getSelectedData()?.id == 1) {
+                            intent.getIntExtra("secondMajorId", 1)
                         } else {
-                            secondMajorBottomSheetDialog.getSelectedData()?.id!!
+                            secondMajorBottomSheetDialog.getSelectedData()?.id
                         }
                         ),
-
                 textMyPageMajorinfoDoubleMajorTime.text.toString(),
                 binding.imgMyPageModifySwitch.isSelected
             )
             myPageViewModel.putMyPageModify(requestBody)
+            Timber.e("11111: ${requestBody}")
+            Timber.e("????: ${majorBottomSheetDialog.getSelectedData().id}")
+            Timber.e("????: ${secondMajorBottomSheetDialog.getSelectedData().id}")
             finish()
         }
     }

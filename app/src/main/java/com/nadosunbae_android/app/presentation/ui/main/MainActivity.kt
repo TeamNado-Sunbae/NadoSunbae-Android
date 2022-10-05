@@ -34,8 +34,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         DateUtil.initTimeZone()
 
         initBottomNav()
@@ -274,6 +272,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 signData.secondMajorName
             )
         )
+
+        mainViewModel.firstMajor.value?.majorId = signData.firstMajorId
+        mainViewModel.secondMajor.value?.majorId = signData.secondMajorId
     }
 
 

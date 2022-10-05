@@ -16,6 +16,7 @@ import com.nadosunbae_android.app.presentation.ui.community.CommunityWriteActivi
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
+import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.major.MajorListData
@@ -27,6 +28,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private val myPageViewModel: MyPageViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
+    private val signUpBasicInfoViewModel : SignUpBasicInfoViewModel by activityViewModels()
 
     private lateinit var myPageQuestionAdapter: MyPageMainAdapter
     private lateinit var callback : OnBackPressedCallback
@@ -39,7 +41,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         movePage()
         initPersonalInfo()
         submitAnalytics()
-        Timber.d("실행되는 중")
     }
 
     //TODO : 응답률 분기처리
@@ -112,12 +113,14 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         //내 정보 수정
         binding.clMyPageProfileModify.setOnClickListener {
             showLoading()
-           // myPageViewModel.getMajorList(1,"firstMajor", "noMajor", mainViewModel.userId.value ?: 1)
-           // val majorList = myPageViewModel.majorList.value
             val majorList = mainViewModel.majorList.value
+            val firstMajorId = mainViewModel.firstMajor.value?.majorId
+            val secondMajorId = mainViewModel.secondMajor.value?.majorId
             val intentMyPageModify = Intent(requireActivity(), ModifyMyInfoActivity::class.java)
             intentMyPageModify.putExtra("id", mainViewModel.userId.value)
             intentMyPageModify.putExtra("majorList", majorList as ArrayList<MajorListData>)
+            intentMyPageModify.putExtra("firstMajorId", firstMajorId)
+            intentMyPageModify.putExtra("secondMajorId", secondMajorId)
             startActivity(intentMyPageModify)
         }
 
@@ -153,7 +156,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         myPageViewModel.getPersonalInfo(mainViewModel.userId.value ?: 0)
         myPageViewModel.personalInfo.observe(viewLifecycleOwner) {
             binding.myPageInfo = it
-
             if (it.secondMajorName == "미진입")
                 binding.textMyPageSecondMajorTime.visibility = View.INVISIBLE
             else
