@@ -20,7 +20,6 @@ import com.nadosunbae_android.app.presentation.ui.sign.adapter.MajorSelectAdapte
 import com.nadosunbae_android.domain.model.main.SelectableData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import timber.log.Timber
 
 
 class CustomBottomSheetDialog(
@@ -68,10 +67,12 @@ class CustomBottomSheetDialog(
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), theme).apply {
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
+
         }
         dialog.setOnShowListener {
             val behavior = BottomSheetBehavior.from(binding.clCustomBottomSheet)
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.isDraggable = false
         }
 
         return dialog
@@ -156,11 +157,21 @@ class CustomBottomSheetDialog(
     //필터 데이터 변경
     private fun setFilterData(filter: String) {
         if (filter.isEmpty()) {
-            majorSelectAdapter.submitList(majorData)
+            majorSelectAdapter.submitList(majorData) {
+                setScrollTop()
+            }
         } else {
-            Timber.d("debounce 호출 됨")
             val filterData = majorData.filter { it.name.contains(filter) }
-            majorSelectAdapter.submitList(filterData)
+            majorSelectAdapter.submitList(filterData) {
+                setScrollTop()
+            }
+        }
+    }
+
+    //스크롤 맨 위로
+    private fun setScrollTop() {
+        binding.rvBottomSheet.apply {
+            post { scrollToPosition(0) }
         }
     }
 
