@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
-import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.ClassRoomMainContentViewModel
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.mypage.*
@@ -13,23 +12,17 @@ import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.model.user.*
 import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
 import com.nadosunbae_android.domain.repository.user.UserRepository
-import com.nadosunbae_android.domain.usecase.mypage.*
 import com.nadosunbae_android.domain.usecase.review.GetMajorInfoDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    val putMyPageModifyUseCase: PutMyPageModifyUseCase,
-    val getMyPageVersionUseCase: GetMyPageVersionUseCase,
-    val postMyPageLogOutUseCase: PostMyPageLogOutUseCase,
-    val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase,
-    val deleteMyPageQuitUseCase: DeleteMyPageQuitUseCase,
-    val getMajorInfoDataUseCase: GetMajorInfoDataUseCase,
+    val getMajorInfoDataUseCase : GetMajorInfoDataUseCase,
     private val userRepository: UserRepository,
     private val myPageRepository: MyPageRepository
 
@@ -140,7 +133,7 @@ class MyPageViewModel @Inject constructor(
     //마이페이지 버전정보
     fun getMyPageVersion() {
         viewModelScope.launch {
-            kotlin.runCatching { getMyPageVersionUseCase() }
+            kotlin.runCatching { myPageRepository.getMyPageVersion() }
                 .onSuccess {
                     versionInfo.value = it
                     Timber.d("mypageVersion : 서버 통신 성공")
@@ -245,7 +238,7 @@ class MyPageViewModel @Inject constructor(
     //마이페이지 내 정보 수정 서버통신
     fun putMyPageModify(myPageModifyItem: MyPageModifyItem) {
         viewModelScope.launch {
-            kotlin.runCatching { putMyPageModifyUseCase(myPageModifyItem) }
+            kotlin.runCatching { myPageRepository.putMyPageModify(myPageModifyItem) }
                 .onSuccess {
                     modifyInfo.value = it
                     Timber.d("MyPageModify : 서버 통신 완료")
@@ -279,7 +272,7 @@ class MyPageViewModel @Inject constructor(
     //마이페이지 로그아웃
     fun postMyPageLogOut() {
         viewModelScope.launch {
-            kotlin.runCatching { postMyPageLogOutUseCase() }
+            kotlin.runCatching { myPageRepository.postMyPageLogOut() }
                 .onSuccess {
                     logOut.value = it
                     Timber.d("MyPageLogOut : 서버 통신 완료")
@@ -299,7 +292,7 @@ class MyPageViewModel @Inject constructor(
         viewModelScope.launch {
 
             when (safeApiCall(Dispatchers.IO) {
-                postMyPageResetPasswordUseCase(
+                myPageRepository.postMyPageResetPassword(
                     myPageResetPasswordItem
                 )
             }) {
@@ -338,7 +331,7 @@ class MyPageViewModel @Inject constructor(
     fun deleteMyPageQuit(myPageQuitItem: MyPageQuitItem) {
         viewModelScope.launch {
             when (val quitData =
-                safeApiCall(Dispatchers.IO) { deleteMyPageQuitUseCase(myPageQuitItem) }) {
+                safeApiCall(Dispatchers.IO) { myPageRepository.deleteMyPageQuit(myPageQuitItem) }) {
                 is ResultWrapper.Success -> {
                     _quitInfo.value = quitInfo.value?.let { MyPageQuitData(it.data, 200, true) }
                     reportStatusInfo.value = 200
