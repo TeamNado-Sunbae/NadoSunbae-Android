@@ -31,11 +31,16 @@ class MainViewModel @Inject constructor(
     val getAppLinkUseCase: GetAppLinkUseCase
 ) : ViewModel(), LoadableViewModel {
 
+    //선배페이지 뒤로가기 고른 것
+    val seniorBack = MutableLiveData<Int>()
+
     // 로그인 response 데이터
     private val _signData = MutableLiveData<SignInData.User>()
     val signData: LiveData<SignInData.User>
         get() = _signData
 
+    //선배 상세페이지에서 뒤로가기
+    var seniorDetailNum = MutableLiveData<Int>()
 
     //과방탭
     //과방탭에서 질문탭 및 정보탭 select 구분 (과방)

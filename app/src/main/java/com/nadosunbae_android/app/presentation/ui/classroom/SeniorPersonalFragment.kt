@@ -47,7 +47,6 @@ class SeniorPersonalFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         getSeniorPersonal("recent")
         goSeniorFragment()
         goQuestionWrite()
@@ -131,6 +130,12 @@ class SeniorPersonalFragment :
         binding.imgSeniorPersonalTitle.setOnClickListener {
             if (isActivity)
                 requireActivity().finish()
+            else if(mainViewModel.seniorBack.value == 0){
+                mainViewModel.seniorDetailNum.value = 1
+            }
+            else if(mainViewModel.seniorBack.value == 1) {
+                mainViewModel.seniorDetailNum.value = 2
+            }
             else
                 mainViewModel.classRoomFragmentNum.value = 7
         }

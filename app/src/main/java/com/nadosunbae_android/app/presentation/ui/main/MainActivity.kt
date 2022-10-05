@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.review.ClassRoomRevi
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
 import com.nadosunbae_android.app.presentation.ui.home.HomeFrameFragment
+import com.nadosunbae_android.app.presentation.ui.home.HomeRankingFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.AppInfoFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
@@ -52,6 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         trackActiveUser()
         floatIsReviewInappropriate()
         floatAppUpdateDialog()
+        seniorDetailBack()
 
     }
 
@@ -333,6 +335,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
+    //선배 상세보기 뒤로가기 전환
+    private fun seniorDetailBack() {
+        mainViewModel.seniorDetailNum.observe(this) {
+            when(it) {
+                1 -> changeFragment(
+                    R.id.fragment_container_main,
+                    HomeFrameFragment(),
+                    "HomeMainFragment"
+                )
+                2-> changeFragment(
+                    R.id.fragment_container_main,
+                    HomeRankingFragment(),
+                    "HomeRankingFragment"
+                )
+            }
+        }
+    }
+
 
     //마이페이지 뒤로가기 전환
     private fun myPageBack() {
@@ -380,19 +400,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         ) {     // mau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.MAU)
             FirebaseAnalyticsUtil.mau()
-        }
-    }
-
-    //회원가입 프래그먼트
-    private fun SignFragmentChange() {
-        mainViewModel.signFragmentNum.observe(this) {
-            when (it) {
-                1 -> changeFragment(
-                    R.id.fragment_container_main,
-                    SignUpAgreementFragment(),
-                    "Agreement"
-                )
-            }
         }
     }
 

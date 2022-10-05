@@ -201,5 +201,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             mainViewModel.homeFragmentNum.value = 1
             mainViewModel.initLoading.value = true
         }
+        mainViewModel.seniorBack.value = 0
     }
 }

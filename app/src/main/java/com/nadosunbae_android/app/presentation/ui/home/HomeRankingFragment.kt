@@ -72,14 +72,13 @@ class HomeRankingFragment :
     //선배 Id = userId가 같을 경우 마이페이지로 이동
     private fun goMyPage(seniorId : Int){
         val userId = mainViewModel.userId.value ?: 0
-        Timber.d("userId : $userId")
-        Timber.d("seniorId : $seniorId")
         if(userId == seniorId){
             mainViewModel.bottomNavItem.value = 4
         }else{
             mainViewModel.homeFragmentNum.value = 1
             mainViewModel.initLoading.value = true
         }
+        mainViewModel.seniorBack.value = 1
     }
 
 }
