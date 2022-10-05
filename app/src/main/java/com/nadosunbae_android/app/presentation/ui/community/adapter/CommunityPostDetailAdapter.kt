@@ -94,7 +94,7 @@ class CommunityPostDetailAdapter(private var userId: Int, val context: Context) 
     fun setCheckMenu(menuNum: Int, position: Int) {
         if (menuNum == 3) {
             getItem(position).content =
-                context.getString(R.string.classroom_question_delete_comment)
+                context.getString(R.string.classroom_content_delete)
             getItem(position).isDeleted = true
             notifyItemChanged(position)
         }
