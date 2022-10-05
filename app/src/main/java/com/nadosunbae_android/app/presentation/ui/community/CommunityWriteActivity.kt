@@ -12,11 +12,11 @@ import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityW
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CommunityWriteActivity :
@@ -35,6 +35,7 @@ class CommunityWriteActivity :
         communityWriteViewModel.setCompleteButton()
         goDetail()
         clickMajorFavorites()
+        clickCategory()
     }
 
 
@@ -52,8 +53,7 @@ class CommunityWriteActivity :
             true
         )
 
-        communityWriteViewModel.majorList.observe(this){
-            Timber.d("즐겨찾기 클릭시 $it")
+        communityWriteViewModel.majorList.observe(this) {
             observeBottomSheet(
                 it ?: emptyList(), majorBottomSheetDialog
             )
@@ -61,32 +61,62 @@ class CommunityWriteActivity :
 
         //학과 선택 학과 무관 default
         majorBottomSheetDialog.setSelectedData(
-            communityWriteViewModel.majorList.value?.get(0)?.majorId
-            ?: 0 )
+            communityWriteViewModel.majorList.value?.get(0)?.majorId ?: 0
+        )
         //기본 카테고리
         binding.layoutCommunityWriteCategory.radioBtnCategoryFreedom.isChecked = true
     }
 
+    //카테고리 클릭 이벤트
+    private fun clickCategory() {
+        var categoryCheck = false
+        with(binding.layoutCommunityWriteCategory) {
+            radioGroupCategory.setOnCheckedChangeListener { radioGroup, id ->
+                categoryCheck = when (id) {
+                    radioBtnCategoryFreedom.id -> false
+                    radioBtnCategoryQuestion.id -> true
+                    else -> false
+                }
+                binding.category = categoryCheck
+            }
+        }
+    }
 
 
     //학과 변경 클릭
     private fun clickMajor() {
         val showDialog = {
             majorBottomSheetDialog.show(supportFragmentManager, majorBottomSheetDialog.tag)
+            setFilterMajor()
         }
         binding.layoutCommunityWriteMajor.root.setOnClickListener {
             showDialog()
         }
     }
 
+    //학과 필터 선택
+    private fun setFilterMajor() {
+        val selectedDataId = communityWriteViewModel.selectedMajor.value?.majorId
+        var checkId = 0
+        checkId = if (selectedDataId == -1) {
+            communityWriteViewModel.majorList.value?.get(0)?.majorId ?: 0
+        } else {
+            communityWriteViewModel.selectedMajor.value?.majorId ?: 0
+        }
+        majorBottomSheetDialog.setSelectedData(checkId)
+    }
+
     //학과 변경 완료
     private fun completeMajor() {
         majorBottomSheetDialog.setCompleteListener {
-            communityWriteViewModel.setFilter(majorBottomSheetDialog.getSelectedData())
+            val selectedData = majorBottomSheetDialog.getSelectedData()
+            val majorData = MajorSelectData(selectedData.id, selectedData.name)
+            communityWriteViewModel.setFilter(selectedData)
+            communityWriteViewModel.setSelectedMajor(majorData)
         }
         communityWriteViewModel.filter.flowWithLifecycle(lifecycle)
             .onEach {
-                if(it.id == 0){
+                if (it.id == 0) {
                     it.id = communityWriteViewModel.majorList.value?.get(0)?.majorId ?: 0
                 }
                 binding.layoutCommunityWriteMajor.bottomSheetMajor = it.name
@@ -127,6 +157,7 @@ class CommunityWriteActivity :
                 binding.btnCommunityWriteOk.isEnabled = it
             }.launchIn(lifecycleScope)
     }
+
     //즐겨찾기 클릭시
     private fun clickMajorFavorites() {
         majorBottomSheetDialog.setCompleteFavoritesListener {
@@ -135,8 +166,10 @@ class CommunityWriteActivity :
         communityWriteViewModel.communityFavorites.flowWithLifecycle(lifecycle)
             .onEach {
                 if (it.success) {
-                    communityWriteViewModel.getMajorList(1, "all",null,
-                        MainGlobals.signInData?.userId ?: 0)
+                    communityWriteViewModel.getMajorList(
+                        1, "all", null,
+                        MainGlobals.signInData?.userId ?: 0
+                    )
                 }
             }
             .launchIn(lifecycleScope)
@@ -158,7 +191,7 @@ class CommunityWriteActivity :
                         content = communityWriteViewModel.writeContent.value
                     )
                 },
-             cancel = {}
+                cancel = {}
             )
         }
     }

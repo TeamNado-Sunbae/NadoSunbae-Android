@@ -235,8 +235,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         mainViewModel.seniorId.value = intent.getIntExtra("seniorId", -1)
         mainViewModel.initLoading.value = intent.getBooleanExtra("loading", false)
         mainViewModel.divisionBlock.value = intent.getIntExtra("blockDivision", -1)
-        Timber.d("informationDetaildelete: ${mainViewModel.divisionBlock.value}")
-        Timber.d("bottomNavItem : ${mainViewModel.bottomNavItem.value}")
     }
 
 

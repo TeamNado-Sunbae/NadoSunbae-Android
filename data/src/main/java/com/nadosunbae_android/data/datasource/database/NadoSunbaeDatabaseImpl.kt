@@ -8,7 +8,7 @@ import com.nadosunbae_android.data.datasource.database.entity.MajorList
     entities = [
         MajorList::class
     ],
-    version = 1
+    version = 2
 )
 
 
