@@ -6,21 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
-import com.nadosunbae_android.data.mapper.user.UserMapper
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.SeniorPersonalData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateData
 import com.nadosunbae_android.domain.model.mypage.MyPageBlockUpdateItem
+import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
 import com.nadosunbae_android.domain.repository.user.UserRepository
-import com.nadosunbae_android.domain.usecase.classroom.GetQuestionSeniorListDataUseCase
-import com.nadosunbae_android.domain.usecase.classroom.GetSeniorPersonalDataUseCase
-import com.nadosunbae_android.domain.usecase.mypage.PostMyPageBlockUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 import timber.log.Timber
@@ -29,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SeniorPersonalViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    val postMyPageBlockUpdateUseCase : PostMyPageBlockUpdateUseCase
+    private val myPageRepository: MyPageRepository
 ) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
 
     override var dropDownSelected = MutableLiveData<SelectableData>()
@@ -120,7 +115,7 @@ class SeniorPersonalViewModel @Inject constructor(
     //과방 차단 & 차단 해제
     fun postClassRoomBlockUpdate(myPageBlockUpdateItem: MyPageBlockUpdateItem) {
         viewModelScope.launch {
-            kotlin.runCatching { postMyPageBlockUpdateUseCase(myPageBlockUpdateItem) }
+            kotlin.runCatching { myPageRepository.postMyPageBlockUpdate(myPageBlockUpdateItem) }
                 .onSuccess {
                     _blockData.value = it
                     Timber.d("classRoomBlockUpdate 서버 통신 완료")

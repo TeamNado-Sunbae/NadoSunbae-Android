@@ -30,7 +30,7 @@ interface MyPageService {
     suspend fun postMyPageLogOut(): ResponseMyPageLogOut
 
     //마이페이지 차단목록 조회
-    @GET("block/list")
+    @GET("block")
     suspend fun getMyPageBlock() :ResponseMyPageBlock
 
     //마이페이지 유저 차단 & 차단 해제
