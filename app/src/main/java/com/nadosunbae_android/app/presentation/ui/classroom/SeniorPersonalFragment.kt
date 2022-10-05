@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentSeniorPersonalBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment

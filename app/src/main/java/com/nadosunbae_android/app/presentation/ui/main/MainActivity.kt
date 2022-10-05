@@ -44,6 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getSignDataFromIntent()
         classRoomBack()
         getMajorList()
+        homeFragmentChange()
         // clickBottomNav()
         myPageFragmentChange()
         myPageBack()
@@ -195,6 +196,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
     //계산
 
+    //홈 프래그먼트 전환
+    private fun homeFragmentChange() {
+        mainViewModel.homeFragmentNum.observe(this) {
+            when(it) {
+                1 -> changeFragment(
+                    R.id.fragment_container_main,
+                    SeniorPersonalFragment(),
+                    "seniorPersonal"
+                )
+            }
+        }
+    }
 
     //과방 프레그먼트 전환
     private fun classRoomFragmentChange() {
