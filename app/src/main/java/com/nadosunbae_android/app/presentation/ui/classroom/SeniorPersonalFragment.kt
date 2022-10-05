@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentSeniorPersonalBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
@@ -46,7 +47,6 @@ class SeniorPersonalFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         getSeniorPersonal("recent")
         goSeniorFragment()
         goQuestionWrite()
@@ -130,6 +130,18 @@ class SeniorPersonalFragment :
         binding.imgSeniorPersonalTitle.setOnClickListener {
             if (isActivity)
                 requireActivity().finish()
+            else if(mainViewModel.seniorBack.value == 0){
+                mainViewModel.seniorDetailNum.value = 1
+            }
+            else if(mainViewModel.seniorBack.value == 1) {
+                mainViewModel.seniorDetailNum.value = 2
+            }
+            else if(mainViewModel.seniorBack.value == 3) {
+                mainViewModel.seniorDetailNum.value = 3
+            }
+            else if(mainViewModel.seniorBack.value == 4) {
+                mainViewModel.seniorDetailNum.value = 4
+            }
             else
                 mainViewModel.classRoomFragmentNum.value = 7
         }

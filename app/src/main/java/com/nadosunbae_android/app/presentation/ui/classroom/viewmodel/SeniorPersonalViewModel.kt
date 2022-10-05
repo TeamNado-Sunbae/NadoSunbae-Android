@@ -73,6 +73,7 @@ class SeniorPersonalViewModel @Inject constructor(
                     Timber.d("seniorPersonal : 선배 개인페이지 서버 통신 완료")
                 }
                 .onFailure {
+                    it.printStackTrace()
                     Timber.d("seniorPersonal : 선배 개인페이지 서버 통신 실패")
                 }.also {
                     onLoadingEnd.value = true
@@ -104,7 +105,6 @@ class SeniorPersonalViewModel @Inject constructor(
                     Timber.d("seniorQuestion : 선배 1:1질문 서버 통신 완료")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("seniorQuestion : 선배 1:1질문 서버 통신 실패")
                 } .also {
                             onLoadingEnd.value = true
