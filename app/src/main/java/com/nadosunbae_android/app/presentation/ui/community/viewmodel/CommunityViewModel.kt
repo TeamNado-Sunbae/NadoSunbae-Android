@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.domain.model.favorites.FavoritesData
 import com.nadosunbae_android.domain.model.favorites.FavoritesParam
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.post.PostData
 import com.nadosunbae_android.domain.repository.favorites.FavoritesRepository
@@ -71,6 +72,15 @@ class CommunityViewModel @Inject constructor(
     //커뮤니티 학과 과목
     fun setCommunityMainMajorName(majorName: String?) {
         _communityMainMajorName.value = majorName
+    }
+
+    // 선택 학과
+    private var _selectedMajor = MutableLiveData<MajorSelectData>()
+    val selectedMajor: LiveData<MajorSelectData>
+        get() = _selectedMajor
+
+    fun setSelectedMajor(data : MajorSelectData){
+        _selectedMajor.value = data
     }
 
     //커뮤니티 메인 데이터 호출

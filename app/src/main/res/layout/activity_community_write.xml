@@ -5,6 +5,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="category"
+            type="Boolean" />
+
         <variable
             name="communityWriteViewModel"
             type="com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteViewModel" />
@@ -126,8 +132,9 @@
                     android:text="@string/community_write_category_notice"
                     android:textColor="@color/main_default"
                     android:textSize="12sp"
+                    android:visibility="@{category ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_community_write_category"/>
+                    app:layout_constraintTop_toBottomOf="@+id/layout_community_write_category" />
 
 
                 <View
