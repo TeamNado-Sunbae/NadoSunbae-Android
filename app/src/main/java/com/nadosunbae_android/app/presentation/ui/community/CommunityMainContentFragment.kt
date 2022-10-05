@@ -25,6 +25,7 @@ import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CommunityMainContentFragment :
@@ -141,7 +142,7 @@ class CommunityMainContentFragment :
                     ) else getString(
                         R.string.major
                     )
-
+                Timber.d("selectedData, $selectedData")
                 val filterSelect = selectedData.id != 0
                 imgCommunityFilter.isSelected = filterSelect
             }

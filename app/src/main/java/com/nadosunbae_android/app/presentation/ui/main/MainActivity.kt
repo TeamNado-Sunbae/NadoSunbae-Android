@@ -8,7 +8,10 @@ import androidx.lifecycle.Observer
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.classroom.*
+import com.nadosunbae_android.app.presentation.ui.classroom.AskEveryoneFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.ClassRoomMainContentFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.SeniorFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.SeniorPersonalFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ClassRoomReviewFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
@@ -24,7 +27,6 @@ import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.util.*
 
 @AndroidEntryPoint
@@ -55,8 +57,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     //앱 업데이트 알럿 띄우기
-    private fun floatAppUpdateDialog(){
-        if(intent.getBooleanExtra("updateCondition", false)){
+    private fun floatAppUpdateDialog() {
+        if (intent.getBooleanExtra("updateCondition", false)) {
             CustomDialog(this).genericDialog(
                 dialogText = CustomDialog.DialogData(
                     getString(R.string.app_update),
@@ -65,7 +67,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 ),
                 complete = {
                     val uri = Uri.parse(getString(R.string.google_app))
-                    startActivity(Intent(Intent.ACTION_VIEW, uri ))
+                    startActivity(Intent(Intent.ACTION_VIEW, uri))
                 },
                 cancel = {}
             )
@@ -87,29 +89,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     //부적절 후기 일경우 띄우기
     private fun floatIsReviewInappropriate() {
-        if (MainGlobals.signInData!!.isReviewInappropriate) {
-            CustomDialog(this).genericDialog(
-                CustomDialog.DialogData(
-                    MainGlobals.signInData?.message.toString(),
-                    resources.getString(R.string.sign_in_question),
-                    resources.getString(R.string.email_certification_close)
-                ),
-                complete = {
-                    var intent = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(getString(R.string.question_kakao))
-                    )
-                    startActivity(intent)
-                },
-                cancel = {}
-            )
-        }
+        CustomDialog(this).restrictDialog(
+            this,
+            ReviewGlobals.isReviewed,
+            MainGlobals.signInData?.isUserReported ?: false,
+            MainGlobals.signInData?.isReviewInappropriate ?: false,
+            MainGlobals.signInData?.message.toString(),
+            true
+        ) {}
     }
 
     //학과 리스트 가져오기
     private fun getMajorList() {
-        mainViewModel.getMajorList(1, "all", null,
-        MainGlobals.signInData?.userId ?: 0)
+        mainViewModel.getMajorList(
+            1, "all", null,
+            MainGlobals.signInData?.userId ?: 0
+        )
 
     }
 
@@ -171,7 +166,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                     R.id.navigation_room -> {
                         mainViewModel.classRoomNum.value = 1
-                        changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomMainContentFragment())
+                        changeFragmentNoBackStack(
+                            R.id.fragment_container_main,
+                            ClassRoomMainContentFragment()
+                        )
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_community -> {
@@ -206,7 +204,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     "askEveryOne"
                 )
 
-                1 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomMainContentFragment())
+                1 -> changeFragmentNoBackStack(
+                    R.id.fragment_container_main,
+                    ClassRoomMainContentFragment()
+                )
 
                 3 -> changeFragment(R.id.fragment_container_main, SeniorFragment(), "senior")
 

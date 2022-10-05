@@ -155,6 +155,7 @@ class CustomDialog(val context: Context) {
         dialog.show()
         return dialog
     }
+
     //리뷰 신고 다이얼로그
     fun reviewAlertDialog(context: Context, message: String?) {
         CustomDialog(context).genericDialog(
@@ -177,6 +178,7 @@ class CustomDialog(val context: Context) {
         val complete: String,
         val cancel: String
     )
+
 
     fun reportDialog(): CustomDialog {
         val binding = DialogReportBinding.inflate(LayoutInflater.from(context))
@@ -215,10 +217,10 @@ class CustomDialog(val context: Context) {
 
         return this
     }
-
-    fun deleteNotificationDialog(): CustomDialog {
+    //삭제된 알림
+    fun deleteNotificationDialog(message : String): CustomDialog {
         val binding = DialogDeletePostBinding.inflate(LayoutInflater.from(context))
-
+        binding.tvDialogDeleteTitle.text = message
         dialog.setContentView(binding.root)
         dialog.window?.setLayout(
             WindowManager.LayoutParams.WRAP_CONTENT,
@@ -241,29 +243,32 @@ class CustomDialog(val context: Context) {
         isUserReported: Boolean,
         isReviewInappropriate: Boolean,
         message: String,
-        behavior : () -> Unit
+        isHome: Boolean? = false,
+        behavior: () -> Unit
     ) {
         //유저 신고
         if (isUserReported) {
-            CustomDialog(context).genericDialog(
-                DialogData(
-                    message,
-                    context.getString(R.string.sign_in_question),
-                    context.getString(R.string.email_certification_close)
-                ),
-                complete = {
-                    var intent = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(context.getString(R.string.question_kakao))
-                    )
-                    context.startActivity(intent)
-                },
-                cancel = {}
-            )
-            Timber.d("제한 다이얼로그 신고 유저")
+            deleteNotificationDialog(message)
         } else if (isReviewInappropriate) {
-            CustomDialog(context).reviewAlertDialog(context, message)
-            Timber.d("제한 다이얼로그 부적절 후기 유저")
+            if (isHome == true) {
+                CustomDialog(context).genericDialog(
+                    DialogData(
+                        message,
+                        context.getString(R.string.sign_in_question),
+                        context.getString(R.string.email_certification_close)
+                    ),
+                    complete = {
+                        var intent = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(context.getString(R.string.question_kakao))
+                        )
+                        context.startActivity(intent)
+                    },
+                    cancel = {}
+                )
+            } else {
+                CustomDialog(context).reviewAlertDialog(context, message)
+            }
         } else if (!isReviewed) {
             CustomDialog(context).reviewAlertDialog(
                 context,
