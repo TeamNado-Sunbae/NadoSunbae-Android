@@ -200,7 +200,6 @@ class SignUpBasicInfoViewModel @Inject constructor(
 
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("SignUp : 서버 통신 실패")
                 }
         }
@@ -230,7 +229,6 @@ class SignUpBasicInfoViewModel @Inject constructor(
                     Timber.d("FirstMajorBottomSheet : 서버 통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("FirstMajorBottomSheet : 서버 통신 실패")
                 }
         }
@@ -245,7 +243,6 @@ class SignUpBasicInfoViewModel @Inject constructor(
                     Timber.d("SecondMajorBottomSheet : 서버 통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("SecondMajorBottomSheet : 서버 통신 실패")
                 }
         }
