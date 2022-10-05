@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         tools:context=".app.presentation.ui.review.ReviewDetailActivity">
 
 
@@ -107,13 +108,13 @@
                     android:id="@+id/rv_review_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:nestedScrollingEnabled="false"
-                    android:overScrollMode="never"
-                    android:orientation="vertical"
-                    android:layout_marginTop="192dp"
                     android:background="@android:color/transparent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:layout_marginTop="24dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_review_writer_info"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_review_tag_box" />
 
@@ -122,11 +123,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="78dp"
+                    android:layout_marginTop="58dp"
                     android:background="@drawable/rectangle_fill_white_40"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_review_detail">
+                    app:layout_constraintTop_toBottomOf="@id/tv_review_one_line">
 
                     <ImageView
                         android:id="@+id/iv_profile"
