@@ -124,6 +124,7 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
             mainViewModel.classRoomFragmentNum.value = 4
             mainViewModel.initLoading.value = true
         }
+        mainViewModel.seniorBack.value = 3
     }
 
     private fun mapToPostData(postData: List<PostData>): List<ClassRoomData> =
