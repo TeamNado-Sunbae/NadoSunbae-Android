@@ -125,7 +125,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
 
         binding.tvHomeCommunityMore.setOnClickListener {
-            //TODO : 커뮤니티 탭으로 이동
             mainViewModel.bottomNavItem.value = 8
         }
     }

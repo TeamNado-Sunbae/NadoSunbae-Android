@@ -64,17 +64,6 @@
 
     </fragment>
 
-    <fragment
-        android:id="@+id/homeCommunity"
-        android:name="com.nadosunbae_android.app.presentation.ui.community.CommunityFragment"
-        android:label="homeCommunity"
-        tools:layout="@layout/fragment_community">
-        <action
-            android:id="@+id/action_CommunityFragment_to_homeFragment"
-            app:destination="@+id/homeFragment" />
-    </fragment>
-
-
 
 
 </navigation>
