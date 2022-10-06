@@ -207,7 +207,9 @@ object ClassRoomMapper {
             secondMajorName = responseSeniorPersonalData.data.secondMajorName,
             secondMajorStart = responseSeniorPersonalData.data.secondMajorStart,
             userId = responseSeniorPersonalData.data.userId,
-            count = responseSeniorPersonalData.data.count
+            count = responseSeniorPersonalData.data.count,
+            rate = null,
+            bio = null
         )
     }
 

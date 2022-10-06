@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.classroom
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Switch
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import com.nadosunbae_android.app.R
@@ -29,7 +30,9 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = mainViewModel
         initSenior()
+        initListener()
         goQuestionFragment()
         changeTitle()
         observeLoadingEnd()
@@ -71,6 +74,16 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
         }
 
     }
+
+    private fun initListener() {
+        binding.btnSwitchQuestion.setOnClickListener {
+            mainViewModel.viewReviewedSeniors.value = (it as Switch).isChecked
+        }
+        mainViewModel.viewReviewedSeniors.observe(requireActivity()) {
+            loadServerData()
+        }
+    }
+
     //선배 Id = userId가 같을 경우 마이페이지로 이동
     private fun goMyPage(seniorId : Int){
         val userId = mainViewModel.userId.value ?: 0
@@ -82,6 +95,7 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
             mainViewModel.classRoomFragmentNum.value = 4
             mainViewModel.initLoading.value = true
         }
+        mainViewModel.seniorBack.value = 4
     }
 
     private fun loadServerData() {

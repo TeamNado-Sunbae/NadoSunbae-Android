@@ -16,6 +16,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.review.ClassRoomRevi
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
 import com.nadosunbae_android.app.presentation.ui.home.HomeFrameFragment
+import com.nadosunbae_android.app.presentation.ui.home.HomeRankingFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.AppInfoFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
@@ -46,6 +47,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getSignDataFromIntent()
         classRoomBack()
         getMajorList()
+        homeFragmentChange()
         // clickBottomNav()
         myPageFragmentChange()
         myPageBack()
@@ -53,6 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         trackActiveUser()
         floatIsReviewInappropriate()
         floatAppUpdateDialog()
+        seniorDetailBack()
 
     }
 
@@ -193,6 +196,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
     //계산
 
+    //홈 프래그먼트 전환
+    private fun homeFragmentChange() {
+        mainViewModel.homeFragmentNum.observe(this) {
+            when (it) {
+                1 -> changeFragment(
+                    R.id.fragment_container_main,
+                    SeniorPersonalFragment(),
+                    "seniorPersonal"
+                )
+            }
+        }
+    }
 
     //과방 프레그먼트 전환
     private fun classRoomFragmentChange() {
@@ -319,6 +334,40 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
+    //선배 상세보기 뒤로가기 전환
+    private fun seniorDetailBack() {
+        mainViewModel.seniorDetailNum.observe(this) {
+            when (it) {
+                //홈 단상대에서 진입
+                1 -> changeFragment(
+                    R.id.fragment_container_main,
+                    HomeFrameFragment(),
+                    "HomeMainFragment"
+                )
+                //홈 -> 랭킹으로 진입
+                2 -> changeFragment(
+                    R.id.fragment_container_main,
+                    HomeRankingFragment(),
+                    "HomeRankingFragment"
+                )
+                //과방 -> 일렬로 된 선배 리스트에서 진입 (ClassRoomQuestion)
+                3 -> changeFragment(
+                    R.id.fragment_container_main,
+                    ClassRoomMainContentFragment(),
+                    "ClassroomFragment"
+                )
+                //과방 -> 선배리스트에서 진입
+                4 -> changeFragment(
+                    R.id.fragment_container_main,
+                    SeniorFragment(),
+                    "SeniorFragment"
+                )
+                //커뮤니티 -> 커뮤니티 상세보기 -> 선배리스트에서 진입
+
+            }
+        }
+    }
+
 
     //마이페이지 뒤로가기 전환
     private fun myPageBack() {
@@ -366,19 +415,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         ) {     // mau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.MAU)
             FirebaseAnalyticsUtil.mau()
-        }
-    }
-
-    //회원가입 프래그먼트
-    private fun SignFragmentChange() {
-        mainViewModel.signFragmentNum.observe(this) {
-            when (it) {
-                1 -> changeFragment(
-                    R.id.fragment_container_main,
-                    SignUpAgreementFragment(),
-                    "Agreement"
-                )
-            }
         }
     }
 

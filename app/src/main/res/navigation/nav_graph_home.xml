@@ -26,6 +26,10 @@
             android:id="@+id/action_homeFragment_to_communityFragment"
             app:destination="@+id/homeCommunity" />
 
+        <action
+            android:id="@+id/action_homeFragment_to_SeniorFragment"
+            app:destination="@+id/homeSenior" />
+
     </fragment>
 
     <fragment
@@ -65,16 +69,18 @@
     </fragment>
 
     <fragment
-        android:id="@+id/homeCommunity"
-        android:name="com.nadosunbae_android.app.presentation.ui.community.CommunityFragment"
-        android:label="homeCommunity"
-        tools:layout="@layout/fragment_community">
+        android:id="@+id/homeSenior"
+        android:name="com.nadosunbae_android.app.presentation.ui.classroom.SeniorPersonalFragment"
+        android:label="homeSenior"
+        tools:layout="@layout/fragment_senior_personal">
+        <argument
+            android:name="seniorId"
+            app:argType="integer" />
         <action
-            android:id="@+id/action_CommunityFragment_to_homeFragment"
+            android:id="@+id/action_homeFragment_to_SeniorFragment"
             app:destination="@+id/homeFragment" />
+
     </fragment>
-
-
 
 
 </navigation>

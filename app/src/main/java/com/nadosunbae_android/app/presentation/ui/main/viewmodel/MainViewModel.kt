@@ -13,6 +13,7 @@ import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.repository.major.MajorRepository
+import com.nadosunbae_android.domain.repository.user.UserRepository
 import com.nadosunbae_android.domain.usecase.classroom.GetClassRoomMainDataUseCase
 import com.nadosunbae_android.domain.usecase.classroom.GetSeniorDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetAppLinkUseCase
@@ -25,16 +26,21 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val majorRepository: MajorRepository,
+    private val userRepository: UserRepository,
     val getClassRoomMainDataUseCase: GetClassRoomMainDataUseCase,
-    val getSeniorDataUseCase: GetSeniorDataUseCase,
     val getAppLinkUseCase: GetAppLinkUseCase
 ) : ViewModel(), LoadableViewModel {
+
+    //선배페이지 뒤로가기 고른 것
+    val seniorBack = MutableLiveData<Int>()
 
     // 로그인 response 데이터
     private val _signData = MutableLiveData<SignInData.User>()
     val signData: LiveData<SignInData.User>
         get() = _signData
 
+    //선배 상세페이지에서 뒤로가기
+    var seniorDetailNum = MutableLiveData<Int>()
 
     //과방탭
     //과방탭에서 질문탭 및 정보탭 select 구분 (과방)
@@ -42,6 +48,9 @@ class MainViewModel @Inject constructor(
 
     //과방탭 프래그먼트 전환 (1 -> 과방 메인, 2 -> 전체에게 질문 3 -> 질문 구성원 목록 4 -> 선배 개인 페이지 5-> 학과 후기 6-> 마이페이지)
     var classRoomFragmentNum = MutableLiveData<Int>()
+
+    //홈 탭 프래그먼트 전환
+    var homeFragmentNum = MutableLiveData<Int>()
 
     //바텀 네비 아이템들 클릭된
     var bottomNavItem = MutableLiveData<Int>(0)
@@ -105,6 +114,8 @@ class MainViewModel @Inject constructor(
     private val _secondMajor = MutableLiveData<MajorSelectData>()
     val secondMajor: LiveData<MajorSelectData>
         get() = _secondMajor
+
+    val viewReviewedSeniors = MutableLiveData<Boolean>(false)
 
     //앱링크 조회
     val appLink = MutableLiveData<AppLinkData>()
@@ -173,7 +184,12 @@ class MainViewModel @Inject constructor(
     //과방 구성원 전체
     fun getClassRoomSenior(majorId: Int) {
         viewModelScope.launch {
-            runCatching { getSeniorDataUseCase(majorId) }
+            runCatching {
+                var exclude: String? = null
+                if (viewReviewedSeniors.value == true)
+                    exclude = "noReview"
+
+                userRepository.getSeniorList(majorId, exclude) }
                 .onSuccess {
                     _seniorData.value = it
                     Timber.d("classRoomSenior: 구성원 서버 통신 성공")
