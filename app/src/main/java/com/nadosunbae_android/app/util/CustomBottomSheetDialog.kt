@@ -30,6 +30,7 @@ class CustomBottomSheetDialog(
 ) : BottomSheetDialogFragment() {
 
 
+
     // 바텀시트 타이틀
     private var _titleData = MutableLiveData<String>()
     val titleData: LiveData<String>

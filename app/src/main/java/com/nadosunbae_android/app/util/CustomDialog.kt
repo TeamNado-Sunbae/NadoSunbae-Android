@@ -99,7 +99,8 @@ class CustomDialog(val context: Context) {
     fun genericDialog(
         dialogText: DialogData,
         complete: () -> Unit,
-        cancel: () -> Unit
+        cancel: () -> Unit,
+        viewMargin: Boolean?= false,
     ) {
         val binding = DataBindingUtil.inflate<DialogGenericBinding>(
             LayoutInflater.from(context),
@@ -125,7 +126,10 @@ class CustomDialog(val context: Context) {
         dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
 
         adjustViewWidth(binding.btnDialogCancel, binding.btnDialogComplete)     // 버튼 길이를 긴 쪽에 맞춤
-
+        if(viewMargin == true){
+            binding.tvDialogTitle.layoutMarginTop(12.dpToPx)
+            binding.btnDialogCancel.layoutMarginTop(8.dpToPx)
+        }
         dialog.show()
 
     }
@@ -217,8 +221,9 @@ class CustomDialog(val context: Context) {
 
         return this
     }
+
     //삭제된 알림
-    fun deleteNotificationDialog(message : String): CustomDialog {
+    fun deleteNotificationDialog(message: String): CustomDialog {
         val binding = DialogDeletePostBinding.inflate(LayoutInflater.from(context))
         binding.tvDialogDeleteTitle.text = message
         dialog.setContentView(binding.root)
@@ -255,7 +260,7 @@ class CustomDialog(val context: Context) {
                     DialogData(
                         message,
                         context.getString(R.string.sign_in_question),
-                        context.getString(R.string.email_certification_close)
+                        context.getString(R.string.email_certification_close),
                     ),
                     complete = {
                         var intent = Intent(
@@ -264,7 +269,8 @@ class CustomDialog(val context: Context) {
                         )
                         context.startActivity(intent)
                     },
-                    cancel = {}
+                    cancel = {},
+                    true
                 )
             } else {
                 CustomDialog(context).reviewAlertDialog(context)

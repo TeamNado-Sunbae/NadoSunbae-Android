@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemCommunityDetailBinding
+import com.nadosunbae_android.app.presentation.ui.classroom.review.SeniorPersonalActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.DiffUtilCallback
@@ -115,7 +116,7 @@ class CommunityPostDetailAdapter(private var userId: Int, val context: Context) 
             putExtra("bottomNavItem", bottomNavItem)
             putExtra("signData", MainGlobals.signInData)
             putExtra("loading", false)
-            putExtra("seniorId", writerId)
+            putExtra("userId", writerId)
             putExtra("blockDivision", 1)
         }
         ContextCompat.startActivity(context, intent, null)

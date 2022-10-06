@@ -15,7 +15,7 @@ import com.nadosunbae_android.app.util.setTextSemiBold
 import com.nadosunbae_android.domain.model.main.SelectableData
 import timber.log.Timber
 
-class MajorSelectAdapter(val noMajor: Int? = -2, val communityWrite: Boolean? = false) :
+class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWrite: Boolean? = false) :
     ListAdapter<SelectableData, RecyclerView.ViewHolder>(
         DiffUtilCallback<SelectableData>()
     ) {
