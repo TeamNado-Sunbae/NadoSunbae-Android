@@ -74,7 +74,7 @@ class CommunityMainContentFragment :
             viewLifecycleOwner.lifecycle,
         ).onEach {
             binding.size = it.isEmpty()
-            communityMainContentAdapter.submitList(it){
+            communityMainContentAdapter.submitList(it) {
                 binding.rcCommunityMain.scrollToPosition(0)
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -136,10 +136,14 @@ class CommunityMainContentFragment :
                 communityViewModel.setCommunityMainMajorName(majorName)
                 communityViewModel.setCommunityMainFilter(type, majorName)
                 filterTitle =
-                    if (selectedData.name == getString(R.string.no_major)) getString(R.string.no_major) else getString(
+                    if (selectedData.name == getString(R.string.no_major) || selectedData.name == "") getString(
+                        R.string.no_major
+                    ) else getString(
                         R.string.major
                     )
-                imgCommunityFilter.isSelected = true
+                Timber.d("selectedData, $selectedData")
+                val filterSelect = selectedData.id != -1
+                imgCommunityFilter.isSelected = filterSelect
             }
         }
     }

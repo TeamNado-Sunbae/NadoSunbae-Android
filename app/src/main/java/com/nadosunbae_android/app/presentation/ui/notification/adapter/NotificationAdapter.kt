@@ -40,7 +40,7 @@ class NotificationAdapter(
             if (getItem(holder.absoluteAdapterPosition).content == context.getString(R.string.classroom_content_delete)
                 || getItem(position).content == context.getString(R.string.classroom_post_delete)
             ) {
-                CustomDialog(context).deleteNotificationDialog()
+                CustomDialog(context).deleteNotificationDialog(context.getString(R.string.classroom_post_delete))
             } else {
                 onItemCLickListener?.let {
                     it(getItem(holder.absoluteAdapterPosition).notificationId,
