@@ -114,13 +114,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         binding.clMyPageProfileModify.setOnClickListener {
             showLoading()
             val majorList = mainViewModel.majorList.value
-            val firstMajorId = mainViewModel.firstMajor.value?.majorId
-            val secondMajorId = mainViewModel.secondMajor.value?.majorId
             val intentMyPageModify = Intent(requireActivity(), ModifyMyInfoActivity::class.java)
             intentMyPageModify.putExtra("id", mainViewModel.userId.value)
             intentMyPageModify.putExtra("majorList", majorList as ArrayList<MajorListData>)
-            intentMyPageModify.putExtra("firstMajorId", firstMajorId)
-            intentMyPageModify.putExtra("secondMajorId", secondMajorId)
             startActivity(intentMyPageModify)
         }
 

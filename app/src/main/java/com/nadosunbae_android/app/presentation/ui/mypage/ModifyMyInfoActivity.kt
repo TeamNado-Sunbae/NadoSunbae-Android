@@ -558,28 +558,25 @@ class ModifyMyInfoActivity :
 
     // 회원정보 수정 put 서버통신
     private fun completeModifyInfo() {
-        Timber.e("firstMajor: ${intent.getIntExtra("firstMajorId", 2)}")
-        Timber.e("secondMajor: ${intent.getIntExtra("secondMajorId", 2)}")
         with(binding) {
             val requestBody = MyPageModifyItem(
                 myPageViewModel.selectImgId.value ?: 1,
                 etMyPageNickname.text.toString(),
                 etMyPageIntroduction.text.toString(),
                 (
-                        if (majorBottomSheetDialog.getSelectedData().id == 1) {
-                            intent.getIntExtra("firstMajorId", 1)
-
+                        if (majorBottomSheetDialog.getSelectedData().name == MainGlobals.signInData?.firstMajorName) {
+                            MainGlobals.signInData?.firstMajorId ?: 1
                         } else {
-                            majorBottomSheetDialog.getSelectedData()?.id
+                            majorBottomSheetDialog.getSelectedData().id
                         }),
 
 
                 textMyPageMajorinfoMajorTime.text.toString(),
                 (
-                        if (secondMajorBottomSheetDialog.getSelectedData()?.id == 1) {
-                            intent.getIntExtra("secondMajorId", 1)
+                        if (secondMajorBottomSheetDialog.getSelectedData().name == MainGlobals.signInData?.secondMajorName) {
+                            MainGlobals.signInData?.secondMajorId ?: 1
                         } else {
-                            secondMajorBottomSheetDialog.getSelectedData()?.id
+                            secondMajorBottomSheetDialog.getSelectedData().id
                         }
                         ),
                 textMyPageMajorinfoDoubleMajorTime.text.toString(),
@@ -587,8 +584,8 @@ class ModifyMyInfoActivity :
             )
             myPageViewModel.putMyPageModify(requestBody)
             Timber.e("11111: ${requestBody}")
-            Timber.e("????: ${majorBottomSheetDialog.getSelectedData().id}")
-            Timber.e("????: ${secondMajorBottomSheetDialog.getSelectedData().id}")
+            Timber.e("????: ${majorBottomSheetDialog.getSelectedData().name}")
+            Timber.e("????: ${majorBottomSheetDialog.getSelectedData().name.toString()}")
             finish()
         }
     }
