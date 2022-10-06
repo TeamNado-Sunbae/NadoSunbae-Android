@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.util
 
 
+import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentCustomBottomSheetDialogBinding
@@ -17,15 +20,15 @@ import com.nadosunbae_android.app.presentation.ui.sign.adapter.MajorSelectAdapte
 import com.nadosunbae_android.domain.model.main.SelectableData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import timber.log.Timber
 
 
 class CustomBottomSheetDialog(
     private val title: String,
     private val checkCommunity: Boolean? = false,
     noMajor: Int? = 0,
-    checkCommunityWrite : Boolean? = false
+    checkCommunityWrite: Boolean? = false
 ) : BottomSheetDialogFragment() {
+
 
 
     // 바텀시트 타이틀
@@ -37,7 +40,7 @@ class CustomBottomSheetDialog(
 
     //바텀 시트 majorId
     private var _majorId = MutableLiveData<Int>()
-    val majorId : LiveData<Int>
+    val majorId: LiveData<Int>
         get() = _majorId
 
     private var majorSelectAdapter: MajorSelectAdapter
@@ -46,7 +49,7 @@ class CustomBottomSheetDialog(
     private var majorData = mutableListOf<SelectableData>()
 
     //debounce 학과 검색
-    private val debounceAction =  debounce<String>(200,
+    private val debounceAction = debounce<String>(200,
         CoroutineScope(Dispatchers.Main),
         block = {
             setFilterData(it)
@@ -54,12 +57,26 @@ class CustomBottomSheetDialog(
     )
 
 
-
     private lateinit var _binding: FragmentCustomBottomSheetDialogBinding
     val binding get() = _binding!!
 
     init {
-        majorSelectAdapter = MajorSelectAdapter(noMajor,checkCommunityWrite)
+        majorSelectAdapter = MajorSelectAdapter(noMajor, checkCommunityWrite)
+
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = BottomSheetDialog(requireContext(), theme).apply {
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+        }
+        dialog.setOnShowListener {
+            val behavior = BottomSheetBehavior.from(binding.clCustomBottomSheet)
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.isDraggable = false
+        }
+
+        return dialog
     }
 
     override fun onCreateView(
@@ -83,8 +100,9 @@ class CustomBottomSheetDialog(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.clCustomBottomSheet.layoutParams.height =
+        binding.crCustomBottomSheet.layoutParams.height =
             resources.displayMetrics.heightPixels * 72 / 100
+
         binding.tvBottomsheeetTitle.text = title
         searchFilterMajor()
         observeFavoritesData()
@@ -100,6 +118,7 @@ class CustomBottomSheetDialog(
 
     private fun initBottomSheetSetting() {
         binding.btnBottomsheetComplete.isEnabled = checkCommunity ?: false
+
     }
 
     //커뮤니티일때 종료 다르게
@@ -126,22 +145,34 @@ class CustomBottomSheetDialog(
         }
         _titleData.value = title
     }
+
     //필터 학과 검색시
-    private fun searchFilterMajor(){
+    private fun searchFilterMajor() {
         binding.etBottomSheetSearch.addTextChangedListener {
-           debounceAction(
-               it.toString())
+            debounceAction(
+                it.toString()
+            )
         }
     }
 
     //필터 데이터 변경
-    private fun setFilterData(filter : String){
-        if (filter.isEmpty()){
-            majorSelectAdapter.submitList(majorData)
-        }else{
-            Timber.d("debounce 호출 됨")
+    private fun setFilterData(filter: String) {
+        if (filter.isEmpty()) {
+            majorSelectAdapter.submitList(majorData) {
+                setScrollTop()
+            }
+        } else {
             val filterData = majorData.filter { it.name.contains(filter) }
-            majorSelectAdapter.submitList(filterData)
+            majorSelectAdapter.submitList(filterData) {
+                setScrollTop()
+            }
+        }
+    }
+
+    //스크롤 맨 위로
+    private fun setScrollTop() {
+        binding.rvBottomSheet.apply {
+            post { scrollToPosition(0) }
         }
     }
 
@@ -172,7 +203,6 @@ class CustomBottomSheetDialog(
     }
 
 
-
     fun completeBtnListener(view: View) {
         completeOperation()
         dismiss()
@@ -182,7 +212,6 @@ class CustomBottomSheetDialog(
         majorData = dataList
         majorSelectAdapter.submitList(dataList)
     }
-
 
 
     //바텀 시트 선택 데이터
@@ -198,8 +227,8 @@ class CustomBottomSheetDialog(
     }
 
     //즐겨찾기 데이터 옵저빙시
-    fun observeFavoritesData(){
-        majorId.observe(viewLifecycleOwner){id ->
+    fun observeFavoritesData() {
+        majorId.observe(viewLifecycleOwner) { id ->
             completeFavorites.let {
                 it(id)
             }
@@ -209,7 +238,7 @@ class CustomBottomSheetDialog(
 
     private var completeFavorites: (Int) -> Unit = {}
 
-    fun setCompleteFavoritesListener(operation: (Int) -> Unit){
+    fun setCompleteFavoritesListener(operation: (Int) -> Unit) {
         this.completeFavorites = operation
     }
 

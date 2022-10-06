@@ -95,6 +95,7 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
             mainViewModel.classRoomFragmentNum.value = 4
             mainViewModel.initLoading.value = true
         }
+        mainViewModel.seniorBack.value = 4
     }
 
     private fun loadServerData() {

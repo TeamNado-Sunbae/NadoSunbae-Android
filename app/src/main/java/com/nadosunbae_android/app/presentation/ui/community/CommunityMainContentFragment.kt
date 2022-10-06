@@ -20,6 +20,7 @@ import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDecoration
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPxF
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -74,7 +75,9 @@ class CommunityMainContentFragment :
             viewLifecycleOwner.lifecycle,
         ).onEach {
             binding.size = it.isEmpty()
-            communityMainContentAdapter.submitList(it)
+            communityMainContentAdapter.submitList(it) {
+                binding.rcCommunityMain.scrollToPosition(0)
+            }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
@@ -95,6 +98,7 @@ class CommunityMainContentFragment :
                     val majorName = communityMainMajorName.value
                     setCommunityMainFilter(type, majorName)
                 }
+
             }
         }
     }
@@ -115,22 +119,32 @@ class CommunityMainContentFragment :
     private fun clickFilter() {
         val showDialog = {
             majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
+            majorBottomSheetDialog.setSelectedData(
+                communityViewModel.selectedMajor.value?.majorId ?: 0
+            )
         }
+
         binding.clCommunityMainFilter.setOnClickListener { showDialog() }
         //완료버튼
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
+            val majorData = MajorSelectData(selectedData.id, selectedData.name)
+            communityViewModel.setSelectedMajor(majorData)
             //학과 필터에 들어가는 부분
             with(binding) {
                 val type = communityViewModel.communityMainType.value
-                val majorName =
-                    if (selectedData.name == getString(R.string.no_major)) null else selectedData.name
-
+                val majorName = selectedData.name
                 communityViewModel.setCommunityMainMajorName(majorName)
                 communityViewModel.setCommunityMainFilter(type, majorName)
                 filterTitle =
-                    if (selectedData.name == getString(R.string.no_major)) getString(R.string.no_major) else getString(R.string.major)
-                imgCommunityFilter.isSelected = true
+                    if (selectedData.name == getString(R.string.no_major) || selectedData.name == "") getString(
+                        R.string.no_major
+                    ) else getString(
+                        R.string.major
+                    )
+                Timber.d("selectedData, $selectedData")
+                val filterSelect = selectedData.id != -1
+                imgCommunityFilter.isSelected = filterSelect
             }
         }
     }
@@ -164,8 +178,10 @@ class CommunityMainContentFragment :
         communityViewModel.communityFavorites.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach {
                 if (it.success) {
-                    mainViewModel.getMajorList(1, "all",null,
-                        MainGlobals.signInData?.userId ?: 0)
+                    mainViewModel.getMajorList(
+                        1, "all", null,
+                        MainGlobals.signInData?.userId ?: 0
+                    )
                 }
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)

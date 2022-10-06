@@ -6,10 +6,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavHost
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.question.DataToFragment
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMainContentAdapter
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
 import com.nadosunbae_android.app.presentation.ui.home.adpter.BannerAdapter
@@ -43,6 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         super.onViewCreated(view, savedInstanceState)
         setReviewAdapter()
+        goSeniorPage()
         setQuestionAdapter()
         setCommunityAdapter()
         naviControl()
@@ -125,7 +128,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
 
         binding.tvHomeCommunityMore.setOnClickListener {
-            //TODO : 커뮤니티 탭으로 이동
             mainViewModel.bottomNavItem.value = 8
         }
     }
@@ -157,5 +159,48 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
 
         }
+    }
+
+    //선배클릭 리스너
+    private fun goSeniorPage() = with(binding) {
+        homeViewModel.rankingData.observe(viewLifecycleOwner) {
+            val firstId = it[0].id
+            val secondId = it[1].id
+            val thirdId = it[2].id
+            val forthId = it[3].id
+            val fifthId = it[4].id
+            clRanking1.setOnClickListener {
+                mainViewModel.seniorId.value = firstId
+                goMyPage(firstId)
+            }
+            clRanking2.setOnClickListener {
+                mainViewModel.seniorId.value = secondId
+                goMyPage(secondId)
+            }
+            clRanking3.setOnClickListener {
+                mainViewModel.seniorId.value = thirdId
+                goMyPage(thirdId)
+            }
+            clRanking4.setOnClickListener {
+                mainViewModel.seniorId.value = forthId
+                goMyPage(forthId)
+            }
+            clRanking5.setOnClickListener {
+                mainViewModel.seniorId.value = fifthId
+                goMyPage(fifthId)
+            }
+        }
+    }
+
+    //선배 Id = userId가 같을 경우 마이페이지로 이동
+    private fun goMyPage(seniorId : Int){
+        val userId = mainViewModel.userId.value ?: 0
+        if(userId == seniorId){
+            mainViewModel.bottomNavItem.value = 4
+        }else{
+            mainViewModel.homeFragmentNum.value = 1
+            mainViewModel.initLoading.value = true
+        }
+        mainViewModel.seniorBack.value = 0
     }
 }

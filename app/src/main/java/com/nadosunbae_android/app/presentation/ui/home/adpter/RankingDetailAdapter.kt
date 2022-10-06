@@ -8,12 +8,13 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemHomeRankingBinding
+import com.nadosunbae_android.app.presentation.ui.classroom.question.DataToFragment
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityPostDetailAdapter
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.home.HomeRankingData
 import com.nadosunbae_android.domain.model.home.RankingTest
 
-class RankingDetailAdapter(private var userId: Int) :
+class RankingDetailAdapter(private var userId: Int, var link : DataToFragment) :
     androidx.recyclerview.widget.ListAdapter<HomeRankingData, RankingDetailAdapter.RankingDetailViewHolder>(
         DiffUtilCallback<HomeRankingData>()
     ) {
@@ -44,11 +45,16 @@ class RankingDetailAdapter(private var userId: Int) :
         holder.binding.apply {
             setVariable(BR.ranking, getItem(position))
             holder.itemView.setOnClickListener { view ->
+                link.getSeniorId(getItem(position).id)
                 onItemCLickListener?.let {
+                    //link.getSeniorId(getItem(position).id)
+                    /*
                     it(
                         view, position, lookForWriter(getItem(position).id),
                         getItem(position).id
                     )
+
+                     */
                 }
             }
             tvRanking.setText("${position+1}")

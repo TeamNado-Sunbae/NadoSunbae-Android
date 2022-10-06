@@ -31,11 +31,16 @@ class MainViewModel @Inject constructor(
     val getAppLinkUseCase: GetAppLinkUseCase
 ) : ViewModel(), LoadableViewModel {
 
+    //선배페이지 뒤로가기 고른 것
+    val seniorBack = MutableLiveData<Int>()
+
     // 로그인 response 데이터
     private val _signData = MutableLiveData<SignInData.User>()
     val signData: LiveData<SignInData.User>
         get() = _signData
 
+    //선배 상세페이지에서 뒤로가기
+    var seniorDetailNum = MutableLiveData<Int>()
 
     //과방탭
     //과방탭에서 질문탭 및 정보탭 select 구분 (과방)
@@ -43,6 +48,9 @@ class MainViewModel @Inject constructor(
 
     //과방탭 프래그먼트 전환 (1 -> 과방 메인, 2 -> 전체에게 질문 3 -> 질문 구성원 목록 4 -> 선배 개인 페이지 5-> 학과 후기 6-> 마이페이지)
     var classRoomFragmentNum = MutableLiveData<Int>()
+
+    //홈 탭 프래그먼트 전환
+    var homeFragmentNum = MutableLiveData<Int>()
 
     //바텀 네비 아이템들 클릭된
     var bottomNavItem = MutableLiveData<Int>(0)

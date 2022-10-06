@@ -152,7 +152,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
             val token = task.result
             signUpBasicInfoViewModel.deviceToken.value = token
-            Timber.d("token: ${token}")
+            Timber.d("deviceToken: ${token}")
 
         })
     }

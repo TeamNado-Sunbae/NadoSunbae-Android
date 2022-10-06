@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
-import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.ClassRoomMainContentViewModel
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.favorites.FavoritesData
@@ -17,30 +16,24 @@ import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.model.user.*
 import com.nadosunbae_android.domain.repository.favorites.FavoritesRepository
 import com.nadosunbae_android.domain.repository.major.MajorRepository
+import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
 import com.nadosunbae_android.domain.repository.user.UserRepository
-import com.nadosunbae_android.domain.usecase.mypage.*
 import com.nadosunbae_android.domain.usecase.review.GetMajorInfoDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    val putMyPageModifyUseCase: PutMyPageModifyUseCase,
-    val getMyPageVersionUseCase: GetMyPageVersionUseCase,
-    val postMyPageLogOutUseCase: PostMyPageLogOutUseCase,
-    val getMyPageBlockUseCase: GetMyPageBlockUseCase,
-    val postMyPageBlockUpdateUseCase: PostMyPageBlockUpdateUseCase,
-    val postMyPageResetPasswordUseCase: PostMyPageResetPasswordUseCase,
-    val deleteMyPageQuitUseCase: DeleteMyPageQuitUseCase,
     val getMajorInfoDataUseCase: GetMajorInfoDataUseCase,
     private val userRepository: UserRepository,
     private val favoritesRepository: FavoritesRepository,
-    private val majorRepository: MajorRepository
+    private val majorRepository: MajorRepository,
+    private val myPageRepository: MyPageRepository
 
 ) : ViewModel(), LoadableViewModel {
 
@@ -171,7 +164,6 @@ class MyPageViewModel @Inject constructor(
                     Timber.d("내가 쓴 글 조회 : 서버통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("내가 쓴 글 조회 : 서버통신 실패")
                 }
                 .also {
@@ -183,13 +175,12 @@ class MyPageViewModel @Inject constructor(
     //마이페이지 버전정보
     fun getMyPageVersion() {
         viewModelScope.launch {
-            kotlin.runCatching { getMyPageVersionUseCase() }
+            kotlin.runCatching { myPageRepository.getMyPageVersion() }
                 .onSuccess {
                     versionInfo.value = it
                     Timber.d("mypageVersion : 서버 통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("mypageVersion : 서버 통신 실패")
                 }
                 .also {
@@ -223,7 +214,6 @@ class MyPageViewModel @Inject constructor(
                     Timber.d("mypageQuestion : 서버 통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("mypageQuestion : 서버 통신 실패")
                 }
                 .also {
@@ -242,7 +232,6 @@ class MyPageViewModel @Inject constructor(
                     Timber.d("userReview : 서버 통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("userReview : 서버 통신 실패")
                 }
                 .also {
@@ -260,7 +249,6 @@ class MyPageViewModel @Inject constructor(
                     Timber.d("mypageLike : 서버 통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("mypageLike : 서버 통신 실패")
                 }
                 .also {
@@ -278,7 +266,6 @@ class MyPageViewModel @Inject constructor(
                     Timber.d("userComment : 서버 통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("userComment : 서버 통신 실패")
                 }
                 .also {
@@ -297,7 +284,6 @@ class MyPageViewModel @Inject constructor(
                     Timber.d("myPageInfo : 서버 통신 완료")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("myPageInfo : 서버 통신 실패")
                 }
                 .also {
@@ -309,13 +295,12 @@ class MyPageViewModel @Inject constructor(
     //마이페이지 내 정보 수정 서버통신
     fun putMyPageModify(myPageModifyItem: MyPageModifyItem) {
         viewModelScope.launch {
-            kotlin.runCatching { putMyPageModifyUseCase(myPageModifyItem) }
+            kotlin.runCatching { myPageRepository.putMyPageModify(myPageModifyItem) }
                 .onSuccess {
                     modifyInfo.value = it
                     Timber.d("MyPageModify : 서버 통신 완료")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("MyPageModify : 서버 통신 실패")
                 }
                 .also {
@@ -327,13 +312,12 @@ class MyPageViewModel @Inject constructor(
     //마이페이지 차단 & 차단 해제
     fun postMyPageBlockUpdate(myPageBlockUpdateItem: MyPageBlockUpdateItem) {
         viewModelScope.launch {
-            kotlin.runCatching { postMyPageBlockUpdateUseCase(myPageBlockUpdateItem) }
+            kotlin.runCatching { myPageRepository.postMyPageBlockUpdate(myPageBlockUpdateItem) }
                 .onSuccess {
                     blockUpdate.value = it
                     Timber.d("MyPageBlockUpdate : 서버 통신 완료")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("MyPageBlockUpdate : 서버 통신 실패")
                 }
                 .also {
@@ -345,13 +329,12 @@ class MyPageViewModel @Inject constructor(
     //마이페이지 로그아웃
     fun postMyPageLogOut() {
         viewModelScope.launch {
-            kotlin.runCatching { postMyPageLogOutUseCase() }
+            kotlin.runCatching { myPageRepository.postMyPageLogOut() }
                 .onSuccess {
                     logOut.value = it
                     Timber.d("MyPageLogOut : 서버 통신 완료")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("MyPageLogOut : 서버 통신 실패")
                 }
                 .also {
@@ -366,7 +349,7 @@ class MyPageViewModel @Inject constructor(
         viewModelScope.launch {
 
             when (safeApiCall(Dispatchers.IO) {
-                postMyPageResetPasswordUseCase(
+                myPageRepository.postMyPageResetPassword(
                     myPageResetPasswordItem
                 )
             }) {
@@ -387,13 +370,12 @@ class MyPageViewModel @Inject constructor(
     //마이페이지 차단된 사용자 목록 조회
     fun getMyPageBlock() {
         viewModelScope.launch {
-            kotlin.runCatching { getMyPageBlockUseCase() }
+            kotlin.runCatching { myPageRepository.getMyPageBlock() }
                 .onSuccess {
                     blockList.value = it
                     Timber.d("MyPageBlock : 서버 통신 완료")
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("MyPageBlock : 서버 통신 실패")
                 }
                 .also {
@@ -406,7 +388,7 @@ class MyPageViewModel @Inject constructor(
     fun deleteMyPageQuit(myPageQuitItem: MyPageQuitItem) {
         viewModelScope.launch {
             when (val quitData =
-                safeApiCall(Dispatchers.IO) { deleteMyPageQuitUseCase(myPageQuitItem) }) {
+                safeApiCall(Dispatchers.IO) { myPageRepository.deleteMyPageQuit(myPageQuitItem) }) {
                 is ResultWrapper.Success -> {
                     _quitInfo.value = quitInfo.value?.let { MyPageQuitData(it.data, 200, true) }
                     reportStatusInfo.value = 200
@@ -466,7 +448,6 @@ class MyPageViewModel @Inject constructor(
                         }
                         .onFailure {
                             Timber.d("MyPageGetMajor : 서버 통신 실패")
-                            it.printStackTrace()
                         }
                 }
             }

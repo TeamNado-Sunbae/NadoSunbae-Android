@@ -99,7 +99,8 @@ class CustomDialog(val context: Context) {
     fun genericDialog(
         dialogText: DialogData,
         complete: () -> Unit,
-        cancel: () -> Unit
+        cancel: () -> Unit,
+        viewMargin: Boolean?= false,
     ) {
         val binding = DataBindingUtil.inflate<DialogGenericBinding>(
             LayoutInflater.from(context),
@@ -125,7 +126,10 @@ class CustomDialog(val context: Context) {
         dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
 
         adjustViewWidth(binding.btnDialogCancel, binding.btnDialogComplete)     // 버튼 길이를 긴 쪽에 맞춤
-
+        if(viewMargin == true){
+            binding.tvDialogTitle.layoutMarginTop(12.dpToPx)
+            binding.btnDialogCancel.layoutMarginTop(8.dpToPx)
+        }
         dialog.show()
 
     }
@@ -155,11 +159,12 @@ class CustomDialog(val context: Context) {
         dialog.show()
         return dialog
     }
+
     //리뷰 신고 다이얼로그
-    fun reviewAlertDialog(context: Context, message: String?) {
+    private fun reviewAlertDialog(context: Context) {
         CustomDialog(context).genericDialog(
             DialogData(
-                message,
+                context.getString(R.string.alert_no_review_title),
                 context.getString(R.string.alert_no_review_complete),
                 context.getString(R.string.alert_no_review_cancel)
             ),
@@ -177,6 +182,7 @@ class CustomDialog(val context: Context) {
         val complete: String,
         val cancel: String
     )
+
 
     fun reportDialog(): CustomDialog {
         val binding = DialogReportBinding.inflate(LayoutInflater.from(context))
@@ -216,9 +222,10 @@ class CustomDialog(val context: Context) {
         return this
     }
 
-    fun deleteNotificationDialog(): CustomDialog {
+    //삭제된 알림
+    fun deleteNotificationDialog(message: String): CustomDialog {
         val binding = DialogDeletePostBinding.inflate(LayoutInflater.from(context))
-
+        binding.tvDialogDeleteTitle.text = message
         dialog.setContentView(binding.root)
         dialog.window?.setLayout(
             WindowManager.LayoutParams.WRAP_CONTENT,
@@ -241,33 +248,36 @@ class CustomDialog(val context: Context) {
         isUserReported: Boolean,
         isReviewInappropriate: Boolean,
         message: String,
-        behavior : () -> Unit
+        isHome: Boolean? = false,
+        behavior: () -> Unit
     ) {
         //유저 신고
         if (isUserReported) {
-            CustomDialog(context).genericDialog(
-                DialogData(
-                    message,
-                    context.getString(R.string.sign_in_question),
-                    context.getString(R.string.email_certification_close)
-                ),
-                complete = {
-                    var intent = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(context.getString(R.string.question_kakao))
-                    )
-                    context.startActivity(intent)
-                },
-                cancel = {}
-            )
-            Timber.d("제한 다이얼로그 신고 유저")
+            deleteNotificationDialog(message)
         } else if (isReviewInappropriate) {
-            CustomDialog(context).reviewAlertDialog(context, message)
-            Timber.d("제한 다이얼로그 부적절 후기 유저")
+            if (isHome == true) {
+                CustomDialog(context).genericDialog(
+                    DialogData(
+                        message,
+                        context.getString(R.string.sign_in_question),
+                        context.getString(R.string.email_certification_close),
+                    ),
+                    complete = {
+                        var intent = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(context.getString(R.string.question_kakao))
+                        )
+                        context.startActivity(intent)
+                    },
+                    cancel = {},
+                    true
+                )
+            } else {
+                CustomDialog(context).reviewAlertDialog(context)
+            }
         } else if (!isReviewed) {
             CustomDialog(context).reviewAlertDialog(
                 context,
-                context.getString(R.string.alert_no_review_title)
             )
             Timber.d("제한 다이얼로그 후기 미작성 유저")
         } else {

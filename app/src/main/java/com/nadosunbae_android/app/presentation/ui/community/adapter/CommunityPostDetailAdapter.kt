@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ItemCommunityDetailBinding
+import com.nadosunbae_android.app.presentation.ui.classroom.review.SeniorPersonalActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.DiffUtilCallback
@@ -94,7 +95,7 @@ class CommunityPostDetailAdapter(private var userId: Int, val context: Context) 
     fun setCheckMenu(menuNum: Int, position: Int) {
         if (menuNum == 3) {
             getItem(position).content =
-                context.getString(R.string.classroom_question_delete_comment)
+                context.getString(R.string.classroom_content_delete)
             getItem(position).isDeleted = true
             notifyItemChanged(position)
         }
@@ -103,23 +104,19 @@ class CommunityPostDetailAdapter(private var userId: Int, val context: Context) 
 
     //닉네임 클릭시 마이페이지 또는 선배 페이지 이동
     private fun goMyPage(context: Context, userId: Int, writerId: Int) {
-        var fragmentNum = -1
         var bottomNavItem = -1
 
         if (userId == writerId) {
-            fragmentNum = 6
             bottomNavItem = 5
         } else {
-            fragmentNum = 4
             bottomNavItem = 2
         }
         val intent = Intent(context, MainActivity::class.java)
         intent.apply {
-            putExtra("fragmentNum", fragmentNum)
             putExtra("bottomNavItem", bottomNavItem)
             putExtra("signData", MainGlobals.signInData)
             putExtra("loading", false)
-            putExtra("seniorId", writerId)
+            putExtra("userId", writerId)
             putExtra("blockDivision", 1)
         }
         ContextCompat.startActivity(context, intent, null)
