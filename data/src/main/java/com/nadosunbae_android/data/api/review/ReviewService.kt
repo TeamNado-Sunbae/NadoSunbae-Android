@@ -14,7 +14,7 @@ interface ReviewService {
     suspend fun getReviewListByMajor(
         @Path("majorId") majorId: Int,
         @Query("sort") sort: String = "recent",
-        @Query("tagFilter") tagFilter: List<Int>,
+        @Query("tagFilter", encoded = true) tagFilter: String,
         @Query("writerFilter") writerFilter: String
     ) : ResponseReviewListData
 
