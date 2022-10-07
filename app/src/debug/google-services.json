@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "978556585705",
+    "project_id": "nadosunbae-server-dev-90ac3",
+    "storage_bucket": "nadosunbae-server-dev-90ac3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978556585705:android:ad2cc4e215760276db9278",
+        "android_client_info": {
+          "package_name": "com.nadosunbae_android.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978556585705-a3qpu7fsmgo4kavekpal5a1dmfe0p7sn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxZou4kJ_Z8uYsE4hvqCBfjlvufS4Y0Cs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978556585705-a3qpu7fsmgo4kavekpal5a1dmfe0p7sn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

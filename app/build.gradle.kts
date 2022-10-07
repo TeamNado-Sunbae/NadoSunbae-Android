@@ -26,11 +26,12 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_KEY", getApiKey("API_KEY"))
+        buildConfigField("String", "API_KEY", getApiKey("DEV_API_KEY"))
     }
 
     buildTypes {
         getByName("debug") {
+            manifestPlaceholders["appName"] = "@string/app_name_dev"
             isMinifyEnabled = false
             isDebuggable = true
             proguardFiles(
@@ -39,7 +40,8 @@ android {
             )
         }
         getByName("release") {
-            isMinifyEnabled = false
+            manifestPlaceholders["appName"] = "@string/app_name"
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

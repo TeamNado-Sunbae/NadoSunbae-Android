@@ -125,7 +125,8 @@ object BindingAdapter {
             1 to "마이페이지에", 2 to "1:1 질문글에", 3 to "작성하신 정보글에",
             4 to "답글을 작성하신 1:1 질문글에", 5 to "답글을 작성하신 정보글에",
             6 to "1:1 질문글에", 7 to "작성하신 1:1 질문글에",
-            8 to "작성하신 커뮤니티 글에", 9 to "답글을 작성하신 커뮤니티 글에"
+            8 to "작성하신 커뮤니티 글에", 9 to "답글을 작성하신 커뮤니티 글에",
+            10 to "커뮤니티에"
         )
         val text = hashMapOf(
             1 to "마이페이지에 ${nickname}님이 1:1질문을 남겼습니다.",
@@ -136,7 +137,8 @@ object BindingAdapter {
             6 to "${nickname}님이 1:1 질문글에 답글을 남겼습니다",
             7 to "작성하신 1:1 질문글에 ${nickname}님이 답글을 남겼습니다.",
             8 to "작성하신 커뮤니티 글에 ${nickname}님이 답글을 남겼습니다.",
-            9 to "답글을 작성하신 커뮤니티 글에 ${nickname}님이 답글을 남겼습니다."
+            9 to "답글을 작성하신 커뮤니티 글에 ${nickname}님이 답글을 남겼습니다.",
+            10 to "커뮤니티에 $nickname 질문글이 올라왔습니다."
         )
         val content = param[int].toString()
         val start = text[int].toString().indexOf(content)
