@@ -43,6 +43,7 @@ class QuestionDetailActivity :
         getReportReason()
         reportToast()
         onQuestion()
+        observeComment()
         observeLoadingEnd()
         changeRegisterBtn()
     }
@@ -286,7 +287,7 @@ class QuestionDetailActivity :
             object : ClassRoomQuestionDetailAdapter.UpdateListener {
                 override fun onUpdate(content: String, commentId: Int) {
                     showLoading()
-                    questionDetailViewModel.putCommentUpdate(commentId, CommentUpdateItem(content))
+                    questionDetailViewModel.putCommentUpdate(commentId, content)
                 }
             }
         )
@@ -327,6 +328,24 @@ class QuestionDetailActivity :
                     )
 
             }
+        }
+    }
+
+    private fun observeComment() {
+        questionDetailViewModel.postComment.observe(this) {
+            questionDetailViewModel.getClassRoomQuestionDetail(
+                questionDetailViewModel.postId.value ?: 0
+            )
+        }
+        questionDetailViewModel.commentUpdate.observe( this) {
+            questionDetailViewModel.getClassRoomQuestionDetail(
+                questionDetailViewModel.postId.value ?: 0
+            )
+        }
+        questionDetailViewModel.deletePostData.observe(this) {
+            questionDetailViewModel.getClassRoomQuestionDetail(
+                questionDetailViewModel.postId.value ?: 0
+            )
         }
     }
 

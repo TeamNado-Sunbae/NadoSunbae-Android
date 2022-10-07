@@ -1,8 +1,11 @@
 package com.nadosunbae_android.data.repositoryimpl.comment
 
 import com.nadosunbae_android.data.datasource.remote.comment.CommentDataSource
+import com.nadosunbae_android.data.mapper.classroom.ClassRoomMapper
 import com.nadosunbae_android.data.model.request.comment.toEntity
+import com.nadosunbae_android.data.model.response.comment.RequestPutCommentData
 import com.nadosunbae_android.data.model.response.comment.toEntity
+import com.nadosunbae_android.domain.model.classroom.CommentUpdateData
 import com.nadosunbae_android.domain.model.comment.CommentData
 import com.nadosunbae_android.domain.model.comment.CommentParam
 import com.nadosunbae_android.domain.model.comment.DeleteCommentData
@@ -26,6 +29,14 @@ class CommentRepositoryImpl @Inject constructor(private val dataSource : Comment
     override fun deleteComment(commentId: String): Flow<DeleteCommentData> {
         return flow {
             emit(dataSource.deleteComment(commentId).toEntity())
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun putComment(commentId: String, content: String): Flow<CommentUpdateData> {
+        return flow {
+            emit(
+                ClassRoomMapper.mapperToCommentUpdateData(
+                    dataSource.putComment(commentId, RequestPutCommentData(content))))
         }.flowOn(Dispatchers.IO)
     }
 }
