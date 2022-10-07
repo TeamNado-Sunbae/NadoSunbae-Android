@@ -85,7 +85,7 @@ class CommunityViewModel @Inject constructor(
 
     //커뮤니티 메인 데이터 호출
     fun getCommunityMainData(
-        universityId: String,
+        universityId: Int,
         majorId: String?,
         filter: String,
         sort: String,

@@ -57,7 +57,7 @@ class ClassRoomQuestionViewModel @Inject constructor(
         majorId: Int
     ) = viewModelScope.launch {
         postRepository.getPost(
-            universityId = univId.toString(),
+            universityId = univId,
             majorId = majorId.toString(),
             sort = "recent",
             filter = "questionToPerson",
