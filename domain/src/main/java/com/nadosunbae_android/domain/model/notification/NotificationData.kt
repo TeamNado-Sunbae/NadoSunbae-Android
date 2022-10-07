@@ -12,7 +12,7 @@ data class NotificationData(
     val notificationId: Int,
     val notificationTypeId: Int,
     val postId: Int,
-    val senderNickname: String,
+    val senderNickname: String?,
     val profileImageId: Int,
     val senderId: Int
 ) {
