@@ -3,7 +3,6 @@ package com.nadosunbae_android.app.presentation.ui.mypage
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
@@ -11,13 +10,10 @@ import androidx.fragment.app.viewModels
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentMyPageBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
-import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
-import com.nadosunbae_android.app.presentation.ui.community.CommunityWriteActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
-import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +24,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private val myPageViewModel: MyPageViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
-    private val signUpBasicInfoViewModel : SignUpBasicInfoViewModel by activityViewModels()
 
     private lateinit var myPageQuestionAdapter: MyPageMainAdapter
     private lateinit var callback : OnBackPressedCallback
@@ -113,10 +108,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         //내 정보 수정
         binding.clMyPageProfileModify.setOnClickListener {
             showLoading()
-            val majorList = mainViewModel.majorList.value
             val intentMyPageModify = Intent(requireActivity(), ModifyMyInfoActivity::class.java)
             intentMyPageModify.putExtra("id", mainViewModel.userId.value)
-            intentMyPageModify.putExtra("majorList", majorList as ArrayList<MajorListData>)
             startActivity(intentMyPageModify)
         }
 

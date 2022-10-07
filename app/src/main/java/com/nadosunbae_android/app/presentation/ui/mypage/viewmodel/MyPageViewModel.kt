@@ -9,6 +9,7 @@ import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.favorites.FavoritesData
 import com.nadosunbae_android.domain.model.favorites.FavoritesParam
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import com.nadosunbae_android.domain.model.mypage.*
@@ -38,18 +39,19 @@ class MyPageViewModel @Inject constructor(
 ) : ViewModel(), LoadableViewModel {
 
     //커뮤니티 학과 즐겨찾기
-    private var _communityFavorites = MutableStateFlow(FavoritesData.DEFAULT)
-    val communityFavorites: StateFlow<FavoritesData>
-        get() = _communityFavorites
+    private var _myPageFavorites = MutableStateFlow(FavoritesData.DEFAULT)
+    val myPageFavorites: StateFlow<FavoritesData>
+        get() = _myPageFavorites
 
     //학과 변경 리스트
     private var _majorList = MutableLiveData<List<MajorListData>>()
     val majorList: LiveData<List<MajorListData>>
         get() = _majorList
 
-    fun setMajorList(data: List<MajorListData>) {
-        _majorList.value = data
-    }
+    //제2전공 학과 변경 리스트
+    private var _secondMajorList = MutableLiveData<List<MajorListData>>()
+    val secondMajorList: LiveData<List<MajorListData>>
+        get() = _secondMajorList
 
     //학과 선택 내용
     private var _firstFilter = MutableStateFlow(SelectableData.DEFAULT)
@@ -152,8 +154,8 @@ class MyPageViewModel @Inject constructor(
 
     //유저 1:1질문
     private val _userQuestion = MutableLiveData<List<UserQuestionData>>()
-    val userQuestion : LiveData<List<UserQuestionData>>
-    get() = _userQuestion
+    val userQuestion: LiveData<List<UserQuestionData>>
+        get() = _userQuestion
 
     //마이페이지 내가 쓴 글 조회
     fun getMyPost(filter: String) {
@@ -199,7 +201,7 @@ class MyPageViewModel @Inject constructor(
                 Timber.d("즐겨찾기 실패")
             }
                 .collectLatest {
-                    _communityFavorites.value = it
+                    _myPageFavorites.value = it
                 }
         }
     }
@@ -420,24 +422,25 @@ class MyPageViewModel @Inject constructor(
                 }
                 .catch {
                     Timber.d("학과 리스트 가져오기 실패 ${it.printStackTrace()}")
-
                 }
                 .collectLatest {
-                    _majorList.value = it
-                    Timber.d("학과 리스트 $it")
+                    if (filter == "firstMajor") {
+                        Timber.e("TEST FIRST MAJOR")
+                        _majorList.value = it
+                    } else {
+                        Timber.e("TEST SECOND MAJOR")
+                        _secondMajorList.value = it
+                    }
+
                 }
         }
     }
 
-
     // 학과 이름
     fun getMajorName(isFirstMajor: Boolean, majorId: Int) {
         viewModelScope.launch {
-
             runBlocking {
                 kotlin.runCatching {
-
-
                     runCatching { getMajorInfoDataUseCase(majorId) }
                         .onSuccess {
                             if (isFirstMajor)

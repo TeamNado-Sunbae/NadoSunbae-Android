@@ -21,7 +21,6 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityModifyMyInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
-import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
@@ -31,7 +30,6 @@ import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.domain.model.main.SelectableData
-import com.nadosunbae_android.domain.model.major.MajorListData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
 import dagger.hilt.android.AndroidEntryPoint
@@ -152,14 +150,18 @@ class ModifyMyInfoActivity :
 
     //학과 변경 세팅 - 제 1 전공
     private fun initBottomSheetDialog() {
-        myPageViewModel.setMajorList(intent.getParcelableArrayListExtra<MajorListData>("majorList") as List<MajorListData>)
         majorBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_first_major))
+        myPageViewModel.getMajorList(
+            1, "firstMajor", null,
+            MainGlobals.signInData?.userId ?: 0
+        )
         myPageViewModel.majorList.observe(this) {
             observeBottomSheet(
                 it ?: emptyList(),
                 majorBottomSheetDialog
             )
         }
+
     }
 
 
@@ -169,6 +171,10 @@ class ModifyMyInfoActivity :
             majorBottomSheetDialog.show(supportFragmentManager, majorBottomSheetDialog.tag)
         }
         binding.layoutCommunityWriteMajor.root.setOnClickListener {
+            myPageViewModel.getMajorList(
+                1, "firstMajor", null,
+                MainGlobals.signInData?.userId ?: 0
+            )
             showDialog()
         }
     }
@@ -197,7 +203,7 @@ class ModifyMyInfoActivity :
         majorBottomSheetDialog.setCompleteFavoritesListener {
             myPageViewModel.postCommunityFavorite(it)
         }
-        myPageViewModel.communityFavorites.flowWithLifecycle(lifecycle)
+        myPageViewModel.myPageFavorites.flowWithLifecycle(lifecycle)
             .onEach {
                 if (it.success) {
                     myPageViewModel.getMajorList(
@@ -252,17 +258,10 @@ class ModifyMyInfoActivity :
 
     //학과 변경 세팅 - 제 2 전공
     private fun initSecondBottomSheetDialog() {
-        myPageViewModel.setMajorList(
-            intent.getParcelableArrayListExtra<MajorListData>("majorList") as List<MajorListData>
-        )
-        secondMajorBottomSheetDialog = CustomBottomSheetDialog(
-            getString(R.string.second_major)
-        )
-        myPageViewModel.majorList.observe(this) {
-            Timber.d("즐겨찾기 클릭시 $it")
-            observeBottomSheet(
-                it ?: emptyList(), secondMajorBottomSheetDialog
-            )
+        secondMajorBottomSheetDialog =
+            CustomBottomSheetDialog(getString(R.string.signup_second_major))
+        myPageViewModel.secondMajorList.observe(this) {
+            observeBottomSheet(it ?: emptyList(), secondMajorBottomSheetDialog)
         }
     }
 
@@ -276,6 +275,10 @@ class ModifyMyInfoActivity :
             )
         }
         binding.layoutModifyProfileSecondMajor.root.setOnClickListener {
+            myPageViewModel.getMajorList(
+                1, "secondMajor", null,
+                MainGlobals.signInData?.userId ?: 0
+            )
             showDialog()
         }
     }
@@ -288,7 +291,7 @@ class ModifyMyInfoActivity :
         myPageViewModel.secondFilter.flowWithLifecycle(lifecycle)
             .onEach {
                 if (it.id == 0) {
-                    it.id = myPageViewModel.majorList.value?.get(0)?.majorId ?: 0
+                    it.id = myPageViewModel.secondMajorList.value?.get(0)?.majorId ?: 0
                 }
                 binding.layoutModifyProfileSecondMajor.bottomSheetMajor = it.name
 
@@ -318,7 +321,7 @@ class ModifyMyInfoActivity :
         secondMajorBottomSheetDialog.setCompleteFavoritesListener {
             myPageViewModel.postCommunityFavorite(it)
         }
-        myPageViewModel.communityFavorites.flowWithLifecycle(lifecycle)
+        myPageViewModel.myPageFavorites.flowWithLifecycle(lifecycle)
             .onEach {
                 if (it.success) {
                     myPageViewModel.getMajorList(
@@ -564,28 +567,23 @@ class ModifyMyInfoActivity :
                 etMyPageNickname.text.toString(),
                 etMyPageIntroduction.text.toString(),
                 (
-                        if (majorBottomSheetDialog.getSelectedData().name == MainGlobals.signInData?.firstMajorName) {
-                            MainGlobals.signInData?.firstMajorId ?: 1
-                        } else {
+                        if (majorBottomSheetDialog.getSelectedData().id != -1) {
                             majorBottomSheetDialog.getSelectedData().id
+                        } else {
+                            MainGlobals.signInData?.firstMajorId ?: 1
                         }),
-
-
                 textMyPageMajorinfoMajorTime.text.toString(),
                 (
-                        if (secondMajorBottomSheetDialog.getSelectedData().name == MainGlobals.signInData?.secondMajorName) {
-                            MainGlobals.signInData?.secondMajorId ?: 1
-                        } else {
+                        if (secondMajorBottomSheetDialog.getSelectedData().id != -1) {
                             secondMajorBottomSheetDialog.getSelectedData().id
+                        } else {
+                            MainGlobals.signInData?.secondMajorId ?: 1
                         }
                         ),
                 textMyPageMajorinfoDoubleMajorTime.text.toString(),
                 binding.imgMyPageModifySwitch.isSelected
             )
             myPageViewModel.putMyPageModify(requestBody)
-            Timber.e("11111: ${requestBody}")
-            Timber.e("????: ${majorBottomSheetDialog.getSelectedData().name}")
-            Timber.e("????: ${majorBottomSheetDialog.getSelectedData().name.toString()}")
             finish()
         }
     }
@@ -631,6 +629,7 @@ class ModifyMyInfoActivity :
         return confirm
     }
 
+    //이거 아직 필요한가 ?
     // 수정 완료 시 학과 정보 저장
     private fun observeModifyResult() {
         myPageViewModel.modifyInfo.observe(this) {
@@ -669,6 +668,15 @@ class ModifyMyInfoActivity :
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
                 binding.textMyPageModifyLength.setText(binding.etMyPageIntroduction.text.length.toString())
+                if(myPageViewModel.personalInfo.value?.bio.toString() != binding.etMyPageIntroduction.text.toString()) {
+                    initActiveSaveBtn()
+                } else {
+                    binding.textMyPageSave.isSelected = false
+                    binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
+                    binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
+                    binding.textMyPageSave.isClickable = false
+                }
+
             }
         })
     }
