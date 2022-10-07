@@ -8,8 +8,10 @@ import androidx.lifecycle.Observer
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.classroom.*
-import com.nadosunbae_android.app.presentation.ui.classroom.question.ClassRoomQuestionFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.AskEveryoneFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.ClassRoomMainContentFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.SeniorFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.SeniorPersonalFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ClassRoomReviewFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
@@ -21,12 +23,10 @@ import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
-import com.nadosunbae_android.app.presentation.ui.sign.SignUpAgreementFragment
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.util.*
 
 @AndroidEntryPoint
@@ -55,7 +55,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         floatIsReviewInappropriate()
         floatAppUpdateDialog()
         seniorDetailBack()
-
     }
 
     //앱 업데이트 알럿 띄우기
@@ -317,6 +316,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         }
     }
+
 
     //마이페이지 프래그먼트 전환
     private fun myPageFragmentChange() {

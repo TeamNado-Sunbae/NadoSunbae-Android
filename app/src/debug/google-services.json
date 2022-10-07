@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:978556585705:android:ad2cc4e215760276db9278",
         "android_client_info": {
-          "package_name": "com.nadosunbae_android.app"
+          "package_name": "com.nadosunbae_android.app.debug"
         }
       },
       "oauth_client": [

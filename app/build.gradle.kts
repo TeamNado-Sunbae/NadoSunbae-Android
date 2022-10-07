@@ -31,6 +31,7 @@ android {
 
     buildTypes {
         getByName("debug") {
+            applicationIdSuffix = ".debug"
             manifestPlaceholders["appName"] = "@string/app_name_dev"
             isMinifyEnabled = false
             isDebuggable = true

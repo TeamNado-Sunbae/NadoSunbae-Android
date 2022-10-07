@@ -8,24 +8,21 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.presentation.ui.classroom.QuestionWriteActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
-import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+
 @AndroidEntryPoint
 class MyFirebaseMessagingService : FirebaseMessagingService() {
-    private val TAG = "FirebaseService"
 
 
     // 토큰 생성
     override fun onNewToken(token: String) {
-        Timber.d("Refreshed token: $token")
+        Timber.d("firebaseMessage : $token")
 
         // 토큰 값 따로 저장
         val pref = this.getSharedPreferences("token", Context.MODE_PRIVATE)
@@ -33,7 +30,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         editor.putString("token", token).apply()
         editor.commit()
 
-        Timber.i("로그: 토큰 저장 성공적")
+        Timber.d("로그: 토큰 저장 성공적")
     }
 
 
