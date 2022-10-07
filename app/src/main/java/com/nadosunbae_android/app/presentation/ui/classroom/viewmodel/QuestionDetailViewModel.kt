@@ -13,6 +13,7 @@ import com.nadosunbae_android.domain.model.classroom.*
 import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.post.PostWriteParam
 import com.nadosunbae_android.domain.repository.like.LikeRepository
 import com.nadosunbae_android.domain.repository.post.PostRepository
 import com.nadosunbae_android.domain.usecase.classroom.*
@@ -141,12 +142,26 @@ class QuestionDetailViewModel @Inject constructor(
                     Timber.d("classRoomDetail : 메인 서버 통신 실패!")
                 }
                 .collectLatest {
-                    _questionDetailData.value = QuestionDetailData(
-                        answererId = it.writerId,
-                        isLiked = it.isLiked,
-                        likeCount = it.likeCount,
-                        questionerId = 0,
-                        messageList = it.commentList.map { msg ->
+                    val messageList = mutableListOf<QuestionDetailData.Message>()
+                    messageList.add(
+                        QuestionDetailData.Message(
+                            content = it.content,
+                            createdAt = it.createdAt,
+                            isDeleted = false,
+                            messageId = it.postId,
+                            title = it.title,
+                            firstMajorName = it.firstMajorName,
+                            firstMajorStart = it.firstMajorStart,
+                            isQuestioner = true,
+                            nickname = it.nickname,
+                            profileImageId = it.profileImageId,
+                            secondMajorName = it.secondMajorName,
+                            secondMajorStart = it.secondMajorStart,
+                            writerId = it.writerId
+                        )
+                    )
+                    messageList.addAll(
+                        it.commentList.map { msg ->
                             QuestionDetailData.Message(
                                 content = msg.content,
                                 createdAt = msg.createdAt,
@@ -163,6 +178,14 @@ class QuestionDetailViewModel @Inject constructor(
                                 writerId = msg.commentWriterId
                             )
                         }
+                    )
+
+                    _questionDetailData.value = QuestionDetailData(
+                        answererId = it.writerId,
+                        isLiked = it.isLiked,
+                        likeCount = it.likeCount,
+                        questionerId = 0,
+                        messageList = messageList
                     )
                     Timber.d("classRoomDetail : 메인 서버 통신 성공! ${_questionDetailData.value}")
                 }
@@ -192,16 +215,23 @@ class QuestionDetailViewModel @Inject constructor(
     //댓글 등록 서버 통신
     fun postQuestionCommentWrite(questionCommentWriteItem: QuestionCommentWriteItem) {
         viewModelScope.launch {
-            runCatching { postQuestionCommentWriteUseCase(questionCommentWriteItem) }
-                .onSuccess {
-                    registerComment.value = it
-                    Timber.d("questionComment : 댓글 통신 성공!")
-                    replyQuestionAnalytics()
+            postRepository.postWrite(PostWriteParam(
+                type = "questionToPerson",
+                majorId = "1",
+                answerId = questionCommentWriteItem.postId.toString(),
+                title = "",
+                content = questionCommentWriteItem.content
+            ))
+                .onStart {
+                    onLoadingEnd.value = false
                 }
-                .onFailure {
-                    it.printStackTrace()
+                .catch {
                     Timber.d("questionComment : 댓글 통신 실패!")
-                }.also {
+                }
+                .collectLatest {
+                    Timber.d("questionComment : 댓글 통신 성공!")
+                }
+                .also {
                     onLoadingEnd.value = true
                 }
         }
