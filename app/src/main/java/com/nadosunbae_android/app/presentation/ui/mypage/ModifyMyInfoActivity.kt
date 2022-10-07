@@ -14,25 +14,27 @@ import android.widget.TextView.OnEditorActionListener
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityModifyMyInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
-import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteViewModel
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
-import com.nadosunbae_android.app.util.BindingAdapter
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
-import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
 import com.nadosunbae_android.domain.model.sign.NicknameDuplicationData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 import java.util.regex.Pattern
 
@@ -44,23 +46,26 @@ class ModifyMyInfoActivity :
     private val signViewModel: SignViewModel by viewModels()
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by viewModels()
     private val mainViewModel: MainViewModel by viewModels()
-    private val communityWriteViewModel: CommunityWriteViewModel by viewModels()
 
-    private lateinit var firstDepartmentBottomSheetDialog : CustomBottomSheetDialog
+    private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
+    private lateinit var secondMajorBottomSheetDialog: CustomBottomSheetDialog
     private val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
-    private val secondDepartmentBottomSheetDialog = CustomBottomSheetDialog("제2전공")
     private val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("제2전공 진입시기")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        initBottomSheetDialog()
+        clickMajor()
+        completeMajor()
         observeLoadingEnd()
         initNotEntered()
         initWriteMode()
-        firstMajor()
         firstMajorPeriod()
-        secondMajor()
+        initSecondBottomSheetDialog()
+        clickSecondMajor()
+        completeSecondMajor()
+        clickSecondMajorFavorites()
         secondMajorPeriod()
         pressSwitchEvent()
         initFocus()
@@ -71,9 +76,7 @@ class ModifyMyInfoActivity :
         observeEditFinish()
         introductionTextWatcher()
         modifyImgListener()
-
-        initBottomSheet()
-
+        clickMajorFavorites()
     }
 
     private fun observeLoadingEnd() {
@@ -86,7 +89,6 @@ class ModifyMyInfoActivity :
     override fun onResume() {
         super.onResume()
         initWriteMode()
-        //completeModifyInfo()
     }
 
     //기존 데이터 불러오기
@@ -106,6 +108,11 @@ class ModifyMyInfoActivity :
             myPageViewModel.selectImgId.value = it.profileImageId
             signViewModel.firstMajor.value = it.firstMajorName
             signViewModel.secondMajor.value = it.secondMajorName
+
+
+
+            binding.layoutCommunityWriteMajor.bottomSheetMajor = it.firstMajorName
+            binding.layoutModifyProfileSecondMajor.bottomSheetMajor = it.secondMajorName
 
             binding.apply {
                 if (it.secondMajorName == "미진입") {
@@ -127,7 +134,7 @@ class ModifyMyInfoActivity :
 
     //초기 데이터 제 2전공 미진입인지 체크
     private fun initNotEntered() = with(binding) {
-        if (textMyPageMajorinfoDoubleMajor.text.toString() == "미진입") {
+        if (layoutModifyProfileSecondMajor.toString() == "미진입") {
             textMyPageMajorinfoDoubleMajorMintTime.isEnabled = false
             textMyPageMajorinfoDoubleMajorTime.text = "미진입"
             textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
@@ -140,62 +147,73 @@ class ModifyMyInfoActivity :
         }
     }
 
-    //바텀시트 선택
-    private fun initBottomSheet(){
-        firstDepartmentBottomSheetDialog = CustomBottomSheetDialog(resources.getString(R.string.bottom_sheet_title_major))
-        observeBottomSheet(
-            communityWriteViewModel.majorList.value ?: emptyList(), firstDepartmentBottomSheetDialog
+
+    //학과 변경 세팅 - 제 1 전공
+    private fun initBottomSheetDialog() {
+        majorBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_first_major))
+        myPageViewModel.getMajorList(
+            1, "firstMajor", null,
+            MainGlobals.signInData?.userId ?: 0
         )
-
-        firstDepartmentBottomSheetDialog.setCompleteListener {
-            val selectedData = firstDepartmentBottomSheetDialog.getSelectedData()
-            if (selectedData != null) {
-                val majorData = MajorSelectData(selectedData.id, selectedData.name)
-                mainViewModel.setSelectedMajor(majorData)
-            }
-
+        myPageViewModel.majorList.observe(this) {
+            observeBottomSheet(
+                it ?: emptyList(),
+                majorBottomSheetDialog
+            )
         }
+
     }
 
 
-    //제 1전공 학과 선택 바텀시트
-    private fun firstMajor() {
+    //학과 변경 클릭 - 제 1전공
+    private fun clickMajor() {
         val showDialog = {
-            firstDepartmentBottomSheetDialog.show(supportFragmentManager, firstDepartmentBottomSheetDialog.tag)
+            majorBottomSheetDialog.show(supportFragmentManager, majorBottomSheetDialog.tag)
         }
-        binding.textMyPageMajorinfoMajorMint.setOnClickListener {
-            /*
-            firstDepartmentBottomSheetDialog.show(
-                supportFragmentManager,
-                firstDepartmentBottomSheetDialog.tag
+        binding.layoutCommunityWriteMajor.root.setOnClickListener {
+            myPageViewModel.getMajorList(
+                1, "firstMajor", null,
+                MainGlobals.signInData?.userId ?: 0
             )
-
-             */
-            showDialog
+            showDialog()
         }
+    }
 
-        /*
-        signUpBasicInfoViewModel.getFirstDepartment(1, "firstMajor")
-        signUpBasicInfoViewModel.firstDepartment.observe(this) {
-            firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
-                .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
+    //학과 변경 완료
+    private fun completeMajor() {
+        majorBottomSheetDialog.setCompleteListener {
+            myPageViewModel.setFilter(majorBottomSheetDialog.getSelectedData())
         }
+        myPageViewModel.firstFilter.flowWithLifecycle(lifecycle)
+            .onEach {
+                if (it.id == 0) {
+                    it.id = myPageViewModel.majorList.value?.get(0)?.majorId ?: 0
+                }
+                binding.layoutCommunityWriteMajor.bottomSheetMajor = it.name
 
-        //데이터 넣기
-        firstDepartmentBottomSheetDialog.setCompleteListener {
-
-            val firstMajor = firstDepartmentBottomSheetDialog.getSelectedData()
-            signViewModel.firstMajor.value = firstMajor?.name
-            initActiveSaveBtn()
-        }
-
-        signViewModel.firstMajor
-            .observe(this) {
-                binding.textMyPageMajorinfoMajor.setText(it)
-                binding.textMyPageMajorinfoMajor.text = it
+                if (it.name != myPageViewModel.personalInfo.value?.firstMajorName) {
+                    initActiveSaveBtn()
+                }
             }
+            .launchIn(lifecycleScope)
+    }
 
-         */
+    //즐겨찾기 클릭시
+    private fun clickMajorFavorites() {
+        majorBottomSheetDialog.setCompleteFavoritesListener {
+            myPageViewModel.postCommunityFavorite(it)
+        }
+        myPageViewModel.myPageFavorites.flowWithLifecycle(lifecycle)
+            .onEach {
+                if (it.success) {
+                    myPageViewModel.getMajorList(
+                        1, "firstMajor", null,
+                        MainGlobals.signInData?.userId ?: 0
+                    )
+                }
+            }
+            .launchIn(lifecycleScope)
+
     }
 
     //제 1전공 진입시기 선택 바텀시트
@@ -238,63 +256,82 @@ class ModifyMyInfoActivity :
         }
     }
 
+    //학과 변경 세팅 - 제 2 전공
+    private fun initSecondBottomSheetDialog() {
+        secondMajorBottomSheetDialog =
+            CustomBottomSheetDialog(getString(R.string.signup_second_major))
+        myPageViewModel.secondMajorList.observe(this) {
+            observeBottomSheet(it ?: emptyList(), secondMajorBottomSheetDialog)
+        }
+    }
 
-    //제 2전공 학과 선택 바텀시트
-    private fun secondMajor() {
-        binding.textMyPageMajorinfoDoubleMajorMint.setOnClickListener {
-            secondDepartmentBottomSheetDialog.show(
+
+    //학과 변경 클릭 - 제 2전공
+    private fun clickSecondMajor() {
+        val showDialog = {
+            secondMajorBottomSheetDialog.show(
                 supportFragmentManager,
-                secondDepartmentBottomSheetDialog.tag
+                secondMajorBottomSheetDialog.tag
             )
-
-            signUpBasicInfoViewModel.getSecondDepartment(1, "secondMajor")
-            saveBtn()
-
         }
-
-        signUpBasicInfoViewModel.secondDepartment.observe(this) {
-            secondDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isSecondMajor }
-                .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
-        }
-
-        secondDepartmentBottomSheetDialog.setCompleteListener {
-            val secondMajor = secondDepartmentBottomSheetDialog.getSelectedData()
-            signViewModel.secondMajor.value = secondMajor?.name
-            signUpBasicInfoViewModel.secondDepartmentClick.value = true
-            initNotEntered()
-            saveBtn()
-            initActiveSaveBtn()
-
-            initBtnActive()
-        }
-
-        signViewModel.secondMajor
-            .observe(this) {
-                binding.textMyPageMajorinfoDoubleMajor.setText(it)
-                binding.textMyPageMajorinfoDoubleMajor.text = it
-                binding.textMyPageMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
-                binding.textMyPageMajorinfoDoubleMajorMint.text = "변경"
-            }
-
-    }
-
-    private fun initBtnActive() {
-        if (binding.textMyPageMajorinfoDoubleMajor.text.toString() != "미진입") {
-            if (binding.textMyPageMajorinfoDoubleMajorTime.text.toString() == "미진입") {
-                binding.textMyPageSave.isSelected = false
-                binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
-                binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
-                binding.textMyPageSave.isClickable = false
-            } else {
-                binding.textMyPageSave.isClickable = true
-                binding.textMyPageSave.isSelected = true
-                binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_main_black_8)
-                binding.textMyPageSave.setTextColor(Color.parseColor("#DFF6F4"))
-
-            }
+        binding.layoutModifyProfileSecondMajor.root.setOnClickListener {
+            myPageViewModel.getMajorList(
+                1, "secondMajor", null,
+                MainGlobals.signInData?.userId ?: 0
+            )
+            showDialog()
         }
     }
 
+    //학과 변경 완료 - 제 2전공
+    private fun completeSecondMajor() {
+        secondMajorBottomSheetDialog.setCompleteListener {
+            myPageViewModel.setSecondFilter(secondMajorBottomSheetDialog.getSelectedData())
+        }
+        myPageViewModel.secondFilter.flowWithLifecycle(lifecycle)
+            .onEach {
+                if (it.id == 0) {
+                    it.id = myPageViewModel.secondMajorList.value?.get(0)?.majorId ?: 0
+                }
+                binding.layoutModifyProfileSecondMajor.bottomSheetMajor = it.name
+
+                if (it.name == "미진입") {
+                    binding.textMyPageMajorinfoDoubleMajorTime.setText("미진입")
+                    binding.textMyPageMajorinfoDoubleMajorMintTime.isEnabled = false
+                    binding.textMyPageMajorinfoDoubleMajorTime.text = "미진입"
+                    binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+                    binding.textMyPageMajorinfoDoubleMajorMintTime.setText("선택")
+                    binding.textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#C0C0CB"))
+                } else {
+                    binding.textMyPageMajorinfoDoubleMajorMintTime.isEnabled = true
+                    binding.textMyPageMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
+                    binding.textMyPageMajorinfoDoubleMajorMintTime.setTextColor(Color.parseColor("#00C8B0"))
+                }
+
+                if (it.name != myPageViewModel.personalInfo.value?.secondMajorName) {
+                    initActiveSaveBtn()
+                }
+            }
+            .launchIn(lifecycleScope)
+
+    }
+
+    //즐겨찾기 클릭시 - 제 2전공
+    private fun clickSecondMajorFavorites() {
+        secondMajorBottomSheetDialog.setCompleteFavoritesListener {
+            myPageViewModel.postCommunityFavorite(it)
+        }
+        myPageViewModel.myPageFavorites.flowWithLifecycle(lifecycle)
+            .onEach {
+                if (it.success) {
+                    myPageViewModel.getMajorList(
+                        1, "secondMajor", null,
+                        MainGlobals.signInData?.userId ?: 0
+                    )
+                }
+            }
+            .launchIn(lifecycleScope)
+    }
 
     //제 2전공 진입시기 바텀시트
     private fun secondMajorPeriod() {
@@ -329,7 +366,7 @@ class ModifyMyInfoActivity :
                 val secondMajorPeriod = secondDepartmentPeriodBottomSheetDialog.getSelectedData()
                 signViewModel.secondMajorPeriod.value = secondMajorPeriod?.name
                 initActiveSaveBtn()
-                initBtnActive()
+                //initBtnActive()
             }
             signViewModel.secondMajorPeriod.observe(this) {
                 binding.textMyPageMajorinfoDoubleMajorTime.setText(it)
@@ -480,7 +517,7 @@ class ModifyMyInfoActivity :
 
     //2전공 미진입 분기처리
     private fun saveBtn() {
-        if (binding.textMyPageMajorinfoDoubleMajor.text.toString() != "미진입") {
+        if (binding.layoutModifyProfileSecondMajor.toString() != "미진입") {
             binding.textMyPageSave.isSelected =
                 binding.textMyPageMajorinfoDoubleMajorTime.text.toString() != "선택하기"
 
@@ -490,7 +527,7 @@ class ModifyMyInfoActivity :
 
     // 저장 버튼 활성화
     private fun initActiveSaveBtn() {
-        if (!binding.textMyPageModifyNicknameDuplicaitionNo.isVisible && !binding.textMyPageNicknameTitle.isSelected && signViewModel.firstMajor.value.toString() != signViewModel.secondMajor.value.toString()) {
+        if (!binding.textMyPageModifyNicknameDuplicaitionNo.isVisible && !binding.textMyPageNicknameTitle.isSelected && binding.layoutCommunityWriteMajor.bottomSheetMajor != binding.layoutModifyProfileSecondMajor.bottomSheetMajor) {
             binding.textMyPageSave.isSelected = true
             binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_main_black_8)
             binding.textMyPageSave.setTextColor(Color.parseColor("#DFF6F4"))
@@ -525,36 +562,29 @@ class ModifyMyInfoActivity :
     // 회원정보 수정 put 서버통신
     private fun completeModifyInfo() {
         with(binding) {
-            //val requestBody = MyPageModifyItem(1, "혜빈테스트즁임", "모가 빠졌냐 진짜", 1,"19-1", 3, "20-2", true)
-
             val requestBody = MyPageModifyItem(
-                1,
+                myPageViewModel.selectImgId.value ?: 1,
                 etMyPageNickname.text.toString(),
                 etMyPageIntroduction.text.toString(),
                 (
-                        if (firstDepartmentBottomSheetDialog.getSelectedData()?.id == null) {
-                            ReviewGlobals.firstMajor!!.majorId
+                        if (majorBottomSheetDialog.getSelectedData().id != -1) {
+                            majorBottomSheetDialog.getSelectedData().id
                         } else {
-                            firstDepartmentBottomSheetDialog.getSelectedData()?.id!!
+                            MainGlobals.signInData?.firstMajorId ?: 1
                         }),
-
                 textMyPageMajorinfoMajorTime.text.toString(),
                 (
-                        if (secondDepartmentBottomSheetDialog.getSelectedData()?.id == null) {
-                            ReviewGlobals.secondMajor!!.majorId
+                        if (secondMajorBottomSheetDialog.getSelectedData().id != -1) {
+                            secondMajorBottomSheetDialog.getSelectedData().id
                         } else {
-                            secondDepartmentBottomSheetDialog.getSelectedData()?.id!!
+                            MainGlobals.signInData?.secondMajorId ?: 1
                         }
                         ),
-
                 textMyPageMajorinfoDoubleMajorTime.text.toString(),
                 binding.imgMyPageModifySwitch.isSelected
             )
-
-            Timber.e("${requestBody}")
-
-
             myPageViewModel.putMyPageModify(requestBody)
+            finish()
         }
     }
 
@@ -599,6 +629,7 @@ class ModifyMyInfoActivity :
         return confirm
     }
 
+    //이거 아직 필요한가 ?
     // 수정 완료 시 학과 정보 저장
     private fun observeModifyResult() {
         myPageViewModel.modifyInfo.observe(this) {
@@ -637,6 +668,15 @@ class ModifyMyInfoActivity :
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
                 binding.textMyPageModifyLength.setText(binding.etMyPageIntroduction.text.length.toString())
+                if(myPageViewModel.personalInfo.value?.bio.toString() != binding.etMyPageIntroduction.text.toString()) {
+                    initActiveSaveBtn()
+                } else {
+                    binding.textMyPageSave.isSelected = false
+                    binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
+                    binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
+                    binding.textMyPageSave.isClickable = false
+                }
+
             }
         })
     }
@@ -663,6 +703,9 @@ class ModifyMyInfoActivity :
             3 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_5_64)
             4 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_3_64)
             5 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_1_64)
+        }
+        if (myPageViewModel.selectImgId.value != myPageViewModel.personalInfo.value?.profileImageId) {
+            initActiveSaveBtn()
         }
     }
 
