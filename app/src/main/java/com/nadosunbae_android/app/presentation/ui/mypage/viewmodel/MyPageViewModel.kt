@@ -7,14 +7,22 @@ import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
+import com.nadosunbae_android.domain.model.favorites.FavoritesData
+import com.nadosunbae_android.domain.model.favorites.FavoritesParam
+import com.nadosunbae_android.domain.model.main.MajorSelectData
+import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.major.MajorListData
 import com.nadosunbae_android.domain.model.mypage.*
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.model.user.*
+import com.nadosunbae_android.domain.repository.favorites.FavoritesRepository
+import com.nadosunbae_android.domain.repository.major.MajorRepository
 import com.nadosunbae_android.domain.repository.mypage.MyPageRepository
 import com.nadosunbae_android.domain.repository.user.UserRepository
 import com.nadosunbae_android.domain.usecase.review.GetMajorInfoDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
@@ -22,11 +30,47 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    val getMajorInfoDataUseCase : GetMajorInfoDataUseCase,
+    val getMajorInfoDataUseCase: GetMajorInfoDataUseCase,
     private val userRepository: UserRepository,
+    private val favoritesRepository: FavoritesRepository,
+    private val majorRepository: MajorRepository,
     private val myPageRepository: MyPageRepository
 
 ) : ViewModel(), LoadableViewModel {
+
+    //커뮤니티 학과 즐겨찾기
+    private var _myPageFavorites = MutableStateFlow(FavoritesData.DEFAULT)
+    val myPageFavorites: StateFlow<FavoritesData>
+        get() = _myPageFavorites
+
+    //학과 변경 리스트
+    private var _majorList = MutableLiveData<List<MajorListData>>()
+    val majorList: LiveData<List<MajorListData>>
+        get() = _majorList
+
+    //제2전공 학과 변경 리스트
+    private var _secondMajorList = MutableLiveData<List<MajorListData>>()
+    val secondMajorList: LiveData<List<MajorListData>>
+        get() = _secondMajorList
+
+    //학과 선택 내용
+    private var _firstFilter = MutableStateFlow(SelectableData.DEFAULT)
+    val firstFilter: StateFlow<SelectableData>
+        get() = _firstFilter
+
+    fun setFilter(filter: SelectableData) {
+        _firstFilter.value = filter
+    }
+
+    //학과 선택 내용
+    private var _secondFilter = MutableStateFlow(SelectableData.DEFAULT)
+    val secondFilter: StateFlow<SelectableData>
+        get() = _secondFilter
+
+    fun setSecondFilter(filter: SelectableData) {
+        _secondFilter.value = filter
+    }
+
 
     // 로그인 response 데이터
     private val _signData = MutableLiveData<SignInData.User>()
@@ -110,8 +154,8 @@ class MyPageViewModel @Inject constructor(
 
     //유저 1:1질문
     private val _userQuestion = MutableLiveData<List<UserQuestionData>>()
-    val userQuestion : LiveData<List<UserQuestionData>>
-    get() = _userQuestion
+    val userQuestion: LiveData<List<UserQuestionData>>
+        get() = _userQuestion
 
     //마이페이지 내가 쓴 글 조회
     fun getMyPost(filter: String) {
@@ -143,6 +187,21 @@ class MyPageViewModel @Inject constructor(
                 }
                 .also {
                     onLoadingEnd.value = true
+                }
+        }
+    }
+
+    //커뮤니티 메인 학과 즐겨 찾기
+    fun postCommunityFavorite(majorId: Int) {
+        viewModelScope.launch {
+            majorRepository.deleteMajorList()
+            favoritesRepository.postFavorites(
+                FavoritesParam(majorId)
+            ).catch {
+                Timber.d("즐겨찾기 실패")
+            }
+                .collectLatest {
+                    _myPageFavorites.value = it
                 }
         }
     }
@@ -351,14 +410,37 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
+    //학과 리스트 가져오기
+    fun getMajorList(
+        universityId: Int, filter: String, exclude: String?,
+        userId: Int
+    ) {
+        viewModelScope.launch {
+            majorRepository.getMajorList(universityId, filter, exclude, userId)
+                .onStart {
+                    onLoadingEnd.value = false
+                }
+                .catch {
+                    Timber.d("학과 리스트 가져오기 실패 ${it.printStackTrace()}")
+                }
+                .collectLatest {
+                    if (filter == "firstMajor") {
+                        Timber.e("TEST FIRST MAJOR")
+                        _majorList.value = it
+                    } else {
+                        Timber.e("TEST SECOND MAJOR")
+                        _secondMajorList.value = it
+                    }
+
+                }
+        }
+    }
+
     // 학과 이름
     fun getMajorName(isFirstMajor: Boolean, majorId: Int) {
         viewModelScope.launch {
-
             runBlocking {
                 kotlin.runCatching {
-
-
                     runCatching { getMajorInfoDataUseCase(majorId) }
                         .onSuccess {
                             if (isFirstMajor)

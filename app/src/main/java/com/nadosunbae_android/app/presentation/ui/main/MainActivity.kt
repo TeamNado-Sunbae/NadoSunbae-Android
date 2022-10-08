@@ -36,8 +36,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         DateUtil.initTimeZone()
 
         initBottomNav()
@@ -90,29 +88,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     //부적절 후기 일경우 띄우기
     private fun floatIsReviewInappropriate() {
-        if (MainGlobals.signInData!!.isReviewInappropriate) {
-            CustomDialog(this).genericDialog(
-                CustomDialog.DialogData(
-                    MainGlobals.signInData?.message.toString(),
-                    resources.getString(R.string.sign_in_question),
-                    resources.getString(R.string.email_certification_close)
-                ),
-                complete = {
-                    var intent = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(getString(R.string.question_kakao))
-                    )
-                    startActivity(intent)
-                },
-                cancel = {}
-            )
-        }
+        CustomDialog(this).restrictDialog(
+            this,
+            ReviewGlobals.isReviewed,
+            MainGlobals.signInData?.isUserReported ?: false,
+            MainGlobals.signInData?.isReviewInappropriate ?: false,
+            MainGlobals.signInData?.message.toString(),
+            true
+        ) {}
     }
 
     //학과 리스트 가져오기
     private fun getMajorList() {
         mainViewModel.getMajorList(
-            1, "all", null,
+            MainGlobals.signInData?.universityId ?: 1, "all", null,
             MainGlobals.signInData?.userId ?: 0
         )
 
@@ -295,6 +284,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 signData.secondMajorName
             )
         )
+
+        mainViewModel.firstMajor.value?.majorId = signData.firstMajorId
+        mainViewModel.secondMajor.value?.majorId = signData.secondMajorId
     }
 
 

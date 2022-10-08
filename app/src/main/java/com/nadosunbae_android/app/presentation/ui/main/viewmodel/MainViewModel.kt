@@ -237,6 +237,10 @@ class MainViewModel @Inject constructor(
         _signData.value = signData
         userId.value = signData.userId
         univId.value = signData.universityId
+        _secondMajor.value?.majorName = signData.secondMajorName
+        _secondMajor.value?.majorId = signData.secondMajorId
+        _firstMajor.value?.majorName = signData.firstMajorName
+        _firstMajor.value?.majorId = signData.firstMajorId
     }
 
     fun clearFilter() {

@@ -21,7 +21,7 @@ class PostDataSourceImpl @Inject constructor(private val service: PostService) :
     }
 
     override suspend fun getPost(
-        universityId: String,
+        universityId: Int,
         majorId: String?,
         filter: String,
         sort: String,

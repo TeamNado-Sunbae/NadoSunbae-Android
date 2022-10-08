@@ -36,7 +36,7 @@ class CommunitySearchViewModel @Inject constructor(
     val communitySearchView: LiveData<SearchView>
         get() = _communitySearchView
 
-    fun getCommunitySearchData(searchKeyword: Pair<String, String>) {
+    fun getCommunitySearchData(searchKeyword: Pair<Int, String>) {
         viewModelScope.launch {
             postRepository.getPost(
                 searchKeyword.first,

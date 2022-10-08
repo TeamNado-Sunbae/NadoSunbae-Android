@@ -43,6 +43,7 @@ class QuestionDetailActivity :
         getReportReason()
         reportToast()
         onQuestion()
+        observeComment()
         observeLoadingEnd()
         changeRegisterBtn()
     }
@@ -103,8 +104,10 @@ class QuestionDetailActivity :
                 setLike(it.likeCount, it.isLiked)
                 setQuestionDetail(it.messageList as MutableList<QuestionDetailData.Message>)
 
+                Timber.d("asdfasdf $myPageNum $all $userId $it")
                 //1:1질문 타인 글 쓰는거 막기
-                if (myPageNum != 1 && all != 1 && userId != it.questionerId && userId != it.answererId) {
+//                if (myPageNum != 1 && all != 1 && userId != it.questionerId && userId != it.answererId) {
+                if (userId != it.questionerId && userId != it.answererId) {
                     binding.etQuestionComment.isEnabled = false
                     binding.etQuestionComment.hint = getString(R.string.text_comment_impossible)
                 }
@@ -286,7 +289,7 @@ class QuestionDetailActivity :
             object : ClassRoomQuestionDetailAdapter.UpdateListener {
                 override fun onUpdate(content: String, commentId: Int) {
                     showLoading()
-                    questionDetailViewModel.putCommentUpdate(commentId, CommentUpdateItem(content))
+                    questionDetailViewModel.putCommentUpdate(commentId, content)
                 }
             }
         )
@@ -327,6 +330,24 @@ class QuestionDetailActivity :
                     )
 
             }
+        }
+    }
+
+    private fun observeComment() {
+        questionDetailViewModel.postComment.observe(this) {
+            questionDetailViewModel.getClassRoomQuestionDetail(
+                questionDetailViewModel.postId.value ?: 0
+            )
+        }
+        questionDetailViewModel.commentUpdate.observe( this) {
+            questionDetailViewModel.getClassRoomQuestionDetail(
+                questionDetailViewModel.postId.value ?: 0
+            )
+        }
+        questionDetailViewModel.deletePostData.observe(this) {
+            questionDetailViewModel.getClassRoomQuestionDetail(
+                questionDetailViewModel.postId.value ?: 0
+            )
         }
     }
 

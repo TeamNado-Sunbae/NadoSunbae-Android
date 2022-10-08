@@ -16,6 +16,7 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMainContentAdapter
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityViewModel
 import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionDetailAdapter
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -46,7 +47,7 @@ class HomeQuestionFragment :
 
     //홈 뷰 커뮤니티 리사이클러뷰 연결
     private fun setCommunityAdapter() {
-        communityViewModel.getCommunityMainData("1", "0", "questionToPerson", "recent", "")
+        communityViewModel.getCommunityMainData(MainGlobals.signInData?.universityId ?: 1, "0", "questionToPerson", "recent", "")
         questionDetailAdapter = QuestionDetailAdapter(mainViewModel.userId.value ?: 0)
         binding.rvHomeQuestion.adapter = questionDetailAdapter
         communityViewModel.communityMainData.flowWithLifecycle(

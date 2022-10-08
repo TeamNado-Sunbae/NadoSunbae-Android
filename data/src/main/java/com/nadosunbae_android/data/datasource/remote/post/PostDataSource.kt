@@ -15,7 +15,7 @@ interface PostDataSource {
     suspend fun deletePost(postId : String) : Response<ResponsePostDeleteData>
 
     //메인 게시글 데이터
-    suspend fun getPost(universityId : String,majorId: String?, filter: String, sort: String, search : String?)
+    suspend fun getPost(universityId : Int,majorId: String?, filter: String, sort: String, search : String?)
             : Response<List<ResponsePostData>>
 
     //게시글 상세 데이터

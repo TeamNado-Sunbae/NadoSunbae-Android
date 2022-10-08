@@ -17,7 +17,13 @@ class ReviewDataSourceImpl @Inject constructor(private val service : ReviewServi
         tagFilter: List<Int>,
         writerFilter: String
     ): ResponseReviewListData {
-        return service.getReviewListByMajor(majorId, sort, tagFilter, writerFilter)
+        var tagFilterStr = ""
+        tagFilter.forEach {
+            tagFilterStr += "%2C${it}"
+        }
+        tagFilterStr = tagFilterStr.removePrefix("%2C")
+
+        return service.getReviewListByMajor(majorId, sort, tagFilterStr, writerFilter)
     }
 
     override suspend fun getReviewListByUniv(univId: Int): ResponseReviewListData {

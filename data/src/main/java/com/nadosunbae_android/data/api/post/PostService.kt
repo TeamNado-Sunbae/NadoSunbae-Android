@@ -22,7 +22,7 @@ interface PostService {
     //게시글 조회
     @GET("post/university/{universityId}")
     suspend fun getPost(
-        @Path("universityId") universityId: String,
+        @Path("universityId") universityId: Int,
         @Query("majorId") majorId: String?,
         @Query("filter") filter: String,
         @Query("sort") sort: String,

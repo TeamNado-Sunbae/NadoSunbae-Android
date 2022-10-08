@@ -16,10 +16,7 @@ import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityPos
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityDetailViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.util.CustomDialog
-import com.nadosunbae_android.app.util.closeKeyboard
-import com.nadosunbae_android.app.util.dpToPx
-import com.nadosunbae_android.app.util.showCustomDropDown
+import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -100,6 +97,8 @@ class CommunityDetailActivity :
             MainGlobals.signInData?.userId ?: 0, this
         )
         binding.rcInformationDetailQuestionComment.adapter = communityPostDetailAdapter
+        val decoration = CustomDecoration(1.dpToPxF, 16.dpToPxF, this.getColor(R.color.gray_0))
+        binding.rcInformationDetailQuestionComment.addItemDecoration(decoration)
         communityViewModel.communityDetailData
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach {

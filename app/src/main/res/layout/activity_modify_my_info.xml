@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="myPageInfo"
             type="com.nadosunbae_android.domain.model.user.UserInfoData" />
@@ -263,11 +264,11 @@
                     android:gravity="top"
                     android:hint="@string/mypage_modify_introduction_hint"
                     android:lines="2"
-                    android:text="@{myPageInfo.bio}"
                     android:maxLength="40"
                     android:paddingVertical="16dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="16dp"
+                    android:text="@{myPageInfo.bio}"
                     android:textColor="@color/main_text"
                     android:textColorHint="@color/gray_2"
                     android:textSize="14sp"
@@ -341,49 +342,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_my_page_modify_major_info" />
 
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_my_page_majorInfo_major"
+                <include
+                    android:id="@+id/layout_community_write_major"
+                    layout="@layout/layout_major_bottomsheet"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/rectangle_border_gray0_8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="25dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_my_page_majorInfo_major">
-
-                    <TextView
-                        android:id="@+id/text_my_page_majorinfo_major"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:paddingLeft="16dp"
-                        android:paddingTop="13dp"
-                        android:paddingBottom="13dp"
-                        android:text="@{myPageInfo.firstMajorName}"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/signup_majorInfo_select" />
-
-                    <TextView
-                        android:id="@+id/text_my_page_majorinfo_major_mint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:text="@string/review_write_change"
-                        android:textColor="@color/main_default"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/text_my_page_majorinfo_major" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/text_my_page_majorInfo_major" />
 
                 <TextView
                     android:id="@+id/text_my_page_majorInfo_major_time"
@@ -396,7 +364,7 @@
                     android:textColor="@color/gray_3"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_my_page_majorInfo_major" />
+                    app:layout_constraintTop_toBottomOf="@+id/layout_community_write_major" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -457,48 +425,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/cl_my_page_majorInfo_major_time" />
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_my_page_majorInfo_double_major"
+                <include
+                    android:id="@+id/layout_modify_profile_second_major"
+                    layout="@layout/layout_major_bottomsheet"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/rectangle_border_gray0_8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="25dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_my_page_majorInfo_double_major">
-
-                    <TextView
-                        android:id="@+id/text_my_page_majorinfo_double_major"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:paddingLeft="16dp"
-                        android:paddingTop="13dp"
-                        android:paddingBottom="13dp"
-                        android:text="@{myPageInfo.secondMajorName}"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/signup_majorInfo_select" />
-
-                    <TextView
-                        android:id="@+id/text_my_page_majorinfo_double_major_mint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:text="@string/review_write_change"
-                        android:textColor="@color/main_default"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/text_my_page_majorinfo_double_major" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/text_my_page_majorInfo_double_major" />
 
                 <TextView
                     android:id="@+id/text_my_page_majorInfo_double_major_time"
@@ -511,7 +447,7 @@
                     android:textColor="@color/gray_3"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_my_page_majorInfo_double_major" />
+                    app:layout_constraintTop_toBottomOf="@+id/layout_modify_profile_second_major" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout

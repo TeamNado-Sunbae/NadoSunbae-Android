@@ -25,6 +25,7 @@ import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CommunityMainContentFragment :
@@ -52,7 +53,7 @@ class CommunityMainContentFragment :
         val type = communityViewModel.communityMainType.value
         val majorName = communityViewModel.communityMainMajorName.value
         communityViewModel.getCommunityMainData(
-            "1",
+            MainGlobals.signInData?.universityId ?: 1,
             "0",
             "community",
             "recent",
@@ -74,7 +75,7 @@ class CommunityMainContentFragment :
             viewLifecycleOwner.lifecycle,
         ).onEach {
             binding.size = it.isEmpty()
-            communityMainContentAdapter.submitList(it){
+            communityMainContentAdapter.submitList(it) {
                 binding.rcCommunityMain.scrollToPosition(0)
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -136,10 +137,14 @@ class CommunityMainContentFragment :
                 communityViewModel.setCommunityMainMajorName(majorName)
                 communityViewModel.setCommunityMainFilter(type, majorName)
                 filterTitle =
-                    if (selectedData.name == getString(R.string.no_major)) getString(R.string.no_major) else getString(
+                    if (selectedData.name == getString(R.string.no_major) || selectedData.name == "") getString(
+                        R.string.no_major
+                    ) else getString(
                         R.string.major
                     )
-                imgCommunityFilter.isSelected = true
+                Timber.d("selectedData, $selectedData")
+                val filterSelect = selectedData.id != -1
+                imgCommunityFilter.isSelected = filterSelect
             }
         }
     }
@@ -150,7 +155,7 @@ class CommunityMainContentFragment :
             val type = communityViewModel.communityMainType.value
             val majorName = communityViewModel.communityMainMajorName.value
             communityViewModel.getCommunityMainData(
-                "1", "0", "community", "recent", "", type, majorName
+                MainGlobals.signInData?.universityId ?: 1, "0", "community", "recent", "", type, majorName
             )
         }
     }
@@ -174,7 +179,7 @@ class CommunityMainContentFragment :
             .onEach {
                 if (it.success) {
                     mainViewModel.getMajorList(
-                        1, "all", null,
+                        MainGlobals.signInData?.universityId ?: 1, "all", null,
                         MainGlobals.signInData?.userId ?: 0
                     )
                 }

@@ -29,7 +29,3 @@ data class CommentParam(
     val postId: String,
     val content: String
 )
-
-
-
-

@@ -17,6 +17,7 @@ import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityV
 import com.nadosunbae_android.app.presentation.ui.home.adpter.BannerAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.imageSelect
 import com.nadosunbae_android.domain.model.home.HomeUnivReviewData
@@ -82,7 +83,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     //홈 뷰 질문 리사이클러뷰 연결
     private fun setQuestionAdapter() {
-        communityViewModel.getCommunityMainData("1", "0", "questionToPerson", "recent","")
+        communityViewModel.getCommunityMainData(MainGlobals.signInData?.universityId ?: 1, "0", "questionToPerson", "recent","")
         questionAdapter = QuestionAdapter(mainViewModel.userId.value ?: 0)
         binding.rvHomeQuestion.adapter = questionAdapter
         communityViewModel.communityMainData.flowWithLifecycle(
@@ -98,7 +99,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     //홈 뷰 커뮤니티 리사이클러뷰 연결
     private fun setCommunityAdapter() {
-        communityViewModel.getCommunityMainData("1", "", "community", "recent")
+        communityViewModel.getCommunityMainData(MainGlobals.signInData?.universityId ?: 1, "", "community", "recent")
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rvHomeCommunity.adapter = communityMainContentAdapter
         communityViewModel.communityMainData.flowWithLifecycle(

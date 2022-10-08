@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
+        android:layout_marginTop="10dp"
         android:paddingBottom="24dp">
 
         <ImageView
@@ -169,15 +170,6 @@
             app:layout_constraintStart_toStartOf="@+id/text_information_detail_content"
             app:layout_constraintTop_toBottomOf="@+id/text_information_detail_content" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="7dp"
-            android:background="@color/gray_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_information_detail_content_time" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
