@@ -2,12 +2,11 @@ package com.nadosunbae_android.data.api.comment
 
 import com.nadosunbae_android.data.model.request.comment.RequestCommentData
 import com.nadosunbae_android.data.model.response.Response
+import com.nadosunbae_android.data.model.response.classroom.ResponseCommentUpdateData
+import com.nadosunbae_android.data.model.response.comment.RequestPutCommentData
 import com.nadosunbae_android.data.model.response.comment.ResponseCommentData
 import com.nadosunbae_android.data.model.response.comment.ResponseDeleteCommentData
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface CommentService {
 
@@ -23,6 +22,12 @@ interface CommentService {
         @Path ("commentId") commentId :String
     ) : ResponseDeleteCommentData
 
+    // 댓글 수정
+    @PUT("comment/{commentId}")
+    suspend fun putComment(
+        @Path("commentId") commentId: String,
+        @Body requestPutCommentData: RequestPutCommentData
+    ): ResponseCommentUpdateData
 
 
 }

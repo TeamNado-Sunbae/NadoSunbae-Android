@@ -5,31 +5,37 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nadosunbae_android.app.presentation.base.LoadableViewModel
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.DropDownSelectableViewModel
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.domain.model.classroom.*
+import com.nadosunbae_android.domain.model.comment.CommentData
+import com.nadosunbae_android.domain.model.comment.CommentParam
 import com.nadosunbae_android.domain.model.like.LikeData
 import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.post.PostWriteParam
+import com.nadosunbae_android.domain.repository.comment.CommentRepository
 import com.nadosunbae_android.domain.repository.like.LikeRepository
+import com.nadosunbae_android.domain.repository.post.PostRepository
 import com.nadosunbae_android.domain.usecase.classroom.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class QuestionDetailViewModel @Inject constructor(
-    val getQuestionDetailDataUseCase: GetQuestionDetailDataUseCase,
-    val postQuestionCommentWriteUseCase: PostQuestionCommentWriteUseCase,
-    val likeRepository: LikeRepository,
-    val putCommentUpdateUseCase: PutCommentUpdateUseCase,
-    val deleteCommentDataUseCase: DeleteCommentDataUseCase,
+    private val likeRepository: LikeRepository,
+    private val postRepository: PostRepository,
+    private val commentRepository: CommentRepository,
     val deletePostDataUseCase: DeletePostDataUseCase,
     val postReportUseCase: PostReportUseCase
 ) : ViewModel(), DropDownSelectableViewModel, LoadableViewModel {
@@ -115,6 +121,10 @@ class QuestionDetailViewModel @Inject constructor(
         _divisionQuestion.value = num
     }
 
+    private val _postComment = MutableLiveData<CommentData>()
+    val postComment: LiveData<CommentData>
+        get() = _postComment
+
     // 좋아요 데이터
     private var _postLike = MutableLiveData<LikeData>()
     val postLike: LiveData<LikeData>
@@ -130,16 +140,62 @@ class QuestionDetailViewModel @Inject constructor(
     //전체 질문 상세보기 서버 통신
     fun getClassRoomQuestionDetail(postId: Int) {
         viewModelScope.launch {
-            runCatching { getQuestionDetailDataUseCase(postId) }
-                .onSuccess {
-                    _questionDetailData.value = it
-                    Timber.d("classRoomDetail : 메인 서버 통신 성공!")
-
+            postRepository.getPostDetail(postId.toString())
+                .onStart {
+                    onLoadingEnd.value = false
                 }
-                .onFailure {
-                    it.printStackTrace()
+                .catch {
                     Timber.d("classRoomDetail : 메인 서버 통신 실패!")
-                }.also {
+                }
+                .collectLatest {
+                    val messageList = mutableListOf<QuestionDetailData.Message>()
+                    messageList.add(
+                        QuestionDetailData.Message(
+                            content = it.content,
+                            createdAt = it.createdAt,
+                            isDeleted = false,
+                            messageId = it.postId,
+                            title = it.title,
+                            firstMajorName = it.firstMajorName,
+                            firstMajorStart = it.firstMajorStart,
+                            isQuestioner = true,
+                            nickname = it.nickname,
+                            profileImageId = it.profileImageId,
+                            secondMajorName = it.secondMajorName,
+                            secondMajorStart = it.secondMajorStart,
+                            writerId = it.writerId
+                        )
+                    )
+                    messageList.addAll(
+                        it.commentList.map { msg ->
+                            QuestionDetailData.Message(
+                                content = msg.content,
+                                createdAt = msg.createdAt,
+                                isDeleted = msg.isDeleted,
+                                messageId = msg.commentId,
+                                title = msg.content,
+                                firstMajorStart = msg.firstMajorStart,
+                                firstMajorName = msg.firstMajorName,
+                                isQuestioner = msg.isPostWriter,
+                                nickname = msg.nickname,
+                                profileImageId = msg.profileImageId,
+                                secondMajorStart = msg.secondMajorStart,
+                                secondMajorName = msg.secondMajorName,
+                                writerId = msg.commentWriterId
+                            )
+                        }
+                    )
+
+                    _questionDetailData.value = QuestionDetailData(
+                        answererId = it.writerId,
+                        isLiked = it.isLiked,
+                        likeCount = it.likeCount,
+                        questionerId = 0,
+                        messageList = messageList
+                    )
+                    Timber.d("classRoomDetail : 메인 서버 통신 성공! ${_questionDetailData.value}")
+                }
+                .also {
                     onLoadingEnd.value = true
                 }
         }
@@ -165,33 +221,43 @@ class QuestionDetailViewModel @Inject constructor(
     //댓글 등록 서버 통신
     fun postQuestionCommentWrite(questionCommentWriteItem: QuestionCommentWriteItem) {
         viewModelScope.launch {
-            runCatching { postQuestionCommentWriteUseCase(questionCommentWriteItem) }
-                .onSuccess {
-                    registerComment.value = it
-                    Timber.d("questionComment : 댓글 통신 성공!")
-                    replyQuestionAnalytics()
+            commentRepository.postComment(
+                CommentParam(
+                    postId = questionCommentWriteItem.postId.toString(),
+                    content = questionCommentWriteItem.content
+                ))
+                .onStart {
+                    onLoadingEnd.value = false
                 }
-                .onFailure {
-                    it.printStackTrace()
+                .catch {
                     Timber.d("questionComment : 댓글 통신 실패!")
-                }.also {
+                }
+                .collectLatest {
+                    _postComment.value = it
+                    Timber.d("questionComment : 댓글 통신 성공!")
+                }
+                .also {
                     onLoadingEnd.value = true
                 }
         }
     }
 
     //댓글 수정 서버통신
-    fun putCommentUpdate(commentId: Int, commentUpdateItem: CommentUpdateItem) {
+    fun putCommentUpdate(commentId: Int, content: String) {
         viewModelScope.launch {
-            runCatching { putCommentUpdateUseCase(commentId, commentUpdateItem) }
-                .onSuccess {
+            commentRepository.putComment(commentId.toString(), content)
+                .onStart {
+                    onLoadingEnd.value = false
+                }
+                .catch {
+                    it.printStackTrace()
+                    Timber.d("commentUpdate : 댓글 수정 실패!")
+                }
+                .collectLatest {
                     _commentUpdate.value = it
                     Timber.d("commentUpdate : 댓글 수정 성공!")
                 }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("commentUpdate : 댓글 수정 실패!")
-                }.also {
+                .also {
                     onLoadingEnd.value = true
                 }
 
@@ -201,15 +267,22 @@ class QuestionDetailViewModel @Inject constructor(
     //댓글 삭제 서버통신
     fun deleteComment(commentId: Int) {
         viewModelScope.launch {
-            runCatching { deleteCommentDataUseCase(commentId) }
-                .onSuccess {
-                    _deleteData.value = it
-                    Timber.d("deleteComment : 댓글 삭제 성공!")
+            commentRepository.deleteComment(commentId.toString())
+                .onStart {
+                    onLoadingEnd.value = false
                 }
-                .onFailure {
+                .catch {
                     it.printStackTrace()
                     Timber.d("deleteComment : 댓글 삭제 실패!")
-                }.also {
+                }
+                .collectLatest {
+                    _deleteData.value = DeleteCommentData(
+                        commentId = it.commentId,
+                        isDeleted = it.isDeleted
+                    )
+                    Timber.d("deleteComment : 댓글 삭제 성공!")
+                }
+                .also {
                     onLoadingEnd.value = true
                 }
         }
