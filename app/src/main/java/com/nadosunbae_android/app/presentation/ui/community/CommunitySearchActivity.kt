@@ -12,6 +12,7 @@ import com.nadosunbae_android.app.databinding.ActivityCommunitySearchBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMainContentAdapter
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunitySearchViewModel
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDecoration
 import com.nadosunbae_android.app.util.closeKeyboard
 import com.nadosunbae_android.app.util.dpToPxF
@@ -52,7 +53,7 @@ class CommunitySearchActivity :
         binding.etCommunitySearch.setOnKeyListener { view, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
                 val searchWord = binding.etCommunitySearch.text.toString()
-                communitySearchViewModel.getCommunitySearchData(Pair("1", searchWord))
+                communitySearchViewModel.getCommunitySearchData(Pair(MainGlobals.signInData?.universityId ?: 1, searchWord))
                 binding.cancel = false
                 view.clearFocus()
                 this.closeKeyboard(view)

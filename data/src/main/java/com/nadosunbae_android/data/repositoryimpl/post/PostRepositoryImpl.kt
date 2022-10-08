@@ -16,7 +16,7 @@ class PostRepositoryImpl @Inject constructor(
 
     //게시글 조회
     override fun getPost(
-        universityId: String,
+        universityId: Int,
         majorId: String?,
         filter: String,
         sort: String,

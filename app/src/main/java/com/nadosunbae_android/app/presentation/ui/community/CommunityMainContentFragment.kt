@@ -53,7 +53,7 @@ class CommunityMainContentFragment :
         val type = communityViewModel.communityMainType.value
         val majorName = communityViewModel.communityMainMajorName.value
         communityViewModel.getCommunityMainData(
-            "1",
+            MainGlobals.signInData?.universityId ?: 1,
             "0",
             "community",
             "recent",
@@ -155,7 +155,7 @@ class CommunityMainContentFragment :
             val type = communityViewModel.communityMainType.value
             val majorName = communityViewModel.communityMainMajorName.value
             communityViewModel.getCommunityMainData(
-                "1", "0", "community", "recent", "", type, majorName
+                MainGlobals.signInData?.universityId ?: 1, "0", "community", "recent", "", type, majorName
             )
         }
     }
@@ -179,7 +179,7 @@ class CommunityMainContentFragment :
             .onEach {
                 if (it.success) {
                     mainViewModel.getMajorList(
-                        1, "all", null,
+                        MainGlobals.signInData?.universityId ?: 1, "all", null,
                         MainGlobals.signInData?.userId ?: 0
                     )
                 }

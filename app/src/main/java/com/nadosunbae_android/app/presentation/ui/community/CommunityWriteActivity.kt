@@ -167,7 +167,7 @@ class CommunityWriteActivity :
             .onEach {
                 if (it.success) {
                     communityWriteViewModel.getMajorList(
-                        1, "all", null,
+                        MainGlobals.signInData?.universityId ?: 1, "all", null,
                         MainGlobals.signInData?.userId ?: 0
                     )
                 }

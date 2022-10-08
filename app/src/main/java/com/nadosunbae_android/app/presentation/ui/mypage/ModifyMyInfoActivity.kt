@@ -152,7 +152,7 @@ class ModifyMyInfoActivity :
     private fun initBottomSheetDialog() {
         majorBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_first_major))
         myPageViewModel.getMajorList(
-            1, "firstMajor", null,
+            MainGlobals.signInData?.universityId ?: 1, "firstMajor", null,
             MainGlobals.signInData?.userId ?: 0
         )
         myPageViewModel.majorList.observe(this) {
@@ -172,7 +172,7 @@ class ModifyMyInfoActivity :
         }
         binding.layoutCommunityWriteMajor.root.setOnClickListener {
             myPageViewModel.getMajorList(
-                1, "firstMajor", null,
+                MainGlobals.signInData?.universityId ?: 1, "firstMajor", null,
                 MainGlobals.signInData?.userId ?: 0
             )
             showDialog()
@@ -207,7 +207,8 @@ class ModifyMyInfoActivity :
             .onEach {
                 if (it.success) {
                     myPageViewModel.getMajorList(
-                        1, "firstMajor", null,
+                        MainGlobals.signInData?.universityId ?: 1
+                        , "firstMajor", null,
                         MainGlobals.signInData?.userId ?: 0
                     )
                 }
@@ -276,7 +277,7 @@ class ModifyMyInfoActivity :
         }
         binding.layoutModifyProfileSecondMajor.root.setOnClickListener {
             myPageViewModel.getMajorList(
-                1, "secondMajor", null,
+                MainGlobals.signInData?.universityId ?: 1, "secondMajor", null,
                 MainGlobals.signInData?.userId ?: 0
             )
             showDialog()
@@ -325,7 +326,7 @@ class ModifyMyInfoActivity :
             .onEach {
                 if (it.success) {
                     myPageViewModel.getMajorList(
-                        1, "secondMajor", null,
+                        MainGlobals.signInData?.universityId ?: 1, "secondMajor", null,
                         MainGlobals.signInData?.userId ?: 0
                     )
                 }

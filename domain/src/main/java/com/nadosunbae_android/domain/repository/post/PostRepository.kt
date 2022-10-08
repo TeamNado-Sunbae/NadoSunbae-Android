@@ -13,7 +13,7 @@ interface PostRepository {
 
     //게시글 메인 조회
     fun getPost(
-        universityId: String,
+        universityId: Int,
         majorId: String?,
         filter: String,
         sort: String,
