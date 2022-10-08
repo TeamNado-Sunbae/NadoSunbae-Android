@@ -28,7 +28,6 @@ class NotificationFragment :
     BaseFragment<FragmentNotificationBinding>(com.nadosunbae_android.app.R.layout.fragment_notification) {
     private val notificationViewModel: NotificationViewModel by viewModels()
 
-    private val mainViewModel: MainViewModel by activityViewModels()
 
     var mainActivity = MainActivity()
     private lateinit var notificationAdapter: NotificationAdapter
