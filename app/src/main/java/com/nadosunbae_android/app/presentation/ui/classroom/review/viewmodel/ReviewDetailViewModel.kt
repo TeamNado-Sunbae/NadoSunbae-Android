@@ -77,10 +77,10 @@ class ReviewDetailViewModel @Inject constructor(
         }
     }
 
-    // 좋아요 TODO 수정 필요
+    // 좋아요
     fun postLikeReview(postId: Int) {
         viewModelScope.launch {
-            likeRepository.postLike(LikeParam("", ""))
+            likeRepository.postLike(LikeParam(postId.toString(), "review"))
                 .catch {
                     Timber.d("서버통신 실패")
                 }
