@@ -3,7 +3,6 @@ package com.nadosunbae_android.app.presentation.ui.classroom.review
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.ViewTreeObserver
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -12,10 +11,8 @@ import com.nadosunbae_android.app.databinding.FragmentReviewBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel.Companion.FILTER_ALL
-import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewWriteActivity.Companion.MODE_NEW
 import com.nadosunbae_android.app.presentation.ui.classroom.review.adapter.ReviewListAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel.ReviewListViewModel
 import com.nadosunbae_android.app.util.*

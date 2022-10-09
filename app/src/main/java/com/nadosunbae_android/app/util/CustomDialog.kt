@@ -170,7 +170,7 @@ class CustomDialog(val context: Context) {
             ),
             complete = {
                 val intent = Intent(context, ReviewWriteActivity::class.java)
-                intent.putExtra("mode", ReviewWriteActivity.MODE_NEW)
+                intent.putExtra("mode", ReviewWriteActivity.WriteMode.NEW)
                 context.startActivity(intent)
             },
             cancel = {}
