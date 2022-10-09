@@ -47,7 +47,7 @@ object ReviewMapper {
             },
             createdAt = responseReviewDetailData.data.review.createdAt,
             oneLineReview = responseReviewDetailData.data.review.oneLineReview,
-            postId = responseReviewDetailData.data.review.postId,
+            postId = responseReviewDetailData.data.review.id,
             firstMajorStart = responseReviewDetailData.data.writer.firstMajorStart,
             firstMajorName = responseReviewDetailData.data.writer.firstMajorName,
             isOnQuestion = responseReviewDetailData.data.writer.isOnQuestion,

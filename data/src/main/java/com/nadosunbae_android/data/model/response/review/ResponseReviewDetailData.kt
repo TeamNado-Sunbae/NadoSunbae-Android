@@ -27,7 +27,7 @@ data class ResponseReviewDetailData(
             val contentList: List<Content>,
             val createdAt: Date,
             val oneLineReview: String,
-            val postId: Int
+            val id: Int
         ) {
             data class Content(
                 val content: String,
