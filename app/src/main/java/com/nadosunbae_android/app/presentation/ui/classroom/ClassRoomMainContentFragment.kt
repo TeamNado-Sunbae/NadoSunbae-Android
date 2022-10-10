@@ -196,7 +196,7 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
                 MainGlobals.signInData!!.message.toString(),
                 behavior = {
                     val intent = Intent(context, ReviewWriteActivity::class.java)
-                    intent.putExtra("mode", ReviewWriteActivity.MODE_NEW)
+                    intent.putExtra("mode", ReviewWriteActivity.WriteMode.NEW)
                     startActivity(intent)
                 }
             )
