@@ -18,6 +18,8 @@ import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityV
 import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionDetailAdapter
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.util.CustomDecoration
+import com.nadosunbae_android.app.util.dpToPxF
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -50,6 +52,8 @@ class HomeQuestionFragment :
         communityViewModel.getCommunityMainData(MainGlobals.signInData?.universityId ?: 1, "0", "questionToPerson", "recent", "")
         questionDetailAdapter = QuestionDetailAdapter(mainViewModel.userId.value ?: 0)
         binding.rvHomeQuestion.adapter = questionDetailAdapter
+        val decoration = CustomDecoration(1.dpToPxF, 0.dpToPxF, requireContext().getColor(R.color.gray_0))
+        binding.rvHomeQuestion.addItemDecoration(decoration)
         communityViewModel.communityMainData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
         ).onEach {

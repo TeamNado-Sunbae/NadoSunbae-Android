@@ -19,6 +19,8 @@ import com.nadosunbae_android.app.presentation.ui.home.adpter.QuestionAdapter
 import com.nadosunbae_android.app.presentation.ui.home.adpter.ReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.util.CustomDecoration
+import com.nadosunbae_android.app.util.dpToPxF
 import com.nadosunbae_android.app.util.imageSelect
 import com.nadosunbae_android.domain.model.home.HomeUnivReviewData
 import dagger.hilt.android.AndroidEntryPoint
@@ -102,6 +104,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         communityViewModel.getCommunityMainData(MainGlobals.signInData?.universityId ?: 1, "", "community", "recent")
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rvHomeCommunity.adapter = communityMainContentAdapter
+        val decoration = CustomDecoration(1.dpToPxF, 16.dpToPxF, requireContext().getColor(R.color.gray_0))
+        binding.rvHomeCommunity.addItemDecoration(decoration)
         communityViewModel.communityMainData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
         ).onEach {
