@@ -166,7 +166,7 @@ object BindingAdapter {
     @BindingAdapter("secondMajor")
     fun secondMajor(textView: TextView, text: String) {
         if (text == "미진입") {
-            textView.visibility = View.GONE
+            textView.visibility = View.INVISIBLE
         } else {
             textView.visibility = View.VISIBLE
         }

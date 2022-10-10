@@ -184,11 +184,11 @@
 
         <TextView
             android:id="@+id/text_second_major_time"
-            secondMajor="@{ranking.secondMajorStart}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/pretendard_regular"
+            android:text="@{ranking.secondMajorStart}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_second_major_name"

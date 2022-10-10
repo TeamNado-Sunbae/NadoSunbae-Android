@@ -268,6 +268,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:adjustViewBounds="true"
+                        android:layout_marginTop="8dp"
                         android:src="@drawable/mask_group_3"
                         app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_4"
                         app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_4"
@@ -315,6 +316,7 @@
                         android:layout_height="40dp"
                         android:adjustViewBounds="true"
                         android:src="@drawable/mask_group_3"
+                        android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_5"
                         app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_5"
                         app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_5" />

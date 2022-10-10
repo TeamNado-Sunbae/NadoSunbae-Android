@@ -58,6 +58,7 @@ class RankingDetailAdapter(private var userId: Int, var link : DataToFragment) :
                 }
             }
             tvRanking.setText("${position+1}")
+
             when(holder.absoluteAdapterPosition) {
                 0 -> {
                     ivMedal.setImageResource(R.drawable.ic_medal1)
@@ -74,7 +75,7 @@ class RankingDetailAdapter(private var userId: Int, var link : DataToFragment) :
                     tvRanking.visibility = View.INVISIBLE
                     ivMedal.visibility = View.VISIBLE
                 }
-                in 3..5 -> {
+                in 3..4 -> {
                     ivMedal.visibility = View.INVISIBLE
                     tvRanking.visibility = View.VISIBLE
                     tvRanking.setTextColor(Color.parseColor("#05A18F"))

@@ -201,6 +201,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     SeniorPersonalFragment(),
                     "seniorPersonal"
                 )
+                2 -> changeFragment(
+                    R.id.fragment_container_main,
+                    HomeFrameFragment(),
+                    "homeFragment"
+                )
             }
         }
     }

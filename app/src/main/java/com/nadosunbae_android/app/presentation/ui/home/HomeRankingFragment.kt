@@ -38,7 +38,9 @@ class HomeRankingFragment :
 
     private fun naviControl() {
         binding.ivHomeReviewBack.setOnClickListener {
-            findNavController().navigate(R.id.action_homeRankingFragment_to_homeFragment)
+            //findNavController().navigate(R.id.action_homeRankingFragment_to_homeFragment)
+            mainViewModel.homeFragmentNum.value = 2
+            mainViewModel.initLoading.value = true
         }
     }
 
