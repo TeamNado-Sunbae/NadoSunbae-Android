@@ -15,6 +15,7 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.domain.model.major.MajorListData
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
@@ -56,6 +57,17 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
             majorBottomSheetDialog.setDataList(dialogInput)
         }
             .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    //데이터 넣기
+    fun observeBottomSheet2(majorList : List<MajorListData>, majorBottomSheetDialog: CustomBottomSheetDialog) {
+        val dialogInput = mutableListOf<SelectableData>()
+        // null check
+        if (majorList != null) {
+            for (d in majorList)
+                dialogInput.add(SelectableData(d.majorId, d.majorName, false, d.isFavorites))
+        }
+        majorBottomSheetDialog.setDataList(dialogInput)
     }
 
 

@@ -26,7 +26,8 @@ class CustomBottomSheetDialog(
     private val title: String,
     private val checkCommunity: Boolean? = false,
     noMajor: Int? = 0,
-    checkCommunityWrite: Boolean? = false
+    checkCommunityWrite: Boolean? = false,
+    private var isSignUp : Boolean ?= false
 ) : BottomSheetDialogFragment() {
 
 
@@ -61,7 +62,7 @@ class CustomBottomSheetDialog(
     val binding get() = _binding!!
 
     init {
-        majorSelectAdapter = MajorSelectAdapter(noMajor, checkCommunityWrite)
+        majorSelectAdapter = MajorSelectAdapter(noMajor, checkCommunityWrite, isSignUp)
 
     }
 

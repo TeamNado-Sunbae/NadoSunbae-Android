@@ -6,28 +6,41 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentSignUpMajorInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.review.FilterBottomSheetDialog
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
+import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.SignInCustomDialog
+import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class SignUpMajorInfoFragment :
     BaseFragment<FragmentSignUpMajorInfoBinding>(R.layout.fragment_sign_up_major_info) {
-    private val signViewModel: SignViewModel by viewModels()
+
+    private val signViewModel: SignViewModel by activityViewModels()
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by activityViewModels()
 
-    val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
+    private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
+
+    // val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
     val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
     val secondDepartmentBottomSheetDialog = CustomBottomSheetDialog("제2전공")
     val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("제2전공 진입시기")
-    private val bottomSheetDialog = CustomBottomSheetDialog("본전공")
+    //private val bottomSheetDialog = CustomBottomSheetDialog("본전공")
 
     private var firstMajorId = 0
     private var secondMajorId = 0
@@ -41,8 +54,11 @@ class SignUpMajorInfoFragment :
         setupSpinner()
         setupSpinnerHandler()
         changeNext()
+        firstMajor()
         spinnerClickListener()
         initSelectUniv()
+        initBottomSheet()
+        updateMajorStatus()
 
         with(binding) {
             makeUnivSpinner(rbUnivKorea, rbUnivSwu, rbUnivCau)
@@ -168,7 +184,7 @@ class SignUpMajorInfoFragment :
             }
             signUpBasicInfoViewModel.apply {
                 univName.value = textSignupMajorinfoUniv.text.toString()
-                firstMajorId.value = firstDepartmentBottomSheetDialog.getSelectedData().id
+                //firstMajorId.value = firstDepartmentBottomSheetDialog.getSelectedData().id
                 firstMajorName.value = textSignupMajorinfoMajor.text.toString()
                 firstMajorStart.value = textSignupMajorinfoMajorTime.text.toString()
                 secondMajorId.value = secondDepartmentBottomSheetDialog.getSelectedData().id
@@ -183,42 +199,56 @@ class SignUpMajorInfoFragment :
 
     private fun onClickbottomSheetUniv() {
         binding.clSignupMajorInfoUniv.setOnClickListener {
-            bottomSheetDialog.show(parentFragmentManager, bottomSheetDialog.tag)
-            bottomSheetDialog.binding.tvBottomsheeetTitle.text = "본 전공 진입시기"
+            majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
+            majorBottomSheetDialog.binding.tvBottomsheeetTitle.text = "본 전공 진입시기"
         }
     }
+
 
     //제 1전공 학과 선택 바텀시트
     private fun firstMajor() {
+        majorBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_first_major), false, 0, false,
+            isSignUp = true
+        )
+        val showMajorBottomSheetDialog = {
+            majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
+        }
+
         binding.clSignupMajorInfoMajor.setOnClickListener {
-            firstDepartmentBottomSheetDialog.show(
-                parentFragmentManager,
-                firstDepartmentBottomSheetDialog.tag
+            signViewModel.getMajorList(
+                MainGlobals.signInData?.universityId ?: 1, "secondMajor", "noMajor",
+                MainGlobals.signInData?.userId ?: 0
             )
-        }
-        signUpBasicInfoViewModel.getFirstDepartment(1, "firstMajor")
-        signUpBasicInfoViewModel.firstDepartment.observe(viewLifecycleOwner) {
-
-            firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
-                .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
-        }
-
-        //데이터 넣기
-        firstDepartmentBottomSheetDialog.setCompleteListener {
-            val firstMajor = firstDepartmentBottomSheetDialog.getSelectedData()
-            signViewModel.firstMajor.value = firstMajor.name
-            signViewModel.firstMajor
-                .observe(viewLifecycleOwner) {
-                    binding.textSignupMajorinfoMajor.text = it
-                    binding.textSignupMajorinfoMajor.text = it
-
-                    binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
-                    binding.textSignupMajorinfoMajorMint.text = "변경"
-                }
-
-            signUpBasicInfoViewModel.firstDepartmentClick.value = true
+            showMajorBottomSheetDialog()
         }
     }
+
+    private fun initBottomSheet() {
+        majorBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_first_major), false, 0, false,
+            isSignUp = true
+        )
+        signViewModel.majorList.observe(viewLifecycleOwner) {
+            observeBottomSheet2(
+                it,
+                majorBottomSheetDialog
+            )
+        }
+    }
+
+    private fun updateMajorStatus() {
+        majorBottomSheetDialog.setCompleteListener {
+            signViewModel.setFilter(majorBottomSheetDialog.getSelectedData())
+        }
+        signViewModel.firstFilter.flowWithLifecycle(lifecycle)
+            .onEach {
+                if (it.id == 0) {
+                    it.id = signViewModel.majorList.value?.get(0)?.majorId ?: 0
+                }
+                binding.textSignupMajorinfoMajor.text = it.name
+            }
+            .launchIn(lifecycleScope)
+    }
+
 
     //제 1전공 진입시기 선택 바텀시트
     private fun firstMajorPeriod() {
@@ -480,7 +510,7 @@ class SignUpMajorInfoFragment :
     //학교 선택 후에만 전공, 전공 진입시기 고를 수 있음
     private fun initSelectUniv() = with(binding) {
         if (textSignupMajorinfoUniv.text.toString() != "선택하기") {
-            firstMajor()
+            //firstMajor()
             firstMajorPeriod()
             secondMajor()
             secondMajorPeriod()

@@ -31,6 +31,11 @@ class MainViewModel @Inject constructor(
     val getAppLinkUseCase: GetAppLinkUseCase
 ) : ViewModel(), LoadableViewModel {
 
+    //제2전공 학과 변경 리스트
+    private var _secondMajorList = MutableLiveData<List<MajorListData>>()
+    val secondMajorList: LiveData<List<MajorListData>>
+        get() = _secondMajorList
+
     //선배페이지 뒤로가기 고른 것
     val seniorBack = MutableLiveData<Int>()
 
