@@ -13,7 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp">
+        android:layout_marginTop="12dp"
+        android:paddingBottom="12dp">
 
         <TextView
             android:id="@+id/tv_home_question_title"
@@ -70,7 +71,7 @@
             android:includeFontPadding="false"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_home_question_nickname"
             app:layout_constraintStart_toEndOf="@+id/tv_home_question_nickname"
             app:layout_constraintTop_toTopOf="@+id/tv_home_question_nickname"
             tools:text="오후 5:42" />
@@ -118,6 +119,7 @@
             app:layout_constraintStart_toEndOf="@+id/iv_home_question_like"
             app:layout_constraintTop_toTopOf="@+id/iv_home_question_like"
             tools:text="1" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

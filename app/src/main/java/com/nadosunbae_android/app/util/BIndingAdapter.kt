@@ -164,12 +164,11 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("secondMajor")
-    fun secondMajor(textView: TextView, text: String) {
-        if (text == "미진입") {
+    fun secondMajor(textView: TextView, text: String?) {
+        if (text == "미진입")
             textView.visibility = View.GONE
-        } else {
+        else
             textView.visibility = View.VISIBLE
-        }
     }
 
     //댓글 개수 보이게
