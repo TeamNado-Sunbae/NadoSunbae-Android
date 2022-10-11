@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityPos
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.home.HomeRankingData
 import com.nadosunbae_android.domain.model.home.RankingTest
+import timber.log.Timber
 
 class RankingDetailAdapter(private var userId: Int, var link : DataToFragment) :
     androidx.recyclerview.widget.ListAdapter<HomeRankingData, RankingDetailAdapter.RankingDetailViewHolder>(
@@ -44,6 +45,9 @@ class RankingDetailAdapter(private var userId: Int, var link : DataToFragment) :
     override fun onBindViewHolder(holder: RankingDetailViewHolder, position: Int) {
         holder.binding.apply {
             setVariable(BR.ranking, getItem(position))
+            if (getItem(position).secondMajorName == "미진입" || getItem(position).secondMajorName == "") {
+                holder.binding.textSecondMajorTime.visibility = View.GONE
+            }
             holder.itemView.setOnClickListener { view ->
                 link.getSeniorId(getItem(position).id)
                 onItemCLickListener?.let {
@@ -53,7 +57,6 @@ class RankingDetailAdapter(private var userId: Int, var link : DataToFragment) :
                         view, position, lookForWriter(getItem(position).id),
                         getItem(position).id
                     )
-
                      */
                 }
             }
