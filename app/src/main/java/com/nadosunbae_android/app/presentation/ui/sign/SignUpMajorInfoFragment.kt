@@ -44,6 +44,7 @@ class SignUpMajorInfoFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         majorBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_first_major), false, 0, false, isSignUp = true)
         secondDepartmentBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_second_major), false, 0, false, isSignUp = true)
+
         deleteAll()
         initTextfield()
         closePage()
@@ -72,9 +73,14 @@ class SignUpMajorInfoFragment :
         }
 
         //첫번째 전공
-        /*
         val firstMajor = signViewModel.firstMajor.value ?: "선택하기"
-        textSignupMajorinfoMajor.text = firstMajor
+        if(signViewModel.firstMajor.value == null) {
+            textSignupMajorinfoMajor.text = "선택하기"
+        }
+        else {
+            textSignupMajorinfoMajor.text = firstMajor
+        }
+
 
         if (textSignupMajorinfoMajor.text.toString() == "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
@@ -93,7 +99,6 @@ class SignUpMajorInfoFragment :
         }
 
 
-         */
         textSignupMajorinfoDoubleMajorTime.text =
             signUpBasicInfoViewModel.secondMajorStart.value ?: "선택하기"
 
@@ -112,7 +117,6 @@ class SignUpMajorInfoFragment :
         if (textSignupMajorinfoMajor.text.toString() != "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorMint.text = "변경"
-            //changeNext()
         }
 
         if (textSignupMajorinfoMajorTime.text.toString() != "선택하기") {
