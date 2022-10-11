@@ -316,20 +316,6 @@
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_signup_majorInfo_univ" />
-        <!--
-
-                <include
-                    android:id="@+id/cl_signup_majorInfo_major"
-                    layout="@layout/layout_major_bottomsheet"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_signup_majorInfo_major" />
-
-        -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_signup_majorInfo_major"
