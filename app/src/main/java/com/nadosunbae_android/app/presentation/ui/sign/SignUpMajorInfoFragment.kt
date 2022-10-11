@@ -77,11 +77,7 @@ class SignUpMajorInfoFragment :
         if (textSignupMajorinfoMajor.text.toString() == "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
         }
-
-        // signViewModel.firstMajor.value = firstMajor
-        // firstMajorId = signUpBasicInfoViewModel.firstMajorId.value ?: 0
         textSignupMajorinfoMajorTime.text = signUpBasicInfoViewModel.firstMajorStart.value ?: "선택하기"
-
 
         //두번째 전공
         val secondMajor = signUpBasicInfoViewModel.secondMajorName.value ?: "선택하기"
@@ -92,8 +88,6 @@ class SignUpMajorInfoFragment :
         } else {
             textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
         }
-        //signViewModel.secondMajor.value = secondMajor
-        //secondMajorId = signUpBasicInfoViewModel.secondMajorId.value ?: 0
 
         textSignupMajorinfoDoubleMajorTime.text =
             signUpBasicInfoViewModel.secondMajorStart.value ?: "선택하기"
@@ -107,7 +101,6 @@ class SignUpMajorInfoFragment :
             textSignupMajorinfoDoubleMajorTime.text = "미진입"
             textSignupMajorinfoDoubleMajorMintTime.text = "선택"
             textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
-
         }
 
         //선택하기 분기처리
@@ -343,6 +336,20 @@ class SignUpMajorInfoFragment :
                     it.id = signViewModel.firstMajorList.value?.get(0)?.majorId ?: 0
                 }
                 binding.textSignupMajorinfoDoubleMajor.text = it.name
+                if(it.name == "미진입") {
+                    signUpBasicInfoViewModel.secondDepartmentClick.value = true
+                    signUpBasicInfoViewModel.secondDepartmentGo.value = true
+
+                    binding.clSignupMajorInfoDoubleMajorTime.isClickable = false
+                    binding.textSignupMajorinfoDoubleMajorTime.text = "미진입"
+                    binding.textSignupMajorinfoDoubleMajorMintTime.text = "선택"
+                    binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+                }
+                if (it.name != "미진입") {
+                    signUpBasicInfoViewModel.secondDepartmentClick.value = true
+                    signUpBasicInfoViewModel.secondDepartmentGo.value = false
+                    binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
+                }
                 binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
                 binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
 
