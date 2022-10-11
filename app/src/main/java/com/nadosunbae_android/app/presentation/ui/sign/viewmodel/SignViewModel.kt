@@ -29,17 +29,31 @@ class SignViewModel @Inject constructor(
 
 
     //학과 변경 리스트
-    private var _majorList = MutableLiveData<List<MajorListData>>()
-    val majorList: LiveData<List<MajorListData>>
-        get() = _majorList
+    private var _firstMajorList = MutableLiveData<List<MajorListData>>()
+    val firstMajorList: LiveData<List<MajorListData>>
+        get() = _firstMajorList
+
+    //학과 변경 리스트
+    private var _secondMajorList = MutableLiveData<List<MajorListData>>()
+    val secondMajorList: LiveData<List<MajorListData>>
+        get() = _secondMajorList
 
     //학과 선택 내용
     private var _firstFilter = MutableStateFlow(SelectableData.DEFAULT)
     val firstFilter: StateFlow<SelectableData>
         get() = _firstFilter
 
-    fun setFilter(filter: SelectableData) {
+    //학과 선택 내용
+    private var _secondFilter = MutableStateFlow(SelectableData.DEFAULT)
+    val secondFilter: StateFlow<SelectableData>
+        get() = _secondFilter
+
+    fun setFirstFilter(filter: SelectableData) {
         _firstFilter.value = filter
+    }
+
+    fun setSecondFilter(filter: SelectableData) {
+        _secondFilter.value = filter
     }
 
     //학과 리스트 가져오기
@@ -48,6 +62,7 @@ class SignViewModel @Inject constructor(
         userId: Int
     ) {
         viewModelScope.launch {
+            majorRepository.deleteMajorList()
             majorRepository.getMajorList(universityId, filter, exclude, userId)
                 .onStart {
                     //onLoadingEnd.value = false
@@ -57,12 +72,10 @@ class SignViewModel @Inject constructor(
                 }
                 .collectLatest {
                     if (filter == "firstMajor") {
-                        Timber.e("TEST FIRST MAJOR")
-                        Timber.e("first step: ${it}")
-                        _majorList.value = it
+                        _firstMajorList.value = it
+
                     } else {
-                        Timber.e("TEST SECOND MAJOR")
-                        _majorList.value = it
+                        _secondMajorList.value = it
                     }
 
                 }
