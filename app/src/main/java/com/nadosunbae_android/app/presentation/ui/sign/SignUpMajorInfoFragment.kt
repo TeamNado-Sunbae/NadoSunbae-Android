@@ -30,14 +30,28 @@ class SignUpMajorInfoFragment :
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by activityViewModels()
 
     private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
-    private val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기", false, null, false, true)
-    private lateinit var secondDepartmentBottomSheetDialog : CustomBottomSheetDialog
-    private val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("제2전공 진입시기", false, null, false, true)
+    private val firstDepartmentPeriodBottomSheetDialog =
+        CustomBottomSheetDialog("본전공 진입시기", false, null, false, true)
+    private lateinit var secondDepartmentBottomSheetDialog: CustomBottomSheetDialog
+    private val secondDepartmentPeriodBottomSheetDialog =
+        CustomBottomSheetDialog("제2전공 진입시기", false, null, false, true)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        majorBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_first_major), false, 0, false, isSignUp = true)
-        secondDepartmentBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_second_major), false, 0, false, isSignUp = true)
+        majorBottomSheetDialog = CustomBottomSheetDialog(
+            getString(R.string.signup_first_major),
+            false,
+            0,
+            false,
+            isSignUp = true
+        )
+        secondDepartmentBottomSheetDialog = CustomBottomSheetDialog(
+            getString(R.string.signup_second_major),
+            false,
+            0,
+            false,
+            isSignUp = true
+        )
         deleteAll()
         initTextfield()
         closePage()
@@ -318,7 +332,7 @@ class SignUpMajorInfoFragment :
                 if (it.id == 0) {
                     it.id = signViewModel.secondMajorList.value?.get(0)?.majorId ?: 0
                 }
-                if(it.name == "미진입") {
+                if (it.name == "미진입") {
                     signUpBasicInfoViewModel.secondDepartmentClick.value = true
                     signUpBasicInfoViewModel.secondDepartmentGo.value = true
                     Timber.e("123")
@@ -339,7 +353,6 @@ class SignUpMajorInfoFragment :
             }
             .launchIn(lifecycleScope)
     }
-
 
 
     //제 2전공 진입시기 바텀시트
@@ -496,6 +509,7 @@ class SignUpMajorInfoFragment :
 
     //대학 선택 바꾸면 전공, 전공 진입시기 모두 초기화
     private fun deleteAll() = with(binding) {
+
         signUpBasicInfoViewModel.selectedAll.value = false
         textSignupMajorinfoMajor.text = "선택하기"
         textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
@@ -513,5 +527,7 @@ class SignUpMajorInfoFragment :
         textSignupMajorinfoMajorTimeMint.text = "선택"
         textSignupMajorinfoDoubleMajorMint.text = "선택"
         textSignupMajorinfoDoubleMajorMintTime.text = "선택"
+
+
     }
 }
