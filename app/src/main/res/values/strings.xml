@@ -412,16 +412,19 @@
     <string name="onboarding_lively_review">생생한 학과 후기</string>
     <string name="onbaording_lively_review_content">장단점, 뭘배우나요?, 추천수업, 힘든수업, \n향후진로, 꿀팁 등으로 구성되어 있어요.</string>
 
-    <string name="onboarding_question_title">1:1 질문, 전체에게 질문</string>
-    <string name="onboarding_question_subtext1">궁금한게 있는 학과 선배에겐</string>
+    <string name="onboarding_question_title">선배와의 1:1 질문</string>
+    <string name="onboarding_question_subtext1">궁금한 학과 선배의 페이지에 방문해</string>
     <string name="onboarding_question_subtext2">1:1 질문</string>
-    <string name="onboarding_question_subtext3">을,</string>
-    <string name="onboarding_question_subtext4">학과 구성원 모두의 의견을 듣고 싶을 땐</string>
-    <string name="onboarding_question_subtext5">전체에게 질문</string>
-    <string name="onboarding_question_subtext6">을 해보세요.</string>
+    <string name="onboarding_question_subtext3">을 작성해보세요.</string>
+    <string name="onboarding_question_subtext4">선배가</string>
+    <string name="onboarding_question_subtext5">기존에 나눴던 질의응답</string>
+    <string name="onboarding_question_subtext6">도 확인할 수 있어요.</string>
 
     <string name="onboarding_info_title">다양한 정보 공유까지 !</string>
-    <string name="onboarding_info_subtext">학과 공지사항, 족보 등의 유용한 자료들이\n정보 게시판에 학과 별로 누적되고 있어요.</string>
+    <string name="onboarding_info_subtext">1:1 질문으로 해소되지 않은 내용은</string>
+    <string name="onboarding_info_subtext2">각 학과 학생들로 구성된 커뮤니티</string>
+    <string name="onboarding_info_subtext3">의</string>
+    <string name="onboarding_info_subtext4">질문, 정보, 자유 게시글을 통해서 연결해보세요.</string>
 
     <!-- splash -->
     <string name="copyright">© nadosunbae</string>
