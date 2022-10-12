@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:layout_marginTop="10dp"
-        android:paddingBottom="24dp">
+        android:paddingBottom="7dp">
 
         <ImageView
             android:id="@+id/img_information_detail_comment_profile"

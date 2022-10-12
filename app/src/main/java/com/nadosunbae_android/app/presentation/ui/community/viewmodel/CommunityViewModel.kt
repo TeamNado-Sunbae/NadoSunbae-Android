@@ -138,6 +138,7 @@ class CommunityViewModel @Inject constructor(
                 Timber.d("즐겨찾기 실패")
             }
                 .collectLatest {
+                    Timber.d("이거 호출 $it")
                     _communityFavorites.value = it
                 }
         }

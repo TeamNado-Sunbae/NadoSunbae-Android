@@ -58,7 +58,7 @@ class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWr
             holder.onBind(getItem(position))
             holder.binding.btnMajorStar.setOnClickListener {
                 favoriteCompleteListener.let {
-                    it(getItem(position).id)
+                    it(getItem(holder.absoluteAdapterPosition).id)
                 }
             }
         } else if (holder is BottomSheetSelectionViewHolder) {

@@ -15,7 +15,6 @@ import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.repository.major.MajorRepository
 import com.nadosunbae_android.domain.repository.user.UserRepository
 import com.nadosunbae_android.domain.usecase.classroom.GetClassRoomMainDataUseCase
-import com.nadosunbae_android.domain.usecase.classroom.GetSeniorDataUseCase
 import com.nadosunbae_android.domain.usecase.main.GetAppLinkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -171,11 +170,10 @@ class MainViewModel @Inject constructor(
                 }
                 .catch {
                     Timber.d("학과 리스트 가져오기 실패 ${it.printStackTrace()}")
-
                 }
                 .collectLatest {
                     _majorList.value = it
-                    Timber.d("학과 리스트 $it")
+                    Timber.d("학과 리스트 호출출 $it")
                 }
         }
     }
@@ -189,7 +187,8 @@ class MainViewModel @Inject constructor(
                 if (viewReviewedSeniors.value == true)
                     exclude = "noReview"
 
-                userRepository.getSeniorList(majorId, exclude) }
+                userRepository.getSeniorList(majorId, exclude)
+            }
                 .onSuccess {
                     _seniorData.value = it
                     Timber.d("classRoomSenior: 구성원 서버 통신 성공")
