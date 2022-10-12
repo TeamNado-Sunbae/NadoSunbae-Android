@@ -72,12 +72,6 @@ class SignUpBasicInfoViewModel @Inject constructor(
     //닉네임
     var nickName = MutableLiveData<String>()
 
-    //제 1전공
-    val firstDepartment = MutableLiveData<SignBottomSheetItem>()
-
-    //제 2전공
-    val secondDepartment = MutableLiveData<SignBottomSheetItem>()
-
     var firstDepartmentClick = MutableLiveData<Boolean>(false)
     var firstDepartmentGo = MutableLiveData<Boolean>(false)
     var secondDepartmentClick = MutableLiveData<Boolean>(false)

@@ -26,11 +26,6 @@ class SignRepositoryImpl @Inject constructor(private val signDataSource : SignDa
         ))
     }
 
-    //학과선택 bottomsheet
-    override suspend fun getFirstDepartment(universityId: Int, filter: String): SignBottomSheetItem {
-        return SignMapper.mapperToMajorData(signDataSource.getFirstDepartment(universityId, filter))
-    }
-
     //회원가입
     override suspend fun postSignUp(signUpData: SignUpData): SignUpItem {
         return SignMapper.mapperToSignUpData(signDataSource.postSignUp(

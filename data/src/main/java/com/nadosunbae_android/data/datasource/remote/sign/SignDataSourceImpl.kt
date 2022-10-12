@@ -14,13 +14,6 @@ class SignDataSourceImpl @Inject constructor(private val service: SignService) :
         return service.postSignEmail(requestSignEmail)
     }
 
-    override suspend fun getFirstDepartment(
-        universityId: Int,
-        filter: String
-    ): ResponseFirstDepartment {
-        return service.getFirstDepartment(universityId, filter)
-    }
-
     override suspend fun postSignUp(requestSignUp: RequestSignUp): ResponseSignUp {
         return service.postSignUp(requestSignUp)
     }

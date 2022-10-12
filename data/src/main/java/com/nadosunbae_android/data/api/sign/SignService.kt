@@ -15,12 +15,6 @@ interface SignService {
         @Body requestSignEmail: RequestSignEmail
     ) : ResponseSignEmail
 
-    @GET("major/list/{universityId}")
-    suspend fun getFirstDepartment(
-        @Path("universityId") universityId :Int,
-        @Query("filter") filter : String
-    ) : ResponseFirstDepartment
-
     @POST("auth/signup")
     suspend fun postSignUp(
         @Body requestSignUp: RequestSignUp

@@ -59,23 +59,6 @@ object SignMapper {
         )
     }
 
-
-    //학과선택 바텀시트
-    fun mapperToMajorData(responseFirstDepartment: ResponseFirstDepartment): SignBottomSheetItem {
-        return SignBottomSheetItem(
-            success = responseFirstDepartment.success,
-            data = responseFirstDepartment.data.map {
-                SignBottomSheetItem.Data(
-                    isFirstMajor = it.isFirstMajor,
-                    isSecondMajor = it.isSecondMajor,
-                    majorId = it.majorId,
-                    majorName = it.majorName
-                )
-            }
-        )
-    }
-
-
     //SignEmail
     fun mapperToSignEmail(emailDuplicationData: EmailDuplicationData): RequestSignEmail {
         return RequestSignEmail(

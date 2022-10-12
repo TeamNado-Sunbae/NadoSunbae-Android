@@ -9,9 +9,6 @@ interface SignRepository {
     //이메일 중복확인
     suspend fun postSignEmail(emailDuplicationData: EmailDuplicationData): EmailDuplicationCheck
 
-    //학과선택 바텀시트
-    suspend fun getFirstDepartment(universityId: Int, filter: String): SignBottomSheetItem
-
     //회원가입
     suspend fun postSignUp(signUpData: SignUpData): SignUpItem
 
