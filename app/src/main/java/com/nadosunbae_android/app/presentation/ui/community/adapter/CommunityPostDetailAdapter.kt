@@ -116,7 +116,7 @@ class CommunityPostDetailAdapter(private var userId: Int, val context: Context) 
             putExtra("bottomNavItem", bottomNavItem)
             putExtra("signData", MainGlobals.signInData)
             putExtra("loading", false)
-            putExtra("userId", writerId)
+            putExtra("seniorId", writerId)
             putExtra("blockDivision", 1)
         }
         ContextCompat.startActivity(context, intent, null)
