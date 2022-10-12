@@ -416,6 +416,7 @@ class MyPageViewModel @Inject constructor(
         userId: Int
     ) {
         viewModelScope.launch {
+            majorRepository.deleteMajorList()
             majorRepository.getMajorList(universityId, filter, exclude, userId)
                 .onStart {
                     onLoadingEnd.value = false

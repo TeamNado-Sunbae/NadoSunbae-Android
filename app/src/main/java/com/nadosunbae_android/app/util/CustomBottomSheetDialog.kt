@@ -234,6 +234,4 @@ class CustomBottomSheetDialog(
     fun setSelectedData(dataId: Int) {
         majorSelectAdapter.setSelectedData(dataId)
     }
-
-
 }
