@@ -59,6 +59,8 @@ class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWr
 
             if(isSignUp == true) {
                 holder.binding.btnMajorStar.visibility = View.GONE
+            } else if(holder.binding.tvBottomsheeetContent.text.toString() == "미진입") {
+                holder.binding.btnMajorStar.visibility = View.INVISIBLE
             }
             holder.binding.btnMajorStar.setOnClickListener {
                 favoriteCompleteListener.let {
