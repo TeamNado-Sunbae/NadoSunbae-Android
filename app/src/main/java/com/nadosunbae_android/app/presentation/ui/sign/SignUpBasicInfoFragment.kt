@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentSignUpBasicInfoBinding
@@ -35,6 +36,15 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
         beforeBtnClick()
         closePage()
         nicknameDuplication()
+        initUnivEmail()
+    }
+
+    //학교 이메일 정보 서버 통신
+    private fun initUnivEmail(){
+        signUpBasicInfoViewModel.getUnivEmail(signUpBasicInfoViewModel.univId.value ?: 1)
+        signUpBasicInfoViewModel.univEmail.observe(viewLifecycleOwner) {
+            binding.etSignupBasicinfoEmail.setHint(it.email)
+        }
     }
 
     //닉네임 중복 체크 서버 통신
@@ -271,10 +281,10 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
 
     //이메일 정규식
     private fun isEmailPattern() {
+        val univEmail = signUpBasicInfoViewModel.univEmail.value?.email ?:""
         binding.textSignupBasicinfoEmailDuplication.isSelected = true
         binding.textSignupBasicinfoEmailDuplication.isEnabled = true
-
-        if (binding.etSignupBasicinfoEmail.text.contains("@korea.ac.kr")) {
+        if (binding.etSignupBasicinfoEmail.text.contains("$univEmail")) {
             binding.textSignupBasicinfoEmailDuplication.isSelected = true
             binding.textSignupBasicinfoEmailDuplication.isEnabled = true
         } else {

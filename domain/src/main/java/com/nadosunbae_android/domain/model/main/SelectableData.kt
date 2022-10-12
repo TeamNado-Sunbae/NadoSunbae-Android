@@ -2,7 +2,7 @@ package com.nadosunbae_android.domain.model.main
 
 data class SelectableData(
     var id: Int,
-    val name: String,
+    var name: String,
     var isSelected: Boolean,
     var isFavorites : Boolean ?= false
 ){
@@ -16,6 +16,12 @@ data class SelectableData(
         val COMMUNITYDEFAULT = SelectableData(
             id = -1,
             name = "학과 무관",
+            isSelected = true,
+            isFavorites = false
+        )
+        val SIGNDEFAULT = SelectableData(
+            id = -1,
+            name = "선택하기",
             isSelected = true,
             isFavorites = false
         )

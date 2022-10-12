@@ -15,7 +15,7 @@ import com.nadosunbae_android.app.util.setTextSemiBold
 import com.nadosunbae_android.domain.model.main.SelectableData
 import timber.log.Timber
 
-class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWrite: Boolean? = false) :
+class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWrite: Boolean? = false, private val isSignUp : Boolean?= false) :
     ListAdapter<SelectableData, RecyclerView.ViewHolder>(
         DiffUtilCallback<SelectableData>()
     ) {
@@ -56,6 +56,10 @@ class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWr
     ) {
         if (holder is SignSelectionViewHolder) {
             holder.onBind(getItem(position))
+
+            if(isSignUp == true) {
+                holder.binding.btnMajorStar.visibility = View.GONE
+            }
             holder.binding.btnMajorStar.setOnClickListener {
                 favoriteCompleteListener.let {
                     it(getItem(holder.absoluteAdapterPosition).id)
@@ -64,6 +68,7 @@ class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWr
         } else if (holder is BottomSheetSelectionViewHolder) {
             holder.onBind(getItem(position))
         }
+
         holder.itemView.setOnClickListener {
             when (mSelectedPos) {
                 // 새로 선택

@@ -1,4 +1,4 @@
-package com.nadosunbae_android.data.mapper.classroom
+package com.nadosunbae_android.data.mapper.sign
 
 import com.nadosunbae_android.data.model.request.sign.*
 import com.nadosunbae_android.data.model.response.sign.*
@@ -59,23 +59,6 @@ object SignMapper {
         )
     }
 
-
-    //학과선택 바텀시트
-    fun mapperToMajorData(responseFirstDepartment: ResponseFirstDepartment): SignBottomSheetItem {
-        return SignBottomSheetItem(
-            success = responseFirstDepartment.success,
-            data = responseFirstDepartment.data.map {
-                SignBottomSheetItem.Data(
-                    isFirstMajor = it.isFirstMajor,
-                    isSecondMajor = it.isSecondMajor,
-                    majorId = it.majorId,
-                    majorName = it.majorName
-                )
-            }
-        )
-    }
-
-
     //SignEmail
     fun mapperToSignEmail(emailDuplicationData: EmailDuplicationData): RequestSignEmail {
         return RequestSignEmail(
@@ -128,6 +111,12 @@ object SignMapper {
         return RequestCertificationEmail(
             email = certificationEmailData.email,
             password = certificationEmailData.password
+        )
+    }
+
+    fun mapperToUnivEmail(responseUnivEmail: ResponseUnivEmail) : UnivEmailItem {
+        return UnivEmailItem(
+            email = responseUnivEmail.data.email
         )
     }
 

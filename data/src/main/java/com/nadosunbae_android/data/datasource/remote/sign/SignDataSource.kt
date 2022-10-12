@@ -10,9 +10,6 @@ interface SignDataSource {
     //이메일 중복확인
     suspend fun postSignEmail(requestSignEmail: RequestSignEmail) : ResponseSignEmail
 
-    //학과선택 BottomSheet
-    suspend fun getFirstDepartment(universityId : Int, filter : String) : ResponseFirstDepartment
-
     //회원가입
     suspend fun postSignUp(requestSignUp: RequestSignUp) : ResponseSignUp
 
@@ -24,4 +21,7 @@ interface SignDataSource {
 
     //토큰 재발급 및 자동 로그인
     suspend fun postRenewalToken(): ResponseSignIn
+
+    //학교 이메일 조회
+    suspend fun getUnivEmail(universityId : Int) : ResponseUnivEmail
 }

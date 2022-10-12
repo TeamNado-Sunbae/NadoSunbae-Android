@@ -5,6 +5,7 @@
     android:background="@color/background">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel" />
@@ -293,12 +294,12 @@
                     android:id="@+id/text_univ_ready"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
                     android:clickable="true"
+                    android:focusable="true"
                     android:paddingVertical="15dp"
+                    android:paddingStart="16dp"
                     android:text="@string/sign_univ_ready"
-                    android:textColor="@color/gray_3"
-                    android:focusable="true" />
+                    android:textColor="@color/gray_3" />
             </RadioGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -315,7 +316,6 @@
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_signup_majorInfo_univ" />
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_signup_majorInfo_major"

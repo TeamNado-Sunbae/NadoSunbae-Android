@@ -5,44 +5,65 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentSignUpMajorInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.SignInCustomDialog
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SignUpMajorInfoFragment :
     BaseFragment<FragmentSignUpMajorInfoBinding>(R.layout.fragment_sign_up_major_info) {
-    private val signViewModel: SignViewModel by viewModels()
+
+    private val signViewModel: SignViewModel by activityViewModels()
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by activityViewModels()
 
-    val firstDepartmentBottomSheetDialog = CustomBottomSheetDialog("본전공")
-    val firstDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("본전공 진입시기")
-    val secondDepartmentBottomSheetDialog = CustomBottomSheetDialog("제2전공")
-    val secondDepartmentPeriodBottomSheetDialog = CustomBottomSheetDialog("제2전공 진입시기")
-    private val bottomSheetDialog = CustomBottomSheetDialog("본전공")
+    private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
+    private val firstDepartmentPeriodBottomSheetDialog =
+        CustomBottomSheetDialog("본전공 진입시기", false, null, false, true)
+    private lateinit var secondDepartmentBottomSheetDialog: CustomBottomSheetDialog
+    private val secondDepartmentPeriodBottomSheetDialog =
+        CustomBottomSheetDialog("제2전공 진입시기", false, null, false, true)
 
-    private var firstMajorId = 0
-    private var secondMajorId = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        majorBottomSheetDialog = CustomBottomSheetDialog(
+            getString(R.string.signup_first_major),
+            false,
+            0,
+            false,
+            isSignUp = true
+        )
+        secondDepartmentBottomSheetDialog = CustomBottomSheetDialog(
+            getString(R.string.signup_second_major),
+            false,
+            0,
+            false,
+            isSignUp = true
+        )
+        deleteAll()
         initTextfield()
         closePage()
         moveBeforePage()
         onClickbottomSheetUniv()
-        setupSpinner()
-        setupSpinnerHandler()
         changeNext()
         spinnerClickListener()
         initSelectUniv()
+        initBottomSheet()
+        updateMajorStatus()
+        initSecondBottomSheet()
+        updateSecondMajorStatus()
 
         with(binding) {
             makeUnivSpinner(rbUnivKorea, rbUnivSwu, rbUnivCau)
@@ -58,18 +79,14 @@ class SignUpMajorInfoFragment :
             textSignupMajorinfoUniv.isSelected = true
         }
 
+
         //첫번째 전공
         val firstMajor = signUpBasicInfoViewModel.firstMajorName.value ?: "선택하기"
         textSignupMajorinfoMajor.text = firstMajor
-
         if (textSignupMajorinfoMajor.text.toString() == "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
         }
-
-        // signViewModel.firstMajor.value = firstMajor
-        // firstMajorId = signUpBasicInfoViewModel.firstMajorId.value ?: 0
         textSignupMajorinfoMajorTime.text = signUpBasicInfoViewModel.firstMajorStart.value ?: "선택하기"
-
 
         //두번째 전공
         val secondMajor = signUpBasicInfoViewModel.secondMajorName.value ?: "선택하기"
@@ -80,8 +97,7 @@ class SignUpMajorInfoFragment :
         } else {
             textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
         }
-        //signViewModel.secondMajor.value = secondMajor
-        //secondMajorId = signUpBasicInfoViewModel.secondMajorId.value ?: 0
+
 
         textSignupMajorinfoDoubleMajorTime.text =
             signUpBasicInfoViewModel.secondMajorStart.value ?: "선택하기"
@@ -95,20 +111,12 @@ class SignUpMajorInfoFragment :
             textSignupMajorinfoDoubleMajorTime.text = "미진입"
             textSignupMajorinfoDoubleMajorMintTime.text = "선택"
             textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
-
         }
 
         //선택하기 분기처리
         if (textSignupMajorinfoMajor.text.toString() != "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorMint.text = "변경"
-
-            signUpBasicInfoViewModel.firstDepartmentClick.value = true
-            signUpBasicInfoViewModel.firstDepartmentGo.value = true
-            signUpBasicInfoViewModel.secondDepartmentClick.value = true
-            signUpBasicInfoViewModel.secondDepartmentGo.value = true
-
-            changeNext()
         }
 
         if (textSignupMajorinfoMajorTime.text.toString() != "선택하기") {
@@ -154,6 +162,8 @@ class SignUpMajorInfoFragment :
     private fun moveBeforePage() {
         binding.clSignupMajorInfoMoveBefore.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            signViewModel.setFirstFilter(SelectableData.SIGNDEFAULT)
+            signViewModel.setSecondFilter(SelectableData.SIGNDEFAULT)
         }
     }
 
@@ -168,7 +178,7 @@ class SignUpMajorInfoFragment :
             }
             signUpBasicInfoViewModel.apply {
                 univName.value = textSignupMajorinfoUniv.text.toString()
-                firstMajorId.value = firstDepartmentBottomSheetDialog.getSelectedData().id
+                firstMajorId.value = majorBottomSheetDialog.getSelectedData().id
                 firstMajorName.value = textSignupMajorinfoMajor.text.toString()
                 firstMajorStart.value = textSignupMajorinfoMajorTime.text.toString()
                 secondMajorId.value = secondDepartmentBottomSheetDialog.getSelectedData().id
@@ -183,42 +193,59 @@ class SignUpMajorInfoFragment :
 
     private fun onClickbottomSheetUniv() {
         binding.clSignupMajorInfoUniv.setOnClickListener {
-            bottomSheetDialog.show(parentFragmentManager, bottomSheetDialog.tag)
-            bottomSheetDialog.binding.tvBottomsheeetTitle.text = "본 전공 진입시기"
+            majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
+            majorBottomSheetDialog.binding.tvBottomsheeetTitle.text = "본 전공 진입시기"
         }
     }
+
 
     //제 1전공 학과 선택 바텀시트
     private fun firstMajor() {
+        val showMajorBottomSheetDialog = {
+            majorBottomSheetDialog.show(parentFragmentManager, majorBottomSheetDialog.tag)
+        }
+
         binding.clSignupMajorInfoMajor.setOnClickListener {
-            firstDepartmentBottomSheetDialog.show(
-                parentFragmentManager,
-                firstDepartmentBottomSheetDialog.tag
+            signViewModel.getMajorList(
+                signUpBasicInfoViewModel.univSelect.value ?: 1, "firstMajor", "noMajor",
+                MainGlobals.signInData?.userId ?: 0
             )
-        }
-        signUpBasicInfoViewModel.getFirstDepartment(1, "firstMajor")
-        signUpBasicInfoViewModel.firstDepartment.observe(viewLifecycleOwner) {
-
-            firstDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isFirstMajor }
-                .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
-        }
-
-        //데이터 넣기
-        firstDepartmentBottomSheetDialog.setCompleteListener {
-            val firstMajor = firstDepartmentBottomSheetDialog.getSelectedData()
-            signViewModel.firstMajor.value = firstMajor.name
-            signViewModel.firstMajor
-                .observe(viewLifecycleOwner) {
-                    binding.textSignupMajorinfoMajor.text = it
-                    binding.textSignupMajorinfoMajor.text = it
-
-                    binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
-                    binding.textSignupMajorinfoMajorMint.text = "변경"
-                }
-
-            signUpBasicInfoViewModel.firstDepartmentClick.value = true
+            showMajorBottomSheetDialog()
         }
     }
+
+    private fun initBottomSheet() {
+        signViewModel.getMajorList(
+            signUpBasicInfoViewModel.univSelect.value ?: 1, "firstMajor", "noMajor",
+            MainGlobals.signInData?.userId ?: 0
+        )
+
+        signViewModel.firstMajorList.observe(viewLifecycleOwner) {
+            observeBottomSheet2(
+                it,
+                majorBottomSheetDialog
+            )
+        }
+    }
+
+    private fun updateMajorStatus() {
+        majorBottomSheetDialog.setCompleteListener {
+            signViewModel.setFirstFilter(majorBottomSheetDialog.getSelectedData())
+        }
+        signViewModel.firstFilter.flowWithLifecycle(lifecycle)
+            .onEach {
+                if (it.id == 0) {
+                    it.id = signViewModel.firstMajorList.value?.get(0)?.majorId ?: 0
+                }
+                binding.textSignupMajorinfoMajor.text = it.name
+                binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
+                binding.textSignupMajorinfoMajorMint.text = "변경"
+
+            }
+            .launchIn(lifecycleScope)
+        signUpBasicInfoViewModel.firstDepartmentClick.value = true
+    }
+
 
     //제 1전공 진입시기 선택 바텀시트
     private fun firstMajorPeriod() {
@@ -263,52 +290,68 @@ class SignUpMajorInfoFragment :
         }
     }
 
-
     //제 2전공 학과 선택 바텀시트
     private fun secondMajor() {
-        binding.clSignupMajorInfoDoubleMajor.setOnClickListener {
+        val showMajorBottomSheetDialog = {
             secondDepartmentBottomSheetDialog.show(
                 parentFragmentManager,
                 secondDepartmentBottomSheetDialog.tag
             )
-            signUpBasicInfoViewModel.getSecondDepartment(1, "secondMajor")
         }
 
-        signUpBasicInfoViewModel.secondDepartment.observe(viewLifecycleOwner) {
-
-            secondDepartmentBottomSheetDialog.setDataList(it.data.filter { it.isSecondMajor }
-                .map { SelectableData(it.majorId, it.majorName, false) }.toMutableList())
+        binding.clSignupMajorInfoDoubleMajor.setOnClickListener {
+            signViewModel.getMajorList(
+                signUpBasicInfoViewModel.univSelect.value ?: 1, "secondMajor", null,
+                MainGlobals.signInData?.userId ?: 0
+            )
+            showMajorBottomSheetDialog()
         }
+    }
 
+
+    private fun initSecondBottomSheet() {
+        signViewModel.getMajorList(
+            signUpBasicInfoViewModel.univSelect.value ?: 1, "secondMajor", null,
+            MainGlobals.signInData?.userId ?: 0
+        )
+
+        signViewModel.secondMajorList.observe(viewLifecycleOwner) {
+            observeBottomSheet2(
+                it,
+                secondDepartmentBottomSheetDialog
+            )
+        }
+    }
+
+    private fun updateSecondMajorStatus() {
         secondDepartmentBottomSheetDialog.setCompleteListener {
-            val secondMajor = secondDepartmentBottomSheetDialog.getSelectedData()
-            signViewModel.secondMajor.value = secondMajor.name
-
-            signViewModel.secondMajor
-                .observe(viewLifecycleOwner) {
-                    binding.textSignupMajorinfoDoubleMajor.text = it
-                    binding.textSignupMajorinfoDoubleMajor.text = it
-                    binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
-                    binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
-                }
-
-
-            if (signViewModel.secondMajor.value.toString() == "미진입") {
-
-                signUpBasicInfoViewModel.secondDepartmentClick.value = true
-                signUpBasicInfoViewModel.secondDepartmentGo.value = true
-
-                binding.clSignupMajorInfoDoubleMajorTime.isClickable = false
-                binding.textSignupMajorinfoDoubleMajorTime.text = "미진입"
-                binding.textSignupMajorinfoDoubleMajorMintTime.text = "선택"
-                binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
-            }
-            if (signViewModel.secondMajor.value.toString() != "미진입") {
-                signUpBasicInfoViewModel.secondDepartmentClick.value = true
-                signUpBasicInfoViewModel.secondDepartmentGo.value = false
-                binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
-            }
+            signViewModel.setSecondFilter(secondDepartmentBottomSheetDialog.getSelectedData())
         }
+        signViewModel.secondFilter.flowWithLifecycle(lifecycle)
+            .onEach {
+                if (it.id == 0) {
+                    it.id = signViewModel.secondMajorList.value?.get(0)?.majorId ?: 0
+                }
+                if (it.name == "미진입") {
+                    signUpBasicInfoViewModel.secondDepartmentClick.value = true
+                    signUpBasicInfoViewModel.secondDepartmentGo.value = true
+                    Timber.e("123")
+                    binding.clSignupMajorInfoDoubleMajorTime.isClickable = false
+                    binding.textSignupMajorinfoDoubleMajorTime.text = "미진입"
+                    binding.textSignupMajorinfoDoubleMajorMintTime.text = "선택"
+                    binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+                }
+                if (it.name != "미진입") {
+                    Timber.e("456")
+                    signUpBasicInfoViewModel.secondDepartmentClick.value = true
+                    signUpBasicInfoViewModel.secondDepartmentGo.value = false
+                    binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
+                }
+                binding.textSignupMajorinfoDoubleMajor.text = it.name
+                binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
+                binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
+            }
+            .launchIn(lifecycleScope)
     }
 
 
@@ -375,50 +418,19 @@ class SignUpMajorInfoFragment :
             binding.clSignupMajorInfoMoveNext.isSelected = it
             binding.textSignupMajorInfoNext.isSelected = it
             checkMajor()
-
             nextBtnActivate()
-            if (binding.clSignupMajorInfoMoveNext.isSelected && binding.textSignupMajorInfoNext.isSelected) {
+            if (it == true) {
+                binding.clSignupMajorInfoMoveNext.setBackgroundResource(R.drawable.rectangle_fill_black_14)
+                binding.textSignupMajorInfoNext.setTextColor(Color.parseColor("#00C8B0"))
                 nextBtnActivate()
             } else {
+                binding.clSignupMajorInfoMoveNext.setBackgroundResource(R.drawable.rectangle_fill_gray_14)
+                binding.textSignupMajorInfoNext.setTextColor(Color.parseColor("#94959E"))
                 binding.clSignupMajorInfoMoveNext.isClickable = false
             }
         }
     }
 
-
-    private fun setupSpinner() {
-        val list = listOf("고려대학교", "서울여자대학교", "중앙대학교", "타 대학은 현재 준비중입니다")
-
-        //val spinnerAdapter = SpinnerAdapter(this, R.layout.spinner_item, list)
-        //binding.spinnerSignupMajorinfoUniv.adapter = spinnerAdapter
-
-
-        // val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list)
-        //  adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
-        //adapter.setDropDownViewResource(R.layout.list_id_select)
-//        binding.spinnerSignupMajorinfoUniv.setAdapter(adapter)
-//        binding.spinnerSignupMajorinfoUniv.dropDownVerticalOffset = PixelRatio().dpToPx(52)
-    }
-
-
-    private fun setupSpinnerHandler() {
-//        binding.spinnerSignupMajorinfoUniv.onItemSelectedListener =
-//            object : AdapterView.OnItemSelectedListener {
-//                override fun onItemSelected(
-//                    parent: AdapterView<*>?,
-//                    view: View?,
-//                    position: Int,
-//                    id: Long
-//                ) {
-////                    (parent!!.getChildAt(0) as TextView).setTextColor(Color.BLUE)
-////                    (parent!!.getChildAt(0) as TextView).textSize = 5f
-//
-//                }
-//
-//                override fun onNothingSelected(p0: AdapterView<*>?) {
-//                }
-//            }
-    }
 
     //라디오 버튼으로 세팅 및 해당 학교로 연결
     //TODO : 스피너로 활용하기......
@@ -430,6 +442,7 @@ class SignUpMajorInfoFragment :
                 view3.isSelected = false
             }
             binding.textSignupMajorinfoUniv.text = "고려대학교"
+            signUpBasicInfoViewModel.univSelect.value = 1
             initUnivSetting()
             initSelectUniv()
             deleteAll()
@@ -441,6 +454,7 @@ class SignUpMajorInfoFragment :
                 view3.isSelected = false
             }
             binding.textSignupMajorinfoUniv.text = "서울여자대학교"
+            signUpBasicInfoViewModel.univSelect.value = 2
             initUnivSetting()
             initSelectUniv()
             deleteAll()
@@ -452,6 +466,7 @@ class SignUpMajorInfoFragment :
                 view3.isSelected = true
             }
             binding.textSignupMajorinfoUniv.text = "중앙대학교"
+            signUpBasicInfoViewModel.univSelect.value = 3
             initUnivSetting()
             initSelectUniv()
             deleteAll()
@@ -494,6 +509,8 @@ class SignUpMajorInfoFragment :
 
     //대학 선택 바꾸면 전공, 전공 진입시기 모두 초기화
     private fun deleteAll() = with(binding) {
+
+        signUpBasicInfoViewModel.selectedAll.value = false
         textSignupMajorinfoMajor.text = "선택하기"
         textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
 
@@ -510,5 +527,7 @@ class SignUpMajorInfoFragment :
         textSignupMajorinfoMajorTimeMint.text = "선택"
         textSignupMajorinfoDoubleMajorMint.text = "선택"
         textSignupMajorinfoDoubleMajorMintTime.text = "선택"
+
+
     }
 }
