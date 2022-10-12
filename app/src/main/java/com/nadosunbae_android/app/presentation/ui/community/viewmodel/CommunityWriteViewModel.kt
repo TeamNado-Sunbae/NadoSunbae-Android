@@ -40,7 +40,7 @@ class CommunityWriteViewModel @Inject constructor(
     }
 
     //학과 선택 내용
-    private var _filter = MutableStateFlow(SelectableData.DEFAULT)
+    private var _filter = MutableStateFlow(SelectableData.COMMUNITYDEFAULT)
     val filter: StateFlow<SelectableData>
         get() = _filter
 
