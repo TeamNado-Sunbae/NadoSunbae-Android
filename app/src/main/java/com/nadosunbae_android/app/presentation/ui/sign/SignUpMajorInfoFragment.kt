@@ -20,6 +20,7 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SignUpMajorInfoFragment :
@@ -37,7 +38,6 @@ class SignUpMajorInfoFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         majorBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_first_major), false, 0, false, isSignUp = true)
         secondDepartmentBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_second_major), false, 0, false, isSignUp = true)
-
         deleteAll()
         initTextfield()
         closePage()
@@ -69,6 +69,7 @@ class SignUpMajorInfoFragment :
         //첫번째 전공
         val firstMajor = signUpBasicInfoViewModel.firstMajorName.value ?: "선택하기"
         textSignupMajorinfoMajor.text = firstMajor
+        Timber.e("TEST1 : ${signUpBasicInfoViewModel.firstMajorName.value}")
 
         if (textSignupMajorinfoMajor.text.toString() == "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
@@ -84,8 +85,7 @@ class SignUpMajorInfoFragment :
         } else {
             textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
         }
-        //signViewModel.secondMajor.value = secondMajor
-        //secondMajorId = signUpBasicInfoViewModel.secondMajorId.value ?: 0
+
 
         textSignupMajorinfoDoubleMajorTime.text =
             signUpBasicInfoViewModel.secondMajorStart.value ?: "선택하기"
@@ -99,7 +99,6 @@ class SignUpMajorInfoFragment :
             textSignupMajorinfoDoubleMajorTime.text = "미진입"
             textSignupMajorinfoDoubleMajorMintTime.text = "선택"
             textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
-
         }
 
         //선택하기 분기처리
@@ -288,7 +287,7 @@ class SignUpMajorInfoFragment :
 
         binding.clSignupMajorInfoDoubleMajor.setOnClickListener {
             signViewModel.getMajorList(
-                signUpBasicInfoViewModel.univSelect.value ?: 1, "secondMajor", "noMajor",
+                signUpBasicInfoViewModel.univSelect.value ?: 1, "secondMajor", null,
                 MainGlobals.signInData?.userId ?: 0
             )
             showMajorBottomSheetDialog()
@@ -298,7 +297,7 @@ class SignUpMajorInfoFragment :
 
     private fun initSecondBottomSheet() {
         signViewModel.getMajorList(
-            signUpBasicInfoViewModel.univSelect.value ?: 1, "secondMajor", "noMajor",
+            signUpBasicInfoViewModel.univSelect.value ?: 1, "secondMajor", null,
             MainGlobals.signInData?.userId ?: 0
         )
 
@@ -317,25 +316,26 @@ class SignUpMajorInfoFragment :
         signViewModel.secondFilter.flowWithLifecycle(lifecycle)
             .onEach {
                 if (it.id == 0) {
-                    it.id = signViewModel.firstMajorList.value?.get(0)?.majorId ?: 0
+                    it.id = signViewModel.secondMajorList.value?.get(0)?.majorId ?: 0
                 }
                 if(it.name == "미진입") {
                     signUpBasicInfoViewModel.secondDepartmentClick.value = true
                     signUpBasicInfoViewModel.secondDepartmentGo.value = true
-
+                    Timber.e("123")
                     binding.clSignupMajorInfoDoubleMajorTime.isClickable = false
                     binding.textSignupMajorinfoDoubleMajorTime.text = "미진입"
                     binding.textSignupMajorinfoDoubleMajorMintTime.text = "선택"
                     binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
                 }
                 if (it.name != "미진입") {
+                    Timber.e("456")
                     signUpBasicInfoViewModel.secondDepartmentClick.value = true
                     signUpBasicInfoViewModel.secondDepartmentGo.value = false
                     binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
                 }
+                binding.textSignupMajorinfoDoubleMajor.text = it.name
                 binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
                 binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
-
             }
             .launchIn(lifecycleScope)
     }
