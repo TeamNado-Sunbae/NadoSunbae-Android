@@ -81,11 +81,16 @@ class CommunityWriteViewModel @Inject constructor(
         get() = _postWrite
 
     fun postWrite(type: () -> String, title: String, content: String) {
+        val majorId = if(filter.value.id != -1){
+            filter.value.id.toString()
+        }else{
+            majorList.value?.get(0)?.majorId.toString()
+        }
         viewModelScope.launch {
             postRepository.postWrite(
                 PostWriteParam(
                     type = type(),
-                    majorId = filter.value.id.toString(),
+                    majorId = majorId,
                     answerId = MainGlobals.signInData?.userId.toString(),
                     title = title,
                     content = content

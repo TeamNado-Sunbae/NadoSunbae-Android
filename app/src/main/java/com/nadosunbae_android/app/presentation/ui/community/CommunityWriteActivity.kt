@@ -74,6 +74,7 @@ class CommunityWriteActivity :
     private fun clickCategory() {
         var categoryCheck = false
         var radioButton = CommunityRadioButtonData.DEFAULT
+        binding.layoutCommunityWriteCategory.communityRadioButtonData = radioButton
         with(binding.layoutCommunityWriteCategory) {
             radioGroupCategory.setOnCheckedChangeListener { radioGroup, id ->
                 categoryCheck = when (id) {
