@@ -85,7 +85,6 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
 
     private fun observeSelectedMajor(){
         mainViewModel.selectedMajor.observe(requireActivity()) {
-            showLoading()
             classRoomQuestionViewModel.getSeniorList(it.majorId, null)
             classRoomQuestionViewModel.getQuestionList(mainViewModel.univId.value!!, it.majorId)
         }
