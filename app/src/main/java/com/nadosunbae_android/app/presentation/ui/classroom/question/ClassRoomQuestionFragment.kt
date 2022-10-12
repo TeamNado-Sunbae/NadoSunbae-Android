@@ -10,7 +10,6 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInfoMainAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.question.viewmodel.ClassRoomQuestionViewModel
-import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
@@ -38,7 +37,7 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
         setListener()
         observeLoadingEnd()
         observeData()
-        loadServerData()
+        observeSelectedMajor()
     }
 
     private fun initBinding() {
@@ -84,10 +83,11 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
         }
     }
 
-    private fun loadServerData(){
-        showLoading()
-        classRoomQuestionViewModel.getSeniorList(ReviewGlobals.selectedMajor!!.majorId, null)
-        classRoomQuestionViewModel.getQuestionList(mainViewModel.univId.value!!, ReviewGlobals.selectedMajor!!.majorId)
+    private fun observeSelectedMajor(){
+        mainViewModel.selectedMajor.observe(requireActivity()) {
+            classRoomQuestionViewModel.getSeniorList(it.majorId, null)
+            classRoomQuestionViewModel.getQuestionList(mainViewModel.univId.value!!, it.majorId)
+        }
     }
 
     //로딩 종료
