@@ -181,7 +181,6 @@ class CommunityMainContentFragment :
                         MainGlobals.signInData?.universityId ?: 1, "all", null,
                         MainGlobals.signInData?.userId ?: 0
                     )
-
                 }
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
