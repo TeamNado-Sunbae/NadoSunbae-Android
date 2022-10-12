@@ -43,8 +43,6 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
     private fun initUnivEmail(){
         signUpBasicInfoViewModel.getUnivEmail(signUpBasicInfoViewModel.univId.value ?: 1)
         signUpBasicInfoViewModel.univEmail.observe(viewLifecycleOwner) {
-            Timber.e("school ${signUpBasicInfoViewModel.univId.value}")
-            Timber.e("email : $it")
             binding.etSignupBasicinfoEmail.setHint(it.email)
         }
     }
@@ -283,10 +281,10 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
 
     //이메일 정규식
     private fun isEmailPattern() {
+        val univEmail = signUpBasicInfoViewModel.univEmail.value?.email ?:""
         binding.textSignupBasicinfoEmailDuplication.isSelected = true
         binding.textSignupBasicinfoEmailDuplication.isEnabled = true
-
-        if (binding.etSignupBasicinfoEmail.text.contains("@korea.ac.kr")) {
+        if (binding.etSignupBasicinfoEmail.text.contains("$univEmail")) {
             binding.textSignupBasicinfoEmailDuplication.isSelected = true
             binding.textSignupBasicinfoEmailDuplication.isEnabled = true
         } else {
