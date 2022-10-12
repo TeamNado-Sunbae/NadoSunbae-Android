@@ -19,5 +19,11 @@ data class SelectableData(
             isSelected = true,
             isFavorites = false
         )
+        val SIGNDEFAULT = SelectableData(
+            id = -1,
+            name = "선택하기",
+            isSelected = true,
+            isFavorites = false
+        )
     }
 }

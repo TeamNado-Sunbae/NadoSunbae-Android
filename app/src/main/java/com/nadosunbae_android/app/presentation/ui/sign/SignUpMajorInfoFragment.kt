@@ -69,8 +69,6 @@ class SignUpMajorInfoFragment :
         //첫번째 전공
         val firstMajor = signUpBasicInfoViewModel.firstMajorName.value ?: "선택하기"
         textSignupMajorinfoMajor.text = firstMajor
-        Timber.e("TEST1 : ${signUpBasicInfoViewModel.firstMajorName.value}")
-
         if (textSignupMajorinfoMajor.text.toString() == "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
         }
@@ -150,6 +148,8 @@ class SignUpMajorInfoFragment :
     private fun moveBeforePage() {
         binding.clSignupMajorInfoMoveBefore.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            signViewModel.setFirstFilter(SelectableData.SIGNDEFAULT)
+            signViewModel.setSecondFilter(SelectableData.SIGNDEFAULT)
         }
     }
 

@@ -39,12 +39,12 @@ class SignViewModel @Inject constructor(
         get() = _secondMajorList
 
     //학과 선택 내용
-    private var _firstFilter = MutableStateFlow(SelectableData.DEFAULT)
+    private var _firstFilter = MutableStateFlow(SelectableData.SIGNDEFAULT)
     val firstFilter: StateFlow<SelectableData>
         get() = _firstFilter
 
     //학과 선택 내용
-    private var _secondFilter = MutableStateFlow(SelectableData.DEFAULT)
+    private var _secondFilter = MutableStateFlow(SelectableData.SIGNDEFAULT)
     val secondFilter: StateFlow<SelectableData>
         get() = _secondFilter
 
