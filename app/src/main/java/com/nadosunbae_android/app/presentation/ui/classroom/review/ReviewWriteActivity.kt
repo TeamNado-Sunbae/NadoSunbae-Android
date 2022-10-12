@@ -31,7 +31,7 @@ class ReviewWriteActivity :
     private lateinit var reviewSelectBackgroundAdapter: ReviewSelectBackgroundAdapter
     private lateinit var reviewRequireTextWatcher: ReviewRequireTextWatcher
 
-    private var mode = MODE_NEW
+    private var mode = WriteMode.NEW
     private lateinit var modifyData: ReviewDetailData
 
     private val mainViewModel: MainViewModel by viewModels()
@@ -72,10 +72,10 @@ class ReviewWriteActivity :
     }
 
     private fun initWriteMode() {
-        mode = intent.getIntExtra("mode", MODE_NEW)
+        mode = (intent.getSerializableExtra("mode") as WriteMode)
 
         // 수정하기 일 때 기존 데이터 불러오기
-        if (mode == MODE_MODIFY) {
+        if (mode == WriteMode.MODIFY) {
             // 기존 글 정보
             modifyData =
                 intent.getParcelableExtra<ReviewDetailData>("modifyData") as ReviewDetailData
@@ -213,7 +213,7 @@ class ReviewWriteActivity :
         // 학과 선택
         binding.clReviewWriteSelectMajor.setOnClickListener {
 
-            if (mode != MODE_MODIFY) {
+            if (mode != WriteMode.MODIFY) {
 
                 val selectableList = mutableListOf<SelectableData>()
 
@@ -259,7 +259,7 @@ class ReviewWriteActivity :
             var dialogComplete = getString(R.string.alert_write_review_complete)
             var dialogCancel = getString(R.string.alert_write_review_cancel)
 
-            if (mode == MODE_MODIFY) {
+            if (mode == WriteMode.MODIFY) {
                 dialogTitle = getString(R.string.alert_modify_review_title)
                 dialogComplete = getString(R.string.alert_modify_review_complete)
                 dialogCancel = getString(R.string.alert_modify_review_cancel)
@@ -273,8 +273,8 @@ class ReviewWriteActivity :
                 ),
                 complete = {
                     when (mode) {
-                        MODE_NEW -> completeWriteNewReview()
-                        MODE_MODIFY -> completeModifyReview()
+                        WriteMode.NEW -> completeWriteNewReview()
+                        WriteMode.MODIFY -> completeModifyReview()
                     }
                 },
                 cancel = {
@@ -365,10 +365,10 @@ class ReviewWriteActivity :
 
                 // default 설정
                 when (mode) {
-                    MODE_NEW -> reviewSelectBackgroundAdapter.setSelectedBackground(
+                    WriteMode.NEW -> reviewSelectBackgroundAdapter.setSelectedBackground(
                         DEFAULT_BACKGROUND
                     )
-                    MODE_MODIFY -> reviewSelectBackgroundAdapter.setSelectedBackground(modifyData.backgroundImageId)
+                    WriteMode.MODIFY -> reviewSelectBackgroundAdapter.setSelectedBackground(modifyData.backgroundImageId)
                 }
 
                 reviewSelectBackgroundAdapter.notifyDataSetChanged()
@@ -448,7 +448,7 @@ class ReviewWriteActivity :
         val valid =
             validTextInput != null && validTextInput && validBackground != null && reviewSelectBackgroundAdapter.getSelectedBackgroundId() != null
         binding.btnWriteComplete.isEnabled =
-            if (mode == MODE_MODIFY) valid || (reviewSelectBackgroundAdapter.backgroundSelected.value == true && reviewSelectBackgroundAdapter.getSelectedBackgroundId() != null)
+            if (mode == WriteMode.MODIFY) valid || (reviewSelectBackgroundAdapter.backgroundSelected.value == true && reviewSelectBackgroundAdapter.getSelectedBackgroundId() != null)
             else valid
 
     }
@@ -465,7 +465,7 @@ class ReviewWriteActivity :
 
     private fun confirmExit(): MutableLiveData<Boolean> {
         var title = getString(R.string.alert_cancel_write_title)
-        if (mode == MODE_MODIFY)
+        if (mode == WriteMode.MODIFY)
             title = getString(R.string.alert_cancel_edit_title)
 
         val confirm = MutableLiveData<Boolean>()
@@ -542,14 +542,13 @@ class ReviewWriteActivity :
         // 학과 - 정보없음
         const val NO_INFORMATION = 127
 
-        // 새로 작성하기
-        const val MODE_NEW = 1
-
-        // 기존 후기 수정하기
-        const val MODE_MODIFY = 2
-
         // default 배경 id
         const val DEFAULT_BACKGROUND = 6
+    }
+
+    enum class WriteMode(val num: Int) {
+        NEW(1), // 새로 작성하기
+        MODIFY(2)   // 수정하기
     }
 
 }

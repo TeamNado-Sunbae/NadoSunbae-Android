@@ -13,5 +13,11 @@ data class SelectableData(
             isSelected = true,
             isFavorites = false
         )
+        val COMMUNITYDEFAULT = SelectableData(
+            id = -1,
+            name = "학과 무관",
+            isSelected = true,
+            isFavorites = false
+        )
     }
 }

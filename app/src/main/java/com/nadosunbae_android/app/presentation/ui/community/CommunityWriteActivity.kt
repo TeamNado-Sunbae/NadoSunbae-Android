@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.community
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -12,7 +13,9 @@ import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityW
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.domain.model.community.CommunityRadioButtonData
 import com.nadosunbae_android.domain.model.main.MajorSelectData
+import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -70,13 +73,25 @@ class CommunityWriteActivity :
     //카테고리 클릭 이벤트
     private fun clickCategory() {
         var categoryCheck = false
+        var radioButton = CommunityRadioButtonData.DEFAULT
+        binding.layoutCommunityWriteCategory.communityRadioButtonData = radioButton
         with(binding.layoutCommunityWriteCategory) {
             radioGroupCategory.setOnCheckedChangeListener { radioGroup, id ->
                 categoryCheck = when (id) {
-                    radioBtnCategoryFreedom.id -> false
-                    radioBtnCategoryQuestion.id -> true
-                    else -> false
+                    radioBtnCategoryFreedom.id -> {
+                        radioButton = CommunityRadioButtonData(true,false,false)
+                        false
+                    }
+                    radioBtnCategoryQuestion.id -> {
+                        radioButton = CommunityRadioButtonData(false,true,false)
+                        true
+                    }
+                    else -> {
+                        radioButton = CommunityRadioButtonData(false,false,true)
+                        false
+                    }
                 }
+                binding.layoutCommunityWriteCategory.communityRadioButtonData = radioButton
                 binding.category = categoryCheck
             }
         }

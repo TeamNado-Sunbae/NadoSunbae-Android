@@ -31,7 +31,6 @@ class CustomBottomSheetDialog(
 ) : BottomSheetDialogFragment() {
 
 
-
     // 바텀시트 타이틀
     private var _titleData = MutableLiveData<String>()
     val titleData: LiveData<String>
@@ -39,10 +38,6 @@ class CustomBottomSheetDialog(
 
     var completeOperation: () -> Unit = { }
 
-    //바텀 시트 majorId
-    private var _majorId = MutableLiveData<Int>()
-    val majorId: LiveData<Int>
-        get() = _majorId
 
     private var majorSelectAdapter: MajorSelectAdapter
 
@@ -106,7 +101,6 @@ class CustomBottomSheetDialog(
 
         binding.tvBottomsheeetTitle.text = title
         searchFilterMajor()
-        observeFavoritesData()
         getFavoritesData()
         binding.executePendingBindings()
     }
@@ -223,18 +217,11 @@ class CustomBottomSheetDialog(
     //학과 즐겨찾기 데이터
     private fun getFavoritesData() {
         majorSelectAdapter.setFavoritesClickListener {
-            _majorId.value = it
-        }
-    }
-
-    //즐겨찾기 데이터 옵저빙시
-    fun observeFavoritesData() {
-        majorId.observe(viewLifecycleOwner) { id ->
+            val majorId = it
             completeFavorites.let {
-                it(id)
+                it(majorId)
             }
         }
-
     }
 
     private var completeFavorites: (Int) -> Unit = {}

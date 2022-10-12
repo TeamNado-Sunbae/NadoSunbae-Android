@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.util
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -8,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
@@ -389,4 +391,13 @@ fun android.widget.Button.intToString(num: Int) {
 @BindingAdapter("setSelected")
 fun View.setSelected(selected: Boolean) {
     this.isSelected = selected
+}
+
+@BindingAdapter("radioButtonTint")
+fun RadioButton.radioButtonTint(selected : Boolean){
+        var color = context.getColor(R.color.main_default)
+        if(!selected){
+            color = context.getColor(R.color.gray_2)
+        }
+    this.buttonTintList = ColorStateList.valueOf(color)
 }
