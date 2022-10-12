@@ -5,28 +5,21 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentSignUpMajorInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
-import com.nadosunbae_android.app.presentation.ui.classroom.review.FilterBottomSheetDialog
-import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.SignInCustomDialog
-import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SignUpMajorInfoFragment :
@@ -72,15 +65,10 @@ class SignUpMajorInfoFragment :
             textSignupMajorinfoUniv.isSelected = true
         }
 
-        //첫번째 전공
-        val firstMajor = signViewModel.firstMajor.value ?: "선택하기"
-        if(signViewModel.firstMajor.value == null) {
-            textSignupMajorinfoMajor.text = "선택하기"
-        }
-        else {
-            textSignupMajorinfoMajor.text = firstMajor
-        }
 
+        //첫번째 전공
+        val firstMajor = signUpBasicInfoViewModel.firstMajorName.value ?: "선택하기"
+        textSignupMajorinfoMajor.text = firstMajor
 
         if (textSignupMajorinfoMajor.text.toString() == "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
@@ -94,10 +82,10 @@ class SignUpMajorInfoFragment :
         if (textSignupMajorinfoDoubleMajor.text.toString() == "선택하기") {
             textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#94959E"))
         } else {
-            signUpBasicInfoViewModel.selectedAll.value = true
             textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
         }
-
+        //signViewModel.secondMajor.value = secondMajor
+        //secondMajorId = signUpBasicInfoViewModel.secondMajorId.value ?: 0
 
         textSignupMajorinfoDoubleMajorTime.text =
             signUpBasicInfoViewModel.secondMajorStart.value ?: "선택하기"
@@ -111,6 +99,7 @@ class SignUpMajorInfoFragment :
             textSignupMajorinfoDoubleMajorTime.text = "미진입"
             textSignupMajorinfoDoubleMajorMintTime.text = "선택"
             textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+
         }
 
         //선택하기 분기처리
