@@ -58,7 +58,7 @@
                 android:layout_marginStart="6dp"
                 android:fontFamily="@font/pretendard_light"
                 android:includeFontPadding="false"
-                android:text="@{filterTitle}"
+                android:text="@string/major"
                 android:textColor="@color/gray_3"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/img_community_filter"

@@ -105,7 +105,6 @@ class CommunityMainContentFragment :
 
     //필터 바텀 시트
     private fun initBottomSheet() {
-        binding.filterTitle = getString(R.string.no_major)
         majorBottomSheetDialog = CustomBottomSheetDialog(
             resources.getString(R.string.community_bottom_sheet_title),
             true,
@@ -136,13 +135,6 @@ class CommunityMainContentFragment :
                 val majorName = selectedData.name
                 communityViewModel.setCommunityMainMajorName(majorName)
                 communityViewModel.setCommunityMainFilter(type, majorName)
-                filterTitle =
-                    if (selectedData.name == getString(R.string.no_major) || selectedData.name == "") getString(
-                        R.string.no_major
-                    ) else getString(
-                        R.string.major
-                    )
-                Timber.d("selectedData, $selectedData")
                 val filterSelect = selectedData.id != -1
                 imgCommunityFilter.isSelected = filterSelect
             }
@@ -155,7 +147,13 @@ class CommunityMainContentFragment :
             val type = communityViewModel.communityMainType.value
             val majorName = communityViewModel.communityMainMajorName.value
             communityViewModel.getCommunityMainData(
-                MainGlobals.signInData?.universityId ?: 1, "0", "community", "recent", "", type, majorName
+                MainGlobals.signInData?.universityId ?: 1,
+                "0",
+                "community",
+                "recent",
+                "",
+                type,
+                majorName
             )
         }
     }
@@ -173,6 +171,7 @@ class CommunityMainContentFragment :
     //즐겨찾기 클릭시
     private fun clickMajorFavorites() {
         majorBottomSheetDialog.setCompleteFavoritesListener {
+            Timber.d("이거 호출 $it")
             communityViewModel.postCommunityFavorite(it)
         }
         communityViewModel.communityFavorites.flowWithLifecycle(viewLifecycleOwner.lifecycle)
@@ -182,6 +181,7 @@ class CommunityMainContentFragment :
                         MainGlobals.signInData?.universityId ?: 1, "all", null,
                         MainGlobals.signInData?.userId ?: 0
                     )
+
                 }
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
