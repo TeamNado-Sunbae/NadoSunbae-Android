@@ -36,4 +36,8 @@ class SignDataSourceImpl @Inject constructor(private val service: SignService) :
     override suspend fun postRenewalToken(): ResponseSignIn {
         return service.postRenewalToken()
     }
+
+    override suspend fun getUnivEmail(universityId: Int): ResponseUnivEmail {
+        return service.getUnivEmail(universityId)
+    }
 }

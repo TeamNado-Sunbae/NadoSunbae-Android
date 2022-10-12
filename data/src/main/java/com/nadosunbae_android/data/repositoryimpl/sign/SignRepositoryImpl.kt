@@ -1,11 +1,11 @@
 package com.nadosunbae_android.data.repositoryimpl.sign
 
 import com.nadosunbae_android.data.datasource.remote.sign.SignDataSource
-import com.nadosunbae_android.data.mapper.classroom.*
-import com.nadosunbae_android.data.mapper.classroom.SignMapper.mapperToSignEmail
-import com.nadosunbae_android.data.mapper.classroom.SignMapper.mapperToSignIn
-import com.nadosunbae_android.data.mapper.classroom.SignMapper.mapperToSignNickname
-import com.nadosunbae_android.data.mapper.classroom.SignMapper.mapperToSignUp
+import com.nadosunbae_android.data.mapper.sign.SignMapper
+import com.nadosunbae_android.data.mapper.sign.SignMapper.mapperToSignEmail
+import com.nadosunbae_android.data.mapper.sign.SignMapper.mapperToSignIn
+import com.nadosunbae_android.data.mapper.sign.SignMapper.mapperToSignNickname
+import com.nadosunbae_android.data.mapper.sign.SignMapper.mapperToSignUp
 import com.nadosunbae_android.domain.model.sign.*
 import com.nadosunbae_android.domain.repository.sign.SignRepository
 import javax.inject.Inject
@@ -53,5 +53,9 @@ class SignRepositoryImpl @Inject constructor(private val signDataSource : SignDa
 
     override suspend fun postRenewalToken(): SignInData {
         return SignMapper.mapperToSignInData(signDataSource.postRenewalToken())
+    }
+
+    override suspend fun getUnivEmail(universityId: Int): UnivEmailItem {
+        return SignMapper.mapperToUnivEmail(signDataSource.getUnivEmail(universityId))
     }
 }

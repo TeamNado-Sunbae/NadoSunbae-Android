@@ -24,4 +24,6 @@ interface SignRepository {
     //토큰 재발급 및 자동 로그인
     suspend fun postRenewalToken(): SignInData
 
+    suspend fun getUnivEmail(universityId: Int) : UnivEmailItem
+
 }

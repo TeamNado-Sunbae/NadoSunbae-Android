@@ -1,4 +1,4 @@
-package com.nadosunbae_android.data.mapper.classroom
+package com.nadosunbae_android.data.mapper.sign
 
 import com.nadosunbae_android.data.model.request.sign.*
 import com.nadosunbae_android.data.model.response.sign.*
@@ -128,6 +128,12 @@ object SignMapper {
         return RequestCertificationEmail(
             email = certificationEmailData.email,
             password = certificationEmailData.password
+        )
+    }
+
+    fun mapperToUnivEmail(responseUnivEmail: ResponseUnivEmail) : UnivEmailItem {
+        return UnivEmailItem(
+            email = responseUnivEmail.data.email
         )
     }
 

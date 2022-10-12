@@ -1,20 +1,16 @@
 package com.nadosunbae_android.app.util
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.Gson
 import com.nadosunbae_android.app.di.NadoSunBaeApplication
 import com.nadosunbae_android.app.presentation.ui.main.SplashActivity
-import com.nadosunbae_android.app.presentation.ui.sign.SignInActivity
 import com.nadosunbae_android.app.util.ManageUtil.isServiceRunning
 import com.nadosunbae_android.app.util.ManageUtil.restartApp
-import com.nadosunbae_android.data.mapper.classroom.SignMapper
+import com.nadosunbae_android.data.mapper.sign.SignMapper
 import com.nadosunbae_android.data.model.response.sign.ResponseSignIn
-import com.nadosunbae_android.domain.model.sign.RenewalTokenData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import okhttp3.*
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONObject
 import timber.log.Timber
 import java.lang.Exception
 

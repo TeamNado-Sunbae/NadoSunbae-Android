@@ -24,4 +24,7 @@ interface SignDataSource {
 
     //토큰 재발급 및 자동 로그인
     suspend fun postRenewalToken(): ResponseSignIn
+
+    //학교 이메일 조회
+    suspend fun getUnivEmail(universityId : Int) : ResponseUnivEmail
 }

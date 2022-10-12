@@ -6,6 +6,7 @@ import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.data.model.request.sign.RequestSignUp
 import com.nadosunbae_android.domain.model.sign.*
+import com.nadosunbae_android.domain.repository.sign.SignRepository
 import com.nadosunbae_android.domain.usecase.classroom.*
 import com.nadosunbae_android.domain.usecase.sign.GetSecondDepartmentUseCase
 import com.nadosunbae_android.domain.usecase.sign.PostCertificationEmailUseCase
@@ -24,7 +25,8 @@ class SignUpBasicInfoViewModel @Inject constructor(
     private val postSignInUseCase: PostSignInUseCase,
     private val postSignNicknameUseCase: PostSignNicknameUseCase,
     private val postSignUpUseCase: PostSignUpUseCase,
-    private val postCertificationEmailUseCase: PostCertificationEmailUseCase
+    private val postCertificationEmailUseCase: PostCertificationEmailUseCase,
+    private val signRepository: SignRepository
 ) : ViewModel() {
 
     //현재 대학 뭐로 골랐는지
@@ -64,6 +66,11 @@ class SignUpBasicInfoViewModel @Inject constructor(
     var secondMajorId = MutableLiveData<Int>()
     var secondMajorName = MutableLiveData<String>()
     var secondMajorStart = MutableLiveData<String>()
+
+    //학교 이메일
+    private var _univEmail = MutableLiveData<UnivEmailItem>()
+    val univEmail: LiveData<UnivEmailItem>
+        get() = _univEmail
 
     //로그인 상태
     private var _status = MutableLiveData<Int?>()
@@ -245,6 +252,20 @@ class SignUpBasicInfoViewModel @Inject constructor(
                 .onFailure {
                     Timber.d("SecondMajorBottomSheet : 서버 통신 실패")
                 }
+        }
+    }
+
+    //학교 이메일 조회
+    fun getUnivEmail(universityId: Int) {
+        viewModelScope.launch {
+            kotlin.runCatching { signRepository.getUnivEmail(universityId) }
+                .onSuccess {
+                    _univEmail.value = it
+                    Timber.d("학교 이메일 조회 : 서버 통신 성공")
+                }
+                .onFailure {
+                    Timber.d("학교 이메일 조회 : 서버 통신 실패패")
+               }
         }
     }
 

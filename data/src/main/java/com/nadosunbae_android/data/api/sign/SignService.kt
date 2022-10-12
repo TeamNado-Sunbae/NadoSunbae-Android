@@ -41,4 +41,9 @@ interface SignService {
     suspend fun postRenewalToken(
     ) : ResponseSignIn
 
+    @GET("auth/university/{universityId}")
+    suspend fun getUnivEmail(
+        @Path("universityId") universityId :Int
+    ) : ResponseUnivEmail
+
 }
