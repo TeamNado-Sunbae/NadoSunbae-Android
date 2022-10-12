@@ -41,11 +41,12 @@
                 android:id="@+id/text_context1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/pretendard_regular"
+                android:lineSpacingExtra="3dp"
                 android:text="@string/onboarding_question_subtext1"
                 android:textColor="@color/main_text"
                 android:textSize="14sp"
-                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_title" />
@@ -63,6 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_semibold"
+                    android:lineSpacingExtra="3dp"
                     android:text="@string/onboarding_question_subtext2"
                     android:textColor="@color/main_text"
                     android:textSize="14sp"
@@ -76,6 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_regular"
+                    android:lineSpacingExtra="3dp"
                     android:text="@string/onboarding_question_subtext3"
                     android:textColor="@color/main_text"
                     android:textSize="14sp"
@@ -88,12 +91,10 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
@@ -103,6 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_regular"
+                    android:lineSpacingExtra="3dp"
                     android:text="@string/onboarding_question_subtext4"
                     android:textColor="@color/main_text"
                     android:textSize="14sp"
@@ -113,11 +115,12 @@
                     android:id="@+id/text_context5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
                     android:fontFamily="@font/pretendard_semibold"
+                    android:lineSpacingExtra="3dp"
                     android:text="@string/onboarding_question_subtext5"
                     android:textColor="@color/main_text"
                     android:textSize="14sp"
-                    android:layout_marginStart="3dp"
                     app:layout_constraintStart_toEndOf="@+id/text_context4"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -127,6 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_regular"
+                    android:lineSpacingExtra="3dp"
                     android:text="@string/onboarding_question_subtext6"
                     android:textColor="@color/main_text"
                     android:textSize="14sp"
