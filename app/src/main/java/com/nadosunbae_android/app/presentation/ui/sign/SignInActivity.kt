@@ -120,6 +120,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     private fun moveSignUp() {
         binding.textSignInSignup.setOnClickListener {
             startActivity(Intent(this, SignUpMainActivity::class.java))
+            finish()
         }
     }
 

@@ -321,7 +321,7 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
             dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener {
                 override fun onClicked(num: () -> Unit) {
                     startActivity(Intent(requireActivity(), SignInActivity::class.java))
-                    //finish()
+                    activity?.finish()
                 }
             })
         }

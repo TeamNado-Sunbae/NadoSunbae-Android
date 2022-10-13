@@ -154,6 +154,7 @@ class SignUpMajorInfoFragment :
             dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener {
                 override fun onClicked(num: () -> Unit) {
                     startActivity(Intent(requireActivity(), SignInActivity::class.java))
+                    activity?.finish()
                 }
             })
         }
