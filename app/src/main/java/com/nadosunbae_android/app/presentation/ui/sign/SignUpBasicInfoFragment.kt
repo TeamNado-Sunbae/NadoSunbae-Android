@@ -259,6 +259,8 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
     private fun beforeBtnClick() {
         binding.clSignupBasicinfoMoveBefore.setOnClickListener {
             findNavController().navigate(R.id.action_ThirdFragment_to_SecondFragment)
+            binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
+            binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
         }
     }
 

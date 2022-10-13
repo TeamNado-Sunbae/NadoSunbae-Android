@@ -74,56 +74,26 @@ class SignUpMajorInfoFragment :
     private fun initTextfield() = with(binding) {
         val univ = signUpBasicInfoViewModel.univName.value ?: "선택하기"
         textSignupMajorinfoUniv.text = univ
-
         if (textSignupMajorinfoUniv.text.toString() != "선택하기") {
             textSignupMajorinfoUniv.isSelected = true
         }
 
 
-        //첫번째 전공
-        val firstMajor = signUpBasicInfoViewModel.firstMajorName.value ?: "선택하기"
-        textSignupMajorinfoMajor.text = firstMajor
-        if (textSignupMajorinfoMajor.text.toString() == "선택하기") {
-            textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
-        }
-        textSignupMajorinfoMajorTime.text = signUpBasicInfoViewModel.firstMajorStart.value ?: "선택하기"
-
-        //두번째 전공
-        val secondMajor = signUpBasicInfoViewModel.secondMajorName.value ?: "선택하기"
-        textSignupMajorinfoDoubleMajor.text = secondMajor
-
-        if (textSignupMajorinfoDoubleMajor.text.toString() == "선택하기") {
-            textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#94959E"))
-        } else {
-            textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
-        }
-
-
-        textSignupMajorinfoDoubleMajorTime.text =
-            signUpBasicInfoViewModel.secondMajorStart.value ?: "선택하기"
-
-        if (signViewModel.secondMajor.value.toString() == "미진입") {
-
-            signUpBasicInfoViewModel.secondDepartmentClick.value = true
-            signUpBasicInfoViewModel.secondDepartmentGo.value = true
-
-            clSignupMajorInfoDoubleMajorTime.isClickable = false
-            textSignupMajorinfoDoubleMajorTime.text = "미진입"
-            textSignupMajorinfoDoubleMajorMintTime.text = "선택"
-            textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
-        }
-
         //선택하기 분기처리
+        /*
         if (textSignupMajorinfoMajor.text.toString() != "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorMint.text = "변경"
         }
+
+         */
 
         if (textSignupMajorinfoMajorTime.text.toString() != "선택하기") {
             textSignupMajorinfoMajorTime.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorTimeMint.text = "변경"
         }
 
+        /*
         if (textSignupMajorinfoMajor.text.toString() != "선택하기") {
             textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoMajorMint.text = "변경"
@@ -133,6 +103,8 @@ class SignUpMajorInfoFragment :
             textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
             binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
         }
+
+         */
 
         if (textSignupMajorinfoDoubleMajorTime.text.toString() != "선택하기") {
             textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#001D19"))
@@ -163,6 +135,7 @@ class SignUpMajorInfoFragment :
     private fun moveBeforePage() {
         binding.clSignupMajorInfoMoveBefore.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            signUpBasicInfoViewModel.univId.value = 0
             signViewModel.setFirstFilter(SelectableData.SIGNDEFAULT)
             signViewModel.setSecondFilter(SelectableData.SIGNDEFAULT)
         }
@@ -235,12 +208,17 @@ class SignUpMajorInfoFragment :
         }
         signViewModel.firstFilter.flowWithLifecycle(lifecycle)
             .onEach {
-                if (it.id == 0) {
-                    it.id = signViewModel.firstMajorList.value?.get(0)?.majorId ?: 0
+                if (it.id == -1) {
+                    it.id = signViewModel.firstMajorList.value?.get(0)?.majorId ?: -1
+                    binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
+                    binding.textSignupMajorinfoMajorMint.text = "선택"
                 }
-                binding.textSignupMajorinfoMajor.text = it.name
-                binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
-                binding.textSignupMajorinfoMajorMint.text = "변경"
+                else {
+                    binding.textSignupMajorinfoMajor.text = it.name
+                    binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
+                    binding.textSignupMajorinfoMajorMint.text = "변경"
+                }
+
 
             }
             .launchIn(lifecycleScope)
@@ -330,27 +308,29 @@ class SignUpMajorInfoFragment :
         }
         signViewModel.secondFilter.flowWithLifecycle(lifecycle)
             .onEach {
-                if (it.id == 0) {
-                    it.id = signViewModel.secondMajorList.value?.get(0)?.majorId ?: 0
+                Timber.e("TEST : ${it.id}")
+                if (it.id == -1) {
+                    it.id = signViewModel.secondMajorList.value?.get(0)?.majorId ?: -1
+                    binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#94959E"))
+                    binding.textSignupMajorinfoDoubleMajorMint.text = "선택"
+                } else {
+                    if (it.name == "미진입") {
+                        signUpBasicInfoViewModel.secondDepartmentClick.value = true
+                        signUpBasicInfoViewModel.secondDepartmentGo.value = true
+                        binding.clSignupMajorInfoDoubleMajorTime.isClickable = false
+                        binding.textSignupMajorinfoDoubleMajorTime.text = "미진입"
+                        binding.textSignupMajorinfoDoubleMajorMintTime.text = "선택"
+                        binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
+                    }
+                    if (it.name != "미진입") {
+                        signUpBasicInfoViewModel.secondDepartmentClick.value = true
+                        signUpBasicInfoViewModel.secondDepartmentGo.value = false
+                        binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
+                    }
+                    binding.textSignupMajorinfoDoubleMajor.text = it.name
+                    binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
+                    binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
                 }
-                if (it.name == "미진입") {
-                    signUpBasicInfoViewModel.secondDepartmentClick.value = true
-                    signUpBasicInfoViewModel.secondDepartmentGo.value = true
-                    Timber.e("123")
-                    binding.clSignupMajorInfoDoubleMajorTime.isClickable = false
-                    binding.textSignupMajorinfoDoubleMajorTime.text = "미진입"
-                    binding.textSignupMajorinfoDoubleMajorMintTime.text = "선택"
-                    binding.textSignupMajorinfoDoubleMajorTime.setTextColor(Color.parseColor("#C0C0CB"))
-                }
-                if (it.name != "미진입") {
-                    Timber.e("456")
-                    signUpBasicInfoViewModel.secondDepartmentClick.value = true
-                    signUpBasicInfoViewModel.secondDepartmentGo.value = false
-                    binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
-                }
-                binding.textSignupMajorinfoDoubleMajor.text = it.name
-                binding.textSignupMajorinfoDoubleMajor.setTextColor(Color.parseColor("#001D19"))
-                binding.textSignupMajorinfoDoubleMajorMint.text = "변경"
             }
             .launchIn(lifecycleScope)
     }
