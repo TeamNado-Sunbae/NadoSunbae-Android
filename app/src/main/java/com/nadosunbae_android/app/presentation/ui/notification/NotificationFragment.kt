@@ -3,7 +3,6 @@ package com.nadosunbae_android.app.presentation.ui.notification
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +13,6 @@ import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.community.CommunityDetailActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.notification.adapter.NotificationAdapter
 import com.nadosunbae_android.app.presentation.ui.notification.viewmodel.NotificationViewModel
 import com.nadosunbae_android.app.util.CustomDialog
@@ -61,7 +59,7 @@ class NotificationFragment :
         notificationViewModel.notificationList.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach {
                 binding.sizeCheck = it.isEmpty()
-                if (it[0].commentId != 0) {
+                if (it[0].commentId != -1) {
                     notificationAdapter.submitList(it)
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -99,6 +97,7 @@ class NotificationFragment :
                         putExtra("all", 2)
                         putExtra("userId", MainGlobals.signInData?.userId)
                     }
+                    startActivity(intent)
                 }
             }
             else -> {
@@ -133,7 +132,7 @@ class NotificationFragment :
         showLoading()
         notificationAdapter.setItemClickListener { notificationId, postId, notificationTypeId ->
             notificationViewModel.putReadNotification(notificationId)
-            getNotificationMove(postId,notificationTypeId)
+            getNotificationMove(postId, notificationTypeId)
         }
     }
 
