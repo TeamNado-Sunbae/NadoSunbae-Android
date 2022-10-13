@@ -355,9 +355,9 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
                         signUpBasicInfoViewModel.requestSignUp.nickname,
                         signUpBasicInfoViewModel.requestSignUp.password,
                         signUpBasicInfoViewModel.univId.value ?: 0,
-                        signUpBasicInfoViewModel.firstMajorId.value ?:0,
+                        signUpBasicInfoViewModel.firstMajorId.value ?:-1,
                         signUpBasicInfoViewModel.firstMajorStart.value ?: "",
-                        signUpBasicInfoViewModel.secondMajorId.value ?:0,
+                        signUpBasicInfoViewModel.secondMajorId.value ?:-1,
                         signUpBasicInfoViewModel.secondMajorStart.value ?: "",
                     )
                 )
