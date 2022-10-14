@@ -18,7 +18,7 @@ data class NotificationData(
 ) {
     companion object {
         val DEFAULT = NotificationData(
-            0, "",
+            -1, "",
             null, false, 0, 8, 0, "", 0, 0
         )
     }
