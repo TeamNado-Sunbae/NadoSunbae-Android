@@ -48,6 +48,9 @@ class SignViewModel @Inject constructor(
     val secondFilter: StateFlow<SelectableData>
         get() = _secondFilter
 
+
+    var isActive = MutableLiveData<Boolean>()
+
     fun setFirstFilter(filter: SelectableData) {
         _firstFilter.value = filter
     }

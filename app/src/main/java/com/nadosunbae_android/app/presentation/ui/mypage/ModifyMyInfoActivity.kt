@@ -220,24 +220,7 @@ class ModifyMyInfoActivity :
     //제 1전공 진입시기 선택 바텀시트
     private fun firstMajorPeriod() {
         // local data
-        var firstMajorSelectionPeriodData = mutableListOf(
-            SelectableData(1, "22-1", false),
-            SelectableData(2, "21-2", false),
-            SelectableData(3, "21-1", false),
-            SelectableData(4, "20-2", false),
-            SelectableData(5, "20-1", false),
-            SelectableData(6, "19-2", false),
-            SelectableData(7, "19-1", false),
-            SelectableData(8, "18-2", false),
-            SelectableData(9, "18-1", false),
-            SelectableData(10, "17-2", false),
-            SelectableData(11, "17-1", false),
-            SelectableData(12, "16-2", false),
-            SelectableData(13, "16-1", false),
-            SelectableData(14, "15-2", false),
-            SelectableData(15, "15-1", false),
-            SelectableData(16, "15년 이전", false)
-        )
+        var firstMajorSelectionPeriodData = mainViewModel.majorTime
         firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
 
         binding.textMyPageMajorinfoMajorTimeMint.setOnClickListener {
@@ -337,24 +320,7 @@ class ModifyMyInfoActivity :
     //제 2전공 진입시기 바텀시트
     private fun secondMajorPeriod() {
         // local data
-        var secondMajorSelectionPeriodData = mutableListOf(
-            SelectableData(1, "22-1", false),
-            SelectableData(2, "21-2", false),
-            SelectableData(3, "21-1", false),
-            SelectableData(4, "20-2", false),
-            SelectableData(5, "20-1", false),
-            SelectableData(6, "19-2", false),
-            SelectableData(7, "19-1", false),
-            SelectableData(8, "18-2", false),
-            SelectableData(9, "18-1", false),
-            SelectableData(10, "17-2", false),
-            SelectableData(11, "17-1", false),
-            SelectableData(12, "16-2", false),
-            SelectableData(13, "16-1", false),
-            SelectableData(14, "15-2", false),
-            SelectableData(15, "15-1", false),
-            SelectableData(16, "15년 이전", false)
-        )
+        var secondMajorSelectionPeriodData = mainViewModel.majorTime
         secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
 
         binding.textMyPageMajorinfoDoubleMajorMintTime.setOnClickListener {

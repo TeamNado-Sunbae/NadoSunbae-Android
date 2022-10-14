@@ -10,6 +10,7 @@ import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import com.nadosunbae_android.domain.model.main.AppLinkData
 import com.nadosunbae_android.domain.model.main.MajorSelectData
+import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.repository.major.MajorRepository
@@ -264,6 +265,25 @@ class MainViewModel @Inject constructor(
 
     override val onLoadingEnd = MutableLiveData<Boolean>()
 
+    val majorTime = mutableListOf(
+        SelectableData(1, "22-2", false),
+        SelectableData(2, "22-1", false),
+        SelectableData(3, "21-2", false),
+        SelectableData(4, "21-1", false),
+        SelectableData(5, "20-2", false),
+        SelectableData(6, "20-1", false),
+        SelectableData(7, "19-2", false),
+        SelectableData(8, "19-1", false),
+        SelectableData(9, "18-2", false),
+        SelectableData(10, "18-1", false),
+        SelectableData(11, "17-2", false),
+        SelectableData(12, "17-1", false),
+        SelectableData(13, "16-2", false),
+        SelectableData(14, "16-1", false),
+        SelectableData(15, "15-2", false),
+        SelectableData(16, "15-1", false),
+        SelectableData(17, "15년 이전", false)
+    )
 
 }
 

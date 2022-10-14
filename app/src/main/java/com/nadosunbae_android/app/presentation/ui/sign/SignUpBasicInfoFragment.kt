@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
@@ -259,6 +260,8 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
     private fun beforeBtnClick() {
         binding.clSignupBasicinfoMoveBefore.setOnClickListener {
             findNavController().navigate(R.id.action_ThirdFragment_to_SecondFragment)
+            binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
+            binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
         }
     }
 
@@ -266,7 +269,6 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
     //닉네임 정규식
     private fun isNickNamePattern() = with(binding) {
         val nickname = etSignupBasicinfoNickname
-
         if (!Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())) {
             textSignupBasicinfoNicknameTitle.setTextColor(Color.parseColor("#FF4C40"))
             textSignupBasicinfoNicknameDuplication.isSelected = false
@@ -321,7 +323,7 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
             dialog.setOnClickListener(object : SignInCustomDialog.ButtonClickListener {
                 override fun onClicked(num: () -> Unit) {
                     startActivity(Intent(requireActivity(), SignInActivity::class.java))
-                    //finish()
+                    activity?.finish()
                 }
             })
         }
@@ -353,9 +355,9 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
                         signUpBasicInfoViewModel.requestSignUp.nickname,
                         signUpBasicInfoViewModel.requestSignUp.password,
                         signUpBasicInfoViewModel.univId.value ?: 0,
-                        signUpBasicInfoViewModel.firstMajorId.value ?:0,
+                        signUpBasicInfoViewModel.firstMajorId.value ?:-1,
                         signUpBasicInfoViewModel.firstMajorStart.value ?: "",
-                        signUpBasicInfoViewModel.secondMajorId.value ?:0,
+                        signUpBasicInfoViewModel.secondMajorId.value ?:-1,
                         signUpBasicInfoViewModel.secondMajorStart.value ?: "",
                     )
                 )
