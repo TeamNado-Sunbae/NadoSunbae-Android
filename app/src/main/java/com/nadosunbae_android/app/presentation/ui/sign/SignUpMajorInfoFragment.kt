@@ -63,6 +63,7 @@ class SignUpMajorInfoFragment :
         updateMajorStatus()
         initSecondBottomSheet()
         updateSecondMajorStatus()
+        isActive()
 
         with(binding) {
             makeUnivSpinner(rbUnivKorea, rbUnivSwu, rbUnivCau)
@@ -74,7 +75,8 @@ class SignUpMajorInfoFragment :
         val univ = signUpBasicInfoViewModel.univName.value ?: "선택하기"
         textSignupMajorinfoUniv.text = univ
         if (textSignupMajorinfoUniv.text.toString() != "선택하기") {
-            textSignupMajorinfoUniv.isSelected = true
+            textSignupMajorinfoUniv.setTextColor(Color.parseColor("#001D19"))
+            binding.textSignupMajorInfoUnivMint.text = "변경"
         }
 
         val firstMajorTime = signUpBasicInfoViewModel.firstMajorStart.value ?: "선택하기"
@@ -97,6 +99,7 @@ class SignUpMajorInfoFragment :
         }
     }
 
+
     //X버튼 클릭 리스너
     private fun closePage() {
         binding.imgSignupMajorinfoDelete.setOnClickListener {
@@ -111,6 +114,20 @@ class SignUpMajorInfoFragment :
         }
     }
 
+    private fun isActive() {
+        signViewModel.isActive.observe(viewLifecycleOwner) {
+            if (it == true) {
+                binding.clSignupMajorInfoMoveNext.setBackgroundResource(R.drawable.rectangle_fill_black_14)
+                binding.textSignupMajorInfoNext.setTextColor(Color.parseColor("#00C8B0"))
+                nextBtnActivate()
+            } else {
+                binding.clSignupMajorInfoMoveNext.setBackgroundResource(R.drawable.rectangle_fill_gray_14)
+                binding.textSignupMajorInfoNext.setTextColor(Color.parseColor("#94959E"))
+                binding.clSignupMajorInfoMoveNext.isClickable = false
+            }
+        }
+    }
+
     private fun moveBeforePage() {
         binding.clSignupMajorInfoMoveBefore.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
@@ -121,6 +138,7 @@ class SignUpMajorInfoFragment :
             signViewModel.setSecondFilter(SelectableData.SIGNDEFAULT)
             signViewModel.firstFilter.value.id = -1
             signViewModel.secondFilter.value.id= -1
+            signViewModel.isActive.value = false
         }
     }
 
@@ -143,6 +161,7 @@ class SignUpMajorInfoFragment :
                 textSignupMajorinfoDoubleMajorTime.text.toString()
             }
             findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
+            signViewModel.isActive.value = true
         }
     }
 
