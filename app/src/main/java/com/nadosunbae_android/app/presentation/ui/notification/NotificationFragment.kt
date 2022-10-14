@@ -59,7 +59,7 @@ class NotificationFragment :
         notificationViewModel.notificationList.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach {
                 binding.sizeCheck = it.isEmpty()
-                if (it[0].commentId != -1) {
+                if (it.isNotEmpty() && it[0].commentId != -1) {
                     notificationAdapter.submitList(it)
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)

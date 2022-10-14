@@ -29,7 +29,6 @@ class NotificationViewModel @Inject constructor(
     val notificationList: StateFlow<List<NotificationData>>
         get() = _notificationList
 
-
     //전체 알림 리스트 보기
     fun getNotification() {
         viewModelScope.launch {
