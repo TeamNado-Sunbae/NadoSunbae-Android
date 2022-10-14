@@ -12,6 +12,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentSignUpMajorInfoBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
+import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
@@ -28,6 +29,7 @@ class SignUpMajorInfoFragment :
 
     private val signViewModel: SignViewModel by activityViewModels()
     private val signUpBasicInfoViewModel: SignUpBasicInfoViewModel by activityViewModels()
+    private val mainViewModel : MainViewModel by activityViewModels()
 
     private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
     private val firstDepartmentPeriodBottomSheetDialog =
@@ -228,25 +230,7 @@ class SignUpMajorInfoFragment :
     //제 1전공 진입시기 선택 바텀시트
     private fun firstMajorPeriod() {
         // local data
-        var firstMajorSelectionPeriodData = mutableListOf(
-            SelectableData(1, "22-2", false),
-            SelectableData(2, "22-1", false),
-            SelectableData(3, "21-2", false),
-            SelectableData(4, "21-1", false),
-            SelectableData(5, "20-2", false),
-            SelectableData(6, "20-1", false),
-            SelectableData(7, "19-2", false),
-            SelectableData(8, "19-1", false),
-            SelectableData(9, "18-2", false),
-            SelectableData(10, "18-1", false),
-            SelectableData(11, "17-2", false),
-            SelectableData(12, "17-1", false),
-            SelectableData(13, "16-2", false),
-            SelectableData(14, "16-1", false),
-            SelectableData(15, "15-2", false),
-            SelectableData(16, "15-1", false),
-            SelectableData(17, "15년 이전", false)
-        )
+        var firstMajorSelectionPeriodData = mainViewModel.majorTime
         firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
 
         binding.clSignupMajorInfoMajorTime.setOnClickListener {
@@ -338,26 +322,7 @@ class SignUpMajorInfoFragment :
     //제 2전공 진입시기 바텀시트
     private fun secondMajorPeriod() {
         // test data
-        var secondMajorSelectionPeriodData = mutableListOf(
-            SelectableData(1, "22-2", false),
-            SelectableData(2, "22-1", false),
-            SelectableData(3, "21-2", false),
-            SelectableData(4, "21-1", false),
-            SelectableData(5, "20-2", false),
-            SelectableData(6, "20-1", false),
-            SelectableData(7, "19-2", false),
-            SelectableData(8, "19-1", false),
-            SelectableData(9, "18-2", false),
-            SelectableData(10, "18-1", false),
-            SelectableData(11, "17-2", false),
-            SelectableData(12, "17-1", false),
-            SelectableData(13, "16-2", false),
-            SelectableData(14, "16-1", false),
-            SelectableData(15, "15-2", false),
-            SelectableData(16, "15-1", false),
-            SelectableData(17, "15년 이전", false)
-        )
-
+        var secondMajorSelectionPeriodData = mainViewModel.majorTime
         binding.clSignupMajorInfoDoubleMajorTime.setOnClickListener {
 
             secondDepartmentPeriodBottomSheetDialog.show(
