@@ -34,7 +34,6 @@
             app:destination="@+id/FirstFragment"
             app:popUpTo="@id/SecondFragment"
             app:popUpToInclusive="true" />
-
     </fragment>
 
     <fragment

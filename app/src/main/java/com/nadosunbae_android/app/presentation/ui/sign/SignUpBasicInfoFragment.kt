@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
@@ -268,7 +269,6 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
     //닉네임 정규식
     private fun isNickNamePattern() = with(binding) {
         val nickname = etSignupBasicinfoNickname
-
         if (!Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9|]{2,8}\$", nickname.text.toString())) {
             textSignupBasicinfoNicknameTitle.setTextColor(Color.parseColor("#FF4C40"))
             textSignupBasicinfoNicknameDuplication.isSelected = false
