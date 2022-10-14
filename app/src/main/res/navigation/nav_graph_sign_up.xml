@@ -13,7 +13,9 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -23,11 +25,15 @@
         tools:layout="@layout/fragment_sign_up_major_info">
         <action
             android:id="@+id/action_SecondFragment_to_ThirdFragment"
-            app:destination="@id/ThirdFragment" />
+            app:destination="@id/ThirdFragment"
+            app:popUpTo="@id/SecondFragment"
+            app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@+id/FirstFragment"/>
+            app:destination="@+id/FirstFragment"
+            app:popUpTo="@id/SecondFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
 
@@ -39,7 +45,9 @@
 
         <action
             android:id="@+id/action_ThirdFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:popUpTo="@id/ThirdFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
 
