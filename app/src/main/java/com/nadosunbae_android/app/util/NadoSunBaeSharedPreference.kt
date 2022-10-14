@@ -43,15 +43,6 @@ object NadoSunBaeSharedPreference {
         preferences.edit().remove(REFRESH_TOKEN).apply()
     }
 
-    fun getUserId(context: Context): Int {
-        val preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
-        return preferences.getInt(USER_ID, -1)
-    }
-
-    fun setUserId(context: Context, value: Int) {
-        val preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
-        preferences.edit().putInt(USER_ID, value).apply()
-    }
 
     // user active
     fun setUserActive(context: Context, calendar: Calendar, type: ActiveUser) {
