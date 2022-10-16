@@ -204,6 +204,19 @@ object BindingAdapter {
         }
     }
 
+    //프로필 이미지72
+    @JvmStatic
+    @BindingAdapter("profileImgBigGray")
+    fun setProfileImgBigGray(imageView: ImageView, imageId: Int) {
+        when (imageId) {
+            5 -> imageSelect(imageView, R.drawable.a_72)
+            3 -> imageSelect(imageView, R.drawable.b_72)
+            1 -> imageSelect(imageView, R.drawable.c_72)
+            4 -> imageSelect(imageView, R.drawable.d_72)
+            2 -> imageSelect(imageView, R.drawable.e_72)
+        }
+    }
+
     @JvmStatic
     @BindingAdapter("profileImgSmall")
     fun setProfileImgSmall(imageView: ImageView, imageId: Int) {

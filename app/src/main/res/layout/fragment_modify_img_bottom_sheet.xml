@@ -131,7 +131,7 @@
                 android:id="@+id/img_bottomsheet_4"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:src="@drawable/mask_group_1"
+                android:src="@drawable/d_72"
                 app:layout_constraintBottom_toBottomOf="@+id/img_bottomsheet_5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
