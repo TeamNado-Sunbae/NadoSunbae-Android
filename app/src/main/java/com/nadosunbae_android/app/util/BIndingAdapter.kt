@@ -196,11 +196,11 @@ object BindingAdapter {
     @BindingAdapter("profileImgBig")
     fun setProfileImgBig(imageView: ImageView, imageId: Int) {
         when (imageId) {
-            1 -> imageSelect(imageView, R.drawable.mask_group_5)
-            2 -> imageSelect(imageView, R.drawable.mask_group_4)
-            3 -> imageSelect(imageView, R.drawable.mask_group_2)
+            5 -> imageSelect(imageView, R.drawable.mask_group_5)
+            3 -> imageSelect(imageView, R.drawable.mask_group_4)
+            1 -> imageSelect(imageView, R.drawable.mask_group_2)
             4 -> imageSelect(imageView, R.drawable.mask_group_1)
-            5 -> imageSelect(imageView, R.drawable.mask_group_3)
+            2 -> imageSelect(imageView, R.drawable.mask_group_3)
         }
     }
 
@@ -208,11 +208,11 @@ object BindingAdapter {
     @BindingAdapter("profileImgSmall")
     fun setProfileImgSmall(imageView: ImageView, imageId: Int) {
         when (imageId) {
-            1 -> imageSelect(imageView, R.drawable.mask_group_5_64)
-            2 -> imageSelect(imageView, R.drawable.mask_group_4_64)
-            3 -> imageSelect(imageView, R.drawable.mask_group_2_64)
+            5 -> imageSelect(imageView, R.drawable.mask_group_5_64)
+            3 -> imageSelect(imageView, R.drawable.mask_group_4_64)
+            1 -> imageSelect(imageView, R.drawable.mask_group_2_64)
             4 -> imageSelect(imageView, R.drawable.mask_group_1_64)
-            5 -> imageSelect(imageView, R.drawable.mask_group_3_64)
+            2 -> imageSelect(imageView, R.drawable.mask_group_3_64)
         }
     }
 
