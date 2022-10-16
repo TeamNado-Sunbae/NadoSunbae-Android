@@ -665,11 +665,11 @@ class ModifyMyInfoActivity :
     //바텀시트에서 수정한 이미지 적용
     private fun applyModifyImg() {
         when (myPageViewModel.selectImgId.value) {
-            1 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_2_64)
-            2 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_4_64)
-            3 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_5_64)
+            1 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_5_64)
+            2 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_1_64)
+            3 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_4_64)
             4 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_3_64)
-            5 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_1_64)
+            5 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_2_64)
         }
         if (myPageViewModel.selectImgId.value != myPageViewModel.personalInfo.value?.profileImageId) {
             initActiveSaveBtn()

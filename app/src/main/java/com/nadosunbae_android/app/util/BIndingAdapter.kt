@@ -196,11 +196,24 @@ object BindingAdapter {
     @BindingAdapter("profileImgBig")
     fun setProfileImgBig(imageView: ImageView, imageId: Int) {
         when (imageId) {
-            1 -> imageSelect(imageView, R.drawable.mask_group_5)
-            2 -> imageSelect(imageView, R.drawable.mask_group_4)
-            3 -> imageSelect(imageView, R.drawable.mask_group_2)
+            5 -> imageSelect(imageView, R.drawable.mask_group_5)
+            3 -> imageSelect(imageView, R.drawable.mask_group_4)
+            1 -> imageSelect(imageView, R.drawable.mask_group_2)
             4 -> imageSelect(imageView, R.drawable.mask_group_1)
-            5 -> imageSelect(imageView, R.drawable.mask_group_3)
+            2 -> imageSelect(imageView, R.drawable.mask_group_3)
+        }
+    }
+
+    //프로필 이미지72
+    @JvmStatic
+    @BindingAdapter("profileImgBigGray")
+    fun setProfileImgBigGray(imageView: ImageView, imageId: Int) {
+        when (imageId) {
+            5 -> imageSelect(imageView, R.drawable.a_72)
+            3 -> imageSelect(imageView, R.drawable.b_72)
+            1 -> imageSelect(imageView, R.drawable.c_72)
+            4 -> imageSelect(imageView, R.drawable.d_72)
+            2 -> imageSelect(imageView, R.drawable.e_72)
         }
     }
 
@@ -208,11 +221,11 @@ object BindingAdapter {
     @BindingAdapter("profileImgSmall")
     fun setProfileImgSmall(imageView: ImageView, imageId: Int) {
         when (imageId) {
-            1 -> imageSelect(imageView, R.drawable.mask_group_5_64)
-            2 -> imageSelect(imageView, R.drawable.mask_group_4_64)
-            3 -> imageSelect(imageView, R.drawable.mask_group_2_64)
+            5 -> imageSelect(imageView, R.drawable.mask_group_5_64)
+            3 -> imageSelect(imageView, R.drawable.mask_group_4_64)
+            1 -> imageSelect(imageView, R.drawable.mask_group_2_64)
             4 -> imageSelect(imageView, R.drawable.mask_group_1_64)
-            5 -> imageSelect(imageView, R.drawable.mask_group_3_64)
+            2 -> imageSelect(imageView, R.drawable.mask_group_3_64)
         }
     }
 

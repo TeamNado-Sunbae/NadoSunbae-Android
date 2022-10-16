@@ -89,7 +89,7 @@
 
                 <ImageView
                     android:id="@+id/img_my_page_modify_main"
-                    profileImgBig="@{myPageInfo.profileImageId}"
+                    profileImgBigGray="@{myPageInfo.profileImageId}"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:layout_marginTop="22dp"
