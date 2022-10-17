@@ -89,7 +89,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     //부적절 후기 일경우 띄우기
     private fun floatIsReviewInappropriate() {
-        Timber.d("부적절 후기 ${MainGlobals.signInData?.message?.setTextChange()}")
+        Timber.d("부적절 후기 ")
         CustomDialog(this).restrictDialog(
             this,
             ReviewGlobals.isReviewed,
