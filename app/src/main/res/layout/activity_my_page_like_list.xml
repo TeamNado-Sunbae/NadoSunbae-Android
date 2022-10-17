@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="32dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:includeFontPadding="false"
                 android:text="좋아요 목록"
@@ -41,7 +41,7 @@
                 android:id="@+id/img_mypage_like_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/btn_left_arrow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

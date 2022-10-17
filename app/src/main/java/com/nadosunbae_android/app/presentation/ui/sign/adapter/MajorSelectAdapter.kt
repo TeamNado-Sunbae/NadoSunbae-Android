@@ -75,14 +75,14 @@ class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWr
             when (mSelectedPos) {
                 // 새로 선택
                 NOT_SELECTED -> {
-                    mSelectedPos = position
-                    getItem(position).isSelected = true
+                    mSelectedPos = holder.absoluteAdapterPosition
+                    getItem(holder.absoluteAdapterPosition).isSelected = true
                 }
                 // 선택 해제
                 position -> {
                     if (communityWrite == false) {
                         mSelectedPos = NOT_SELECTED
-                        getItem(position).isSelected = false
+                        getItem(holder.absoluteAdapterPosition).isSelected = false
                     }
                 }
                 // 선택 변경
@@ -90,7 +90,7 @@ class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWr
                     Timber.d("변경")
                     getItem(mSelectedPos).isSelected = false
                     mSelectedPos = position
-                    getItem(position).isSelected = true
+                    getItem(holder.absoluteAdapterPosition).isSelected = true
                 }
             }
             _selectedData.value = getSelectedData()

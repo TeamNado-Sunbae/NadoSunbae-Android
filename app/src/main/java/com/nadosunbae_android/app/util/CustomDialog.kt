@@ -1,11 +1,14 @@
 package com.nadosunbae_android.app.util
 
+import android.app.ActionBar
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.annotation.LayoutRes
@@ -108,6 +111,12 @@ class CustomDialog(val context: Context) {
             null,
             false
         )
+        if(viewMargin == true) {
+            val titleHeight = binding.tvDialogTitle.layoutParams
+            titleHeight.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            binding.tvDialogTitle.layoutMarginTop(12.dpToPx)
+            binding.btnDialogCancel.layoutMarginTop(12.dpToPx)
+        }
         binding.dialogText = dialogText
         binding.btnDialogCancel.setOnClickListener {
             cancel()
@@ -118,6 +127,7 @@ class CustomDialog(val context: Context) {
             dialog.dismiss()
         }
 
+
         dialog.setContentView(binding.root)
         dialog.window?.setLayout(
             WindowManager.LayoutParams.WRAP_CONTENT,
@@ -126,10 +136,8 @@ class CustomDialog(val context: Context) {
         dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
 
         adjustViewWidth(binding.btnDialogCancel, binding.btnDialogComplete)     // 버튼 길이를 긴 쪽에 맞춤
-        if(viewMargin == true){
-            binding.tvDialogTitle.layoutMarginTop(12.dpToPx)
-            binding.btnDialogCancel.layoutMarginTop(8.dpToPx)
-        }
+        //부적절 후기 작성자일경우
+
         dialog.show()
 
     }
