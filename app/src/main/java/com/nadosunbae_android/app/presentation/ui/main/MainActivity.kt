@@ -27,6 +27,7 @@ import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.*
 
 @AndroidEntryPoint
@@ -88,12 +89,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     //부적절 후기 일경우 띄우기
     private fun floatIsReviewInappropriate() {
+        Timber.d("부적절 후기 ${MainGlobals.signInData?.message?.setTextChange()}")
         CustomDialog(this).restrictDialog(
             this,
             ReviewGlobals.isReviewed,
             MainGlobals.signInData?.isUserReported ?: false,
             MainGlobals.signInData?.isReviewInappropriate ?: false,
-            MainGlobals.signInData?.message.toString(),
+            MainGlobals.signInData?.message.toString().setTextChange(),
             true
         ) {}
     }
