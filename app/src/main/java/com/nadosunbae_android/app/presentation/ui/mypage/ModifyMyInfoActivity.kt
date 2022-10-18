@@ -223,7 +223,7 @@ class ModifyMyInfoActivity :
         var firstMajorSelectionPeriodData = mainViewModel.majorTime
         firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
 
-        binding.textMyPageMajorinfoMajorTimeMint.setOnClickListener {
+        binding.clMyPageMajorInfoMajorTime.setOnClickListener {
             firstDepartmentPeriodBottomSheetDialog.show(
                 supportFragmentManager,
                 firstDepartmentPeriodBottomSheetDialog.tag
@@ -323,7 +323,7 @@ class ModifyMyInfoActivity :
         var secondMajorSelectionPeriodData = mainViewModel.majorTime
         secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
 
-        binding.textMyPageMajorinfoDoubleMajorMintTime.setOnClickListener {
+        binding.clMyPageMajorInfoDoubleMajorTime.setOnClickListener {
             secondDepartmentPeriodBottomSheetDialog.show(
                 supportFragmentManager,
                 secondDepartmentPeriodBottomSheetDialog.tag
@@ -469,6 +469,7 @@ class ModifyMyInfoActivity :
                 Timber.d("닉네임 중복확인: 실패")
                 binding.textMyPageModifyNicknameDuplicaitionOk.isVisible = false
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = true
+                binding.textMyPageNicknameTitle.isSelected = false
             } else if (it.success) {
                 Timber.d("닉네임 중복확인: 성공")
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = false

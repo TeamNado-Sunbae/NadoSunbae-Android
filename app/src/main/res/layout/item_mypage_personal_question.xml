@@ -122,14 +122,5 @@
             app:layout_constraintTop_toTopOf="@+id/img_question_all_like"
             tools:text="1"/>
 
-        <View
-            android:id="@+id/line_question_all"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/gray_0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_question_all_like"
-            android:layout_marginTop="11dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

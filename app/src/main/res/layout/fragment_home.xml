@@ -57,8 +57,9 @@
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vp_home_banner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="matrix"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cl_home_top"
@@ -269,8 +270,8 @@
                         android:id="@+id/img_rate_ranking_4"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:adjustViewBounds="true"
                         android:layout_marginTop="8dp"
+                        android:adjustViewBounds="true"
                         android:src="@drawable/mask_group_3"
                         app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_4"
                         app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_4"
@@ -316,9 +317,9 @@
                         android:id="@+id/img_rate_ranking_5"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:layout_marginTop="8dp"
                         android:adjustViewBounds="true"
                         android:src="@drawable/mask_group_3"
-                        android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="@+id/text_nickname_ranking_5"
                         app:layout_constraintStart_toStartOf="@+id/text_nickname_ranking_5"
                         app:layout_constraintTop_toBottomOf="@+id/text_rate_ranking_5" />
