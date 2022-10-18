@@ -65,7 +65,6 @@ class CommunityMainContentFragment :
 
     //메인 게시글
     private fun initCommunityMainContent() {
-        showLoading()
         communityMainContentAdapter = CommunityMainContentAdapter()
         binding.rcCommunityMain.adapter = communityMainContentAdapter
         val decoration =

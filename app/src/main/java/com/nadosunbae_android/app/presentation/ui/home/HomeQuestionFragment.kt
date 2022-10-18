@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeQuestionBinding
@@ -38,7 +40,7 @@ class HomeQuestionFragment :
 
         naviControl()
         setCommunityAdapter()
-
+        pressedBackButton()
     }
 
     private fun naviControl() {
@@ -59,5 +61,15 @@ class HomeQuestionFragment :
         ).onEach {
             questionDetailAdapter.submitList(it)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    //뒤로가기 버튼
+    private fun pressedBackButton(){
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                NavHostFragment.findNavController(this@HomeQuestionFragment).navigateUp()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
     }
 }

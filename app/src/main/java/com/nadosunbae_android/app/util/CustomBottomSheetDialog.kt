@@ -27,7 +27,7 @@ class CustomBottomSheetDialog(
     private val checkCommunity: Boolean? = false,
     noMajor: Int? = 0,
     checkCommunityWrite: Boolean? = false,
-    private var isSignUp : Boolean ?= false
+    isSignUp : Boolean ?= false
 ) : BottomSheetDialogFragment() {
 
 
@@ -230,8 +230,11 @@ class CustomBottomSheetDialog(
         this.completeFavorites = operation
     }
 
-    //첫 선택된 데이터
+    //첫 선택된 데이터 -> id값
     fun setSelectedData(dataId: Int) {
         majorSelectAdapter.setSelectedData(dataId)
     }
+
+
+
 }
