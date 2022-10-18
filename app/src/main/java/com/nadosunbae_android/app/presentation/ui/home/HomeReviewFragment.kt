@@ -2,8 +2,10 @@ package com.nadosunbae_android.app.presentation.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeReviewBinding
@@ -24,6 +26,7 @@ class HomeReviewFragment : BaseFragment<FragmentHomeReviewBinding>(R.layout.frag
         super.onViewCreated(view, savedInstanceState)
         naviControl()
         initNetwork()
+        pressedBackButton()
     }
 
     private fun naviControl() {
@@ -43,4 +46,13 @@ class HomeReviewFragment : BaseFragment<FragmentHomeReviewBinding>(R.layout.frag
         }
     }
 
+    //뒤로가기 버튼
+    private fun pressedBackButton(){
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                NavHostFragment.findNavController(this@HomeReviewFragment).navigateUp()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
+    }
 }

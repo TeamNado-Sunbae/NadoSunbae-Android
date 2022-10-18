@@ -94,9 +94,7 @@ class CommunityViewModel @Inject constructor(
         majorName: String? = ""
     ) = viewModelScope.launch {
         postRepository.getPost(universityId, majorId, filter, sort, search)
-            .onStart {
-                onLoadingEnd.value = false
-            }.catch {
+            .catch {
                 Timber.d("커뮤니티 메인 서버통신 오류 발생")
             }.collectLatest {
                 Timber.d("커뮤니티 메인 서버통신 $it")

@@ -3,8 +3,10 @@ package com.nadosunbae_android.app.presentation.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentHomeRankingBinding
@@ -33,7 +35,7 @@ class HomeRankingFragment :
         naviControl()
         alertListener()
         initSetting()
-
+        pressedBackButton()
     }
 
     private fun naviControl() {
@@ -81,6 +83,16 @@ class HomeRankingFragment :
             mainViewModel.initLoading.value = true
         }
         mainViewModel.seniorBack.value = 1
+    }
+
+    //뒤로가기 버튼
+    private fun pressedBackButton(){
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                NavHostFragment.findNavController(this@HomeRankingFragment).navigateUp()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
     }
 
 }
