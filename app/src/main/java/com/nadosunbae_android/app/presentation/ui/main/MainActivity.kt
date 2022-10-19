@@ -146,10 +146,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
                 COMMUNITY -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_community
-                    changeFragmentNoBackStack(
-                        R.id.fragment_container_main,
-                        CommunityFragment()
-                    )
                 }
 
                 else -> {

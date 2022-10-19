@@ -52,6 +52,7 @@ class CommunityMainContentFragment :
         super.onResume()
         val type = communityViewModel.communityMainType.value
         val majorName = communityViewModel.communityMainMajorName.value
+        showLoading()
         communityViewModel.getCommunityMainData(
             MainGlobals.signInData?.universityId ?: 1,
             "0",
