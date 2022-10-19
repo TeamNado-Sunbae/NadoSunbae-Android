@@ -24,7 +24,7 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient) : Retrofit{
+    fun provideRetrofit() : Retrofit{
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .baseUrl(BASE_URL)
@@ -32,9 +32,8 @@ object ApiModule {
             .build()
     }
 
-    @Singleton
-    @Provides
-    fun provideOkHttpClient() =
+
+    private fun provideOkHttpClient() =
         OkHttpClient.Builder()
             .run {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -43,9 +42,8 @@ object ApiModule {
                 build()
     }
 
-    @Singleton
-    @Provides
-    fun provideInterceptor() =
+
+   private  fun provideInterceptor() =
         Interceptor { chain ->
             with(chain) {
                 val newRequest = request().newBuilder()
