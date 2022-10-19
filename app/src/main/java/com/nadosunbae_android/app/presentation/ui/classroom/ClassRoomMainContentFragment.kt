@@ -379,10 +379,10 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
 
     private fun initBottomSheet() {
 
-        majorBottomSheetDialog = CustomBottomSheetDialog(resources.getString(R.string.bottom_sheet_title_major))
+        majorBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.bottom_sheet_title_major))
         filterBottomSheetDialog = FilterBottomSheetDialog()
 
-        observeBottomSheet(mainViewModel, majorBottomSheetDialog)
+        observeBottomSheet(mainViewModel, majorBottomSheetDialog,true)
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
             if (selectedData != null) {

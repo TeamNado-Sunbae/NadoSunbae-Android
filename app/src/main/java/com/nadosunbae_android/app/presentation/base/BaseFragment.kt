@@ -18,7 +18,6 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) : Fragment() {
     private var _binding: T? = null
@@ -45,7 +44,8 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
     //데이터 넣기
     fun observeBottomSheet(
         viewModel: MainViewModel,
-        majorBottomSheetDialog: CustomBottomSheetDialog
+        majorBottomSheetDialog: CustomBottomSheetDialog,
+        isClassRoom: Boolean? = false
     ) {
         viewModel.majorList.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach {
@@ -64,8 +64,12 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
                             )
                         )
                 }
-                Timber.d("dialog $dialogInput")
-                majorBottomSheetDialog.setDataList(dialogInput)
+
+                if (isClassRoom == true) {
+                    majorBottomSheetDialog.setDataList(dialogInput.filterNot { it.name == "학과 무관" } as MutableList<SelectableData>)
+                } else {
+                    majorBottomSheetDialog.setDataList(dialogInput)
+                }
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
