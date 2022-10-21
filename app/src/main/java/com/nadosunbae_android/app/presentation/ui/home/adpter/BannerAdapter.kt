@@ -41,6 +41,7 @@ class BannerAdapter(private val context: Context, private val sliderImage: List<
         fun bindSliderImage(imageURL: String?) {
             Glide.with(itemView.context)
                 .load(imageURL)
+                .centerCrop()
                 .into(mImageView)
         }
 

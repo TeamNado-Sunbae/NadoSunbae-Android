@@ -295,9 +295,15 @@ class ModifyMyInfoActivity :
                 if (it.name != myPageViewModel.personalInfo.value?.secondMajorName) {
                     initActiveSaveBtn()
                 }
+
+                if(it.name != "미진입" && binding.textMyPageMajorinfoDoubleMajorTime.text.toString() == "미진입") {
+                    binding.textMyPageSave.isSelected = false
+                    binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
+                    binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
+                    binding.textMyPageSave.isClickable = false
+                }
             }
             .launchIn(lifecycleScope)
-
     }
 
     //즐겨찾기 클릭시 - 제 2전공
