@@ -89,7 +89,7 @@ class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWr
                 else -> {
                     Timber.d("변경")
                     getItem(mSelectedPos).isSelected = false
-                    mSelectedPos = position
+                    mSelectedPos = holder.absoluteAdapterPosition
                     getItem(holder.absoluteAdapterPosition).isSelected = true
                 }
             }

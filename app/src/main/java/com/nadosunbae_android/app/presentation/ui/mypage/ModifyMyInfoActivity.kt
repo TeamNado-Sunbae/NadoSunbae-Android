@@ -223,7 +223,7 @@ class ModifyMyInfoActivity :
         var firstMajorSelectionPeriodData = mainViewModel.majorTime
         firstDepartmentPeriodBottomSheetDialog.setDataList(firstMajorSelectionPeriodData)
 
-        binding.textMyPageMajorinfoMajorTimeMint.setOnClickListener {
+        binding.clMyPageMajorInfoMajorTime.setOnClickListener {
             firstDepartmentPeriodBottomSheetDialog.show(
                 supportFragmentManager,
                 firstDepartmentPeriodBottomSheetDialog.tag
@@ -295,9 +295,12 @@ class ModifyMyInfoActivity :
                 if (it.name != myPageViewModel.personalInfo.value?.secondMajorName) {
                     initActiveSaveBtn()
                 }
+
+                if(it.name != "미진입" && binding.textMyPageMajorinfoDoubleMajorTime.text.toString() == "미진입") {
+                    saveBtnInActive()
+                }
             }
             .launchIn(lifecycleScope)
-
     }
 
     //즐겨찾기 클릭시 - 제 2전공
@@ -323,7 +326,7 @@ class ModifyMyInfoActivity :
         var secondMajorSelectionPeriodData = mainViewModel.majorTime
         secondDepartmentPeriodBottomSheetDialog.setDataList(secondMajorSelectionPeriodData)
 
-        binding.textMyPageMajorinfoDoubleMajorMintTime.setOnClickListener {
+        binding.clMyPageMajorInfoDoubleMajorTime.setOnClickListener {
             secondDepartmentPeriodBottomSheetDialog.show(
                 supportFragmentManager,
                 secondDepartmentPeriodBottomSheetDialog.tag
@@ -434,11 +437,9 @@ class ModifyMyInfoActivity :
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(p0: Editable?) {
-
                 if (!textMyPageNicknameTitle.isSelected) {
                     nicknameDuplication()
                 }
-
 
                 //닉네임 textfield 빈칸인지 체크
                 if (etMyPageNickname.text.toString() == "") {
@@ -455,8 +456,7 @@ class ModifyMyInfoActivity :
                     textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
                     textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
                 }
-
-
+                saveBtnInActive()
             }
         })
     }
@@ -469,6 +469,7 @@ class ModifyMyInfoActivity :
                 Timber.d("닉네임 중복확인: 실패")
                 binding.textMyPageModifyNicknameDuplicaitionOk.isVisible = false
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = true
+                binding.textMyPageNicknameTitle.isSelected = false
             } else if (it.success) {
                 Timber.d("닉네임 중복확인: 성공")
                 binding.textMyPageModifyNicknameDuplicaitionNo.isVisible = false
@@ -507,10 +508,7 @@ class ModifyMyInfoActivity :
                 binding.textMyPageSave.isClickable = false
             }
         } else {
-            binding.textMyPageSave.isSelected = false
-            binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
-            binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
-            binding.textMyPageSave.isClickable = false
+            saveBtnInActive()
         }
     }
 
@@ -638,14 +636,18 @@ class ModifyMyInfoActivity :
                 if(myPageViewModel.personalInfo.value?.bio.toString() != binding.etMyPageIntroduction.text.toString()) {
                     initActiveSaveBtn()
                 } else {
-                    binding.textMyPageSave.isSelected = false
-                    binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
-                    binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
-                    binding.textMyPageSave.isClickable = false
+                    saveBtnInActive()
                 }
 
             }
         })
+    }
+
+    private fun saveBtnInActive() {
+        binding.textMyPageSave.isSelected = false
+        binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
+        binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
+        binding.textMyPageSave.isClickable = false
     }
 
     //프로필 이미지 수정 누르면 바텀시트 올라옴
@@ -665,11 +667,11 @@ class ModifyMyInfoActivity :
     //바텀시트에서 수정한 이미지 적용
     private fun applyModifyImg() {
         when (myPageViewModel.selectImgId.value) {
-            1 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_5_64)
-            2 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_1_64)
-            3 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_4_64)
-            4 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_3_64)
-            5 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.mask_group_2_64)
+            1 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.c_72)
+            2 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.e_72)
+            3 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.b_72)
+            4 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.d_72)
+            5 -> imageSelect(binding.imgMyPageModifyMain, R.drawable.a_72)
         }
         if (myPageViewModel.selectImgId.value != myPageViewModel.personalInfo.value?.profileImageId) {
             initActiveSaveBtn()

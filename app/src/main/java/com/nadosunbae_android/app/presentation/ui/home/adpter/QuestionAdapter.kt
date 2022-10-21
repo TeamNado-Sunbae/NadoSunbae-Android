@@ -42,7 +42,7 @@ class QuestionAdapter(private val userId: Int) :
                     val intent =
                         Intent(holder.itemView.context, QuestionDetailActivity::class.java)
                     intent.apply {
-                        putExtra("postId", getItem(holder.absoluteAdapterPosition).postId.toString())
+                        putExtra("postId", getItem(holder.absoluteAdapterPosition).postId)
                         putExtra("userId", userId)
                     }
                     ContextCompat.startActivity(holder.itemView.context, intent, null)

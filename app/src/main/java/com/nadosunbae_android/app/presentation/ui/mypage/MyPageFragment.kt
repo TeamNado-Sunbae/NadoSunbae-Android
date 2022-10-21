@@ -14,7 +14,9 @@ import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
+import com.nadosunbae_android.app.util.CustomDecoration
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
+import com.nadosunbae_android.app.util.dpToPxF
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -126,7 +128,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         //마이페이지 선배 1:1
         myPageQuestionAdapter = MyPageMainAdapter(2, mainViewModel.userId.value ?: 0, 1)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
+        val decoration = CustomDecoration(1.dpToPxF, 16.dpToPxF, requireContext().getColor(R.color.gray_0))
         val userId = mainViewModel.userId.value
+        binding.rcMyPageQuestion.addItemDecoration(decoration)
         myPageViewModel.getMyPageQuestion(userId ?: 2 , "recent")
         myPageViewModel.userQuestion.observe(viewLifecycleOwner) {
             initReviewEmpty(it.size)
