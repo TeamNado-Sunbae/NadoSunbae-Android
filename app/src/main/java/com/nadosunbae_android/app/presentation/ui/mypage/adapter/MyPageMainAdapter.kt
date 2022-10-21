@@ -44,7 +44,7 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
                         Intent(holder.itemView.context, QuestionDetailActivity::class.java)
                     intent.putExtra(
                         "postId",
-                        getItem(holder.absoluteAdapterPosition).postId.toString()
+                        getItem(holder.absoluteAdapterPosition).postId
                     )
                     intent.putExtra("userId", userId)
                     holder.itemView.context.startActivity(intent)
