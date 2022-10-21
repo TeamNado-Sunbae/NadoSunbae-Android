@@ -297,10 +297,7 @@ class ModifyMyInfoActivity :
                 }
 
                 if(it.name != "미진입" && binding.textMyPageMajorinfoDoubleMajorTime.text.toString() == "미진입") {
-                    binding.textMyPageSave.isSelected = false
-                    binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
-                    binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
-                    binding.textMyPageSave.isClickable = false
+                    saveBtnInActive()
                 }
             }
             .launchIn(lifecycleScope)
@@ -440,11 +437,9 @@ class ModifyMyInfoActivity :
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(p0: Editable?) {
-
                 if (!textMyPageNicknameTitle.isSelected) {
                     nicknameDuplication()
                 }
-
 
                 //닉네임 textfield 빈칸인지 체크
                 if (etMyPageNickname.text.toString() == "") {
@@ -461,8 +456,7 @@ class ModifyMyInfoActivity :
                     textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
                     textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
                 }
-
-
+                saveBtnInActive()
             }
         })
     }
@@ -514,10 +508,7 @@ class ModifyMyInfoActivity :
                 binding.textMyPageSave.isClickable = false
             }
         } else {
-            binding.textMyPageSave.isSelected = false
-            binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
-            binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
-            binding.textMyPageSave.isClickable = false
+            saveBtnInActive()
         }
     }
 
@@ -645,14 +636,18 @@ class ModifyMyInfoActivity :
                 if(myPageViewModel.personalInfo.value?.bio.toString() != binding.etMyPageIntroduction.text.toString()) {
                     initActiveSaveBtn()
                 } else {
-                    binding.textMyPageSave.isSelected = false
-                    binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
-                    binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
-                    binding.textMyPageSave.isClickable = false
+                    saveBtnInActive()
                 }
 
             }
         })
+    }
+
+    private fun saveBtnInActive() {
+        binding.textMyPageSave.isSelected = false
+        binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
+        binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
+        binding.textMyPageSave.isClickable = false
     }
 
     //프로필 이미지 수정 누르면 바텀시트 올라옴
