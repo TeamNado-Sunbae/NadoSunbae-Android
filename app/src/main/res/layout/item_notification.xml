@@ -49,7 +49,7 @@
             <TextView
                 android:id="@+id/text_notification_title"
                 int="@{notification.notificationTypeId}"
-                nickname="@{notification.senderNickname}"
+                nickname='@{notification.senderNickname ?? ""}'
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
