@@ -8,6 +8,8 @@ import android.view.ViewTreeObserver
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentClassRoomMainContentBinding
@@ -29,6 +31,8 @@ import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.review.ReviewFilterItem
 import com.nadosunbae_android.domain.model.review.ReviewPreviewData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -72,7 +76,7 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
         initSwitchTab()
         observeFragmentNum()
         observeLoadingEnd()
-
+        clickMajorFavorites()
         submitAnalytics()
     }
 
@@ -379,10 +383,10 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
 
     private fun initBottomSheet() {
 
-        majorBottomSheetDialog = CustomBottomSheetDialog(resources.getString(R.string.bottom_sheet_title_major))
+        majorBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.bottom_sheet_title_major))
         filterBottomSheetDialog = FilterBottomSheetDialog()
 
-        observeBottomSheet(mainViewModel, majorBottomSheetDialog)
+        observeBottomSheet(mainViewModel, majorBottomSheetDialog,true)
         majorBottomSheetDialog.setCompleteListener {
             val selectedData = majorBottomSheetDialog.getSelectedData()
             if (selectedData != null) {
@@ -395,6 +399,25 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
         setFilterApplyListener()
 
     }
+    //즐겨찾기 클릭
+    private fun clickMajorFavorites(){
+        majorBottomSheetDialog.setCompleteFavoritesListener {
+            Timber.d("이거 호출 $it")
+            classRoomMainContentViewModel.postCommunityFavorite(it)
+        }
+
+        classRoomMainContentViewModel.classRoomFavorites.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach {
+                if (it.success) {
+                    mainViewModel.getMajorList(
+                        MainGlobals.signInData?.universityId ?: 1, "all", null,
+                        MainGlobals.signInData?.userId ?: 0
+                    )
+                }
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
 
     private fun updateMajorStatus() {
         val firstMajor = ReviewGlobals.firstMajor
