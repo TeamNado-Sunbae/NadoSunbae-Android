@@ -89,7 +89,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     //부적절 후기 일경우 띄우기
     private fun floatIsReviewInappropriate() {
-        Timber.d("부적절 후기 ")
+        Timber.d("부적절 후기 ${MainGlobals.signInData?.message.toString().setTextChange()}")
         CustomDialog(this).restrictDialog(
             this,
             ReviewGlobals.isReviewed,
@@ -146,10 +146,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
                 COMMUNITY -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_community
-                    changeFragmentNoBackStack(
-                        R.id.fragment_container_main,
-                        CommunityFragment()
-                    )
                 }
 
                 else -> {
@@ -203,10 +199,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     SeniorPersonalFragment(),
                     "seniorPersonal"
                 )
-                2 -> changeFragment(
+                2 -> changeFragmentNoBackStack(
                     R.id.fragment_container_main,
-                    HomeFrameFragment(),
-                    "homeFragment"
+                    HomeFrameFragment()
                 )
             }
         }

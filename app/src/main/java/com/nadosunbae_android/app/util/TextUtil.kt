@@ -12,7 +12,7 @@ fun TextView.setTextSemiBold(isBold: Boolean) {
 }
 
 fun String.setTextChange(): String {
-    if(this.isNotEmpty()){
+    if(this.length > 45){
         val index = 33
         return this.substring(0, index) + "\n" + this.substring(index)
     }
