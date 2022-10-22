@@ -98,34 +98,62 @@
                 android:text="@{seniorPersonal.nickname}"
                 android:textColor="@color/origin_black"
                 android:textSize="16sp"
+                tools:text="닉네임"
                 app:layout_constraintStart_toEndOf="@+id/img_senior_personal_profile"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/text_senior_personal_rate"
+                rateText="@{seniorPersonal.rate}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:textColor="@color/main_default"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_senior_personal_nickname"
+                app:layout_constraintStart_toEndOf="@+id/text_senior_personal_nickname"
+                app:layout_constraintTop_toTopOf="@+id/text_senior_personal_nickname"
+                tools:text="응답률 100%" />
+
+            <TextView
+                android:id="@+id/text_senior_personal_introduction"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingEnd="16dp"
+                android:text="@{seniorPersonal.bio}"
+                android:textColor="@color/main_text"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_senior_personal_nickname"
+                app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_rate"
+                tools:text="개인 소개 상태 메시지 최대 40자입니다. 개인 소개 상태 메시지 최대 " />
 
             <TextView
                 android:id="@+id/text_senior_personal_major"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
+                android:lineHeight="18sp"
                 android:text="@string/senior_personal_major"
+                android:layout_marginTop="16dp"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
-                android:lineHeight="18sp"
-                app:layout_constraintStart_toStartOf="@+id/text_senior_personal_nickname"
-                app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_nickname" />
+                app:layout_constraintStart_toStartOf="@+id/text_senior_personal_introduction"
+                app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_introduction" />
 
             <View
                 android:id="@+id/line_senior_personal_major"
                 android:layout_width="1dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="6dp"
-                android:layout_marginTop="5dp"
                 android:background="@color/gray_1"
                 app:layout_constraintBottom_toBottomOf="@id/text_senior_personal_major"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_personal_major"
-                app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_nickname" />
+                app:layout_constraintTop_toTopOf="@+id/text_senior_personal_major" />
 
             <TextView
                 android:id="@+id/text_senior_personal_major_name"
