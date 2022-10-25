@@ -164,8 +164,8 @@ class QuestionDetailViewModel @Inject constructor(
                         answererId = it.writerId,
                         isLiked = it.isLiked,
                         likeCount = it.likeCount,
-                        questionerId = 0,
-                        messageList = messageList
+                        messageList = messageList,
+                        questionerId = 0
                     )
                     Timber.d("classRoomDetail : 메인 서버 통신 성공! ${_questionDetailData.value}")
                 }

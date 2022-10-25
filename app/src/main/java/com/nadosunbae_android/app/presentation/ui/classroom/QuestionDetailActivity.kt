@@ -1,8 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -16,11 +14,9 @@ import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
-import com.nadosunbae_android.domain.model.classroom.CommentUpdateItem
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 import com.nadosunbae_android.domain.model.classroom.ReportItem
-import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -97,7 +93,6 @@ class QuestionDetailActivity :
             with(classRoomQuestionDetailAdapter) {
                 Timber.d("questionDetailUser: ${it.answererId}, ${it.questionerId}")
                 Timber.d("questionDetailUserWriter : ${it.messageList}")
-                setViewTitle(all, postId)
                 setQuestionDetailUser(it)
                 setLike(it.likeCount, it.isLiked)
                 setQuestionDetail(it.messageList as MutableList<QuestionDetailData.Message>)
@@ -111,14 +106,6 @@ class QuestionDetailActivity :
                 }
             }
 
-        }
-
-        //전체질문 1:1질문 구분
-        val myPageDivisionNum = intent.getIntExtra("postTypeId", -1)
-        if (all == 1 || myPageDivisionNum == 3) {
-            binding.textQuestionDetailTitle.text = "질문"
-        } else {
-            binding.textQuestionDetailTitle.text = "1:1질문"
         }
     }
 

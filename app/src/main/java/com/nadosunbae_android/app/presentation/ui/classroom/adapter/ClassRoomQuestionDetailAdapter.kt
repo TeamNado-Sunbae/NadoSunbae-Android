@@ -425,15 +425,6 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
         notifyItemChanged(position)
     }
 
-    // 수정시 1:1인지 전체 인지 구분 + postId
-    fun setViewTitle(all: Int, postId: Int) {
-        if (all == 1) {
-            this.viewTitle = "전체에게 질문 작성"
-        } else {
-            this.viewTitle = "1:1질문 작성"
-        }
-        this.postId = postId
-    }
 
 
 
