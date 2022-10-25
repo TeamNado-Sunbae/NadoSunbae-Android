@@ -22,18 +22,14 @@ class QuestionWriteActivity :
     BaseActivity<ActivityQuestionWriteBinding>(R.layout.activity_question_write) {
     private val questionWriteViewModel: QuestionWriteViewModel by viewModels()
 
-    //작성 수정 구분( 0 -> 작성, 1 -> 수정)
-    private var division: Int = write
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setWriteData()
         writeTitle()
         writeContent()
-        divisionWrite()
         completeBtnCheck()
         cancelWrite()
-        initUpdateDetail()
         questionWriteViewModel.setCompleteButton()
         clickOkButton()
         completeWriteOk()
@@ -130,39 +126,6 @@ class QuestionWriteActivity :
     }
 
 
-    //수정 서버통신
-    private fun updateWrite() {
-        val postId = intent.getIntExtra("postId", 0)
-        Timber.d("updateWritePostId: $postId")
-        Timber.d("updateWrite: ${questionWriteViewModel.title.value} , ${questionWriteViewModel.content.value}")
-        questionWriteViewModel.putWriteUpdate(
-            postId,
-            WriteUpdateItem(
-                questionWriteViewModel.titleData.value.toString(),
-                questionWriteViewModel.contentData.value.toString()
-            )
-        )
-    }
-
-    //수정시에 서버통신 작성 창
-    private fun initUpdateDetail() {
-        val title = intent.getStringExtra("writerUpdateTitle")
-        val content = intent.getStringExtra("writerUpdateContent")
-
-        binding.etQuestionWriteAllTitle.setText(title)
-        binding.etQuestionWriteAllContent.setText(content)
-    }
-
-    //수정 작성 구분
-    private fun divisionWrite() {
-        division = intent.getIntExtra("division", -1)
-
-    }
-
-    companion object {
-        const val write = 0
-        const val update = 1
-    }
 
     //백버튼
     override fun onBackPressed() {

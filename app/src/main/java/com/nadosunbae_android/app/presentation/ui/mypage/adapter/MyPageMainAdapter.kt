@@ -46,7 +46,6 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
                         "postId",
                         getItem(holder.absoluteAdapterPosition).postId
                     )
-                    intent.putExtra("userId", userId)
                     holder.itemView.context.startActivity(intent)
                 }
             )
