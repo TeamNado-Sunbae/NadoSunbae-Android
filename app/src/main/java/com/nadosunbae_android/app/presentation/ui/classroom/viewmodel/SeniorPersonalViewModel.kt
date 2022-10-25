@@ -32,16 +32,16 @@ class SeniorPersonalViewModel @Inject constructor(
 
     //선배 개인페이지
     private val _seniorPersonal = MutableStateFlow(
-        SeniorPersonalData("","",false,"",0,"","",0,0, null, null)
+        SeniorPersonalData("", "", false, "", 0, "", "", 0, 0, null, null)
     )
-    val seniorPersonal : StateFlow<SeniorPersonalData>
+    val seniorPersonal: StateFlow<SeniorPersonalData>
         get() = _seniorPersonal
 
     //선배 1:1 질문
     private val _seniorQuestion = MutableStateFlow(
         listOf<ClassRoomData>()
     )
-    val seniorQuestion : StateFlow<List<ClassRoomData>>
+    val seniorQuestion: StateFlow<List<ClassRoomData>>
         get() = _seniorQuestion
 
     //선배 userId
@@ -49,11 +49,16 @@ class SeniorPersonalViewModel @Inject constructor(
 
     //선배 차단
     private var _blockData = MutableLiveData<MyPageBlockUpdateData>()
-    val blockData : LiveData<MyPageBlockUpdateData>
+    val blockData: LiveData<MyPageBlockUpdateData>
         get() = _blockData
 
+    //질문 가능 여부
+    private var _isQuestion = MutableLiveData<Boolean>()
+    val isQuestion: LiveData<Boolean>
+        get() = _isQuestion
+
     //선배 개인페이지 정보 서버통신
-    fun getSeniorPersonal(userId : Int){
+    fun getSeniorPersonal(userId: Int) {
         viewModelScope.launch {
             runCatching { userRepository.getUserInfo(userId) }
                 .onSuccess {
@@ -82,7 +87,7 @@ class SeniorPersonalViewModel @Inject constructor(
     }
 
     //선배 1:1 질문 리스트
-    fun getSeniorQuestionList(userId : Int, sort : String){
+    fun getSeniorQuestionList(userId: Int, sort: String) {
         viewModelScope.launch {
             runCatching { userRepository.getUserQuestion(userId, sort) }
                 .onSuccess {
@@ -106,9 +111,9 @@ class SeniorPersonalViewModel @Inject constructor(
                 }
                 .onFailure {
                     Timber.d("seniorQuestion : 선배 1:1질문 서버 통신 실패")
-                } .also {
-                            onLoadingEnd.value = true
-                        }
+                }.also {
+                    onLoadingEnd.value = true
+                }
         }
     }
 

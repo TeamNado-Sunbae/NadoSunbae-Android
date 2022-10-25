@@ -121,6 +121,15 @@ class SeniorPersonalFragment :
                 binding.seniorPersonal = it
                 if (it.secondMajorName == "미진입")
                     binding.textSeniorPersonalSecondMajorStart.visibility = View.GONE
+                if(it.isOnQuestion) {
+                    binding.clNoQuestion.visibility = View.GONE
+                    binding.btnNoGoQuestionWrite.visibility = View.GONE
+                    binding.btnGoQuestionWrite.visibility = View.VISIBLE
+                } else {
+                    binding.clNoQuestion.visibility = View.VISIBLE
+                    binding.btnNoGoQuestionWrite.visibility = View.VISIBLE
+                    binding.btnGoQuestionWrite.visibility = View.GONE
+                }
             }
             .launchIn(lifecycleScope)
     }

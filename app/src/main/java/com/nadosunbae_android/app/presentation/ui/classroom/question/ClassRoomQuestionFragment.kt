@@ -48,6 +48,7 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
         // 우리과 선배 목록
         classRoomSeniorAdapter = ClassRoomSeniorOnAdapter(link)
         binding.rvClassroomRecommendSenior.adapter = classRoomSeniorAdapter
+
 //        mainViewModel.seniorData.observe(viewLifecycleOwner) {
 //            val userList = it.onQuestionUserList as MutableList<ClassRoomSeniorData.OnQuestionUser>
 //            classRoomSeniorAdapter.setOnQuestionUser(userList)
@@ -63,6 +64,7 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
         val userId = mainViewModel.userId.value ?: 0
         classRoomInfoMainAdapter = ClassRoomInfoMainAdapter(userId)
         binding.rvSeniorPersonal.adapter = classRoomInfoMainAdapter
+
 //        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
 //            Timber.d("classRoomInfo: $it")
 //            if(it.isEmpty()){
@@ -75,6 +77,18 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
 //            Timber.d("classRoomInfo empty : ${mainViewModel.classRoomInfoEmpty.value}")
 //            classRoomInfoMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
 //        }
+    }
+
+
+    //선배 없을 때
+    private fun initReviewEmpty(size : Int){
+        if(size == 0){
+            binding.tvClassroomRecommendSeniorEmpty.visibility = View.VISIBLE
+            binding.btnClassroomMoreSenior.visibility = View.INVISIBLE
+        }else{
+            binding.tvClassroomRecommendSeniorEmpty.visibility = View.GONE
+            binding.btnClassroomMoreSenior.visibility = View.VISIBLE
+        }
     }
 
     private fun setListener() {
@@ -100,6 +114,8 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
 
     private fun observeData() {
         classRoomQuestionViewModel.seniorList.observe(requireActivity()) {
+            Timber.e("1111111: ${it.onQuestionUserList.size + it.offQuestionUserList.size}")
+            initReviewEmpty(it.onQuestionUserList.size + it.offQuestionUserList.size)
             classRoomSeniorAdapter.setOnQuestionUser(
                 classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>
             )
