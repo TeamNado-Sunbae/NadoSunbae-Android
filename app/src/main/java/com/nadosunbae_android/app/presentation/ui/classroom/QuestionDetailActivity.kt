@@ -66,6 +66,7 @@ class QuestionDetailActivity :
         if (MainGlobals.infoBlock == 1) {
             finish()
         }
+        Timber.d("qwerqwerqwer ${questionDetailViewModel.postId.value}")
         questionDetailViewModel.getClassRoomQuestionDetail(
             questionDetailViewModel.postId.value ?: 0
         )
@@ -97,12 +98,12 @@ class QuestionDetailActivity :
                 setLike(it.likeCount, it.isLiked)
                 setQuestionDetail(it.messageList as MutableList<QuestionDetailData.Message>)
 
-                Timber.d("asdfasdf $myPageNum $all $userId $it")
+                Timber.d("qwerqwer $myPageNum $all $userId $it")
                 //1:1질문 타인 글 쓰는거 막기
 
+
                 if (userId != it.questionerId && userId != it.answererId) {
-                    binding.etQuestionComment.isEnabled = false
-                    binding.etQuestionComment.hint = getString(R.string.text_comment_impossible)
+                    binding.clQuestionDetailComment.visibility = View.GONE
                 }
             }
 

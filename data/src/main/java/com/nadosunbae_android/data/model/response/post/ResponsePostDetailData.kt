@@ -6,6 +6,7 @@ import java.util.*
 data class ResponsePostDetailData(
     val commentCount: Int,
     val commentList: List<Comment>,
+    val answererId: Int,
     val like: Like,
     val post: Post,
     val writer: Writer
@@ -57,6 +58,7 @@ data class ResponsePostDetailData(
 fun ResponsePostDetailData.toEntity(): PostDetailData {
     return PostDetailData(
         commentCount = this.commentCount,
+        answererId = this.answererId,
         commentList = this.commentList.map {
             PostDetailData.Comment(
                 content = it.content,
