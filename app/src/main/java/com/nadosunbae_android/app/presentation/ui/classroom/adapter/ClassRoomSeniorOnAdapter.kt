@@ -1,15 +1,15 @@
 package com.nadosunbae_android.app.presentation.ui.classroom.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionSeniorOnQuestionBinding
-import com.nadosunbae_android.app.presentation.ui.classroom.SeniorFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.question.DataToFragment
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 
 class ClassRoomSeniorOnAdapter(
-    var link : DataToFragment
+    var link: DataToFragment
 ) : RecyclerView.Adapter<ClassRoomSeniorOnAdapter.ClassRoomSeniorOnViewHolder>() {
     var onQuestionUserList = mutableListOf<ClassRoomSeniorData.UserSummaryData>()
 
@@ -33,7 +33,17 @@ class ClassRoomSeniorOnAdapter(
         holder.onBind(onQuestionUserList[position])
         holder.itemView.setOnClickListener {
             link.getSeniorId(onQuestionUserList[position].id)
+        }
+        if (itemCount > 7) {
+            if (holder.layoutPosition > 6) {
+                holder.binding.clSeniorMore.visibility = View.VISIBLE
+            } else {
+                holder.binding.clSeniorMore.visibility = View.GONE
+            }
+        }
 
+        holder.binding.clSeniorMore.setOnClickListener {
+            itemClickListener.onClick(it)
         }
     }
 
@@ -41,16 +51,26 @@ class ClassRoomSeniorOnAdapter(
         return onQuestionUserList.size
     }
 
+    interface ItemClickListener {
+        fun onClick(view: View)
+    }
+
+    private lateinit var itemClickListener: ItemClickListener
+
+    fun setItemClickListener(itemClickListener: ItemClickListener) {
+        this.itemClickListener = itemClickListener
+    }
+
     inner class ClassRoomSeniorOnViewHolder(
-        val binding : ItemQuestionSeniorOnQuestionBinding
-    ) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(onQuestionUserList : ClassRoomSeniorData.UserSummaryData){
+        val binding: ItemQuestionSeniorOnQuestionBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(onQuestionUserList: ClassRoomSeniorData.UserSummaryData) {
             binding.seniorOn = onQuestionUserList
             binding.executePendingBindings()
         }
     }
 
-    fun setOnQuestionUser(onQuestionUserList: MutableList<ClassRoomSeniorData.UserSummaryData>){
+    fun setOnQuestionUser(onQuestionUserList: MutableList<ClassRoomSeniorData.UserSummaryData>) {
         this.onQuestionUserList = onQuestionUserList
         notifyDataSetChanged()
     }

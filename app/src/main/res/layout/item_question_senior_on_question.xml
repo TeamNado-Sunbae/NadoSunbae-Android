@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="seniorOn"
             type="com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData.UserSummaryData" />
@@ -13,66 +15,107 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout8"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/img_senior_title_on"
+                profileImgBig="@{seniorOn.profileImageId}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
-                profileImgBig="@{seniorOn.profileImageId}"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="12dp" />
+                tools:src="@drawable/img_profile_24" />
 
             <TextView
                 android:id="@+id/text_senior_nickname_on"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{seniorOn.nickname}"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/pretendard_semibold"
-                android:textSize="14sp"
-                android:textColor="@color/black"
                 android:lineHeight="22sp"
-                app:layout_constraintTop_toBottomOf="@+id/img_senior_title_on"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@{seniorOn.nickname}"
+                android:textColor="@color/black"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="4dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_senior_title_on"
+                tools:text="닉네입" />
 
             <TextView
                 android:id="@+id/text_senior_major_on"
+                divisionFirst="@{seniorOn.isFirstMajor}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                divisionFirst = "@{seniorOn.isFirstMajor}"
+                android:layout_marginStart="17dp"
                 android:fontFamily="@font/pretendard_regular"
-                android:textSize="12sp"
-                android:textColor="@color/main_default"
                 android:lineHeight="18sp"
-                app:layout_constraintTop_toBottomOf="@+id/text_senior_nickname_on"
+                android:textColor="@color/main_default"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="17dp" />
+                app:layout_constraintTop_toBottomOf="@+id/text_senior_nickname_on"
+                tools:text="첫번째 전공" />
 
             <TextView
                 android:id="@+id/text_senior_major_start_on"
+                plusStart="@{seniorOn.majorStart}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                plusStart="@{seniorOn.majorStart}"
-                android:lineHeight="18sp"
+                android:layout_marginStart="4dp"
                 android:fontFamily="@font/pretendard_regular"
-                android:textSize="12sp"
+                android:lineHeight="18sp"
                 android:textColor="@color/gray_4"
-                app:layout_constraintTop_toTopOf="@+id/text_senior_major_on"
+                android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_major_on"
-                android:layout_marginStart="4dp" />
+                app:layout_constraintTop_toTopOf="@+id/text_senior_major_on"
+                tools:text="두번째 전공" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_senior_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/rectangle_border_gray0_22"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="34dp"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout8"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout8">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_right_arrow_mint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/home_more"
+                android:textColor="@color/main_default"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

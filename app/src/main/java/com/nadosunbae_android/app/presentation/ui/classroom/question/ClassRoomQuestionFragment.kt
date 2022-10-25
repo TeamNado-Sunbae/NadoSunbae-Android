@@ -18,7 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>(R.layout.fragment_class_room_question) {
+class ClassRoomQuestionFragment :
+    BaseFragment<FragmentClassRoomQuestionBinding>(R.layout.fragment_class_room_question) {
 
     // main view model 초기화
     private val mainViewModel: MainViewModel by activityViewModels()
@@ -38,6 +39,7 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
         observeLoadingEnd()
         observeData()
         observeSelectedMajor()
+        setOnClickListener()
     }
 
     private fun initBinding() {
@@ -48,6 +50,7 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
         // 우리과 선배 목록
         classRoomSeniorAdapter = ClassRoomSeniorOnAdapter(link)
         binding.rvClassroomRecommendSenior.adapter = classRoomSeniorAdapter
+
 
 //        mainViewModel.seniorData.observe(viewLifecycleOwner) {
 //            val userList = it.onQuestionUserList as MutableList<ClassRoomSeniorData.OnQuestionUser>
@@ -81,13 +84,22 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
 
 
     //선배 없을 때
-    private fun initReviewEmpty(size : Int){
-        if(size == 0){
+    private fun initSeniorEmpty(size: Int) {
+        if (size == 0) {
             binding.tvClassroomRecommendSeniorEmpty.visibility = View.VISIBLE
             binding.btnClassroomMoreSenior.visibility = View.INVISIBLE
-        }else{
+        } else {
             binding.tvClassroomRecommendSeniorEmpty.visibility = View.GONE
             binding.btnClassroomMoreSenior.visibility = View.VISIBLE
+        }
+    }
+
+    //질문 없을 때
+    private fun initQuestionEmpty(size : Int) {
+        if(size == 0) {
+            binding.tvClassroomQuestionEmpty.visibility = View.VISIBLE
+        } else {
+            binding.tvClassroomQuestionEmpty.visibility = View.GONE
         }
     }
 
@@ -97,11 +109,23 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
         }
     }
 
-    private fun observeSelectedMajor(){
+    private fun observeSelectedMajor() {
         mainViewModel.selectedMajor.observe(requireActivity()) {
             classRoomQuestionViewModel.getSeniorList(it.majorId, null)
             classRoomQuestionViewModel.getQuestionList(mainViewModel.univId.value!!, it.majorId)
         }
+    }
+
+    //리사이클러뷰에 있는 더보기 버튼 눌렀을 때 이동
+    private fun setOnClickListener() {
+        classRoomSeniorAdapter.setItemClickListener(
+            object : ClassRoomSeniorOnAdapter.ItemClickListener {
+                override fun onClick(view: View) {
+                    mainViewModel.classRoomFragmentNum.postValue(3)
+                }
+
+            }
+        )
     }
 
     //로딩 종료
@@ -114,13 +138,18 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
 
     private fun observeData() {
         classRoomQuestionViewModel.seniorList.observe(requireActivity()) {
-            Timber.e("1111111: ${it.onQuestionUserList.size + it.offQuestionUserList.size}")
-            initReviewEmpty(it.onQuestionUserList.size + it.offQuestionUserList.size)
-            classRoomSeniorAdapter.setOnQuestionUser(
-                classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>
-            )
+            initSeniorEmpty(it.onQuestionUserList.size + it.offQuestionUserList.size)
+            if(it.onQuestionUserList.size + it.offQuestionUserList.size > 8) {
+                classRoomSeniorAdapter.setOnQuestionUser(
+                    (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>).subList(0,8))
+            } else {
+                classRoomSeniorAdapter.setOnQuestionUser(
+                    (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>))
+            }
+
         }
         classRoomQuestionViewModel.questionList.observe(requireActivity()) {
+            initQuestionEmpty(it.size)
             if (classRoomQuestionViewModel.questionList.value != null) {
                 classRoomInfoMainAdapter.setQuestionMain(
                     mapToPostData(classRoomQuestionViewModel.questionList.value!!) as MutableList<ClassRoomData>
@@ -130,13 +159,13 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
     }
 
     //선배 Id = userId가 같을 경우 마이페이지로 이동
-    private fun goMyPage(seniorId : Int){
+    private fun goMyPage(seniorId: Int) {
         val userId = mainViewModel.userId.value ?: 0
         Timber.d("userId : $userId")
         Timber.d("seniorId : $seniorId")
-        if(userId == seniorId){
+        if (userId == seniorId) {
             mainViewModel.bottomNavItem.value = 4
-        }else{
+        } else {
             mainViewModel.classRoomFragmentNum.value = 4
             mainViewModel.initLoading.value = true
         }
@@ -159,7 +188,7 @@ class ClassRoomQuestionFragment : BaseFragment<FragmentClassRoomQuestionBinding>
                 isLiked = it.isLiked,
                 commentCount = it.commentCount
             )
-    }
+        }
 
     inner class QuestionDataToFragment : DataToFragment {
         override fun getSeniorId(seniorId: Int) {
