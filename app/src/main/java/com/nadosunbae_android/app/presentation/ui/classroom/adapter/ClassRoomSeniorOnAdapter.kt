@@ -9,7 +9,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.question.DataToFragm
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 
 class ClassRoomSeniorOnAdapter(
-    var link: DataToFragment
+    var link: DataToFragment, var isClassRoomQuestion : Boolean
 ) : RecyclerView.Adapter<ClassRoomSeniorOnAdapter.ClassRoomSeniorOnViewHolder>() {
     var onQuestionUserList = mutableListOf<ClassRoomSeniorData.UserSummaryData>()
 
@@ -34,7 +34,7 @@ class ClassRoomSeniorOnAdapter(
         holder.itemView.setOnClickListener {
             link.getSeniorId(onQuestionUserList[position].id)
         }
-        if (itemCount > 7) {
+        if (itemCount > 7 && isClassRoomQuestion) {
             if (holder.layoutPosition > 6) {
                 holder.binding.clSeniorMore.visibility = View.VISIBLE
             } else {

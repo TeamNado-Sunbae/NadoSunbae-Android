@@ -64,7 +64,7 @@ class SeniorFragment : BaseFragment<FragmentSeniorBinding>(R.layout.fragment_sen
     // 구성원 보여주기
     private fun initSenior(){
         showLoading()
-        classRoomSeniorOnAdapter = ClassRoomSeniorOnAdapter(link)
+        classRoomSeniorOnAdapter = ClassRoomSeniorOnAdapter(link, false)
         classRoomSeniorOffAdapter = ClassRoomSeniorOffAdapter(link)
         binding.rcSeniorQuestionOff.adapter = classRoomSeniorOffAdapter
         binding.rcSeniorQuestionOn.adapter = classRoomSeniorOnAdapter

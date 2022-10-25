@@ -48,7 +48,7 @@ class ClassRoomQuestionFragment :
 
     private fun initAdapter() {
         // 우리과 선배 목록
-        classRoomSeniorAdapter = ClassRoomSeniorOnAdapter(link)
+        classRoomSeniorAdapter = ClassRoomSeniorOnAdapter(link, true)
         binding.rvClassroomRecommendSenior.adapter = classRoomSeniorAdapter
 
 
@@ -89,14 +89,14 @@ class ClassRoomQuestionFragment :
             binding.tvClassroomRecommendSeniorEmpty.visibility = View.VISIBLE
             binding.btnClassroomMoreSenior.visibility = View.INVISIBLE
         } else {
-            binding.tvClassroomRecommendSeniorEmpty.visibility = View.GONE
+            binding.tvClassroomRecommendSeniorEmpty.visibility = View.INVISIBLE
             binding.btnClassroomMoreSenior.visibility = View.VISIBLE
         }
     }
 
     //질문 없을 때
-    private fun initQuestionEmpty(size : Int) {
-        if(size == 0) {
+    private fun initQuestionEmpty(size: Int) {
+        if (size == 0) {
             binding.tvClassroomQuestionEmpty.visibility = View.VISIBLE
         } else {
             binding.tvClassroomQuestionEmpty.visibility = View.GONE
@@ -138,23 +138,29 @@ class ClassRoomQuestionFragment :
 
     private fun observeData() {
         classRoomQuestionViewModel.seniorList.observe(requireActivity()) {
-            initSeniorEmpty(it.onQuestionUserList.size + it.offQuestionUserList.size)
-            if(it.onQuestionUserList.size + it.offQuestionUserList.size > 8) {
-                classRoomSeniorAdapter.setOnQuestionUser(
-                    (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>).subList(0,8))
-            } else {
-                classRoomSeniorAdapter.setOnQuestionUser(
-                    (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>))
-            }
 
-        }
-        classRoomQuestionViewModel.questionList.observe(requireActivity()) {
-            initQuestionEmpty(it.size)
-            if (classRoomQuestionViewModel.questionList.value != null) {
-                classRoomInfoMainAdapter.setQuestionMain(
-                    mapToPostData(classRoomQuestionViewModel.questionList.value!!) as MutableList<ClassRoomData>
+            if (it.onQuestionUserList.size + it.offQuestionUserList.size > 8) {
+                initSeniorEmpty(it.onQuestionUserList.size + it.offQuestionUserList.size)
+                classRoomSeniorAdapter.setOnQuestionUser(
+                    (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>).subList(0, 8)
+                )
+            } else {
+                initSeniorEmpty(it.onQuestionUserList.size + it.offQuestionUserList.size)
+                classRoomSeniorAdapter.setOnQuestionUser(
+                    (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>)
                 )
             }
+
+
+        }
+
+        classRoomQuestionViewModel.questionList.observe(requireActivity()) {
+            initQuestionEmpty(it.size)
+            classRoomInfoMainAdapter.setQuestionMain(
+                mapToPostData(classRoomQuestionViewModel.questionList.value!!) as MutableList<ClassRoomData>
+            )
+
+
         }
     }
 

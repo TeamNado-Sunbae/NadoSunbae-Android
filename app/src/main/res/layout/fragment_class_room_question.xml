@@ -137,7 +137,7 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
                 android:text="@string/empty_personal_question"
-                android:textColor="@color/gray_3"
+                android:textColor="@color/gray_2"
                 android:paddingVertical="46dp"
                 android:paddingHorizontal="80dp"
                 app:layout_constraintBottom_toBottomOf="parent"
