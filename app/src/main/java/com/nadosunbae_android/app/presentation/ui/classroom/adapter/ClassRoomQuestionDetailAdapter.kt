@@ -42,6 +42,9 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
     var position: Int = 0
     lateinit var questionDetailUserData: QuestionDetailData
 
+    //좋아요
+    private var onItemLikeCLickListener: (() -> Unit)? = null
+
     //신고 사유
     var reportText = ""
     fun setLike(num: Int, isLiked: Boolean) {
@@ -98,7 +101,9 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
                 holder.onBind(questionDetailData[position], position)
                 //좋아요 처리
                 holder.binding.imgQuestionDetailLike.setOnClickListener {
-                    itemLikeClickListener.onLikeClick(it)
+                    onItemLikeCLickListener.let {
+                        it?.invoke()
+                    }
                 }
 
                 with(holder.binding) {
@@ -420,27 +425,13 @@ class ClassRoomQuestionDetailAdapter(context: Context, private var userId: Int) 
         notifyItemChanged(position)
     }
 
-    // 수정시 1:1인지 전체 인지 구분 + postId
-    fun setViewTitle(all: Int, postId: Int) {
-        if (all == 1) {
-            this.viewTitle = "전체에게 질문 작성"
-        } else {
-            this.viewTitle = "1:1질문 작성"
-        }
-        this.postId = postId
+
+
+
+    fun setItemLikeClickListener(onItemLikeClickListener: (() -> Unit)) {
+        this.onItemLikeCLickListener = onItemLikeClickListener
     }
 
-
-    //좋아요 클릭 이벤트
-    interface OnItemLikeClickListener {
-        fun onLikeClick(v: View)
-    }
-
-    fun setItemLikeClickListener(onItemLikeClickListener: OnItemLikeClickListener) {
-        this.itemLikeClickListener = onItemLikeClickListener
-    }
-
-    private lateinit var itemLikeClickListener: OnItemLikeClickListener
 
 
     //점세개 메뉴 클릭 이벤트

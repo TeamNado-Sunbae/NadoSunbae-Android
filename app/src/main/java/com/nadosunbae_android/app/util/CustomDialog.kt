@@ -1,17 +1,14 @@
 package com.nadosunbae_android.app.util
 
-import android.app.ActionBar
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
-import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nadosunbae_android.app.R
@@ -20,8 +17,6 @@ import com.nadosunbae_android.app.databinding.DialogGenericBinding
 import com.nadosunbae_android.app.databinding.DialogProgressBinding
 import com.nadosunbae_android.app.databinding.DialogReportBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewWriteActivity
-import kotlinx.android.synthetic.main.dialog_question_write_cancel.*
-import kotlinx.android.synthetic.main.dialog_question_write_complete.*
 import timber.log.Timber
 
 class CustomDialog(val context: Context) {
@@ -53,57 +48,12 @@ class CustomDialog(val context: Context) {
         }
     }
 
-    //작성 취소
-    fun writeCancelDialog(@LayoutRes layout: Int, divisionNum: Int) {
-        dialog.setContentView(layout)
-        dialog.window?.setLayout(
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
-        dialog.show()
-        if (divisionNum == 1) {
-            dialog.text_question_write_dialog.text =
-                context.getString(R.string.question_update_cancel)
-        }
-        dialog.text_question_write_dialog_out.setOnClickListener {
-            onClickedListener.onClicked(1)
-            dialog.dismiss()
-        }
-
-        dialog.text_question_write_dialog_in.setOnClickListener {
-            onClickedListener.onClicked(2)
-            dialog.dismiss()
-        }
-    }
-
-    //작성 완료
-    fun writeCompleteDialog(@LayoutRes layout: Int) {
-        dialog.setContentView(layout)
-        dialog.window?.setLayout(
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window?.setBackgroundDrawableResource(R.drawable.rectangle_fill_white_8dp)
-        dialog.show()
-
-
-        dialog.text_question_write_complete_dialog_out.setOnClickListener {
-            onClickedListener.onClicked(1)
-            dialog.dismiss()
-        }
-
-        dialog.text_question_write_complete_in.setOnClickListener {
-            onClickedListener.onClicked(2)
-            dialog.dismiss()
-        }
-    }
 
     fun genericDialog(
         dialogText: DialogData,
         complete: () -> Unit,
         cancel: () -> Unit,
-        viewMargin: Boolean?= false,
+        viewMargin: Boolean? = false,
     ) {
         val binding = DataBindingUtil.inflate<DialogGenericBinding>(
             LayoutInflater.from(context),
@@ -111,7 +61,7 @@ class CustomDialog(val context: Context) {
             null,
             false
         )
-        if(viewMargin == true) {
+        if (viewMargin == true) {
             val titleHeight = binding.tvDialogTitle.layoutParams
             titleHeight.height = ViewGroup.LayoutParams.WRAP_CONTENT
             binding.tvDialogTitle.layoutMarginTop(12.dpToPx)

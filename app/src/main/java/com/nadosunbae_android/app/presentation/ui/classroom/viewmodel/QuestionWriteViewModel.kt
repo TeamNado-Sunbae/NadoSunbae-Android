@@ -1,31 +1,34 @@
 package com.nadosunbae_android.app.presentation.ui.classroom.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.*
-import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
-import com.nadosunbae_android.app.util.ResultWrapper
-import com.nadosunbae_android.app.util.safeApiCall
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteData
-import com.nadosunbae_android.domain.model.classroom.ClassRoomPostWriteItem
 import com.nadosunbae_android.domain.model.classroom.WriteUpdateData
 import com.nadosunbae_android.domain.model.classroom.WriteUpdateItem
-import com.nadosunbae_android.domain.usecase.classroom.PostClassRoomWriteUseCase
+import com.nadosunbae_android.domain.model.post.PostWriteData
+import com.nadosunbae_android.domain.model.post.PostWriteParam
+import com.nadosunbae_android.domain.repository.post.PostRepository
 import com.nadosunbae_android.domain.usecase.classroom.PutWriteUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class QuestionWriteViewModel @Inject constructor(
-    val postClassRoomWriteUseCase: PostClassRoomWriteUseCase,
+    val postRepository: PostRepository,
     val putWriteUpdateUseCase: PutWriteUpdateUseCase
-) : ViewModel() {
+) : ViewModel(), LoadableViewModel{
+    override val onLoadingEnd = MutableLiveData<Boolean>()
+
 
     //전체 질문글 작성 제목 및 내용 있는지 체크
-    var title = MutableLiveData<Boolean>()
-    var content = MutableLiveData<Boolean>()
+    var title = MutableStateFlow("")
+    var content = MutableStateFlow("")
 
     //전체 질문글 작성 제목 및 내용의 내용
     var titleData = MutableLiveData<String>()
@@ -34,7 +37,6 @@ class QuestionWriteViewModel @Inject constructor(
     //작성시 필요한 데이터
     var majorId = MutableLiveData<Int>()
     var answerId = MutableLiveData<Int>()
-    var postTypeId = MutableLiveData<Int>()
 
     //부적절 사용자 데이터들
     private var _statusCode = MutableLiveData<Int>()
@@ -46,55 +48,58 @@ class QuestionWriteViewModel @Inject constructor(
         get() = _message
 
     //1:1, 전체 질문글, 정보글 작성
-    var postDataWrite : MutableLiveData<ClassRoomPostWriteData> = MutableLiveData()
+    var postDataWrite: MutableLiveData<ClassRoomPostWriteData> = MutableLiveData()
+
+    //게시글 작성 서버
+    private var _postWrite = MutableStateFlow(PostWriteData.DEFAULT)
+    val postWrite: StateFlow<PostWriteData>
+        get() = _postWrite
 
     //1:1, 전체 질문글, 정보글 수정
     private var _writeUpdate = MutableLiveData<WriteUpdateData>()
-    val writeUpdateData : LiveData<WriteUpdateData>
+    val wrieUpdateData: LiveData<WriteUpdateData>
         get() = _writeUpdate
 
-    var completeBtn = MediatorLiveData<Boolean>().apply {
-        this.addSource(title){
-            this.value = isCompleteBtn()
-        }
-        this.addSource(content){
-            this.value = isCompleteBtn()
-        }
-    }
+    //완료 버튼
+    private var _completeButton = MutableStateFlow(false)
+    val completeButton: StateFlow<Boolean>
+        get() = _completeButton
 
-    //완료 버튼 활성화
-    private fun isCompleteBtn() : Boolean{
-        return (title.value == true) && (content.value == true)
-    }
-
-    //1:1, 질문, 정보글 등록
-    fun postClassRoomWrite(classRoomPostWriteItem: ClassRoomPostWriteItem){
+    fun setCompleteButton() {
         viewModelScope.launch {
-            runCatching { postClassRoomWriteUseCase(classRoomPostWriteItem) }
-                .onSuccess {
-                    postDataWrite.value = it
-                    Timber.d("classRoomWrite : 글 작성 등록 완료")
-                    when (classRoomPostWriteItem.postTypeId) {
-                        2 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.INFORMATION)
-                        3 -> FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.QUESTION_ALL)
-                        4 -> {
-                            FirebaseAnalyticsUtil.userPost(FirebaseAnalyticsUtil.Post.QUESTION_PERSONAL)
-                            FirebaseAnalyticsUtil.question(FirebaseAnalyticsUtil.Question.QUESTION_START)
-                        }
-                    }
-
-
-                }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("classRoomWrite : 글 작성 등록 실패")
-                }
+            combine(title, content) { title, content ->
+                title.isNotEmpty() && content.isNotEmpty()
+            }.collectLatest {
+                _completeButton.value = it
             }
         }
+    }
 
+
+    //1:1, 질문, 정보글 등록
+    fun postClassRoomWrite() {
+        viewModelScope.launch {
+            postRepository.postWrite(
+                PostWriteParam(
+                    type = "questionToPerson",
+                    majorId = majorId.value.toString(),
+                    answerId = answerId.value.toString(),
+                    title = title.value,
+                    content = content.value
+                )
+            ).catch {
+                Timber.d("작성 실패")
+            }.collectLatest {
+                Timber.d("작성 성공")
+                _postWrite.value = it
+            }.also {
+                onLoadingEnd.value = true
+            }
+        }
+    }
 
     //1:1, 질문, 정보글 수정
-    fun putWriteUpdate(postId : Int, writeUpdateItem: WriteUpdateItem){
+    fun putWriteUpdate(postId: Int, writeUpdateItem: WriteUpdateItem) {
         viewModelScope.launch {
             runCatching { putWriteUpdateUseCase(postId, writeUpdateItem) }
                 .onSuccess {

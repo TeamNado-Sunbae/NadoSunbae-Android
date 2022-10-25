@@ -1,11 +1,10 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityQuestionDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -15,11 +14,9 @@ import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
-import com.nadosunbae_android.domain.model.classroom.CommentUpdateItem
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
 import com.nadosunbae_android.domain.model.classroom.QuestionDetailData
 import com.nadosunbae_android.domain.model.classroom.ReportItem
-import com.nadosunbae_android.domain.model.like.LikeParam
 import com.nadosunbae_android.domain.model.main.SelectableData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -35,7 +32,7 @@ class QuestionDetailActivity :
         super.onCreate(savedInstanceState)
         initQuestionOneToOneMenu()
         initQuestionDetail()
-        questionAllDetailLike()
+        questionDetailLike()
         backBtn()
         questionOneToOneMenu()
         checkMenuName()
@@ -79,15 +76,12 @@ class QuestionDetailActivity :
     private fun initQuestionDetail() {
         val postId = intent.getIntExtra("postId", 0)
         questionDetailViewModel.postId.value = postId
-        registerComment(postId)
-        questionDetailViewModel.setLikePostId(postId)
-        val userId = intent.getIntExtra("userId", 0)
+        registerComment()
+        val userId = MainGlobals.signInData?.userId ?: -1
         val all = intent.getIntExtra("all", 0)
-        questionDetailViewModel.setDivisionQuestion(all)
         val myPageNum = intent.getIntExtra("myPageNum", 0)
 
-        Timber.d("postId: $postId")
-        Timber.d("userId: $userId")
+
         showLoading()
         questionDetailViewModel.getClassRoomQuestionDetail(postId)
         classRoomQuestionDetailAdapter = ClassRoomQuestionDetailAdapter(this, userId)
@@ -99,14 +93,13 @@ class QuestionDetailActivity :
             with(classRoomQuestionDetailAdapter) {
                 Timber.d("questionDetailUser: ${it.answererId}, ${it.questionerId}")
                 Timber.d("questionDetailUserWriter : ${it.messageList}")
-                setViewTitle(all, postId)
                 setQuestionDetailUser(it)
                 setLike(it.likeCount, it.isLiked)
                 setQuestionDetail(it.messageList as MutableList<QuestionDetailData.Message>)
 
                 Timber.d("asdfasdf $myPageNum $all $userId $it")
                 //1:1질문 타인 글 쓰는거 막기
-//                if (myPageNum != 1 && all != 1 && userId != it.questionerId && userId != it.answererId) {
+
                 if (userId != it.questionerId && userId != it.answererId) {
                     binding.etQuestionComment.isEnabled = false
                     binding.etQuestionComment.hint = getString(R.string.text_comment_impossible)
@@ -114,65 +107,29 @@ class QuestionDetailActivity :
             }
 
         }
-
-        //전체질문 1:1질문 구분
-        val myPageDivisionNum = intent.getIntExtra("postTypeId", -1)
-        if (all == 1 || myPageDivisionNum == 3) {
-            binding.textQuestionDetailTitle.text = "1:1질문"
-        } else {
-            binding.textQuestionDetailTitle.text = "1:1질문"
-        }
     }
 
     //전체 질문 상세보기 좋아요
-    private fun questionAllDetailLike() {
-        val divisionNum = questionDetailViewModel.divisionQuestion.value
-        val myPageDivisionNum = intent.getIntExtra("postTypeId", -1)
-
-        classRoomQuestionDetailAdapter.setItemLikeClickListener(
-            object : ClassRoomQuestionDetailAdapter.OnItemLikeClickListener {
-                override fun onLikeClick(v: View) {
-                    val postId = questionDetailViewModel.likePostId.value ?: 0
-
-                    if (divisionNum == 1 || myPageDivisionNum == 3) {
-                        Timber.d("전체 질문 좋아요: 서버 통신 하는 중")
-                        // questionDetailViewModel.postClassRoomLike(LikeParam(postId, 3))
-                        showLoading()
-                        questionDetailViewModel.getClassRoomQuestionDetail(postId)
-                    } else {
-                        Timber.d("1:1 질문 좋아요: 서버 통신 하는 중")
-                        // questionDetailViewModel.postClassRoomLike(LikeParam(postId, 4))
-                        showLoading()
-                        questionDetailViewModel.getClassRoomQuestionDetail(postId)
-                    }
-                }
-            }
-        )
+    private fun questionDetailLike() {
+        classRoomQuestionDetailAdapter.setItemLikeClickListener {
+            questionDetailViewModel.postClassRoomLike()
+        }
     }
 
     //답글 작성 중 종이비행기 색상 변경
     private fun changeRegisterBtn() {
-        binding.etQuestionComment.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                binding.imgQuestionCommentComplete.isSelected = !s.isNullOrEmpty()
-            }
-        })
+        binding.etQuestionComment.addTextChangedListener {
+            binding.imgQuestionCommentComplete.isSelected = !it.isNullOrEmpty()
+        }
     }
 
 
     // 전체 질문 상세 댓글 등록
-    private fun registerComment(postId: Int) {
+    private fun registerComment() {
         binding.imgQuestionCommentComplete.setOnClickListener {
             questionDetailViewModel.postQuestionCommentWrite(
                 QuestionCommentWriteItem(
-                    postId, binding.etQuestionComment.text.toString()
+                    questionDetailViewModel.postId.value?.toInt() ?: -1, binding.etQuestionComment.text.toString()
                 )
             )
             binding.etQuestionComment.setText("")
@@ -181,10 +138,9 @@ class QuestionDetailActivity :
         questionDetailViewModel.registerComment.observe(this) {
             if (it.success) {
                 showLoading()
-                questionDetailViewModel.getClassRoomQuestionDetail(postId)
+                questionDetailViewModel.getClassRoomQuestionDetail(questionDetailViewModel.postId.value?.toInt() ?: -1)
             }
         }
-
     }
 
     private fun initQuestionOneToOneMenu() {
