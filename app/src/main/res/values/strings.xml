@@ -449,6 +449,7 @@
     <string name="empty_personal_question">등록된 1:1 질문이 없습니다.</string>
     <string name="empty_block_list">차단한 사용자가 없습니다.</string>
     <string name="empty_senior">선배가 없습니다.</string>
+    <string name="empty_major_senior">등록된 선배가 없습니다.</string>
 
     <!-- 메일 인증 알럿 -->
     <string name="email_certification_title">학교 이메일 인증을 완료해야\n로그인이 가능합니다.</string>
@@ -511,6 +512,7 @@
     <string name="classroom_fragment_question_label">question</string>
 
     <string name="navigation_review">후기</string>
+    <string name="no_question">질문 불가</string>
 
     <string name="sign_univ_swu">서울여자대학교</string>
     <string name="sign_univ_korea">고려대학교</string>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="seniorPersonal"
             type="com.nadosunbae_android.domain.model.classroom.SeniorPersonalData" />
@@ -19,15 +20,15 @@
             android:id="@+id/text_senior_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
             android:text="@string/classroom_senior_item_no"
             android:textColor="@color/gray_3"
-            android:fontFamily="@font/pretendard_regular"
             android:textSize="14sp"
-            app:layout_constraintVertical_bias="0.7"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_senior_personal_title"
@@ -43,14 +44,14 @@
                 android:id="@+id/text_senior_personal_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:includeFontPadding="false"
                 android:text="@{seniorPersonal.nickname}"
-                android:textSize="20sp"
                 android:textColor="@color/origin_black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_senior_personal_title"
                 app:layout_constraintStart_toEndOf="@+id/img_senior_personal_title"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/img_senior_personal_title" />
 
             <ImageView
                 android:id="@+id/img_senior_personal_title"
@@ -63,6 +64,31 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_no_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_senior_personal_title">
+
+            <TextView
+                android:id="@+id/text_no_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/review_question_off_message"
+                android:textColor="@color/main_dark"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_senior_personal_profile"
@@ -73,16 +99,16 @@
             android:background="@drawable/rectangle_fill_white_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_senior_personal_title">
+            app:layout_constraintTop_toBottomOf="@+id/cl_no_question">
 
             <ImageView
                 android:id="@+id/img_senior_personal_profile"
+                profileImgBig="@{seniorPersonal.profileImageId}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                profileImgBig="@{seniorPersonal.profileImageId}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -98,9 +124,9 @@
                 android:text="@{seniorPersonal.nickname}"
                 android:textColor="@color/origin_black"
                 android:textSize="16sp"
-                tools:text="닉네임"
                 app:layout_constraintStart_toEndOf="@+id/img_senior_personal_profile"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="닉네임" />
 
             <TextView
                 android:id="@+id/text_senior_personal_rate"
@@ -135,11 +161,11 @@
                 android:id="@+id/text_senior_personal_major"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
                 android:lineHeight="18sp"
                 android:text="@string/senior_personal_major"
-                android:layout_marginTop="16dp"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/text_senior_personal_introduction"
@@ -162,8 +188,8 @@
                 android:layout_marginStart="6dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@{seniorPersonal.firstMajorName}"
                 android:lineHeight="18sp"
+                android:text="@{seniorPersonal.firstMajorName}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/line_senior_personal_major"
@@ -176,8 +202,8 @@
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@{seniorPersonal.firstMajorStart}"
                 android:lineHeight="18sp"
+                android:text="@{seniorPersonal.firstMajorStart}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_personal_major_name"
@@ -188,16 +214,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
+                android:layout_marginBottom="20dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
+                android:lineHeight="18sp"
                 android:text="@string/senior_personal_second_major"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
-                android:lineHeight="18sp"
-                app:layout_constraintStart_toStartOf="@+id/text_senior_personal_major"
-                app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_major"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="20dp"/>
+                app:layout_constraintStart_toStartOf="@+id/text_senior_personal_major"
+                app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_major" />
 
             <View
                 android:id="@+id/line_senior_personal_second_major"
@@ -217,8 +243,8 @@
                 android:layout_marginStart="7dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@{seniorPersonal.secondMajorName}"
                 android:lineHeight="18sp"
+                android:text="@{seniorPersonal.secondMajorName}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/line_senior_personal_second_major"
@@ -231,8 +257,8 @@
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
-                android:text="@{seniorPersonal.secondMajorStart}"
                 android:lineHeight="18sp"
+                android:text="@{seniorPersonal.secondMajorStart}"
                 android:textColor="@color/gray_2"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_personal_second_major_name"
@@ -269,24 +295,24 @@
                 android:layout_marginTop="17dp"
                 android:layout_marginBottom="17dp"
                 android:fontFamily="@font/pretendard_regular"
+                android:lineHeight="22sp"
                 android:text="@string/senior_personal_class_review_title"
                 android:textColor="@color/origin_black"
                 android:textSize="14sp"
-                android:lineHeight="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/text_senior_personal_class_review_count"
+                intToText="@{seniorPersonal.count}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/pretendard_regular"
-                intToText="@{seniorPersonal.count}"
+                android:lineHeight="22sp"
                 android:textColor="@color/main_default"
                 android:textSize="14sp"
-                android:lineHeight="22sp"
                 app:layout_constraintBottom_toBottomOf="@+id/text_senior_personal_class_review_title"
                 app:layout_constraintStart_toEndOf="@+id/text_senior_personal_class_review_title"
                 app:layout_constraintTop_toTopOf="@+id/text_senior_personal_class_review_title" />
@@ -321,14 +347,14 @@
                     android:id="@+id/text_senior_personal_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/pretendard_medium"
                     android:text="@{seniorPersonal.nickname}"
                     android:textColor="@color/main_default"
                     android:textSize="16sp"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="16dp"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
                 <TextView
@@ -346,6 +372,8 @@
                     android:id="@+id/btn_senior_personal_array"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/ic_array"
                     android:drawablePadding="6dp"
@@ -358,8 +386,6 @@
                     android:text="@string/review_latest_order"
                     android:textColor="@color/gray_3"
                     android:textSize="12sp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -369,16 +395,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
                     android:orientation="vertical"
                     android:overScrollMode="never"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="12dp"
-                    android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintStart_toStartOf="@+id/text_senior_personal_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_name"
-                    android:layout_marginEnd="16dp"/>
+                    app:layout_constraintStart_toStartOf="@+id/text_senior_personal_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_senior_personal_name" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
@@ -387,20 +413,43 @@
             android:id="@+id/btn_go_question_write"
             android:layout_width="64dp"
             android:layout_height="0dp"
-            android:paddingTop="14dp"
-            android:text="@string/senior_personal_question_btn"
-            android:fontFamily="@font/pretendard_regular"
-            android:textSize="11sp"
-            android:textColor="@color/main_light"
-            android:drawableTop="@drawable/ic_plus"
-            app:backgroundTint="@color/main_black"
-            android:background="@drawable/oval_fill_black"
-            android:elevation="25dp"
-            app:layout_constraintDimensionRatio="1"
-            android:paddingBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
-            android:layout_marginEnd="24dp"/>
+            android:background="@drawable/oval_fill_black"
+            android:drawableTop="@drawable/ic_plus"
+            android:elevation="25dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingTop="14dp"
+            android:paddingBottom="10dp"
+            android:text="@string/senior_personal_question_btn"
+            android:textColor="@color/main_light"
+            android:textSize="11sp"
+            android:visibility="invisible"
+            app:backgroundTint="@color/main_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_no_go_question_write"
+            android:layout_width="64dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/oval_fill_black"
+            android:drawableTop="@drawable/ic_cancel"
+            android:elevation="25dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingTop="14dp"
+            android:paddingBottom="10dp"
+            android:text="@string/no_question"
+            android:textColor="@color/no_question"
+            android:textSize="11sp"
+            app:backgroundTint="@color/main_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

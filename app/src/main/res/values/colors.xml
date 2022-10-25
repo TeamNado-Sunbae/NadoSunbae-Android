@@ -60,4 +60,7 @@
     <color name="black_alpha_30">#4D000000</color>
     <color name="shadow">#19c1c1cf</color>
 
+
+    <color name="no_question">#049583</color>
+
 </resources>
