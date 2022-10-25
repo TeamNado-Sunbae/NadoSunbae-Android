@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -32,6 +33,7 @@ class QuestionDetailActivity :
         super.onCreate(savedInstanceState)
         initQuestionOneToOneMenu()
         initQuestionDetail()
+        initNewQuestionBtn()
         questionDetailLike()
         backBtn()
         questionOneToOneMenu()
@@ -66,7 +68,7 @@ class QuestionDetailActivity :
         if (MainGlobals.infoBlock == 1) {
             finish()
         }
-        Timber.d("qwerqwerqwer ${questionDetailViewModel.postId.value}")
+
         questionDetailViewModel.getClassRoomQuestionDetail(
             questionDetailViewModel.postId.value ?: 0
         )
@@ -308,6 +310,21 @@ class QuestionDetailActivity :
             questionDetailViewModel.getClassRoomQuestionDetail(
                 questionDetailViewModel.postId.value ?: 0
             )
+        }
+    }
+
+    private fun initNewQuestionBtn() {
+        binding.btnNewQuestion.setOnClickListener {
+            val intent = Intent(this, QuestionWriteActivity::class.java)
+            intent.apply {
+                putExtra("division", 0)
+                putExtra("majorId", intent.getIntExtra("majorId", 10))
+                putExtra("userId", questionDetailViewModel.questionDetailData.value?.answererId)
+                putExtra("postTypeId", 4)
+                putExtra("title", resources.getString(R.string.question_write_one_to_one))
+                putExtra("hintContent", getString(R.string.question_write_content_hint))
+            }
+            startActivity(intent)
         }
     }
 
