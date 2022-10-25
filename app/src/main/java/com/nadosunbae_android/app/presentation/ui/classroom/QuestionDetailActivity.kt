@@ -99,7 +99,7 @@ class QuestionDetailActivity :
 
                 Timber.d("asdfasdf $myPageNum $all $userId $it")
                 //1:1질문 타인 글 쓰는거 막기
-//                if (myPageNum != 1 && all != 1 && userId != it.questionerId && userId != it.answererId) {
+
                 if (userId != it.questionerId && userId != it.answererId) {
                     binding.etQuestionComment.isEnabled = false
                     binding.etQuestionComment.hint = getString(R.string.text_comment_impossible)
