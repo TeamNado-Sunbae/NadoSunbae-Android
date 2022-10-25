@@ -99,11 +99,13 @@ class QuestionDetailActivity :
                 setQuestionDetail(it.messageList as MutableList<QuestionDetailData.Message>)
 
                 Timber.d("qwerqwer $myPageNum $all $userId $it")
+
                 //1:1질문 타인 글 쓰는거 막기
-
-
                 if (userId != it.questionerId && userId != it.answererId) {
                     binding.clQuestionDetailComment.visibility = View.GONE
+
+                    // 답변자 글 1개 이상인 경우 새 질문 버튼 활성화
+                    binding.btnNewQuestion.visibility = View.VISIBLE
                 }
             }
 
