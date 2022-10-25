@@ -139,13 +139,13 @@ class ClassRoomQuestionFragment :
     private fun observeData() {
         classRoomQuestionViewModel.seniorList.observe(requireActivity()) {
 
-            if (it.onQuestionUserList.size + it.offQuestionUserList.size > 8) {
-                initSeniorEmpty(it.onQuestionUserList.size + it.offQuestionUserList.size)
+            if (it.onQuestionUserList.size > 8) {
+                initSeniorEmpty(it.onQuestionUserList.size)
                 classRoomSeniorAdapter.setOnQuestionUser(
                     (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>).subList(0, 8)
                 )
             } else {
-                initSeniorEmpty(it.onQuestionUserList.size + it.offQuestionUserList.size)
+                initSeniorEmpty(it.onQuestionUserList.size)
                 classRoomSeniorAdapter.setOnQuestionUser(
                     (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>)
                 )
