@@ -123,6 +123,14 @@ class QuestionDetailViewModel @Inject constructor(
                 }
                 .collectLatest {
 
+                    var neverAnswered = true
+                    for (msg in it.commentList) {
+                        if (!msg.isPostWriter) {
+                            neverAnswered = false
+                            break
+                        }
+                    }
+
                     val messageList = mutableListOf<QuestionDetailData.Message>()
                     messageList.add(
                         QuestionDetailData.Message(
@@ -166,7 +174,8 @@ class QuestionDetailViewModel @Inject constructor(
                         isLiked = it.isLiked,
                         likeCount = it.likeCount,
                         messageList = messageList,
-                        questionerId = it.writerId
+                        questionerId = it.writerId,
+                        neverAnswered = neverAnswered
                     )
                     Timber.d("classRoomDetail : 메인 서버 통신 성공! ${_questionDetailData.value}")
                 }

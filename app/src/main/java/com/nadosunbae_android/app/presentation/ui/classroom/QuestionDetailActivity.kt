@@ -105,7 +105,8 @@ class QuestionDetailActivity :
                     binding.clQuestionDetailComment.visibility = View.GONE
 
                     // 답변자 글 1개 이상인 경우 새 질문 버튼 활성화
-                    binding.btnNewQuestion.visibility = View.VISIBLE
+                    if (!it.neverAnswered)
+                        binding.btnNewQuestion.visibility = View.VISIBLE
                 }
             }
 
