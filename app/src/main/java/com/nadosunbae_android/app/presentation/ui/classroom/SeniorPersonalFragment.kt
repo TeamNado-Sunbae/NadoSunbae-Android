@@ -163,7 +163,6 @@ class SeniorPersonalFragment :
                         putExtra("division", 0)
                         putExtra("majorId", mainViewModel.selectedMajor.value?.majorId)
                         putExtra("userId", seniorPersonalViewModel.seniorId.value)
-                        Timber.d("answerId: ${seniorPersonalViewModel.seniorId.value}")
                         putExtra("postTypeId", 4)
                         putExtra("title", resources.getString(R.string.question_write_one_to_one))
                         putExtra("hintContent", getString(R.string.question_write_content_hint))

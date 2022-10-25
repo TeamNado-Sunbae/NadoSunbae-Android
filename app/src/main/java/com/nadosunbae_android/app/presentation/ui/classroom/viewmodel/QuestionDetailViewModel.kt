@@ -89,15 +89,7 @@ class QuestionDetailViewModel @Inject constructor(
     val deletePostData: LiveData<DeleteCommentData>
         get() = _deletePostData
 
-    // 좋아요를 위한 postId 설정
-    private var _likePostId = MutableLiveData<Int>()
-    val likePostId: LiveData<Int>
-        get() = _likePostId
 
-    // 좋아요 postId 설정
-    fun setLikePostId(postId: Int) {
-        _likePostId.value = postId
-    }
 
     // 댓글 수정 데이터
     private var _commentUpdate = MutableLiveData<CommentUpdateData>()
@@ -112,29 +104,11 @@ class QuestionDetailViewModel @Inject constructor(
     //신고 status 체크
     var reportStatus = MutableLiveData<Int>()
 
-    //전체 질문 1:1 질문 구분
-    private var _divisionQuestion = MutableLiveData<Int>()
-    val divisionQuestion: LiveData<Int>
-        get() = _divisionQuestion
-
-    fun setDivisionQuestion(num: Int) {
-        _divisionQuestion.value = num
-    }
-
     private val _postComment = MutableLiveData<CommentData>()
     val postComment: LiveData<CommentData>
         get() = _postComment
 
-    // 좋아요 데이터
-    private var _postLike = MutableLiveData<LikeData>()
-    val postLike: LiveData<LikeData>
-        get() = _postLike
 
-
-    //좋아요 데이터 저장
-    private fun setPostLike(likeData: LikeData) {
-        _postLike.value = likeData
-    }
 
 
     //전체 질문 상세보기 서버 통신
@@ -190,8 +164,8 @@ class QuestionDetailViewModel @Inject constructor(
                         answererId = it.writerId,
                         isLiked = it.isLiked,
                         likeCount = it.likeCount,
-                        questionerId = 0,
-                        messageList = messageList
+                        messageList = messageList,
+                        questionerId = 0
                     )
                     Timber.d("classRoomDetail : 메인 서버 통신 성공! ${_questionDetailData.value}")
                 }
@@ -202,14 +176,19 @@ class QuestionDetailViewModel @Inject constructor(
     }
 
     // 질문 좋아요 및 좋아요 취소 서버 통신
-    fun postClassRoomLike(likeItem: LikeParam) {
+    fun postClassRoomLike() {
         viewModelScope.launch {
-            likeRepository.postLike(likeItem)
+            likeRepository.postLike(
+                LikeParam(
+                    postId.value.toString(),
+                    "post"
+                ),
+            )
                 .catch {
-                    Timber.d("classRoomPostLike : 좋아요 서버 통신 성공!")
+                    Timber.d("classRoomPostLike : 좋아요 서버 통신 실패!")
                 }
                 .collectLatest {
-                    setPostLike(it)
+                    getClassRoomQuestionDetail(postId.value ?: 0)
                 }.also {
                     onLoadingEnd.value = true
                 }

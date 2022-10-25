@@ -7,7 +7,7 @@ data class QuestionDetailData(
     val isLiked : Boolean,
     val likeCount : Int,
     val messageList: List<Message>,
-    val questionerId: Int,
+    val questionerId: Int
 ) {
     data class Message(
         val content: String,
