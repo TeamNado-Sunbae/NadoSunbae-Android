@@ -51,9 +51,8 @@ class CommunityWriteActivity :
         )
         majorBottomSheetDialog = CustomBottomSheetDialog(
             getString(R.string.community_write_bottom_sheet_title),
-            true,
-            noMajor,
-            true
+            checkCommunity = true,
+            checkCommunityWrite = true
         )
 
         communityWriteViewModel.majorList.observe(this) {

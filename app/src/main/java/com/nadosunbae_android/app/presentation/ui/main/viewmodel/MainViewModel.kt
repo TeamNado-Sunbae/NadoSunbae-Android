@@ -146,6 +146,13 @@ class MainViewModel @Inject constructor(
     val majorList: StateFlow<List<MajorListData>>
         get() = _majorList
 
+    //학과 데이터 삭제
+    fun deleteMajorList() {
+        viewModelScope.launch {
+            majorRepository.deleteMajorList()
+        }
+    }
+
     //과방 메인 데이터
     fun getClassRoomMain(postTypeId: Int, majorId: Int, sort: String = "recent") {
         viewModelScope.launch {
@@ -163,7 +170,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    //TODO 회원가입시에 가져오기? 근데 회원가입 없는 기존에 사람들은? 이건 고민필요
     //학과 리스트 가져오기
     fun getMajorList(
         universityId: Int, filter: String, exclude: String?,

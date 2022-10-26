@@ -108,7 +108,6 @@ class CommunityMainContentFragment :
         majorBottomSheetDialog = CustomBottomSheetDialog(
             resources.getString(R.string.community_bottom_sheet_title),
             true,
-            mainViewModel.majorList.value[0].majorId
         )
         observeBottomSheet(mainViewModel, majorBottomSheetDialog)
     }

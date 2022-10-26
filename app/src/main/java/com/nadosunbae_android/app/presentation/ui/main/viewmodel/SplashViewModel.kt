@@ -8,6 +8,7 @@ import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.app.AppVersionData
 import com.nadosunbae_android.domain.model.sign.SignInData
 import com.nadosunbae_android.domain.repository.app.AppRepository
+import com.nadosunbae_android.domain.repository.major.MajorRepository
 import com.nadosunbae_android.domain.usecase.sign.PostRenewalTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val postRenewalTokenUseCase: PostRenewalTokenUseCase,
-    private val appRepository: AppRepository
+    private val appRepository: AppRepository,
+    private val majorRepository: MajorRepository
 ) : ViewModel() {
 
     private val _signIn = MutableLiveData<SignInData>()
@@ -41,6 +43,7 @@ class SplashViewModel @Inject constructor(
         viewModelScope.launch {
             kotlin.runCatching { postRenewalTokenUseCase() }
                 .onSuccess {
+                    majorRepository.deleteMajorList()
                     _signIn.value = it
                     Timber.d("auth: 서버 통신 성공")
                     FirebaseAnalyticsUtil.autoLogin()

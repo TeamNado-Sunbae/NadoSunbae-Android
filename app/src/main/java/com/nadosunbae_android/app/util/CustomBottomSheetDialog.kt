@@ -25,7 +25,6 @@ import kotlinx.coroutines.Dispatchers
 class CustomBottomSheetDialog(
     private val title: String,
     private val checkCommunity: Boolean? = false,
-    noMajor: Int? = 0,
     checkCommunityWrite: Boolean? = false,
     isSignUp : Boolean ?= false
 ) : BottomSheetDialogFragment() {
@@ -57,7 +56,7 @@ class CustomBottomSheetDialog(
     val binding get() = _binding!!
 
     init {
-        majorSelectAdapter = MajorSelectAdapter(noMajor, checkCommunityWrite, isSignUp)
+        majorSelectAdapter = MajorSelectAdapter(checkCommunityWrite, isSignUp)
 
     }
 

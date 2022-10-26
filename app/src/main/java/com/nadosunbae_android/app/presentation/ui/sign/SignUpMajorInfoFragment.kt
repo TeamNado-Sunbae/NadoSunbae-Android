@@ -33,24 +33,22 @@ class SignUpMajorInfoFragment :
 
     private lateinit var majorBottomSheetDialog: CustomBottomSheetDialog
     private val firstDepartmentPeriodBottomSheetDialog =
-        CustomBottomSheetDialog("본전공 진입시기", false, null, false, true)
+        CustomBottomSheetDialog("본전공 진입시기", checkCommunity = false,  checkCommunityWrite = false, isSignUp = true)
     private lateinit var secondDepartmentBottomSheetDialog: CustomBottomSheetDialog
     private val secondDepartmentPeriodBottomSheetDialog =
-        CustomBottomSheetDialog("제2전공 진입시기", false, null, false, true)
+        CustomBottomSheetDialog("제2전공 진입시기", checkCommunity = false,  checkCommunityWrite = false, isSignUp = true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         majorBottomSheetDialog = CustomBottomSheetDialog(
             getString(R.string.signup_first_major),
-            false,
-            0,
-            false,
+            checkCommunity = false,
+            checkCommunityWrite = false,
             isSignUp = true
         )
         secondDepartmentBottomSheetDialog = CustomBottomSheetDialog(
             getString(R.string.signup_second_major),
-            false,
-            0,
-            false,
+            checkCommunity = false,
+            checkCommunityWrite = false,
             isSignUp = true
         )
         deleteAll()
