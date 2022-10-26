@@ -139,18 +139,16 @@ class ClassRoomQuestionFragment :
     private fun observeData() {
         classRoomQuestionViewModel.seniorList.observe(requireActivity()) {
 
-            if (it.onQuestionUserList.size > 8) {
-                initSeniorEmpty(it.onQuestionUserList.size)
-                classRoomSeniorAdapter.setOnQuestionUser(
-                    (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>).subList(0, 8)
-                )
-            } else {
-                initSeniorEmpty(it.onQuestionUserList.size ?: 0)
-                classRoomSeniorAdapter.setOnQuestionUser(
-                    (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>)
-                )
+            var allSeniorList = mutableListOf<ClassRoomSeniorData.UserSummaryData>()
+            allSeniorList.apply {
+                addAll(it.onQuestionUserList)
+                addAll(it.offQuestionUserList)
+                sortBy { item -> item.rate }
+                if (this.size > 8)
+                    allSeniorList = this.subList(0, 8)
             }
-
+            initSeniorEmpty(allSeniorList.size)
+            classRoomSeniorAdapter.setOnQuestionUser(allSeniorList)
 
         }
 
