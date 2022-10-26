@@ -250,6 +250,12 @@ class ReviewDetailActivity() :
                 // writer
                 writerId = reviewDetail.writerId
 
+                // 질문 추천 텍스트
+                if (writerId != userId && reviewDetail.isOnQuestion)
+                    binding.tvRecommendUserToQuestion.visibility = View.VISIBLE
+                else
+                    binding.tvRecommendUserToQuestion.visibility = View.GONE
+
                 lookMyPost()
 
                 binding.executePendingBindings()
