@@ -84,8 +84,8 @@ class ClassRoomQuestionFragment :
 
 
     //선배 없을 때
-    private fun initSeniorEmpty(size: Int) {
-        if (size == 0) {
+    private fun initSeniorEmpty(size: Int?) {
+        if (size == 0 || size == null) {
             binding.tvClassroomRecommendSeniorEmpty.visibility = View.VISIBLE
             binding.btnClassroomMoreSenior.visibility = View.INVISIBLE
         } else {
@@ -95,8 +95,8 @@ class ClassRoomQuestionFragment :
     }
 
     //질문 없을 때
-    private fun initQuestionEmpty(size: Int) {
-        if (size == 0) {
+    private fun initQuestionEmpty(size: Int?) {
+        if (size == 0 || size == null) {
             binding.tvClassroomQuestionEmpty.visibility = View.VISIBLE
         } else {
             binding.tvClassroomQuestionEmpty.visibility = View.GONE
@@ -145,7 +145,7 @@ class ClassRoomQuestionFragment :
                     (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>).subList(0, 8)
                 )
             } else {
-                initSeniorEmpty(it.onQuestionUserList.size)
+                initSeniorEmpty(it.onQuestionUserList.size ?: 0)
                 classRoomSeniorAdapter.setOnQuestionUser(
                     (classRoomQuestionViewModel.seniorList.value?.onQuestionUserList as MutableList<ClassRoomSeniorData.UserSummaryData>)
                 )

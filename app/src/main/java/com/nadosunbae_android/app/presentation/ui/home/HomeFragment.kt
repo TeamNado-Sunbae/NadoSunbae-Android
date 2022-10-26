@@ -141,35 +141,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 textNicknameRanking1.text = it[0].nickname
                 textRateRanking1.text = "응답률 ${it[0].rate}%"
                 if(it[0].rate == null) {
-                   textRateRanking1.text = "-"
+                   textRateRanking1.text = "응답률 --%"
                 }
                 imgRateRanking1.setImageResource(imageSelect(it[0].profileImageId))
 
                 textNicknameRanking2.text = it[1].nickname
                 textRateRanking2.text = "응답률 ${it[1].rate}%"
                 if(it[1].rate == null) {
-                    textRateRanking2.text = "-"
+                    textRateRanking2.text = "응답률 --%"
                 }
                 imgRateRanking2.setImageResource(imageSelect(it[1].profileImageId))
 
                 textNicknameRanking3.text = it[2].nickname
                 textRateRanking3.text = "응답률 ${it[2].rate}%"
                 if(it[2].rate == null) {
-                    textRateRanking3.text = "-"
+                    textRateRanking3.text = "응답률 --%"
                 }
                 imgRateRanking3.setImageResource(imageSelect(it[2].profileImageId))
 
                 textNicknameRanking4.text = it[3].nickname
                 textRateRanking4.text = "응답률 ${it[3].rate}%"
                 if(it[3].rate == null) {
-                    textRateRanking4.text = "-"
+                    textRateRanking4.text = "응답률 --%"
                 }
                 imgRateRanking4.setImageResource(imageSelect(it[3].profileImageId))
 
                 textNicknameRanking5.text = it[4].nickname
                 textRateRanking5.text = "응답률 ${it[4].rate}%"
                 if(it[4].rate == null) {
-                    textRateRanking5.text = "-"
+                    textRateRanking5.text = "응답률 --%"
                 }
                 imgRateRanking5.setImageResource(imageSelect(it[4].profileImageId))
             }

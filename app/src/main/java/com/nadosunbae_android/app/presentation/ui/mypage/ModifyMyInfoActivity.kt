@@ -161,7 +161,6 @@ class ModifyMyInfoActivity :
                 majorBottomSheetDialog
             )
         }
-
     }
 
 
@@ -184,6 +183,7 @@ class ModifyMyInfoActivity :
         majorBottomSheetDialog.setCompleteListener {
             myPageViewModel.setFilter(majorBottomSheetDialog.getSelectedData())
         }
+
         myPageViewModel.firstFilter.flowWithLifecycle(lifecycle)
             .onEach {
                 if (it.id == 0) {
