@@ -34,6 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
             android:maxLines="1"
@@ -50,6 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_regular"
             android:maxLines="2"
@@ -118,10 +120,10 @@
 
         <ImageView
             android:id="@+id/img_community_main_like"
+            likeCheck="@{postData.liked}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            likeCheck="@{postData.liked}"
             android:background="@drawable/selector_heart_gray_mint"
             app:layout_constraintStart_toEndOf="@+id/tv_community_main_comment"
             app:layout_constraintTop_toTopOf="@+id/img_community_main_comment" />
