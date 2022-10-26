@@ -8,6 +8,7 @@ data class QuestionDetailData(
     val likeCount : Int,
     val messageList: List<Message>,
     val questionerId: Int,
+    val neverAnswered: Boolean
 ) {
     data class Message(
         val content: String,

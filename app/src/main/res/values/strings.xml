@@ -90,6 +90,7 @@
     <string name="review_edit">수정하기</string>
     <string name="review_delete">삭제하기</string>
     <string name="review_report">신고하기</string>
+    <string name="review_recommend_question">이 선배에게 더 궁금한 점이 있다면 1:1 질문을 남겨보세요.</string>
 
     <!-- review_write -->
     <string name="review_write_title">후기작성</string>

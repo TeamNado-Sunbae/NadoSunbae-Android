@@ -118,6 +118,22 @@
                     tools:itemCount="3"
                     tools:listitem="@layout/item_review_tag_box" />
 
+                <TextView
+                    android:id="@+id/tv_recommend_user_to_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:text="@string/review_recommend_question"
+                    android:textColor="@color/main_default"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:includeFontPadding="false"
+                    app:layout_constraintTop_toBottomOf="@id/rv_review_detail"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_review_writer_info"
                     android:layout_width="match_parent"
@@ -272,6 +288,7 @@
             android:id="@+id/cl_bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
