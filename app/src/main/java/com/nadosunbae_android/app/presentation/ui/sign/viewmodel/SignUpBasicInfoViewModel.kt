@@ -6,6 +6,7 @@ import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.data.model.request.sign.RequestSignUp
 import com.nadosunbae_android.domain.model.sign.*
+import com.nadosunbae_android.domain.repository.major.MajorRepository
 import com.nadosunbae_android.domain.repository.sign.SignRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpBasicInfoViewModel @Inject constructor(
-    private val signRepository: SignRepository
+    private val signRepository: SignRepository,
+    private val majorRepository: MajorRepository
 ) : ViewModel() {
 
     //현재 대학 뭐로 골랐는지
@@ -159,7 +161,7 @@ class SignUpBasicInfoViewModel @Inject constructor(
                     signIn.value = postSignIn.data!!
                     signInStatus.value = 200
                     Timber.d("testaaa : ${signIn.value.toString()}")
-
+                    majorRepository.deleteMajorList()
                     FirebaseAnalyticsUtil.login()
 
                 }

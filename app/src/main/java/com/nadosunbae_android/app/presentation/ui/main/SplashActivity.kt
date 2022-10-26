@@ -201,8 +201,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     private fun autoLogin() {
         val refreshToken = NadoSunBaeSharedPreference.getRefreshToken(this)
         Timber.d("splash 리프레쉬토큰 : $refreshToken")
-        if (refreshToken.isNotEmpty())
+        if (refreshToken.isNotEmpty()){
             splashViewModel.postRenewalToken()
+        }
+
     }
 
 

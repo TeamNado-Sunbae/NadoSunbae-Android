@@ -15,7 +15,10 @@ import com.nadosunbae_android.app.util.setTextSemiBold
 import com.nadosunbae_android.domain.model.main.SelectableData
 import timber.log.Timber
 
-class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWrite: Boolean? = false, private val isSignUp : Boolean?= false) :
+class MajorSelectAdapter(
+    private val communityWrite: Boolean? = false,
+    private val isSignUp: Boolean? = false
+) :
     ListAdapter<SelectableData, RecyclerView.ViewHolder>(
         DiffUtilCallback<SelectableData>()
     ) {
@@ -57,9 +60,9 @@ class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWr
         if (holder is SignSelectionViewHolder) {
             holder.onBind(getItem(position))
 
-            if(isSignUp == true) {
+            if (isSignUp == true) {
                 holder.binding.btnMajorStar.visibility = View.GONE
-            } else if(holder.binding.tvBottomsheeetContent.text.toString() == "미진입") {
+            } else if (holder.binding.tvBottomsheeetContent.text.toString() == "미진입") {
                 holder.binding.btnMajorStar.visibility = View.INVISIBLE
             }
             holder.binding.btnMajorStar.setOnClickListener {
@@ -152,7 +155,7 @@ class MajorSelectAdapter(private val noMajor: Int? = -2, private val communityWr
 
 
     override fun getItemViewType(position: Int): Int {
-        return if (getItem(position).id == noMajor) {
+        return if (getItem(position).name == "학과 무관") {
             COMMUNITY
         } else {
             ANOTHER
