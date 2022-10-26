@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,9 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:paddingBottom="12dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/text_question_all_title"
@@ -24,6 +23,7 @@
             android:maxLines="1"
             android:lineHeight="22sp"
             android:text="@{questionMain.title}"
+            tools:text="제목"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +38,7 @@
             android:fontFamily="@font/pretendard_regular"
             android:maxLines="2"
             android:text="@{questionMain.content}"
+            tools:text="내용"
             android:textColor="@color/gray_3"
             android:textSize="14sp"
             android:lineHeight="22sp"
@@ -54,6 +55,7 @@
             android:text="@{questionMain.writer.nickname}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
+            tools:text="닉네임"
             android:lineHeight="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_question_all_content" />
@@ -66,6 +68,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pretendard_regular"
+            tools:text="xx/xx/xx"
             android:includeFontPadding="false"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
@@ -80,8 +83,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="80dp"
             android:background="@drawable/ic_comment"
+            app:layout_constraintBottom_toBottomOf="@+id/text_question_all_nickname"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_question_all_content" />
+            app:layout_constraintTop_toTopOf="@+id/text_question_all_nickname" />
 
         <TextView
             android:id="@+id/text_question_all_comment"
@@ -97,11 +101,12 @@
 
         <ImageView
             android:id="@+id/img_question_all_like"
+            likeCheck="@{questionMain.liked}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            likeCheck="@{questionMain.liked}"
             android:background="@drawable/selector_heart_gray_mint"
+            app:layout_constraintBottom_toBottomOf="@+id/img_question_all_comment"
             app:layout_constraintStart_toEndOf="@+id/text_question_all_comment"
             app:layout_constraintTop_toTopOf="@+id/img_question_all_comment" />
 
@@ -122,9 +127,11 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/gray_0"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="19dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_question_all_like"
-            android:layout_marginTop="11dp"/>
+            android:layout_marginBottom="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_question_all_nickname" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
