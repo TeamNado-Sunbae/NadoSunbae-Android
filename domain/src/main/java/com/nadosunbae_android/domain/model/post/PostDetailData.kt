@@ -5,6 +5,7 @@ import java.util.*
 data class PostDetailData(
     val commentCount: Int,
     val commentList: List<Comment>,
+    val answererId: Int,
     val isLiked: Boolean,
     val type: String?,
     val likeCount: Int,
@@ -40,6 +41,7 @@ data class PostDetailData(
         val DEFAULT = PostDetailData(
             0,
             emptyList(),
+            0,
             false,
             "",
             0,

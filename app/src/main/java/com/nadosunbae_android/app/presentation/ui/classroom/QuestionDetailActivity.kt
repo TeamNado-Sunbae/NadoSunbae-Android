@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.presentation.ui.classroom
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -32,6 +33,7 @@ class QuestionDetailActivity :
         super.onCreate(savedInstanceState)
         initQuestionOneToOneMenu()
         initQuestionDetail()
+        initNewQuestionBtn()
         questionDetailLike()
         backBtn()
         questionOneToOneMenu()
@@ -66,6 +68,7 @@ class QuestionDetailActivity :
         if (MainGlobals.infoBlock == 1) {
             finish()
         }
+
         questionDetailViewModel.getClassRoomQuestionDetail(
             questionDetailViewModel.postId.value ?: 0
         )
@@ -97,12 +100,15 @@ class QuestionDetailActivity :
                 setLike(it.likeCount, it.isLiked)
                 setQuestionDetail(it.messageList as MutableList<QuestionDetailData.Message>)
 
-                Timber.d("asdfasdf $myPageNum $all $userId $it")
-                //1:1질문 타인 글 쓰는거 막기
+                Timber.d("qwerqwer $myPageNum $all $userId $it")
 
+                //1:1질문 타인 글 쓰는거 막기
                 if (userId != it.questionerId && userId != it.answererId) {
-                    binding.etQuestionComment.isEnabled = false
-                    binding.etQuestionComment.hint = getString(R.string.text_comment_impossible)
+                    binding.clQuestionDetailComment.visibility = View.GONE
+
+                    // 답변자 글 1개 이상인 경우 새 질문 버튼 활성화
+                    if (!it.neverAnswered)
+                        binding.btnNewQuestion.visibility = View.VISIBLE
                 }
             }
 
@@ -304,6 +310,21 @@ class QuestionDetailActivity :
             questionDetailViewModel.getClassRoomQuestionDetail(
                 questionDetailViewModel.postId.value ?: 0
             )
+        }
+    }
+
+    private fun initNewQuestionBtn() {
+        binding.btnNewQuestion.setOnClickListener {
+            val intent = Intent(this, QuestionWriteActivity::class.java)
+            intent.apply {
+                putExtra("division", 0)
+                putExtra("majorId", intent.getIntExtra("majorId", 10))
+                putExtra("userId", questionDetailViewModel.questionDetailData.value?.answererId)
+                putExtra("postTypeId", 4)
+                putExtra("title", resources.getString(R.string.question_write_one_to_one))
+                putExtra("hintContent", getString(R.string.question_write_content_hint))
+            }
+            startActivity(intent)
         }
     }
 
