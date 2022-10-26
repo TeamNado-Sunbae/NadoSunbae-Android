@@ -310,10 +310,10 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("rateText")
-    fun rateText(textView: TextView, int: Int) {
-        val rate = int.toString().also { textView.text = it }
-        if (rate == null) {
-            textView.text = "-"
+    fun rateText(textView: TextView, int: Int?) {
+        val rate = int.toString()
+        if (rate == "null") {
+            textView.text = "응답률 --%"
         } else {
             textView.text = "${"응답률 "}${rate}${"%"}"
         }
