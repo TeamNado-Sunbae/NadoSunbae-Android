@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 android:fontFamily="@font/pretendard_medium"
-                android:text="@string/question_write_all"
+                android:text="@string/question_write_one_to_one"
                 android:textColor="@color/origin_black"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
