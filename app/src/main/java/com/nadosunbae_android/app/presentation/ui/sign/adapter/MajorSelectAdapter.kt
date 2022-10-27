@@ -13,7 +13,6 @@ import com.nadosunbae_android.app.databinding.ItemBottomshhetCommunityListBindin
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.app.util.setTextSemiBold
 import com.nadosunbae_android.domain.model.main.SelectableData
-import timber.log.Timber
 
 class MajorSelectAdapter(
     private val communityWrite: Boolean? = false,
@@ -31,6 +30,9 @@ class MajorSelectAdapter(
 
     private var favoriteCompleteListener: (Int) -> Unit = {}
 
+    //검색시 종료되는 부분 해결
+    private var name = ""
+    private var changeErrorComplete: (String) -> Unit = {}
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -75,14 +77,22 @@ class MajorSelectAdapter(
         }
 
         holder.itemView.setOnClickListener {
+            mSelectedPos = if (name == getItem(holder.absoluteAdapterPosition).name) {
+                EQUAL
+            } else if(name == ""){
+                NOT_SELECTED
+            }else{
+                SELECTED
+            }
+
             when (mSelectedPos) {
                 // 새로 선택
                 NOT_SELECTED -> {
-                    mSelectedPos = holder.absoluteAdapterPosition
+                    name = getItem(holder.absoluteAdapterPosition).name
                     getItem(holder.absoluteAdapterPosition).isSelected = true
                 }
                 // 선택 해제
-                position -> {
+                EQUAL -> {
                     if (communityWrite == false) {
                         mSelectedPos = NOT_SELECTED
                         getItem(holder.absoluteAdapterPosition).isSelected = false
@@ -90,10 +100,11 @@ class MajorSelectAdapter(
                 }
                 // 선택 변경
                 else -> {
-                    Timber.d("변경")
-                    getItem(mSelectedPos).isSelected = false
-                    mSelectedPos = holder.absoluteAdapterPosition
-                    getItem(holder.absoluteAdapterPosition).isSelected = true
+                    changeErrorComplete(name)
+                    if (name != getItem(holder.absoluteAdapterPosition).name) {
+                        name = getItem(holder.absoluteAdapterPosition).name
+                        getItem(holder.absoluteAdapterPosition).isSelected = true
+                    }
                 }
             }
             _selectedData.value = getSelectedData()
@@ -138,15 +149,27 @@ class MajorSelectAdapter(
 
 
     private fun getSelectedData(): SelectableData {
-        if (mSelectedPos != NOT_SELECTED)
-            return currentList[mSelectedPos]
+        if (mSelectedPos != NOT_SELECTED){
+            val index = currentList.indexOf(currentList.find { it.name == name })
+            return currentList[index]
+        }
         return SelectableData(-1, "", false)
     }
 
     fun setSelectedData(dataId: Int) {
         for (d in currentList) {
             if (d.id == dataId) {
-                mSelectedPos = currentList.indexOf(d)
+                name = d.name
+                d.isSelected = true
+                break
+            }
+        }
+    }
+
+    fun setSelectedNameData(dataName : String){
+        for (d in currentList) {
+            if (d.name == dataName) {
+                name = d.name
                 d.isSelected = true
                 break
             }
@@ -174,8 +197,15 @@ class MajorSelectAdapter(
         this.favoriteCompleteListener = listener
     }
 
+    //검색시 오류나는 부분 해결
+    fun setChangeErrorComplete(listener: (String) -> Unit) {
+        this.changeErrorComplete = listener
+    }
+
     companion object {
         const val NOT_SELECTED = -1
+        const val EQUAL = 0
+        const val SELECTED = 1
         const val COMMUNITY = 0
         const val ANOTHER = 1
     }
