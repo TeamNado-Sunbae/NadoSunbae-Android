@@ -151,14 +151,10 @@ class ModifyMyInfoActivity :
     //학과 변경 세팅 - 제 1 전공
     private fun initBottomSheetDialog() {
         majorBottomSheetDialog = CustomBottomSheetDialog(getString(R.string.signup_first_major))
-        myPageViewModel.getMajorList(
-            MainGlobals.signInData?.universityId ?: 1, "firstMajor", null,
-            MainGlobals.signInData?.userId ?: 0
-        )
         myPageViewModel.majorList.observe(this) {
             observeBottomSheet(
                 it ?: emptyList(),
-                majorBottomSheetDialog
+                majorBottomSheetDialog,
             )
         }
     }
