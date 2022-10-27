@@ -17,7 +17,7 @@ data class ResponseNotificationData(
         val sender: Sender
     ) {
         data class Sender(
-            val senderName: String,
+            val nickname: String,
             val profileImageId: Int,
             val senderId: Int
         )
@@ -34,7 +34,7 @@ fun ResponseNotificationData.toEntity(): List<NotificationData> {
             notificationId = it.notificationId,
             notificationTypeId = it.notificationTypeId,
             postId = it.postId,
-            senderNickname = it.sender.senderName,
+            senderNickname = it.sender.nickname,
             senderId = it.sender.senderId,
             profileImageId = it.sender.profileImageId
         )
