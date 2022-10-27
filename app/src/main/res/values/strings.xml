@@ -411,7 +411,7 @@
     <string name="onboarding_is_member">이미 회원이신가요?</string>
 
     <string name="onboarding_lively_review">생생한 학과 후기</string>
-    <string name="onbaording_lively_review_content">장단점, 뭘배우나요?, 추천수업, 힘든수업, \n향후진로, 꿀팁 등으로 구성되어 있어요.</string>
+    <string name="onbaording_lively_review_content">장단점, 뭘배우나요?, 추천수업, 비추수업, \n향후진로, 꿀팁 등으로 구성되어 있어요.</string>
 
     <string name="onboarding_question_title">선배와의 1:1 질문</string>
     <string name="onboarding_question_subtext1">궁금한 학과 선배의 페이지에 방문해</string>
