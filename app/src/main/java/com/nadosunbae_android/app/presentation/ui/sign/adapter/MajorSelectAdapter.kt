@@ -89,6 +89,7 @@ class MajorSelectAdapter(
                 // 새로 선택
                 NOT_SELECTED -> {
                     name = getItem(holder.absoluteAdapterPosition).name
+                    mSelectedPos = SELECTED
                     getItem(holder.absoluteAdapterPosition).isSelected = true
                 }
                 // 선택 해제
