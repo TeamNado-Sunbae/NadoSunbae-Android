@@ -48,7 +48,10 @@ class CommunityWriteUpdateViewModel @Inject constructor(
 
 
     private fun setCheckComplete(): Boolean {
-        return updateTitle.value != initUpdateData.value.title || updateContent.value != initUpdateData.value.content
+        val checkEmpty = (updateTitle.value.toString().isNotEmpty() && updateContent.value.toString().isNotEmpty())
+        return (updateTitle.value != initUpdateData.value.title && checkEmpty)
+                || (updateContent.value != initUpdateData.value.content && checkEmpty)
+
     }
 
     fun putPostUpdate() {
