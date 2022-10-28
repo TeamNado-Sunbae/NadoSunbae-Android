@@ -15,6 +15,7 @@ import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
 import com.nadosunbae_android.app.util.DiffUtilCallback
 import com.nadosunbae_android.domain.model.user.UserLikeData
+import timber.log.Timber
 
 class MyPageLikeQuestionAdapter(
     private val num: Int,
@@ -58,13 +59,14 @@ class MyPageLikeQuestionAdapter(
                     if (postType == 0) {
                         val intent =
                             Intent(holder.itemView.context, QuestionDetailActivity::class.java)
-                        intent.apply {
-                            putExtra(
+
+                            intent.putExtra(
                                 "postId",
-                                getItem(holder.absoluteAdapterPosition).id.toString()
+                                getItem(holder.absoluteAdapterPosition).id
                             )
-                            putExtra("userId", userId)
-                        }
+                            Timber.e("TEST11111 : ${getItem(holder.absoluteAdapterPosition).id}")
+                            intent.putExtra("userId", userId)
+
                         ContextCompat.startActivity(holder.itemView.context, intent, null)
                     }
                     //커뮤니티일 때

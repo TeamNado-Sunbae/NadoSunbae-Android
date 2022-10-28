@@ -18,6 +18,7 @@ import com.nadosunbae_android.app.util.CustomDecoration
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.dpToPxF
 import com.nadosunbae_android.domain.model.major.MajorListData
+import com.nadosunbae_android.domain.model.user.UserQuestionData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
