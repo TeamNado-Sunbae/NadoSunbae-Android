@@ -131,7 +131,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         val userId = mainViewModel.userId.value
         binding.rcMyPageQuestion.addItemDecoration(decoration)
         myPageViewModel.getMyPageQuestion(userId ?: 2 , "recent")
-        var list1 = mutableListOf<UserQuestionData>()
+        var questionList = mutableListOf<UserQuestionData>()
         myPageViewModel.userQuestion.observe(viewLifecycleOwner) {
             initReviewEmpty(it.size)
 
@@ -139,11 +139,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 val item = it.get(i).id
                 if (item != mainViewModel.userId.value) {
                     //it.filter { item != mainViewModel.userId.value }
-                    list1.add(it.get(i))
+                    questionList.add(it.get(i))
                 }
             }
 
-            (binding.rcMyPageQuestion.adapter as MyPageMainAdapter).submitList(list1)
+            (binding.rcMyPageQuestion.adapter as MyPageMainAdapter).submitList(questionList)
 
         }
     }
