@@ -50,6 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         naviControl()
         setBanner()
         setRanking()
+        setUnivName()
     }
 
     private fun setBanner() {
@@ -218,5 +219,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             mainViewModel.initLoading.value = true
         }
         mainViewModel.seniorBack.value = 0
+    }
+
+    //학교명
+    private fun setUnivName() {
+        if(mainViewModel.univId.value == 1) {
+            binding.textHomeUnivName.text = "고려대학교"
+        } else if (mainViewModel.univId.value == 2) {
+            binding.textHomeUnivName.text = "서울여자대학교"
+        } else {
+            binding.textHomeUnivName.text = "중앙대학교"
+        }
     }
 }
