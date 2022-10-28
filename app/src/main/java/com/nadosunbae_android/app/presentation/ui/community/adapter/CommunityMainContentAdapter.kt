@@ -40,10 +40,16 @@ class CommunityMainContentAdapter :
                 behavior = {
                     val intent =
                         Intent(holder.itemView.context, CommunityDetailActivity::class.java)
-                    intent.putExtra(
-                        "postId",
-                        getItem(holder.absoluteAdapterPosition).postId.toString()
-                    )
+                    intent.apply {
+                        putExtra(
+                            "postId",
+                            getItem(holder.absoluteAdapterPosition).postId.toString()
+                        )
+                        putExtra(
+                            "majorName",
+                            getItem(holder.absoluteAdapterPosition).majorName
+                        )
+                    }
                     holder.itemView.context.startActivity(intent)
                 }
             )
