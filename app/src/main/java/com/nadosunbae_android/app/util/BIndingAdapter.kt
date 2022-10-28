@@ -124,11 +124,11 @@ object BindingAdapter {
     @BindingAdapter("int", "nickname", requireAll = false)
     fun notification(textView: TextView, int: Int, nickname: String): SpannableStringBuilder {
         val param = hashMapOf(
-            1 to "마이페이지에", 2 to "1:1 질문글에", 3 to "작성하신 정보글에",
-            4 to "답글을 작성하신 1:1 질문글에", 5 to "답글을 작성하신 정보글에",
-            6 to "1:1 질문글에", 7 to "작성하신 1:1 질문글에",
-            8 to "작성하신 커뮤니티 글에", 9 to "답글을 작성하신 커뮤니티 글에",
-            10 to "커뮤니티에"
+            1 to "마이페이지", 2 to "1:1 질문글", 3 to "작성하신 정보글",
+            4 to "답글을 작성하신 1:1 질문글", 5 to "답글을 작성하신 정보글",
+            6 to "1:1 질문글", 7 to "작성하신 1:1 질문글",
+            8 to "작성하신 커뮤니티 글", 9 to "답글을 작성하신 커뮤니티 글",
+            10 to "커뮤니티"
         )
         val text = hashMapOf(
             1 to "마이페이지에 ${nickname}님이 1:1질문을 남겼습니다.",
