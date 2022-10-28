@@ -68,7 +68,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pretendard_semibold"
             android:includeFontPadding="false"
-            android:text="@{MyPagePost.nickname}"
+            android:text="@{MyPagePost.type == null ? MyPagePost.nickname : MyPagePost.majorName}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
