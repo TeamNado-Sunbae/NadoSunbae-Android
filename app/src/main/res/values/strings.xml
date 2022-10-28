@@ -231,7 +231,7 @@
 
 
     <!-- 1:1 질문 작성 -->
-    <string name="question_write_one_to_one">1:1질문 작성</string>
+    <string name="question_write_one_to_one">1:1 질문 작성</string>
     <!-- 질문 상세 보기 -->
     <string name="question_detail_title">1:1 질문</string>
     <string name="question_detail_comment">답글 쓰기</string>
@@ -404,14 +404,14 @@
     <string name="onboarding_nadosunbae_title">나도선배</string>
     <string name="onboarding_at">에서</string>
     <string name="onboarding_simple_sunbae">손쉽게 선배들의</string>
-    <string name="onboarding_review">생생한 학과 후기</string>
+    <string name="onboarding_review">생생 후기</string>
     <string name="onboarding_and">와</string>
     <string name="onboarding_qa">질의응답</string>
     <string name="onboarding_check">을 확인하세요</string>
     <string name="onboarding_is_member">이미 회원이신가요?</string>
 
     <string name="onboarding_lively_review">생생한 학과 후기</string>
-    <string name="onbaording_lively_review_content">장단점, 뭘배우나요?, 추천수업, 힘든수업, \n향후진로, 꿀팁 등으로 구성되어 있어요.</string>
+    <string name="onbaording_lively_review_content">장단점, 뭘배우나요?, 추천수업, 비추수업, \n향후진로, 꿀팁 등으로 구성되어 있어요.</string>
 
     <string name="onboarding_question_title">선배와의 1:1 질문</string>
     <string name="onboarding_question_subtext1">궁금한 학과 선배의 페이지에 방문해</string>

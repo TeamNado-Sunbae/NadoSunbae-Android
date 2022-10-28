@@ -101,6 +101,7 @@ class CustomBottomSheetDialog(
         binding.tvBottomsheeetTitle.text = title
         searchFilterMajor()
         getFavoritesData()
+        setChangeErrorComplete()
         binding.executePendingBindings()
     }
 
@@ -114,6 +115,14 @@ class CustomBottomSheetDialog(
         binding.btnBottomsheetComplete.isEnabled = checkCommunity ?: false
 
     }
+    //검색시 인덱스 오류 부분
+    private fun setChangeErrorComplete(){
+        majorSelectAdapter.setChangeErrorComplete { changeName ->
+            val index = majorData.indexOf(majorData.find { it.name == changeName})
+            majorData[index].isSelected = false
+        }
+    }
+
 
     //커뮤니티일때 종료 다르게
     private fun setClickListener() {
@@ -234,6 +243,10 @@ class CustomBottomSheetDialog(
         majorSelectAdapter.setSelectedData(dataId)
     }
 
+    //첫 선택된 데이터 -> name값
+    fun setSelectedNameData(dataName : String){
+        majorSelectAdapter.setSelectedNameData(dataName)
+    }
 
 
 }
