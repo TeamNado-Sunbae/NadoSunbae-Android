@@ -114,20 +114,6 @@ class MyPagePostActivity : BaseActivity<ActivityMyPagePostBinding>(R.layout.acti
         }
     }
 
-
-    override fun onRestart() {
-        super.onRestart()
-        /*
-        if (binding.textMypagePostQuestionTitle.isSelected) {
-            questionPosting()
-        } else {
-            infoPosting()
-        }
-
-         */
-    }
-
-
     private fun infoPosting() {
         myPageViewModel.getMyPost("community")
         myPagePostInfoAdapter = MyPagePostInfoAdapter(2, intent.getIntExtra("userId", 0), 1)

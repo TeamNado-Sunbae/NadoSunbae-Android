@@ -68,12 +68,12 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pretendard_semibold"
             android:includeFontPadding="false"
-            android:text="@{MyPagePost.majorName}"
+            android:text="@{MyPagePost.type == null ? MyPagePost.nickname : MyPagePost.majorName}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_question_all_content"
-            tools:text="학과명" />
+            tools:text="닉네임" />
 
         <TextView
             android:id="@+id/text_question_all_time"

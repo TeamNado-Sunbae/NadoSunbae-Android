@@ -3,6 +3,7 @@ package com.nadosunbae_android.app.presentation.ui.mypage.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemMypagePersonalQuestionBinding
@@ -20,9 +21,13 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ):MyPageMainViewHolder {
+    ): MyPageMainViewHolder {
         val binding =
-            ItemMypagePersonalQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemMypagePersonalQuestionBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return MyPageMainViewHolder(binding)
     }
 
@@ -49,6 +54,7 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
             )
         }
     }
+
 
     class MyPageMainViewHolder(val binding: ItemMypagePersonalQuestionBinding) :
         RecyclerView.ViewHolder(binding.root) {

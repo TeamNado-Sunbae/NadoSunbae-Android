@@ -57,7 +57,7 @@ class MyPagePostInfoAdapter(
                         val intent =
                             Intent(holder.itemView.context, QuestionDetailActivity::class.java)
                         intent.apply {
-                            putExtra("postId", getItem(holder.absoluteAdapterPosition).postId.toString())
+                            putExtra("postId", getItem(holder.absoluteAdapterPosition).postId ?: getItem(holder.absoluteAdapterPosition).id)
                             putExtra("userId", userId)
                         }
                         ContextCompat.startActivity(holder.itemView.context, intent, null)
@@ -70,7 +70,6 @@ class MyPagePostInfoAdapter(
                         if(postId == "0") {
                             postId = getItem(holder.absoluteAdapterPosition).id.toString()
                         }
-                        Timber.e("$postId")
                         intent.putExtra("postId", postId)
                         holder.itemView.context.startActivity(intent)
                     }
