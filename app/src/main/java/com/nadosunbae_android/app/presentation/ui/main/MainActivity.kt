@@ -92,7 +92,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         Timber.d("부적절 후기 ${MainGlobals.signInData?.message.toString().setTextChange()}")
         CustomDialog(this).restrictDialog(
             this,
-            ReviewGlobals.isReviewed,
+            isReviewed = true,
             MainGlobals.signInData?.isUserReported ?: false,
             MainGlobals.signInData?.isReviewInappropriate ?: false,
             MainGlobals.signInData?.message.toString().setTextChange(),

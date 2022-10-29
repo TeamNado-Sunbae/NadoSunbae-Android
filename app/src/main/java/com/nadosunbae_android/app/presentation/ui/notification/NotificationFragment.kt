@@ -74,34 +74,40 @@ class NotificationFragment :
         // 2,4 -> 질문글, 3,5 -> 정보글, 1,6,7 -> 1:1질문글 8,9 -> 커뮤니티
         when (notificationType) {
             2, 4 -> {
-                setRestrictDialog {
-                    val intent =
-                        Intent(requireActivity(), QuestionDetailActivity::class.java)
-                    intent.apply {
-                        putExtra("postId", postId)
-                        putExtra("all", 1)
-                        putExtra("userId", MainGlobals.signInData?.userId)
-                    }
-                    startActivity(intent)
-                }
+                setRestrictDialog(
+                    {
+                        val intent =
+                            Intent(requireActivity(), QuestionDetailActivity::class.java)
+                        intent.apply {
+                            putExtra("postId", postId)
+                            putExtra("all", 1)
+                            putExtra("userId", MainGlobals.signInData?.userId)
+                        }
+                        startActivity(intent)
+                    },
+                    true
+                )
 
 
             }
             1, 6, 7 -> {
-                setRestrictDialog {
-                    val intent =
-                        Intent(requireActivity(), QuestionDetailActivity::class.java)
-                    intent.apply {
-                        putExtra("myPageNum", 1)
-                        putExtra("postId", postId)
-                        putExtra("all", 2)
-                        putExtra("userId", MainGlobals.signInData?.userId)
-                    }
-                    startActivity(intent)
-                }
+                setRestrictDialog(
+                    {
+                        val intent =
+                            Intent(requireActivity(), QuestionDetailActivity::class.java)
+                        intent.apply {
+                            putExtra("myPageNum", 1)
+                            putExtra("postId", postId)
+                            putExtra("all", 2)
+                            putExtra("userId", MainGlobals.signInData?.userId)
+                        }
+                        startActivity(intent)
+                    },
+                    true
+                )
             }
             else -> {
-                setRestrictDialog {
+                setRestrictDialog({
                     val intent =
                         Intent(requireActivity(), CommunityDetailActivity::class.java)
                     intent.apply {
@@ -109,15 +115,21 @@ class NotificationFragment :
                     }
                     startActivity(intent)
                 }
+                )
             }
         }
     }
 
     //다이얼로그 띄우는 공통 부분
-    private fun setRestrictDialog(behaviorAction: () -> Unit) {
+    private fun setRestrictDialog(behaviorAction: () -> Unit, checkQuestion : Boolean ?= false) {
+        val isReviewed = if (checkQuestion == true){
+            true
+        }else{
+            ReviewGlobals.isReviewed
+        }
         CustomDialog(requireActivity()).restrictDialog(
             requireActivity(),
-            ReviewGlobals.isReviewed,
+            isReviewed,
             MainGlobals.signInData!!.isUserReported,
             MainGlobals.signInData!!.isReviewInappropriate,
             MainGlobals.signInData?.message.toString(),
