@@ -34,24 +34,14 @@ class MyPageMainAdapter (private val num: Int, private val userId: Int, private 
 
     override fun onBindViewHolder(holder: MyPageMainViewHolder, position: Int) {
         holder.bind(getItem(position))
-        val context = holder.itemView.context
         holder.itemView.setOnClickListener {
-            CustomDialog(context).restrictDialog(
-                context,
-                ReviewGlobals.isReviewed,
-                MainGlobals.signInData?.isUserReported ?: false,
-                MainGlobals.signInData?.isReviewInappropriate ?: false,
-                MainGlobals.signInData?.message.toString(),
-                behavior = {
-                    val intent =
-                        Intent(holder.itemView.context, QuestionDetailActivity::class.java)
-                    intent.putExtra(
-                        "postId",
-                        getItem(holder.absoluteAdapterPosition).postId
-                    )
-                    holder.itemView.context.startActivity(intent)
-                }
+            val intent =
+                Intent(holder.itemView.context, QuestionDetailActivity::class.java)
+            intent.putExtra(
+                "postId",
+                getItem(holder.absoluteAdapterPosition).postId
             )
+            holder.itemView.context.startActivity(intent)
         }
     }
 
