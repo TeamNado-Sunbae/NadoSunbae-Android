@@ -91,20 +91,15 @@ class NotificationFragment :
 
             }
             1, 6, 7 -> {
-                setRestrictDialog(
-                    {
-                        val intent =
-                            Intent(requireActivity(), QuestionDetailActivity::class.java)
-                        intent.apply {
-                            putExtra("myPageNum", 1)
-                            putExtra("postId", postId)
-                            putExtra("all", 2)
-                            putExtra("userId", MainGlobals.signInData?.userId)
-                        }
-                        startActivity(intent)
-                    },
-                    true
-                )
+                val intent =
+                    Intent(requireActivity(), QuestionDetailActivity::class.java)
+                intent.apply {
+                    putExtra("myPageNum", 1)
+                    putExtra("postId", postId)
+                    putExtra("all", 2)
+                    putExtra("userId", MainGlobals.signInData?.userId)
+                }
+                startActivity(intent)
             }
             else -> {
                 setRestrictDialog({

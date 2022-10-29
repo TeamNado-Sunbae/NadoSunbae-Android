@@ -14,6 +14,9 @@
             name="communityDetailViewModel"
             type="com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityDetailViewModel" />
 
+        <variable
+            name="majorName"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_regular"
-                android:text="@{postDetail.firstMajorName}"
+                android:text="@{majorName}"
                 android:textColor="@color/gray_3"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
