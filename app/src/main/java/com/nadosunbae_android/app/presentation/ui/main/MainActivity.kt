@@ -51,7 +51,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         myPageBack()
         initClickProfile()
         trackActiveUser()
-        floatIsReviewInappropriate()
         floatAppUpdateDialog()
         seniorDetailBack()
     }
@@ -73,31 +72,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             )
         }
 
-    }
-
-    //바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
-    /* private fun clickBottomNav(){
-         mainViewModel.notificationClickNum.observe(this){
-             when(it){
-                 2 -> binding.btNvMain.menu.findItem(R.id.navigation_room).setChecked(true)
-                 3 -> binding.btNvMain.menu.findItem(R.id.navigation_mypage).setChecked(true)
-             }
-         }
-
-
-     } */
-
-    //부적절 후기 일경우 띄우기
-    private fun floatIsReviewInappropriate() {
-        Timber.d("부적절 후기 ${MainGlobals.signInData?.message.toString().setTextChange()}")
-        CustomDialog(this).restrictDialog(
-            this,
-            ReviewGlobals.isReviewed,
-            MainGlobals.signInData?.isUserReported ?: false,
-            MainGlobals.signInData?.isReviewInappropriate ?: false,
-            MainGlobals.signInData?.message.toString().setTextChange(),
-            true
-        ) {}
     }
 
     //학과 리스트 가져오기
