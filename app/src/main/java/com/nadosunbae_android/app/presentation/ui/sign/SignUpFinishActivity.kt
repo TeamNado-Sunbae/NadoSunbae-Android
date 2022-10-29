@@ -30,6 +30,7 @@ class SignUpFinishActivity : BaseActivity<ActivitySignUpFinishBinding>(R.layout.
             startActivity(Intent(this, SignInActivity::class.java))
             FirebaseAnalyticsUtil.firebaseLog("signup_process",
                 "journey", "signup_success")
+            FirebaseAnalyticsUtil.firebaseLog("first_login","","")
             finish()
         }
     }
@@ -37,6 +38,7 @@ class SignUpFinishActivity : BaseActivity<ActivitySignUpFinishBinding>(R.layout.
     private fun resendBtn() {
         binding.textSignupResend.setOnClickListener {
             initResend()
+            FirebaseAnalyticsUtil.firebaseLog("remail_button","type","sign_up_view")
         }
     }
 

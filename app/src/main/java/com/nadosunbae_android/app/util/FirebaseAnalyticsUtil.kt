@@ -79,6 +79,11 @@ object FirebaseAnalyticsUtil {
     fun question(value: String = "other") = firebaseAnalytics?.logEvent(QUESTION) {
         param(QUESTION_TYPE, value)
     }
+    fun clickLike(){
+        firebaseAnalytics?.logEvent("like_click"){
+            param("","like_on")
+        }
+    }
 
     fun setUserProperty(user: SignInData.User) {
         firebaseAnalytics?.run {

@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
+import com.google.firebase.ktx.Firebase
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityQuestionDetailBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -124,6 +125,7 @@ class QuestionDetailActivity :
     private fun questionDetailLike() {
         classRoomQuestionDetailAdapter.setItemLikeClickListener {
             questionDetailViewModel.postClassRoomLike()
+            FirebaseAnalyticsUtil.clickLike()
         }
     }
 
@@ -324,6 +326,7 @@ class QuestionDetailActivity :
 
     private fun initNewQuestionBtn() {
         binding.btnNewQuestion.setOnClickListener {
+            FirebaseAnalyticsUtil.firebaseLog("new_question_button_1on1","","")
             val intent = Intent(this, QuestionWriteActivity::class.java)
             intent.apply {
                 putExtra("division", 0)

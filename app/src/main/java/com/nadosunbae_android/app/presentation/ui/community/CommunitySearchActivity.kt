@@ -14,6 +14,7 @@ import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityMai
 import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunitySearchViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDecoration
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.closeKeyboard
 import com.nadosunbae_android.app.util.dpToPxF
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,6 +57,7 @@ class CommunitySearchActivity :
                 communitySearchViewModel.getCommunitySearchData(Pair(MainGlobals.signInData?.universityId ?: 1, searchWord))
                 binding.cancel = false
                 view.clearFocus()
+                FirebaseAnalyticsUtil.firebaseLog("search_function","","")
                 this.closeKeyboard(view)
                 return@setOnKeyListener true
             }

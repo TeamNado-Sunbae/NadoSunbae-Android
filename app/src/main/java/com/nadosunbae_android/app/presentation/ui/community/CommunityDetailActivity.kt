@@ -114,6 +114,7 @@ class CommunityDetailActivity :
     private fun clickDetailLike() {
         binding.btnInfoLike.setOnClickListener {
             communityViewModel.postLike()
+            FirebaseAnalyticsUtil.clickLike()
         }
     }
 

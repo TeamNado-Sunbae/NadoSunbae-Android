@@ -9,6 +9,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityNotificationSettingBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -78,13 +79,16 @@ class NotificationSettingActivity :
 
     //설정에서 알림 받을지 선택한지에 따라 버튼 토글 변경
     private fun initNotification() {
+        var alertOpt = ""
         if (NotificationManagerCompat.from(this).areNotificationsEnabled() == true) {
             binding.imgAlarm.isSelected = true
+            alertOpt ="alert_accept"
 
         } else if (NotificationManagerCompat.from(this).areNotificationsEnabled() == false) {
             binding.imgAlarm.isSelected = false
-
+            alertOpt = "alert_refuse"
         }
+        FirebaseAnalyticsUtil.firebaseLog("update_opt","choice",alertOpt)
     }
 
 }

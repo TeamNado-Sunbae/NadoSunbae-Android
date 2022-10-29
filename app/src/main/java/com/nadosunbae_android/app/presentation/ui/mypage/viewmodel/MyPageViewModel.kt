@@ -157,6 +157,10 @@ class MyPageViewModel @Inject constructor(
     val userQuestion: LiveData<List<UserQuestionData>>
         get() = _userQuestion
 
+    //프로필 수정 GA
+    val profileGA = mutableListOf<String>()
+
+
     //마이페이지 내가 쓴 글 조회
     fun getMyPost(filter: String) {
         viewModelScope.launch {

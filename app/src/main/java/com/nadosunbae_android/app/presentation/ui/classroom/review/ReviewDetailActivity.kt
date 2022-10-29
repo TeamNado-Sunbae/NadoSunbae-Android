@@ -102,6 +102,7 @@ class ReviewDetailActivity() :
         binding.btnReviewLike.setOnClickListener {
             showLoading()
             reviewDetailViewModel.postLikeReview(postId)
+            FirebaseAnalyticsUtil.clickLike()
         }
 
         // 선배 프로필

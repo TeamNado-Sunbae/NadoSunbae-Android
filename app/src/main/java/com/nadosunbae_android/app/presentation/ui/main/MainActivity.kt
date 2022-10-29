@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import com.google.firebase.ktx.Firebase
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -68,8 +69,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 complete = {
                     val uri = Uri.parse(getString(R.string.google_app))
                     startActivity(Intent(Intent.ACTION_VIEW, uri))
+                    FirebaseAnalyticsUtil.firebaseLog("update_opt","choice","update_now")
                 },
-                cancel = {}
+                cancel = {
+                    FirebaseAnalyticsUtil.firebaseLog("update_opt","choice","update_later")
+                }
             )
         }
 
