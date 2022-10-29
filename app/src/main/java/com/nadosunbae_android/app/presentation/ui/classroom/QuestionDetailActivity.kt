@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomQue
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionDetailViewModel
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.classroom.QuestionCommentWriteItem
@@ -45,6 +46,7 @@ class QuestionDetailActivity :
         observeComment()
         observeLoadingEnd()
         changeRegisterBtn()
+        registerComment()
     }
 
 
@@ -79,7 +81,7 @@ class QuestionDetailActivity :
     private fun initQuestionDetail() {
         val postId = intent.getIntExtra("postId", 0)
         questionDetailViewModel.postId.value = postId
-        registerComment()
+
         val userId = MainGlobals.signInData?.userId ?: -1
         val all = intent.getIntExtra("all", 0)
         val myPageNum = intent.getIntExtra("myPageNum", 0)
@@ -91,10 +93,8 @@ class QuestionDetailActivity :
         binding.rcQuestionDetail.adapter = classRoomQuestionDetailAdapter
 
         questionDetailViewModel.questionDetailData.observe(this) {
-
-
             with(classRoomQuestionDetailAdapter) {
-                Timber.d("questionDetailUser: ${it.answererId}, ${it.questionerId}")
+                Timber.d("questionDetailUser: ${userId}, ${it.answererId}, ${it.questionerId}")
                 Timber.d("questionDetailUserWriter : ${it.messageList}")
                 setQuestionDetailUser(it)
                 setLike(it.likeCount, it.isLiked)
@@ -105,11 +105,16 @@ class QuestionDetailActivity :
                 //1:1질문 타인 글 쓰는거 막기
                 if (userId != it.questionerId && userId != it.answererId) {
                     binding.clQuestionDetailComment.visibility = View.GONE
-
                     // 답변자 글 1개 이상인 경우 새 질문 버튼 활성화
                     if (!it.neverAnswered)
                         binding.btnNewQuestion.visibility = View.VISIBLE
                 }
+                val checkAnalytics = if(userId != it.questionerId){
+                    "others_question"
+                }else{
+                    "my_question"
+                }
+                FirebaseAnalyticsUtil.firebaseLog("question_read_1on1","type", checkAnalytics)
             }
 
         }
@@ -133,6 +138,10 @@ class QuestionDetailActivity :
     // 전체 질문 상세 댓글 등록
     private fun registerComment() {
         binding.imgQuestionCommentComplete.setOnClickListener {
+            if(MainGlobals.signInData?.userId == questionDetailViewModel.questionDetailData.value?.answererId){
+                FirebaseAnalyticsUtil.firebaseLog("question_answered_1on1","","")
+            }
+            FirebaseAnalyticsUtil.firebaseLog("question_write_1on1","type","question_1on1_reply")
             questionDetailViewModel.postQuestionCommentWrite(
                 QuestionCommentWriteItem(
                     questionDetailViewModel.postId.value?.toInt() ?: -1, binding.etQuestionComment.text.toString()

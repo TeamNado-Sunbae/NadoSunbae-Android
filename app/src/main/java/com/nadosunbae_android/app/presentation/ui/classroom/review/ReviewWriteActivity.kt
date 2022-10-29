@@ -5,17 +5,21 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityReviewWriteBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.classroom.review.adapter.ReviewSelectBackgroundAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel.ReviewWriteViewModel
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.showCustomDropDown
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
@@ -136,35 +140,21 @@ class ReviewWriteActivity :
 
 
     private fun setOneLineTextWatcher() {
-        binding.etOneLine.addTextChangedListener(object : TextWatcher {
+        binding.etOneLine.addTextChangedListener {
+            if (it != null) {
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-                if (s != null) {
-
-                    // 최대 글자수 체크
-                    if (s.length > ONE_LINE_MAX_LENGTH) {
-                        val newStr = s.toString().substring(0, ONE_LINE_MAX_LENGTH)
-                        binding.etOneLine.setText(newStr)
-                    }
-
-                    // 개행 문자 방지 (한줄평이므로)
-                    if (s.contains("\n")) {
-                        val newStr = s.toString().replace("\n", "")
-                        binding.etOneLine.setText(newStr)
-                    }
+                // 최대 글자수 체크
+                if (it.length > ONE_LINE_MAX_LENGTH) {
+                    val newStr = it.toString().substring(0, ONE_LINE_MAX_LENGTH)
+                    binding.etOneLine.setText(newStr)
                 }
-
-
+                // 개행 문자 방지 (한줄평이므로)
+                if (it.contains("\n")) {
+                    val newStr = it.toString().replace("\n", "")
+                    binding.etOneLine.setText(newStr)
+                }
             }
-
-        })
+        }
     }
 
     private fun setWriteRequireTextWatcher() {
@@ -476,9 +466,17 @@ class ReviewWriteActivity :
                 getString(R.string.alert_cancel_write_cancel)
             ),
             complete = {
+                val paramValue = if(ReviewGlobals.isReviewed){
+                    "review_additional"
+                }else{
+                    "review_new"
+                }
+                FirebaseAnalyticsUtil.firebaseLog("review_write","type",paramValue)
+                FirebaseAnalyticsUtil.firebaseLog("reviewProcess","journey","review_upload")
                 confirm.value = false
             },
             cancel = {
+                FirebaseAnalyticsUtil.firebaseLog("review_process","journey","review_exit")
                 confirm.value = true
             }
         )

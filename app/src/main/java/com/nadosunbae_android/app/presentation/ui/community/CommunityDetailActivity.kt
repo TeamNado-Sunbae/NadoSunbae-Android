@@ -135,6 +135,7 @@ class CommunityDetailActivity :
     private fun setCommentObserve() {
         communityViewModel.commentData.flowWithLifecycle(lifecycle)
             .onEach {
+                FirebaseAnalyticsUtil.firebaseLog("community_write","type","c_comment_write")
                 with(binding.etInformationComment) {
                     text.clear()
                     clearFocus()

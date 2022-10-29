@@ -11,6 +11,7 @@ import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInf
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.question.viewmodel.ClassRoomQuestionViewModel
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 import com.nadosunbae_android.domain.model.post.PostData
@@ -32,7 +33,7 @@ class ClassRoomQuestionFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        submitAnalytics()
         initBinding()
         initAdapter()
         setListener()
@@ -105,6 +106,7 @@ class ClassRoomQuestionFragment :
 
     private fun setListener() {
         binding.btnClassroomMoreSenior.setOnClickListener {
+            FirebaseAnalyticsUtil.firebaseLog("senior_click","journey","senior_classroom_in")
             mainViewModel.classRoomFragmentNum.postValue(3)
         }
     }
@@ -193,6 +195,11 @@ class ClassRoomQuestionFragment :
                 commentCount = it.commentCount
             )
         }
+
+    private fun submitAnalytics() {
+        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.CLASSROOM_QUESTION)
+    }
+
 
     inner class QuestionDataToFragment : DataToFragment {
         override fun getSeniorId(seniorId: Int) {

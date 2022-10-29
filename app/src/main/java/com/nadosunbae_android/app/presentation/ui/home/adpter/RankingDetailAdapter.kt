@@ -11,11 +11,12 @@ import com.nadosunbae_android.app.databinding.ItemHomeRankingBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.question.DataToFragment
 import com.nadosunbae_android.app.presentation.ui.community.adapter.CommunityPostDetailAdapter
 import com.nadosunbae_android.app.util.DiffUtilCallback
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.home.HomeRankingData
 import com.nadosunbae_android.domain.model.home.RankingTest
 import timber.log.Timber
 
-class RankingDetailAdapter(private var userId: Int, var link : DataToFragment) :
+class RankingDetailAdapter(private var userId: Int, var link : DataToFragment,val seniorRanking : Boolean?) :
     androidx.recyclerview.widget.ListAdapter<HomeRankingData, RankingDetailAdapter.RankingDetailViewHolder>(
         DiffUtilCallback<HomeRankingData>()
     ) {
@@ -49,6 +50,12 @@ class RankingDetailAdapter(private var userId: Int, var link : DataToFragment) :
                 holder.binding.textSecondMajorTime.visibility = View.GONE
             }
             holder.itemView.setOnClickListener { view ->
+                val paramVal = if(seniorRanking == true){
+                    "senior_ranking_toggleon"
+                }else{
+                    "senior_ranking_in"
+                }
+                FirebaseAnalyticsUtil.firebaseLog("senior_click","journey",paramVal)
                 link.getSeniorId(getItem(position).id)
                 onItemCLickListener?.let {
                     //link.getSeniorId(getItem(position).id)

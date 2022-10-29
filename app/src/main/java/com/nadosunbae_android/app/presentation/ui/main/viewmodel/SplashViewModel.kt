@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.app.AppVersionData
 import com.nadosunbae_android.domain.model.sign.SignInData
@@ -46,7 +47,12 @@ class SplashViewModel @Inject constructor(
                     majorRepository.deleteMajorList()
                     _signIn.value = it
                     Timber.d("auth: 서버 통신 성공")
-                    FirebaseAnalyticsUtil.autoLogin()
+
+                    FirebaseAnalyticsUtil.firebaseLog(
+                        FirebaseAnalytics.Event.LOGIN,
+                        FirebaseAnalytics.Param.METHOD,
+                        "auto"
+                    )
 
                 }
                 .onFailure {

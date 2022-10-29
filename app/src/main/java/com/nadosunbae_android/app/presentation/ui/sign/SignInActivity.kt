@@ -15,6 +15,7 @@ import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import com.nadosunbae_android.domain.model.sign.CertificationEmailData
 import com.nadosunbae_android.domain.model.sign.SignInItem
@@ -98,6 +99,8 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     private fun moveSignUp() {
         binding.textSignInSignup.setOnClickListener {
             startActivity(Intent(this, SignUpMainActivity::class.java))
+            FirebaseAnalyticsUtil.firebaseLog("signup_process",
+            "journey", "signup_start")
         }
     }
 

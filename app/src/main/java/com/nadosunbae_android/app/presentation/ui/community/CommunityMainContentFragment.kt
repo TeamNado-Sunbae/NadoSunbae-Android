@@ -16,10 +16,7 @@ import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityV
 import com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab.Companion.getSwitchTabValue
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
-import com.nadosunbae_android.app.util.CustomBottomSheetDialog
-import com.nadosunbae_android.app.util.CustomDecoration
-import com.nadosunbae_android.app.util.CustomDialog
-import com.nadosunbae_android.app.util.dpToPxF
+import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.major.MajorListData
 import dagger.hilt.android.AndroidEntryPoint
@@ -88,6 +85,7 @@ class CommunityMainContentFragment :
 
     //탭 클릭
     private fun clickSwipeTab() {
+        val checkTypeFirebase = mapOf( 1 to "c_free_read",2 to "c_question_read",3 to "c_info_read")
         with(binding.customSwitchTab) {
             switchTab = getSwitchTabValue(0)
             itemClickListener = {
@@ -97,8 +95,9 @@ class CommunityMainContentFragment :
                     val type = communityMainType.value
                     val majorName = communityMainMajorName.value
                     setCommunityMainFilter(type, majorName)
-                }
 
+                }
+                FirebaseAnalyticsUtil.firebaseLog("community_read","type", checkTypeFirebase[it].toString())
             }
         }
     }

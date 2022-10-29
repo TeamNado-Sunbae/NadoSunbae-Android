@@ -6,6 +6,7 @@ import android.view.View
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.FragmentCommunityBinding
 import com.nadosunbae_android.app.presentation.base.BaseFragment
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.changeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +17,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
         super.onViewCreated(view, savedInstanceState)
         initCommunityMainContent()
         goCommunitySearch()
+        initCommunityGA()
     }
 
 
@@ -31,5 +33,10 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
             val intent = Intent(requireActivity(), CommunitySearchActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    //커뮤니티 탭 GA
+    private fun initCommunityGA(){
+        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.COMMUNITY)
     }
 }

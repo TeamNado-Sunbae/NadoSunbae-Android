@@ -13,6 +13,7 @@ import com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityW
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.community.CommunityRadioButtonData
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.main.SelectableData
@@ -139,12 +140,12 @@ class CommunityWriteActivity :
     }
 
     //카테 고리 entity 변형
-    private fun checkCategory(): String {
+    private fun checkCategory(): Pair<String,String> {
         with(binding.layoutCommunityWriteCategory) {
             return when (radioGroupCategory.checkedRadioButtonId) {
-                radioBtnCategoryFreedom.id -> "general"
-                radioBtnCategoryQuestion.id -> "questionToEveryone"
-                else -> "information"
+                radioBtnCategoryFreedom.id -> Pair("general","c_free_upload")
+                radioBtnCategoryQuestion.id -> Pair("questionToEveryone","c_question_upload")
+                else -> Pair("information","c_info_upload")
             }
         }
     }
@@ -200,10 +201,11 @@ class CommunityWriteActivity :
                 ),
                 complete = {
                     communityWriteViewModel.postWrite(
-                        type = { checkCategory() },
+                        type = { checkCategory().first },
                         title = communityWriteViewModel.writeTitle.value,
                         content = communityWriteViewModel.writeContent.value
                     )
+                    FirebaseAnalyticsUtil.firebaseLog("community_write","type",checkCategory().second)
                 },
                 cancel = {}
             )

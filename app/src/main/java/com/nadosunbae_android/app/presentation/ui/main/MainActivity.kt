@@ -396,7 +396,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             )
         ) {   // dau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.DAU)
-            FirebaseAnalyticsUtil.dau()
+            FirebaseAnalyticsUtil.auDivision("DAU")
         }
 
         if (!NadoSunBaeSharedPreference.getUserActive(
@@ -406,7 +406,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             )
         ) {   // wau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.WAU)
-            FirebaseAnalyticsUtil.wau()
+            FirebaseAnalyticsUtil.auDivision("WAU")
         }
 
         if (!NadoSunBaeSharedPreference.getUserActive(
@@ -416,7 +416,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             )
         ) {     // mau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.MAU)
-            FirebaseAnalyticsUtil.mau()
+            FirebaseAnalyticsUtil.auDivision("MAU")
         }
     }
 
