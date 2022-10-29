@@ -41,13 +41,13 @@ class ReviewWriteActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initWriteMode()
         initBinding()
+        setTextLengthWatcher()
+        initWriteMode()
         initReviewSelectBackgroundAdapter()
         initReviewRequireTextWatcher()
         setOneLineTextWatcher()
         setWriteRequireTextWatcher()
-        setTextLengthWatcher()
         setOnClickListener()
         observeBackgroundImageList()
         observeValidInput()
