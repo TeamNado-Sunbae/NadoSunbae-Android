@@ -91,7 +91,10 @@ class SeniorPersonalViewModel @Inject constructor(
         viewModelScope.launch {
             runCatching { userRepository.getUserQuestion(userId, sort) }
                 .onSuccess {
-                    _seniorQuestion.value = it.map {
+                    _seniorQuestion.value = it.filter { it ->
+                        it.id != userId
+                        }
+                        .map {
                         ClassRoomData(
                             postId = it.postId,
                             title = it.title,
