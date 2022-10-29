@@ -37,6 +37,7 @@ class NotificationViewModel @Inject constructor(
                     Timber.d("알림 리스트 받아오기 실패")
                 }
                 .collectLatest {
+                    Timber.d("알림 리스트 $it ")
                     _notificationList.value = it
                 }.also {
                     onLoadingEnd.value = true
