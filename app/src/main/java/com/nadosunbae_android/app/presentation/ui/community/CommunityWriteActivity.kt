@@ -128,6 +128,9 @@ class CommunityWriteActivity :
             val majorData = MajorSelectData(selectedData.id, selectedData.name)
             communityWriteViewModel.setFilter(selectedData)
             communityWriteViewModel.setSelectedMajor(majorData)
+            if(selectedData.name != "학과 무관"){
+                FirebaseAnalyticsUtil.firebaseLog("mention_function","type","mention_send")
+            }
         }
         communityWriteViewModel.filter.flowWithLifecycle(lifecycle)
             .onEach {

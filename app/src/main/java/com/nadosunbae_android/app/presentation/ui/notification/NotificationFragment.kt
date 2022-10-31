@@ -102,6 +102,10 @@ class NotificationFragment :
                 startActivity(intent)
             }
             else -> {
+                if(notificationType == 10){
+                    FirebaseAnalyticsUtil.firebaseLog("mention_function","type","mention_get")
+                    FirebaseAnalyticsUtil.firebaseLog("mention_function","type","mention_active")
+                }
                 setRestrictDialog({
                     val intent =
                         Intent(requireActivity(), CommunityDetailActivity::class.java)

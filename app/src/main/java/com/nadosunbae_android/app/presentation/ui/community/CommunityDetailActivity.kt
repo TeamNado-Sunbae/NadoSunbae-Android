@@ -128,6 +128,7 @@ class CommunityDetailActivity :
         }
 
         binding.imgInformationCommentComplete.setOnClickListener {
+            FirebaseAnalyticsUtil.firebaseLog("community_write","type","c_comment_write")
             communityViewModel.postCommentWrite()
         }
     }
