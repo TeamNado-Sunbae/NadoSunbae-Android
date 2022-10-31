@@ -8,6 +8,7 @@ import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivitySignUpFinishBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.sign.CertificationEmailData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -27,6 +28,9 @@ class SignUpFinishActivity : BaseActivity<ActivitySignUpFinishBinding>(R.layout.
     private fun nextPage() {
         binding.clSignupFinish.setOnClickListener {
             startActivity(Intent(this, SignInActivity::class.java))
+            FirebaseAnalyticsUtil.firebaseLog("signup_process",
+                "journey", "signup_success")
+            FirebaseAnalyticsUtil.firebaseLog("first_login","","")
             finish()
         }
     }
@@ -34,6 +38,7 @@ class SignUpFinishActivity : BaseActivity<ActivitySignUpFinishBinding>(R.layout.
     private fun resendBtn() {
         binding.textSignupResend.setOnClickListener {
             initResend()
+            FirebaseAnalyticsUtil.firebaseLog("remail_button","type","sign_up_view")
         }
     }
 

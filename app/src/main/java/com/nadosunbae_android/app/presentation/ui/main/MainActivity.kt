@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import com.google.firebase.ktx.Firebase
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -67,8 +68,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 complete = {
                     val uri = Uri.parse(getString(R.string.google_app))
                     startActivity(Intent(Intent.ACTION_VIEW, uri))
+                    FirebaseAnalyticsUtil.firebaseLog("update_opt","choice","update_now")
                 },
-                cancel = {}
+                cancel = {
+                    FirebaseAnalyticsUtil.firebaseLog("update_opt","choice","update_later")
+                }
             )
         }
 
@@ -370,7 +374,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             )
         ) {   // dau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.DAU)
-            FirebaseAnalyticsUtil.dau()
+            FirebaseAnalyticsUtil.auDivision("DAU")
         }
 
         if (!NadoSunBaeSharedPreference.getUserActive(
@@ -380,7 +384,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             )
         ) {   // wau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.WAU)
-            FirebaseAnalyticsUtil.wau()
+            FirebaseAnalyticsUtil.auDivision("WAU")
         }
 
         if (!NadoSunBaeSharedPreference.getUserActive(
@@ -390,7 +394,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             )
         ) {     // mau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.MAU)
-            FirebaseAnalyticsUtil.mau()
+            FirebaseAnalyticsUtil.auDivision("MAU")
         }
     }
 

@@ -46,6 +46,7 @@ class ReviewDetailActivity() :
         observeLoadingEnd()
         observeDropDown()
         observeReportResult()
+        FirebaseAnalyticsUtil.firebaseLog("review_read","","")
     }
 
     override fun onResume() {
@@ -101,6 +102,7 @@ class ReviewDetailActivity() :
         binding.btnReviewLike.setOnClickListener {
             showLoading()
             reviewDetailViewModel.postLikeReview(postId)
+            FirebaseAnalyticsUtil.clickLike()
         }
 
         // 선배 프로필
@@ -108,7 +110,9 @@ class ReviewDetailActivity() :
             if (isMyPost) {       // 자신의 마이페이지로 이동
                 setResult(ReviewFragment.GOTO_MYPAGE)
                 finish()
-            } else {                        // 해당 선배의 페이지로 이동
+            } else {
+                FirebaseAnalyticsUtil.firebaseLog("senior_click","journey","senior_review")
+                // 해당 선배의 페이지로 이동
                 val intent = Intent(this, SeniorPersonalActivity::class.java).apply {
                     putExtra("userId", writerId)
                 }

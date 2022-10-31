@@ -37,6 +37,16 @@ class HomeViewModel @Inject constructor(
     val bannerData: LiveData<List<AppBannerData>>
         get() = _bannerData
 
+    //홈뷰 더보기 GA
+    private var _homeViewGA = MutableLiveData<Int>()
+    val homeViewGA : LiveData<Int>
+        get() = _homeViewGA
+
+    fun setHomeViewGA(num : Int){
+        _homeViewGA.value = num
+    }
+
+
     fun getReviewDetail(university: Int) {
         viewModelScope.launch {
             kotlin.runCatching { homeRepository.getUnivReview(university) }

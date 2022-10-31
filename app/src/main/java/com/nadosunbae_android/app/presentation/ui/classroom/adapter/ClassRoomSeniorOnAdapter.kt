@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemQuestionSeniorOnQuestionBinding
 import com.nadosunbae_android.app.presentation.ui.classroom.question.DataToFragment
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.classroom.ClassRoomSeniorData
 
 class ClassRoomSeniorOnAdapter(
@@ -32,6 +33,7 @@ class ClassRoomSeniorOnAdapter(
     ) {
         holder.onBind(onQuestionUserList[position])
         holder.itemView.setOnClickListener {
+            FirebaseAnalyticsUtil.firebaseLog("senior_click","journey","senior_classroom_out")
             link.getSeniorId(onQuestionUserList[position].id)
         }
         if (itemCount > 7 && isClassRoomQuestion) {

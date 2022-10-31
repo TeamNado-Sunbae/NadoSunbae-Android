@@ -11,6 +11,7 @@ import com.nadosunbae_android.app.databinding.ActivityQuestionWriteBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.classroom.viewmodel.QuestionWriteViewModel
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.classroom.WriteUpdateItem
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -119,6 +120,7 @@ class QuestionWriteActivity :
                 getString(R.string.question_write_complete_no)
             ),
             complete = {
+                FirebaseAnalyticsUtil.firebaseLog("question_write_1on1","type","question_1on1_upload")
                 questionWriteViewModel.postClassRoomWrite()
             },
             cancel = {}

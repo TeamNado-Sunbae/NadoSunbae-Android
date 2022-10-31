@@ -1,6 +1,7 @@
 package com.nadosunbae_android.app.presentation.ui.sign.viewmodel
 
 import androidx.lifecycle.*
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
@@ -162,7 +163,11 @@ class SignUpBasicInfoViewModel @Inject constructor(
                     signInStatus.value = 200
                     Timber.d("testaaa : ${signIn.value.toString()}")
                     majorRepository.deleteMajorList()
-                    FirebaseAnalyticsUtil.login()
+                    FirebaseAnalyticsUtil.firebaseLog(
+                        FirebaseAnalytics.Event.LOGIN,
+                        FirebaseAnalytics.Param.METHOD,
+                        "manual"
+                    )
 
                 }
                 is ResultWrapper.NetworkError -> {
@@ -189,7 +194,11 @@ class SignUpBasicInfoViewModel @Inject constructor(
                     signUp.value = it
                     Timber.d("SignUp : 서버 통신 성공")
 
-                    FirebaseAnalyticsUtil.signup()
+                    FirebaseAnalyticsUtil.firebaseLog(
+                        FirebaseAnalytics.Event.SIGN_UP,
+                        FirebaseAnalytics.Param.METHOD,
+                        "email"
+                    )
 
                 }
                 .onFailure {

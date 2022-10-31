@@ -118,7 +118,7 @@ class InformationFragment : BaseFragment<FragmentInformationBinding>(R.layout.fr
     }
 
     private fun submitAnalytics() {
-        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.CLASSROOM_INFO)
+        FirebaseAnalyticsUtil.selectTab(FirebaseAnalyticsUtil.Tab.REVIEW)
     }
 
     companion object{

@@ -11,13 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
-import com.nadosunbae_android.domain.model.app.AppBannerData
 import kotlinx.android.synthetic.main.item_home_banner.view.*
-import timber.log.Timber
 
 
-class BannerAdapter(private val context: Context, private val sliderImage: List<String>, private val url : List<String>) :
+class BannerAdapter(
+    private val context: Context,
+    private val sliderImage: List<String>,
+    private val url: List<String>
+) :
     RecyclerView.Adapter<BannerAdapter.BannerListHolder>() {
+
+    private var getBannerPositionListener: ((Int) -> Unit) = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerListHolder {
         val view: View = LayoutInflater.from(parent.context)
@@ -29,13 +33,18 @@ class BannerAdapter(private val context: Context, private val sliderImage: List<
         holder.bindSliderImage(sliderImage[position % sliderImage.size])
         holder.itemView.setOnClickListener {
             initIntent(url[position % url.size])
+            getBannerPositionListener(position)
         }
 
     }
 
+    fun getBannerPositionListener(listener: (Int) -> Unit) {
+        this.getBannerPositionListener = listener
+    }
+
     override fun getItemCount(): Int = Int.MAX_VALUE
 
-     class BannerListHolder(itemView: View) :
+    class BannerListHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private val mImageView: ImageView
         fun bindSliderImage(imageURL: String?) {

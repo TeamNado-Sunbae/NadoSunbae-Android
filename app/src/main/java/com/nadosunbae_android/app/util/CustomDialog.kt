@@ -120,6 +120,7 @@ class CustomDialog(val context: Context) {
 
     //리뷰 신고 다이얼로그
     private fun reviewAlertDialog(context: Context) {
+        var write = ""
         CustomDialog(context).genericDialog(
             DialogData(
                 context.getString(R.string.alert_no_review_title),
@@ -127,12 +128,16 @@ class CustomDialog(val context: Context) {
                 context.getString(R.string.alert_no_review_cancel)
             ),
             complete = {
+                write = "write_now"
                 val intent = Intent(context, ReviewWriteActivity::class.java)
                 intent.putExtra("mode", ReviewWriteActivity.WriteMode.NEW)
                 context.startActivity(intent)
             },
-            cancel = {}
+            cancel = {
+                write = "write_later"
+            }
         )
+        FirebaseAnalyticsUtil.firebaseLog("write_request_alert","choice",write)
     }
 
     data class DialogData(

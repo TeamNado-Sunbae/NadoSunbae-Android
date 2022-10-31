@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.databinding.ItemBottomsheetListBinding
 import com.nadosunbae_android.app.databinding.ItemBottomshhetCommunityListBinding
 import com.nadosunbae_android.app.util.DiffUtilCallback
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.setTextSemiBold
 import com.nadosunbae_android.domain.model.main.SelectableData
 
@@ -68,6 +69,12 @@ class MajorSelectAdapter(
                 holder.binding.btnMajorStar.visibility = View.INVISIBLE
             }
             holder.binding.btnMajorStar.setOnClickListener {
+                val paramValue = if(holder.binding.btnMajorStar.isSelected){
+                    "favorite_off"
+                }else{
+                    "favorite_on"
+                }
+                FirebaseAnalyticsUtil.firebaseLog("bottomsheet_function","",paramValue)
                 favoriteCompleteListener.let {
                     it(getItem(holder.absoluteAdapterPosition).id)
                 }
@@ -167,15 +174,7 @@ class MajorSelectAdapter(
         }
     }
 
-    fun setSelectedNameData(dataName : String){
-        for (d in currentList) {
-            if (d.name == dataName) {
-                name = d.name
-                d.isSelected = true
-                break
-            }
-        }
-    }
+
 
 
     override fun getItemViewType(position: Int): Int {

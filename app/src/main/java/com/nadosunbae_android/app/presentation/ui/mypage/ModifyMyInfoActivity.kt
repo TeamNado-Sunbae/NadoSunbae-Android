@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView.OnEditorActionListener
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -28,6 +29,7 @@ import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfo
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.dpToPx
 import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.domain.model.mypage.MyPageModifyItem
@@ -93,24 +95,17 @@ class ModifyMyInfoActivity :
 
     //기존 데이터 불러오기
     private fun initWriteMode() {
-
         binding.textMyPageSave.setBackgroundResource(R.drawable.rectangle_fill_gray_0_8)
         binding.textMyPageSave.setTextColor(Color.parseColor("#94959E"))
-
         mainViewModel.signData.observe(this) {
             myPageViewModel.getPersonalInfo(it.userId)
         }
-
         myPageViewModel.getPersonalInfo(intent.getIntExtra("id", 0))
         myPageViewModel.personalInfo.observe(this) {
             binding.myPageInfo = it
-            Timber.d("서버통신 : 성공")
             myPageViewModel.selectImgId.value = it.profileImageId
             signViewModel.firstMajor.value = it.firstMajorName
             signViewModel.secondMajor.value = it.secondMajorName
-
-
-
             binding.layoutCommunityWriteMajor.bottomSheetMajor = it.firstMajorName
             binding.layoutModifyProfileSecondMajor.bottomSheetMajor = it.secondMajorName
 
@@ -426,35 +421,29 @@ class ModifyMyInfoActivity :
     }
 
 
-    //닉네임 textwatcher
+    //닉네임
     private fun nicknameTextWatcher() = with(binding) {
-        etMyPageNickname.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun afterTextChanged(p0: Editable?) {
-                if (!textMyPageNicknameTitle.isSelected) {
-                    nicknameDuplication()
-                }
-
-                //닉네임 textfield 빈칸인지 체크
-                if (etMyPageNickname.text.toString() == "") {
-                    textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
-                    textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
-                } else {
-                    isNickNamePattern()
-                }
-
-                val nickname = signUpBasicInfoViewModel.nickName.value
-
-                //닉네임 textfield 한글자라도 바뀐다면 하단 텍스트 사라지게
-                if (nickname != etMyPageNickname.text.toString()) {
-                    textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
-                    textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
-                }
-                saveBtnInActive()
+        etMyPageNickname.addTextChangedListener {
+            if (!textMyPageNicknameTitle.isSelected) {
+                nicknameDuplication()
             }
-        })
+            //닉네임 textfield 빈칸인지 체크
+            if (etMyPageNickname.text.toString() == "") {
+                textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
+                textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
+            } else {
+                isNickNamePattern()
+            }
+
+            val nickname = signUpBasicInfoViewModel.nickName.value
+
+            //닉네임 textfield 한글자라도 바뀐다면 하단 텍스트 사라지게
+            if (nickname != etMyPageNickname.text.toString()) {
+                textMyPageModifyNicknameDuplicaitionNo.visibility = View.INVISIBLE
+                textMyPageModifyNicknameDuplicaitionOk.visibility = View.INVISIBLE
+            }
+            saveBtnInActive()
+        }
     }
 
     //닉네임 중복 체크 서버 통신
@@ -562,12 +551,30 @@ class ModifyMyInfoActivity :
             complete = {
                 showLoading()
                 completeModifyInfo()
+                setProfileModifyGA()
             },
             cancel = {
 
             }
         )
         return confirm
+    }
+    //프로필 수정 GA
+    private fun setProfileModifyGA(){
+        if(myPageViewModel.personalInfo.value?.bio.toString() != binding.etMyPageIntroduction.toString()){
+            myPageViewModel.profileGA.add("oneline_introduce")
+        }
+        if(myPageViewModel.personalInfo.value?.profileImageId != myPageViewModel.selectImgId.value){
+            myPageViewModel.profileGA.add("profile_image")
+        }
+        if(binding.imgMyPageModifyMain.isSelected){
+            myPageViewModel.profileGA.add("question_allow_on")
+        }else{
+            myPageViewModel.profileGA.add("question_allow_off")
+        }
+
+        FirebaseAnalyticsUtil.firebaseLogs("profile_change","type",myPageViewModel.profileGA)
+        myPageViewModel.profileGA.clear()
     }
 
 
@@ -624,19 +631,14 @@ class ModifyMyInfoActivity :
     }
 
     private fun introductionTextWatcher() {
-        binding.etMyPageIntroduction.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun afterTextChanged(p0: Editable?) {
-                binding.textMyPageModifyLength.setText(binding.etMyPageIntroduction.text.length.toString())
-                if(myPageViewModel.personalInfo.value?.bio.toString() != binding.etMyPageIntroduction.text.toString()) {
-                    initActiveSaveBtn()
-                } else {
-                    saveBtnInActive()
-                }
-
+        binding.etMyPageIntroduction.addTextChangedListener {
+            binding.textMyPageModifyLength.setText(binding.etMyPageIntroduction.text.length.toString())
+            if(myPageViewModel.personalInfo.value?.bio.toString() != binding.etMyPageIntroduction.text.toString()) {
+                initActiveSaveBtn()
+            } else {
+                saveBtnInActive()
             }
-        })
+        }
     }
 
     private fun saveBtnInActive() {

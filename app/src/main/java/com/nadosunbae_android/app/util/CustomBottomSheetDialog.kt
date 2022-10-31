@@ -102,6 +102,7 @@ class CustomBottomSheetDialog(
         searchFilterMajor()
         getFavoritesData()
         setChangeErrorComplete()
+        setFilterSearchGA()
         binding.executePendingBindings()
     }
 
@@ -148,6 +149,13 @@ class CustomBottomSheetDialog(
         }
         _titleData.value = title
     }
+    //검색 부분 클릭
+    private fun setFilterSearchGA(){
+        binding.etBottomSheetSearch.setOnClickListener {
+            FirebaseAnalyticsUtil.firebaseLog("bottomsheet_function","","search_major")
+        }
+    }
+
 
     //필터 학과 검색시
     private fun searchFilterMajor() {
@@ -243,10 +251,6 @@ class CustomBottomSheetDialog(
         majorSelectAdapter.setSelectedData(dataId)
     }
 
-    //첫 선택된 데이터 -> name값
-    fun setSelectedNameData(dataName : String){
-        majorSelectAdapter.setSelectedNameData(dataName)
-    }
 
 
 }

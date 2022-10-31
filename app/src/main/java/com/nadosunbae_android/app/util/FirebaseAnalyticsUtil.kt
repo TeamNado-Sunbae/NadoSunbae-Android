@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.util
 
+import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
@@ -29,16 +30,16 @@ object FirebaseAnalyticsUtil {
     // Parameter name
     private const val AU_DIVISION = "au_type"
     private const val POST_TYPE = "post_type"
-    private const val QUESTION_TYPE ="question_type"
+    private const val QUESTION_TYPE = "question_type"
     private const val TAB_NAME = "tab_name"
 
     // Parameter value
     object Tab {
         const val REVIEW = "Review Tab"
         const val CLASSROOM_QUESTION = "ClassRoom_Question Tab"
-        const val CLASSROOM_INFO = "ClassRoom_Info Tab"
         const val NOTIFICATION = "Notification Tab"
         const val MYPAGE = "MyPage Tab"
+        const val COMMUNITY = "Community Tab"
     }
 
     object Post {
@@ -55,42 +56,21 @@ object FirebaseAnalyticsUtil {
     }
 
     private val firebaseAnalytics: FirebaseAnalytics?
-        get() = if (BuildConfig.DEBUG) null else Firebase.analytics
-
-    fun signup() = firebaseAnalytics?.logEvent(FirebaseAnalytics.Event.SIGN_UP) {
-        param(FirebaseAnalytics.Param.METHOD, "email")
-    }
-
-    fun login() = firebaseAnalytics?.logEvent(FirebaseAnalytics.Event.LOGIN) {
-            param(FirebaseAnalytics.Param.METHOD, "manual")
-        }
+        get() = Firebase.analytics
 
 
-    fun autoLogin() = firebaseAnalytics?.logEvent(FirebaseAnalytics.Event.LOGIN) {
-        param(FirebaseAnalytics.Param.METHOD, "auto")
-    }
-
-    fun selectTab(tab: String) = firebaseAnalytics?.logEvent(TAB_SELECT) {
+    //탭 클릭
+    fun selectTab(tab: String) = firebaseAnalytics?.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
         param(TAB_NAME, tab)
     }
 
-    fun dau() {
+    //dau,wau,mau
+    fun auDivision(division : String) {
         firebaseAnalytics?.logEvent(ACTIVE_USER) {
-            param(AU_DIVISION, "DAU")
+            param(AU_DIVISION, division)
         }
     }
 
-    fun wau() {
-        firebaseAnalytics?.logEvent(ACTIVE_USER) {
-            param(AU_DIVISION, "WAU")
-        }
-    }
-
-    fun mau() {
-        firebaseAnalytics?.logEvent(ACTIVE_USER) {
-            param(AU_DIVISION, "MAU")
-        }
-    }
 
     fun userPost(value: String = "other") = firebaseAnalytics?.logEvent(USER_PERSONAL) {
         param(POST_TYPE, value)
@@ -99,12 +79,17 @@ object FirebaseAnalyticsUtil {
     fun question(value: String = "other") = firebaseAnalytics?.logEvent(QUESTION) {
         param(QUESTION_TYPE, value)
     }
+    fun clickLike(){
+        firebaseAnalytics?.logEvent("like_click"){
+            param("","like_on")
+        }
+    }
 
     fun setUserProperty(user: SignInData.User) {
         firebaseAnalytics?.run {
             setUserProperty(UNIVERSITY_ID, "${user.universityId}")
             setUserProperty(FIRST_MAJOR, user.firstMajorName)
-            setUserProperty(SECOND_MAJOR,user.secondMajorName)
+            setUserProperty(SECOND_MAJOR, user.secondMajorName)
             setUserProperty(USER_ID, "${user.userId}")
             setUserProperty(USER_REVIEWED, "${user.isReviewed}")
             setUserProperty(USER_EMAIL_VERIFIED, "${user.isEmailVerified}")
@@ -113,7 +98,8 @@ object FirebaseAnalyticsUtil {
         }
     }
 
-    fun setSelectedMajor(majorName: String) = firebaseAnalytics?.setUserProperty(SELECTED_MAJOR, majorName)
+    fun setSelectedMajor(majorName: String) =
+        firebaseAnalytics?.setUserProperty(SELECTED_MAJOR, majorName)
 
     // 커스텀 이벤트 로그 (단일 파라미터)
     fun firebaseLog(event: String, paramKey: String, paramVal: String) {
@@ -121,5 +107,15 @@ object FirebaseAnalyticsUtil {
             param(paramKey, paramVal)
         }
     }
+    // 커스텀 이벤트 로그(복수 파라미터)
+    fun firebaseLogs(event: String, paramKey : String, paramVal : List<String>){
+        val bundle = Bundle()
+        for(i in paramVal){
+            bundle.putString(paramKey, i)
+        }
+        firebaseAnalytics?.logEvent(event,bundle)
+    }
+
+
 
 }
