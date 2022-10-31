@@ -61,7 +61,7 @@ object FirebaseAnalyticsUtil {
 
     //탭 클릭
     fun selectTab(tab: String) = firebaseAnalytics?.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
-        param(TAB_NAME, tab)
+        param(FirebaseAnalytics.Param.SCREEN_NAME, tab)
     }
 
     //dau,wau,mau
