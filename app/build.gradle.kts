@@ -26,7 +26,7 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_KEY", getApiKey("DEV_API_KEY"))
+        buildConfigField("String", "API_KEY", getApiKey("PROD_API_KEY"))
     }
 
     buildTypes {
