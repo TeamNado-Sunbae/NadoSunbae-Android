@@ -8,15 +8,22 @@ import com.nadosunbae_android.app.presentation.base.LoadableViewModel
 import com.nadosunbae_android.domain.model.app.AppBannerData
 import com.nadosunbae_android.domain.model.home.HomeRankingData
 import com.nadosunbae_android.domain.model.home.HomeUnivReviewData
+import com.nadosunbae_android.domain.model.post.PostData
 import com.nadosunbae_android.domain.repository.app.AppRepository
 import com.nadosunbae_android.domain.repository.home.HomeRepository
+import com.nadosunbae_android.domain.repository.post.PostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val postRepository: PostRepository,
     private val homeRepository: HomeRepository,
     private val appRepository: AppRepository
 ) : ViewModel(), LoadableViewModel {
@@ -24,6 +31,16 @@ class HomeViewModel @Inject constructor(
     override val onLoadingEnd = MutableLiveData<Boolean>(false)
 
     var userId = MutableLiveData<Int>()
+
+    //1:1질문
+    private var _personToQuestionData = MutableStateFlow(listOf(PostData.DEFAULT))
+    val personToQuestionData: StateFlow<List<PostData>>
+        get() = _personToQuestionData
+
+    //커뮤니티
+    private var _communityData = MutableStateFlow(listOf(PostData.DEFAULT))
+    val communityData: StateFlow<List<PostData>>
+        get() = _communityData
 
     private val _reviewDetail = MutableLiveData<List<HomeUnivReviewData>>()
     val reviewDetail: LiveData<List<HomeUnivReviewData>>
@@ -93,5 +110,24 @@ class HomeViewModel @Inject constructor(
                     onLoadingEnd.value = true
                 }
         }
+    }
+
+    //커뮤니티 메인 데이터 호출
+    fun getQuestionMainData(
+        universityId: Int,
+        majorId: String?,
+        filter: String,
+        sort: String,
+        search: String? = ""
+    ) = viewModelScope.launch {
+        postRepository.getPost(universityId, majorId, filter, sort, search)
+            .catch {
+                Timber.d("커뮤니티 메인 서버통신 오류 발생")
+            }.collectLatest {
+                Timber.d("커뮤니티 메인 서버통신 $it")
+                _personToQuestionData.value = it
+            }.also {
+                onLoadingEnd.value = true
+            }
     }
 }

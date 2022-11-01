@@ -2,6 +2,7 @@ package com.nadosunbae_android.app.presentation.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.size
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -42,15 +43,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setReviewAdapter()
+        //setReviewAdapter()
         goSeniorPage()
-        setQuestionAdapter()
-        setCommunityAdapter()
+        // setQuestionAdapter()
+        // setCommunityAdapter()
         naviControl()
         setBanner()
         setRanking()
         setUnivName()
         setAnalytics()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setReviewAdapter()
+        setQuestionAdapter()
+        setCommunityAdapter()
     }
 
     private fun setBanner() {
@@ -96,16 +104,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     //홈 뷰 질문 리사이클러뷰 연결
     private fun setQuestionAdapter() {
-        communityViewModel.getCommunityMainData(
+        homeViewModel.getQuestionMainData(
             MainGlobals.signInData?.universityId ?: 1,
             "0",
             "questionToPerson",
-            "recent",
-            ""
+            "recent"
         )
         questionAdapter = QuestionAdapter(mainViewModel.userId.value ?: 0)
         binding.rvHomeQuestion.adapter = questionAdapter
-        communityViewModel.communityMainData.flowWithLifecycle(
+        homeViewModel.personToQuestionData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
         ).onEach {
             if (it.size > 4) {
@@ -129,14 +136,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val decoration =
             CustomDecoration(1.dpToPxF, 16.dpToPxF, requireContext().getColor(R.color.gray_0))
         binding.rvHomeCommunity.addItemDecoration(decoration)
-        communityViewModel.communityMainData.flowWithLifecycle(
+        communityViewModel.communityMainFilterData.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
         ).onEach {
+            Timber.e("뭐지 : $it")
+
+            binding.rvHomeCommunity.scrollToPosition(0)
             if (it.size > 2) {
                 communityMainContentAdapter.submitList(it.subList(0, 3))
             } else {
                 communityMainContentAdapter.submitList(it)
             }
+
         }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
@@ -282,4 +293,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             binding.textHomeUnivName.text = "중앙대학교"
         }
     }
+
+
 }
