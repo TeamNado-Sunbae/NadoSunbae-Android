@@ -269,7 +269,7 @@ object BindingAdapter {
 
     // 현재 글자/최대 글자 && 파베 로깅
     @JvmStatic
-    @BindingAdapter("displayMaxLength", "value")
+    @BindingAdapter("displayMaxLength")
     fun displayMaxLength(textView: TextView, length: Int) {
         textView.text =
             "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_max_40)}"
