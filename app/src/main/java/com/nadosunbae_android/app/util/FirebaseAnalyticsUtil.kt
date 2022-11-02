@@ -81,7 +81,7 @@ object FirebaseAnalyticsUtil {
     }
     fun clickLike(){
         firebaseAnalytics?.logEvent("like_click"){
-            param("","like_on")
+            param("type","like_on")
         }
     }
 
