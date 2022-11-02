@@ -266,13 +266,18 @@ object BindingAdapter {
         imageView.isSelected = question
     }
 
-    // 현재 글자/최대 글자
+
+    // 현재 글자/최대 글자 && 파베 로깅
     @JvmStatic
-    @BindingAdapter("displayMaxLength")
+    @BindingAdapter("displayMaxLength", "value")
     fun displayMaxLength(textView: TextView, length: Int) {
         textView.text =
             "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_max_40)}"
+        if (length == 5) {
+            FirebaseAnalyticsUtil.setReviewProcess("review_one_line")
+        }
     }
+
 
     // 현재 글자/최소 글자
     @JvmStatic
@@ -280,14 +285,27 @@ object BindingAdapter {
     fun displayMinLength(textView: TextView, length: Int) {
         textView.text =
             "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_min_100)}"
+        if (length == 10) {
+            FirebaseAnalyticsUtil.setReviewProcess("review_pros_cons")
+        }
     }
 
     // 글자수 + 자
     @JvmStatic
-    @BindingAdapter("displayWriteLength")
-    fun displayWriteLength(textView: TextView, length: Int) {
+    @BindingAdapter("displayWriteLength", "value")
+    fun displayWriteLength(textView: TextView, length: Int, value: Int) {
+        val paramValue = when (value) {
+            3 -> "review_learn"
+            4 -> "review_recom"
+            5 -> "review_hard"
+            6 -> "review_career"
+            else -> "review_tip"
+        }
         textView.text =
             "${length}${NadoSunBaeApplication.context().getString(R.string.review_write_length)}"
+        if (length == 10) {
+            FirebaseAnalyticsUtil.setReviewProcess(paramValue)
+        }
     }
 
     @JvmStatic
@@ -407,10 +425,10 @@ fun View.setSelected(selected: Boolean) {
 }
 
 @BindingAdapter("radioButtonTint")
-fun RadioButton.radioButtonTint(selected : Boolean){
-        var color = context.getColor(R.color.main_default)
-        if(!selected){
-            color = context.getColor(R.color.gray_2)
-        }
+fun RadioButton.radioButtonTint(selected: Boolean) {
+    var color = context.getColor(R.color.main_default)
+    if (!selected) {
+        color = context.getColor(R.color.gray_2)
+    }
     this.buttonTintList = ColorStateList.valueOf(color)
 }

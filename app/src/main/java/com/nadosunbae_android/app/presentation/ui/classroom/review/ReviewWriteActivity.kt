@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
@@ -142,7 +143,6 @@ class ReviewWriteActivity :
     private fun setOneLineTextWatcher() {
         binding.etOneLine.addTextChangedListener {
             if (it != null) {
-
                 // 최대 글자수 체크
                 if (it.length > ONE_LINE_MAX_LENGTH) {
                     val newStr = it.toString().substring(0, ONE_LINE_MAX_LENGTH)
@@ -472,11 +472,11 @@ class ReviewWriteActivity :
                     "review_new"
                 }
                 FirebaseAnalyticsUtil.firebaseLog("review_write","type",paramValue)
-                FirebaseAnalyticsUtil.firebaseLog("reviewProcess","journey","review_upload")
+                FirebaseAnalyticsUtil.setReviewProcess("review_upload")
                 confirm.value = false
             },
             cancel = {
-                FirebaseAnalyticsUtil.firebaseLog("review_process","journey","review_exit")
+                FirebaseAnalyticsUtil.setReviewProcess("review_exit")
                 confirm.value = true
             }
         )

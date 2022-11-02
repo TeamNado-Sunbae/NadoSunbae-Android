@@ -81,6 +81,7 @@ class SignUpBasicInfoFragment : BaseFragment<FragmentSignUpBasicInfoBinding>(R.l
                 binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.INVISIBLE
             } else {
                 Timber.d("이메일 중복확인: 성공")
+                Timber.d("이메일 중복확인: 성공")
                 binding.textSignupBasicinfoEmailDuplicationOk.visibility = View.VISIBLE
                 binding.textSignupBasicinfoEmailDuplicationNo.visibility = View.INVISIBLE
                 activationNextBtn()

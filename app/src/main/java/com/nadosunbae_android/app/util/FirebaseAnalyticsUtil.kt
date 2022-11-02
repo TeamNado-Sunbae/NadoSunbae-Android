@@ -98,6 +98,10 @@ object FirebaseAnalyticsUtil {
         }
     }
 
+    fun setReviewProcess(value : String){
+        firebaseLog("review_process","journey",value)
+    }
+
     fun setSelectedMajor(majorName: String) =
         firebaseAnalytics?.setUserProperty(SELECTED_MAJOR, majorName)
 
