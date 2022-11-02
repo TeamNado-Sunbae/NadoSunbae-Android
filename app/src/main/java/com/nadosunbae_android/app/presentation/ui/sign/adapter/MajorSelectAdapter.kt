@@ -74,7 +74,7 @@ class MajorSelectAdapter(
                 }else{
                     "favorite_on"
                 }
-                FirebaseAnalyticsUtil.firebaseLog("bottomsheet_function","",paramValue)
+                FirebaseAnalyticsUtil.firebaseLog("bottomsheet_function","type",paramValue)
                 favoriteCompleteListener.let {
                     it(getItem(holder.absoluteAdapterPosition).id)
                 }

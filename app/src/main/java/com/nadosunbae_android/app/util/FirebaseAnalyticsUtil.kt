@@ -81,7 +81,7 @@ object FirebaseAnalyticsUtil {
     }
     fun clickLike(){
         firebaseAnalytics?.logEvent("like_click"){
-            param("","like_on")
+            param("type","like_on")
         }
     }
 
@@ -96,6 +96,10 @@ object FirebaseAnalyticsUtil {
             setUserProperty(USER_REVIEW_INAPPROPRIATE, "${user.isReviewInappropriate}")
             setUserProperty(USER_REPORTED, "${user.isUserReported}")
         }
+    }
+
+    fun setReviewProcess(value : String){
+        firebaseLog("review_process","journey",value)
     }
 
     fun setSelectedMajor(majorName: String) =

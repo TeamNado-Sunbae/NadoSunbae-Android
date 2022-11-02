@@ -103,7 +103,6 @@ class NotificationFragment :
             }
             else -> {
                 if(notificationType == 10){
-                    FirebaseAnalyticsUtil.firebaseLog("mention_function","type","mention_get")
                     FirebaseAnalyticsUtil.firebaseLog("mention_function","type","mention_active")
                 }
                 setRestrictDialog({
