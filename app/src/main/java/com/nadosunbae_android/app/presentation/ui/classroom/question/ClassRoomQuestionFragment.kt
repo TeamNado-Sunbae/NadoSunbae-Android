@@ -10,6 +10,7 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomInfoMainAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.adapter.ClassRoomSeniorOnAdapter
 import com.nadosunbae_android.app.presentation.ui.classroom.question.viewmodel.ClassRoomQuestionViewModel
+import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.domain.model.classroom.ClassRoomData
@@ -53,68 +54,37 @@ class ClassRoomQuestionFragment :
         binding.rvClassroomRecommendSenior.adapter = classRoomSeniorAdapter
 
 
-//        mainViewModel.seniorData.observe(viewLifecycleOwner) {
-//            val userList = it.onQuestionUserList as MutableList<ClassRoomSeniorData.OnQuestionUser>
-//            classRoomSeniorAdapter.setOnQuestionUser(userList)
-//            Timber.d("asdf ${userList}")
-//
-//            if (userList.isNullOrEmpty())
-//                binding.tvClassroomRecommendSeniorEmpty.visibility = View.VISIBLE
-//            else
-//                binding.tvClassroomRecommendSeniorEmpty.visibility = View.GONE
-//        }
-
         // 1:1 질문
         val userId = mainViewModel.userId.value ?: 0
         classRoomInfoMainAdapter = ClassRoomInfoMainAdapter(userId)
         binding.rvSeniorPersonal.adapter = classRoomInfoMainAdapter
-
-//        mainViewModel.classRoomMain.observe(viewLifecycleOwner){
-//            Timber.d("classRoomInfo: $it")
-//            if(it.isEmpty()){
-//                mainViewModel.classRoomInfoEmpty.value = InformationFragment.EMPTY
-//                binding.tvClassroomQuestionEmpty.visibility = View.VISIBLE
-//            }else{
-//                mainViewModel.classRoomInfoEmpty.value = InformationFragment.NOTEMPTY
-//                binding.tvClassroomQuestionEmpty.visibility = View.GONE
-//            }
-//            Timber.d("classRoomInfo empty : ${mainViewModel.classRoomInfoEmpty.value}")
-//            classRoomInfoMainAdapter.setQuestionMain(it as MutableList<ClassRoomData>)
-//        }
     }
 
 
     //선배 없을 때
     private fun initSeniorEmpty(size: Int?) {
-        if (size == 0 || size == null) {
-            binding.tvClassroomRecommendSeniorEmpty.visibility = View.VISIBLE
-            binding.btnClassroomMoreSenior.visibility = View.INVISIBLE
-        } else {
-            binding.tvClassroomRecommendSeniorEmpty.visibility = View.INVISIBLE
-            binding.btnClassroomMoreSenior.visibility = View.VISIBLE
-        }
+        binding.moreSenior = (size == 0 || size == null)
     }
 
     //질문 없을 때
     private fun initQuestionEmpty(size: Int?) {
-        if (size == 0 || size == null) {
-            binding.tvClassroomQuestionEmpty.visibility = View.VISIBLE
-        } else {
-            binding.tvClassroomQuestionEmpty.visibility = View.GONE
-        }
+        binding.empty = (size == 0 || size == null)
     }
 
     private fun setListener() {
         binding.btnClassroomMoreSenior.setOnClickListener {
-            FirebaseAnalyticsUtil.firebaseLog("senior_click","journey","senior_classroom_in")
+            FirebaseAnalyticsUtil.firebaseLog("senior_click", "journey", "senior_classroom_in")
             mainViewModel.classRoomFragmentNum.postValue(3)
         }
     }
 
     private fun observeSelectedMajor() {
-        mainViewModel.selectedMajor.observe(requireActivity()) {
+        mainViewModel.selectedMajor.observe(viewLifecycleOwner) {
             classRoomQuestionViewModel.getSeniorList(it.majorId, null)
-            classRoomQuestionViewModel.getQuestionList(mainViewModel.univId.value!!, it.majorId)
+            classRoomQuestionViewModel.getQuestionList(
+                MainGlobals.signInData?.universityId ?: 1,
+                it.majorId
+            )
         }
     }
 

@@ -5,6 +5,16 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="empty"
+            type="Boolean" />
+
+        <variable
+            name="moreSenior"
+            type="Boolean" />
+
         <variable
             name="mainViewModel"
             type="com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel" />
@@ -37,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
+            android:visibility="@{moreSenior ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -87,7 +98,7 @@
                 android:text="@string/empty_major_senior"
                 android:textColor="@color/gray_2"
                 android:textSize="14sp"
-                android:visibility="gone"
+                android:visibility="@{moreSenior ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,8 +113,8 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 android:overScrollMode="never"
-                tools:itemCount="2"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="2"
                 tools:listitem="@layout/item_question_senior_on_question" />
         </androidx.cardview.widget.CardView>
 
@@ -136,10 +147,11 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_regular"
                 android:includeFontPadding="false"
+                android:paddingHorizontal="80dp"
+                android:paddingVertical="46dp"
                 android:text="@string/empty_personal_question"
                 android:textColor="@color/gray_2"
-                android:paddingVertical="46dp"
-                android:paddingHorizontal="80dp"
+                android:visibility="@{empty ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -149,12 +161,12 @@
                 android:id="@+id/rv_senior_personal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
                 android:orientation="vertical"
                 android:overScrollMode="never"
                 android:paddingHorizontal="16dp"
                 android:paddingTop="16dp"
                 android:paddingBottom="23dp"
-                android:clipToPadding="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/item_question_all" />
