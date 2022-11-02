@@ -30,7 +30,6 @@ class SignUpFinishActivity : BaseActivity<ActivitySignUpFinishBinding>(R.layout.
             startActivity(Intent(this, SignInActivity::class.java))
             FirebaseAnalyticsUtil.firebaseLog("signup_process",
                 "journey", "signup_success")
-            FirebaseAnalyticsUtil.firebaseLog("first_login","","")
             finish()
         }
     }
