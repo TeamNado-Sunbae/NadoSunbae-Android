@@ -110,8 +110,10 @@ class QuestionDetailActivity :
                     if (!it.neverAnswered)
                         binding.btnNewQuestion.visibility = View.VISIBLE
                 }
-                val checkAnalytics = if(userId != it.questionerId){
-                    "others_question"
+                val checkAnalytics = if(userId != it.questionerId && userId != it.answererId){
+                    "other_question_oth"
+                }else if(userId == it.answererId){
+                    "other_question_mine"
                 }else{
                     "my_question"
                 }
