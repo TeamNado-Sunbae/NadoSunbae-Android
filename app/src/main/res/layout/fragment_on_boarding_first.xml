@@ -28,13 +28,13 @@
                 android:id="@+id/img_background_shadow"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:scaleType="fitXY"
+                android:layout_marginBottom="56dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/img_onboarding_shadow"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_third_line"
+                app:layout_constraintBottom_toTopOf="@+id/img_logo"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/img_logo"
@@ -50,11 +50,11 @@
                 android:id="@+id/text_nadosunbae"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
                 android:fontFamily="@font/pretendard_semibold"
                 android:text="@string/onboarding_nadosunbae_title"
                 android:textColor="@color/main_text"
                 android:textSize="22sp"
-                android:layout_marginBottom="3dp"
                 app:layout_constraintBottom_toTopOf="@+id/text_second_line"
                 app:layout_constraintStart_toStartOf="@+id/img_logo" />
 
@@ -74,11 +74,11 @@
                 android:id="@+id/text_second_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
                 android:fontFamily="@font/pretendard_regular"
                 android:text="@string/onboarding_simple_sunbae"
                 android:textColor="@color/main_text"
                 android:textSize="22sp"
-                android:layout_marginBottom="3dp"
                 app:layout_constraintBottom_toTopOf="@+id/text_third_line"
                 app:layout_constraintStart_toStartOf="@+id/text_nadosunbae" />
 
