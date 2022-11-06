@@ -213,15 +213,14 @@ class SignUpMajorInfoFragment :
                     it.id = signViewModel.firstMajorList.value?.get(0)?.majorId ?: -1
                     binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#94959E"))
                     binding.textSignupMajorinfoMajorMint.text = "선택"
-                }
-                else {
+                } else {
                     binding.textSignupMajorinfoMajor.text = it.name
                     binding.textSignupMajorinfoMajor.setTextColor(Color.parseColor("#001D19"))
                     binding.textSignupMajorinfoMajorMint.text = "변경"
+                    signUpBasicInfoViewModel.firstDepartmentClick.value = true
                 }
             }
             .launchIn(lifecycleScope)
-        signUpBasicInfoViewModel.firstDepartmentClick.value = true
     }
 
 
