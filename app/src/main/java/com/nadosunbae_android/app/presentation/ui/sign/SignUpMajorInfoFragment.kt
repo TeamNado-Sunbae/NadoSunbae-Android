@@ -51,7 +51,6 @@ class SignUpMajorInfoFragment :
             checkCommunityWrite = false,
             isSignUp = true
         )
-        deleteAll()
         initTextfield()
         closePage()
         moveBeforePage()
@@ -147,26 +146,34 @@ class SignUpMajorInfoFragment :
     }
 
     private fun nextBtnActivate() = with(binding) {
-        clSignupMajorInfoMoveNext.setOnClickListener {
-            when (textSignupMajorinfoUniv.text.toString()) {
-                "고려대학교" -> signUpBasicInfoViewModel.univId.value = 1
-                "서울여자대학교" -> signUpBasicInfoViewModel.univId.value = 2
-                "중앙대학교" -> signUpBasicInfoViewModel.univId.value = 3
-                else -> signUpBasicInfoViewModel.univId.value = null
+        if(binding.textSignupMajorinfoMajor.text != binding.textSignupMajorinfoDoubleMajor.text) {
+            clSignupMajorInfoMoveNext.setOnClickListener {
+                when (textSignupMajorinfoUniv.text.toString()) {
+                    "고려대학교" -> signUpBasicInfoViewModel.univId.value = 1
+                    "서울여자대학교" -> signUpBasicInfoViewModel.univId.value = 2
+                    "중앙대학교" -> signUpBasicInfoViewModel.univId.value = 3
+                    else -> signUpBasicInfoViewModel.univId.value = null
+                }
+                signUpBasicInfoViewModel.apply {
+                    univName.value = textSignupMajorinfoUniv.text.toString()
+                    firstMajorId.value = majorBottomSheetDialog.getSelectedData().id
+                    firstMajorName.value = textSignupMajorinfoMajor.text.toString()
+                    firstMajorStart.value = textSignupMajorinfoMajorTime.text.toString()
+                    secondMajorId.value = secondDepartmentBottomSheetDialog.getSelectedData().id
+                    secondMajorName.value = textSignupMajorinfoDoubleMajor.text.toString()
+                    secondMajorStart.value = textSignupMajorinfoDoubleMajorTime.text.toString()
+                    textSignupMajorinfoDoubleMajorTime.text.toString()
+                }
+                findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
+                signViewModel.isActive.value = true
             }
-            signUpBasicInfoViewModel.apply {
-                univName.value = textSignupMajorinfoUniv.text.toString()
-                firstMajorId.value = majorBottomSheetDialog.getSelectedData().id
-                firstMajorName.value = textSignupMajorinfoMajor.text.toString()
-                firstMajorStart.value = textSignupMajorinfoMajorTime.text.toString()
-                secondMajorId.value = secondDepartmentBottomSheetDialog.getSelectedData().id
-                secondMajorName.value = textSignupMajorinfoDoubleMajor.text.toString()
-                secondMajorStart.value = textSignupMajorinfoDoubleMajorTime.text.toString()
-                textSignupMajorinfoDoubleMajorTime.text.toString()
-            }
-            findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
-            //signViewModel.isActive.value = true
+        }else {
+            Timber.e("여기가 호출되나 ?")
+            binding.clSignupMajorInfoMoveNext.setBackgroundResource(R.drawable.rectangle_fill_gray_14)
+            binding.textSignupMajorInfoNext.setTextColor(Color.parseColor("#94959E"))
+            binding.clSignupMajorInfoMoveNext.isClickable = false
         }
+
     }
 
 
@@ -310,7 +317,12 @@ class SignUpMajorInfoFragment :
                     }
                     if (it.name != "미진입") {
                         signUpBasicInfoViewModel.secondDepartmentClick.value = true
-                        signUpBasicInfoViewModel.secondDepartmentGo.value = false
+                        if(binding.textSignupMajorinfoDoubleMajorTime.text != "선택하기") {
+                            signUpBasicInfoViewModel.secondDepartmentGo.value = true
+                        } else {
+                            signUpBasicInfoViewModel.secondDepartmentGo.value = false
+                        }
+
                         binding.clSignupMajorInfoDoubleMajorTime.isClickable = true
                     }
 
@@ -362,6 +374,8 @@ class SignUpMajorInfoFragment :
     private fun changeNext() {
         signUpBasicInfoViewModel.selectedAll.observe(viewLifecycleOwner) {
             Timber.e("TEST1: ${it}")
+            Timber.e("TEST2 : ${signUpBasicInfoViewModel.firstDepartmentClick.value.toString()}")
+            Timber.e("TEST3 : ${signUpBasicInfoViewModel.secondDepartmentClick.value.toString()}")
             binding.clSignupMajorInfoMoveNext.isSelected = it
             binding.textSignupMajorInfoNext.isSelected = it
             checkMajor()
