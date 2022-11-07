@@ -136,6 +136,10 @@ class SignUpMajorInfoFragment :
             signUpBasicInfoViewModel.secondMajorStart.value = null
             signViewModel.setFirstFilter(SelectableData.SIGNDEFAULT)
             signViewModel.setSecondFilter(SelectableData.SIGNDEFAULT)
+            signUpBasicInfoViewModel.firstDepartmentClick.value = false
+            signUpBasicInfoViewModel.firstDepartmentGo.value = false
+            signUpBasicInfoViewModel.secondDepartmentClick.value = false
+            signUpBasicInfoViewModel.secondDepartmentGo.value = false
             signViewModel.firstFilter.value.id = -1
             signViewModel.secondFilter.value.id= -1
             signViewModel.isActive.value = false
@@ -161,7 +165,7 @@ class SignUpMajorInfoFragment :
                 textSignupMajorinfoDoubleMajorTime.text.toString()
             }
             findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
-            signViewModel.isActive.value = true
+            //signViewModel.isActive.value = true
         }
     }
 
