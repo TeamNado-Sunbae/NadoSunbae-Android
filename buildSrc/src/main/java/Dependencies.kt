@@ -2,8 +2,8 @@ object Apps {
     const val compileSdk = 31
     const val minSdk = 24
     const val targetSdk = 31
-    var versionCode = 7
-    var versionName = "2.0.1"
+    var versionCode = 8
+    var versionName = "2.0.2"
     const val pacakageName = "com.nadosunbae_android.app"
 }
 object Versions {
