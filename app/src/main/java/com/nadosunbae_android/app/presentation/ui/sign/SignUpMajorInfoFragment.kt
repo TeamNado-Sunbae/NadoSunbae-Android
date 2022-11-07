@@ -168,7 +168,6 @@ class SignUpMajorInfoFragment :
                 signViewModel.isActive.value = true
             }
         }else {
-            Timber.e("여기가 호출되나 ?")
             binding.clSignupMajorInfoMoveNext.setBackgroundResource(R.drawable.rectangle_fill_gray_14)
             binding.textSignupMajorInfoNext.setTextColor(Color.parseColor("#94959E"))
             binding.clSignupMajorInfoMoveNext.isClickable = false
@@ -373,9 +372,6 @@ class SignUpMajorInfoFragment :
     //다음 버튼 변경
     private fun changeNext() {
         signUpBasicInfoViewModel.selectedAll.observe(viewLifecycleOwner) {
-            Timber.e("TEST1: ${it}")
-            Timber.e("TEST2 : ${signUpBasicInfoViewModel.firstDepartmentClick.value.toString()}")
-            Timber.e("TEST3 : ${signUpBasicInfoViewModel.secondDepartmentClick.value.toString()}")
             binding.clSignupMajorInfoMoveNext.isSelected = it
             binding.textSignupMajorInfoNext.isSelected = it
             checkMajor()
