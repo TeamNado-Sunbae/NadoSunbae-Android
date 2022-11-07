@@ -18,58 +18,59 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
 
-                <TextView
-                    android:id="@+id/text_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="52dp"
-                    android:fontFamily="@font/pretendard_semibold"
-                    android:text="@string/onboarding_question_title"
-                    android:textColor="@color/main_default"
-                    android:textSize="23sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="52dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="@string/onboarding_question_title"
+                android:textColor="@color/main_default"
+                android:textSize="23sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/text_context1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:lineSpacingExtra="3dp"
+                android:text="@string/onboarding_question_subtext1"
+                android:textColor="@color/main_text"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_title" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_title">
-
-
-                <TextView
-                    android:id="@+id/text_context1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/pretendard_regular"
-                    android:text="@string/onboarding_question_subtext1"
-                    android:textColor="@color/main_text"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toBottomOf="@+id/text_context1">
 
                 <TextView
                     android:id="@+id/text_context2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
                     android:fontFamily="@font/pretendard_semibold"
+                    android:lineSpacingExtra="3dp"
                     android:text="@string/onboarding_question_subtext2"
                     android:textColor="@color/main_text"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_context1"
-                    app:layout_constraintStart_toEndOf="@+id/text_context1"
-                    app:layout_constraintTop_toTopOf="@+id/text_context1" />
+                    app:layout_constraintEnd_toStartOf="@+id/text_context3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
                 <TextView
@@ -77,47 +78,50 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_regular"
+                    android:lineSpacingExtra="3dp"
                     android:text="@string/onboarding_question_subtext3"
                     android:textColor="@color/main_text"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/text_context2"
                     app:layout_constraintStart_toEndOf="@+id/text_context2"
-                    app:layout_constraintTop_toTopOf="@+id/text_context2" />
+                    app:layout_constraintTop_toTopOf="@+id/text_context2"
+                    app:layout_constraintVertical_bias="0.0" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/text_context4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_regular"
-                android:text="@string/onboarding_question_subtext4"
-                android:textColor="@color/main_text"
-                android:textSize="14sp"
-                android:layout_marginTop="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_context4">
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                <TextView
+                    android:id="@+id/text_context4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:lineSpacingExtra="3dp"
+                    android:text="@string/onboarding_question_subtext4"
+                    android:textColor="@color/main_text"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/text_context5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
                     android:fontFamily="@font/pretendard_semibold"
+                    android:lineSpacingExtra="3dp"
                     android:text="@string/onboarding_question_subtext5"
                     android:textColor="@color/main_text"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_context4"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -126,6 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_regular"
+                    android:lineSpacingExtra="3dp"
                     android:text="@string/onboarding_question_subtext6"
                     android:textColor="@color/main_text"
                     android:textSize="14sp"
@@ -138,8 +143,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_onboarding3"
                 android:layout_marginTop="26dp"
+                android:src="@drawable/img_onboarding3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />

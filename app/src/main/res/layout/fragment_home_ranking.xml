@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.home.HomeActivity">
+
+        <ImageView
+            android:id="@+id/iv_home_review_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/btn_left_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_home_review_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/home_ranking"
+            android:textColor="@color/origin_black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_home_review_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/iv_home_review_back"
+            app:layout_constraintTop_toTopOf="@+id/iv_home_review_back" />
+
+        <TextView
+            android:id="@+id/tv_home_review_warn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/mint_light"
+            android:paddingStart="16dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:text="@string/home_ranking_warn"
+            android:textColor="@color/main_dark"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_home_review_back" />
+
+        <ImageView
+            android:id="@+id/iv_ranking_warn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_questionmark"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_home_review_warn"
+            app:layout_constraintEnd_toEndOf="@+id/tv_home_review_warn"
+            app:layout_constraintTop_toTopOf="@+id/tv_home_review_warn" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_home_review"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_home_review_warn"
+            tools:listitem="@layout/item_home_ranking" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_fill_white_8dp"
+            android:elevation="2dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_home_review_warn">
+
+            <TextView
+                android:id="@+id/tv_ranking_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/ranking_standard"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_ranking_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="4dp"
+                android:paddingEnd="4dp"
+                android:src="@drawable/btn_x_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_ranking_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/ranking_one"
+                android:textColor="@color/main_dark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_ranking_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_ranking_title" />
+
+            <TextView
+                android:id="@+id/tv_ranking_one_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/ranking_one_content"
+                android:textColor="@color/origin_black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_ranking_one"
+                app:layout_constraintStart_toEndOf="@+id/tv_ranking_one"
+                app:layout_constraintTop_toTopOf="@+id/tv_ranking_one" />
+
+
+            <TextView
+                android:id="@+id/tv_ranking_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/ranking_two"
+                android:textColor="@color/main_dark"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_ranking_one"
+                app:layout_constraintTop_toBottomOf="@+id/tv_ranking_one" />
+
+            <TextView
+                android:id="@+id/tv_ranking_two_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/ranking_two_content"
+                android:textColor="@color/origin_black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_ranking_two"
+                app:layout_constraintStart_toEndOf="@+id/tv_ranking_two"
+                app:layout_constraintTop_toTopOf="@+id/tv_ranking_two" />
+
+            <TextView
+                android:id="@+id/tv_ranking_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/ranking_three"
+                android:textColor="@color/main_dark"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_ranking_two"
+                app:layout_constraintTop_toBottomOf="@+id/tv_ranking_two" />
+
+            <TextView
+                android:id="@+id/tv_ranking_three_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/ranking_three_content"
+                android:textColor="@color/origin_black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_ranking_three"
+                app:layout_constraintStart_toEndOf="@+id/tv_ranking_three"
+                app:layout_constraintTop_toTopOf="@+id/tv_ranking_three" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

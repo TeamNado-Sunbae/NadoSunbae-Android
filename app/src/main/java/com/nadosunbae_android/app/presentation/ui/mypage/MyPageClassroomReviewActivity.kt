@@ -9,7 +9,6 @@ import com.nadosunbae_android.app.presentation.base.BaseActivity
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageReviewAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
-import com.nadosunbae_android.domain.model.mypage.MyPageReviewData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -78,9 +77,9 @@ class MyPageClassroomReviewActivity :
         myPageViewModel.getMyPageReview(myPageViewModel.userId.value ?: 0)
         myPageReviewAdapter = MyPageReviewAdapter(myPageViewModel.userId.value ?: 0)
         binding.rvMypageReview.adapter = myPageReviewAdapter
-        myPageViewModel.reviewList.observe(this) {
-            initReviewEmpty(it.data.reviewPostList.size)
-            myPageReviewAdapter.setReviewListData((it.data.reviewPostList) as MutableList<MyPageReviewData.Data.ReviewPost>)
+        myPageViewModel.userReview.observe(this) {
+            initReviewEmpty(it.size)
+            (binding.rvMypageReview.adapter as MyPageReviewAdapter).submitList(it)
         }
     }
 

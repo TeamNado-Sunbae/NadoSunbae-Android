@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.nadosunbae_android.app.presentation.ui.sign.SignUpAgreementFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_sign_up_agreement2">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.nadosunbae_android.app.presentation.ui.sign.SignUpMajorInfoFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_sign_up_major_info">
+        <action
+            android:id="@+id/action_SecondFragment_to_ThirdFragment"
+            app:destination="@id/ThirdFragment"
+            app:popUpTo="@id/SecondFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@+id/FirstFragment"
+            app:popUpTo="@id/SecondFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ThirdFragment"
+        android:name="com.nadosunbae_android.app.presentation.ui.sign.SignUpBasicInfoFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_sign_up_basic_info">
+
+        <action
+            android:id="@+id/action_ThirdFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment"
+            app:popUpTo="@id/ThirdFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+
+</navigation>

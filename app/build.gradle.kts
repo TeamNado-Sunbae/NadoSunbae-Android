@@ -10,6 +10,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs")
 }
 
 android {
@@ -25,11 +26,13 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_KEY", getApiKey("API_KEY"))
+        buildConfigField("String", "API_KEY", getApiKey("PROD_API_KEY"))
     }
 
     buildTypes {
         getByName("debug") {
+            applicationIdSuffix = ".debug"
+            manifestPlaceholders["appName"] = "@string/app_name_dev"
             isMinifyEnabled = false
             isDebuggable = true
             proguardFiles(
@@ -38,11 +41,9 @@ android {
             )
         }
         getByName("release") {
+            manifestPlaceholders["appName"] = "@string/app_name"
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+
         }
     }
     compileOptions {

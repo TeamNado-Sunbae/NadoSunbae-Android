@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="ranking"
+            type="com.nadosunbae_android.domain.model.home.HomeRankingData" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_fill_white_8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/img_main"
+            profileImgBig="@{ranking.profileImageId}"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_ranking"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_medal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_medal3" />
+
+
+        <TextView
+            android:id="@+id/tv_ranking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:textColor="@color/main_dark"
+            android:textSize="16sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5" />
+
+
+        <TextView
+            android:id="@+id/text_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:maxLength="8"
+            android:text="@{ranking.nickname}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/img_main"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="nickname" />
+
+        <TextView
+            rateText="@{ranking.rate}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:textColor="@color/main_default"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_nickname"
+            app:layout_constraintStart_toEndOf="@+id/text_nickname"
+            app:layout_constraintTop_toTopOf="@+id/text_nickname"
+            tools:text="@string/senior_personal_answer_count" />
+
+
+        <TextView
+            android:id="@+id/text_first_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/mypage_first_major"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/text_nickname"
+            app:layout_constraintTop_toBottomOf="@+id/text_nickname" />
+
+
+        <View
+            android:id="@+id/view_bar1"
+            android:layout_width="1dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="6dp"
+            android:background="@color/gray_1"
+            app:layout_constraintBottom_toBottomOf="@+id/text_first_major"
+            app:layout_constraintStart_toEndOf="@+id/text_first_major"
+            app:layout_constraintTop_toTopOf="@+id/text_first_major" />
+
+        <TextView
+            android:id="@+id/text_first_major_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@{ranking.firstMajorName}"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_first_major"
+            app:layout_constraintStart_toEndOf="@+id/view_bar1"
+            app:layout_constraintTop_toTopOf="@+id/text_first_major"
+            tools:text="본전공명" />
+
+
+        <TextView
+            android:id="@+id/text_first_major_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@{ranking.firstMajorStart}"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_first_major_name"
+            app:layout_constraintStart_toEndOf="@+id/text_first_major_name"
+            app:layout_constraintTop_toTopOf="@+id/text_first_major_name"
+            tools:text="진입시기" />
+
+
+        <TextView
+            android:id="@+id/text_second_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/mypage_second_major"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/text_first_major"
+            app:layout_constraintTop_toBottomOf="@+id/text_first_major" />
+
+
+        <View
+            android:id="@+id/view_bar2"
+            android:layout_width="1dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="9dp"
+            android:background="@color/gray_1"
+            app:layout_constraintBottom_toBottomOf="@+id/text_second_major"
+            app:layout_constraintStart_toEndOf="@+id/text_second_major"
+            app:layout_constraintTop_toBottomOf="@+id/text_first_major" />
+
+        <TextView
+            android:id="@+id/text_second_major_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@{ranking.secondMajorName}"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_second_major"
+            app:layout_constraintStart_toEndOf="@+id/view_bar2"
+            app:layout_constraintTop_toTopOf="@+id/text_second_major"
+            tools:text="제 2전공" />
+
+
+        <TextView
+            android:id="@+id/text_second_major_time"
+            android:text="@{ranking.secondMajorStart}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_second_major_name"
+            app:layout_constraintStart_toEndOf="@+id/text_second_major_name"
+            app:layout_constraintTop_toTopOf="@+id/text_second_major_name"
+            tools:text="진입시기" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

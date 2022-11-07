@@ -27,7 +27,7 @@
                 android:id="@+id/text_question_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="58dp"
+                android:layout_marginTop="34dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:text="@string/question_detail_title"
                 android:textColor="@color/origin_black"
@@ -40,7 +40,7 @@
                 android:id="@+id/img_question_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/btn_left_arrow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -66,6 +66,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
+                    android:paddingBottom="16dp"
+                    android:clipToPadding="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="vertical"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -120,7 +122,24 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_new_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_round_fill_black_40"
+            android:text="이 선배에게 새 질문"
+            android:drawableLeft="@drawable/ic_plus_default_color"
+            android:drawablePadding="8dp"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="13dp"
+            android:textColor="@color/main_default"
+            android:textSize="14sp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

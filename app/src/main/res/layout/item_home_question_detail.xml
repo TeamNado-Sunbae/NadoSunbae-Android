@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="postData"
+            type="com.nadosunbae_android.domain.model.post.PostData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/tv_home_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/pretendard_semibold"
+            android:maxLines="1"
+            android:text="@{postData.title}"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="title" />
+
+        <TextView
+            android:id="@+id/tv_home_question_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/pretendard_regular"
+            android:maxLines="2"
+            android:text="@{postData.content}"
+            android:textColor="@color/gray_3"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_home_question_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_home_question_title"
+            tools:text="contents" />
+
+        <TextView
+            android:id="@+id/tv_home_question_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="7dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:includeFontPadding="false"
+            android:text="@{postData.nickname}"
+            android:textColor="@color/gray_4"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_home_question_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_home_question_content"
+            tools:text="닉네임" />
+
+        <TextView
+            android:id="@+id/tv_home_question_time"
+            dateToText="@{postData.createdAt}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_home_question_nickname"
+            app:layout_constraintStart_toEndOf="@+id/tv_home_question_nickname"
+            app:layout_constraintTop_toTopOf="@+id/tv_home_question_nickname"
+            tools:text="오후 5:42" />
+
+        <ImageView
+            android:id="@+id/iv_home_question_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/ic_comment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_home_question_content" />
+
+        <TextView
+            android:id="@+id/tv_home_question_message"
+            intToText="@{postData.commentCount}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_light"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_home_question_message"
+            app:layout_constraintStart_toEndOf="@+id/iv_home_question_message"
+            app:layout_constraintTop_toTopOf="@+id/iv_home_question_message"
+            tools:text="1" />
+
+        <ImageView
+            android:id="@+id/iv_home_question_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/selector_heart_gray_mint"
+            app:layout_constraintStart_toEndOf="@+id/tv_home_question_message"
+            app:layout_constraintTop_toTopOf="@+id/iv_home_question_message" />
+
+        <TextView
+            android:id="@+id/tv_home_question_like"
+            intToText="@{postData.likeCount}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_light"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_home_question_like"
+            app:layout_constraintStart_toEndOf="@+id/iv_home_question_like"
+            app:layout_constraintTop_toTopOf="@+id/iv_home_question_like"
+            tools:text="1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

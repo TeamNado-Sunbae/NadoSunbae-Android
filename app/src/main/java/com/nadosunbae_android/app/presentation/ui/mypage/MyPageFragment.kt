@@ -13,8 +13,10 @@ import com.nadosunbae_android.app.presentation.base.BaseFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.adapter.MyPageMainAdapter
 import com.nadosunbae_android.app.presentation.ui.mypage.viewmodel.MyPageViewModel
+import com.nadosunbae_android.app.util.CustomDecoration
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
-import com.nadosunbae_android.domain.model.mypage.MyPageQuestionData
+import com.nadosunbae_android.app.util.dpToPxF
+import com.nadosunbae_android.domain.model.user.UserQuestionData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -35,8 +37,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         movePage()
         initPersonalInfo()
         submitAnalytics()
-        Timber.d("실행되는 중")
     }
+
+    //TODO : 응답률 분기처리
 
     private fun observeLoadingEnd() {
         myPageViewModel.onLoadingEnd.observe(viewLifecycleOwner) {
@@ -85,7 +88,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             val intentMyPageReview =
                 Intent(requireActivity(), MyPageClassroomReviewActivity::class.java)
             intentMyPageReview.putExtra("userId", mainViewModel.userId.value ?: 0)
-            intentMyPageReview.putExtra("userNickName", binding.myPageInfo?.data?.nickname)
+            intentMyPageReview.putExtra("userNickName", binding.myPageInfo?.nickname)
 
             startActivity(intentMyPageReview)
         }
@@ -122,16 +125,23 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private fun initAskPersonal() {
         //마이페이지 선배 1:1
-        //showLoading()
-        mainViewModel.signData.observe(viewLifecycleOwner) {
-            myPageViewModel.getMyPageQuestion(it.userId)
-        }
-
         myPageQuestionAdapter = MyPageMainAdapter(2, mainViewModel.userId.value ?: 0, 1)
         binding.rcMyPageQuestion.adapter = myPageQuestionAdapter
-        myPageViewModel.personalQuestion.observe(viewLifecycleOwner) {
-            initReviewEmpty(it.data.classroomPostList.size)
-            myPageQuestionAdapter.setQuestionMain((it.data.classroomPostList) as MutableList<MyPageQuestionData.Data.ClassroomPost>)
+        val decoration = CustomDecoration(1.dpToPxF, 16.dpToPxF, requireContext().getColor(R.color.gray_0))
+        val userId = mainViewModel.userId.value
+        binding.rcMyPageQuestion.addItemDecoration(decoration)
+        myPageViewModel.getMyPageQuestion(userId ?: 2 , "recent")
+        var questionList = mutableListOf<UserQuestionData>()
+        myPageViewModel.userQuestion.observe(viewLifecycleOwner) {
+            for (i in it.indices) {
+                val item = it.get(i).id
+                if (item != mainViewModel.userId.value) {
+                    //it.filter { item != mainViewModel.userId.value }
+                    questionList.add(it[i])
+                }
+            }
+            initReviewEmpty(questionList.size)
+            (binding.rcMyPageQuestion.adapter as MyPageMainAdapter).submitList(questionList)
 
         }
     }
@@ -146,13 +156,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         myPageViewModel.getPersonalInfo(mainViewModel.userId.value ?: 0)
         myPageViewModel.personalInfo.observe(viewLifecycleOwner) {
             binding.myPageInfo = it
-
-            if (it.data.secondMajorName == "미진입")
+            if (it.secondMajorName == "미진입")
                 binding.textMyPageSecondMajorTime.visibility = View.INVISIBLE
             else
                 binding.textMyPageSecondMajorTime.visibility = View.VISIBLE
 
-            if(!it.data.isOnQuestion) {
+            if(!it.isOnQuestion) {
                 binding.clMyPageMainQuestion.visibility = View.VISIBLE
             } else {
                 binding.clMyPageMainQuestion.visibility = View.GONE
@@ -182,6 +191,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         super.onDetach()
         callback.remove()
     }
+
+
 }
 
 

@@ -7,13 +7,27 @@ import com.nadosunbae_android.data.model.response.review.ResponsePutReviewData
 import com.nadosunbae_android.data.model.request.review.RequestPostReviewData
 import com.nadosunbae_android.data.model.request.review.RequestReviewListData
 import com.nadosunbae_android.data.model.response.review.*
+import javax.inject.Inject
 
-class ReviewDataSourceImpl(private val service : ReviewService) : ReviewDataSource {
-    override suspend fun getReviewList(
+class ReviewDataSourceImpl @Inject constructor(private val service : ReviewService) :
+    ReviewDataSource {
+    override suspend fun getReviewListByMajor(
+        majorId: Int,
         sort: String,
-        body: RequestReviewListData
+        tagFilter: List<Int>,
+        writerFilter: String
     ): ResponseReviewListData {
-        return service.getReviewList(sort,body)
+        var tagFilterStr = ""
+        tagFilter.forEach {
+            tagFilterStr += "%2C${it}"
+        }
+        tagFilterStr = tagFilterStr.removePrefix("%2C")
+
+        return service.getReviewListByMajor(majorId, sort, tagFilterStr, writerFilter)
+    }
+
+    override suspend fun getReviewListByUniv(univId: Int): ResponseReviewListData {
+        return service.getReviewListByUniv(univId)
     }
 
     override suspend fun getMajorInfo(majorId: Int): ResponseMajorData {
@@ -28,12 +42,11 @@ class ReviewDataSourceImpl(private val service : ReviewService) : ReviewDataSour
         return service.deleteReview(postId)
     }
 
-    override suspend fun putReview(postId: Int, requestBody: RequestPutReviewData): ResponsePutReviewData {
+    override suspend fun putReview(
+        postId: Int,
+        requestBody: RequestPutReviewData
+    ): ResponsePutReviewData {
         return service.putReview(postId, requestBody)
-    }
-
-    override suspend fun getBackgroundImageList(): ResponseBackgroundImageListData {
-        return service.getBackgroundImageList()
     }
 
     override suspend fun postReview(requestBody: RequestPostReviewData): ResponsePostReviewData {

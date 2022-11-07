@@ -7,10 +7,13 @@ data class ResponseMyPageModify(
     val success: Boolean
 ) {
     data class Data(
+        val bio: String,
         val firstMajorId: Int,
         val firstMajorStart: String,
         val isOnQuestion: Boolean,
         val nickname: String,
+        val nicknameUpdatedAt: String,
+        val profileImageId: Int,
         val secondMajorId: Int,
         val secondMajorStart: String,
         val updatedAt: String

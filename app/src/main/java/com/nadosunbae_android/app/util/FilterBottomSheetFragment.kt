@@ -1,4 +1,4 @@
-package com.nadosunbae_android.app.presentation.ui.review
+package com.nadosunbae_android.app.presentation.ui.classroom.review
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -52,7 +52,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         }
     }
 
-    fun getWriterFilter(): Int {
+    fun getWriterFilter(): String {
         if (binding.btnFilterFirstMajor.isSelected && binding.btnFilterSecondMajor.isSelected)
             return FILTER_ALL
         if (binding.btnFilterFirstMajor.isSelected)

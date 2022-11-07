@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="reviewDetailData"
+            type="com.nadosunbae_android.domain.model.home.HomeUnivReviewData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rectangle_border_gray0_8dp"
+        android:paddingVertical="10dp">
+
+        <TextView
+            android:id="@+id/tv_create_at"
+            dateFormat_yyMMdd="@{reviewDetailData.createdAt}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:textColor="@color/gray_2"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/review_example_create_at" />
+
+        <TextView
+            android:id="@+id/tv_likes"
+            intToText="@{reviewDetailData.likeCount}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/pretendard_light"
+            android:textColor="@color/gray_3"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/review_example_likes" />
+
+        <TextView
+            android:id="@+id/tv_one_line_review"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/pretendard_medium"
+            android:maxLength="40"
+            android:maxLines="1"
+            android:text="@{reviewDetailData.oneLineReview}"
+            android:textColor="@color/black_0"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/view_line_horizontal"
+            app:layout_constraintStart_toStartOf="@+id/view_line_horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/tv_create_at"
+            tools:text="@string/review_example_one_line_review" />
+
+        <ImageView
+            android:id="@+id/ic_like"
+            setSelected="@{reviewDetailData.liked}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_likes"
+            app:layout_constraintEnd_toStartOf="@+id/tv_likes"
+            app:layout_constraintTop_toTopOf="@+id/tv_likes"
+            app:srcCompat="@drawable/selector_icon_like" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/cl_tags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_one_line_review"
+            app:layout_constraintTop_toBottomOf="@+id/tv_one_line_review">
+
+            <TextView
+                android:id="@+id/tv_tag_curriculum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/rectangle_fill_pink_8dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="5dp"
+                android:text="@string/review_curriculum"
+                android:textColor="@color/pink_tag_text"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_tag_recommend_lecture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/rectangle_fill_blue_8dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="5dp"
+                android:text="@string/review_recommend_lecture"
+                android:textColor="@color/blue_tag_text"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_tag_non_recommend_lecture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/rectangle_fill_green_8dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="5dp"
+                android:text="@string/review_non_recommend_lecture"
+                android:textColor="@color/green_tag_text"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_tag_career"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/rectangle_fill_purple_8dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="5dp"
+                android:text="@string/review_career"
+                android:textColor="@color/purple_tag_text"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_tag_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_fill_yellow_8dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="5dp"
+                android:text="@string/review_tip"
+                android:textColor="@color/yellow_tag_text"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_tag_curriculum"
+                app:layout_constraintStart_toEndOf="@+id/tv_tag_career"
+                app:layout_constraintTop_toTopOf="@+id/tv_tag_curriculum" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:id="@+id/view_line_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/gray_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_tags" />
+
+        <TextView
+            android:id="@+id/tv_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="@{reviewDetailData.majorName}"
+            android:textColor="@color/gray_4"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/view_line_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/view_line_horizontal"
+            tools:text="영어영문학과" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

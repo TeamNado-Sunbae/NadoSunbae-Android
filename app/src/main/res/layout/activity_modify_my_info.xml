@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="myPageInfo"
-            type="com.nadosunbae_android.domain.model.mypage.MyPageMyInfo" />
+            type="com.nadosunbae_android.domain.model.user.UserInfoData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_mypage_modify_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusableInTouchMode="true"
         android:clickable="true"
+        android:fitsSystemWindows="true"
         android:focusable="true"
-        android:fitsSystemWindows="true">
+        android:focusableInTouchMode="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_mypage_modify_title"
@@ -33,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="32dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:includeFontPadding="false"
                 android:text="@string/mypage_setting_modify_my_info"
@@ -46,7 +47,7 @@
                 android:id="@+id/img_mypage_modify_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/btn_left_arrow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,6 +56,8 @@
                 android:id="@+id/text_my_page_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginRight="16dp"
                 android:background="@drawable/selector_rectangle_gray_to_main_black_8"
                 android:fontFamily="@font/pretendard_medium"
                 android:includeFontPadding="false"
@@ -62,8 +65,6 @@
                 android:paddingTop="7dp"
                 android:paddingRight="13dp"
                 android:paddingBottom="7dp"
-                android:layout_marginTop="52dp"
-                android:layout_marginRight="16dp"
                 android:text="@string/question_detail_save"
                 android:textColor="@drawable/selector_text_color_gray3_to_light"
                 android:textSize="14sp"
@@ -88,10 +89,10 @@
 
                 <ImageView
                     android:id="@+id/img_my_page_modify_main"
+                    profileImgBigGray="@{myPageInfo.profileImageId}"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:layout_marginTop="22dp"
-                    profileImgBig="@{myPageInfo.data.profileImageId}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -109,7 +110,6 @@
                     android:paddingRight="6dp"
                     android:paddingBottom="3dp"
                     android:text="@string/mypage_modify_change_img"
-                    android:visibility="gone"
                     android:textColor="@color/gray_4"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="@+id/img_my_page_modify_main"
@@ -120,7 +120,7 @@
                     android:id="@+id/text_my_page_modify_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:fontFamily="@font/pretendard_medium"
                     android:includeFontPadding="false"
@@ -135,11 +135,11 @@
                     android:id="@+id/text_my_page_nickname_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
                     android:fontFamily="@font/pretendard_medium"
+                    android:includeFontPadding="false"
                     android:text="@string/signup_basicinfo_nickname"
                     android:textColor="@drawable/selector_text_gray_to_red"
-                    android:layout_marginLeft="2dp"
-                    android:includeFontPadding="false"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/text_my_page_modify_nickname"
                     app:layout_constraintStart_toEndOf="@+id/text_my_page_modify_nickname"
@@ -149,9 +149,9 @@
                     android:id="@+id/cl_my_page_nickname"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/rectangle_border_gray0_8dp"
                     android:maxLength="1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -171,7 +171,7 @@
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
                         android:singleLine="true"
-                        android:text="@{myPageInfo.Data.nickname}"
+                        android:text="@{myPageInfo.nickname}"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -194,7 +194,6 @@
                     android:id="@+id/text_my_page_modify_nickname_duplicaition_ok"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/signup_basicinfo_check_duplication_nickname_ok"
                     android:textColor="@color/main_dark"
@@ -208,7 +207,6 @@
                     android:id="@+id/text_my_page_modify_nickname_duplicaition_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/signup_basicinfo_check_duplication_nickname_no"
                     android:textColor="@color/red"
@@ -217,19 +215,80 @@
                     app:layout_constraintStart_toStartOf="@+id/cl_my_page_nickname"
                     app:layout_constraintTop_toBottomOf="@+id/cl_my_page_nickname" />
 
+                <TextView
+                    android:id="@+id/text_my_page_introduction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/mypage_moidfy_introduction"
+                    android:textColor="@color/gray_3"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/text_my_page_modify_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_my_page_nickname" />
+
+
+                <TextView
+                    android:id="@+id/text_my_page_modify_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/mypage_modify_max_length"
+                    android:textColor="@color/gray_2"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_my_page_introduction"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/text_my_page_introduction" />
+
+                <TextView
+                    android:id="@+id/text_my_page_modify_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="0"
+                    android:textColor="@color/gray_2"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_my_page_introduction"
+                    app:layout_constraintEnd_toStartOf="@+id/text_my_page_modify_max"
+                    app:layout_constraintTop_toTopOf="@+id/text_my_page_introduction" />
+
+                <EditText
+                    android:id="@+id/et_my_page_introduction"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rectangle_border_gray0_8dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:gravity="top"
+                    android:hint="@string/mypage_modify_introduction_hint"
+                    android:lines="2"
+                    android:maxLength="40"
+                    android:paddingVertical="16dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="16dp"
+                    android:text="@{myPageInfo.bio}"
+                    android:textColor="@color/main_text"
+                    android:textColorHint="@color/gray_2"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_my_page_introduction" />
+
 
                 <TextView
                     android:id="@+id/text_my_page_modify_personal_question"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="63dp"
+                    android:layout_marginTop="71dp"
                     android:fontFamily="@font/pretendard_medium"
                     android:includeFontPadding="true"
                     android:text="@string/mypage_modify_junior_question"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/text_my_page_modify_nickname"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_my_page_nickname" />
+                    app:layout_constraintTop_toBottomOf="@+id/et_my_page_introduction" />
 
                 <TextView
                     android:id="@+id/text_my_page_modify_personal_question_comment"
@@ -246,26 +305,27 @@
 
                 <ImageView
                     android:id="@+id/img_my_page_modify_switch"
+                    questionCheck="@{myPageInfo.isOnQuestion}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="66dp"
                     android:layout_marginRight="16dp"
-                    questionCheck="@{myPageInfo.data.isOnQuestion}"
                     android:background="@drawable/selector_ic_switch"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_my_page_modify_personal_question_comment"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_my_page_nickname" />
+                    app:layout_constraintTop_toTopOf="@+id/text_my_page_modify_personal_question" />
 
                 <TextView
                     android:id="@+id/text_my_page_modify_major_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
                     android:layout_marginTop="63dp"
                     android:fontFamily="@font/pretendard_regular"
                     android:includeFontPadding="true"
                     android:text="@string/signup_agreement_process2"
                     android:textColor="@color/main_default"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/text_my_page_modify_personal_question_comment"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_my_page_modify_personal_question_comment" />
 
 
@@ -282,49 +342,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_my_page_modify_major_info" />
 
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_my_page_majorInfo_major"
+                <include
+                    android:id="@+id/layout_community_write_major"
+                    layout="@layout/layout_major_bottomsheet"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/rectangle_border_gray0_8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="25dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_my_page_majorInfo_major">
-
-                    <TextView
-                        android:id="@+id/text_my_page_majorinfo_major"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:paddingLeft="16dp"
-                        android:paddingTop="13dp"
-                        android:paddingBottom="13dp"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:text="@{myPageInfo.Data.firstMajorName}"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/signup_majorInfo_select" />
-
-                    <TextView
-                        android:id="@+id/text_my_page_majorinfo_major_mint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:text="@string/review_write_change"
-                        android:textColor="@color/main_default"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/text_my_page_majorinfo_major" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/text_my_page_majorInfo_major" />
 
                 <TextView
                     android:id="@+id/text_my_page_majorInfo_major_time"
@@ -337,7 +364,7 @@
                     android:textColor="@color/gray_3"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_my_page_majorInfo_major" />
+                    app:layout_constraintTop_toBottomOf="@+id/layout_community_write_major" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -360,9 +387,9 @@
                         android:paddingLeft="16dp"
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
+                        android:text="@{myPageInfo.firstMajorStart}"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:text="@{myPageInfo.Data.firstMajorStart}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -398,48 +425,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/cl_my_page_majorInfo_major_time" />
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_my_page_majorInfo_double_major"
+                <include
+                    android:id="@+id/layout_modify_profile_second_major"
+                    layout="@layout/layout_major_bottomsheet"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/rectangle_border_gray0_8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="25dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_my_page_majorInfo_double_major">
-
-                    <TextView
-                        android:id="@+id/text_my_page_majorinfo_double_major"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:paddingLeft="16dp"
-                        android:paddingTop="13dp"
-                        android:paddingBottom="13dp"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:text="@{myPageInfo.Data.secondMajorName}"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/signup_majorInfo_select" />
-
-                    <TextView
-                        android:id="@+id/text_my_page_majorinfo_double_major_mint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:text="@string/review_write_change"
-                        android:textColor="@color/main_default"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/text_my_page_majorinfo_double_major" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/text_my_page_majorInfo_double_major" />
 
                 <TextView
                     android:id="@+id/text_my_page_majorInfo_double_major_time"
@@ -452,7 +447,7 @@
                     android:textColor="@color/gray_3"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_my_page_majorInfo_double_major" />
+                    app:layout_constraintTop_toBottomOf="@+id/layout_modify_profile_second_major" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -477,7 +472,7 @@
                         android:paddingLeft="16dp"
                         android:paddingTop="13dp"
                         android:paddingBottom="13dp"
-                        android:text="@{myPageInfo.Data.secondMajorStart}"
+                        android:text="@{myPageInfo.secondMajorStart}"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.home.HomeActivity">
+
+        <ImageView
+            android:id="@+id/iv_home_question_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/btn_left_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_home_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/classroom_recent_questions"
+            android:textColor="@color/origin_black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_home_question_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/iv_home_question_back"
+            app:layout_constraintTop_toTopOf="@+id/iv_home_question_back" />
+
+        <TextView
+            android:id="@+id/tv_home_question_warn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/mint_light"
+            android:paddingStart="16dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:text="@string/home_recent_question_warn"
+            android:textColor="@color/main_dark"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_home_question_back" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_home_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_border_gray0_8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_home_question_warn"
+            tools:listitem="@layout/item_home_question_detail" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

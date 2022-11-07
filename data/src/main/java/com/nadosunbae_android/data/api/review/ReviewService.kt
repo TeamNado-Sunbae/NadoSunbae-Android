@@ -10,10 +10,17 @@ import retrofit2.http.*
 
 interface ReviewService {
 
-    @POST("review-post/list")
-    suspend fun getReviewList(
+    @GET("review/major/{majorId}")
+    suspend fun getReviewListByMajor(
+        @Path("majorId") majorId: Int,
         @Query("sort") sort: String = "recent",
-        @Body requestBody: RequestReviewListData
+        @Query("tagFilter", encoded = true) tagFilter: String,
+        @Query("writerFilter") writerFilter: String
+    ) : ResponseReviewListData
+
+    @GET("review/university/{univId}")
+    suspend fun getReviewListByUniv(
+        @Path("univId") univId: Int
     ) : ResponseReviewListData
 
     @GET("major/{majorId}")
@@ -21,26 +28,23 @@ interface ReviewService {
         @Path("majorId") majorId: Int
     ) : ResponseMajorData
 
-    @GET("review-post/{postId}")
+    @GET("review/{postId}")
     suspend fun getReviewDetail(
         @Path("postId") postId: Int
     ) : ResponseReviewDetailData
 
-    @DELETE("review-post/{postId}")
+    @DELETE("review/{postId}")
     suspend fun deleteReview(
         @Path("postId") postId: Int
     ) : ResponseDeleteReview
 
-    @PUT("review-post/{postId}")
+    @PUT("review/{postId}")
     suspend fun putReview(
         @Path("postId") postId: Int,
         @Body requestBody: RequestPutReviewData
     ) : ResponsePutReviewData
 
-    @GET("review-post/background-image/list")
-    suspend fun getBackgroundImageList() : ResponseBackgroundImageListData
-
-    @POST("review-post")
+    @POST("review")
     suspend fun postReview(
         @Body requestBody: RequestPostReviewData
     ) : ResponsePostReviewData

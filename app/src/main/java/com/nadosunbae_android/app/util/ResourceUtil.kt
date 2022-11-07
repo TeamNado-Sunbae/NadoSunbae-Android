@@ -18,3 +18,14 @@ fun Any.getBackgroundImage(imageId: Int): Int {
     // default
     return R.drawable.img_bg_1
 }
+
+fun imageSelect(imageId: Int): Int {
+    when (imageId) {
+        5 -> return R.drawable.mask_group_5
+        3 -> return R.drawable.mask_group_4
+        1 -> return R.drawable.mask_group_2
+        4 -> return R.drawable.mask_group_1
+        2 -> return R.drawable.mask_group_3
+    }
+    return R.drawable.mask_group_4
+}

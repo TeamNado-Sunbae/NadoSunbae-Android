@@ -1,12 +1,11 @@
 package com.nadosunbae_android.app.util
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nadosunbae_android.domain.model.main.SelectableData
 import com.nadosunbae_android.app.databinding.ItemDropDownBinding
+import com.nadosunbae_android.domain.model.main.SelectableData
 
 class CustomDropDownAdapter(
     val viewModel: DropDownSelectableViewModel,

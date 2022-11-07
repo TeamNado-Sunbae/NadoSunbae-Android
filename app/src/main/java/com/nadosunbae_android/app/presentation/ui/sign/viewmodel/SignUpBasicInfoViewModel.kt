@@ -1,20 +1,14 @@
 package com.nadosunbae_android.app.presentation.ui.sign.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.ktx.Firebase
 import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.ResultWrapper
 import com.nadosunbae_android.app.util.safeApiCall
 import com.nadosunbae_android.data.model.request.sign.RequestSignUp
 import com.nadosunbae_android.domain.model.sign.*
-import com.nadosunbae_android.domain.usecase.classroom.*
-import com.nadosunbae_android.domain.usecase.sign.GetSecondDepartmentUseCase
-import com.nadosunbae_android.domain.usecase.sign.PostCertificationEmailUseCase
-import com.nadosunbae_android.domain.usecase.sign.PostRenewalTokenUseCase
+import com.nadosunbae_android.domain.repository.major.MajorRepository
+import com.nadosunbae_android.domain.repository.sign.SignRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,14 +18,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpBasicInfoViewModel @Inject constructor(
-    private val getFirstDepartmentUseCase: GetFirstDepartmentUseCase,
-    private val getSecondDepartmentUseCase: GetSecondDepartmentUseCase,
-    private val postSignEmailUseCase: PostSignEmailUseCase,
-    private val postSignInUseCase: PostSignInUseCase,
-    private val postSignNicknameUseCase: PostSignNicknameUseCase,
-    private val postSignUpUseCase: PostSignUpUseCase,
-    private val postCertificationEmailUseCase: PostCertificationEmailUseCase
+    private val signRepository: SignRepository,
+    private val majorRepository: MajorRepository
 ) : ViewModel() {
+
+    //현재 대학 뭐로 골랐는지
+    var univSelect = MutableLiveData<Int>()
 
     val onLoadingEnd = MutableLiveData<Boolean>(false)
 
@@ -55,6 +47,24 @@ class SignUpBasicInfoViewModel @Inject constructor(
     //로그인 status 체크
     var signInStatus = MutableLiveData<Int>()
 
+    //약관 동의 상태
+    var isAgreementChecked = MutableLiveData<Boolean>()
+
+    // 학과 정보에서 작성하는 정보
+    var univId = MutableLiveData<Int>()
+    var univName = MutableLiveData<String>()
+    var firstMajorId = MutableLiveData<Int>()
+    var firstMajorName = MutableLiveData<String>()
+    var firstMajorStart = MutableLiveData<String>()
+    var secondMajorId = MutableLiveData<Int>()
+    var secondMajorName = MutableLiveData<String>()
+    var secondMajorStart = MutableLiveData<String>()
+
+    //학교 이메일
+    private var _univEmail = MutableLiveData<UnivEmailItem>()
+    val univEmail: LiveData<UnivEmailItem>
+        get() = _univEmail
+
     //로그인 상태
     private var _status = MutableLiveData<Int?>()
     val status: LiveData<Int?> = _status
@@ -64,12 +74,6 @@ class SignUpBasicInfoViewModel @Inject constructor(
 
     //닉네임
     var nickName = MutableLiveData<String>()
-
-    //제 1전공
-    val firstDepartment = MutableLiveData<SignBottomSheetItem>()
-
-    //제 2전공
-    val secondDepartment = MutableLiveData<SignBottomSheetItem>()
 
     var firstDepartmentClick = MutableLiveData<Boolean>(false)
     var firstDepartmentGo = MutableLiveData<Boolean>(false)
@@ -110,7 +114,7 @@ class SignUpBasicInfoViewModel @Inject constructor(
     fun nickNameDuplication(nicknameDuplicationData: NicknameDuplicationData) {
         viewModelScope.launch {
             when (val nicknameDuplication =
-                safeApiCall(Dispatchers.IO) { postSignNicknameUseCase(nicknameDuplicationData) }) {
+                safeApiCall(Dispatchers.IO) { signRepository.postSignNickname(nicknameDuplicationData) }) {
                 is ResultWrapper.Success -> nicknameDuplicationCheck.value =
                     NicknameDuplicationCheck(200, true)
                 is ResultWrapper.NetworkError -> {
@@ -132,7 +136,7 @@ class SignUpBasicInfoViewModel @Inject constructor(
     fun emailDuplication(emailDuplicationData: EmailDuplicationData) {
         viewModelScope.launch {
             when (val emailDuplication =
-                safeApiCall(Dispatchers.IO) { postSignEmailUseCase(emailDuplicationData) }) {
+                safeApiCall(Dispatchers.IO) { signRepository.postSignEmail(emailDuplicationData) }) {
                 is ResultWrapper.Success -> emailDuplicationCheck.value =
                     EmailDuplicationCheck(200, true)
                 is ResultWrapper.NetworkError -> {
@@ -153,13 +157,17 @@ class SignUpBasicInfoViewModel @Inject constructor(
     //로그인
     fun signIn(signInItem: SignInItem) {
         viewModelScope.launch {
-            when (val postSignIn = safeApiCall(Dispatchers.IO) { postSignInUseCase(signInItem) }) {
+            when (val postSignIn = safeApiCall(Dispatchers.IO) { signRepository.postSignIn(signInItem) }) {
                 is ResultWrapper.Success -> {
                     signIn.value = postSignIn.data!!
                     signInStatus.value = 200
                     Timber.d("testaaa : ${signIn.value.toString()}")
-
-                    FirebaseAnalyticsUtil.login()
+                    majorRepository.deleteMajorList()
+                    FirebaseAnalyticsUtil.firebaseLog(
+                        FirebaseAnalytics.Event.LOGIN,
+                        FirebaseAnalytics.Param.METHOD,
+                        "manual"
+                    )
 
                 }
                 is ResultWrapper.NetworkError -> {
@@ -181,16 +189,19 @@ class SignUpBasicInfoViewModel @Inject constructor(
     //회원가입
     fun signUp(signUpData: SignUpData) {
         CoroutineScope(Dispatchers.Main.immediate).launch {
-            kotlin.runCatching { postSignUpUseCase(signUpData) }
+            kotlin.runCatching { signRepository.postSignUp(signUpData) }
                 .onSuccess {
                     signUp.value = it
                     Timber.d("SignUp : 서버 통신 성공")
 
-                    FirebaseAnalyticsUtil.signup()
+                    FirebaseAnalyticsUtil.firebaseLog(
+                        FirebaseAnalytics.Event.SIGN_UP,
+                        FirebaseAnalytics.Param.METHOD,
+                        "email"
+                    )
 
                 }
                 .onFailure {
-                    it.printStackTrace()
                     Timber.d("SignUp : 서버 통신 실패")
                 }
         }
@@ -199,7 +210,7 @@ class SignUpBasicInfoViewModel @Inject constructor(
     //이메일 재전송
     fun postCertificationEmail(certificationEmailData: CertificationEmailData) {
         viewModelScope.launch {
-            kotlin.runCatching { postCertificationEmailUseCase(certificationEmailData) }
+            kotlin.runCatching { signRepository.postCertificationEmail(certificationEmailData) }
                 .onSuccess {
                     certificationEmail.value = it
                     Timber.d("EmailCertification :서버 통신 성공")
@@ -211,33 +222,17 @@ class SignUpBasicInfoViewModel @Inject constructor(
         }
     }
 
-    //본 전공 선택
-    fun getFirstDepartment(universityId: Int, filter: String) {
+    //학교 이메일 조회
+    fun getUnivEmail(universityId: Int) {
         viewModelScope.launch {
-            kotlin.runCatching { getFirstDepartmentUseCase(universityId, filter) }
+            kotlin.runCatching { signRepository.getUnivEmail(universityId) }
                 .onSuccess {
-                    firstDepartment.value = it
-                    Timber.d("FirstMajorBottomSheet : 서버 통신 성공")
+                    _univEmail.value = it
+                    Timber.d("학교 이메일 조회 : 서버 통신 성공")
                 }
                 .onFailure {
-                    it.printStackTrace()
-                    Timber.d("FirstMajorBottomSheet : 서버 통신 실패")
-                }
-        }
-    }
-
-    // 제 2전공 선택
-    fun getSecondDepartment(universityId: Int, filter: String) {
-        viewModelScope.launch {
-            kotlin.runCatching { getSecondDepartmentUseCase(universityId, filter) }
-                .onSuccess {
-                    secondDepartment.value = it
-                    Timber.d("SecondMajorBottomSheet : 서버 통신 성공")
-                }
-                .onFailure {
-                    it.printStackTrace()
-                    Timber.d("SecondMajorBottomSheet : 서버 통신 실패")
-                }
+                    Timber.d("학교 이메일 조회 : 서버 통신 실패패")
+               }
         }
     }
 

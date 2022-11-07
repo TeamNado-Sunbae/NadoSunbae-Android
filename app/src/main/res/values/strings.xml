@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">나도선배</string>
+    <string name="app_name_dev">나도선배개발용</string>
     <string name="title_activity_main">MainActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="third_fragment_label">Third Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -88,6 +90,7 @@
     <string name="review_edit">수정하기</string>
     <string name="review_delete">삭제하기</string>
     <string name="review_report">신고하기</string>
+    <string name="review_recommend_question">이 선배에게 더 궁금한 점이 있다면 1:1 질문을 남겨보세요.</string>
 
     <!-- review_write -->
     <string name="review_write_title">후기작성</string>
@@ -144,7 +147,7 @@
     <string name="classroom_block_title">해당 유저를 차단하시겠어요?\n차단시 본인이 쓴 글 및 마이페이지에\n해당유저가 접근할 수 없습니다.</string>
     <string name="classroom_block_agree">차단하기</string>
     <string name="classroom_question_write_hint">질문을 남겨보세요.\n선배들이 답변해 줄 거예요!</string>
-    <string name="classroom_content_delete">삭제된 답글입니다.</string>
+    <string name="classroom_content_delete">(삭제된 답글입니다.)</string>
     <string name="classroom_post_delete">삭제된 게시글입니다.</string>
     <!-- 전체에게 질문 -->
     <string name="ask_everyone_title">전체에게 질문</string>
@@ -188,6 +191,7 @@
     <string name="second_major">제2</string>
     <string name="major_start">18-1 진입</string>
     <string name="senior_rest">쉬고 있어요</string>
+    <string name="senior_only_question">후기 작성한 선배만 보기</string>
 
 
     <!-- 스피너 목록 -->
@@ -216,6 +220,7 @@
     <string name="mypage_like_list_num">nn</string>
     <string name="mypage_personal_question">나에게 온 1:1 질문</string>
     <string name="mypage_item_no">등록된 1:1 질문이 없습니다.</string>
+    <string name="mypage_modify_img">프로필 사진 변경</string>
 
     <!-- 전체에게 질문 작성 -->
     <string name="question_write_all">전체에게 질문 작성</string>
@@ -226,7 +231,7 @@
 
 
     <!-- 1:1 질문 작성 -->
-    <string name="question_write_one_to_one">1:1질문 작성</string>
+    <string name="question_write_one_to_one">1:1 질문 작성</string>
     <!-- 질문 상세 보기 -->
     <string name="question_detail_title">1:1 질문</string>
     <string name="question_detail_comment">답글 쓰기</string>
@@ -263,8 +268,7 @@
     <!-- Custom Bottom Sheet -->
     <string name="bottom_sheet_complete">선택 완료</string>
     <string name="bottom_sheet_title_major">학과 선택</string>
-
-
+    <string name="bottom_sheet_hint">학과 이름을 검색해보세요.</string>
     <!-- 알림 -->
     <string name="notification_title">알림</string>
     <string name="notification_content_title">작성하신 글에 옹님이 답글을 남겼습니다.</string>
@@ -343,6 +347,9 @@
     <string name="mypage_modify_change_img">프로필 사진 변경</string>
     <string name="mypage_modify_junior_question">후배들의 1:1 질문</string>
     <string name="mypage_modify_comment">전공 결정을 앞둔 후배들에게 큰 도움이 돼요!</string>
+    <string name="mypage_moidfy_introduction">한줄소개</string>
+    <string name="mypage_modify_introduction_hint">나를 한줄로 소개해보세요.</string>
+    <string name="mypage_modify_max_length">/최대 40자</string>
 
     <!-- 마이페이지 알림 설정 -->
     <string name="mypage_alarm_setting">알림 설정</string>
@@ -404,18 +411,21 @@
     <string name="onboarding_is_member">이미 회원이신가요?</string>
 
     <string name="onboarding_lively_review">생생한 학과 후기</string>
-    <string name="onbaording_lively_review_content">장단점, 뭘배우나요?, 추천수업, 힘든수업, \n향후진로, 꿀팁 등으로 구성되어 있어요.</string>
+    <string name="onbaording_lively_review_content">장단점, 뭘배우나요?, 추천수업, 비추수업, \n향후진로, 꿀팁 등으로 구성되어 있어요.</string>
 
-    <string name="onboarding_question_title">1:1 질문, 전체에게 질문</string>
-    <string name="onboarding_question_subtext1">궁금한게 있는 학과 선배에겐</string>
+    <string name="onboarding_question_title">선배와의 1:1 질문</string>
+    <string name="onboarding_question_subtext1">궁금한 학과 선배의 페이지에 방문해</string>
     <string name="onboarding_question_subtext2">1:1 질문</string>
-    <string name="onboarding_question_subtext3">을,</string>
-    <string name="onboarding_question_subtext4">학과 구성원 모두의 의견을 듣고 싶을 땐</string>
-    <string name="onboarding_question_subtext5">전체에게 질문</string>
-    <string name="onboarding_question_subtext6">을 해보세요.</string>
+    <string name="onboarding_question_subtext3">을 작성해보세요.</string>
+    <string name="onboarding_question_subtext4">선배가</string>
+    <string name="onboarding_question_subtext5">기존에 나눴던 질의응답</string>
+    <string name="onboarding_question_subtext6">도 확인할 수 있어요.</string>
 
     <string name="onboarding_info_title">다양한 정보 공유까지 !</string>
-    <string name="onboarding_info_subtext">학과 공지사항, 족보 등의 유용한 자료들이\n정보 게시판에 학과 별로 누적되고 있어요.</string>
+    <string name="onboarding_info_subtext">1:1 질문으로 해소되지 않은 내용은</string>
+    <string name="onboarding_info_subtext2">각 학과 학생들로 구성된 커뮤니티</string>
+    <string name="onboarding_info_subtext3">의</string>
+    <string name="onboarding_info_subtext4">질문, 정보, 자유 게시글을 통해서 연결해보세요.</string>
 
     <!-- splash -->
     <string name="copyright">© nadosunbae</string>
@@ -429,14 +439,18 @@
     <string name="logout_message">로그아웃 하시겠습니까?</string>
 
     <!-- 빈 리스트 -->
-    <string name="empty_question">등록된 질문글이 없습니다.</string>
-    <string name="empty_info">등록된 정보글이 없습니다.</string>
+    <string name="empty_question">답글을 작성한 1:1 질문글이 없습니다.</string>
+    <string name="empty_info">답글을 작성한 커뮤니티 글이 없습니다.</string>
+    <string name="empty_post_question">작성한 1:1 질문글이 없습니다.</string>
+    <string name="empty_post_info">작성한 커뮤니티 글이 없습니다.</string>
     <string name="empty_review">등록된 후기글이 없습니다.</string>
-    <string name="empty_like_question">좋아요 한 질문글이 없습니다.</string>
-    <string name="empty_like_info">좋아요 한 정보글이 없습니다.</string>
+    <string name="empty_like_question">좋아요 한 1:1 질문글이 없습니다.</string>
+    <string name="empty_like_info">좋아요 한 커뮤니티 글이 없습니다.</string>
     <string name="empty_like_review">좋아요 한 후기글이 없습니다.</string>
     <string name="empty_personal_question">등록된 1:1 질문이 없습니다.</string>
     <string name="empty_block_list">차단한 사용자가 없습니다.</string>
+    <string name="empty_senior">선배가 없습니다.</string>
+    <string name="empty_major_senior">등록된 선배가 없습니다.</string>
 
     <!-- 메일 인증 알럿 -->
     <string name="email_certification_title">학교 이메일 인증을 완료해야\n로그인이 가능합니다.</string>
@@ -446,6 +460,70 @@
     <!-- 카카오 문의 -->
     <string name="question_kakao">http://pf.kakao.com/_pxcFib</string>
 
+    <!--홈-->
+    <string name="home_recent_review">최근 후기</string>
+    <string name="home_more">더보기</string>
+    <string name="home_question">1:1질문</string>
+    <string name="home_ranking">선배랭킹</string>
+    <string name="home_recent_question">최근 1:1질문</string>
+    <string name="home_community">커뮤니티</string>
+    <string name="home_recent_post">최근 게시글</string>
+    <string name="home_recent_review_warn">특정 학과의 후기만 보고 싶다면 과방탭을 이용하세요.</string>
+    <string name="home_recent_question_warn">특정 학과 선배에게 1:1 질문을 하고 싶다면 과방탭을 이용하세요.</string>
+    <string name="home_ranking_warn">선배 랭킹은 어떻게 결정되나요?</string>
+
+    <!--선배 랭킹 결정기준 -->
+    <string name="ranking_standard">결정기준</string>
+    <string name="ranking_one">1순위</string>
+    <string name="ranking_two">2순위</string>
+    <string name="ranking_three">3순위</string>
+    <string name="ranking_one_content">1:1 질문 답변율</string>
+    <string name="ranking_two_content">후기 작성여부</string>
+    <string name="ranking_three_content">닉네임 가나다순</string>
+
     <!-- 커뮤니티 -->
+    <string name="community_detail_title">게시글</string>
     <string name="major">학과</string>
+    <string name="community_write_title">게시글 작성</string>
+    <string name="community_write_category">카테고리</string>
+    <string name="category_free">자유</string>
+    <string name="category_info">정보</string>
+    <string name="category_write_content_hint">내용을 입력하세요.</string>
+    <string name="community_search_hint">글 제목,내용</string>
+    <string name="community_search_main">커뮤니티의 글을 검색해보세요.</string>
+    <string name="community_no_search">검색 결과가 없습니다.</string>
+    <string name="write">글쓰기</string>
+    <string name="community_bottom_sheet_title">특정 학과 글 불러오기</string>
+    <string name="community_write_bottom_sheet_title">글을 올릴 학과를 선택해보세요.</string>
+    <string name="no_major">학과 무관</string>
+    <string name="no_post">등록된 게시글이 없습니다.</string>
+    <string name="community_write_category_notice">특정 학과 선택시 해당 학과 유저들에게 알림이 갑니다.</string>
+
+    <!-- 과방 탭 이름 -->
+    <string name="classroom_review_tab">후기</string>
+    <string name="classroom_question_tab">1:1 질문</string>
+
+    <!-- 과방 1:1 질문 -->
+    <string name="classroom_find_seniors">우리 과 선배 찾기</string>
+    <string name="classroom_more">더보기</string>
+    <string name="classroom_recent_questions">최근 1:1 질문</string>
+
+    <!-- navigation component label -->
+    <string name="classroom_fragment_review_label">review</string>
+    <string name="classroom_fragment_question_label">question</string>
+
+    <string name="navigation_review">후기</string>
+    <string name="no_question">질문 불가</string>
+
+    <string name="sign_univ_swu">서울여자대학교</string>
+    <string name="sign_univ_korea">고려대학교</string>
+    <string name="sign_univ_cau">중앙대학교</string>
+    <string name="sign_univ_ready">타 대학은 현재 준비중입니다</string>
+
+    <!-- 앱 업데이트 -->
+    <string name="app_update">유저들의 의견을 반영하여\n사용성을 개선했어요.\n지금 바로 업데이트하세요!</string>
+    <string name="nex_update">다음에 하기</string>
+    <string name="update">업데이트</string>
+    <string name="google_app">https://play.google.com/store/apps/details?id=com.nadosunbae_android.app&amp;hl=ko</string>
+
 </resources>

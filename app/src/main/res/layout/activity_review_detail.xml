@@ -6,12 +6,13 @@
     <data>
         <variable
             name="reviewDetailViewModel"
-            type="com.nadosunbae_android.app.presentation.ui.review.viewmodel.ReviewDetailViewModel" />
+            type="com.nadosunbae_android.app.presentation.ui.classroom.review.viewmodel.ReviewDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         tools:context=".app.presentation.ui.review.ReviewDetailActivity">
 
 
@@ -107,26 +108,40 @@
                     android:id="@+id/rv_review_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:nestedScrollingEnabled="false"
-                    android:overScrollMode="never"
-                    android:orientation="vertical"
-                    android:layout_marginTop="192dp"
                     android:background="@android:color/transparent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:layout_marginTop="24dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_review_writer_info"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_review_tag_box" />
+
+                <TextView
+                    android:id="@+id/tv_recommend_user_to_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:text="@string/review_recommend_question"
+                    android:textColor="@color/main_default"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:includeFontPadding="false"
+                    app:layout_constraintTop_toBottomOf="@id/rv_review_detail"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_review_writer_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="78dp"
+                    android:layout_marginTop="58dp"
                     android:background="@drawable/rectangle_fill_white_40"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_review_detail">
+                    app:layout_constraintTop_toBottomOf="@id/tv_review_one_line">
 
                     <ImageView
                         android:id="@+id/iv_profile"
@@ -273,6 +288,7 @@
             android:id="@+id/cl_bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView

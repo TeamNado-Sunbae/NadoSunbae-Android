@@ -1,5 +1,6 @@
 package com.nadosunbae_android.app.util
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -8,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
@@ -25,10 +27,10 @@ object BindingAdapter {
     const val MIN = 60
     const val HOUR = 24
 
-    enum class TimeValue(val value: Int,val maximum : Int, val msg : String) {
-        SEC(60,60,"분 전"),
-        MIN(60,24,"시간 전"),
-        HOUR(24,30,"일 전"),
+    enum class TimeValue(val value: Int, val maximum: Int, val msg: String) {
+        SEC(60, 60, "분 전"),
+        MIN(60, 24, "시간 전"),
+        HOUR(24, 30, "일 전"),
 
     }
 
@@ -39,58 +41,59 @@ object BindingAdapter {
     fun getDateToTextMinute(textView: TextView, date: Date?) {
         val format = SimpleDateFormat("yy/MM/dd")
         val currentTime = System.currentTimeMillis()
-        var diffTime = (currentTime - date!!.time) / 1000
+        var diffTime = (currentTime - (date?.time ?: 0)) / 1000
         Timber.d("시간 $diffTime")
-        if (diffTime < TimeValue.SEC.value){
-            textView.text = "방금 전"
-        }
-        else {
-            for (i in TimeValue.values()) {
-                diffTime /= i.value
-                Timber.d("첫번째 계산 시간 $diffTime")
-                if (i.value == 24) {
-                    format.format(date).also { textView.text = it }
-                    break
-                }
-                if (diffTime < i.maximum) {
-                    textView.text = "$diffTime${i.msg}"
-                    break
-                }
+        if (date != null) {
+            if (diffTime < TimeValue.SEC.value) {
+                textView.text = "방금 전"
+            } else {
+                for (i in TimeValue.values()) {
+                    diffTime /= i.value
+                    Timber.d("첫번째 계산 시간 $diffTime")
+                    if (i.value == 24) {
+                        format.format(date).also { textView.text = it }
+                        break
+                    }
+                    if (diffTime < i.maximum) {
+                        textView.text = "$diffTime${i.msg}"
+                        break
+                    }
 
+                }
             }
         }
     }
+
     //날짜
     @JvmStatic
     @BindingAdapter("dateToText")
     fun getDateToText(textView: TextView, date: Date?) {
         val format = SimpleDateFormat("yy/MM/dd")
-        if(date == null){
+        if (date == null) {
             textView.text = ""
-        }else{
-            format.format(date).also{textView.text = it}
+        } else {
+            format.format(date).also { textView.text = it }
         }
     }
+
     //정보글 삭제
     @JvmStatic
     @BindingAdapter("infoTextVisible")
-    fun visibleInfo(view: View, isDelete : Boolean){
-        if(!isDelete){
+    fun visibleInfo(view: View, isDelete: Boolean) {
+        if (!isDelete) {
             view.visibility = View.VISIBLE
-        }else{
+        } else {
             view.visibility = View.GONE
         }
     }
 
-
-
     //선배 구성원 페이지 본전공 2중전공 구분
     @JvmStatic
     @BindingAdapter("divisionFirst")
-    fun divisionFirst(textView : TextView, isFirst : Boolean){
-        if(isFirst){
+    fun divisionFirst(textView: TextView, isFirst: Boolean) {
+        if (isFirst) {
             textView.text = "본"
-        }else{
+        } else {
             textView.text = "제2"
         }
 
@@ -120,19 +123,29 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("int", "nickname", requireAll = false)
     fun notification(textView: TextView, int: Int, nickname: String): SpannableStringBuilder {
-        val param = listOf("", "1:1질문", "작성하신 질문글", "작성하신 정보글", "답글을 작성하신 질문글", "답글을 작성하신 정보글")
-        val text = listOf(
-            "", "마이페이지에 ${nickname}이 1:1질문을 남겼습니다.",
-            "작성하신 질문글에 ${nickname}이 답글을 남겼습니다",
-            "작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
-            "답글을 작성하신 질문글에 ${nickname}이 답글을 남겼습니다.",
-            "답글을 작성하신 정보글에 ${nickname}이 답글을 남겼습니다.",
-
-            )
-        var content = param[int]
-        var start = text[int].indexOf(content)
-        var end = start + content.length
-        var spannable = SpannableStringBuilder(text[int])
+        val param = hashMapOf(
+            1 to "마이페이지", 2 to "1:1 질문글", 3 to "작성하신 정보글",
+            4 to "답글을 작성하신 1:1 질문글", 5 to "답글을 작성하신 정보글",
+            6 to "1:1 질문글", 7 to "작성하신 1:1 질문글",
+            8 to "작성하신 커뮤니티 글", 9 to "답글을 작성하신 커뮤니티 글",
+            10 to "커뮤니티"
+        )
+        val text = hashMapOf(
+            1 to "마이페이지에 ${nickname}님이 1:1질문을 남겼습니다.",
+            2 to "${nickname}님이 1:1 질문글에 답글을 남겼습니다",
+            3 to "작성하신 정보글에 ${nickname}님이 답글을 남겼습니다.",
+            4 to "답글을 작성하신 1:1 질문글에 ${nickname}님이 답글을 남겼습니다.",
+            5 to "답글을 작성하신 정보글에 ${nickname}님이 답글을 남겼습니다.",
+            6 to "${nickname}님이 1:1 질문글에 답글을 남겼습니다",
+            7 to "작성하신 1:1 질문글에 ${nickname}님이 답글을 남겼습니다.",
+            8 to "작성하신 커뮤니티 글에 ${nickname}님이 답글을 남겼습니다.",
+            9 to "답글을 작성하신 커뮤니티 글에 ${nickname}님이 답글을 남겼습니다.",
+            10 to "커뮤니티에 $nickname 질문글이 올라왔습니다."
+        )
+        val content = param[int].toString()
+        val start = text[int].toString().indexOf(content)
+        val end = start + content.length
+        val spannable = SpannableStringBuilder(text[int].toString())
         spannable.setSpan(
             ForegroundColorSpan(Color.parseColor("#00C8B0")), start, end,
             Spannable.SPAN_INCLUSIVE_INCLUSIVE
@@ -151,6 +164,15 @@ object BindingAdapter {
         }
     }
 
+    @JvmStatic
+    @BindingAdapter("secondMajor")
+    fun secondMajor(textView: TextView, text: String?) {
+        if (text == "미진입")
+            textView.visibility = View.GONE
+        else
+            textView.visibility = View.VISIBLE
+    }
+
     //댓글 개수 보이게
     @JvmStatic
     @BindingAdapter("commentCount")
@@ -161,7 +183,7 @@ object BindingAdapter {
     //작성자 처리
     @JvmStatic
     @BindingAdapter("writerVisible", "isDelete")
-    fun writerVisible(textView: TextView, isPosterWriter: Boolean, isDelete : Boolean) {
+    fun writerVisible(textView: TextView, isPosterWriter: Boolean, isDelete: Boolean) {
         if (isPosterWriter && !isDelete) {
             textView.visibility = View.VISIBLE
         } else {
@@ -174,11 +196,24 @@ object BindingAdapter {
     @BindingAdapter("profileImgBig")
     fun setProfileImgBig(imageView: ImageView, imageId: Int) {
         when (imageId) {
-            1 -> imageSelect(imageView, R.drawable.mask_group_1)
-            2 -> imageSelect(imageView, R.drawable.mask_group_2)
-            3 -> imageSelect(imageView, R.drawable.mask_group_3)
-            4 -> imageSelect(imageView, R.drawable.mask_group_4)
             5 -> imageSelect(imageView, R.drawable.mask_group_5)
+            3 -> imageSelect(imageView, R.drawable.mask_group_4)
+            1 -> imageSelect(imageView, R.drawable.mask_group_2)
+            4 -> imageSelect(imageView, R.drawable.mask_group_1)
+            2 -> imageSelect(imageView, R.drawable.mask_group_3)
+        }
+    }
+
+    //프로필 이미지72
+    @JvmStatic
+    @BindingAdapter("profileImgBigGray")
+    fun setProfileImgBigGray(imageView: ImageView, imageId: Int) {
+        when (imageId) {
+            5 -> imageSelect(imageView, R.drawable.a_72)
+            3 -> imageSelect(imageView, R.drawable.b_72)
+            1 -> imageSelect(imageView, R.drawable.c_72)
+            4 -> imageSelect(imageView, R.drawable.d_72)
+            2 -> imageSelect(imageView, R.drawable.e_72)
         }
     }
 
@@ -186,11 +221,11 @@ object BindingAdapter {
     @BindingAdapter("profileImgSmall")
     fun setProfileImgSmall(imageView: ImageView, imageId: Int) {
         when (imageId) {
-            1 -> imageSelect(imageView, R.drawable.mask_group_1_64)
-            2 -> imageSelect(imageView, R.drawable.mask_group_2_64)
-            3 -> imageSelect(imageView, R.drawable.mask_group_3_64)
-            4 -> imageSelect(imageView, R.drawable.mask_group_4_64)
             5 -> imageSelect(imageView, R.drawable.mask_group_5_64)
+            3 -> imageSelect(imageView, R.drawable.mask_group_4_64)
+            1 -> imageSelect(imageView, R.drawable.mask_group_2_64)
+            4 -> imageSelect(imageView, R.drawable.mask_group_1_64)
+            2 -> imageSelect(imageView, R.drawable.mask_group_3_64)
         }
     }
 
@@ -231,27 +266,76 @@ object BindingAdapter {
         imageView.isSelected = question
     }
 
-    // 현재 글자/최대 글자
+
+    // 현재 글자/최대 글자 && 파베 로깅
     @JvmStatic
     @BindingAdapter("displayMaxLength")
     fun displayMaxLength(textView: TextView, length: Int) {
-        textView.text = "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_max_40)}"
+        textView.text =
+            "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_max_40)}"
+        if (length == 5) {
+            FirebaseAnalyticsUtil.setReviewProcess("review_one_line")
+        }
     }
+
 
     // 현재 글자/최소 글자
     @JvmStatic
     @BindingAdapter("displayMinLength")
     fun displayMinLength(textView: TextView, length: Int) {
-        textView.text = "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_min_100)}"
+        textView.text =
+            "${length}/${NadoSunBaeApplication.context().getString(R.string.review_write_min_100)}"
+        if (length == 10) {
+            FirebaseAnalyticsUtil.setReviewProcess("review_pros_cons")
+        }
     }
 
     // 글자수 + 자
     @JvmStatic
-    @BindingAdapter("displayWriteLength")
-    fun displayWriteLength(textView: TextView, length: Int) {
-        textView.text = "${length}${NadoSunBaeApplication.context().getString(R.string.review_write_length)}"
+    @BindingAdapter("displayWriteLength", "value")
+    fun displayWriteLength(textView: TextView, length: Int, value: Int) {
+        val paramValue = when (value) {
+            3 -> "review_learn"
+            4 -> "review_recom"
+            5 -> "review_hard"
+            6 -> "review_career"
+            else -> "review_tip"
+        }
+        textView.text =
+            "${length}${NadoSunBaeApplication.context().getString(R.string.review_write_length)}"
+        if (length == 10) {
+            FirebaseAnalyticsUtil.setReviewProcess(paramValue)
+        }
     }
 
+    @JvmStatic
+    @BindingAdapter("setVisible")
+    fun setVisible(view: View, visible: Boolean) {
+        if (visible)
+            view.visibility = View.VISIBLE
+        else
+            view.visibility = View.GONE
+    }
+
+    @JvmStatic
+    @BindingAdapter("isCommunity")
+    fun isCommunity(textView: TextView, type: String?) {
+        if (type == "자유" || type == "정보")
+            textView.visibility = View.VISIBLE
+        else
+            textView.visibility = View.GONE
+    }
+
+    @JvmStatic
+    @BindingAdapter("rateText")
+    fun rateText(textView: TextView, int: Int?) {
+        val rate = int.toString()
+        if (rate == "null") {
+            textView.text = "응답률 --%"
+        } else {
+            textView.text = "${"응답률 "}${rate}${"%"}"
+        }
+    }
 }
 
 
@@ -338,4 +422,13 @@ fun android.widget.Button.intToString(num: Int) {
 @BindingAdapter("setSelected")
 fun View.setSelected(selected: Boolean) {
     this.isSelected = selected
+}
+
+@BindingAdapter("radioButtonTint")
+fun RadioButton.radioButtonTint(selected: Boolean) {
+    var color = context.getColor(R.color.main_default)
+    if (!selected) {
+        color = context.getColor(R.color.gray_2)
+    }
+    this.buttonTintList = ColorStateList.valueOf(color)
 }

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="category"
+            type="Boolean" />
+
+        <variable
+            name="communityWriteViewModel"
+            type="com.nadosunbae_android.app.presentation.ui.community.viewmodel.CommunityWriteViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.community.CommunityWriteActivity">
+
+        <ImageView
+            android:id="@+id/img_community_write_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/btn_x_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_community_write_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@string/community_write_title"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.widget.Button
+            android:id="@+id/btn_community_write_ok"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/selector_btn_review_write"
+            android:enabled="false"
+            android:fontFamily="@font/pretendard_semibold"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="7dp"
+            android:text="@string/review_write_complete"
+            android:textColor="@drawable/selector_color_review_write_btn"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_community_write_title">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_community_write_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="80dp">
+
+                <TextView
+                    android:id="@+id/text_community_write_major_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/bottom_sheet_title_major"
+                    android:textColor="@color/gray_4"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <include
+                    android:id="@+id/layout_community_write_major"
+                    layout="@layout/layout_major_bottomsheet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_community_write_major_select" />
+
+                <TextView
+                    android:id="@+id/text_community_write_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/community_write_category"
+                    android:textColor="@color/gray_4"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/layout_community_write_major"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_community_write_major" />
+
+                <include
+                    android:id="@+id/layout_community_write_category"
+                    layout="@layout/layout_category_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/text_community_write_category"
+                    app:layout_constraintTop_toBottomOf="@+id/text_community_write_category" />
+
+                <TextView
+                    android:id="@+id/text_category_notice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:text="@string/community_write_category_notice"
+                    android:textColor="@color/main_default"
+                    android:textSize="12sp"
+                    android:visibility="@{category ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_community_write_category" />
+
+
+                <View
+                    android:id="@+id/line_community_write"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="44dp"
+                    android:background="@drawable/rectangle_gray0_height_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_community_write_category" />
+
+                <EditText
+                    android:id="@+id/et_community_write_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="32dp"
+                    android:backgroundTint="@color/gray_0"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:hint="@string/question_write_hint"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingBottom="15dp"
+                    android:text="@={communityWriteViewModel.writeTitle}"
+                    android:textColorHint="@color/gray_2"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_community_write" />
+
+                <EditText
+                    android:id="@+id/et_community_write_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
+                    android:gravity="top"
+                    android:hint="@string/category_write_content_hint"
+                    android:lineHeight="22sp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="16dp"
+                    android:scrollbarThumbVertical="@color/green_scroll_thumb"
+                    android:scrollbarTrackVertical="@color/gray_0"
+                    android:scrollbars="vertical"
+                    android:text="@={communityWriteViewModel.writeContent}"
+                    android:textColorHint="@color/gray_2"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.48"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_community_write_title" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -4,15 +4,19 @@ import com.nadosunbae_android.data.datasource.remote.review.ReviewDataSource
 import com.nadosunbae_android.data.mapper.review.ReviewMapper
 import com.nadosunbae_android.domain.model.review.*
 import com.nadosunbae_android.domain.repository.review.ReviewRepository
+import javax.inject.Inject
 
-class ReviewRepositoryImpl(private val dataSource: ReviewDataSource) : ReviewRepository {
+class ReviewRepositoryImpl @Inject constructor(private val dataSource: ReviewDataSource) : ReviewRepository {
 
-    override suspend fun getReviewList(
+    override suspend fun getReviewListByMajor(
         reviewFilterItem: ReviewFilterItem,
         sort: String
     ): List<ReviewPreviewData> {
-        return ReviewMapper.mapperToReviewPreviewData(dataSource.getReviewList(sort,
-            ReviewMapper.mapperToReviewFilterItem(reviewFilterItem)
+        return ReviewMapper.mapperToReviewPreviewData(dataSource.getReviewListByMajor(
+            reviewFilterItem.majorId,
+            sort,
+            reviewFilterItem.tagFilter,
+            reviewFilterItem.writerFilter
         ))
     }
 
@@ -39,9 +43,4 @@ class ReviewRepositoryImpl(private val dataSource: ReviewDataSource) : ReviewRep
     override suspend fun deleteReview(postId: Int): ReviewDeleteData {
         return ReviewMapper.mapperToReviewDeleteData(dataSource.deleteReview(postId))
     }
-
-    override suspend fun getBackgroundImageList(): List<BackgroundImageData> {
-        return ReviewMapper.mapperToBackgroundImageData(dataSource.getBackgroundImageList())
-    }
-
 }

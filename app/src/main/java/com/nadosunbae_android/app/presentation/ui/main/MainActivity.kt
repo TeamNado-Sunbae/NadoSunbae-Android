@@ -5,19 +5,25 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import com.google.firebase.ktx.Firebase
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityMainBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
-import com.nadosunbae_android.app.presentation.ui.classroom.*
+import com.nadosunbae_android.app.presentation.ui.classroom.AskEveryoneFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.ClassRoomMainContentFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.SeniorFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.SeniorPersonalFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ClassRoomReviewFragment
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.community.CommunityFragment
+import com.nadosunbae_android.app.presentation.ui.home.HomeFrameFragment
+import com.nadosunbae_android.app.presentation.ui.home.HomeRankingFragment
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.mypage.AppInfoFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageBlockFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageFragment
 import com.nadosunbae_android.app.presentation.ui.mypage.MyPageSettingFragment
 import com.nadosunbae_android.app.presentation.ui.notification.NotificationFragment
-import com.nadosunbae_android.app.presentation.ui.review.ReviewFragment
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
 import com.nadosunbae_android.app.util.*
 import com.nadosunbae_android.domain.model.main.MajorSelectData
 import com.nadosunbae_android.domain.model.sign.SignInData
@@ -32,59 +38,54 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         DateUtil.initTimeZone()
 
         initBottomNav()
         classRoomFragmentChange()
-        initMajorList()
         setDefaultMajor()
         getSignDataFromIntent()
         classRoomBack()
+        getMajorList()
+        homeFragmentChange()
         // clickBottomNav()
         myPageFragmentChange()
         myPageBack()
         initClickProfile()
         trackActiveUser()
-        floatIsReviewInappropriate()
+        floatAppUpdateDialog()
+        seniorDetailBack()
     }
 
-
-
-    //바텀네비 클릭( 2-> 과방탭, 3 -> 마이페이지)
-    /* private fun clickBottomNav(){
-         mainViewModel.notificationClickNum.observe(this){
-             when(it){
-                 2 -> binding.btNvMain.menu.findItem(R.id.navigation_room).setChecked(true)
-                 3 -> binding.btNvMain.menu.findItem(R.id.navigation_mypage).setChecked(true)
-             }
-         }
-
-
-     } */
-
-    //부적절 후기 일경우 띄우기
-    private fun floatIsReviewInappropriate(){
-        if(MainGlobals.signInData!!.isReviewInappropriate){
-                CustomDialog(this).genericDialog(
-                    CustomDialog.DialogData(
-                        MainGlobals.signInData?.message.toString(),
-                        resources.getString(R.string.sign_in_question),
-                        resources.getString(R.string.email_certification_close)
-                    ),
-                    complete = {
-                        var intent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.question_kakao))
-                        )
-                        startActivity(intent)
-                    },
-                    cancel = {}
-                )
+    //앱 업데이트 알럿 띄우기
+    private fun floatAppUpdateDialog() {
+        if (intent.getBooleanExtra("updateCondition", false)) {
+            CustomDialog(this).genericDialog(
+                dialogText = CustomDialog.DialogData(
+                    getString(R.string.app_update),
+                    getString(R.string.update),
+                    getString(R.string.nex_update)
+                ),
+                complete = {
+                    val uri = Uri.parse(getString(R.string.google_app))
+                    startActivity(Intent(Intent.ACTION_VIEW, uri))
+                    FirebaseAnalyticsUtil.firebaseLog("update_opt","choice","update_now")
+                },
+                cancel = {
+                    FirebaseAnalyticsUtil.firebaseLog("update_opt","choice","update_later")
+                }
+            )
         }
+
     }
 
+    //학과 리스트 가져오기
+    private fun getMajorList() {
+        mainViewModel.getMajorList(
+            MainGlobals.signInData?.universityId ?: 1, "all", null,
+            MainGlobals.signInData?.userId ?: 0
+        )
+
+    }
 
     //바텀네비
     private fun initBottomNav() {
@@ -110,14 +111,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
                 CLASSROOM -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_room
-
-                }NOTIFICATION -> {
+                }
+                CLASSROOM_NOBACK -> {
+                    changeFragmentNoBackStack(
+                        R.id.fragment_container_main,
+                        ClassRoomMainContentFragment()
+                    )
+                }
+                NOTIFICATION -> {
                     binding.btNvMain.selectedItemId = R.id.navigation_notice
-                changeFragmentNoBackStack(R.id.fragment_container_main, NotificationFragment())
+                    changeFragmentNoBackStack(R.id.fragment_container_main, NotificationFragment())
+                }
+                COMMUNITY -> {
+                    binding.btNvMain.selectedItemId = R.id.navigation_community
                 }
 
-                else ->{
-                    changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                else -> {
+                    changeFragmentNoBackStack(R.id.fragment_container_main, HomeFrameFragment())
                 }
             }
 
@@ -126,12 +136,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.btNvMain.setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.navigation_home -> {
-                        changeFragmentNoBackStack(R.id.fragment_container_main, ReviewFragment())
+                        changeFragmentNoBackStack(R.id.fragment_container_main, HomeFrameFragment())
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_room -> {
                         mainViewModel.classRoomNum.value = 1
-                        changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
+                        changeFragmentNoBackStack(
+                            R.id.fragment_container_main,
+                            ClassRoomMainContentFragment()
+                        )
                         return@setOnItemSelectedListener true
                     }
                     R.id.navigation_community -> {
@@ -155,6 +168,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
     //계산
 
+    //홈 프래그먼트 전환
+    private fun homeFragmentChange() {
+        mainViewModel.homeFragmentNum.observe(this) {
+            when (it) {
+                1 -> changeFragment(
+                    R.id.fragment_container_main,
+                    SeniorPersonalFragment(),
+                    "seniorPersonal"
+                )
+                2 -> changeFragmentNoBackStack(
+                    R.id.fragment_container_main,
+                    HomeFrameFragment()
+                )
+            }
+        }
+    }
 
     //과방 프레그먼트 전환
     private fun classRoomFragmentChange() {
@@ -166,7 +195,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     "askEveryOne"
                 )
 
-                1 -> changeFragmentNoBackStack(R.id.fragment_container_main, ClassRoomFragment())
+                1 -> changeFragmentNoBackStack(
+                    R.id.fragment_container_main,
+                    ClassRoomMainContentFragment()
+                )
 
                 3 -> changeFragment(R.id.fragment_container_main, SeniorFragment(), "senior")
 
@@ -195,8 +227,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         mainViewModel.seniorId.value = intent.getIntExtra("seniorId", -1)
         mainViewModel.initLoading.value = intent.getBooleanExtra("loading", false)
         mainViewModel.divisionBlock.value = intent.getIntExtra("blockDivision", -1)
-        Timber.d("informationDetaildelete: ${mainViewModel.divisionBlock.value}")
-        Timber.d("bottomNavItem : ${mainViewModel.bottomNavItem.value}")
     }
 
 
@@ -234,13 +264,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 signData.secondMajorName
             )
         )
+
+        mainViewModel.firstMajor.value?.majorId = signData.firstMajorId
+        mainViewModel.secondMajor.value?.majorId = signData.secondMajorId
     }
 
-
-    // 학과 목록 불러오기
-    private fun initMajorList() {
-        mainViewModel.getMajorList(1)
-    }
 
     // 본전공이 선택되어 있도록
     private fun setDefaultMajor() {
@@ -260,6 +288,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         }
     }
+
 
     //마이페이지 프래그먼트 전환
     private fun myPageFragmentChange() {
@@ -285,6 +314,40 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
+    //선배 상세보기 뒤로가기 전환
+    private fun seniorDetailBack() {
+        mainViewModel.seniorDetailNum.observe(this) {
+            when (it) {
+                //홈 단상대에서 진입
+                1 -> changeFragment(
+                    R.id.fragment_container_main,
+                    HomeFrameFragment(),
+                    "HomeMainFragment"
+                )
+                //홈 -> 랭킹으로 진입
+                2 -> changeFragment(
+                    R.id.fragment_container_main,
+                    HomeRankingFragment(),
+                    "HomeRankingFragment"
+                )
+                //과방 -> 일렬로 된 선배 리스트에서 진입 (ClassRoomQuestion)
+                3 -> changeFragment(
+                    R.id.fragment_container_main,
+                    ClassRoomMainContentFragment(),
+                    "ClassroomFragment"
+                )
+                //과방 -> 선배리스트에서 진입
+                4 -> changeFragment(
+                    R.id.fragment_container_main,
+                    SeniorFragment(),
+                    "SeniorFragment"
+                )
+                //커뮤니티 -> 커뮤니티 상세보기 -> 선배리스트에서 진입
+
+            }
+        }
+    }
+
 
     //마이페이지 뒤로가기 전환
     private fun myPageBack() {
@@ -304,19 +367,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         val now = Calendar.getInstance()
 
-        if (!NadoSunBaeSharedPreference.getUserActive(this, now, ActiveUser.DAU)) {   // dau 없을 때 -> 등록
+        if (!NadoSunBaeSharedPreference.getUserActive(
+                this,
+                now,
+                ActiveUser.DAU
+            )
+        ) {   // dau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.DAU)
-            FirebaseAnalyticsUtil.dau()
+            FirebaseAnalyticsUtil.auDivision("DAU")
         }
 
-        if (!NadoSunBaeSharedPreference.getUserActive(this, now, ActiveUser.WAU)) {   // wau 없을 때 -> 등록
+        if (!NadoSunBaeSharedPreference.getUserActive(
+                this,
+                now,
+                ActiveUser.WAU
+            )
+        ) {   // wau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.WAU)
-            FirebaseAnalyticsUtil.wau()
+            FirebaseAnalyticsUtil.auDivision("WAU")
         }
 
-        if (!NadoSunBaeSharedPreference.getUserActive(this, now, ActiveUser.MAU)) {     // mau 없을 때 -> 등록
+        if (!NadoSunBaeSharedPreference.getUserActive(
+                this,
+                now,
+                ActiveUser.MAU
+            )
+        ) {     // mau 없을 때 -> 등록
             NadoSunBaeSharedPreference.setUserActive(this, now, ActiveUser.MAU)
-            FirebaseAnalyticsUtil.mau()
+            FirebaseAnalyticsUtil.auDivision("MAU")
         }
     }
 
@@ -328,5 +406,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         const val MYPAGE = 4
         const val MYPAGEDIVISION = 5
         const val NOTIFICATION = 6
+        const val CLASSROOM_NOBACK = 7
+        const val COMMUNITY = 8
     }
 }

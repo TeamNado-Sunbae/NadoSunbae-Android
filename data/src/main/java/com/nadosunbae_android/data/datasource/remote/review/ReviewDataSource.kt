@@ -9,8 +9,16 @@ import com.nadosunbae_android.data.model.response.review.*
 
 interface ReviewDataSource {
 
-    suspend fun getReviewList(
-        sort: String = "recent", body: RequestReviewListData) : ResponseReviewListData
+    suspend fun getReviewListByMajor(
+        majorId: Int,
+        sort: String = "recent",
+        tagFilter: List<Int>,
+        writerFilter: String
+    ) : ResponseReviewListData
+
+    suspend fun getReviewListByUniv(
+        univId: Int
+    ) : ResponseReviewListData
 
     suspend fun getMajorInfo(majorId: Int) : ResponseMajorData
 
@@ -19,8 +27,6 @@ interface ReviewDataSource {
     suspend fun deleteReview(postId: Int) : ResponseDeleteReview
 
     suspend fun putReview(postId: Int, requestBody: RequestPutReviewData) : ResponsePutReviewData
-
-    suspend fun getBackgroundImageList() : ResponseBackgroundImageListData
 
     suspend fun postReview(requestBody: RequestPostReviewData) : ResponsePostReviewData
 

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_signup_agreement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/text_agreement_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="@string/signup_agreement_title"
+                android:textColor="@color/main_default"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_agreement_delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/btn_x_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/text_agreement_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_agreement_title" />
+
+
+            <View
+                android:id="@+id/view_agreement_line1"
+                android:layout_width="84dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_agreement_title" />
+
+            <View
+                android:id="@+id/view_agreement_line2"
+                android:layout_width="84dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/gray_1"
+                app:layout_constraintBottom_toBottomOf="@+id/view_agreement_line1"
+                app:layout_constraintStart_toEndOf="@+id/view_agreement_line1"
+                app:layout_constraintTop_toTopOf="@+id/view_agreement_line1" />
+
+            <View
+                android:id="@+id/view_agreement_line3"
+                android:layout_width="84dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/gray_1"
+                app:layout_constraintBottom_toBottomOf="@+id/view_agreement_line2"
+                app:layout_constraintStart_toEndOf="@+id/view_agreement_line2"
+                app:layout_constraintTop_toTopOf="@+id/view_agreement_line2" />
+
+            <TextView
+                android:id="@+id/text_agreement_bar_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/signup_agreement_process1"
+                android:textColor="@color/main_black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_agreement_line1" />
+
+            <TextView
+                android:id="@+id/text_agreement_bar_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="57dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/signup_agreement_process2"
+                android:textColor="@color/gray_2"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_agreement_bar_text"
+                app:layout_constraintStart_toEndOf="@+id/text_agreement_bar_text"
+                app:layout_constraintTop_toTopOf="@+id/text_agreement_bar_text" />
+
+            <TextView
+                android:id="@+id/text_agreement_bar_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="57dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/signup_agreement_process3"
+                android:textColor="@color/gray_2"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_agreement_bar_text2"
+                app:layout_constraintStart_toEndOf="@+id/text_agreement_bar_text2"
+                app:layout_constraintTop_toTopOf="@+id/text_agreement_bar_text2" />
+
+            <ImageView
+                android:id="@+id/image_agreement_diamond"
+                android:layout_width="12dp"
+                android:layout_height="11dp"
+                android:layout_marginStart="57dp"
+                android:background="@drawable/ic_diamond_mini"
+                app:layout_constraintBottom_toBottomOf="@+id/text_agreement_bar_text3"
+                app:layout_constraintStart_toEndOf="@+id/text_agreement_bar_text3"
+                app:layout_constraintTop_toTopOf="@+id/text_agreement_bar_text3" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_agreement_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_border_gray_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_signup_agreement">
+
+            <ImageView
+                android:id="@+id/image_agreement_check_all"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/selector_btn_check"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_agreement_check_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="@string/signup_agreement_agree_all"
+                android:textColor="@color/main_black"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/image_agreement_check_all"
+                app:layout_constraintStart_toEndOf="@+id/image_agreement_check_all"
+                app:layout_constraintTop_toTopOf="@+id/image_agreement_check_all" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <ImageView
+            android:id="@+id/image_agreement_check_information"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/selector_btn_check"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_agreement_all" />
+
+        <TextView
+            android:id="@+id/text_agreement_check_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/signup_agreement_option1"
+            android:textColor="@color/main_black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_agreement_check_information"
+            app:layout_constraintStart_toEndOf="@+id/image_agreement_check_information"
+            app:layout_constraintTop_toTopOf="@+id/image_agreement_check_information" />
+
+
+        <ImageView
+            android:id="@+id/image_agreement_move_information"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/btn_right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/text_agreement_check_information"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_agreement_check_information" />
+
+        <ImageView
+            android:id="@+id/image_agreement_check_service"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/selector_btn_check"
+            app:layout_constraintStart_toStartOf="@+id/image_agreement_check_information"
+            app:layout_constraintTop_toBottomOf="@+id/image_agreement_check_information" />
+
+
+        <TextView
+            android:id="@+id/text_agreement_check_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/signup_agreement_option2"
+            android:textColor="@color/main_black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_agreement_check_service"
+            app:layout_constraintStart_toEndOf="@+id/image_agreement_check_service"
+            app:layout_constraintTop_toTopOf="@+id/image_agreement_check_service" />
+
+        <ImageView
+            android:id="@+id/image_agreement_move_service"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/btn_right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/text_agreement_check_service"
+            app:layout_constraintEnd_toEndOf="@+id/image_agreement_move_information"
+            app:layout_constraintTop_toTopOf="@+id/text_agreement_check_service" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_agreement_move_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/selector_rectangle_gray_to_black_14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <TextView
+                android:id="@+id/text_agreement_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_semibold"
+                android:paddingLeft="102dp"
+                android:paddingTop="19dp"
+                android:paddingRight="102dp"
+                android:paddingBottom="19dp"
+                android:text="@string/signup_agreement_next"
+                android:textColor="@drawable/selector_text_gray_to_mint"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

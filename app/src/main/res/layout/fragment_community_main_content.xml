@@ -5,6 +5,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="filterTitle"
+            type="String" />
+
+        <variable
+            name="size"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,38 +22,111 @@
         android:background="@color/background"
         tools:context=".presentation.ui.community.CommunityMainContentFragment">
 
-        <com.nadosunbae_android.app.presentation.ui.community.custom.CustomSwitchTab
+        <com.nadosunbae_android.app.presentation.ui.custom.CustomSwitchTab
             android:id="@+id/custom_switch_tab"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/img_community_filter"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_community_main_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
-            android:layout_marginEnd="58dp"
-            android:background="@drawable/selector_icon_filter"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:paddingHorizontal="5dp"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_community_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/selector_icon_filter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_community_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/pretendard_light"
+                android:includeFontPadding="false"
+                android:text="@string/major"
+                android:textColor="@color/gray_3"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/img_community_filter"
+                app:layout_constraintTop_toTopOf="@+id/img_community_filter" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/text_community_major"
+            android:id="@+id/text_community_no_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:fontFamily="@font/pretendard_light"
-            android:text="@string/major"
+            android:layout_marginTop="163dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/no_post"
             android:textColor="@color/gray_3"
-            android:textSize="12sp"
-            android:layout_marginTop="21dp"
-            app:layout_constraintStart_toEndOf="@+id/img_community_filter"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="14sp"
+            android:visibility="@{size ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_switch_tab" />
+        
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_community_main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="22dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_switch_tab">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rc_community_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_border_1_gray0_fill_white_16"
+                    android:overScrollMode="never"
+                    android:visibility="@{size ? View.GONE : View.VISIBLE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
+        <android.widget.Button
+            android:id="@+id/btn_community_write"
+            android:layout_width="64dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/oval_fill_black"
+            android:drawableTop="@drawable/ic_write"
+            android:drawablePadding="2dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingTop="14dp"
+            android:paddingBottom="10dp"
+            android:text="@string/write"
+            android:textColor="@color/main_light"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -2,11 +2,9 @@ package com.nadosunbae_android.app.presentation.ui.sign
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import androidx.activity.viewModels
-import androidx.lifecycle.MutableLiveData
+import androidx.core.widget.addTextChangedListener
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.nadosunbae_android.app.R
@@ -17,6 +15,7 @@ import com.nadosunbae_android.app.presentation.ui.main.WebViewActivity
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.presentation.ui.sign.viewmodel.SignUpBasicInfoViewModel
 import com.nadosunbae_android.app.util.CustomDialog
+import com.nadosunbae_android.app.util.FirebaseAnalyticsUtil
 import com.nadosunbae_android.app.util.NadoSunBaeSharedPreference
 import com.nadosunbae_android.domain.model.sign.CertificationEmailData
 import com.nadosunbae_android.domain.model.sign.SignInItem
@@ -55,28 +54,15 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         }
     }
 
-    //Timber 초기화
-    private fun setupTimber() {
-        Timber.plant(Timber.DebugTree())
-    }
 
     //id editText textwatcher
     private fun onViewId() {
 
-        binding.etSignInId.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                binding.imgSignInIdCancel.isSelected = binding.etSignInId.text.toString() != ""
-                signUpBasicInfoViewModel.email.value = p0.toString()
-                isEmptyText()
-            }
-        })
+        binding.etSignInId.addTextChangedListener {
+            binding.imgSignInIdCancel.isSelected = binding.etSignInId.text.toString() != ""
+            signUpBasicInfoViewModel.email.value = it.toString()
+            isEmptyText()
+        }
 
         binding.imgSignInIdCancel.setOnClickListener {
             binding.etSignInId.setText(null)
@@ -86,22 +72,11 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
     //pw editText textWatcher
     private fun onViewPw() {
-        binding.etSignInPw.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                binding.imgSignInPwCancel.isSelected = binding.etSignInPw.text.toString() != ""
-                signUpBasicInfoViewModel.password.value = p0.toString()
-                isEmptyText()
-
-            }
-        })
+        binding.etSignInPw.addTextChangedListener {
+            binding.imgSignInPwCancel.isSelected = binding.etSignInPw.text.toString() != ""
+            signUpBasicInfoViewModel.password.value = it.toString()
+            isEmptyText()
+        }
 
         binding.imgSignInPwCancel.setOnClickListener {
             binding.etSignInPw.setText(null)
@@ -123,7 +98,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     //회원가입 페이지로 이동
     private fun moveSignUp() {
         binding.textSignInSignup.setOnClickListener {
-            startActivity(Intent(this, SignUpAgreementActivity::class.java))
+            startActivity(Intent(this, SignUpMainActivity::class.java))
+            FirebaseAnalyticsUtil.firebaseLog("signup_process",
+            "journey", "signup_start")
         }
     }
 
@@ -156,7 +133,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
             val token = task.result
             signUpBasicInfoViewModel.deviceToken.value = token
-            Timber.d("token: ${token}")
+            Timber.d("deviceToken: ${token}")
 
         })
     }
@@ -195,29 +172,14 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
             } else if (it == 202) {
                 certificationAlert()
-                NadoSunBaeSharedPreference.setUserId(
-                    this,
-                    signUpBasicInfoViewModel.signIn.value?.user?.userId ?: 0
-                )
                 Timber.d(" --- Email Certification ---")
 
             } else {
                 binding.textSignInWarn.visibility = View.VISIBLE
-                NadoSunBaeSharedPreference.setUserId(
-                    this,
-                    signUpBasicInfoViewModel.signIn.value?.user?.userId ?: 0
-                )
                 Timber.d(" --- Login Failed ---")
             }
         }
     }
-
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
 
     //재전송
     private fun initResend() {
@@ -229,8 +191,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     //메일 인증 알럿
-    private fun certificationAlert(): MutableLiveData<Boolean> {
-        val confirm = MutableLiveData<Boolean>()
+    private fun certificationAlert() {
         CustomDialog(this).genericDialog(
             CustomDialog.DialogData(
                 getString(R.string.email_certification_title),
@@ -244,7 +205,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
             }
         )
-        return confirm
     }
 
 
@@ -259,7 +219,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
                     signUpBasicInfoViewModel.deviceToken.value.toString()
                 )
             )
-
         }
     }
 }

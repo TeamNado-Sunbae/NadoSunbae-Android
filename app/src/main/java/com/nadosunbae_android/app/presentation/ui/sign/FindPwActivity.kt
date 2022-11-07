@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import com.nadosunbae_android.app.R
 import com.nadosunbae_android.app.databinding.ActivityFindPwBinding
 import com.nadosunbae_android.app.presentation.base.BaseActivity
@@ -51,34 +52,22 @@ class FindPwActivity : BaseActivity<ActivityFindPwBinding>(R.layout.activity_fin
 
 
     private fun emailTextWatcher() {
-        binding.etFindPwEmail.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                if(binding.etFindPwEmail.text.toString() != "") {
-                    binding.textFindPwOk.isSelected = true
-                    binding.imgFindPwCancel.isSelected = true
-                    initCancelBtn()
-                    binding.textFindPwOk.setOnClickListener {
-                        myPageViewModel.postMyPageRestPassword(MyPageResetPasswordItem(binding.etFindPwEmail.text.toString()))
-                        changePw()
-                    }
-                } else {
-                    //isEmailPattern()
-                    binding.textFindPwOk.isSelected = false
-                    binding.imgFindPwCancel.isSelected = false
-                    binding.textFindPwWarn.visibility = View.INVISIBLE
-
+        binding.etFindPwEmail.addTextChangedListener {
+            if(binding.etFindPwEmail.text.toString() != "") {
+                binding.textFindPwOk.isSelected = true
+                binding.imgFindPwCancel.isSelected = true
+                initCancelBtn()
+                binding.textFindPwOk.setOnClickListener {
+                    myPageViewModel.postMyPageRestPassword(MyPageResetPasswordItem(binding.etFindPwEmail.text.toString()))
+                    changePw()
                 }
+            } else {
+                //isEmailPattern()
+                binding.textFindPwOk.isSelected = false
+                binding.imgFindPwCancel.isSelected = false
+                binding.textFindPwWarn.visibility = View.INVISIBLE
             }
-
-        })
+        }
     }
 
     //textfield x버튼 클릭 이벤트

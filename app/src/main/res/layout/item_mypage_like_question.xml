@@ -7,7 +7,7 @@
 
         <variable
             name="MyPageLikeQuestion"
-            type="com.nadosunbae_android.domain.model.mypage.MyPageLikeQuestionData.Data.LikePost" />
+            type="com.nadosunbae_android.domain.model.user.UserLikeData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,17 +23,31 @@
         android:layout_marginLeft="16dp">
 
         <TextView
+            android:id="@+id/text_question_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            isCommunity="@{MyPageLikeQuestion.type}"
+            android:text="@{MyPageLikeQuestion.type}"
+            android:textColor="@color/main_default"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="자유" />
+
+        <TextView
             android:id="@+id/text_question_all_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:fontFamily="@font/pretendard_semibold"
             android:maxLines="1"
+            android:layout_marginTop="4dp"
             android:text="@{MyPageLikeQuestion.title}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_question_type"
             tools:text="title"/>
 
         <TextView
@@ -58,7 +72,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pretendard_semibold"
             android:includeFontPadding="false"
-            android:text="@{MyPageLikeQuestion.writer.nickname}"
+            android:text="@{MyPageLikeQuestion.nickname}"
             android:textColor="@color/gray_4"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            likeCheck="@{MyPageLikeQuestion.Like.liked}"
+            likeCheck="@{MyPageLikeQuestion.liked}"
             android:background="@drawable/selector_heart_gray_mint"
             app:layout_constraintStart_toEndOf="@+id/text_question_all_comment"
             app:layout_constraintTop_toTopOf="@+id/img_question_all_comment" />
@@ -118,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_light"
-            intToText="@{MyPageLikeQuestion.Like.likeCount}"
+            intToText="@{MyPageLikeQuestion.likeCount}"
             android:textColor="@color/gray_2"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_question_all_like"

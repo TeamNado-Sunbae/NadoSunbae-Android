@@ -6,66 +6,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
 import com.nadosunbae_android.app.R
-import com.nadosunbae_android.app.databinding.ItemMypageLikeReviewBinding
 import com.nadosunbae_android.app.databinding.ItemMypageReviewBinding
-import com.nadosunbae_android.app.presentation.ui.classroom.InformationDetailActivity
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewDetailActivity
+import com.nadosunbae_android.app.presentation.ui.classroom.review.ReviewGlobals
 import com.nadosunbae_android.app.presentation.ui.main.MainGlobals
-import com.nadosunbae_android.app.presentation.ui.review.ReviewDetailActivity
-import com.nadosunbae_android.app.presentation.ui.review.ReviewGlobals
-import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity
-import com.nadosunbae_android.app.presentation.ui.review.ReviewWriteActivity.Companion.MODE_NEW
 import com.nadosunbae_android.app.util.CustomDialog
-import com.nadosunbae_android.domain.model.mypage.MyPageLikeReviewData
-import com.nadosunbae_android.domain.model.mypage.MyPageReviewData
+import com.nadosunbae_android.app.util.DiffUtilCallback
+import com.nadosunbae_android.domain.model.user.UserReviewData
 
 class MyPageReviewAdapter(var userId : Int):
-    RecyclerView.Adapter<MyPageReviewAdapter.MyPageReviewViewHolder>() {
-
-    var myPageReviewData = mutableListOf<MyPageReviewData.Data.ReviewPost>()
-
-
-    class MyPageReviewViewHolder(private val binding: ItemMypageReviewBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
-        // tag info data
-        private val tagLink = listOf(
-            Pair(context.getString(R.string.review_curriculum), binding.tvTagCurriculum ),
-            Pair(context.getString(R.string.review_recommend_lecture), binding.tvTagRecommendLecture),
-            Pair(context.getString(R.string.review_non_recommend_lecture), binding.tvTagNonRecommendLecture),
-            Pair(context.getString(R.string.review_career), binding.tvTagCareer),
-            Pair(context.getString(R.string.review_tip), binding.tvTagTip)
-        )
-
-        fun onBind(data: MyPageReviewData.Data.ReviewPost) {
-            binding.apply {
-                for (t in tagLink) {
-                    if (data.tagList.contains(MyPageReviewData.Data.ReviewPost.Tag(t.first)))
-                        t.second.visibility = View.VISIBLE
-                    else
-                        t.second.visibility = View.GONE
-                }
-
-                reviewData = data
-                executePendingBindings()
-            }
-        }
-    }
+    androidx.recyclerview.widget.ListAdapter<UserReviewData.Review, MyPageReviewAdapter.MyPageReviewViewHolder>(
+        DiffUtilCallback<UserReviewData.Review>()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageReviewViewHolder {
-        var binding = ItemMypageReviewBinding.inflate(
+        val binding = ItemMypageReviewBinding.inflate(
             LayoutInflater.from(parent.context),
-            parent, false
+            parent,
+            false
         )
-
         return MyPageReviewViewHolder(binding, parent.context)
     }
 
-    override fun onBindViewHolder(
-        holder: MyPageReviewAdapter.MyPageReviewViewHolder,
-        position: Int
-    ) {
-        holder.onBind(myPageReviewData[position])
-        holder.itemView.setOnClickListener {
+    override fun onBindViewHolder(holder: MyPageReviewViewHolder, position: Int) {
+        holder.binding.setVariable(BR.reviewData, getItem(position))
+        holder.onBind(getItem(position))
+        holder.binding.root.setOnClickListener {
             if(userId != MainGlobals.signInData?.userId) {
                 userId = MainGlobals.signInData?.userId!!
             }
@@ -81,30 +50,41 @@ class MyPageReviewAdapter(var userId : Int):
                 behavior = {
                     val intent =
                         Intent(holder.itemView.context, ReviewDetailActivity::class.java)
-                    val postId = myPageReviewData[position].postId
+                    val postId = getItem(position).id
                     intent.putExtra("postId", postId)
                     intent.putExtra("userId", userId)
                     ContextCompat.startActivity(holder.itemView.context,intent, null)
                 })
         }
+
     }
 
-    override fun getItemCount(): Int = myPageReviewData.size
+    class MyPageReviewViewHolder(
+        val binding: ItemMypageReviewBinding, private val context: Context
+    ) : RecyclerView.ViewHolder(binding.root) {
+        private val tagLink = listOf(
+            Pair(context.getString(R.string.review_curriculum), binding.tvTagCurriculum),
+            Pair(
+                context.getString(R.string.review_recommend_lecture),
+                binding.tvTagRecommendLecture
+            ),
+            Pair(
+                context.getString(R.string.review_non_recommend_lecture),
+                binding.tvTagNonRecommendLecture
+            ),
+            Pair(context.getString(R.string.review_career), binding.tvTagCareer),
+            Pair(context.getString(R.string.review_tip), binding.tvTagTip)
 
-    interface ItemClickListener {
-        fun onClick(view: View, position: Int)
+        )
+
+        fun onBind(data: UserReviewData.Review) {
+            for (t in tagLink) {
+                if (data.tagName.contains(t.first))
+                    t.second.visibility = View.VISIBLE
+                else
+                    t.second.visibility = View.GONE
+            }
+        }
     }
-
-    private lateinit var itemClickListener: ItemClickListener
-
-    fun setItemClickListener(itemClickListener: ItemClickListener) {
-        this.itemClickListener = itemClickListener
-    }
-
-    fun setReviewListData(dataList : MutableList<MyPageReviewData.Data.ReviewPost>){
-        this.myPageReviewData = dataList
-        notifyDataSetChanged()
-    }
-
 
 }

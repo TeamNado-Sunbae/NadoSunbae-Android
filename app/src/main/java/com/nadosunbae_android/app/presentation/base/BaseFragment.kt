@@ -9,11 +9,15 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.nadosunbae_android.domain.model.main.SelectableData
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.nadosunbae_android.app.presentation.ui.main.viewmodel.MainViewModel
 import com.nadosunbae_android.app.util.CustomBottomSheetDialog
 import com.nadosunbae_android.app.util.CustomDialog
-import timber.log.Timber
+import com.nadosunbae_android.domain.model.main.SelectableData
+import com.nadosunbae_android.domain.model.major.MajorListData
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) : Fragment() {
     private var _binding: T? = null
@@ -27,7 +31,7 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -37,25 +41,58 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
         _binding = null
     }
 
-    fun observeBottomSheet(viewModel: MainViewModel, majorBottomSheetDialog: CustomBottomSheetDialog) {
-        viewModel.majorList.observe(viewLifecycleOwner) {
-            val responseData = viewModel.majorList.value
-            val dialogInput = mutableListOf<SelectableData>()
+    //데이터 넣기
+    fun observeBottomSheet(
+        viewModel: MainViewModel,
+        majorBottomSheetDialog: CustomBottomSheetDialog,
+        isClassRoom: Boolean? = false
+    ) {
+        viewModel.majorList.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach {
+                val responseData = it
+                val dialogInput = mutableListOf<SelectableData>()
 
-            // null check
-            if (responseData != null) {
-                for (d in responseData)
-                    dialogInput.add(SelectableData(d.majorId, d.majorName, false))
+                // null check
+                if (responseData != null) {
+                    for (d in responseData)
+                        dialogInput.add(
+                            SelectableData(
+                                d.majorId,
+                                d.majorName,
+                                false,
+                                d.isFavorites
+                            )
+                        )
+                }
+
+                if (isClassRoom == true) {
+                    majorBottomSheetDialog.setDataList(dialogInput.filterNot { it.name == "학과 무관" } as MutableList<SelectableData>)
+                } else {
+                    majorBottomSheetDialog.setDataList(dialogInput)
+                }
             }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
 
-            majorBottomSheetDialog.setDataList(dialogInput)
+    //데이터 넣기
+    fun observeBottomSheet2(
+        majorList: List<MajorListData>,
+        majorBottomSheetDialog: CustomBottomSheetDialog
+    ) {
+        val dialogInput = mutableListOf<SelectableData>()
+        // null check
+        if (majorList != null) {
+            for (d in majorList)
+                dialogInput.add(SelectableData(d.majorId, d.majorName, false, d.isFavorites))
         }
+        majorBottomSheetDialog.setDataList(dialogInput)
     }
 
 
     protected fun showLoading() {
         dismissLoading()
         loadingDialog = CustomDialog(requireContext()).progressDialog()
+
     }
 
     protected fun dismissLoading() {
@@ -65,3 +102,5 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
 
 
 }
+
+

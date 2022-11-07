@@ -5,20 +5,28 @@
     android:background="@drawable/rectangle_fill_white_top_8dp">
 
     <data>
+
         <variable
             name="title"
             type="String" />
 
         <variable
             name="fragment"
-            type="com.nadosunbae_android.app.util.CustomBottomSheetDialog"/>
+            type="com.nadosunbae_android.app.util.CustomBottomSheetDialog" />
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_custom_bottom_sheet"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cr_custom_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_custom_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <TextView
                 android:id="@+id/tv_bottomsheeet_title"
@@ -44,7 +52,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
-                android:id="@+id/view_bottomsheet_main_line"
+                android:id="@+id/view_bottom_sheet_main_line"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
@@ -55,40 +63,61 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_bottomsheeet_title" />
 
+            <EditText
+                android:id="@+id/et_bottom_sheet_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="28dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rectangle_fill_white_border_gray_1_8"
+                android:drawableStart="@drawable/ic_search_mint"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:hint="@string/bottom_sheet_hint"
+                android:paddingVertical="12dp"
+                android:paddingStart="12dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_2"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_bottom_sheet_main_line" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_bottomsheet"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:overScrollMode="never"
-            android:layout_marginStart="32dp"
-            android:layout_marginVertical="16dp"
-            android:layout_marginEnd="32dp"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/btn_bottomsheet_complete"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_bottomsheet_main_line"
-            tools:listitem="@layout/item_bottomsheet_list" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_bottom_sheet"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginVertical="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@+id/btn_bottomsheet_complete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_bottom_sheet_search"
+                tools:listitem="@layout/item_bottomsheet_list" />
 
-        <android.widget.Button
-            android:id="@+id/btn_bottomsheet_complete"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginVertical="16dp"
-            android:background="@drawable/selector_rectangle_enabled_gray_to_black_14dp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:paddingVertical="19dp"
-            android:text="@string/bottom_sheet_complete"
-            android:textAlignment="center"
-            android:textColor="@drawable/selector_gray_3_to_main_default_enabled"
-            android:textSize="16sp"
-            android:onClick="@{fragment::completeBtnListener}"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            <android.widget.Button
+                android:id="@+id/btn_bottomsheet_complete"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:background="@drawable/selector_rectangle_enabled_gray_to_black_14dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:onClick="@{fragment::completeBtnListener}"
+                android:paddingVertical="19dp"
+                android:text="@string/bottom_sheet_complete"
+                android:textAlignment="center"
+                android:textColor="@drawable/selector_gray_3_to_main_default_enabled"
+                android:textSize="16sp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

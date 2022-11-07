@@ -4,7 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
 
+        <variable
+            name="sizeCheck"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +39,7 @@
                 android:textColor="@color/origin_black"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="16dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -55,6 +59,7 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="14sp"
                 android:lineHeight="22sp"
+                android:visibility="@{sizeCheck ? View.VISIBLE : View.GONE}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

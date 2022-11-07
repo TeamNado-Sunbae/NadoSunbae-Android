@@ -15,6 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+//TODO Data 계층으로 옮기기
 const val BASE_URL = BuildConfig.API_KEY
 
 @Module
@@ -23,7 +24,7 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient) : Retrofit{
+    fun provideRetrofit() : Retrofit{
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .baseUrl(BASE_URL)
@@ -31,9 +32,8 @@ object ApiModule {
             .build()
     }
 
-    @Singleton
-    @Provides
-    fun provideOkHttpClient() =
+
+    private fun provideOkHttpClient() =
         OkHttpClient.Builder()
             .run {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -42,9 +42,8 @@ object ApiModule {
                 build()
     }
 
-    @Singleton
-    @Provides
-    fun provideInterceptor() =
+
+   private  fun provideInterceptor() =
         Interceptor { chain ->
             with(chain) {
                 val newRequest = request().newBuilder()
