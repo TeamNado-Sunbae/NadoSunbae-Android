@@ -610,12 +610,12 @@ class ModifyMyInfoActivity :
             )
         }
         myPageViewModel.secondMajorName.observe(this) {
-            ReviewGlobals.firstMajor!!.majorId =
+            ReviewGlobals.firstMajor?.majorId =
                 myPageViewModel.modifyInfo.value?.data?.firstMajorId ?: 1
-            ReviewGlobals.firstMajor!!.majorName = myPageViewModel.firstMajorName.value ?: ""
-            ReviewGlobals.secondMajor!!.majorId =
+            ReviewGlobals.firstMajor?.majorName = myPageViewModel.firstMajorName.value ?: ""
+            ReviewGlobals.secondMajor?.majorId =
                 myPageViewModel.modifyInfo.value?.data?.secondMajorId ?: 1
-            ReviewGlobals.secondMajor!!.majorName = myPageViewModel.secondMajorName.value ?: ""
+            ReviewGlobals.secondMajor?.majorName = myPageViewModel.secondMajorName.value ?: ""
             myPageViewModel.editFinish()
         }
     }

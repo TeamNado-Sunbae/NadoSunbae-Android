@@ -234,7 +234,7 @@ class ReviewWriteActivity :
                     reviewWriteViewModel,
                     binding.clReviewWriteSelectMajor,
                     binding.clReviewWriteSelectMajor.width,
-                    reviewWriteViewModel.dropDownSelected.value!!.id,
+                    reviewWriteViewModel.dropDownSelected.value?.id ?: 1,
                     selectableList,
                     checkVisibility = true
                 )
