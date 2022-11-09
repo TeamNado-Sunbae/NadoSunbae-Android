@@ -608,16 +608,21 @@ class ModifyMyInfoActivity :
                 isFirstMajor = false,
                 myPageViewModel.modifyInfo.value?.data?.secondMajorId ?: 1
             )
+            storeMajorData()
         }
         myPageViewModel.secondMajorName.observe(this) {
-            ReviewGlobals.firstMajor?.majorId =
-                myPageViewModel.modifyInfo.value?.data?.firstMajorId ?: 1
-            ReviewGlobals.firstMajor?.majorName = myPageViewModel.firstMajorName.value ?: ""
-            ReviewGlobals.secondMajor?.majorId =
-                myPageViewModel.modifyInfo.value?.data?.secondMajorId ?: 1
-            ReviewGlobals.secondMajor?.majorName = myPageViewModel.secondMajorName.value ?: ""
+            storeMajorData()
             myPageViewModel.editFinish()
         }
+    }
+
+    private fun storeMajorData() {
+        ReviewGlobals.firstMajor?.majorId =
+            myPageViewModel.modifyInfo.value?.data?.firstMajorId ?: 1
+        ReviewGlobals.firstMajor?.majorName = myPageViewModel.firstMajorName.value ?: ""
+        ReviewGlobals.secondMajor?.majorId =
+            myPageViewModel.modifyInfo.value?.data?.secondMajorId ?: 1
+        ReviewGlobals.secondMajor?.majorName = myPageViewModel.secondMajorName.value ?: ""
     }
 
     // 모든 과정 끝나고 finish 하도록
