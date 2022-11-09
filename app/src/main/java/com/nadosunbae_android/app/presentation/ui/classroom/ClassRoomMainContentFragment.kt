@@ -82,7 +82,6 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
 
     override fun onResume() {
         super.onResume()
-        observeUserMajor()
         updateMajorStatus()
         loadReviewList()
     }
@@ -282,19 +281,6 @@ class ClassRoomMainContentFragment : BaseFragment<FragmentClassRoomMainContentBi
                 ReviewGlobals.selectedMajor = it
             }
         }
-    }
-
-    private fun observeUserMajor() {
-
-        mainViewModel.firstMajor.observe(viewLifecycleOwner) {
-            ReviewGlobals.firstMajor = it
-        }
-
-        mainViewModel.secondMajor.observe(viewLifecycleOwner) {
-            ReviewGlobals.secondMajor = it
-        }
-
-
     }
 
     private fun observeFilter() {

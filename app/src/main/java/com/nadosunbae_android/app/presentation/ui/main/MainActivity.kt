@@ -47,7 +47,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         classRoomBack()
         getMajorList()
         homeFragmentChange()
-        // clickBottomNav()
+        observeUserMajor()
         myPageFragmentChange()
         myPageBack()
         initClickProfile()
@@ -360,7 +360,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
         }
+    }
 
+    private fun observeUserMajor() {
+
+        mainViewModel.firstMajor.observe(this) {
+            ReviewGlobals.firstMajor = it
+        }
+
+        mainViewModel.secondMajor.observe(this) {
+            ReviewGlobals.secondMajor = it
+        }
     }
 
     private fun trackActiveUser() {
